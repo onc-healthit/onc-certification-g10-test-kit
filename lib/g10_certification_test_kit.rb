@@ -63,8 +63,3 @@ module G10CertificationTestKit
     end
   end
 end
-
-# Very hacky
-test_suites = Inferno::Repositories::TestSuites.new.all
-test_suites.delete(SMARTAppLaunch::SMARTSuite)
-test_suites.delete(USCore::USCoreTestSuite)
