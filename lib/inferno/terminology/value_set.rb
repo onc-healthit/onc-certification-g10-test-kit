@@ -1,6 +1,8 @@
 require 'sqlite3'
 require 'date'
 require 'fhir_models'
+
+require_relative '../exceptions'
 require_relative 'bcp_13'
 require_relative 'bcp47'
 require_relative 'codesystem'
@@ -389,7 +391,7 @@ module Inferno
         elsif filter&.op == 'is-a'
           filtered_set = filter_is_a(system, filter)
         else
-          throw FilterOperationException(filter&.op)
+          raise FilterOperationException, filter&.op
         end
         filtered_set
       end
@@ -443,18 +445,6 @@ module Inferno
       #   if that key isn't in FILTER_PROP
       def fp_self(prop)
         FILTER_PROP[prop] || prop
-      end
-
-      class FilterOperationException < StandardError
-        def initialize(filter_op)
-          super("Cannot Handle Filter Operation: #{filter_op}")
-        end
-      end
-
-      class UnknownCodeSystemException < StandardError
-        def initialize(code_system)
-          super("Unknown Code System: #{code_system}")
-        end
       end
     end
   end

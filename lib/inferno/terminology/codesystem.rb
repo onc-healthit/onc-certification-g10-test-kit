@@ -1,5 +1,4 @@
-# frozen_string_literal: true
-
+require_relative '../exceptions'
 require_relative 'bcp_13'
 require_relative 'bcp47'
 
@@ -42,7 +41,7 @@ module Inferno
           parent_concept = find_concept(filter.value)
           all_codes_in_concept([parent_concept])
         else
-          throw Inferno::Terminology::ValueSet::FilterOperationException(filter.to_s)
+          raise FilterOperationException, filter.to_s
         end
       end
     end

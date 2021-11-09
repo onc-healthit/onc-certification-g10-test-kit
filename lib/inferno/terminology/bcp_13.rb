@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Inferno
   module Terminology
     module BCP13

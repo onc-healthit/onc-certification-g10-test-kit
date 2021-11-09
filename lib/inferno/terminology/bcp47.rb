@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+require_relative '../exceptions'
 
 module Inferno
   module Terminology
@@ -67,7 +67,7 @@ module Inferno
           meets_criteria = true
           if filter.op == 'exists'
             filter_value = string_to_boolean(filter.value)
-            throw Terminology::ValueSet::FilterOperationException(filter.to_s) if filter_value.nil?
+            raise FilterOperationException, filter.to_s if filter_value.nil?
             if filter.property == 'ext-lang'
               meets_criteria = (language['Type'] == 'extlang') == filter_value
             elsif filter.property == 'script'
@@ -79,10 +79,10 @@ module Inferno
             elsif filter.property == 'private-use'
               meets_criteria = (language['Scope'] == 'private-use') == filter_value
             else
-              throw Terminology::ValueSet::FilterOperationException(filter.to_s)
+              raise FilterOperationException, filter.to_s
             end
           else
-            throw Terminology::ValueSet::FilterOperationException(filter.op)
+            raise FilterOperationException, filter.op
           end
           meets_criteria
         end

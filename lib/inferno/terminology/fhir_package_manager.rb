@@ -1,9 +1,9 @@
-# frozen_string_literal: true
-
 require 'rubygems/package'
 require 'tempfile'
 require 'zlib'
 require 'json'
+
+require_relative '../exceptions'
 
 module Inferno
   module Terminology
@@ -51,8 +51,8 @@ module Inferno
 
             encoded_name = "#{encode_name(resource['url'])}.json"
             encoded_file_name = File.join(path, encoded_name)
-            if File.exist?(encoded_file_name)
-              throw FileExistsException.new("#{encoded_name} already exists for #{resource['url']}") unless resource['url'] == JSON.parse(File.read(encoded_file_name))['url']
+            if File.exist?(encoded_file_name) && !resource['url'] == JSON.parse(File.read(encoded_file_name))['url']
+              raise FileExistsException, "#{encoded_name} already exists for #{resource['url']}"
             end
 
             File.open(encoded_file_name, 'w') { |file| file.write(resource.to_json) }
@@ -62,12 +62,6 @@ module Inferno
 
         def encode_name(name)
           Zlib.crc32(name)
-        end
-
-        class FileExistsException < StandardError
-          def initialize(value_set)
-            super(value_set.to_s)
-          end
         end
       end
     end

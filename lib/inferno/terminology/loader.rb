@@ -7,6 +7,7 @@ require 'bloomer/msgpackable'
 require 'fileutils'
 require 'pry'
 
+require_relative '../exceptions'
 require_relative '../ext/bloomer'
 require_relative '../repositiories/validators'
 require_relative '../repositiories/value_sets'
@@ -29,11 +30,6 @@ module Inferno
         'http://hl7.org/fhir/ValueSet/media-modality', # ValueSet contains an unknown ValueSet
         'http://hl7.org/fhir/ValueSet/example-hierarchical' # Example valueset with fake codes
       ].freeze
-
-      # Code systems to "preprocess" prior to validation, and the function to use
-      PREPROCESS_FUNCS = {
-        'urn:ietf:bcp:13' => BCP13.method(:preprocess_code)
-      }.freeze
 
       @value_sets_repo = Inferno::Repositories::ValueSets.new
       @validators_repo = Inferno::Repositories::Validators.new
@@ -91,8 +87,8 @@ module Inferno
                 type: type.to_s,
                 code_systems: vs.included_code_systems
               }
-            rescue ValueSet::UnknownCodeSystemException,
-                  ValueSet::FilterOperationException,
+            rescue UnknownCodeSystemException,
+                  FilterOperationException,
                   UnknownValueSetException,
                   URI::InvalidURIError => e
               Inferno.logger.warn "#{e.message} for ValueSet: #{vs_url}"
@@ -121,8 +117,8 @@ module Inferno
                 type: type.to_s,
                 code_systems: cs_name
               }
-            rescue ValueSet::UnknownCodeSystemException,
-                  ValueSet::FilterOperationException,
+            rescue UnknownCodeSystemException,
+                  FilterOperationException,
                   UnknownValueSetException,
                   URI::InvalidURIError => e
               Inferno.logger.warn "#{e.message} for CodeSystem #{cs_name}"
@@ -285,37 +281,6 @@ module Inferno
               .select_by_binding_strength(['required', 'extensible', 'preferred'])
               .map(&:value_set_url)
           @missing_validators = required_value_sets.compact - validators_repo.all_urls
-        end
-
-        # This function accepts a valueset URL, code, and optional system, and returns true
-        # if the code or code/system combination is valid for the valueset
-        # represented by that URL
-        #
-        # @param String value_set_url the URL for the valueset to validate against
-        # @param String code the code to validate against the valueset
-        # @param String system an optional codesystem to validate against. Defaults to nil
-        # @return Boolean whether the code or code/system is in the valueset
-        def validate_code(value_set_url: nil, code:, system: nil)
-          # Before we validate the code, see if there's any preprocessing steps we have to do
-          # To get the code "ready" for validation
-          code = PREPROCESS_FUNCS[system].call(code) if PREPROCESS_FUNCS[system]
-
-          # Get the valueset from the url. Redundant if the 'system' is not nil,
-          # but allows us to throw a better error if the valueset isn't known by Inferno
-          validator =
-            if value_set_url
-              validators_repo.find(value_set_url) || raise(UnknownValueSetException, value_set_url)
-            else
-              validators_repo.find(system) || raise(ValueSet::UnknownCodeSystemException, system)
-            end
-
-          validator.validate(code: code, system: system)
-        end
-      end
-
-      class UnknownValueSetException < StandardError
-        def initialize(value_set)
-          super("Unknown ValueSet: #{value_set}")
         end
       end
     end
