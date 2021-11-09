@@ -11,6 +11,12 @@ module G10CertificationTestKit
 
     group do
       title 'TODO: Limited App'
+
+      test do
+        title 'TODO'
+
+        run { pass }
+      end
     end
 
     group from: 'smart-smart_full_ehr_launch' do
@@ -56,10 +62,22 @@ module G10CertificationTestKit
 
     group do
       title 'TODO: Multi-Patient API'
+
+      test do
+        title 'TODO'
+
+        run { pass }
+      end
     end
 
     group do
       title 'TODO: Other'
+
+      test do
+        title 'TODO'
+
+        run { pass }
+      end
     end
   end
 end
