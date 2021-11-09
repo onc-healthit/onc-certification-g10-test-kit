@@ -1,11 +1,11 @@
 GIT
   remote: https://github.com/inferno-framework/smart-app-launch-test-kit.git
-  revision: d5b81859b6ecbf41edc5c0345f8235a18941e147
+  revision: f0d5025f1defab6176286bfd090e6ff7af02ddd6
   branch: updates-for-g10-first-pass
   specs:
     smart_app_launch_test_kit (0.0.1)
       inferno_core (= 0.0.7)
-      jwt (~> 2.2.2)
+      jwt (~> 2.2)
 
 GIT
   remote: https://github.com/inferno-framework/us-core-test-kit.git
@@ -18,7 +18,7 @@ GIT
 PATH
   remote: .
   specs:
-    inferno_template (0.0.2)
+    g10_certification_test_kit (0.0.1)
       inferno_core (= 0.0.7)
 
 GEM
@@ -176,7 +176,7 @@ GEM
       sidekiq (~> 6.2.1)
       sqlite3 (~> 1.4)
       thor (~> 1.1.0)
-    jwt (2.2.3)
+    jwt (2.3.0)
     method_source (1.0.0)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
@@ -263,8 +263,8 @@ DEPENDENCIES
   database_cleaner-sequel (~> 1.8)
   factory_bot (~> 6.1)
   fhir_models
+  g10_certification_test_kit!
   inferno_core
-  inferno_template!
   mime-types
   nokogiri
   pry
