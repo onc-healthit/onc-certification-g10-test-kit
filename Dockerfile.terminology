@@ -1,0 +1,29 @@
+FROM ruby:2.7.2
+
+ENV INSTALL_PATH=/opt/inferno/
+
+RUN mkdir -p $INSTALL_PATH
+
+WORKDIR $INSTALL_PATH
+
+RUN apt-get -y update && \
+    apt-get -y upgrade && \
+    apt-get install -y sqlite3
+
+ADD *.gemspec $INSTALL_PATH
+ADD Gemfile* $INSTALL_PATH
+RUN gem install bundler
+# The below RUN line is commented out for development purposes, because any change to the 
+# required gems will break the dockerfile build process.
+# If you want to run in Deploy mode, just run `bundle install` locally to update 
+# Gemfile.lock, and uncomment the following line.
+# RUN bundle config set --local deployment 'true'
+RUN bundle install
+
+### Install Inferno
+
+ADD . $INSTALL_PATH
+
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+CMD ["./bin/run_terminology.sh"]
