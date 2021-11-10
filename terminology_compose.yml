@@ -1,0 +1,21 @@
+version: '3.2'
+services:
+  terminology_builder:
+    build:
+      context: .
+      dockerfile: Dockerfile.terminology
+    volumes:
+      - ./config.yml:/var/www/inferno/config.yml
+      - ./data:/var/www/inferno/data
+      - ./batch:/var/www/inferno/batch
+      - type: bind
+        source: "./resources/terminology"
+        target: "/var/www/inferno/resources/terminology"
+        consistency: delegated
+      - type: bind
+        source: "./tmp"
+        target: "/var/www/inferno/tmp"
+        consistency: delegated
+    environment:
+      UMLS_API_KEY:
+      CLEANUP:

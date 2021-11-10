@@ -17,3 +17,10 @@
 /docs/yard
 .yardoc
 node_modules
+
+resources/terminology/*
+
+# Auto-generated terminology files
+MR*.pipe
+umls.db
+umls.zip
