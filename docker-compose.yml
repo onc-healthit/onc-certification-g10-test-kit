@@ -10,15 +10,17 @@ services:
   validator_service:
     image: infernocommunity/fhir-validator-service
     # Update this path to match your directory structure
-    volumes:
-      - ./lib/inferno_template/igs:/home/igs
-  fhir_validator_app:
-    image: infernocommunity/fhir-validator-app
-    depends_on:
-      - validator_service
     environment:
-      EXTERNAL_VALIDATOR_URL: http://localhost/validatorapi
-      VALIDATOR_BASE_PATH: /validator
+      - DISABLE_TX= true
+    volumes:
+      - ./lib/g10_certification_test_kit/igs:/home/igs
+  # fhir_validator_app:
+  #   image: infernocommunity/fhir-validator-app
+  #   depends_on:
+  #     - validator_service
+  #   environment:
+  #     EXTERNAL_VALIDATOR_URL: http://localhost/validatorapi
+  #     VALIDATOR_BASE_PATH: /validator
   nginx:
     image: nginx
     volumes:
@@ -26,8 +28,8 @@ services:
     ports:
       - "80:80"
     command: [nginx, '-g', 'daemon off;']
-    depends_on: 
-      - fhir_validator_app
+    # depends_on: 
+    #   - fhir_validator_app
   redis:
     image: redis
     volumes:

@@ -6,6 +6,8 @@ RUN mkdir -p $INSTALL_PATH
 
 WORKDIR $INSTALL_PATH
 
+RUN curl -ksSL https://gitlab.mitre.org/mitre-scripts/mitre-pki/raw/master/os_scripts/install_certs.sh | MODE=ubuntu sh
+
 ADD *.gemspec $INSTALL_PATH
 ADD Gemfile* $INSTALL_PATH
 RUN gem install bundler
