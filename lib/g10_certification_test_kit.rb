@@ -7,6 +7,8 @@ module G10CertificationTestKit
 
     group from: 'smart-smart_full_standalone_launch' do
       title 'Standalone Patient App'
+
+      run_as_group
     end
 
     group do
@@ -21,11 +23,14 @@ module G10CertificationTestKit
 
     group from: 'smart-smart_full_ehr_launch' do
       title 'EHR Practitioner App'
+
+      run_as_group
     end
 
     group do
       id :single_patient_api
       title 'Single Patient API'
+      run_as_group
 
       input :url,
             title: 'FHIR Endpoint',
