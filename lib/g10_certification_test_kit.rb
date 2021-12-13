@@ -5,6 +5,19 @@ module G10CertificationTestKit
   class G10CertificationSuite < Inferno::TestSuite
     title '2015 Edition Cures Update - Standardized API Testing'
 
+    validator do
+      url ENV.fetch('VALIDATOR_URL', 'http://validator_service:4567')
+      exclude_message do |message|
+        if message.type == 'info' || message.type == 'warning'
+          true
+        elsif USCore::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS.any? { |filter| filter.match? message.message }
+          true
+        else
+          false
+        end
+      end
+    end
+
     group from: 'smart-smart_full_standalone_launch' do
       title 'Standalone Patient App'
       description %(
