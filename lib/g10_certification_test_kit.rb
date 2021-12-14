@@ -1,5 +1,6 @@
 require 'smart_app_launch_test_kit'
 require 'us_core'
+require_relative 'multi_patient_api'
 
 require_relative 'g10_certification_test_kit/smart_app_launch_invalid_aud_group'
 require_relative 'g10_certification_test_kit/smart_invalid_token_group'
@@ -115,8 +116,8 @@ module G10CertificationTestKit
       end
     end
 
-    group do
-      title 'TODO: Multi-Patient API'
+    group from: 'multi_patient_api' do
+      title 'Multi-Patient API'
       description %(
         Demonstrate the ability to export clinical data for multiple patients in
         a group using [FHIR Bulk Data Access
@@ -132,12 +133,7 @@ module G10CertificationTestKit
         Location, Organization, and Practitioner resources as they are
         referenced as must support elements in required resources.
       )
-
-      test do
-        title 'TODO'
-
-        run { pass }
-      end
+      run_as_group
     end
 
     group do
