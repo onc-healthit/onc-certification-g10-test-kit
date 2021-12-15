@@ -1,6 +1,4 @@
 require_relative './bulk_data_utils'
-require 'json/jwt'
-require 'pry'
 
 module MultiPatientAPI
   class BulkDataAuthorization < Inferno::TestGroup
@@ -19,10 +17,7 @@ module MultiPatientAPI
     DESCRIPTION
 
     id :bulk_data_authorization
-
     output :bulk_access_token
-
-    include BulkDataUtils
 
     http_client :token_endpoint do
       url :bulk_token_endpoint

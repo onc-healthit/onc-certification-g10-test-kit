@@ -1,17 +1,12 @@
-#require_relative '../../../dev_suites/dev_multi_patient_api/bulk_data_access/bulk_data_authorization'
-
-require_relative '../../../lib/multi_patient_api/bulk_data_authorization.rb'
-require_relative '../../../lib/multi_patient_api/bulk_data_utils.rb'
-
-#require_relative '../../../dev_suites/dev_multi_patient_api/bulk_data_access/bulk_data_utils'
+require_relative '../../lib/multi_patient_api/bulk_data_authorization.rb'
+require_relative '../../lib/multi_patient_api/bulk_data_utils.rb'
 
 RSpec.describe MultiPatientAPI::BulkDataAuthorization do
   include BulkDataUtils
 
-  let(:suite) { Inferno::Repositories::TestSuites.new.find('multi_patient_api') }
   let(:group) { Inferno::Repositories::TestGroups.new.find('bulk_data_authorization') }
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
-  let(:test_session) { repo_create(:test_session, test_suite_id: 'multi_patient_api') }
+  let(:test_session) { repo_create(:test_session, test_group_id: 'bulk_data_authorization') }
   let(:bulk_token_endpoint) { 'http://example.com/fhir' }
   let(:bulk_encryption_method) { 'ES384' }
   let(:bulk_scope) { 'system/Patient.read' }
@@ -48,6 +43,7 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
 
   # TODO: After TLS tester class is implemented, create this test
   describe 'endpoint TLS tests' do
+    
   end
 
   describe '[Invalid grant_type] test' do
@@ -67,7 +63,7 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
         .with(body: body)
         .to_return(status: 400, body: "", headers: {})
 
-      allow_any_instance_of(described_class).to receive(:create_client_assertion).and_return(client_assertion)
+      allow_any_instance_of(runnable).to receive(:create_client_assertion).and_return(client_assertion)
       result = run(runnable, default_input)
 
       expect(result.result).to eq('pass')
@@ -78,7 +74,7 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
         .with(body: body)
         .to_return(status: 200, body: "", headers: {})
 
-      allow_any_instance_of(described_class).to receive(:create_client_assertion).and_return(client_assertion)
+      allow_any_instance_of(runnable).to receive(:create_client_assertion).and_return(client_assertion)
       result = run(runnable, default_input)
       
       expect(result.result).to eq('fail')
@@ -102,7 +98,7 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
         .with(body: body)
         .to_return(status: 400, body: "", headers: {})
 
-      allow_any_instance_of(described_class).to receive(:create_client_assertion).and_return(client_assertion)
+      allow_any_instance_of(runnable).to receive(:create_client_assertion).and_return(client_assertion)
       result = run(runnable, default_input)
 
       expect(result.result).to eq('pass')
@@ -113,7 +109,7 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
         .with(body: body)
         .to_return(status: 200, body: "", headers: {})
 
-      allow_any_instance_of(described_class).to receive(:create_client_assertion).and_return(client_assertion)
+      allow_any_instance_of(runnable).to receive(:create_client_assertion).and_return(client_assertion)
       result = run(runnable, default_input)
       
       expect(result.result).to eq('fail')
@@ -140,7 +136,7 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
         .with(body: body)
         .to_return(status: 400, body: "", headers: {})
 
-      allow_any_instance_of(described_class).to receive(:create_client_assertion).and_return(client_assertion)
+      allow_any_instance_of(runnable).to receive(:create_client_assertion).and_return(client_assertion)
       result = run(runnable, default_input)
 
       expect(result.result).to eq('pass')
@@ -151,7 +147,7 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
         .with(body: body)
         .to_return(status: 200, body: "", headers: {})
 
-      allow_any_instance_of(described_class).to receive(:create_client_assertion).and_return(client_assertion)
+      allow_any_instance_of(runnable).to receive(:create_client_assertion).and_return(client_assertion)
       result = run(runnable, default_input)
       
       expect(result.result).to eq('fail')
@@ -175,7 +171,7 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
         .with(body: body)
         .to_return(status: 200, body: '', headers: {})
 
-      allow_any_instance_of(described_class).to receive(:create_client_assertion).and_return(client_assertion)
+      allow_any_instance_of(runnable).to receive(:create_client_assertion).and_return(client_assertion)
       result = run(runnable, default_input)
 
       expect(result.result).to eq('pass')
@@ -186,7 +182,7 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
         .with(body: body)
         .to_return(status: 400, body: '', headers: {})
 
-      allow_any_instance_of(described_class).to receive(:create_client_assertion).and_return(client_assertion)
+      allow_any_instance_of(runnable).to receive(:create_client_assertion).and_return(client_assertion)
       result = run(runnable, default_input)
 
       expect(result.result).to eq('fail')

@@ -1,4 +1,5 @@
 require 'pry'
+require 'json/jwt'
 module BulkDataUtils
 
 	include Inferno::DSL::Assertions

@@ -6,12 +6,10 @@ module MultiPatientAPI
     DESCRIPTION
 
     id :bulk_data_group_export
-
-    include BulkDataUtils #TODO --> Remove BulkDataUtils statements in individual tests
-    input :bulk_access_token # Does this need to exist here? or in individual tests?
+    
+    input :bulk_access_token 
     output :requires_access_token, :bulk_status_output
 
-    #Q: Do I need both fhir and http client?
     fhir_client :bulk_server do
       url :bulk_server_url
     end
@@ -20,7 +18,6 @@ module MultiPatientAPI
       url :bulk_server_url
     end
 
-    # TODO: Reorganize this client. Where does it fit best?
     http_client :polling_location do
       url :polling_url
     end 
@@ -48,7 +45,6 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/OperationDefinition-group-export.html'
 
-      include BulkDataUtils
       input :bulk_server_url
 
       run {
@@ -68,7 +64,6 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#bulk-data-kick-off-request'
 
-      include BulkDataUtils
       input :bulk_server_url
 
       run {
@@ -87,7 +82,6 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#response---success'
 
-      include BulkDataUtils
       input :bulk_server_url, :bulk_access_token, :group_id
       output :polling_url
 
@@ -118,8 +112,7 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#bulk-data-status-request'
 
-      include BulkDataUtils
-      input :polling_url
+      input :polling_url, :bulk_access_token 
       output :status_response_body
 
       run {
@@ -205,8 +198,6 @@ module MultiPatientAPI
         Bulk Data Server MUST support client's delete request and return HTTP Status Code of "202 Accepted"
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#bulk-data-delete-request'
-
-      include BulkDataUtils
 
       input :bulk_server_url, :bulk_access_token, :group_id
 
