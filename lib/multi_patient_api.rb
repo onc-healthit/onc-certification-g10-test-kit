@@ -9,6 +9,6 @@ module MultiPatientAPI
 
     group from: :bulk_data_authorization
     group from: :bulk_data_group_export
-    #group from: :bulk_data_group_export_validation
+    group from: :bulk_data_group_export_validation
   end
 end 

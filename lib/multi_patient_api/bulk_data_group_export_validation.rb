@@ -5,7 +5,6 @@ module MultiPatientAPI
       Verify that Group compartment export from the Bulk Data server follow US Core Implementation Guide
     DESCRIPTION
 
-    include BulkDataUtils #TODO --> Remove BulkDataUtils statements in individual tests -- to troubleshoot, see about moving bulkDatautils after http_client declaration
     id :bulk_data_group_export_validation
 
     http_client :ndjson_endpoint do
@@ -42,9 +41,9 @@ module MultiPatientAPI
       input :requires_access_token, :bulk_status_output, :bulk_access_token
 
       run {
-        skip 'Could not verify this functionality when requiresAccessToken is not provided' if requires_access_token.nil?
+        skip 'Could not verify this functionality when requiresAccessToken is not provided' unless requires_access_token.present?
         skip 'Could not verify this functionality when requireAccessToken is false' unless requires_access_token
-        skip 'Could not verify this functionality when bulk_status_output is not provided' if bulk_status_output.nil? 
+        skip 'Could not verify this functionality when bulk_status_output is not provided' unless bulk_status_output.present? 
 
         output_endpoint = JSON.parse(bulk_status_output)[0]['url']
         get_file(output_endpoint, false)
