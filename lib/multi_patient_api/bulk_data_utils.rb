@@ -9,10 +9,14 @@ module BulkDataUtils
 	MAX_NUM_RECENT_LINES = 100
 	MIN_RESOURCE_COUNT = 2
 
-	attr_accessor :patient_ids_seen
+	@@patient_ids_seen = []
+
+	def patient_ids_seen
+		@@patient_ids_seen
+	end 
 
 	def self.included(klass)
-		@patient_ids_seen = Array.new
+		
 	end 
 
 	def get_bulk_selected_private_key(encryption)
@@ -173,34 +177,31 @@ module BulkDataUtils
 
 	end 
 
-	def walk_resource(resource, steps, block)
-		return block.call(resource) if steps.empty?
-		return false if resource.nil? 
-			
-		return (resource.find { |elem| walk_resource(elem, steps, block) } || false) if resource.is_a?(Array)
+	def resolve_element_from_path(element, path)
+		el_as_array = Array.wrap(element)
+		if path.empty?
+			return nil if element.nil?
 
-		resource.respond_to?(steps.first.to_sym) ? walk_resource(resource.send(steps.first.to_sym), steps.drop(1), block) : false
-	end 
+			return el_as_array.find { |el| yield(el) } if block_given?
 
-	# # Searches resource for the element maintained at the end of the path. 
-	# #
-	# # @param resource [FHIR Resource]
-	# # @param path [String] String concatenation of valid, nested attributes of 
-	# #											 the given resource type.	Steps in the path must be 
-	# #											 delimited by '.'
-	# # @output [Boolean] Result of applying the given block to the found element.
-	# #										The given block must return a boolean. If no block given,
-	# #										true is returned if path is walkable within the resource.
-	# def resolve_element_from_path(resource, path)
-	# 	return false if path.nil?
-	# 	return false unless path.respond_to?(:split)
+			return el_as_array.first
+		end
 
-	# 	steps = path.split('.') 
-	# 	steps.delete_if { |step| step.empty? }
+		path_ary = path.split('.')
+		cur_path_part = path_ary.shift.to_sym
+		return nil if el_as_array.none? { |el| el.send(cur_path_part).present? || el.send(cur_path_part) == false }
 
-	# 	block = proc { |element| block_given? ? yield(element) : true }
-	# 	walk_resource(resource, steps, block)
-	# end 
+		el_as_array.each do |el|
+			el_found = if block_given?
+									 resolve_element_from_path(el.send(cur_path_part), path_ary.join('.')) { |value_found| yield(value_found) }
+								 else
+									 resolve_element_from_path(el.send(cur_path_part), path_ary.join('.'))
+								 end
+			return el_found if el_found.present? || el_found == false
+		end
+
+		nil
+	end
 
 	def find_slice_by_values(element, values)
 		unique_first_part = values.map { |value_def| value_def[:path].first }.uniq
@@ -228,7 +229,7 @@ module BulkDataUtils
 				end 
 			when 'patternIdentifier'
 				resolve_element_from_path(list, discriminator[:path]) do |identifier|
-					identifier:system == discriminator[:system]
+					identifier.system == discriminator[:system]
 				end 
 			when 'value'
 				values_clone = discriminator[:values].deep_dup
@@ -307,7 +308,7 @@ module BulkDataUtils
 		line_count = 0
 
 		process_line = proc { |resource|
-			break unless validate_all || line_count < lines_to_validate || (klass == 'Patient' && @patient_ids_seen.length < MIN_RESOURCE_COUNT)
+			break unless validate_all || line_count < lines_to_validate || (klass == 'Patient' && @@patient_ids_seen.length < MIN_RESOURCE_COUNT)
 			next if resource.nil? || resource.strip.empty?
 
 			recent_resources << resource unless line_count >= MAX_NUM_RECENT_LINES
@@ -322,7 +323,7 @@ module BulkDataUtils
 			resource_type = resource.class.name.demodulize
 			assert resource_type == klass, "Resource type \"#{resource_type}\" at line \"#{line_count}\" does not match type defined in output \"#{klass}\")"
 			
-			@patient_ids_seen << resource.id if klass == 'Patient'
+			@@patient_ids_seen << resource.id if klass == 'Patient'
 
 			profile_url = determine_profile(profile_definitions, resource)
 			assert resource_is_valid?(resource: resource, profile_url: profile_url), invalid_resource_message(profile_url)

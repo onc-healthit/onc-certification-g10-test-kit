@@ -75,7 +75,6 @@ module MultiPatientAPI
             binding_info: metadata.bindings.deep_dup
           }
         ]
-
         assert output_conforms_to_profile?('Patient', profile_definitions), 'Resource does not conform to profile.'
       }
     end
@@ -88,9 +87,9 @@ module MultiPatientAPI
       # link 'http://ndjson.org/'
 
       run {
-        skip 'No Patient resources processed from bulk data export.' unless @patient_ids_seen.present?
+        skip 'No Patient resources processed from bulk data export.' unless patient_ids_seen.present?
 
-        assert @patient_ids_seen.length >= MIN_RESOURCE_COUNT, 'Bulk data export did not have multiple Patient resources'
+        assert patient_ids_seen.length >= BulkDataUtils::MIN_RESOURCE_COUNT, 'Bulk data export did not have multiple Patient resources'
       }
     end
 
@@ -109,7 +108,7 @@ module MultiPatientAPI
 
         expected_ids = Set.new(bulk_patient_ids_in_group.split(',').map(&:strip))
 
-        assert @patient_ids_seen.sort == expected_ids.sort, "Mismatch between patient ids seen (#{@patient_ids_seen.to_a.join(', ')}) and patient ids expected (#{bulk_patient_ids_in_group})"
+        assert patient_ids_seen.sort == expected_ids.sort, "Mismatch between patient ids seen (#{patient_ids_seen.to_a.join(', ')}) and patient ids expected (#{bulk_patient_ids_in_group})"
       }
     end
 

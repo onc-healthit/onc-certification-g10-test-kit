@@ -14,6 +14,8 @@ services:
       - DISABLE_TX= true
     volumes:
       - ./lib/g10_certification_test_kit/igs:/home/igs
+    # ports:
+    #   - "4567:4567" #TODO: Remove
   # fhir_validator_app:
   #   image: infernocommunity/fhir-validator-app
   #   depends_on:
@@ -35,7 +37,9 @@ services:
     volumes:
       - ./data/redis:/data
     command: redis-server --appendonly yes
-  worker:
+    # ports:
+    #   - "6379:6379" #TODO: Remove
+  worker: 
     build:
       context: ./
     volumes:
