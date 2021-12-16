@@ -11,28 +11,16 @@ module BulkDataUtils
 
 	attr_accessor :patient_ids_seen
 
-	@@patient_ids_seen = []
-
 	def self.included(klass)
-		
+		@patient_ids_seen = Array.new
 	end 
 
-	# Locally stored JWK related code i.e. pulling from  bulk_data_jwks.json.
-	# Takes an encryption method as a string and filters for the corresponding
-	# key. The :bulk_encryption_method symbol was not recognized from within the
-	# scope of this method, hence why its passed as a parameter.
-	#
-	# In program, this information was set within the config.yml file and related
-	# methods written within the testing_instance.rb file. The following
-	# code cherry picks what was needed from those files, but we should probably
-	# make an organizational decision about where this stuff will live.
 	def get_bulk_selected_private_key(encryption)
 		bulk_data_jwks = JSON.parse(File.read(File.join(File.dirname(__FILE__), 'bulk_data_jwks.json')))
 		bulk_private_key_set = bulk_data_jwks['keys'].select { |key| key['key_ops']&.include?('sign') }
 		bulk_private_key_set.find { |key| key['alg'] == encryption }
 	end
 
-	# TODO: Clean up params
 	def create_client_assertion(encryption_method:, iss:, sub:, aud:, exp:, jti:)
 		bulk_private_key = get_bulk_selected_private_key(encryption_method)
 		jwt_token = JSON::JWT.new(iss: iss, sub: sub, aud: aud, exp: exp, jti: jti).compact
@@ -103,7 +91,6 @@ module BulkDataUtils
 		headers = { accept: 'application/fhir+json', prefer: 'respond-async' } 
 		headers.merge!( { authorization: "Bearer #{bulk_access_token}" } ) if use_token 
 
-		# TODO: Do I need to use defined? or can I just check its existence as-is
 		id = defined?(group_id) ? group_id : 'example'
 		get("Group/#{id}/$export", client: :bulk_server, name: :export, headers: headers)
 	end
@@ -127,18 +114,12 @@ module BulkDataUtils
 
 	end 
 
-
-
-
-
-
-	## GROUP 3
-
-
-
-
-
-
+	# TODO: Delete this once core functionality is merged in
+	def stream(block, url = '', name: nil, **options)
+		store_request('outgoing', name) do
+			Faraday.get(url, nil, options[:headers]) { |req| req.options.on_data = block }
+		end
+	end 
 
 	def get_file(endpoint, use_token = true)
 		headers = { accept: 'application/fhir+ndjson' }
@@ -147,10 +128,6 @@ module BulkDataUtils
 	 	get(endpoint, headers: headers)
 	end 
 
-	# Responsibility falls on the process_chunk block to check whether the input
-	# line is nil or empty. 
-	# Observation: chunk_by_lines may very well be a singleton array of a MASSIVE resource that is incomplete. 
-	# The responsibility of dealing with that should fall on process_chunk_line
 	def stream_ndjson(endpoint, headers, process_chunk_line, process_response)
 
 		hanging_chunk = String.new 
@@ -167,7 +144,7 @@ module BulkDataUtils
 			end 
 		}	
 
-		stream(endpoint, process_body, headers: headers)
+		stream(process_body, endpoint, headers: headers)
 		process_chunk_line.call(hanging_chunk)
 
 		# TODO --> Would lijke for this block to get called once during the 
@@ -180,7 +157,6 @@ module BulkDataUtils
 
 	def predefined_device_type?(resource)  
 		return false if resource.nil?
-
 
 	end 
 
@@ -195,11 +171,8 @@ module BulkDataUtils
 		#return nil if resource.resourceType == 'Device' && !predefined_device_type?(resource)
 		#return nil if NON_US_CORE_KLASS.include(resource.resourceType)
 
-		#Inferno::ValidationUtil.guess_profile(resource, @version)
 	end 
 
-	# DFS of a resource. Intended to be called only as a helper from within 
-	#	resolve_element_from_path.
 	def walk_resource(resource, steps, block)
 		return block.call(resource) if steps.empty?
 		return false if resource.nil? 
@@ -209,25 +182,25 @@ module BulkDataUtils
 		resource.respond_to?(steps.first.to_sym) ? walk_resource(resource.send(steps.first.to_sym), steps.drop(1), block) : false
 	end 
 
-	# Searches resource for the element maintained at the end of the path. 
-	#
-	# @param resource [FHIR Resource]
-	# @param path [String] String concatenation of valid, nested attributes of 
-	#											 the given resource type.	Steps in the path must be 
-	#											 delimited by '.'
-	# @output [Boolean] Result of applying the given block to the found element.
-	#										The given block must return a boolean. If no block given,
-	#										true is returned if path is walkable within the resource.
-	def resolve_element_from_path(resource, path)
-		return false if path.nil?
-		return false unless path.respond_to?(:split)
+	# # Searches resource for the element maintained at the end of the path. 
+	# #
+	# # @param resource [FHIR Resource]
+	# # @param path [String] String concatenation of valid, nested attributes of 
+	# #											 the given resource type.	Steps in the path must be 
+	# #											 delimited by '.'
+	# # @output [Boolean] Result of applying the given block to the found element.
+	# #										The given block must return a boolean. If no block given,
+	# #										true is returned if path is walkable within the resource.
+	# def resolve_element_from_path(resource, path)
+	# 	return false if path.nil?
+	# 	return false unless path.respond_to?(:split)
 
-		steps = path.split('.') 
-		steps.delete_if { |step| step.empty? }
+	# 	steps = path.split('.') 
+	# 	steps.delete_if { |step| step.empty? }
 
-		block = proc { |element| block_given? ? yield(element) : true }
-		walk_resource(resource, steps, block)
-	end 
+	# 	block = proc { |element| block_given? ? yield(element) : true }
+	# 	walk_resource(resource, steps, block)
+	# end 
 
 	def find_slice_by_values(element, values)
 		unique_first_part = values.map { |value_def| value_def[:path].first }.uniq
@@ -255,7 +228,7 @@ module BulkDataUtils
 				end 
 			when 'patternIdentifier'
 				resolve_element_from_path(list, discriminator[:path]) do |identifier|
-					identifier.system == discriminator[:system]
+					identifier:system == discriminator[:system]
 				end 
 			when 'value'
 				values_clone = discriminator[:values].deep_dup
@@ -320,11 +293,6 @@ module BulkDataUtils
 		end
 	end
 
-	# Use stream_ndjson to keep pulling chunks off the response body as they come in
-	# lots of unclear if statements based off lines to validate --> investigate this
-		#
-	# For each chunk read in, get the resource and record the id of whether it is a patient 
-	#	
 	def check_file_request(file, 
 												 klass, 
 												 validate_all, 
@@ -338,9 +306,8 @@ module BulkDataUtils
 		incomplete_resource = String.new
 		line_count = 0
 
-		# TODO: Tidy this up. It's disjointed. 
 		process_line = proc { |resource|
-			break unless validate_all || line_count < lines_to_validate || (klass == 'Patient' && @@patient_ids_seen.length < MIN_RESOURCE_COUNT)
+			break unless validate_all || line_count < lines_to_validate || (klass == 'Patient' && @patient_ids_seen.length < MIN_RESOURCE_COUNT)
 			next if resource.nil? || resource.strip.empty?
 
 			recent_resources << resource unless line_count >= MAX_NUM_RECENT_LINES
@@ -355,7 +322,7 @@ module BulkDataUtils
 			resource_type = resource.class.name.demodulize
 			assert resource_type == klass, "Resource type \"#{resource_type}\" at line \"#{line_count}\" does not match type defined in output \"#{klass}\")"
 			
-			@@patient_ids_seen << resource.id if klass == 'Patient'
+			@patient_ids_seen << resource.id if klass == 'Patient'
 
 			profile_url = determine_profile(profile_definitions, resource)
 			assert resource_is_valid?(resource: resource, profile_url: profile_url), invalid_resource_message(profile_url)

@@ -208,7 +208,7 @@ module MultiPatientAPI
         polling_url = response[:headers].find { |header| header.name == 'content-location' }.value
         assert polling_url.present?, 'Export response header did not include "Content-Location"'
 
-        delete(polling_url)
+        # delete(polling_url) TODO: Uncomment after core PR is merged in
         assert_response_status(202)
       }
     end

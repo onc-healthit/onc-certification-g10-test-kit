@@ -1,3 +1,4 @@
+require 'pry' #TODO: Remove
 module MultiPatientAPI
   class BulkDataGroupExportValidation < Inferno::TestGroup
     title 'Group Compartment Export Validation Tests'
@@ -6,6 +7,8 @@ module MultiPatientAPI
     DESCRIPTION
 
     id :bulk_data_group_export_validation
+
+    input :bulk_status_output, :requires_access_token, :bulk_access_token
 
     http_client :ndjson_endpoint do
       url :output_endpoint
@@ -36,8 +39,6 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#file-request'
 
-      include BulkDataUtils
-
       input :requires_access_token, :bulk_status_output, :bulk_access_token
 
       run {
@@ -45,10 +46,11 @@ module MultiPatientAPI
         skip 'Could not verify this functionality when requireAccessToken is false' unless requires_access_token
         skip 'Could not verify this functionality when bulk_status_output is not provided' unless bulk_status_output.present? 
 
+
         output_endpoint = JSON.parse(bulk_status_output)[0]['url']
         get_file(output_endpoint, false)
 
-        assert_response_bad_or_unauthorized
+        # assert_response_bad_or_unauthorized TODO: Uncomment this following changes implemented in core.
       }
     end
 
@@ -59,25 +61,22 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient'
 
-      include BulkDataUtils
-      input :bulk_status_output, :requires_access_token, :bulk_access_token
-
       run {
         skip 'Could not verify this functionality when bulk_status_output is not provided' unless bulk_status_output.present?
         skip 'Could not verify this functionality when requires_access_token is not set' unless requires_access_token.present?
         skip 'Could not verify this functionality when remote_access_token is required and not provided' if requires_access_token && !bulk_access_token.present?
 
-        # TODO: Replace in G10 suite
-        metadata = YAML.load_file(File.join(__dir__, 'metadata/patient.yml'))
+        metadata = USCore::PatientGroup::metadata
 
         profile_definitions = [
           {
-            profile: metadata[:profile_url],
-            must_support_info: metadata[:must_supports].deep_dup,
-            binding_info: metadata[:bindings].deep_dup
+            profile: metadata.profile_url,
+            must_support_info: metadata.must_supports.deep_dup,
+            binding_info: metadata.bindings.deep_dup
           }
         ]
-        output_conforms_to_profile?('Patient', profile_definitions)
+
+        assert output_conforms_to_profile?('Patient', profile_definitions), 'Resource does not conform to profile.'
       }
     end
 
@@ -89,9 +88,9 @@ module MultiPatientAPI
       # link 'http://ndjson.org/'
 
       run {
-        skip 'No Patient resources processed from bulk data export.' unless @@patient_ids_seen.present?
+        skip 'No Patient resources processed from bulk data export.' unless @patient_ids_seen.present?
 
-        assert @@patient_ids_seen.length >= MIN_RESOURCE_COUNT, 'Bulk data export did not have multiple Patient resources'
+        assert @patient_ids_seen.length >= MIN_RESOURCE_COUNT, 'Bulk data export did not have multiple Patient resources'
       }
     end
 
@@ -110,7 +109,7 @@ module MultiPatientAPI
 
         expected_ids = Set.new(bulk_patient_ids_in_group.split(',').map(&:strip))
 
-        assert @@patient_ids_seen.sort == expected_ids.sort, "Mismatch between patient ids seen (#{@@patient_ids_seen.to_a.join(', ')}) and patient ids expected (#{bulk_patient_ids_in_group})"
+        assert @patient_ids_seen.sort == expected_ids.sort, "Mismatch between patient ids seen (#{@patient_ids_seen.to_a.join(', ')}) and patient ids expected (#{bulk_patient_ids_in_group})"
       }
     end
 
@@ -121,20 +120,20 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-allergyintolerance'
 
-      include BulkDataUtils
       input :bulk_status_output, :requires_access_token, :bulk_access_token
 
       run {
-        metadata = YAML.load_file(File.join(__dir__, 'metadata/allergyintolerance.yml'))
+        metadata = USCore::AllergyIntoleranceGroup::metadata
 
         profile_definitions = [
           {
-            profile: metadata[:profile_url],
-            must_support_info: metadata[:must_supports].deep_dup,
-            binding_info: metadata[:bindings].deep_dup
+            profile: metadata.profile_url,
+            must_support_info: metadata.must_supports.deep_dup,
+            binding_info: metadata.bindings.deep_dup
           }
         ]
-        assert output_conforms_to_profile?('AllergyIntolerance', profile_definitions), ''
+
+        assert output_conforms_to_profile?('AllergyIntolerance', profile_definitions), 'Resources do not conform to profile.'
       }
     end
 
@@ -145,20 +144,20 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-careplan'
 
-      include BulkDataUtils
       input :bulk_status_output, :requires_access_token, :bulk_access_token
 
       run {
-        metadata = YAML.load_file(File.join(__dir__, 'metadata/careplan.yml'))
+        metadata = USCore::CarePlanGroup::metadata
 
         profile_definitions = [
           {
-            profile: metadata[:profile_url],
-            must_support_info: metadata[:must_supports].deep_dup,
-            binding_info: metadata[:bindings].deep_dup
+            profile: metadata.profile_url,
+            must_support_info: metadata.must_supports.deep_dup,
+            binding_info: metadata.bindings.deep_dup
           }
         ]
-        assert output_conforms_to_profile?('CarePlan', profile_definitions), ''
+
+        assert output_conforms_to_profile?('CarePlan', profile_definitions), 'Resources do not conform to profile.'
       }
     end
 
@@ -169,11 +168,20 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-careteam'
 
-      include BulkDataUtils
       input :bulk_status_output, :requires_access_token, :bulk_access_token
 
       run {
-        
+        metadata = USCore::CareTeamGroup::metadata
+
+        profile_definitions = [
+          {
+            profile: metadata.profile_url,
+            must_support_info: metadata.must_supports.deep_dup,
+            binding_info: metadata.bindings.deep_dup
+          }
+        ]
+
+        assert output_conforms_to_profile?('CareTeam', profile_definitions), 'Resources do not conform to profile.'
       }
     end
 
@@ -184,7 +192,19 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition'
 
-      run {}
+      run {
+        metadata = USCore::ConditionGroup::metadata
+
+        profile_definitions = [
+          {
+            profile: metadata.profile_url,
+            must_support_info: metadata.must_supports.deep_dup,
+            binding_info: metadata.bindings.deep_dup
+          }
+        ]
+
+        assert output_conforms_to_profile?('Condition', profile_definitions), 'Resources do not conform to profile.'
+      }
     end
 
     test do
@@ -194,7 +214,19 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-implantable-device'
 
-      run {}
+      run {
+        metadata = USCore::DeviceGroup::metadata
+
+        profile_definitions = [
+          {
+            profile: metadata.profile_url,
+            must_support_info: metadata.must_supports.deep_dup,
+            binding_info: metadata.bindings.deep_dup
+          }
+        ]
+
+        assert output_conforms_to_profile?('Device', profile_definitions), 'Resources do not conform to profile.'
+      }
     end
 
     test do
@@ -207,7 +239,25 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-l'
 
-      run {}
+      run {
+        metadata_lab = USCore::DiagnosticReportLabGroup::metadata
+        metadata_note = USCore::DiagnosticReportNoteGroup::metadata
+
+        profile_definitions = [
+          {
+            profile: metadata_lab.profile_url,
+            must_support_info: metadata_lab.must_supports.deep_dup,
+            binding_info: metadata_lab.bindings.deep_dup
+          }, 
+          {
+            profile: metadata_note.profile_url,
+            must_support_info: metadata_note.must_supports.deep_dup,
+            binding_info: metadata_note.bindings.deep_dup
+          }
+        ]
+
+        assert output_conforms_to_profile?('DiagnosticReport', profile_definitions), 'Resources do not conform to profile.'
+      }
     end
 
     test do
@@ -217,7 +267,19 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-documentreference'
 
-      run {}
+      run {
+        metadata = USCore::DocumentReferenceGroup::metadata
+
+        profile_definitions = [
+          {
+            profile: metadata.profile_url,
+            must_support_info: metadata.must_supports.deep_dup,
+            binding_info: metadata.bindings.deep_dup
+          }
+        ]
+
+        assert output_conforms_to_profile?('DocumentReference', profile_definitions), 'Resources do not conform to profile.'
+      }
     end
 
     test do
@@ -227,7 +289,19 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-goal'
 
-      run {}
+      run {
+        metadata = USCore::GoalGroup::metadata
+
+        profile_definitions = [
+          {
+            profile: metadata.profile_url,
+            must_support_info: metadata.must_supports.deep_dup,
+            binding_info: metadata.bindings.deep_dup
+          }
+        ]
+
+        assert output_conforms_to_profile?('Goal', profile_definitions), 'Resources do not conform to profile.'
+      }
     end
 
     test do
@@ -237,7 +311,19 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-Immunization'
 
-      run {}
+      run {
+        metadata = USCore::ImmunizationGroup::metadata
+
+        profile_definitions = [
+          {
+            profile: metadata.profile_url,
+            must_support_info: metadata.must_supports.deep_dup,
+            binding_info: metadata.bindings.deep_dup
+          }
+        ]
+
+        assert output_conforms_to_profile?('Immunization', profile_definitions), 'Resources do not conform to profile.'
+      }
     end
 
     test do
@@ -247,7 +333,19 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest'
 
-      run {}
+      run {
+        metadata = USCore::MedicationRequestGroup::metadata
+
+        profile_definitions = [
+          {
+            profile: metadata.profile_url,
+            must_support_info: metadata.must_supports.deep_dup,
+            binding_info: metadata.bindings.deep_dup
+          }
+        ]
+
+        assert output_conforms_to_profile?('MedicationRequest', profile_definitions), 'Resources do not conform to profile.'
+      }
     end
 
     test do
@@ -272,7 +370,25 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab'
 
-      run {}
+      run {
+        metadatas = [ USCore::PediatricBmiForAgeGroup::metadata, USCore::PediatricWeightForHeightGroup::metadata,
+                      USCore::ObservationLabGroup::metadata, USCore::PulseOximetryGroup::metadata, USCore::SmokingstatusGroup::metadata, 
+                      USCore::HeadCircumferenceGroup::metadata, USCore::BpGroup::metadata, USCore::BodyheightGroup::metadata, 
+                      USCore::BodytempGroup::metadata, USCore::BodyweightGroup::metadata, USCore::HeartrateGroup::metadata, 
+                      USCore::ResprateGroup::metadata ]
+
+        profile_definitions = []
+
+        metadatas.each do |data|
+          profile_definitions << {
+            profile: data.profile_url,
+            must_support_info: data.must_supports.deep_dup,
+            binding_info: data.bindings.deep_dup
+          }
+        end 
+
+        assert output_conforms_to_profile?('Observation', profile_definitions), 'Resources do not conform to profile.'
+      }
     end
 
     test do
@@ -282,7 +398,19 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure'
 
-      run {}
+      run {
+        metadata = USCore::ProcedureGroup::metadata
+
+        profile_definitions = [
+          {
+            profile: metadata.profile_url,
+            must_support_info: metadata.must_supports.deep_dup,
+            binding_info: metadata.bindings.deep_dup
+          }
+        ]
+
+        assert output_conforms_to_profile?('Procedure', profile_definitions), 'Resources do not conform to profile.'
+      }
     end
 
     test do
@@ -292,7 +420,19 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter'
 
-      run {}
+      run {
+        metadata = USCore::EncounterGroup::metadata
+
+        profile_definitions = [
+          {
+            profile: metadata.profile_url,
+            must_support_info: metadata.must_supports.deep_dup,
+            binding_info: metadata.bindings.deep_dup
+          }
+        ]
+
+        assert output_conforms_to_profile?('Encounter', profile_definitions), 'Resources do not conform to profile.'
+      }
     end
 
     test do
@@ -302,7 +442,19 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization'
 
-      run {}
+      run {
+        metadata = USCore::OrganizationGroup::metadata
+
+        profile_definitions = [
+          {
+            profile: metadata.profile_url,
+            must_support_info: metadata.must_supports.deep_dup,
+            binding_info: metadata.bindings.deep_dup
+          }
+        ]
+
+        assert output_conforms_to_profile?('Organization', profile_definitions), 'Resources do not conform to profile.'
+      }
     end
 
     test do
@@ -312,7 +464,19 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner'
 
-      run {}
+      run {
+        metadata = USCore::PractitionerGroup::metadata
+
+        profile_definitions = [
+          {
+            profile: metadata.profile_url,
+            must_support_info: metadata.must_supports.deep_dup,
+            binding_info: metadata.bindings.deep_dup
+          }
+        ]
+
+        assert output_conforms_to_profile?('Practitioner', profile_definitions), 'Resources do not conform to profile.'
+      }
     end
 
     test do
@@ -322,7 +486,19 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-provenance'
 
-      run {}
+      run {
+        metadata = USCore::ProvenanceGroup::metadata
+
+        profile_definitions = [
+          {
+            profile: metadata.profile_url,
+            must_support_info: metadata.must_supports.deep_dup,
+            binding_info: metadata.bindings.deep_dup
+          }
+        ]
+
+        assert output_conforms_to_profile?('Provenance', profile_definitions), 'Resources do not conform to profile.'
+      }
     end
 
     test do
@@ -332,7 +508,9 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-location'
 
-      run {}
+      run {
+        #TODO: Should there be a US Core test? Can't seem to find the metadata
+      }
     end
 
     test do
@@ -342,7 +520,9 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-medication'
 
-      run {}
+      run {
+        #TODO: Should there be a US Core test? Is this just MedicationRequest
+      }
     end
   end
 end

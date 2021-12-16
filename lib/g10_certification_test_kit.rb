@@ -133,7 +133,7 @@ module G10CertificationTestKit
         Location, Organization, and Practitioner resources as they are
         referenced as must support elements in required resources.
       )
-      run_as_group
+      #run_as_group TODO: Uncomment this
     end
 
     group do
