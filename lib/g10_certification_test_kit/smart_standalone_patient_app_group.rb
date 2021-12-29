@@ -55,7 +55,155 @@ module G10CertificationTestKit
       end
     end
 
-    group from: :smart_standalone_launch
+    group from: :smart_standalone_launch do
+      test do
+        title "Patient-level access with OpenID Connect and Refresh Token scopes used."
+        description %(
+          The scopes being input must follow the guidelines specified in the
+          smart-app-launch guide. All scopes requested are expected to be
+          granted.
+        )
+        input :requested_scopes, name: :standalone_requested_scopes
+        input :received_scopes, name: :standalone_received_scopes
+        uses_request :token
+
+        def valid_resource_types
+          [
+            '*',
+            'Patient',
+            'AllergyIntolerance',
+            'Binary',
+            'CarePlan',
+            'CareTeam',
+            'Condition',
+            'Device',
+            'DiagnosticReport',
+            'DocumentReference',
+            'Encounter',
+            'Goal',
+            'Immunization',
+            'Location',
+            'Medication',
+            'MedicationOrder',
+            'MedicationRequest',
+            'MedicationStatement',
+            'Observation',
+            'Organization',
+            'Person',
+            'Practitioner',
+            'PractitionerRole',
+            'Procedure',
+            'Provenance',
+            'RelatedPerson'
+          ]
+        end
+
+        def required_scopes
+          ['openid', 'fhirUser', 'launch/patient', 'offline_access']
+        end
+
+        def requested_scope_test(scopes, patient_compartment_resource_types, patient_or_user)
+          patient_scope_found = false
+
+          scopes.each do |scope|
+            bad_format_message = "Requested scope '#{scope}' does not follow the format: `#{patient_or_user}/[ resource | * ].[ read | * ]`"
+
+            scope_pieces = scope.split('/')
+            assert scope_pieces.count == 2, bad_format_message
+
+            resource_access = scope_pieces[1].split('.')
+            bad_resource_message = "'#{resource_access[0]}' must be either a valid resource type or '*'"
+
+            if patient_or_user == 'patient' && patient_compartment_resource_types.exclude?(resource_access[0])
+              assert ['user', 'patient'].include?(scope_pieces[0]), "Requested scope '#{scope}' must begin with either 'user/' or 'patient/'"
+            else
+              assert scope_pieces[0] == patient_or_user, bad_format_message
+            end
+
+            assert resource_access.count == 2, bad_format_message
+            assert valid_resource_types.include?(resource_access[0]), bad_resource_message
+            assert resource_access[1] =~ /^(\*|read)/, bad_format_message
+
+            patient_scope_found = true
+          end
+
+          assert patient_scope_found,
+                 "#{patient_or_user.capitalize}-level scope in the format: " \
+                 "`#{patient_or_user}/[ resource | * ].[ read | *]` was not requested."
+        end
+
+        def received_scope_test(scopes, patient_compartment_resource_types)
+          granted_resource_types = []
+
+          scopes.each do |scope|
+            scope_pieces = scope.split('/')
+            next unless scope_pieces.count == 2
+
+            resource_access = scope_pieces[1].split('.')
+            next unless resource_access.count == 2
+
+            granted_resource_types << resource_access[0] if resource_access[1] =~ /^(\*|read)/
+          end
+
+          missing_resource_types = granted_resource_types.include?('*') ? [] : (patient_compartment_resource_types - granted_resource_types - ['*'])
+
+          assert missing_resource_types.empty?, "Request scopes #{missing_resource_types.join(', ')} were not granted by authorization server."
+        end
+
+        run do
+          skip_if request.status != 200, 'Token exchange was unsuccessful'
+
+          patient_compartment_resource_types = [
+            '*',
+            'Patient',
+            'AllergyIntolerance',
+            'CarePlan',
+            'CareTeam',
+            'Condition',
+            'DiagnosticReport',
+            'DocumentReference',
+            'Goal',
+            'Immunization',
+            'MedicationRequest',
+            'Observation',
+            'Procedure',
+            'Provenance'
+          ].freeze
+
+          [
+            {
+              scopes: requested_scopes,
+              received_or_requested: 'requested'
+            },
+            {
+              scopes: received_scopes,
+              received_or_requested: 'received'
+            }
+          ].each do |metadata|
+            scopes = metadata[:scopes].split(' ')
+            received_or_requested = metadata[:received_or_requested]
+
+            missing_scopes = required_scopes - scopes
+            assert missing_scopes.empty?,
+                   "Required scopes were not #{received_or_requested}: #{missing_scopes.join(', ')}"
+
+            scopes -= required_scopes
+
+            # Other 'okay' scopes. Also scopes may include both 'launch' and
+            # 'launch/patient' for EHR launch and Standalone launch.
+            # 'launch/encounter' is mentioned by SMART App Launch though not in
+            # (g)(10) test procedure
+            scopes -= ['online_access', 'launch', 'launch/patient', 'launch/encounter']
+
+            if received_or_requested == 'requested'
+              requested_scope_test(scopes, patient_compartment_resource_types, 'patient')
+            else
+              received_scope_test(scopes, patient_compartment_resource_types)
+            end
+          end
+        end
+      end
+    end
 
     group from: :smart_openid_connect,
           config: {
