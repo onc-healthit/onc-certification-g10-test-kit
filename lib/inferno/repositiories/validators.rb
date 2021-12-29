@@ -10,7 +10,7 @@ module Inferno
       end
 
       def all_urls
-        self.all_by_id.keys
+        all_by_id.keys
       end
     end
   end

@@ -98,7 +98,7 @@ module Inferno
         'SCALE_TYP' => 'LOINC_SCALE_TYP'
       }.freeze
 
-      def initialize(database, use_expansions = true)
+      def initialize(database, use_expansions = true) # rubocop:disable Style/OptionalBooleanParameter
         @db = database
         @use_expansions = use_expansions
       end
@@ -252,7 +252,9 @@ module Inferno
       # Saves the valueset bloomfilter to a msgpack file
       #
       # @param [String] filename the name of the file
-      def save_bloom_to_file(filename = "resources/validators/bloom/#{(URI(url).host + URI(url).path).gsub(%r{[./]}, '_')}.msgpack")
+      def save_bloom_to_file(
+        filename = "resources/validators/bloom/#{(URI(url).host + URI(url).path).gsub(%r{[./]}, '_')}.msgpack"
+      )
         generate_bloom unless @bf
         bloom_file = File.new(filename, 'wb')
         bloom_file.write(@bf.to_msgpack) unless @bf.nil?
@@ -261,7 +263,8 @@ module Inferno
 
       # Saves the valueset to a csv
       # @param [String] filename the name of the file
-      def save_csv_to_file(filename = "resources/validators/csv/#{(URI(url).host + URI(url).path).gsub(%r{[./]}, '_')}.csv")
+      def save_csv_to_file(filename = "resources/validators/csv/#{(URI(url).host + URI(url).path).gsub(%r{[./]},
+                                                                                                       '_')}.csv")
         CSV.open(filename, 'wb') do |csv|
           value_set.each do |code|
             csv << [code[:system], code[:code]]
@@ -329,7 +332,7 @@ module Inferno
       # @param [FHIR::ValueSet::Compose::Include::Filter] filter the filter object
       # @return [Set] the filtered set of codes
       def filter_code_set(system, filter = nil, _version = nil)
-        fhir_codesystem = File.join(PACKAGE_DIR, FHIRPackageManager.encode_name(system).to_s + '.json')
+        fhir_codesystem = File.join(PACKAGE_DIR, "#{FHIRPackageManager.encode_name(system)}.json")
         if CODE_SYS.include? system
           Inferno.logger.debug "  loading #{system} codes..."
           return filter.nil? ? CODE_SYS[system].call : CODE_SYS[system].call(filter)
@@ -344,9 +347,10 @@ module Inferno
           end
         end
 
-        filter_clause = lambda do |filter|
+        filter_clause = lambda do |filter| # rubocop:disable Lint/ShadowingOuterLocalVariable
           where = +''
-          if filter.op == 'in'
+          case filter.op
+          when 'in'
             col = filter.property
             vals = filter.value.split(',')
             where << "( #{col} = '#{vals[0]}'"
@@ -356,7 +360,7 @@ module Inferno
               where << " OR #{col} = '#{val}' "
             end
             where << ')'
-          elsif filter.op == '='
+          when '='
             col = filter.property
             where << "#{col} = '#{filter.value}'"
           else
@@ -371,7 +375,9 @@ module Inferno
 
         # Fix for some weirdness around UMLS and provider taxonomy subsetting
         if system == 'http://nucc.org/provider-taxonomy'
-          @db.execute("SELECT code FROM mrconso WHERE SAB = '#{umls_abbreviation(system)}' AND TTY IN('PT', 'OP')") do |row|
+          @db.execute(
+            "SELECT code FROM mrconso WHERE SAB = '#{umls_abbreviation(system)}' AND TTY IN('PT', 'OP')"
+          ) do |row|
             filtered_set.add(system: system, code: row[0])
           end
         elsif filter.nil?
@@ -380,11 +386,16 @@ module Inferno
           end
         elsif ['=', 'in', nil].include? filter&.op
           if FILTER_PROP[filter.property]
-            @db.execute("SELECT code FROM mrsat WHERE SAB = '#{umls_abbreviation(system)}' AND ATN = '#{fp_self(filter.property)}' AND ATV = '#{fp_self(filter.value)}'") do |row|
+            @db.execute(
+              "SELECT code FROM mrsat WHERE SAB = '#{umls_abbreviation(system)}' " \
+              "AND ATN = '#{fp_self(filter.property)}' AND ATV = '#{fp_self(filter.value)}'"
+            ) do |row|
               filtered_set.add(system: system, code: row[0])
             end
           else
-            @db.execute("SELECT code FROM mrconso WHERE SAB = '#{umls_abbreviation(system)}' AND #{filter_clause.call(filter)}") do |row|
+            @db.execute(
+              "SELECT code FROM mrconso WHERE SAB = '#{umls_abbreviation(system)}' AND #{filter_clause.call(filter)}"
+            ) do |row|
               filtered_set.add(system: system, code: row[0])
             end
           end
@@ -411,7 +422,7 @@ module Inferno
       # @return [Set] the filtered codes
       def filter_is_a(system, filter)
         children = {}
-        find_children = lambda do |_parent, system|
+        find_children = lambda do |_parent, system| # rubocop:disable Lint/ShadowingOuterLocalVariable
           @db.execute("SELECT c1.code, c2.code
           FROM mrrel r
             JOIN mrconso c1 ON c1.aui=r.aui1

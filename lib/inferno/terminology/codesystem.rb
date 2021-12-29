@@ -30,7 +30,7 @@ module Inferno
         end
       end
 
-      def is_a_concept_filter?(filter)
+      def is_a_concept_filter?(filter) # rubocop:disable Naming/PredicateName
         (filter.op == 'is-a') && (codesystem_model.hierarchyMeaning == 'is-a') && (filter.property == 'concept')
       end
 

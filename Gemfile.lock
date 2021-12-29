@@ -32,6 +32,7 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
+    ast (2.4.2)
     bcp47 (0.3.3)
       i18n
     bitarray (1.2.0)
@@ -197,6 +198,9 @@ GEM
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
     oj (3.13.10)
+    parallel (1.21.0)
+    parser (3.0.3.2)
+      ast (~> 2.4.1)
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -208,8 +212,10 @@ GEM
       nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.3)
+    rainbow (3.0.0)
     rake (13.0.6)
     redis (4.5.1)
+    regexp_parser (2.2.0)
     rest-client (2.1.0)
       http-accept (>= 1.7.0, < 2.0)
       http-cookie (>= 1.0.2, < 2.0)
@@ -229,6 +235,20 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.3)
+    rubocop (1.24.0)
+      parallel (~> 1.10)
+      parser (>= 3.0.0.0)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 1.8, < 3.0)
+      rexml
+      rubocop-ast (>= 1.15.0, < 2.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 1.4.0, < 3.0)
+    rubocop-ast (1.15.1)
+      parser (>= 3.0.1.1)
+    rubocop-rspec (2.7.0)
+      rubocop (~> 1.19)
+    ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
     sequel (5.51.0)
@@ -245,6 +265,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8)
+    unicode-display_width (2.1.0)
     url_mount (0.2.1)
       rack
     webmock (3.14.0)
@@ -272,6 +293,8 @@ DEPENDENCIES
   rake
   rest-client
   rspec (~> 3.10)
+  rubocop (~> 1.9)
+  rubocop-rspec
   rubyzip
   smart_app_launch_test_kit!
   sqlite3

@@ -8,9 +8,8 @@ module G10CertificationTestKit
     validator do
       url ENV.fetch('VALIDATOR_URL', 'http://validator_service:4567')
       exclude_message do |message|
-        if message.type == 'info' || message.type == 'warning'
-          true
-        elsif USCore::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS.any? { |filter| filter.match? message.message }
+        if message.type == 'info' || message.type == 'warning' ||
+           USCore::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS.any? { |filter| filter.match? message.message }
           true
         else
           false

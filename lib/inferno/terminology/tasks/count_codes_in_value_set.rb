@@ -4,7 +4,7 @@ module Inferno
       class CountCodesInValueSet
         attr_reader :value_set_url
 
-        def initialize(vs:)
+        def initialize(vs:) # rubocop:disable Naming/MethodParameterName
           @value_set_url = vs
         end
 

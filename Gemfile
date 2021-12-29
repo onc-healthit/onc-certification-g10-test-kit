@@ -16,6 +16,8 @@ gem 'pry'
 gem 'pry-byebug'
 gem 'rake'
 gem 'rest-client'
+gem 'rubocop', '~> 1.9'
+gem 'rubocop-rspec', require: false
 gem 'rubyzip'
 gem 'sqlite3'
 

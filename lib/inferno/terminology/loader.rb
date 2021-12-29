@@ -39,7 +39,7 @@ module Inferno
       class << self
         attr_reader :validators_repo, :value_sets_repo
 
-        def load_value_sets_from_directory(directory, include_subdirectories = false)
+        def load_value_sets_from_directory(directory, include_subdirectories = false) # rubocop:disable Style/OptionalBooleanParameter
           directory += '/**/' if include_subdirectories
           value_set_files = Dir["#{directory}/*.json"]
           value_set_files.each do |vs_file|
@@ -62,8 +62,15 @@ module Inferno
         #   existing validators of `type` should be deleted before the creation
         #   tasks run. Default to `true`. If `false`, the existing validators will
         #   be read in and combined with the validators created in this step.
-        def create_validators(type: :bloom, minimum_binding_strength: 'example', include_umls: true, delete_existing: true)
-          strengths = ['example', 'preferred', 'extensible', 'required'].drop_while { |s| s != minimum_binding_strength }
+        def create_validators(
+          type: :bloom,
+          minimum_binding_strength: 'example',
+          include_umls: true,
+          delete_existing: true
+        )
+          strengths = ['example', 'preferred', 'extensible', 'required'].drop_while do |s|
+            s != minimum_binding_strength
+          end
           umls_code_systems = Set.new(ValueSet::SAB.keys)
           root_dir = "resources/terminology/validators/#{type}"
 
@@ -88,9 +95,9 @@ module Inferno
                 code_systems: vs.included_code_systems
               }
             rescue UnknownCodeSystemException,
-                  FilterOperationException,
-                  UnknownValueSetException,
-                  URI::InvalidURIError => e
+                   FilterOperationException,
+                   UnknownValueSetException,
+                   URI::InvalidURIError => e
               Inferno.logger.warn "#{e.message} for ValueSet: #{vs_url}"
               next
             end
@@ -118,9 +125,9 @@ module Inferno
                 code_systems: cs_name
               }
             rescue UnknownCodeSystemException,
-                  FilterOperationException,
-                  UnknownValueSetException,
-                  URI::InvalidURIError => e
+                   FilterOperationException,
+                   UnknownValueSetException,
+                   URI::InvalidURIError => e
               Inferno.logger.warn "#{e.message} for CodeSystem #{cs_name}"
               next
             end
@@ -147,7 +154,9 @@ module Inferno
             next if abbreviation.nil?
 
             versions = @db.execute("SELECT SVER FROM mrsab WHERE RSAB='#{abbreviation}' AND SABIN='Y'").flatten
-            restriction_level = @db.execute("SELECT SRL FROM mrsab WHERE RSAB='#{abbreviation}' AND SABIN='Y'").flatten.first
+            restriction_level = @db.execute(
+              "SELECT SRL FROM mrsab WHERE RSAB='#{abbreviation}' AND SABIN='Y'"
+            ).flatten.first
             system_metadata = metadata[url] || vs.code_system_metadata(url).dup || {}
             system_metadata[:versions] ||= []
             system_metadata[:versions].concat(versions).uniq!
@@ -260,7 +269,7 @@ module Inferno
           validator_metadata = YAML.load_file(manifest_file)
           validator_metadata.each do |metadata|
             metadata[:bloom_filter] =
-              Bloomer::Scalable.from_msgpack(File.open("#{directory}/#{metadata[:file]}").read)
+              Bloomer::Scalable.from_msgpack(File.read("#{directory}/#{metadata[:file]}"))
             validators_repo.insert(Validator.new(metadata))
           end
         end

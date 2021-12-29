@@ -4,7 +4,7 @@ module Inferno
       class ExpandValueSetToFile
         attr_reader :filename, :type, :value_set_url
 
-        def initialize(vs:, filename:, type:)
+        def initialize(vs:, filename:, type:) # rubocop:disable Naming/MethodParameterName
           @value_set_url = vs
           @filename = filename
           @type = type

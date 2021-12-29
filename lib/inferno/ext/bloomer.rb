@@ -16,7 +16,7 @@ class Bloomer
     end
 
     def self.initial_size(length)
-      size = 2 ** Math.log2(length).ceil
+      size = 2**Math.log2(length).ceil
 
       size < 256 ? 256 : size
     end

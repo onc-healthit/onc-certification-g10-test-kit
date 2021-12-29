@@ -20,11 +20,9 @@ module Inferno
 
           coding_in_filter?(code: code, system: system)
         elsif contains_prohibited_systems?
-          if code_in_allowed_system?(code)
-            return true
-          else
-            raise ProhibitedSystemException, prohibited_systems.join(', ')
-          end
+          raise ProhibitedSystemException, prohibited_systems.join(', ') unless code_in_allowed_system?(code)
+
+          true
         else
           code_in_any_system?(code)
         end
@@ -64,4 +62,3 @@ module Inferno
     end
   end
 end
-

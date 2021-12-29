@@ -38,15 +38,15 @@ module Inferno
 
             Inferno.logger.info 'Running MetamorphoSys (this may take a while)...'
             output = system("./jre/#{platform}/bin/java " \
-                                '-Djava.awt.headless=true ' \
-                                '-cp .:lib/jpf-boot.jar ' \
-                                '-Djpf.boot.config=./etc/subset.boot.properties ' \
-                                '-Dlog4j.configuration=./etc/log4j.properties ' \
-                                '-Dinput.uri=. ' \
-                                "-Doutput.uri=#{output_dir} " \
-                                "-Dmmsys.config.uri=#{config_file} " \
-                                '-Xms300M -Xmx8G ' \
-                                'org.java.plugin.boot.Boot')
+                            '-Djava.awt.headless=true ' \
+                            '-cp .:lib/jpf-boot.jar ' \
+                            '-Djpf.boot.config=./etc/subset.boot.properties ' \
+                            '-Dlog4j.configuration=./etc/log4j.properties ' \
+                            '-Dinput.uri=. ' \
+                            "-Doutput.uri=#{output_dir} " \
+                            "-Dmmsys.config.uri=#{config_file} " \
+                            '-Xms300M -Xmx8G ' \
+                            'org.java.plugin.boot.Boot')
             unless output
               Inferno.logger.info 'MetamorphoSys run failed'
               # The cwd at this point is 2 directories above where umls_subset
