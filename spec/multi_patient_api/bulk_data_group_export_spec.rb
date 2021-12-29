@@ -11,7 +11,7 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExport do
   let(:polling_url) { 'https://redirect.com' }
   let(:input) do
     { bulk_server_url: bulk_server_url,
-      bulk_access_token: access_token,
+      bearer_token: access_token,
       group_id: group_id,
       polling_url: polling_url }
   end
@@ -90,6 +90,7 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExport do
         .to_return(status: 401, body: '', headers: {})
 
       result = run(runnable, input)
+
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Bad response status: expected 202, but received 401')
     end
@@ -100,6 +101,7 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExport do
         .to_return(status: 202, body: '', headers: {})
 
       result = run(runnable, input)
+
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Export response headers did not include "Content-Location"')
     end

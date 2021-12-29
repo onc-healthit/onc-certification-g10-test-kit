@@ -1,0 +1,67 @@
+---
+:name: us_core_medication
+:class_name: USCorev311MedicationSequence
+:version: v3.1.1
+:reformatted_version: v311
+:resource: Medication
+:profile_url: http://hl7.org/fhir/us/core/StructureDefinition/us-core-medication
+:profile_name: US Core Medication Profile
+:title: Medication
+:interactions:
+- :code: create
+  :expectation: MAY
+- :code: search-type
+  :expectation: MAY
+- :code: read
+  :expectation: SHALL
+- :code: vread
+  :expectation: SHOULD
+- :code: update
+  :expectation: MAY
+- :code: patch
+  :expectation: MAY
+- :code: delete
+  :expectation: MAY
+- :code: history-instance
+  :expectation: SHOULD
+- :code: history-type
+  :expectation: MAY
+:operations: []
+:searches: []
+:search_definitions: {}
+:include_params: []
+:revincludes: []
+:required_concepts: []
+:must_supports:
+  :extensions: []
+  :slices: []
+  :elements:
+  - :path: code
+:mandatory_elements:
+- Medication.code
+- Medication.ingredient.item[x]
+:bindings:
+- :type: code
+  :strength: preferred
+  :system: http://hl7.org/fhir/ValueSet/languages
+  :path: language
+- :type: CodeableConcept
+  :strength: extensible
+  :system: http://hl7.org/fhir/us/core/ValueSet/us-core-medication-codes
+  :path: code
+- :type: code
+  :strength: required
+  :system: http://hl7.org/fhir/ValueSet/medication-status
+  :path: status
+- :type: CodeableConcept
+  :strength: example
+  :system: http://hl7.org/fhir/ValueSet/medication-form-codes
+  :path: form
+:references:
+- :path: Medication.manufacturer
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Organization
+:tests:
+:id:
+:file_name:
+:delayed_references: []

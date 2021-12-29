@@ -1,0 +1,233 @@
+---
+:name: us_core_location
+:class_name: USCorev311LocationSequence
+:version: v3.1.1
+:reformatted_version: v311
+:resource: Location
+:profile_url: http://hl7.org/fhir/us/core/StructureDefinition/us-core-location
+:profile_name: US Core Location Profile
+:title: Location
+:interactions:
+- :code: create
+  :expectation: MAY
+- :code: search-type
+  :expectation: SHALL
+- :code: read
+  :expectation: SHALL
+- :code: vread
+  :expectation: SHOULD
+- :code: update
+  :expectation: MAY
+- :code: patch
+  :expectation: MAY
+- :code: delete
+  :expectation: MAY
+- :code: history-instance
+  :expectation: SHOULD
+- :code: history-type
+  :expectation: MAY
+:operations: []
+:searches:
+- :names:
+  - name
+  :expectation: SHALL
+  :names_not_must_support_or_mandatory: []
+  :must_support_or_mandatory: true
+- :names:
+  - address
+  :expectation: SHALL
+  :names_not_must_support_or_mandatory: []
+  :must_support_or_mandatory: true
+- :names:
+  - address-city
+  :expectation: SHOULD
+  :names_not_must_support_or_mandatory: []
+  :must_support_or_mandatory: true
+- :names:
+  - address-state
+  :expectation: SHOULD
+  :names_not_must_support_or_mandatory: []
+  :must_support_or_mandatory: true
+- :names:
+  - address-postalcode
+  :expectation: SHOULD
+  :names_not_must_support_or_mandatory: []
+  :must_support_or_mandatory: true
+:search_definitions:
+  :name:
+    :path: name
+    :full_path: Location.name
+    :comparators: {}
+    :values: []
+    :type: string
+    :contains_multiple: false
+    :multiple_or: MAY
+  :address:
+    :path: address
+    :full_path: Location.address
+    :comparators: {}
+    :values: []
+    :type: Address
+    :contains_multiple: false
+    :multiple_or: MAY
+  :address-city:
+    :path: address.city
+    :full_path: Location.address.city
+    :comparators: {}
+    :values: []
+    :type: string
+    :contains_multiple: false
+    :multiple_or: MAY
+  :address-state:
+    :path: address.state
+    :full_path: Location.address.state
+    :comparators: {}
+    :values:
+    - AK
+    - AL
+    - AR
+    - AS
+    - AZ
+    - CA
+    - CO
+    - CT
+    - DC
+    - DE
+    - FL
+    - FM
+    - GA
+    - GU
+    - HI
+    - IA
+    - ID
+    - IL
+    - IN
+    - KS
+    - KY
+    - LA
+    - MA
+    - MD
+    - ME
+    - MH
+    - MI
+    - MN
+    - MO
+    - MP
+    - MS
+    - MT
+    - NC
+    - ND
+    - NE
+    - NH
+    - NJ
+    - NM
+    - NV
+    - NY
+    - OH
+    - OK
+    - OR
+    - PA
+    - PR
+    - PW
+    - RI
+    - SC
+    - SD
+    - TN
+    - TX
+    - UT
+    - VA
+    - VI
+    - VT
+    - WA
+    - WI
+    - WV
+    - WY
+    :type: string
+    :contains_multiple: false
+    :multiple_or: MAY
+  :address-postalcode:
+    :path: address.postalCode
+    :full_path: Location.address.postalCode
+    :comparators: {}
+    :values: []
+    :type: string
+    :contains_multiple: false
+    :multiple_or: MAY
+:include_params: []
+:revincludes: []
+:required_concepts: []
+:must_supports:
+  :extensions: []
+  :slices: []
+  :elements:
+  - :path: status
+  - :path: name
+  - :path: telecom
+  - :path: address
+  - :path: address.line
+  - :path: address.city
+  - :path: address.state
+  - :path: address.postalCode
+  - :path: managingOrganization
+:mandatory_elements:
+- Location.name
+- Location.position.longitude
+- Location.position.latitude
+:bindings:
+- :type: code
+  :strength: preferred
+  :system: http://hl7.org/fhir/ValueSet/languages
+  :path: language
+- :type: code
+  :strength: required
+  :system: http://hl7.org/fhir/ValueSet/location-status
+  :path: status
+- :type: Coding
+  :strength: preferred
+  :system: http://terminology.hl7.org/ValueSet/v2-0116
+  :path: operationalStatus
+- :type: code
+  :strength: required
+  :system: http://hl7.org/fhir/ValueSet/location-mode
+  :path: mode
+- :type: CodeableConcept
+  :strength: extensible
+  :system: http://terminology.hl7.org/ValueSet/v3-ServiceDeliveryLocationRoleType
+  :path: type
+- :type: code
+  :strength: required
+  :system: http://hl7.org/fhir/ValueSet/address-use
+  :path: address.use
+- :type: code
+  :strength: required
+  :system: http://hl7.org/fhir/ValueSet/address-type
+  :path: address.type
+- :type: string
+  :strength: extensible
+  :system: http://hl7.org/fhir/us/core/ValueSet/us-core-usps-state
+  :path: address.state
+- :type: CodeableConcept
+  :strength: example
+  :system: http://hl7.org/fhir/ValueSet/location-physical-type
+  :path: physicalType
+- :type: code
+  :strength: required
+  :system: http://hl7.org/fhir/ValueSet/days-of-week
+  :path: hoursOfOperation.daysOfWeek
+:references:
+- :path: Location.managingOrganization
+  :profiles:
+  - http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization
+- :path: Location.partOf
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Location
+- :path: Location.endpoint
+  :profiles:
+  - http://hl7.org/fhir/StructureDefinition/Endpoint
+:tests:
+:id:
+:file_name:
+:delayed_references:
+- :path: managingOrganization
+  :resources:
+  - Organization

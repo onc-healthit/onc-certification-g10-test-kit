@@ -7,7 +7,7 @@ module MultiPatientAPI
 
     id :bulk_data_group_export
     
-    input :bulk_access_token 
+    input :bearer_token 
     output :requires_access_token, :bulk_status_output
 
     fhir_client :bulk_server do
@@ -82,7 +82,7 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#response---success'
 
-      input :bulk_server_url, :bulk_access_token, :group_id
+      input :bulk_server_url, :bearer_token, :group_id
       output :polling_url
 
       run {
@@ -112,7 +112,7 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#bulk-data-status-request'
 
-      input :polling_url, :bulk_access_token 
+      input :polling_url, :bearer_token 
       output :status_response_body
 
       run {
@@ -199,7 +199,7 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#bulk-data-delete-request'
 
-      input :bulk_server_url, :bulk_access_token, :group_id
+      input :bulk_server_url, :bearer_token, :group_id
 
       run {
         export_kick_off

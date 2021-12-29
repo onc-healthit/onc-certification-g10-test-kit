@@ -182,7 +182,7 @@ module MultiPatientAPI
       # link 'http://hl7.org/fhir/uv/bulkdata/authorization/index.html#issuing-access-tokens'
 
       input :authentication_response
-      output :bulk_access_token
+      output :bearer_token
 
       run do
 
@@ -194,7 +194,7 @@ module MultiPatientAPI
         access_token = response_body['access_token']
         assert access_token.present?, 'Token response did not contain access_token as required'
 
-        output bulk_access_token: access_token
+        output bearer_token: access_token
 
         required_keys = ['token_type', 'expires_in', 'scope']
 

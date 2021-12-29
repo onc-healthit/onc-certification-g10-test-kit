@@ -1,18 +1,29 @@
-require 'pry'
+require 'pry' #TODO: REMOVE
 require 'json/jwt'
 module BulkDataUtils
 
 	include Inferno::DSL::Assertions
+	include USCore::MustSupportTest
 
-	VERSION = 'R4'
-	NON_US_CORE_KLASS = ['Location'].freeze
-	MAX_NUM_RECENT_LINES = 100
+	MAX_NUM_COLLECTED_LINES = 100
 	MIN_RESOURCE_COUNT = 2
 
-	@@patient_ids_seen = []
-
 	def patient_ids_seen
-		@@patient_ids_seen
+		scratch[:patient_ids_seen] = [] if scratch[:patient_ids_seen].nil?
+		return scratch[:patient_ids_seen]
+	end 
+
+	def metadata_arr 
+		return Array.wrap(metadata) if scratch[:metadata_arr].nil?
+		scratch[:metadata_arr] 
+	end 
+
+	def metadata
+		scratch[:metadata]
+	end 
+	
+	def resource_type
+		scratch[:resource_type]
 	end 
 
 	def self.included(klass)
@@ -93,7 +104,7 @@ module BulkDataUtils
  
 	def export_kick_off(use_token = true)
 		headers = { accept: 'application/fhir+json', prefer: 'respond-async' } 
-		headers.merge!( { authorization: "Bearer #{bulk_access_token}" } ) if use_token 
+		headers.merge!( { authorization: "Bearer #{bearer_token}" } ) if use_token 
 
 		id = defined?(group_id) ? group_id : 'example'
 		get("Group/#{id}/$export", client: :bulk_server, name: :export, headers: headers)
@@ -105,7 +116,7 @@ module BulkDataUtils
 		start = Time.now
 
 		begin
-			get(client: :polling_location, headers: { authorization: "Bearer #{bulk_access_token}"})
+			get(client: :polling_location, headers: { authorization: "Bearer #{bearer_token}"})
 
 			retry_after = (response[:headers].find { |header| header.name == 'retry-after' })
 			retry_after_val = retry_after.nil? || retry_after.value.nil? ? 0 : retry_after.value.to_i
@@ -127,7 +138,7 @@ module BulkDataUtils
 
 	def get_file(endpoint, use_token = true)
 		headers = { accept: 'application/fhir+ndjson' }
-		headers.merge!({ authorization: "Bearer #{bulk_access_token}" }) if use_token
+		headers.merge!({ authorization: "Bearer #{bearer_token}" }) if use_token
 
 	 	get(endpoint, headers: headers)
 	end 
@@ -149,186 +160,57 @@ module BulkDataUtils
 		}	
 
 		stream(process_body, endpoint, headers: headers)
+
 		process_chunk_line.call(hanging_chunk)
-
-		# TODO --> Would lijke for this block to get called once during the 
-		#					 block above so that we can check what the response is 
-		#					 and opt out if its bad or if the headers aren't what we
-		#					 need.
 		process_response.call(response) 
-
 	end
 
-	def predefined_device_type?(resource)  
-		return false if resource.nil?
-
+	# TODO: Is this enough? Should it be more similar to program?
+	# TODO: Write-Up what exactly your issue is 
+	def determine_profile(resource)
+		return nil if resource_type == 'Device' && !predefined_device_type?(resource)
 	end 
 
-	# TODO: Deal with device and lab edge cases
-	# Returns the canonical url denoting the profile
-	def determine_profile(profile_definitions, resource)
+	def predefined_device_type?(resource)
+		return true unless bulk_device_types_in_group.present?
 
-		return profile_definitions[0][:profile] unless profile_definitions[0][:profile].nil?
+		expected = Set.new(bulk_device_types_in_group.split(',').map(&:strip))
 
-		assert false, "Profile for #{resource.class.name.demodulize} could not be determined." 
+		actual = resource&.type&.coding&.filter_map { |coding| coding.code if coding.system.nil? || coding.system == 'http://snomed.info/sct' }
 
-		#return nil if resource.resourceType == 'Device' && !predefined_device_type?(resource)
-		#return nil if NON_US_CORE_KLASS.include(resource.resourceType)
-
-	end 
-
-	def resolve_element_from_path(element, path)
-		el_as_array = Array.wrap(element)
-		if path.empty?
-			return nil if element.nil?
-
-			return el_as_array.find { |el| yield(el) } if block_given?
-
-			return el_as_array.first
-		end
-
-		path_ary = path.split('.')
-		cur_path_part = path_ary.shift.to_sym
-		return nil if el_as_array.none? { |el| el.send(cur_path_part).present? || el.send(cur_path_part) == false }
-
-		el_as_array.each do |el|
-			el_found = if block_given?
-									 resolve_element_from_path(el.send(cur_path_part), path_ary.join('.')) { |value_found| yield(value_found) }
-								 else
-									 resolve_element_from_path(el.send(cur_path_part), path_ary.join('.'))
-								 end
-			return el_found if el_found.present? || el_found == false
-		end
-
-		nil
+		(expected & actual).any?
 	end
 
-	def find_slice_by_values(element, values)
-		unique_first_part = values.map { |value_def| value_def[:path].first }.uniq
-		Array.wrap(element).find do |el|
-			unique_first_part.all? do |part|
-				values_matching = values.select { |value_def| value_def[:path].first == part }
-				values_matching.each { |value_def| value_def[:path] = value_def[:path].drop(1) }
-				resolve_element_from_path(el, part) do |el_found|
-					all_matches = values_matching.select { |value_def| value_def[:path].empty? }.all? { |value_def| value_def[:value] == el_found }
-					remaining_values = values_matching.reject { |value_def| value_def[:path].empty? }
-					remaining_matches = remaining_values.present? ? find_slice_by_values(el_found, remaining_values) : true
-					all_matches && remaining_matches
-				end
-			end
-		end
-	end
-
-	def find_slice(resource, path, discriminator)
-		resolve_element_from_path(resource, path) do |list|
-			case discriminator[:type]
-			when 'patternCodeableConcept'
-				code_path = [discriminator[:path], 'coding'].join('.')
-				resolve_element_from_path(list, code_path) do |coding|
-					coding.code == discriminator[:code] && coding.system == discriminator[:system]
-				end 
-			when 'patternIdentifier'
-				resolve_element_from_path(list, discriminator[:path]) do |identifier|
-					identifier.system == discriminator[:system]
-				end 
-			when 'value'
-				values_clone = discriminator[:values].deep_dup
-				values_clone.each { |value| value[:path] = value[:path].split('.') }
-				find_slice_by_values(list, values_clone)
-			when 'type'
-				case discriminator[:code]
-				when 'Date'
-					begin
-						Date.parse(list)
-					rescue ArgumentError
-						false
-					end 
-				when 'String'
-					list.is_a? String
-				else
-					list.is_a? FHIR.const_get(discriminator[:code])
-				end 
-			end 
-		end
-	end 
-
-	def process_must_support(must_support_info, resource)
-		return if must_support_info.nil?
-
-		must_support_info[:elements].reject! do |ms_elem|
-			resolve_element_from_path(resource, ms_elem[:path]) do |value|
-				value.to_hash.reject! { |key, _| key == 'extension' } if value.respond_to?(:to_hash)
-				(value.present? || !value) && (ms_elem[:fixed_value].nil? || value == ms_elem[:fixed_value]) 
-			end 
-		end 
-
-		must_support_info[:extensions].reject! do |ms_extension|
-			resource.extension.any? { |extension| extension.url == ms_extension[:url] }
-		end
-
-		must_support_info[:slices].reject! do |ms_slice|
-			find_slice(resource, ms_slice[:path], ms_slice[:discriminator])
-		end
-	end 
-
-	def process_profile_definition(profile_definitions, profile_url, resource)
-		return if profile_definitions.empty? 
-
-		profile_definition = profile_definitions.find { |prof_def| prof_def[:profile] == profile_url } || profile_definitions.first
-		process_must_support(profile_definition[:must_support_info], resource)
-	end 
-
-	def assert_must_supports_found(profile_definitions)
-		profile_definitions.each do |must_support|
-			error_string = "Could not verify presence#{' for profile ' + must_support[:profile] if must_support[:profile].present?} of the following must support %s: %s"
-			missing_must_supports = must_support[:must_support_info]
-
-			missing_elements_list = missing_must_supports[:elements].map { |el| "#{el[:path]}#{': ' + el[:fixed_value] if el[:fixed_value].present?}" }
-			skip_if missing_elements_list.present?, format(error_string, 'elements', missing_elements_list.join(', '))
-
-			missing_slices_list = missing_must_supports[:slices].map { |slice| slice[:name] }
-			skip_if missing_slices_list.present?, format(error_string, 'slices', missing_slices_list.join(', '))
-
-			missing_extensions_list = missing_must_supports[:extensions].map { |extension| extension[:id] }
-			skip_if missing_extensions_list.present?, format(error_string, 'extensions', missing_extensions_list.join(', '))
-		end
-	end
-
-	def check_file_request(file, 
-												 klass, 
-												 validate_all, 
-												 lines_to_validate, 
-												 profile_definitions)
-
+	def check_file_request(file, validate_all, lines_to_validate)
 		headers = { accept: 'application/fhir+ndjson' }
-		headers.merge!( { authorization: "Bearer #{bulk_access_token}" } ) if requires_access_token
-												 
-		recent_resources = []
-		incomplete_resource = String.new
+		headers.merge!( { authorization: "Bearer #{bearer_token}" } ) if requires_access_token
+					
 		line_count = 0
+		line_collection = []
+		resources = {}
 
 		process_line = proc { |resource|
-			break unless validate_all || line_count < lines_to_validate || (klass == 'Patient' && @@patient_ids_seen.length < MIN_RESOURCE_COUNT)
-			next if resource.nil? || resource.strip.empty?
+			next unless validate_all || line_count < lines_to_validate || (resource_type == 'Patient' && patient_ids_seen.length < MIN_RESOURCE_COUNT)
+			next if resource.nil? || resource.strip.empty? || resource.strip.delete("{}").empty?
 
-			recent_resources << resource unless line_count >= MAX_NUM_RECENT_LINES
+			line_collection << resource if line_count < MAX_NUM_COLLECTED_LINES
 			line_count += 1
 			
 			begin 
-				resource = FHIR.from_contents(resource)
+				curr_resource = FHIR.from_contents(resource)
+				curr_resource.meta.profile.each { |profile_url| resources[profile_url].nil? ? resources[profile_url] = Array.wrap(curr_resource) : resources[profile_url] << curr_resource }
 			rescue 
-				assert false, "Server response at line \"#{line_count}\" is not a processable FHIR resource."
+				skip "Server response at line \"#{line_count}\" is not a processable FHIR resource."
 			end 
 
-			resource_type = resource.class.name.demodulize
-			assert resource_type == klass, "Resource type \"#{resource_type}\" at line \"#{line_count}\" does not match type defined in output \"#{klass}\")"
+			processed_resource_type = curr_resource.class.name.demodulize
+			skip "Resource type \"#{processed_resource_type}\" at line \"#{line_count}\" does not match type defined in output \"#{resource_type}\")" if processed_resource_type != resource_type
 			
-			@@patient_ids_seen << resource.id if klass == 'Patient'
+			patient_ids_seen << curr_resource.id if resource_type == 'Patient'
 
-			profile_url = determine_profile(profile_definitions, resource)
-			assert resource_is_valid?(resource: resource, profile_url: profile_url), invalid_resource_message(profile_url)
+			# determine_profile(resources.last)
 
-			process_profile_definition(profile_definitions, profile_url, resource)			
+			assert metadata_arr.any? { |profile| resource_is_valid?(resource: curr_resource, profile_url: profile.profile_url) }, 'Resource does not conform to the #{resource_type} profile'
 		}
 
 		process_headers = proc { |response| 
@@ -339,45 +221,41 @@ module BulkDataUtils
 
 		stream_ndjson(file['url'], headers, process_line, process_headers)
 
-		assert_must_supports_found(profile_definitions)
 
-		if validate_all && file.key?('count')
-			warning do
-				assert file['count'].to_s == line_count.to_s, "Count in status output (#{file['count']}) did not match actual number of resources returned (#{line_count})"
-			end
+		metadata_arr.each do |profile|
+			scratch[:metadata] = profile
+			@missing_elements = nil
+			@missing_slices = nil
+			begin 
+				perform_must_support_test(resources[profile.profile_url]) 
+			rescue Inferno::Exceptions::PassException => e
+				next
+			rescue Inferno::Exceptions::SkipException => e
+				raise if metadata_arr.length == 1
+				message = "No #{resource_type} resources found that conform to profile: #{profile.profile_url}."
+				raise Inferno::Exceptions::SkipException.new(message)
+			end 
 		end 
 
-		line_count
+		return line_count
 	end 
 
-	# Determine whether the file items in bulk_status_output contain resources 
-	#	that conform to the given profiles. 
-	# 
-	# @param klass [FHIR ResourceType] 
-	# @param profile_definitions []
-	# @param lines_to_validate [Integer] must be an integer greater than or equal to 1
-	# @param validate_all [Boolean] 
-	def output_conforms_to_profile?(klass, 
-																	profile_definitions = [], 
-																	lines_to_validate = 100,
-																	validate_all = false)
-		
-		skip 'Could not verify this functionality when bulk_status_output is not provided' unless bulk_status_output.present?
-		skip 'Could not verify this functionality when requires_access_token is not set' unless requires_access_token.present?
-		skip 'Could not verify this functionality when remote_access_token is required and not provided' if requires_access_token && !bulk_access_token.present? 
+	# TODO: Documentation
+	def output_conforms_to_profile?
+		skip 'Could not verify this functionality when Bulk Status Output is not provided' unless bulk_status_output.present?
+		skip 'Could not verify this functionality when requiresAccessToken is not provided' unless requires_access_token.present?
+		skip 'Could not verify this functionality when Bearer Token is required and not provided' if requires_access_token && !bearer_token.present? 
 														
-		assert_valid_json(bulk_status_output)
+		file_list = JSON.parse(bulk_status_output).select { |file| file['type'] == resource_type }
 
-		file_list = JSON.parse(bulk_status_output).select { |file| file['type'] == klass }
-
-		skip "No #{klass} resource file item returned by server." if file_list.empty?
+		skip "No #{resource_type} resource file item returned by server." if file_list.empty?
 
 		success_count = 0
-				
+
 		file_list.each do |file|
-			success_count += check_file_request(file, klass, validate_all, lines_to_validate, profile_definitions)
+			success_count += check_file_request(file, lines_to_validate.blank?, lines_to_validate)
 		end 
 
-		return !success_count.zero? 
+		pass "Successfully validated #{success_count} #{resource_type} resource(s)."
 	end 
 end 
