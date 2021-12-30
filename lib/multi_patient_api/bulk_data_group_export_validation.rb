@@ -1,4 +1,3 @@
-require 'pry' #TODO: Remove
 module MultiPatientAPI
   class BulkDataGroupExportValidation < Inferno::TestGroup
     title 'Group Compartment Export Validation Tests'
@@ -17,7 +16,7 @@ module MultiPatientAPI
       url :output_endpoint
     end 
 
-    # TODO: Create after implementing TLS Tester Class.
+    # TODO: Create after implementing TLSTester Class.
     test do
       title 'Bulk Data Server is secured by transport layer security'
       description <<~DESCRIPTION
@@ -163,7 +162,6 @@ module MultiPatientAPI
       }
     end
 
-    # TODO: Make a note about device.
     test do
       title 'Device resources returned conform to the US Core Implantable Device Profile'
       description <<~DESCRIPTION
@@ -301,8 +299,6 @@ module MultiPatientAPI
       }
     end
 
-
-    # TODO: Check USCOREEncounter checker 
     test do
       title 'Encounter resources returned conform to the US Core Encounter Profile'
       description <<~DESCRIPTION

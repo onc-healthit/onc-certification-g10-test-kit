@@ -50,7 +50,7 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
     Inferno::TestRunner.new(test_session: test_session, test_run: test_run).run(runnable)
   end
 
-  # TODO: After TLS tester class is implemented, create this test
+  # TODO: After TLS Tester class is implemented, create this test
   describe 'endpoint TLS tests' do
     
   end

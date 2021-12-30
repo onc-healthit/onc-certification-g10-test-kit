@@ -1,5 +1,4 @@
-require 'pry' #TODO: REMOVE
-require 'json/jwt' #TODO: REMOVE
+require 'json/jwt' 
 
 module AuthorizationUtils
 	def bulk_data_jwks
@@ -119,12 +118,12 @@ module ValidationUtils
 		process_response.call(response) 
 	end
 
-	# TODO: Is this enough? Should it be more similar to program?
-	# TODO: Write-Up what exactly your issue is 
+	# Unsure what to do with this
 	def determine_profile(resource)
 		return nil if resource_type == 'Device' && !predefined_device_type?(resource)
 	end 
 
+	# Unsure what to do with this
 	def predefined_device_type?(resource)
 		return true unless bulk_device_types_in_group.present?
 
@@ -141,35 +140,28 @@ module ValidationUtils
 					
 		line_count = 0
 		line_collection = []
-		resources = {}
+		resources = Hash.new { |h, k| h[k] = [] }
 
-		process_line = proc { |resource|
+		process_line = proc { |line|
 			next unless validate_all || line_count < lines_to_validate || (resource_type == 'Patient' && patient_ids_seen.length < MIN_RESOURCE_COUNT)
-			next if resource.nil? || resource.strip.empty? || resource.strip.delete("{}").empty?
+			next if line.nil? || line.strip.empty? || line.strip.delete("{}").empty?
 
-			line_collection << resource if line_count < MAX_NUM_COLLECTED_LINES
+			line_collection << line if line_count < MAX_NUM_COLLECTED_LINES
 			line_count += 1
 			
 			begin 
-				curr_resource = FHIR.from_contents(resource)
-				curr_resource.meta.profile.each { |profile_url| resources[profile_url].nil? ? resources[profile_url] = Array.wrap(curr_resource) : resources[profile_url] << curr_resource }
+				resource = FHIR.from_contents(line)
+				resource.meta.profile.each { |profile_url| resources[profile_url] << resource }
 			rescue 
 				skip "Server response at line \"#{line_count}\" is not a processable FHIR resource."
 			end 
 
-			processed_resource_type = curr_resource.class.name.demodulize
-			skip "Resource type \"#{processed_resource_type}\" at line \"#{line_count}\" does not match type defined in output \"#{resource_type}\")" if processed_resource_type != resource_type
+			type = resource.class.name.demodulize
+			skip_if type != resource_type, "Resource type \"#{type}\" at line \"#{line_count}\" does not match type defined in output \"#{resource_type}\")" 
 			
-			patient_ids_seen << curr_resource.id if resource_type == 'Patient'
-
-			# determine_profile(resources.last)
-		
-			#binding.pry if resource_type == 'DocumentReference'
-
-			binding.pry unless metadata_arr.any? { |profile| resource_is_valid?(resource: curr_resource, profile_url: profile.profile_url) } 
+			patient_ids_seen << resource.id if resource_type == 'Patient'
 			 
-			assert metadata_arr.any? { |profile| resource_is_valid?(resource: curr_resource, profile_url: profile.profile_url) }, "Resource does not conform to the #{resource_type} profile"
-			
+			assert metadata_arr.any? { |profile| resource_is_valid?(resource: resource, profile_url: profile.profile_url) }, "Resource does not conform to the #{resource_type} profile"
 		}
 
 		process_headers = proc { |response| 
@@ -184,7 +176,6 @@ module ValidationUtils
 
 		metadata_arr.each do |profile|
 			scratch[:metadata] = profile
-
 			@missing_elements = nil
 			@missing_slices = nil
 			begin 
