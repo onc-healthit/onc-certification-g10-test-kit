@@ -21,7 +21,7 @@ module Inferno
           Loader.create_validators(
             type: type,
             minimum_binding_strength: minimum_binding_strength,
-            delete_existing: delete_existing,
+            delete_existing: delete_existing
           )
         end
 

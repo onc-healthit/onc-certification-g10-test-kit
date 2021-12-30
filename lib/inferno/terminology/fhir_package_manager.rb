@@ -9,7 +9,7 @@ module Inferno
   module Terminology
     module FHIRPackageManager
       class << self
-        REGISTRY_SERVER_URL = 'https://packages.fhir.org'
+        REGISTRY_SERVER_URL = 'https://packages.fhir.org'.freeze
         # Get the FHIR Package from the registry.
         #
         # e.g. get_package('hl7.fhir.us.core#3.1.1')
@@ -55,7 +55,7 @@ module Inferno
               raise FileExistsException, "#{encoded_name} already exists for #{resource['url']}"
             end
 
-            File.open(encoded_file_name, 'w') { |file| file.write(resource.to_json) }
+            File.write(encoded_file_name, resource.to_json)
           end
           File.delete(tar_file_name)
         end

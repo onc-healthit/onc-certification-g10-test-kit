@@ -22,7 +22,7 @@ namespace :db do
 end
 
 def Inferno.logger
-  @logger ||= Logger.new(STDOUT)
+  @logger ||= Logger.new($stdout)
 end
 
 Inferno.logger.formatter = proc do |_severity, _datetime, _progname, message|

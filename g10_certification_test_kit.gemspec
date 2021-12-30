@@ -3,7 +3,6 @@ Gem::Specification.new do |spec|
   spec.version       = '0.0.1'
   spec.authors       = ['Stephen MacVicar']
   spec.email         = ['inferno@groups.mitre.org']
-  spec.date          = Time.now.utc.strftime('%Y-%m-%d')
   spec.summary       = 'G10 Certification Tests for Inferno'
   spec.description   = 'G10 Certification Tests for Inferno'
   spec.homepage      = 'https://github.com/inferno_framework/g10-certification-test-kit'
@@ -23,4 +22,7 @@ Gem::Specification.new do |spec|
   ].flatten
 
   spec.require_paths = ['lib']
+  spec.metadata = {
+    'rubygems_mfa_required' => 'true'
+  }
 end

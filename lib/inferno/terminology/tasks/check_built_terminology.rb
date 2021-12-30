@@ -11,7 +11,7 @@ module Inferno
 
         def run
           if mismatched_value_sets.blank?
-            Inferno.logger.info "Terminology built successfully."
+            Inferno.logger.info 'Terminology built successfully.'
             return
           end
 
@@ -26,7 +26,7 @@ module Inferno
               `mime-types-data` version `3.2021.0901`.
             MIME
           else
-            Inferno.logger.info "Terminology build results different than expected."
+            Inferno.logger.info 'Terminology build results different than expected.'
           end
 
           mismatched_value_sets.each do |value_set|
@@ -44,9 +44,9 @@ module Inferno
 
         def mismatched_value_sets
           @mismatched_value_sets ||=
-            expected_manifest.select do |expected_value_set|
+            expected_manifest.reject do |expected_value_set|
               url = expected_value_set[:url]
-              new_value_set(url) != expected_value_set
+              new_value_set(url) == expected_value_set
             end
         end
 

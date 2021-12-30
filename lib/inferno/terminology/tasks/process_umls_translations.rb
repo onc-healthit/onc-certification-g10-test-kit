@@ -8,7 +8,7 @@ module Inferno
       class ProcessUMLSTranslations
         include DownloadUMLSNotice
 
-        def run
+        def run # rubocop:disable Metrics/CyclomaticComplexity
           Inferno.logger.info 'Looking for `./tmp/terminology/MRCONSO.RRF`...'
           input_file = Find.find(File.join(TEMP_DIR, 'terminology')).find { |f| /MRCONSO.RRF$/ =~f }
           if input_file
@@ -27,7 +27,7 @@ module Inferno
                 line += 1
                 concept = row[0]
                 if concept != current_umls_concept && !current_umls_concept.nil?
-                  output.write("#{translation.join('|')}\n") unless translation[1..-2].reject(&:nil?).length < 2
+                  output.write("#{translation.join('|')}\n") unless translation[1..-2].compact.length < 2
                   translation = Array.new(10)
                   current_umls_concept = concept
                   translation[0] = current_umls_concept
@@ -43,9 +43,7 @@ module Inferno
                   translation[1] = code if row[4] == 'PF' && ['FN', 'OAF'].include?(row[12])
                 when 'LNC'
                   translation[2] = code
-                when 'ICD10CM'
-                  translation[3] = code if row[12] == 'PT'
-                when 'ICD10PCS'
+                when 'ICD10CM', 'ICD10PCS'
                   translation[3] = code if row[12] == 'PT'
                 when 'ICD9CM'
                   translation[4] = code if row[12] == 'PT'

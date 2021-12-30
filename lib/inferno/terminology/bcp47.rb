@@ -8,8 +8,8 @@ module Inferno
       # https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry
       #
       class << self
-        SEPARATOR = '%%'
-        REGISTRY_URL = 'https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry'
+        SEPARATOR = '%%'.freeze
+        REGISTRY_URL = 'https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry'.freeze
 
         def code_set(filter = nil)
           filter_codes(filter)
@@ -46,7 +46,7 @@ module Inferno
         # @return [Hash] the language attributes as key value pairs
         def parse_language(language)
           # Need to use scan because match only returns the first match group
-          Hash[language.scan(regex)]
+          language.scan(regex).to_h
         end
 
         def regex
@@ -54,9 +54,10 @@ module Inferno
         end
 
         def string_to_boolean(boolean_string)
-          if boolean_string == 'true'
+          case boolean_string
+          when 'true'
             true
-          elsif boolean_string == 'false'
+          when 'false'
             false
           end
         end
@@ -65,25 +66,27 @@ module Inferno
           return true unless filter
 
           meets_criteria = true
-          if filter.op == 'exists'
-            filter_value = string_to_boolean(filter.value)
-            raise FilterOperationException, filter.to_s if filter_value.nil?
-            if filter.property == 'ext-lang'
-              meets_criteria = (language['Type'] == 'extlang') == filter_value
-            elsif filter.property == 'script'
-              meets_criteria = (language['Type'] == 'script') == filter_value
-            elsif filter.property == 'variant'
-              meets_criteria = (language['Type'] == 'variant') == filter_value
-            elsif filter.property == 'extension'
-              meets_criteria = language['Subtag'].match?(/-\w-/) == filter_value
-            elsif filter.property == 'private-use'
-              meets_criteria = (language['Scope'] == 'private-use') == filter_value
-            else
-              raise FilterOperationException, filter.to_s
-            end
+
+          raise FilterOperationException, filter.op unless filter.op == 'exists'
+
+          filter_value = string_to_boolean(filter.value)
+          raise FilterOperationException, filter.to_s if filter_value.nil?
+
+          case filter.property
+          when 'ext-lang'
+            meets_criteria = (language['Type'] == 'extlang') == filter_value
+          when 'script'
+            meets_criteria = (language['Type'] == 'script') == filter_value
+          when 'variant'
+            meets_criteria = (language['Type'] == 'variant') == filter_value
+          when 'extension'
+            meets_criteria = language['Subtag'].match?(/-\w-/) == filter_value
+          when 'private-use'
+            meets_criteria = (language['Scope'] == 'private-use') == filter_value
           else
-            raise FilterOperationException, filter.op
+            raise FilterOperationException, filter.to_s
           end
+
           meets_criteria
         end
       end

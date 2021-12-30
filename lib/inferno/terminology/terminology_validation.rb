@@ -21,7 +21,7 @@ module Inferno
       # @param String code the code to validate against the valueset
       # @param String system an optional codesystem to validate against. Defaults to nil
       # @return Boolean whether the code or code/system is in the valueset
-      def validate_code(value_set_url: nil, code:, system: nil)
+      def validate_code(code:, value_set_url: nil, system: nil)
         # Before we validate the code, see if there's any preprocessing steps we have to do
         # To get the code "ready" for validation
         code = PREPROCESS_FUNCS[system].call(code) if PREPROCESS_FUNCS[system]

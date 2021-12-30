@@ -16,7 +16,7 @@ module Inferno
           @version = version
         end
 
-        def run
+        def run # rubocop:disable Metrics/CyclomaticComplexity
           Inferno.logger.info 'Looking for `./tmp/terminology/MRCONSO.RRF`...'
           input_file = Find.find(versioned_temp_dir).find { |f| /MRCONSO.RRF$/ =~f }
           if input_file
@@ -41,18 +41,13 @@ module Inferno
                 when 'LNC'
                   code_system = 'LOINC'
                   include_code = true
-                when 'ICD10CM'
-                  code_system = 'ICD10'
-                  include_code = (row[12] == 'PT')
-                when 'ICD10PCS'
+                when 'ICD10CM', 'ICD10PCS'
                   code_system = 'ICD10'
                   include_code = (row[12] == 'PT')
                 when 'ICD9CM'
                   code_system = 'ICD9'
                   include_code = (row[12] == 'PT')
-                when 'CPT'
-                  include_code = (row[12] == 'PT')
-                when 'HCPCS'
+                when 'CPT', 'HCPCS'
                   include_code = (row[12] == 'PT')
                 when 'MTHICD9'
                   code_system = 'ICD9'
