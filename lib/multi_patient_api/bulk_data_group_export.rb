@@ -1,3 +1,5 @@
+require_relative './bulk_data_utils'
+
 module MultiPatientAPI
   class BulkDataGroupExport < Inferno::TestGroup
     title 'Group Compartment Export Tests'
@@ -7,7 +9,10 @@ module MultiPatientAPI
 
     id :bulk_data_group_export
     
-    input :bearer_token 
+    input :bearer_token
+    input :bulk_server_url, title: 'Bulk Data FHIR URL', description: 'The URL of the Bulk FHIR server.'
+    input :group_id, title: 'Group ID', description: 'The Group ID associated with the group of patients to be exported.'
+
     output :requires_access_token, :bulk_status_output
 
     fhir_client :bulk_server do
@@ -18,7 +23,7 @@ module MultiPatientAPI
       url :bulk_server_url
     end
 
-    http_client :polling_location do
+    http_client :polling_location do # TODO: Do I need both clients?
       url :polling_url
     end 
 
@@ -31,10 +36,8 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#security-considerations'
 
-      input :bulk_server_url
-
       run {
-        assert_valid_http_uri(bulk_server_url)
+
       }
     end
 
@@ -45,10 +48,30 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/OperationDefinition-group-export.html'
 
-      input :bulk_server_url
-
       run {
-        assert declared_export_support?, 'Server CapabilityStatement did not declare support for export operation in Group resource.'
+        fhir_get_capability_statement(client: :bulk_server) 
+        assert_response_status([200, 201])
+
+        assert_valid_json(request.response_body)
+        capability_statement = FHIR.from_contents(request.response_body)
+
+        definition = 'http://hl7.org/fhir/uv/bulkdata/OperationDefinition/group-export'
+
+        capability_statement.rest&.each do |rest|
+          groups = rest.resource&.select { |resource| resource.type == 'Group' } 
+
+          pass if groups&.any? do |group|
+            group.operation&.any? do |operation|
+              if operation.definition.is_a? String 
+                operation.definition == definition
+              else
+                operation.definition&.flatten&.include?(definition)
+              end
+            end 
+          end 
+        end 
+
+        assert false, 'Server CapabilityStatement did not declare support for export operation in Group resource.'
       }
     end
 
@@ -64,9 +87,11 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#bulk-data-kick-off-request'
 
-      input :bulk_server_url
+      include ExportUtils
 
-      run {
+      run {        
+        skip_if bearer_token.blank?, 'Could not verify this functionality when bearer token is not set'
+
         export_kick_off(false)
         assert_response_status(401)
       }
@@ -82,7 +107,8 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#response---success'
 
-      input :bulk_server_url, :bearer_token, :group_id
+      include ExportUtils
+      
       output :polling_url
 
       run {
@@ -90,10 +116,9 @@ module MultiPatientAPI
         assert_response_status(202)
 
         content_location = response[:headers].find { |header| header.name == 'content-location' }
-        polling_url = content_location.try(:value)
+        polling_url = content_location&.value
+        assert polling_url.present?, 'Export response headers did not include "Content-Location"'
 
-        assert polling_url, 'Export response headers did not include "Content-Location"'
-        assert_valid_http_uri(polling_url)
         output polling_url: polling_url
       }
     end
@@ -112,14 +137,36 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#bulk-data-status-request'
 
-      input :polling_url, :bearer_token 
+      include ExportUtils
+
+      input :polling_url
+
       output :status_response_body
 
       run {
-        skip 'Server response did not have Content-Location in header' unless polling_url
+        skip 'Server response did not have Content-Location in header' unless polling_url.present?
         
         timeout = 180
-        check_export_status(timeout)
+
+        wait_time = 1
+        start = Time.now
+
+        loop do
+          get(client: :polling_location, headers: { authorization: "Bearer #{bearer_token}"})
+
+          retry_after = response[:headers].find { |header| header.name == 'retry-after' }
+          retry_after_val = retry_after&.value.to_i || 0
+
+          wait_time = retry_after_val.positive? ? retry_after_val : wait_time *= 2
+
+          seconds_used = Time.now - start + wait_time
+
+          break if response[:status] == 202 and seconds_used < timeout 
+
+          sleep wait_time
+
+        end 
+
 
         skip "Server took more than #{timeout} seconds to process the request." if response[:status] == 202
         assert response[:status] == 200, "Bad response code: expected 200, 202, but found #{response[:status]}."
@@ -198,8 +245,6 @@ module MultiPatientAPI
         Bulk Data Server MUST support client's delete request and return HTTP Status Code of "202 Accepted"
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#bulk-data-delete-request'
-
-      input :bulk_server_url, :bearer_token, :group_id
 
       run {
         export_kick_off

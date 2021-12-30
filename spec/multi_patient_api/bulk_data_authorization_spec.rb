@@ -4,7 +4,6 @@ require_relative '../../lib/multi_patient_api/bulk_data_utils.rb'
 include AuthorizationUtils
 
 RSpec.describe MultiPatientAPI::BulkDataAuthorization do
-
   let(:group) { Inferno::Repositories::TestGroups.new.find('bulk_data_authorization') }
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
   let(:test_session) { repo_create(:test_session, test_group_id: 'bulk_data_authorization') }
@@ -62,17 +61,6 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
       body.merge( { 'grant_type' => 'not_a_grant_type' } )
     end
 
-    it 'passes when token endpoint requires valid grant_type' do
-      stub_request(:post, bulk_token_endpoint)
-        .with(body: bad_grant_body)
-        .to_return(status: 400)
-
-      allow_any_instance_of(runnable).to receive(:create_client_assertion).and_return(client_assertion)
-      result = run(runnable, input)
-
-      expect(result.result).to eq('pass')
-    end
-
     it 'fails when token endpoint allows invalid grant_type' do
       stub_request(:post, bulk_token_endpoint)
         .with(body: bad_grant_body)
@@ -84,35 +72,41 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Bad response status: expected 400, but received 200')
     end
+
+    it 'passes when token endpoint requires valid grant_type' do
+      stub_request(:post, bulk_token_endpoint)
+        .with(body: bad_grant_body)
+        .to_return(status: 400)
+
+      allow_any_instance_of(runnable).to receive(:create_client_assertion).and_return(client_assertion)
+      result = run(runnable, input)
+
+      expect(result.result).to eq('pass')
+    end
   end
 
   describe '[Invalid client_assertion_type] test' do
     let(:runnable) { group.tests[2] }
-    let(:client_assertion) { create_client_assertion(client_assertion_input) }
-    let(:body) do
-      {
-        'scope' => bulk_scope,
-        'grant_type' => 'client_credentials',
-        'client_assertion_type' => 'not_an_assertion_type',
-        'client_assertion' => client_assertion.to_s
-      }.compact
+    let(:bad_client_assertion_body) do
+      body.merge( { 'client_assertion_type' => 'not_an_assertion_type' } )
     end
 
     it 'fails when token endpoint allows invalid client_assertion_type' do
       stub_request(:post, bulk_token_endpoint)
-        .with(body: body)
-        .to_return(status: 200, body: "", headers: {})
+        .with(body: bad_client_assertion_body)
+        .to_return(status: 200)
 
       allow_any_instance_of(runnable).to receive(:create_client_assertion).and_return(client_assertion)
       result = run(runnable, input)
       
       expect(result.result).to eq('fail')
+      expect(result.result_message).to eq('Bad response status: expected 400, but received 200')
     end
 
     it 'passes when token endpoint requires valid client_assertion_type' do
       stub_request(:post, bulk_token_endpoint)
-        .with(body: body)
-        .to_return(status: 400, body: "", headers: {})
+        .with(body: bad_client_assertion_body)
+        .to_return(status: 400)
 
       allow_any_instance_of(runnable).to receive(:create_client_assertion).and_return(client_assertion)
       result = run(runnable, input)
@@ -182,7 +176,7 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
     end
   end
 
-  describe 'Authorization request response body contains required information test' do
+  describe '[Authorization request response body contains required information encoded in JSON] test' do
     let(:runnable) { group.tests[5] }
     let(:response_body) do
       {

@@ -2,7 +2,6 @@ require 'pry' #TODO: REMOVE
 require 'json/jwt' #TODO: REMOVE
 
 module AuthorizationUtils
-
 	def bulk_data_jwks
 		@bulk_data_jwks ||= JSON.parse(File.read(File.join(File.dirname(__FILE__), 'bulk_data_jwks.json')))
 	end 
@@ -55,6 +54,15 @@ module AuthorizationUtils
 	end
 end 
 
+module ExportUtils
+	def export_kick_off(use_token = true)
+		headers = { accept: 'application/fhir+json', prefer: 'respond-async' } 
+		headers.merge!( { authorization: "Bearer #{bearer_token}" } ) if use_token 
+
+		get("Group/#{group_id}/$export", client: :bulk_server, name: :export, headers: headers)
+	end
+end 
+
 module BulkDataUtils
 
 	include Inferno::DSL::Assertions
@@ -76,104 +84,25 @@ module BulkDataUtils
 		scratch[:metadata]
 	end 
 
-	def bulk_selected_private_key(encryption)
-		bulk_data_jwks = JSON.parse(File.read(File.join(File.dirname(__FILE__), 'bulk_data_jwks.json')))
-		bulk_private_key_set = bulk_data_jwks['keys'].select { |key| key['key_ops']&.include?('sign') }
-		bulk_private_key_set.find { |key| key['alg'] == encryption }
-	end
 
-	def create_client_assertion(encryption_method:, iss:, sub:, aud:, exp:, jti:)
-		bulk_private_key = bulk_selected_private_key(encryption_method)
-		jwt_token = JSON::JWT.new(iss: iss, sub: sub, aud: aud, exp: exp, jti: jti).compact
-		jwk = JSON::JWK.new(bulk_private_key)
+	# def check_export_status(timeout)
 
-		jwt_token.kid = jwk['kid']
-		jwk_private_key = jwk.to_key
-		client_assertion = jwt_token.sign(jwk_private_key, bulk_private_key['alg'])
-	end 
+	# 	wait_time = 1
+	# 	start = Time.now
 
-	def build_authorization_request(encryption_method:,
-								scope:,
-								iss:,
-								sub:,
-								aud:,
-								content_type: 'application/x-www-form-urlencoded',
-								grant_type: 'client_credentials',
-								client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
-								exp: 5.minutes.from_now,
-								jti: SecureRandom.hex(32))
-		header =
-			{
-				content_type: content_type,
-				accept: 'application/json'
-			}.compact
+	# 	begin
+	# 		get(client: :polling_location, headers: { authorization: "Bearer #{bearer_token}"})
 
-		client_assertion = create_client_assertion(encryption_method: encryption_method, iss: iss, sub: sub, aud: aud, exp: exp, jti: jti)
+	# 		retry_after = (response[:headers].find { |header| header.name == 'retry-after' })
+	# 		retry_after_val = retry_after.nil? || retry_after.value.nil? ? 0 : retry_after.value.to_i
+	# 		wait_time = retry_after_val.positive? ? retry_after_val : wait_time *= 2
 
-		query_values =
-			{
-				'scope' => scope,
-				'grant_type' => grant_type,
-				'client_assertion_type' => client_assertion_type,
-				'client_assertion' => client_assertion.to_s
-			}.compact
+	# 		timeout -= Time.now - start + wait_time
+	# 		sleep wait_time
 
-		uri = Addressable::URI.new
-		uri.query_values = query_values
+	# 	end while response[:status] == 202 and timeout > 0
 
-		{ body: uri.query, headers: header }
-	end
-
-	def declared_export_support? 
-		fhir_get_capability_statement(client: :bulk_server)
-
-		assert_response_status([200, 201])
-		assert_valid_json(request.response_body)
-
-		definition = 'http://hl7.org/fhir/uv/bulkdata/OperationDefinition/group-export'
-		capability_statement = JSON.parse(request.response_body)
-		
-		capability_statement['rest'].each do |rest|
-			groups = rest['resource'].select { |resource| resource['type'] == 'Group' } 
-			return true if groups.any? do |group|
-				group.has_key?('operation') && group['operation'].any? do |operation|
-					if operation['definition'].is_a? String 
-						operation['definition'] == definition
-					else
-						operation['definition'].flatten.include?(definition)
-					end
-				end 
-			end 
-		end 
-		return false
-	end 
- 
-	def export_kick_off(use_token = true)
-		headers = { accept: 'application/fhir+json', prefer: 'respond-async' } 
-		headers.merge!( { authorization: "Bearer #{bearer_token}" } ) if use_token 
-
-		id = defined?(group_id) ? group_id : 'example'
-		get("Group/#{id}/$export", client: :bulk_server, name: :export, headers: headers)
-	end
-
-	def check_export_status(timeout)
-
-		wait_time = 1
-		start = Time.now
-
-		begin
-			get(client: :polling_location, headers: { authorization: "Bearer #{bearer_token}"})
-
-			retry_after = (response[:headers].find { |header| header.name == 'retry-after' })
-			retry_after_val = retry_after.nil? || retry_after.value.nil? ? 0 : retry_after.value.to_i
-			wait_time = retry_after_val.positive? ? retry_after_val : wait_time *= 2
-
-			timeout -= Time.now - start + wait_time
-			sleep wait_time
-
-		end while response[:status] == 202 and timeout > 0
-
-	end 
+	# end 
 
 	# TODO: Delete this once core functionality is merged in
 	def stream(block, url = '', name: nil, **options)
