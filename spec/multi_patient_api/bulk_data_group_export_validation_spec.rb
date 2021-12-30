@@ -1,16 +1,27 @@
 require_relative '../../lib/multi_patient_api/bulk_data_group_export_validation.rb'
 require_relative '../../lib/multi_patient_api/bulk_data_utils.rb'
-require 'ndjson'
+require 'NDJSON'
+
+include ValidationUtils
 
 RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do 
-  include BulkDataUtils
 
   let(:group) { Inferno::Repositories::TestGroups.new.find('bulk_data_group_export_validation') }
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
   let(:test_session) { repo_create(:test_session, test_group_id: 'bulk_data_group_export_validation') }
-  let(:bulk_status_output) { "[{\"url\":\"https://www.example.com\"}]" }
+  let(:endpoint) { 'https://www.example.com' }
+  let(:status_output) { "[{\"url\":\"#{endpoint}\"}]" }
   let(:bearer_token) { 'token' }
+  let(:headers) { { 'Content-Type' => 'application/fhir+ndjson' } }
+  let(:contents) { String.new }
+  let(:contents_missing_element) { String.new }
   let(:scratch) { {} }
+  let(:input) do 
+    { requires_access_token: true,
+      status_output: status_output,
+      bearer_token: bearer_token
+    }
+  end 
 
   def run(runnable, inputs = {})
     test_run_params = { test_session_id: test_session.id }.merge(runnable.reference_hash)
@@ -29,15 +40,8 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
 
   describe '[NDJSON download requires access token] test' do
     let(:runnable) { group.tests[1] }
-    let(:input) do 
-      { requires_access_token: true,
-        bulk_status_output: bulk_status_output,
-        bearer_token: bearer_token
-      }
-    end 
-    let(:endpoint) { 'https://www.example.com' }
 
-    it 'skips when bulk_status_ouput is not provided' do
+    it 'skips when status_ouput is not provided' do
       result = run(runnable)
 
       expect(result.result).to eq('skip')
@@ -45,42 +49,40 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
     end
 
     it 'skips when requires_access_token is not provided' do
-      result = run(runnable, { bulk_status_output: bulk_status_output })
+      result = run(runnable, { status_output: status_output })
 
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('Could not verify this functionality when requiresAccessToken is not provided')
     end 
 
-    # TODO: A value of false gets stored as "0" -- "0" does not evaluate to false in ruby. 
-    #       How to proceed?
-    # 
     # it 'skips when requiresAccessToken is false' do
-    #   result = run(runnable, { requires_access_token: false, bulk_status_output: bulk_status_output })
+    #   result = run(runnable, { requires_access_token: false, status_output: status_output })
 
     #   expect(result.result).to eq('skip')
     #   expect(result.result_message).to eq('Could not verify this functionality when requireAccessToken is false')
     # end 
 
     it 'skips when bearer_token is not provided' do
-      result = run(runnable, { requires_access_token: true, bulk_status_output: bulk_status_output })
+      result = run(runnable, { requires_access_token: true, status_output: status_output })
 
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('Could not verify this functionality when Bearer Token is not provided')
     end 
 
-    context 'when bulk_status_output and bearer_token are given and requiresAccessToken is true' do
+    context 'when status_output and bearer_token are given and requiresAccessToken is true' do
       it 'fails if endpoint can be accessed without token' do
         stub_request(:get, endpoint)
-          .to_return(status: 200, body: "", headers: {})
+          .to_return(status: 200)
 
         result = run(runnable, input)
 
         expect(result.result).to eq('fail')
+        expect(result.result_message).to eq('Bad response status: expected 400, 401, but received 200')
       end 
 
       it 'passes if endpoint can not be accessed without token' do
         stub_request(:get, endpoint)
-          .to_return(status: 400, body: "", headers: {})
+          .to_return(status: 400)
 
         result = run(runnable, input)
 
@@ -91,26 +93,22 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
 
   describe '[Patient resources returned conform to US Core Patient Profile] test' do
     let(:runnable) { group.tests[2] }
-    let(:input) do 
-      { 
-        bulk_status_output: "[{\"url\":\"https://www.example.com\",\"type\":\"Patient\",\"count\":2}]", 
-        requires_access_token: true,
-        bearer_token: 'token'
-      }
+    let(:resources) { NDJSON::Parser.new('spec/multi_patient_api/resources/Patient.ndjson') }
+    let(:patient_input) do 
+      input.merge({ status_output: "[{\"url\":\"#{endpoint}\",\"type\":\"Patient\",\"count\":2}]" })
     end 
-    let(:resources) { NDJSON::Parser.new("spec/multi_patient_api/resources/Patient.ndjson") }
-    let(:contents) { String.new }
-    let(:contents_missing_element) { String.new }
+    let(:not_patient_input) do
+      input.merge({ status_output: "[{\"url\":\"#{endpoint}\",\"type\":\"Location\",\"count\":2}]" })
+    end
     before do
-      resources.each { |r| contents << r.to_json + "\n" }
-      contents.lines.each do |patient|
-        fhir_patient = FHIR.from_contents(patient)
-        fhir_patient.identifier = nil 
-        contents_missing_element << (fhir_patient.to_json.gsub /[ \n]/, '') + "\n"
+      resources.each do |resource|
+        contents << resource.to_json + "\n"
+        resource["identifier"] = nil
+        contents_missing_element << (resource.to_json.gsub /[ \n]/, '') + "\n"
       end 
     end
     
-    it 'skips when bulk_status_output is not provided' do
+    it 'skips when status_output is not provided' do
       result = run(runnable)
 
       expect(result.result).to eq('skip')
@@ -118,46 +116,45 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
     end 
 
     it 'skips when requires_access_token is not provided' do
-      result = run(runnable, { bulk_status_output: bulk_status_output })
+      result = run(runnable, { status_output: status_output })
 
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('Could not verify this functionality when requiresAccessToken is not provided')
     end 
 
     it 'skips when bearer_token is not provided' do
-      result = run(runnable, { requires_access_token: true, bulk_status_output: bulk_status_output })
+      result = run(runnable, { requires_access_token: true, status_output: status_output })
 
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('Could not verify this functionality when Bearer Token is required and not provided')
     end 
 
     it 'skips when no Patient resource file item returned by server' do
-      input[:bulk_status_output] = "[{\"url\":\"https://www.example.com\",\"type\":\"Location\",\"count\":2}]"
-      result = run(runnable, input)
+      result = run(runnable, not_patient_input)
 
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('No Patient resource file item returned by server.')
     end 
     
     it 'skips when returned resources are missing a must support element' do
-      stub_request(:get, "https://www.example.com/")
+      stub_request(:get, endpoint)
         .with(headers: { 'Accept'=>'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_element, headers: { 'Content-Type'=>'application/fhir+ndjson'})
+        .to_return(status: 200, body: contents_missing_element, headers: headers)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
-      result = run(runnable, input)
+      result = run(runnable, patient_input)
 
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('Could not find identifier, identifier.system, identifier.value, Patient.extension:race, Patient.extension:ethnicity, Patient.extension:birthsex in the 2 provided Patient resource(s)')
     end
 
     it 'passes when returned resources are fully conformant to the patient profile' do
-      stub_request(:get, "https://www.example.com/")
+      stub_request(:get, endpoint)
         .with(headers: { 'Accept'=>'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents, headers: { 'Content-Type'=>'application/fhir+ndjson'})
+        .to_return(status: 200, body: contents, headers: headers)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
-      result = run(runnable, input)
+      result = run(runnable, patient_input)
 
       expect(result.result).to eq('pass')
     end
@@ -234,44 +231,37 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
 
   describe '[AllergyIntolerance resources returned conform to the US Core AllergyIntolerance Profile] test' do
     let(:runnable) { group.tests[5] }
-    let(:input) do 
-      { 
-        bulk_status_output: "[{\"url\":\"https://www.example.com\",\"type\":\"AllergyIntolerance\",\"count\":10}]", 
-        requires_access_token: true,
-        bearer_token: 'token'
-      }
-    end 
     let(:resources) { NDJSON::Parser.new("spec/multi_patient_api/resources/AllergyIntolerance.ndjson") }
-    let(:contents) { String.new }
-    let(:contents_missing_element) { String.new }
+    let(:allergy_input) do 
+      input.merge({ status_output: "[{\"url\":\"https://www.example.com\",\"type\":\"AllergyIntolerance\",\"count\":10}]" })
+    end 
     before do
-      resources.each { |r| contents << r.to_json + "\n" }
-      contents.lines.each do |patient|
-        fhir_patient = FHIR.from_contents(patient)
-        fhir_patient.clinicalStatus = nil 
-        contents_missing_element << (fhir_patient.to_json.gsub /[ \n]/, '') + "\n"
+      resources.each do |resource|
+        contents << resource.to_json + "\n"
+        resource["clinicalStatus"] = nil
+        contents_missing_element << (resource.to_json.gsub /[ \n]/, '') + "\n"
       end 
     end
 
     it 'skips when returned resources are missing a must support element' do
-      stub_request(:get, "https://www.example.com/")
+      stub_request(:get, endpoint)
         .with(headers: { 'Accept'=>'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_element, headers: { 'Content-Type'=>'application/fhir+ndjson'})
+        .to_return(status: 200, body: contents_missing_element, headers: headers)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
-      result = run(runnable, input)
+      result = run(runnable, allergy_input)
 
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('Could not find clinicalStatus in the 10 provided AllergyIntolerance resource(s)')
     end
 
     it 'passes when returned resources are fully conformant to the patient profile' do
-      stub_request(:get, "https://www.example.com/")
+      stub_request(:get, endpoint)
         .with(headers: { 'Accept'=>'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents, headers: { 'Content-Type'=>'application/fhir+ndjson'})
+        .to_return(status: 200, body: contents, headers: headers)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
-      result = run(runnable, input)
+      result = run(runnable, allergy_input)
 
       expect(result.result).to eq('pass')
     end
@@ -279,23 +269,16 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
 
   describe '[CarePlan resources returned conform to the US Core CarePlan Profile] test' do
     let(:runnable) { group.tests[6] }
-    let(:input) do 
-      { 
-        bulk_status_output: "[{\"url\":\"https://www.example.com\",\"type\":\"CarePlan\",\"count\":26}]", 
-        requires_access_token: true,
-        bearer_token: 'token'
-      }
-    end 
     let(:resources) { NDJSON::Parser.new("spec/multi_patient_api/resources/CarePlan.ndjson") }
-    let(:contents) { String.new }
-    let(:contents_missing_element) { String.new }
+    let(:careplan_input) do 
+        input.merge({ status_output: "[{\"url\":\"https://www.example.com\",\"type\":\"CarePlan\",\"count\":26}]" })
+    end 
     let(:contents_missing_slice) { String.new }
     before do
-      resources.each { |r| contents << r.to_json + "\n" }
-      contents.lines.each do |resource|
-        fhir_resource = FHIR.from_contents(resource)
-        fhir_resource.text.status = nil 
-        contents_missing_element << (fhir_resource.to_json.gsub /[ \n]/, '') + "\n"
+      resources.each do |resource|
+        contents << resource.to_json + "\n"
+        resource["text"]["status"] = nil
+        contents_missing_element << (resource.to_json.gsub /[ \n]/, '') + "\n"
       end 
       contents.lines.each do |resource|
         fhir_resource = FHIR.from_contents(resource)
@@ -305,36 +288,36 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
     end
 
     it 'skips when returned resources are missing a must support element' do
-      stub_request(:get, "https://www.example.com/")
+      stub_request(:get, endpoint)
         .with(headers: { 'Accept'=>'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_element, headers: { 'Content-Type'=>'application/fhir+ndjson'})
+        .to_return(status: 200, body: contents_missing_element, headers: headers)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
-      result = run(runnable, input)
+      result = run(runnable, careplan_input)
 
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('Could not find text.status in the 26 provided CarePlan resource(s)')
     end
 
     it 'skips when returned resources are missing a must support slice' do
-      stub_request(:get, "https://www.example.com/")
+      stub_request(:get, endpoint)
         .with(headers: { 'Accept'=>'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_slice, headers: { 'Content-Type'=>'application/fhir+ndjson'})
+        .to_return(status: 200, body: contents_missing_slice, headers: headers)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
-      result = run(runnable, input)
+      result = run(runnable, careplan_input)
 
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('Could not find CarePlan.category:AssessPlan in the 26 provided CarePlan resource(s)')
     end
 
     it 'passes when returned resources are fully conformant to the patient profile' do
-      stub_request(:get, "https://www.example.com/")
+      stub_request(:get, endpoint)
         .with(headers: { 'Accept'=>'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents, headers: { 'Content-Type'=>'application/fhir+ndjson'})
+        .to_return(status: 200, body: contents, headers: headers)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
-      result = run(runnable, input)
+      result = run(runnable, careplan_input)
 
       expect(result.result).to eq('pass')
     end
@@ -342,15 +325,10 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
 
   describe '[DiagnosticReport resources returned conform to the US Core DiagnosticReport Profile] test' do
     let(:runnable) { group.tests[10] }
-    let(:input) do 
-      { 
-        bulk_status_output: "[{\"url\":\"https://www.example.com\",\"type\":\"DiagnosticReport\",\"count\":43}]", 
-        requires_access_token: true,
-        bearer_token: 'token'
-      }
-    end 
     let(:resources) { NDJSON::Parser.new("spec/multi_patient_api/resources/DiagnosticReport.ndjson") }
-    let(:contents) { String.new }
+    let(:diagnostic_input) do 
+      input.merge({ status_output: "[{\"url\":\"https://www.example.com\",\"type\":\"DiagnosticReport\",\"count\":43}]" })
+    end 
     let(:contents_missing_lab) { String.new }
     let(:contents_missing_note) { String.new }
     before do
@@ -368,36 +346,36 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
     end
 
     it 'skips without DiagnosticReport Lab resources' do
-      stub_request(:get, "https://www.example.com/")
+      stub_request(:get, endpoint)
         .with(headers: { 'Accept'=>'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_lab, headers: { 'Content-Type'=>'application/fhir+ndjson'})
+        .to_return(status: 200, body: contents_missing_lab, headers: headers)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
-      result = run(runnable, input)
+      result = run(runnable, diagnostic_input)
 
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('No DiagnosticReport resources found that conform to profile: http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-lab.')
     end
 
     it 'skips without DiagnosticReport Note resources' do
-      stub_request(:get, "https://www.example.com/")
+      stub_request(:get, endpoint)
         .with(headers: { 'Accept'=>'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_note, headers: { 'Content-Type'=>'application/fhir+ndjson'})
+        .to_return(status: 200, body: contents_missing_note, headers: headers)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
-      result = run(runnable, input)
+      result = run(runnable, diagnostic_input)
 
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('No DiagnosticReport resources found that conform to profile: http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note.')
     end
 
     it 'passes with both DiagnosticReport Lab and Note metadata' do
-      stub_request(:get, "https://www.example.com/")
+      stub_request(:get, endpoint)
         .with(headers: { 'Accept'=>'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents, headers: { 'Content-Type'=>'application/fhir+ndjson'})
+        .to_return(status: 200, body: contents, headers: headers)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
-      result = run(runnable, input)
+      result = run(runnable, diagnostic_input)
 
       expect(result.result).to eq('pass')
     end
@@ -405,15 +383,10 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
 
   describe '[Observation resources returned conform to the US Core Observation Profile] test' do
     let(:runnable) { group.tests[15] }
-    let(:input) do 
-      { 
-        bulk_status_output: "[{\"url\":\"https://www.example.com\",\"type\":\"Observation\",\"count\":175}]", 
-        requires_access_token: true,
-        bearer_token: 'token'
-      }
-    end 
     let(:resources) { NDJSON::Parser.new("spec/multi_patient_api/resources/Observation.ndjson") }
-    let(:contents) { String.new }
+    let(:observation_input) do 
+      input.merge({ status_output: "[{\"url\":\"https://www.example.com\",\"type\":\"Observation\",\"count\":174}]" })
+    end 
     let(:contents_missing_pediatricbmi) { String.new }
     let(:contents_missing_smokingstatus) { String.new }
     let(:contents_missing_bodyheight) { String.new }
@@ -430,77 +403,75 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
     end
 
     it 'skips without PediatricBmiForAgeGroup resources' do
-      stub_request(:get, "https://www.example.com/")
+      stub_request(:get, endpoint)
         .with(headers: { 'Accept'=>'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_pediatricbmi, headers: { 'Content-Type'=>'application/fhir+ndjson'})
+        .to_return(status: 200, body: contents_missing_pediatricbmi, headers: headers)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
-      result = run(runnable, input)
+      result = run(runnable, observation_input)
 
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('No Observation resources found that conform to profile: http://hl7.org/fhir/us/core/StructureDefinition/pediatric-bmi-for-age.')
     end
 
     it 'skips without SmokingStatusGroup resources' do
-      stub_request(:get, "https://www.example.com/")
+      stub_request(:get, endpoint)
         .with(headers: { 'Accept'=>'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_smokingstatus, headers: { 'Content-Type'=>'application/fhir+ndjson'})
+        .to_return(status: 200, body: contents_missing_smokingstatus, headers: headers)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
-      result = run(runnable, input)
+      result = run(runnable, observation_input)
 
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('No Observation resources found that conform to profile: http://hl7.org/fhir/us/core/StructureDefinition/us-core-smokingstatus.')
     end
 
     it 'skips without Bodyheight resources' do
-      stub_request(:get, "https://www.example.com/")
+      stub_request(:get, endpoint)
         .with(headers: { 'Accept'=>'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_bodyheight, headers: { 'Content-Type'=>'application/fhir+ndjson'})
+        .to_return(status: 200, body: contents_missing_bodyheight, headers: headers)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
-      result = run(runnable, input)
+      result = run(runnable, observation_input)
 
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('No Observation resources found that conform to profile: http://hl7.org/fhir/StructureDefinition/bodyheight.')
     end
 
     it 'skips without Resprate resources' do
-      stub_request(:get, "https://www.example.com/")
+      stub_request(:get, endpoint)
         .with(headers: { 'Accept'=>'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_resprate, headers: { 'Content-Type'=>'application/fhir+ndjson'})
+        .to_return(status: 200, body: contents_missing_resprate, headers: headers)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
-      result = run(runnable, input)
+      result = run(runnable, observation_input)
 
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('No Observation resources found that conform to profile: http://hl7.org/fhir/StructureDefinition/resprate.')
     end
 
     it 'skips if lines_to_validate does not include enough resources to verify profile conformance' do
-      stub_request(:get, "https://www.example.com/")
+      stub_request(:get, endpoint)
         .with(headers: { 'Accept'=>'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents, headers: { 'Content-Type'=>'application/fhir+ndjson'})
+        .to_return(status: 200, body: contents, headers: headers)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
 
-      result = run(runnable, input.merge(lines_to_validate: 75))
+      result = run(runnable, observation_input.merge(lines_to_validate: 75))
 
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('No Observation resources found that conform to profile: http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab.')
     end
 
     it 'passes with all possible resources included in the Observation Profile' do
-      stub_request(:get, "https://www.example.com/")
+      stub_request(:get, endpoint)
         .with(headers: { 'Accept'=>'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents, headers: { 'Content-Type'=>'application/fhir+ndjson'})
+        .to_return(status: 200, body: contents, headers: headers)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
-      result = run(runnable, input)
+      result = run(runnable, observation_input)
 
       expect(result.result).to eq('pass')
     end
   end
-
-  # TODO: Special case
 end 

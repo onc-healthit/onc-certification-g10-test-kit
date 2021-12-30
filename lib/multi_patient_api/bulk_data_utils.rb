@@ -63,9 +63,8 @@ module ExportUtils
 	end
 end 
 
-module BulkDataUtils
+module ValidationUtils
 
-	include Inferno::DSL::Assertions
 	include USCore::MustSupportTest
 
 	MAX_NUM_COLLECTED_LINES = 100
@@ -83,26 +82,6 @@ module BulkDataUtils
 	def metadata
 		scratch[:metadata]
 	end 
-
-
-	# def check_export_status(timeout)
-
-	# 	wait_time = 1
-	# 	start = Time.now
-
-	# 	begin
-	# 		get(client: :polling_location, headers: { authorization: "Bearer #{bearer_token}"})
-
-	# 		retry_after = (response[:headers].find { |header| header.name == 'retry-after' })
-	# 		retry_after_val = retry_after.nil? || retry_after.value.nil? ? 0 : retry_after.value.to_i
-	# 		wait_time = retry_after_val.positive? ? retry_after_val : wait_time *= 2
-
-	# 		timeout -= Time.now - start + wait_time
-	# 		sleep wait_time
-
-	# 	end while response[:status] == 202 and timeout > 0
-
-	# end 
 
 	# TODO: Delete this once core functionality is merged in
 	def stream(block, url = '', name: nil, **options)
@@ -222,13 +201,12 @@ module BulkDataUtils
 		return line_count
 	end 
 
-	# TODO: Documentation
 	def output_conforms_to_profile?(resource_type, metadata)
-		skip 'Could not verify this functionality when Bulk Status Output is not provided' unless bulk_status_output.present?
+		skip 'Could not verify this functionality when Bulk Status Output is not provided' unless status_output.present?
 		skip 'Could not verify this functionality when requiresAccessToken is not provided' unless requires_access_token.present?
 		skip 'Could not verify this functionality when Bearer Token is required and not provided' if requires_access_token && !bearer_token.present? 
-														
-		file_list = JSON.parse(bulk_status_output).select { |file| file['type'] == resource_type }
+																
+		file_list = JSON.parse(status_output).select { |file| file['type'] == resource_type }
 
 		skip "No #{resource_type} resource file item returned by server." if file_list.empty?
 

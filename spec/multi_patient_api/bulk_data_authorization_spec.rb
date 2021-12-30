@@ -58,7 +58,7 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
   describe '[Invalid grant_type] test' do
     let(:runnable) { group.tests[1] }
     let(:bad_grant_body) do
-      body.merge( { 'grant_type' => 'not_a_grant_type' } )
+      body.merge({ 'grant_type' => 'not_a_grant_type' })
     end
 
     it 'fails when token endpoint allows invalid grant_type' do
@@ -88,7 +88,7 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
   describe '[Invalid client_assertion_type] test' do
     let(:runnable) { group.tests[2] }
     let(:bad_client_assertion_body) do
-      body.merge( { 'client_assertion_type' => 'not_an_assertion_type' } )
+      body.merge({ 'client_assertion_type' => 'not_an_assertion_type' })
     end
 
     it 'fails when token endpoint allows invalid client_assertion_type' do
@@ -118,11 +118,10 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
   describe '[Invalid JWT token] test' do
     let(:runnable) { group.tests[3] }
     let(:bad_iss_client_assertion) do
-      create_client_assertion(client_assertion_input.merge( { iss: 'not_a_valid_iss' } ) 
-    ) 
+      create_client_assertion(client_assertion_input.merge({ iss: 'not_a_valid_iss' })) 
     end
     let(:bad_client_assertion_body) do
-      body.merge( { 'client_assertion' => bad_iss_client_assertion.to_s } )
+      body.merge({ 'client_assertion' => bad_iss_client_assertion.to_s })
     end
 
     it 'fails when token endpoint allows invalid JWT token' do

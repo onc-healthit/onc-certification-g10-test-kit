@@ -4,14 +4,14 @@ class BulkDataUtilsTestClass
   include Inferno::DSL::HTTPClient
   extend Inferno::DSL::Configurable
 
-  include BulkDataUtils
+  include ValidationUtils
   
   def test_session_id 
     nil 
   end 
 end 
 
-RSpec.describe BulkDataUtils do
+RSpec.describe BulkDataUtilsTestClass do
   let(:group) { BulkDataUtilsTestClass.new }
   let(:url) { 'https://example1.com' }
   let(:basic_body) { 'single line response_body' }
@@ -25,30 +25,6 @@ RSpec.describe BulkDataUtils do
   let(:client) do
     block = proc { url url }
     Inferno::DSL::HTTPClientBuilder.new.build(group, block)
-  end
-
-  describe 'find_slice_by_values' do
-    
-  end
-
-  describe 'find_slice' do
-    
-  end
-
-  describe 'process_must_support' do
-    
-  end
-
-  describe 'pull_invalid_bindings' do
-    
-  end
-
-  describe 'validate_bindings' do 
-
-  end 
-
-  describe 'process_profile_definitions' do
-    
   end
 
   describe 'stream_ndjson' do
@@ -92,42 +68,5 @@ RSpec.describe BulkDataUtils do
 
       expect(streamed_chunks).to eq(["multi\n touched", "line\n touched", "response\n touched", "body\n touched"])
     end 
-    
-    # TODO: Unsure how to mimic streamed_chunks data files
-    it 'applies process_chunk_line to multiple, one-line chunks of a stream' do
-      
-    end 
-
-    it 'applies process_chunk_line to multiple, multi-line chunks of a stream' do
-      
-    end 
-  end 
-
-  describe 'check_file_request' do
-    
-
   end
-
-  describe 'output_conforms_to_profile?' do
-
-    #bulk_status_output = "[{\"type\":\"Patient\",\"count\":25,\"url\":\"https://bulk-data.smarthealthit.org/eyJpZCI6IjE1NGExYmZhMGQ2ZjRiOTI5ZDA0ZWU5ZWEwOWEzODhmIiwib2Zmc2V0IjowLCJsaW1pdCI6MjUsInNlY3VyZSI6dHJ1ZX0/fhir/bulkfiles/1.Patient.ndjson\"}]" 
-
-    # it 'raises an exception when bulk_status_output is not defined' do
-    #   expect {
-    #     group.output_conforms_to_profile?('Patient')
-    #   }.to raise_error(Inferno::Exceptions::AssertionException)
-    # end 
-
-    # it 'raises an exception when bulk_status_output is not valid JSON' do
-    #   group.define_singleton_method(:bulk_status_output) { output }
-    #   binding.pry
-    #   expect {
-    #     group.output_conforms_to_profile?('Patient')
-    #   }.to raise_error(Inferno::Exceptions::AssertionException)
-    # end 
-    # bulk_status_output not extant
-    # bulk_status_output extant 
-    
-  end
-
 end 

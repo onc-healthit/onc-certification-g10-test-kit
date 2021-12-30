@@ -164,7 +164,7 @@ module MultiPatientAPI
         skip "Server took more than #{timeout} seconds to process the request." if response[:status] == 202
 
         assert response[:status] == 200, "Bad response code: expected 200, 202, but found #{response[:status]}."
-        assert response[:headers].any? { |header| header.name == 'content-type' && header.value == 'application/json' }, 'Content-Type not application/json'
+        assert response[:headers].any? { |header| header.name == 'content-type' && header.value.include?('application/json') }, 'Content-Type not application/json'
 
         response_body = JSON.parse(response[:body])
 
