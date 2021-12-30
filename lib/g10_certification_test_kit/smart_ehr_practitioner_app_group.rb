@@ -1,20 +1,18 @@
 module G10CertificationTestKit
-  class SmartStandalonePatientAppGroup < Inferno::TestGroup
-    title 'Standalone Patient App'
+  class SmartEHRPractitionerAppGroup < Inferno::TestGroup
+    title 'EHR Practitioner App'
     description %(
-        This scenario demonstrates the ability of a system to perform a Patient
-        Standalone Launch to a [SMART on
-        FHIR](http://www.hl7.org/fhir/smart-app-launch/) confidential client
-        with a patient context, refresh token, and [OpenID Connect
-        (OIDC)](https://openid.net/specs/openid-connect-core-1_0.html) identity
-        token. After launch, a simple Patient resource read is performed on the
-        patient in context. The access token is then refreshed, and the Patient
-        resource is read using the new access token to ensure that the refresh
-        was successful. The authentication information provided by OpenID
-        Connect is decoded and validated, and simple queries are performed to
-        ensure that access is granted to all USCDI data elements.
-      )
-    id :g10_smart_standalone_patient_app
+      Demonstrate the ability to perform an EHR launch to a [SMART on
+      FHIR](http://www.hl7.org/fhir/smart-app-launch/) confidential client with
+      patient context, refresh token, and [OpenID Connect
+      (OIDC)](https://openid.net/specs/openid-connect-core-1_0.html) identity
+      token. After launch, a simple Patient resource read is performed on the
+      patient in context. The access token is then refreshed, and the Patient
+      resource is read using the new access token to ensure that the refresh was
+      successful. Finally, the authentication information provided by OpenID
+      Connect is decoded and validated.
+    )
+    id :g10_smart_ehr_practitioner_app
     run_as_group
 
     group from: :smart_discovery do
@@ -54,22 +52,36 @@ module G10CertificationTestKit
       end
     end
 
-    group from: :smart_standalone_launch do
-      title 'Standalone Launch With Patient Scope'
-      description %(
-        Perform Standalone SMART launch sequence and test OpenID Connect and
-        token refresh functionality.
+    group from: :smart_ehr_launch do
+      title 'EHR Launch With Practitioner Scope'
+
+      config(
+        inputs: {
+          requested_scopes: {
+            default: %(
+              launch openid fhirUser offline_access user/Medication.read
+              user/AllergyIntolerance.read user/CarePlan.read user/CareTeam.read
+              user/Condition.read user/Device.read user/DiagnosticReport.read
+              user/DocumentReference.read user/Encounter.read user/Goal.read
+              user/Immunization.read user/Location.read
+              user/MedicationRequest.read user/Observation.read
+              user/Organization.read user/Patient.read user/Practitioner.read
+              user/Procedure.read user/Provenance.read
+              user/PractitionerRole.read
+            ).gsub(/\s{2,}/, ' ').strip
+          }
+        }
       )
 
       test do
-        title 'Patient-level access with OpenID Connect and Refresh Token scopes used.'
+        title 'User-level access with OpenID Connect and Refresh Token scopes used.'
         description %(
           The scopes being input must follow the guidelines specified in the
           smart-app-launch guide. All scopes requested are expected to be
           granted.
         )
-        input :requested_scopes, name: :standalone_requested_scopes
-        input :received_scopes, name: :standalone_received_scopes
+        input :requested_scopes, name: :ehr_requested_scopes
+        input :received_scopes, name: :ehr_received_scopes
         uses_request :token
 
         def valid_resource_types
@@ -104,7 +116,7 @@ module G10CertificationTestKit
         end
 
         def required_scopes
-          ['openid', 'fhirUser', 'launch/patient', 'offline_access']
+          ['openid', 'fhirUser', 'launch', 'offline_access']
         end
 
         def requested_scope_test(scopes, patient_compartment_resource_types, patient_or_user)
@@ -210,7 +222,7 @@ module G10CertificationTestKit
             scopes -= ['online_access', 'launch', 'launch/patient', 'launch/encounter']
 
             if received_or_requested == 'requested'
-              requested_scope_test(scopes, patient_compartment_resource_types, 'patient')
+              requested_scope_test(scopes, patient_compartment_resource_types, 'user')
             else
               received_scope_test(scopes, patient_compartment_resource_types)
             end
@@ -224,11 +236,11 @@ module G10CertificationTestKit
           A server SHALL reject any unauthorized requests by returning an HTTP
           401 unauthorized response code.
         )
-        input :patient_id, name: :standalone_patient_id
+        input :patient_id, name: :ehr_patient_id
         input :url
         uses_request :token
 
-        fhir_client :standalone_unauthenticated do
+        fhir_client :ehr_unauthenticated do
           url :url
         end
 
@@ -236,7 +248,7 @@ module G10CertificationTestKit
           skip_if request.status != 200, 'Token exchange was unsuccessful'
           skip_if patient_id.blank?, 'Patient context expected to verify unauthorized read.'
 
-          fhir_read(:patient, patient_id, client: :standalone_unauthenticated)
+          fhir_read(:patient, patient_id, client: :ehr_unauthenticated)
 
           assert_response_status(401)
         end
@@ -248,11 +260,11 @@ module G10CertificationTestKit
           The `patient` field is a String value with a patient id, indicating
           that the app was launched in the context of this FHIR Patient.
         )
-        input :patient_id, name: :standalone_patient_id
-        input :access_token, name: :standalone_access_token
+        input :patient_id, name: :ehr_patient_id
+        input :access_token, name: :ehr_access_token
         input :url
 
-        fhir_client :standalone_authenticated do
+        fhir_client :ehr_authenticated do
           url :url
           bearer_token :access_token
         end
@@ -262,114 +274,55 @@ module G10CertificationTestKit
 
           skip_if patient_id.blank?, 'Token response did not contain `patient` field'
 
-          fhir_read(:patient, patient_id, client: :standalone_authenticated)
+          fhir_read(:patient, patient_id, client: :ehr_authenticated)
 
           assert_response_status(200)
           assert_resource_type(:patient)
         end
       end
-    end
 
-    group from: :smart_openid_connect,
-          config: {
-            inputs: {
-              id_token: { name: :standalone_id_token },
-              client_id: { name: :standalone_client_id },
-              requested_scopes: { name: :standalone_requested_scopes },
-              access_token: { name: :standalone_access_token }
-            }
-          }
-
-    group do
-      id :smart_standalone_refresh_without_scopes
-      title 'Token Refresh'
-      description %(
-        # Background
-
-        The #{title} Sequence tests the ability of the system to successfuly
-        exchange a refresh token for an access token. Refresh tokens are typically
-        longer lived than access tokens and allow client applications to obtain a
-        new access token Refresh tokens themselves cannot provide access to
-        resources on the server.
-
-        Token refreshes are accomplished through a `POST` request to the token
-        exchange endpoint as described in the [SMART App Launch
-        Framework](http://www.hl7.org/fhir/smart-app-launch/#step-5-later-app-uses-a-refresh-token-to-obtain-a-new-access-token).
-
-        # Test Methodology
-
-        This test attempts to exchange the refresh token for a new access token
-        and verify that the information returned contains the required fields and
-        uses the proper headers.
-
-        For more information see:
-
-        * [The OAuth 2.0 Authorization
-          Framework](https://tools.ietf.org/html/rfc6749)
-        * [Using a refresh token to obtain a new access
-          token](http://hl7.org/fhir/smart-app-launch/#step-5-later-app-uses-a-refresh-token-to-obtain-a-new-access-token)
-      )
-
-      config(
-        inputs: {
-          refresh_token: { name: :standalone_refresh_token },
-          client_id: { name: :standalone_client_id },
-          client_secret: { name: :standalone_client_secret },
-          received_scopes: { name: :standalone_received_scopes }
-        },
-        outputs: {
-          refresh_token: { name: :standalone_refresh_token },
-          received_scopes: { name: :standalone_received_scopes },
-          access_token: { name: :standalone_access_token },
-          token_retrieval_time: { name: :standalone_token_retrieval_time },
-          expires_in: { name: :standalone_expires_in }
-        }
-      )
-
-      test from: :smart_token_refresh,
-           id: :token_refresh_without_scopes,
-           config: {
-             options: { include_scopes: false }
-           }
-      test from: :smart_token_refresh_body,
-           id: :token_refresh_body_without_scopes
-      test from: :smart_token_refresh,
-           title: 'Server successfully refreshes the access token when optional scope parameter provided',
-           id: :token_refresh_with_scopes,
-           config: {
-             options: { include_scopes: true }
-           }
-      test from: :smart_token_refresh_body,
-           id: :token_refresh_body_with_scopes
-
-      # TODO: remove duplication
       test do
-        title 'OAuth token exchange response body contains patient context and patient resource can be retrieved'
+        title 'Launch context contains smart_style_url which links to valid JSON'
         description %(
-          The `patient` field is a String value with a patient id, indicating
-          that the app was launched in the context of this FHIR Patient.
+          In order to mimic the style of the SMART host more closely, SMART apps
+          can check for the existence of this launch context parameter and
+          download the JSON file referenced by the URL value.
         )
-        input :patient_id, name: :standalone_patient_id
-        input :access_token, name: :standalone_access_token
-        input :url
-        uses_request :token_refresh
-
-        fhir_client :standalone_authenticated do
-          url :url
-          bearer_token :access_token
-        end
+        uses_request :token
 
         run do
-          skip_if access_token.blank?, 'No access token was received during the SMART launch'
+          skip_if request.status != 200, 'No token response received'
+          assert_valid_json response[:body]
 
-          skip_if patient_id.blank?, 'Token response did not contain `patient` field'
+          body = JSON.parse(response[:body])
 
-          skip_if request.status != 200, 'Token was not successfully refreshed'
+          assert body['smart_style_url'].present?,
+                 'Token response did not contain `smart_style_url`'
 
-          fhir_read(:patient, patient_id, client: :standalone_authenticated)
+          get(body['smart_style_url'])
 
           assert_response_status(200)
-          assert_resource_type(:patient)
+          assert_valid_json(response[:body])
+        end
+      end
+
+      test do
+        title 'Launch context contains need_patient_banner'
+        description %(
+          `need_patient_banner` is a boolean value indicating whether the app
+          was launched in a UX context where a patient banner is required (when
+          true) or not required (when false).
+        )
+        uses_request :token
+
+        run do
+          skip_if request.status != 200, 'No token response received'
+          assert_valid_json response[:body]
+
+          body = JSON.parse(response[:body])
+
+          assert body.key?('need_patient_banner'),
+                 'Token response did not contain `need_patient_banner`'
         end
       end
     end
