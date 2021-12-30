@@ -13,7 +13,7 @@ module MultiPatientAPI
     input :bulk_server_url, title: 'Bulk Data FHIR URL', description: 'The URL of the Bulk FHIR server.'
     input :group_id, title: 'Group ID', description: 'The Group ID associated with the group of patients to be exported.'
 
-    output :requires_access_token, :bulk_status_output
+    output :requires_access_token, :status_output
 
     fhir_client :bulk_server do
       url :bulk_server_url
@@ -22,10 +22,6 @@ module MultiPatientAPI
     http_client :bulk_server do
       url :bulk_server_url
     end
-
-    http_client :polling_location do # TODO: Do I need both clients?
-      url :polling_url
-    end 
 
     # TODO: Implement TLS Tester Class 
     test do
@@ -71,7 +67,7 @@ module MultiPatientAPI
           end 
         end 
 
-        assert false, 'Server CapabilityStatement did not declare support for export operation in Group resource.'
+        assert false, 'Server CapabilityStatement did not declare support for export operation in Group resource'
       }
     end
 
@@ -141,18 +137,17 @@ module MultiPatientAPI
 
       input :polling_url
 
-      output :status_response_body
+      output :status_response
 
       run {
         skip 'Server response did not have Content-Location in header' unless polling_url.present?
         
         timeout = 180
-
         wait_time = 1
         start = Time.now
 
         loop do
-          get(client: :polling_location, headers: { authorization: "Bearer #{bearer_token}"})
+          get(polling_url, headers: { authorization: "Bearer #{bearer_token}"})
 
           retry_after = response[:headers].find { |header| header.name == 'retry-after' }
           retry_after_val = retry_after&.value.to_i || 0
@@ -161,24 +156,23 @@ module MultiPatientAPI
 
           seconds_used = Time.now - start + wait_time
 
-          break if response[:status] == 202 and seconds_used < timeout 
+          break if response[:status] != 202 || seconds_used > timeout 
 
           sleep wait_time
-
         end 
 
-
         skip "Server took more than #{timeout} seconds to process the request." if response[:status] == 202
-        assert response[:status] == 200, "Bad response code: expected 200, 202, but found #{response[:status]}."
 
-        assert_valid_json(response[:body])
+        assert response[:status] == 200, "Bad response code: expected 200, 202, but found #{response[:status]}."
+        assert response[:headers].any? { |header| header.name == 'content-type' && header.value == 'application/json' }, 'Content-Type not application/json'
+
         response_body = JSON.parse(response[:body])
 
         ['transactionTime', 'request', 'requiresAccessToken', 'output', 'error'].each do |key|
           assert response_body.key?(key), "Complete Status response did not contain \"#{key}\" as required"
         end
 
-        output status_response_body: response[:body]
+        output status_response: response[:body]
       }
     end
 
@@ -198,18 +192,19 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#response---complete-status'
 
-      input :status_response_body
-      output :bulk_status_output
+      input :status_response
+
+      output :status_output
 
       run {
-        skip 'Bulk Data Server status response not found' unless status_response_body
+        assert status_response.present?, 'Bulk Data Server status response not found' 
 
-        bulk_status_output = JSON.parse(status_response_body)['output']
-        assert bulk_status_output, 'Bulk Data Server response does not contain output data'
+        status_output = JSON.parse(status_response)['output']
+        assert status_output, 'Bulk Data Server status response does not contain output'
 
-        output bulk_status_output: bulk_status_output.to_json
+        output status_output: status_output.to_json
 
-        bulk_status_output.each do |file|
+        status_output.each do |file|
           ['type', 'url'].each do |key|
             assert file.key?(key), "Output file did not contain \"#{key}\" as required"
           end
@@ -224,17 +219,15 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#response---complete-status'
 
-      input :status_response_body
+      input :status_response
 
       run {
-        skip 'Bulk Data Server status response not found' unless status_response_body
+        assert status_response.present?, 'Bulk Data Server status response not found'  
 
-        requires_access_token = JSON.parse(status_response_body)['requiresAccessToken']
-
+        requires_access_token = JSON.parse(status_response)['requiresAccessToken']
         output requires_access_token: requires_access_token
 
-        assert !requires_access_token.nil?, 'Bulk Data Server response does not contain requiresAccessToken'
-        assert requires_access_token.to_s.downcase == 'true', 'Bulk Data file server does not require access token'
+        assert requires_access_token.present? && requires_access_token.to_s.downcase == 'true', 'Bulk Data file server access SHALL require access token'
       }
     end
 
@@ -245,6 +238,8 @@ module MultiPatientAPI
         Bulk Data Server MUST support client's delete request and return HTTP Status Code of "202 Accepted"
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#bulk-data-delete-request'
+
+      include ExportUtils
 
       run {
         export_kick_off

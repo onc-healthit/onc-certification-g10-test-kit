@@ -2,7 +2,6 @@ require_relative '../../lib/multi_patient_api/bulk_data_group_export.rb'
 require_relative '../../lib/multi_patient_api/bulk_data_utils.rb'
 
 RSpec.describe MultiPatientAPI::BulkDataGroupExport do
-  include BulkDataUtils
 
   let(:group) { Inferno::Repositories::TestGroups.new.find('bulk_data_group_export') }
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
@@ -20,8 +19,11 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExport do
   let(:capability_statement) do
     "{\"resourceType\":\"CapabilityStatement\",\"status\":\"active\",\"date\":\"2021-11-18T19:22:48+00:00\",\"publisher\":\"Boston Children's Hospital\",\"kind\":\"instance\",\"instantiates\":[\"http://hl7.org/fhir/uv/bulkdata/CapabilityStatement/bulk-data\"],\"software\":{\"name\":\"SMART Sample Bulk Data Server\",\"version\":\"2.1.1\"},\"implementation\":{\"description\":\"SMART Sample Bulk Data Server\"},\"fhirVersion\":\"4.0.1\",\"acceptUnknown\":\"extensions\",\"format\":[\"json\"],\"rest\":[{\"mode\":\"server\",\"security\":{\"extension\":[{\"url\":\"http://fhir-registry.smarthealthit.org/StructureDefinition/oauth-uris\",\"extension\":[{\"url\":\"token\",\"valueUri\":\"https://inferno.healthit.gov/bulk-data-server/auth/token\"},{\"url\":\"register\",\"valueUri\":\"https://inferno.healthit.gov/bulk-data-server/auth/register\"}]}],\"service\":[{\"coding\":[{\"system\":\"http://hl7.org/fhir/restful-security-service\",\"code\":\"SMART-on-FHIR\",\"display\":\"SMART-on-FHIR\"}],\"text\":\"OAuth2 using SMART-on-FHIR profile (see http://docs.smarthealthit.org)\"}]},\"resource\":[{\"type\":\"Patient\",\"operation\":[{\"extension\":[{\"url\":\"http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation\",\"valueCode\":\"SHOULD\"}],\"name\":\"patient-export\",\"definition\":\"http://hl7.org/fhir/uv/bulkdata/OperationDefinition/patient-export\"}]},{\"type\":\"Group\",\"operation\":[{\"extension\":[{\"url\":\"http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation\",\"valueCode\":\"SHOULD\"}],\"name\":\"group-export\",\"definition\":\"http://hl7.org/fhir/uv/bulkdata/OperationDefinition/group-export\"}]},{\"type\":\"OperationDefinition\",\"profile\":{\"reference\":\"http://hl7.org/fhir/Profile/OperationDefinition\"},\"interaction\":[{\"code\":\"read\"}],\"searchParam\":[]}],\"operation\":[{\"name\":\"get-resource-counts\",\"definition\":\"OperationDefinition/-s-get-resource-counts\"},{\"extension\":[{\"url\":\"http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation\",\"valueCode\":\"SHOULD\"}],\"name\":\"export\",\"definition\":\"http://hl7.org/fhir/uv/bulkdata/OperationDefinition/export\"}]}]}"
   end
-  let(:response_body) do
+  let(:status_response) do
     '{"transactionTime":"2021-11-30T13:40:29.828Z","request":"https://inferno.healthit.gov/bulk-data-server/eyJlcnIiOiIiLCJwYWdlIjoxMDAwMCwiZHVyIjoxMCwidGx0Ijo2MCwibSI6MSwic3R1Ijo0LCJkZWwiOjB9/fhir/Group/1f76e2b7-a222-4765-9097-a71b86e90d07/$export","requiresAccessToken":true,"output":[],"deleted":[],"error":[]}'
+  end
+  let(:status_output) do
+    '{"output":[{"type":"AllergyIntolerance","count":14,"url":"https://bulk-data.smarthealthit.org/eyJpZCI6ImQzOWY5MTgxN2JjYTkwZGI2YTgyYTZiZDhkODUwNzQ1Iiwib2Zmc2V0IjowLCJsaW1pdCI6MTQsInNlY3VyZSI6dHJ1ZX0/fhir/bulkfiles/1.AllergyIntolerance.ndjson"},{"type":"CarePlan","count":69,"url":"https://bulk-data.smarthealthit.org/eyJpZCI6ImQzOWY5MTgxN2JjYTkwZGI2YTgyYTZiZDhkODUwNzQ1Iiwib2Zmc2V0IjowLCJsaW1pdCI6NjksInNlY3VyZSI6dHJ1ZX0/fhir/bulkfiles/1.CarePlan.ndjson"}]}'
   end
 
   def run(runnable, inputs = {})
@@ -73,7 +75,7 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExport do
       result = run(runnable, input)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Server CapabilityStatement did not declare support for export operation in Group resource.')
+      expect(result.result_message).to eq('Server CapabilityStatement did not declare support for export operation in Group resource')
     end
 
     it 'passes when server declares support in CapabilityStatement' do
@@ -167,10 +169,11 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExport do
 
   describe '[Bulk Data Server returns "202 Accepted" or "200 OK" for status check] test' do
     let(:runnable) { group.tests[4] }
-    let(:incomplete_response_body) do
-      response_body_json = JSON.parse(response_body)
-      response_body_json.delete('transactionTime')
-      response_body_json.to_json
+    let(:headers) { {'content-type' => 'application/json'} } 
+    let(:incomplete_status_response) do
+      status_response_json = JSON.parse(status_response)
+      status_response_json.delete('transactionTime')
+      status_response_json.to_json
     end
 
     it 'skips when polling_url is not provided' do
@@ -179,13 +182,15 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExport do
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('Server response did not have Content-Location in header')
     end
-    # TODO: Uncomment
+    
+    # Note: Test commented out as it takes three minutes to fail
     # it 'skips when server only returns "202 Accepted", and not "200 OK" in the allowed timeframe' do
     #   stub_request(:get, "#{polling_url}")
     #     .with(headers: { 'Authorization' => "Bearer #{bearer_token}" } )
-    #     .to_return(status: 202, body: "", headers: {})
+    #     .to_return(status: 202)
 
     #   result = run(runnable, input)
+
     #   expect(result.result).to eq('skip')
     #   expect(result.result_message).to eq("Server took more than 180 seconds to process the request.")
     # end
@@ -201,21 +206,21 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExport do
       expect(result.result_message).to eq('Bad response code: expected 200, 202, but found 401.')
     end
 
-    it 'fails when server returns "200 OK" and invalid response body' do
+    it 'fails when server returns "200 OK" and impromper headers' do
       stub_request(:get, polling_url.to_s)
         .with(headers: { 'Authorization' => "Bearer #{bearer_token}" })
-        .to_return(status: 200, body: 'invalid_response_body')
+        .to_return(status: 200, body: 'invalid_status_response', headers: { 'bad' => 'headers' })
 
       result = run(runnable, input)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Invalid JSON. ')
+      expect(result.result_message).to eq('Content-Type not application/json')
     end
 
     it 'fails when server returns "200 OK" and response body does not contain required attributes' do
       stub_request(:get, polling_url.to_s)
         .with(headers: { 'Authorization' => "Bearer #{bearer_token}" })
-        .to_return(status: 200, body: incomplete_response_body)
+        .to_return(status: 200, body: incomplete_status_response, headers: headers)
 
       result = run(runnable, input)
 
@@ -226,7 +231,7 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExport do
     it 'passes when server returns "202 Accepted" and response body contains required attributes' do
       stub_request(:get, polling_url.to_s)
         .with(headers: { 'Authorization' => "Bearer #{bearer_token}" })
-        .to_return(status: 200, body: response_body)
+        .to_return(status: 200, body: status_response, headers: headers)
 
       result = run(runnable, input)
 
@@ -234,74 +239,74 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExport do
     end
   end
 
-  describe 'Bulk Data Server proper output for status complete test' do
+  describe '[Bulk Data Server returns output with type and url for status complete] test' do
     let(:runnable) { group.tests[5] }
-    let(:no_output_response_body) { '{"no_output":"!"}' }
-    let(:output_response_body) do
-      '{"output":[{"type":"AllergyIntolerance","count":14,"url":"https://bulk-data.smarthealthit.org/eyJpZCI6ImQzOWY5MTgxN2JjYTkwZGI2YTgyYTZiZDhkODUwNzQ1Iiwib2Zmc2V0IjowLCJsaW1pdCI6MTQsInNlY3VyZSI6dHJ1ZX0/fhir/bulkfiles/1.AllergyIntolerance.ndjson"},{"type":"CarePlan","count":69,"url":"https://bulk-data.smarthealthit.org/eyJpZCI6ImQzOWY5MTgxN2JjYTkwZGI2YTgyYTZiZDhkODUwNzQ1Iiwib2Zmc2V0IjowLCJsaW1pdCI6NjksInNlY3VyZSI6dHJ1ZX0/fhir/bulkfiles/1.CarePlan.ndjson"}]}'
-    end
-    let(:bad_output_response_body) do
-      output_response_body_json = JSON.parse(output_response_body)
-      output_response_body_json['output'][1].delete('type')
-      output_response_body_json.to_json
+    let(:bad_status_output) do
+      status_output_json = JSON.parse(status_output)
+      status_output_json['output'][1].delete('type')
+      status_output_json.to_json
     end
 
-    it 'skips when response not found' do
+    it 'fails when response not found' do
       result = run(runnable)
-      expect(result.result).to eq('skip')
+
+      expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Bulk Data Server status response not found')
     end
 
     it 'fails when response does not contain output' do
-      result = run(runnable, { status_response_body: no_output_response_body })
+      result = run(runnable, { status_response: '{"no_output":"!"}' })
+
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Bulk Data Server response does not contain output data')
+      expect(result.result_message).to eq('Bulk Data Server status response does not contain output')
     end
 
     it 'fails when output does not contain required attributes' do
-      result = run(runnable, { status_response_body: bad_output_response_body })
+      result = run(runnable, { status_response: bad_status_output })
+
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Output file did not contain "type" as required')
     end
 
     it 'passes when response contains output with required attributes' do
-      result = run(runnable, { status_response_body: output_response_body })
+      result = run(runnable, { status_response: status_output })
+
       expect(result.result).to eq('pass')
     end
   end
 
-  describe 'Bulk Data Server returns requiresAccessToken with value true test' do
+  describe '[Bulk Data Server returns requiresAccessToken with value true] test' do
     let(:runnable) { group.tests[6] }
-    let(:no_rat_response_body) { '{"no_requiresAccessToken":"!"}' }
-    let(:false_rat_response_body) { '{"requiresAccessToken":false}' }
-    let(:response_body) { '{"requiresAccessToken":true}' }
+    let(:no_rAT_status_response) { '{"no_requiresAccessToken":"!"}' }
+    let(:false_rAT_status_response) { '{"requiresAccessToken":false}' }
 
-    it 'skips when response not found' do
+    it 'fails when response not found' do
       result = run(runnable)
-      expect(result.result).to eq('skip')
+
+      expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Bulk Data Server status response not found')
     end
 
     it 'fails when server response does not contain requireAccessToken' do
-      result = run(runnable, { status_response_body: no_rat_response_body })
+      result = run(runnable, { status_response: no_rAT_status_response })
+      
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Bulk Data Server response does not contain requiresAccessToken')
+      expect(result.result_message).to eq('Bulk Data file server access SHALL require access token')
     end
 
     it 'fails when server does not require access token' do
-      result = run(runnable, { status_response_body: false_rat_response_body })
+      result = run(runnable, { status_response: false_rAT_status_response })
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Bulk Data file server does not require access token')
+      expect(result.result_message).to eq('Bulk Data file server access SHALL require access token')
     end
 
     it 'passes when server does require access token' do
-      result = run(runnable, { status_response_body: response_body })
+      result = run(runnable, { status_response: status_response })
       expect(result.result).to eq('pass')
     end
   end
 
-  # TODO: Write delete request unit tests after HTTP Client delete support 
-  #       merged into core. 
+  # TODO: Write after HTTP Client delete support merged into core. 
   describe 'delete request tests' do
 
   end
