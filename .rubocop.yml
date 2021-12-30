@@ -71,3 +71,7 @@ RSpec/NestedGroups:
 
 RSpec/NotToNot:
   EnforcedStyle: to_not
+
+Style/OpenStructUse:
+  Exclude:
+    - 'spec/**/*'

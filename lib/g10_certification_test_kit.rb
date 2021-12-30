@@ -7,6 +7,7 @@ require_relative 'g10_certification_test_kit/smart_ehr_practitioner_app_group'
 module G10CertificationTestKit
   class G10CertificationSuite < Inferno::TestSuite
     title '2015 Edition Cures Update - Standardized API Testing'
+    id :g10_certification
 
     validator do
       url ENV.fetch('VALIDATOR_URL', 'http://validator_service:4567')
