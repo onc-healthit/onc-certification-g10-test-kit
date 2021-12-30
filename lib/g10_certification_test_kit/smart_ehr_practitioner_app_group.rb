@@ -326,5 +326,109 @@ module G10CertificationTestKit
         end
       end
     end
+
+    group from: :smart_openid_connect,
+          config: {
+            inputs: {
+              id_token: { name: :ehr_id_token },
+              client_id: { name: :ehr_client_id },
+              requested_scopes: { name: :ehr_requested_scopes },
+              access_token: { name: :ehr_access_token }
+            }
+          }
+
+    group do
+      id :smart_ehr_refresh_without_scopes
+      title 'Token Refresh'
+      description %(
+        # Background
+
+        The #{title} Sequence tests the ability of the system to successfuly
+        exchange a refresh token for an access token. Refresh tokens are typically
+        longer lived than access tokens and allow client applications to obtain a
+        new access token Refresh tokens themselves cannot provide access to
+        resources on the server.
+
+        Token refreshes are accomplished through a `POST` request to the token
+        exchange endpoint as described in the [SMART App Launch
+        Framework](http://www.hl7.org/fhir/smart-app-launch/#step-5-later-app-uses-a-refresh-token-to-obtain-a-new-access-token).
+
+        # Test Methodology
+
+        This test attempts to exchange the refresh token for a new access token
+        and verify that the information returned contains the required fields and
+        uses the proper headers.
+
+        For more information see:
+
+        * [The OAuth 2.0 Authorization
+          Framework](https://tools.ietf.org/html/rfc6749)
+        * [Using a refresh token to obtain a new access
+          token](http://hl7.org/fhir/smart-app-launch/#step-5-later-app-uses-a-refresh-token-to-obtain-a-new-access-token)
+      )
+
+      config(
+        inputs: {
+          refresh_token: { name: :ehr_refresh_token },
+          client_id: { name: :ehr_client_id },
+          client_secret: { name: :ehr_client_secret },
+          received_scopes: { name: :ehr_received_scopes }
+        },
+        outputs: {
+          refresh_token: { name: :ehr_refresh_token },
+          received_scopes: { name: :ehr_received_scopes },
+          access_token: { name: :ehr_access_token },
+          token_retrieval_time: { name: :ehr_token_retrieval_time },
+          expires_in: { name: :ehr_expires_in }
+        }
+      )
+
+      test from: :smart_token_refresh,
+           id: :token_refresh_without_scopes,
+           config: {
+             options: { include_scopes: false }
+           }
+      test from: :smart_token_refresh_body,
+           id: :token_refresh_body_without_scopes
+      test from: :smart_token_refresh,
+           title: 'Server successfully refreshes the access token when optional scope parameter provided',
+           id: :token_refresh_with_scopes,
+           config: {
+             options: { include_scopes: true }
+           }
+      test from: :smart_token_refresh_body,
+           id: :token_refresh_body_with_scopes
+
+      # TODO: remove duplication
+      test do
+        title 'OAuth token exchange response body contains patient context and patient resource can be retrieved'
+        description %(
+          The `patient` field is a String value with a patient id, indicating
+          that the app was launched in the context of this FHIR Patient.
+        )
+        input :patient_id, name: :ehr_patient_id
+        input :access_token, name: :ehr_access_token
+        input :url
+        uses_request :token_refresh
+
+        fhir_client :ehr_authenticated do
+          url :url
+          bearer_token :access_token
+        end
+
+        run do
+          skip_if access_token.blank?, 'No access token was received during the SMART launch'
+
+          skip_if patient_id.blank?, 'Token response did not contain `patient` field'
+
+          skip_if request.status != 200, 'Token was not successfully refreshed'
+
+          fhir_read(:patient, patient_id, client: :ehr_authenticated)
+
+          assert_response_status(200)
+          assert_resource_type(:patient)
+        end
+      end
+    end
   end
 end
