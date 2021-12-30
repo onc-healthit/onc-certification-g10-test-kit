@@ -50,7 +50,6 @@ module G10CertificationTestKit
           missing_capabilities = required_smart_capabilities - capabilities
           assert missing_capabilities.empty?,
                  "The following capabilities required for this scenario are missing: #{missing_capabilities.join(', ')}"
-
         end
       end
     end
@@ -58,7 +57,7 @@ module G10CertificationTestKit
     group from: :smart_standalone_launch do
       title 'Standalone Launch With Patient Scope'
       test do
-        title "Patient-level access with OpenID Connect and Refresh Token scopes used."
+        title 'Patient-level access with OpenID Connect and Refresh Token scopes used.'
         description %(
           The scopes being input must follow the guidelines specified in the
           smart-app-launch guide. All scopes requested are expected to be
@@ -107,7 +106,9 @@ module G10CertificationTestKit
           patient_scope_found = false
 
           scopes.each do |scope|
-            bad_format_message = "Requested scope '#{scope}' does not follow the format: `#{patient_or_user}/[ resource | * ].[ read | * ]`"
+            bad_format_message =
+              "Requested scope '#{scope}' does not follow the format: `#{patient_or_user}" \
+              '/[ resource | * ].[ read | * ]`'
 
             scope_pieces = scope.split('/')
             assert scope_pieces.count == 2, bad_format_message
@@ -116,7 +117,8 @@ module G10CertificationTestKit
             bad_resource_message = "'#{resource_access[0]}' must be either a valid resource type or '*'"
 
             if patient_or_user == 'patient' && patient_compartment_resource_types.exclude?(resource_access[0])
-              assert ['user', 'patient'].include?(scope_pieces[0]), "Requested scope '#{scope}' must begin with either 'user/' or 'patient/'"
+              assert ['user', 'patient'].include?(scope_pieces[0]),
+                     "Requested scope '#{scope}' must begin with either 'user/' or 'patient/'"
             else
               assert scope_pieces[0] == patient_or_user, bad_format_message
             end
@@ -146,9 +148,15 @@ module G10CertificationTestKit
             granted_resource_types << resource_access[0] if resource_access[1] =~ /^(\*|read)/
           end
 
-          missing_resource_types = granted_resource_types.include?('*') ? [] : (patient_compartment_resource_types - granted_resource_types - ['*'])
+          missing_resource_types =
+            if granted_resource_types.include?('*')
+              []
+            else
+              patient_compartment_resource_types - granted_resource_types - ['*']
+            end
 
-          assert missing_resource_types.empty?, "Request scopes #{missing_resource_types.join(', ')} were not granted by authorization server."
+          assert missing_resource_types.empty?,
+                 "Request scopes #{missing_resource_types.join(', ')} were not granted by authorization server."
         end
 
         run do
@@ -181,7 +189,7 @@ module G10CertificationTestKit
               received_or_requested: 'received'
             }
           ].each do |metadata|
-            scopes = metadata[:scopes].split(' ')
+            scopes = metadata[:scopes].split
             received_or_requested = metadata[:received_or_requested]
 
             missing_scopes = required_scopes - scopes
