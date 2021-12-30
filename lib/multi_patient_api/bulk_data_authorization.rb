@@ -16,7 +16,15 @@ module MultiPatientAPI
       This test returns an access token.
     DESCRIPTION
 
+    include AuthorizationUtils
+
     id :bulk_data_authorization
+
+    input :bulk_token_endpoint, title: 'Backend Services Token Endpoint', description: 'The OAuth 2.0 Token Endpoint used by the Backend Services specification to provide bearer tokens.'
+    input :bulk_client_id, title: 'Bulk Data Client ID', description: 'Client ID provided at registration to the Inferno application.'
+    input :bulk_scope, title: 'Bulk Data Scopes', description: 'Bulk Data Scopes provided at registration to the Inferno application.'
+    input :bulk_encryption_method, title: 'Encryption Method', description: 'The server is required to suport either ES384 or RS384 encryption methods for JWT signature verification. Select which method to use.' #TODO: Make radio button. 
+
     output :bulk_access_token
 
     http_client :token_endpoint do
@@ -53,8 +61,6 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/authorization/index.html#protocol-details'
 
-      input :bulk_token_endpoint, :bulk_encryption_method, :bulk_scope, :bulk_client_id
-
       run do
         post_request_content = build_authorization_request(encryption_method: bulk_encryption_method,
                                                       scope: bulk_scope,
@@ -85,8 +91,6 @@ module MultiPatientAPI
         ```
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/authorization/index.html#protocol-details'
-
-      input :bulk_token_endpoint, :bulk_encryption_method, :bulk_scope, :bulk_client_id
 
       run do
         post_request_content = build_authorization_request(encryption_method: bulk_encryption_method,
@@ -128,8 +132,6 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/authorization/index.html#protocol-details'
 
-      input :bulk_token_endpoint, :bulk_encryption_method, :bulk_scope, :bulk_client_id
-
       run do
         post_request_content = build_authorization_request(encryption_method: bulk_encryption_method,
                                         scope: bulk_scope,
@@ -139,7 +141,7 @@ module MultiPatientAPI
 
         post({ client: :token_endpoint }.merge(post_request_content))
 
-        assert_response_status(400)
+        assert_response_status([400, 401])
       end
     end
 
@@ -150,7 +152,6 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/authorization/index.html#issuing-access-tokens'
 
-      input :bulk_token_endpoint, :bulk_encryption_method, :bulk_scope, :bulk_client_id
       output :authentication_response
 
       run do
@@ -161,9 +162,10 @@ module MultiPatientAPI
                                         aud: bulk_token_endpoint)
 
         authentication_response = post({ client: :token_endpoint }.merge(post_request_content))
-        output authentication_response: authentication_response.response_body
 
         assert_response_status([200, 201])
+
+        output authentication_response: authentication_response.response_body
       end
     end
 
@@ -186,9 +188,9 @@ module MultiPatientAPI
 
       run do
 
-        assert authentication_response.present?, 'No authentication response received.'
-        assert_valid_json(authentication_response)
+        skip_if authentication_response.blank?, 'No authentication response received.'
 
+        assert_valid_json(authentication_response)
         response_body = JSON.parse(authentication_response)
 
         access_token = response_body['access_token']

@@ -1,5 +1,60 @@
 require 'pry' #TODO: REMOVE
-require 'json/jwt'
+require 'json/jwt' #TODO: REMOVE
+
+module AuthorizationUtils
+
+	def bulk_data_jwks
+		@bulk_data_jwks ||= JSON.parse(File.read(File.join(File.dirname(__FILE__), 'bulk_data_jwks.json')))
+	end 
+
+	def bulk_selected_private_key(encryption)
+		bulk_private_key_set = bulk_data_jwks['keys'].select { |key| key['key_ops']&.include?('sign') }
+		bulk_private_key_set.find { |key| key['alg'] == encryption }
+	end
+
+	def create_client_assertion(encryption_method:, iss:, sub:, aud:, exp:, jti:)
+		bulk_private_key = bulk_selected_private_key(encryption_method)
+		jwt_token = JSON::JWT.new(iss: iss, sub: sub, aud: aud, exp: exp, jti: jti).compact
+		jwk = JSON::JWK.new(bulk_private_key)
+
+		jwt_token.kid = jwk['kid']
+		jwk_private_key = jwk.to_key
+		client_assertion = jwt_token.sign(jwk_private_key, bulk_private_key['alg'])
+	end 
+
+	def build_authorization_request(encryption_method:,
+								scope:,
+								iss:,
+								sub:,
+								aud:,
+								content_type: 'application/x-www-form-urlencoded',
+								grant_type: 'client_credentials',
+								client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
+								exp: 5.minutes.from_now,
+								jti: SecureRandom.hex(32))
+		header =
+			{
+				content_type: content_type,
+				accept: 'application/json'
+			}.compact
+
+		client_assertion = create_client_assertion(encryption_method: encryption_method, iss: iss, sub: sub, aud: aud, exp: exp, jti: jti)
+
+		query_values =
+			{
+				'scope' => scope,
+				'grant_type' => grant_type,
+				'client_assertion_type' => client_assertion_type,
+				'client_assertion' => client_assertion.to_s
+			}.compact
+
+		uri = Addressable::URI.new
+		uri.query_values = query_values
+
+		{ body: uri.query, headers: header }
+	end
+end 
+
 module BulkDataUtils
 
 	include Inferno::DSL::Assertions
@@ -13,31 +68,22 @@ module BulkDataUtils
 		return scratch[:patient_ids_seen]
 	end 
 
-	def metadata_arr 
-		return Array.wrap(metadata) if scratch[:metadata_arr].nil?
-		scratch[:metadata_arr] 
+	def resource_type 
+		scratch[:resource_type]
 	end 
 
 	def metadata
 		scratch[:metadata]
 	end 
-	
-	def resource_type
-		scratch[:resource_type]
-	end 
 
-	def self.included(klass)
-		
-	end 
-
-	def get_bulk_selected_private_key(encryption)
+	def bulk_selected_private_key(encryption)
 		bulk_data_jwks = JSON.parse(File.read(File.join(File.dirname(__FILE__), 'bulk_data_jwks.json')))
 		bulk_private_key_set = bulk_data_jwks['keys'].select { |key| key['key_ops']&.include?('sign') }
 		bulk_private_key_set.find { |key| key['alg'] == encryption }
 	end
 
 	def create_client_assertion(encryption_method:, iss:, sub:, aud:, exp:, jti:)
-		bulk_private_key = get_bulk_selected_private_key(encryption_method)
+		bulk_private_key = bulk_selected_private_key(encryption_method)
 		jwt_token = JSON::JWT.new(iss: iss, sub: sub, aud: aud, exp: exp, jti: jti).compact
 		jwk = JSON::JWK.new(bulk_private_key)
 
@@ -181,7 +227,7 @@ module BulkDataUtils
 		(expected & actual).any?
 	end
 
-	def check_file_request(file, validate_all, lines_to_validate)
+	def check_file_request(file, validate_all, lines_to_validate, resource_type, metadata_arr)
 		headers = { accept: 'application/fhir+ndjson' }
 		headers.merge!( { authorization: "Bearer #{bearer_token}" } ) if requires_access_token
 					
@@ -209,8 +255,13 @@ module BulkDataUtils
 			patient_ids_seen << curr_resource.id if resource_type == 'Patient'
 
 			# determine_profile(resources.last)
+		
+			#binding.pry if resource_type == 'DocumentReference'
 
-			assert metadata_arr.any? { |profile| resource_is_valid?(resource: curr_resource, profile_url: profile.profile_url) }, 'Resource does not conform to the #{resource_type} profile'
+			binding.pry unless metadata_arr.any? { |profile| resource_is_valid?(resource: curr_resource, profile_url: profile.profile_url) } 
+			 
+			assert metadata_arr.any? { |profile| resource_is_valid?(resource: curr_resource, profile_url: profile.profile_url) }, "Resource does not conform to the #{resource_type} profile"
+			
 		}
 
 		process_headers = proc { |response| 
@@ -221,9 +272,11 @@ module BulkDataUtils
 
 		stream_ndjson(file['url'], headers, process_line, process_headers)
 
+		scratch[:resource_type] = resource_type
 
 		metadata_arr.each do |profile|
 			scratch[:metadata] = profile
+
 			@missing_elements = nil
 			@missing_slices = nil
 			begin 
@@ -241,7 +294,7 @@ module BulkDataUtils
 	end 
 
 	# TODO: Documentation
-	def output_conforms_to_profile?
+	def output_conforms_to_profile?(resource_type, metadata)
 		skip 'Could not verify this functionality when Bulk Status Output is not provided' unless bulk_status_output.present?
 		skip 'Could not verify this functionality when requiresAccessToken is not provided' unless requires_access_token.present?
 		skip 'Could not verify this functionality when Bearer Token is required and not provided' if requires_access_token && !bearer_token.present? 
@@ -253,7 +306,7 @@ module BulkDataUtils
 		success_count = 0
 
 		file_list.each do |file|
-			success_count += check_file_request(file, lines_to_validate.blank?, lines_to_validate)
+			success_count += check_file_request(file, lines_to_validate.blank?, lines_to_validate.to_i, resource_type, metadata)
 		end 
 
 		pass "Successfully validated #{success_count} #{resource_type} resource(s)."

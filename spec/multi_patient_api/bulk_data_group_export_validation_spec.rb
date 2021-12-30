@@ -483,11 +483,11 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
         .to_return(status: 200, body: contents, headers: { 'Content-Type'=>'application/fhir+ndjson'})
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
-      allow_any_instance_of(runnable).to receive(:lines_to_validate).and_return(75)
 
-      result = run(runnable, input)
+      result = run(runnable, input.merge(lines_to_validate: 75))
 
       expect(result.result).to eq('skip')
+      expect(result.result_message).to eq('No Observation resources found that conform to profile: http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab.')
     end
 
     it 'passes with all possible resources included in the Observation Profile' do

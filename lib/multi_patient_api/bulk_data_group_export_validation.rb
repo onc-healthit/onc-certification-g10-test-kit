@@ -61,10 +61,7 @@ module MultiPatientAPI
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient'
 
       run {
-        scratch[:metadata] = USCore::PatientGroup::metadata
-        scratch[:resource_type] = 'Patient'
-
-        assert output_conforms_to_profile?, 'Resources do not conform to profile.'
+        assert output_conforms_to_profile?('Patient', Array.wrap(USCore::PatientGroup::metadata)), 'Resources do not conform to profile.'
       }
     end
 
@@ -109,10 +106,7 @@ module MultiPatientAPI
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-allergyintolerance'
 
       run {
-        scratch[:metadata] = USCore::AllergyIntoleranceGroup::metadata
-        scratch[:resource_type] = 'AllergyIntolerance'
-
-        assert output_conforms_to_profile?, 'Resources do not conform to profile.'
+        assert output_conforms_to_profile?('AllergyIntolerance', Array.wrap(USCore::AllergyIntoleranceGroup::metadata)), 'Resources do not conform to profile.'
       }
     end
 
@@ -124,10 +118,7 @@ module MultiPatientAPI
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-careplan'
 
       run {
-        scratch[:metadata] = USCore::CarePlanGroup::metadata
-        scratch[:resource_type] = 'CarePlan'
-
-        assert output_conforms_to_profile?, 'Resources do not conform to profile.'
+        assert output_conforms_to_profile?('CarePlan', Array.wrap(USCore::CarePlanGroup::metadata)), 'Resources do not conform to profile.'
       }
     end
 
@@ -139,10 +130,7 @@ module MultiPatientAPI
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-careteam'
 
       run {
-        scratch[:metadata] = USCore::CareTeamGroup::metadata
-        scratch[:resource_type] = 'CareTeam'
-
-        assert output_conforms_to_profile?, 'Resources do not conform to profile.'
+        assert output_conforms_to_profile?('CareTeam', Array.wrap(USCore::CareTeamGroup::metadata)), 'Resources do not conform to profile.'
       }
     end
 
@@ -155,10 +143,7 @@ module MultiPatientAPI
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition'
 
       run {
-        scratch[:metadata] = USCore::ConditionGroup::metadata
-        scratch[:resource_type] = 'Condition'
-
-        assert output_conforms_to_profile?, 'Resources do not conform to profile.'
+        assert output_conforms_to_profile?('Condition', Array.wrap(USCore::ConditionGroup::metadata)), 'Resources do not conform to profile.'
       }
     end
 
@@ -170,13 +155,10 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-implantable-device'
 
-      input :bulk_device_types_in_group
+      input :bulk_device_types_in_group, optional: true
 
       run {
-        scratch[:metadata] = USCore::DeviceGroup::metadata
-        scratch[:resource_type] = 'Device'
-
-        assert output_conforms_to_profile?, 'Resources do not conform to profile.'
+        assert output_conforms_to_profile?('Device', Array.wrap(USCore::DeviceGroup::metadata)), 'Resources do not conform to profile.'
       }
     end
 
@@ -191,13 +173,8 @@ module MultiPatientAPI
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-l'
 
       run {
-        metadata_lab = USCore::DiagnosticReportLabGroup::metadata
-        metadata_note = USCore::DiagnosticReportNoteGroup::metadata
-
-        scratch[:metadata_arr] = [metadata_note, metadata_lab]
-        scratch[:resource_type] = 'DiagnosticReport'
-
-        assert output_conforms_to_profile?, 'Resources do not conform to profile.'
+        metadata = [USCore::DiagnosticReportLabGroup::metadata, USCore::DiagnosticReportNoteGroup::metadata]
+        assert output_conforms_to_profile?('DiagnosticReport', metadata), 'Resources do not conform to profile.'
       }
     end
 
@@ -209,10 +186,7 @@ module MultiPatientAPI
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-documentreference'
 
       run {
-        scratch[:metadata] = USCore::DocumentReferenceGroup::metadata
-        scratch[:resource_type] = 'DocumentReference'
-
-        assert output_conforms_to_profile?, 'Resources do not conform to profile.'
+        assert output_conforms_to_profile?('DocumentReference', [USCore::DocumentReferenceGroup::metadata]), 'Resources do not conform to profile.'
       }
     end
 
@@ -223,10 +197,7 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-goal'
       run {
-        scratch[:metadata] = USCore::GoalGroup::metadata
-        scratch[:resource_type] = 'Goal'
-
-        assert output_conforms_to_profile?, 'Resources do not conform to profile.'
+        assert output_conforms_to_profile?('Goal', [USCore::GoalGroup::metadata]), 'Resources do not conform to profile.'
       }
     end
 
@@ -238,10 +209,7 @@ module MultiPatientAPI
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-Immunization'
 
       run {
-        scratch[:metadata] = USCore::ImmunizationGroup::metadata
-        scratch[:resource_type] = 'Immunization'
-
-        assert output_conforms_to_profile?, 'Resources do not conform to profile.'
+        assert output_conforms_to_profile?('Immunization', [USCore::ImmunizationGroup::metadata]), 'Resources do not conform to profile.'
       }
     end
 
@@ -253,10 +221,7 @@ module MultiPatientAPI
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest'
 
       run {
-        scratch[:metadata] = USCore::MedicationRequestGroup::metadata
-        scratch[:resource_type] = 'MedicationRequest'
-
-        assert output_conforms_to_profile?, 'Resources do not conform to profile.'
+        assert output_conforms_to_profile?('MedicationRequest', [USCore::MedicationRequestGroup::metadata]), 'Resources do not conform to profile.'
       }
     end
 
@@ -283,14 +248,13 @@ module MultiPatientAPI
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab'
 
       run {
-        scratch[:metadata_arr] = [ USCore::PediatricBmiForAgeGroup::metadata, USCore::PediatricWeightForHeightGroup::metadata,
+        metadata = [ USCore::PediatricBmiForAgeGroup::metadata, USCore::PediatricWeightForHeightGroup::metadata,
                       USCore::ObservationLabGroup::metadata, USCore::PulseOximetryGroup::metadata, USCore::SmokingstatusGroup::metadata, 
                       USCore::HeadCircumferenceGroup::metadata, USCore::BpGroup::metadata, USCore::BodyheightGroup::metadata, 
                       USCore::BodytempGroup::metadata, USCore::BodyweightGroup::metadata, USCore::HeartrateGroup::metadata, 
                       USCore::ResprateGroup::metadata ]
-        scratch[:resource_type] = 'Observation'
 
-        assert output_conforms_to_profile?, 'Resources do not conform to profile.'
+        assert output_conforms_to_profile?('Observation', metadata), 'Resources do not conform to profile.'
       }
     end
 
@@ -302,10 +266,7 @@ module MultiPatientAPI
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure'
 
       run {
-        scratch[:metadata] = USCore::ProcedureGroup::metadata
-        scratch[:resource_type] = 'Procedure'
-
-        assert output_conforms_to_profile?, 'Resources do not conform to profile.'
+        assert output_conforms_to_profile?('Procedure', [USCore::ProcedureGroup::metadata]), 'Resources do not conform to profile.'
       }
     end
 
@@ -319,10 +280,7 @@ module MultiPatientAPI
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter'
 
       run {
-        scratch[:metadata] = USCore::EncounterGroup::metadata
-        scratch[:resource_type] = 'Encounter'
-
-        assert output_conforms_to_profile?, 'Resources do not conform to profile.'
+        assert output_conforms_to_profile?('Encounter', [USCore::EncounterGroup::metadata]), 'Resources do not conform to profile.'
       }
     end
 
@@ -334,10 +292,7 @@ module MultiPatientAPI
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization'
 
       run {
-        scratch[:metadata] = USCore::OrganizationGroup::metadata
-        scratch[:resource_type] = 'Organization'
-
-        assert output_conforms_to_profile?, 'Resources do not conform to profile.'
+        assert output_conforms_to_profile?('Organization', [USCore::OrganizationGroup::metadata]), 'Resources do not conform to profile.'
       }
     end
 
@@ -349,10 +304,7 @@ module MultiPatientAPI
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner'
 
       run {
-        scratch[:metadata] = USCore::PractitionerGroup::metadata
-        scratch[:resource_type] = 'Practitioner'
-
-        assert output_conforms_to_profile?, 'Resources do not conform to profile.'
+        assert output_conforms_to_profile?('Practitioner', [USCore::PractitionerGroup::metadata]), 'Resources do not conform to profile.'
       }
     end
 
@@ -364,10 +316,7 @@ module MultiPatientAPI
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-provenance'
 
       run {
-        scratch[:metadata] = USCore::ProvenanceGroup::metadata
-        scratch[:resource_type] = 'Provenance'
-
-        assert output_conforms_to_profile?, 'Resources do not conform to profile.'
+        assert output_conforms_to_profile?('Provenance', [USCore::ProvenanceGroup::metadata]), 'Resources do not conform to profile.'
       }
     end
 
@@ -381,10 +330,7 @@ module MultiPatientAPI
       run {
         metadata = YAML.load_file(File.join(__dir__, 'metadata/location.yml'))
 
-        scratch[:metadata] = USCore::Generator::GroupMetadata.new(metadata)
-        scratch[:resource_type] = 'Location'
-
-        assert output_conforms_to_profile?, 'Resources do not conform to profile.'
+        assert output_conforms_to_profile?('Location', [USCore::Generator::GroupMetadata.new(metadata)]), 'Resources do not conform to profile.'
       }
     end
 
@@ -398,10 +344,7 @@ module MultiPatientAPI
       run {
         metadata = YAML.load_file(File.join(__dir__, 'metadata/medication.yml'))
 
-        scratch[:metadata] = USCore::Generator::GroupMetadata.new(metadata)
-        scratch[:resource_type] = 'Medication'
-
-        assert output_conforms_to_profile?, 'Resources do not conform to profile.'
+        assert output_conforms_to_profile?('Medication', [USCore::Generator::GroupMetadata.new(metadata)]), 'Resources do not conform to profile.'
       }
     end
   end

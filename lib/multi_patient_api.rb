@@ -2,8 +2,6 @@ Dir.glob(File.join(__dir__, 'multi_patient_api', '*.rb')).each { |path| require_
 
 module MultiPatientAPI
   class MultiPatientAPIGroup < Inferno::TestGroup
-    Inferno::Entities::Test.include(BulkDataUtils)
-
     id 'multi_patient_api'
     title 'Multiple Patient API'
 
