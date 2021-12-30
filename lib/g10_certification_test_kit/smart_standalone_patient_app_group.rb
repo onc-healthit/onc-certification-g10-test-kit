@@ -329,6 +329,36 @@ module G10CertificationTestKit
       test from: :smart_token_refresh_body,
            id: :token_refresh_body_with_scopes
 
+      # TODO: remove duplication
+      test do
+        title 'OAuth token exchange response body contains patient context and patient resource can be retrieved'
+        description %(
+          The `patient` field is a String value with a patient id, indicating
+          that the app was launched in the context of this FHIR Patient.
+        )
+        input :patient_id, name: :standalone_patient_id
+        input :access_token, name: :standalone_access_token
+        input :url
+        uses_request :token_refresh
+
+        fhir_client :standalone_authenticated do
+          url :url
+          bearer_token :access_token
+        end
+
+        run do
+          skip_if access_token.blank?, 'No access token was received during the SMART launch'
+
+          skip_if patient_id.blank?, 'Token response did not contain `patient` field'
+
+          skip_if request.status != 200, 'Token was not successfully refreshed'
+
+          fhir_read(:patient, patient_id, client: :standalone_authenticated)
+
+          assert_response_status(200)
+          assert_resource_type(:patient)
+        end
+      end
     end
   end
 end
