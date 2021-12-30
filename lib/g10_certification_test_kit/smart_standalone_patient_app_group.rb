@@ -261,7 +261,8 @@ module G10CertificationTestKit
             inputs: {
               id_token: { name: :standalone_id_token },
               client_id: { name: :standalone_client_id },
-              requested_scopes: { name: :standalone_requested_scopes }
+              requested_scopes: { name: :standalone_requested_scopes },
+              access_token: { name: :standalone_access_token }
             }
           }
 

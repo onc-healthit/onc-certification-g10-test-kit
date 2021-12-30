@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/inferno-framework/smart-app-launch-test-kit.git
-  revision: b0049e7d9bad3ca6a38f9a747334e1e860c13e22
-  branch: main
+  revision: 6e0443fa8d3513ddbe4937d8bb00ad3fef515e4e
+  branch: fi-1401-program-updates
   specs:
     smart_app_launch_test_kit (0.0.1)
       inferno_core (= 0.0.8)
@@ -24,7 +24,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (6.1.4.1)
+    activesupport (6.1.4.4)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
@@ -182,7 +182,7 @@ GEM
     mime-types (3.4.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2021.1115)
-    minitest (5.14.4)
+    minitest (5.15.0)
     msgpack (1.4.2)
     multi_json (1.15.0)
     multi_xml (0.6.0)
@@ -272,7 +272,7 @@ GEM
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    zeitwerk (2.5.1)
+    zeitwerk (2.5.2)
 
 PLATFORMS
   x86_64-darwin-20
