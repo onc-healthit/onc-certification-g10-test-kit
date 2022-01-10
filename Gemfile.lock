@@ -1,25 +1,25 @@
 GIT
   remote: https://github.com/inferno-framework/smart-app-launch-test-kit.git
-  revision: f98caffd6784b31d3225c4bcf92ae63e5950ab65
+  revision: 99f4677cba8433aff0b30cd84a5c2584823d3904
   branch: main
   specs:
     smart_app_launch_test_kit (0.0.1)
-      inferno_core (= 0.0.8)
+      inferno_core (~> 0.1.0)
       jwt (~> 2.2)
 
 GIT
   remote: https://github.com/inferno-framework/us-core-test-kit.git
-  revision: 49bcf438a4b8ff95f191ff2d828df75f68ea43c5
+  revision: 038852f9af81d07b69652aa8dab5d68da18dda58
   branch: main
   specs:
     us_core_test_kit (0.0.1)
-      inferno_core (= 0.0.8)
+      inferno_core (~> 0.1.0)
 
 PATH
   remote: .
   specs:
     g10_certification_test_kit (0.0.1)
-      inferno_core (= 0.0.8)
+      inferno_core (~> 0.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -52,7 +52,7 @@ GEM
       database_cleaner (~> 1.99.0)
       sequel
     date_time_precision (0.8.1)
-    diff-lcs (1.4.4)
+    diff-lcs (1.5.0)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.7.6)
@@ -161,7 +161,7 @@ GEM
     i18n (1.8.11)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
-    inferno_core (0.0.8)
+    inferno_core (0.1.0)
       activesupport (~> 6.1)
       blueprinter (= 0.25.2)
       dotenv (~> 2.7)
@@ -203,7 +203,7 @@ GEM
       rack (>= 1.2, < 3)
     oj (3.13.11)
     parallel (1.21.0)
-    parser (3.0.3.2)
+    parser (3.1.0.0)
       ast (~> 2.4.1)
     pry (0.13.1)
       coderay (~> 1.1)
@@ -239,13 +239,13 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.3)
-    rubocop (1.24.0)
+    rubocop (1.24.1)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml
-      rubocop-ast (>= 1.15.0, < 2.0)
+      rubocop-ast (>= 1.15.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.15.1)
