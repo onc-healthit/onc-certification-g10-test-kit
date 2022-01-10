@@ -28,8 +28,8 @@ services:
     ports:
       - "80:80"
     command: [nginx, '-g', 'daemon off;']
-    # depends_on: 
-    #   - fhir_validator_app
+    depends_on: 
+      - inferno
   redis:
     image: redis
     volumes:

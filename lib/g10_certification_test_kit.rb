@@ -1,9 +1,13 @@
 require 'smart_app_launch_test_kit'
 require 'us_core'
 
+require_relative 'g10_certification_test_kit/smart_standalone_patient_app_group'
+require_relative 'g10_certification_test_kit/smart_ehr_practitioner_app_group'
+
 module G10CertificationTestKit
   class G10CertificationSuite < Inferno::TestSuite
     title '2015 Edition Cures Update - Standardized API Testing'
+    id :g10_certification
 
     validator do
       url ENV.fetch('VALIDATOR_URL', 'http://validator_service:4567')
@@ -17,24 +21,7 @@ module G10CertificationTestKit
       end
     end
 
-    group from: 'smart-smart_full_standalone_launch' do
-      title 'Standalone Patient App'
-      description %(
-        This scenario demonstrates the ability of a system to perform a Patient
-        Standalone Launch to a [SMART on
-        FHIR](http://www.hl7.org/fhir/smart-app-launch/) confidential client
-        with a patient context, refresh token, and [OpenID Connect
-        (OIDC)](https://openid.net/specs/openid-connect-core-1_0.html) identity
-        token. After launch, a simple Patient resource read is performed on the
-        patient in context. The access token is then refreshed, and the Patient
-        resource is read using the new access token to ensure that the refresh
-        was successful. The authentication information provided by OpenID
-        Connect is decoded and validated, and simple queries are performed to
-        ensure that access is granted to all USCDI data elements.
-      )
-
-      run_as_group
-    end
+    group from: 'g10_smart_standalone_patient_app'
 
     group do
       title 'TODO: Limited App'
@@ -53,22 +40,7 @@ module G10CertificationTestKit
       end
     end
 
-    group from: 'smart-smart_full_ehr_launch' do
-      title 'EHR Practitioner App'
-      description %(
-        Demonstrate the ability to perform an EHR launch to a [SMART on
-        FHIR](http://www.hl7.org/fhir/smart-app-launch/) confidential client
-        with patient context, refresh token, and [OpenID Connect
-        (OIDC)](https://openid.net/specs/openid-connect-core-1_0.html) identity
-        token. After launch, a simple Patient resource read is performed on the
-        patient in context. The access token is then refreshed, and the Patient
-        resource is read using the new access token to ensure that the refresh
-        was successful. Finally, the authentication information provided by
-        OpenID Connect is decoded and validated.
-      )
-
-      run_as_group
-    end
+    group from: 'g10_smart_ehr_practitioner_app'
 
     group do
       id :single_patient_api
