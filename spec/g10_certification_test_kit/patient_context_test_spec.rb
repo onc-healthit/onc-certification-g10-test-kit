@@ -3,7 +3,12 @@ RSpec.describe G10CertificationTestKit::PatientContextTest do
     test_run_params = { test_session_id: test_session.id }.merge(runnable.reference_hash)
     test_run = Inferno::Repositories::TestRuns.new.create(test_run_params)
     inputs.each do |name, value|
-      session_data_repo.save(test_session_id: test_session.id, name: name, value: value)
+      session_data_repo.save(
+        test_session_id: test_session.id,
+        name: name,
+        value: value,
+        type: runnable.config.input_type(name)
+      )
     end
     Inferno::TestRunner.new(test_session: test_session, test_run: test_run).run(runnable)
   end
@@ -87,7 +92,17 @@ RSpec.describe G10CertificationTestKit::PatientContextTest do
 
     it 'passes if the refresh request was successful and the Patient resource can be retrieved' do
       allow_any_instance_of(described_class).to(
-        receive(:requests).and_return([Inferno::Entities::Request.new(status: 200)])
+        receive(:requests).and_return(
+          [Inferno::Entities::Request.new(
+             status: 200,
+             verb: 'post',
+             url: 'http://example.com',
+             direction: 'outgoing',
+             test_session_id: test_session.id,
+             result_id: repo_create(:result).id
+           )
+          ]
+        )
       )
       patient_request =
         stub_request(:get, "#{default_inputs[:url]}/Patient/#{default_inputs[:patient_id]}")
