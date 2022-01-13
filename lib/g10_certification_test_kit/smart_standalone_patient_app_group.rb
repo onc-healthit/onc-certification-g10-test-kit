@@ -6,12 +6,12 @@ require_relative 'well_known_capabilities_test'
 
 module G10CertificationTestKit
   class SmartStandalonePatientAppGroup < Inferno::TestGroup
-    title 'Standalone Patient App'
+    title 'Standalone Patient App - Full Access'
     description %(
         This scenario demonstrates the ability of a system to perform a Patient
         Standalone Launch to a [SMART on
         FHIR](http://www.hl7.org/fhir/smart-app-launch/) confidential client
-        with a patient context, refresh token, and [OpenID Connect
+        with a patient context, refresh token, 1 1 and [OpenID Connect
         (OIDC)](https://openid.net/specs/openid-connect-core-1_0.html) identity
         token. After launch, a simple Patient resource read is performed on the
         patient in context. The access token is then refreshed, and the Patient
@@ -30,8 +30,28 @@ module G10CertificationTestKit
     group from: :smart_standalone_launch do
       title 'Standalone Launch With Patient Scope'
       description %(
-        Perform Standalone SMART launch sequence and test OpenID Connect and
-        token refresh functionality.
+        # Background
+
+        The [Standalone
+        Launch](http://hl7.org/fhir/smart-app-launch/#standalone-launch-sequence)
+        Sequence allows an app, like Inferno, to be launched independent of an
+        existing EHR session. It is one of the two launch methods described in
+        the SMART App Launch Framework alongside EHR Launch. The app will
+        request authorization for the provided scope from the authorization
+        endpoint, ultimately receiving an authorization token which can be used
+        to gain access to resources on the FHIR server.
+
+        # Test Methodology
+
+        Inferno will redirect the user to the the authorization endpoint so that
+        they may provide any required credentials and authorize the application.
+        Upon successful authorization, Inferno will exchange the authorization
+        code provided for an access token.
+
+        For more information on the #{title}:
+
+        * [Standalone Launch
+          Sequence](http://hl7.org/fhir/smart-app-launch/#standalone-launch-sequence)
       )
 
       test from: :g10_smart_scopes do
