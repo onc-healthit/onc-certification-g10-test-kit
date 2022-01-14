@@ -9,10 +9,6 @@ module ValidationUtils
     scratch[:patient_ids_seen]
   end
 
-  def resource_type
-    scratch[:resource_type]
-  end
-
   def metadata
     scratch[:metadata]
   end
@@ -88,6 +84,7 @@ module ValidationUtils
 
       begin
         resource = FHIR.from_contents(line)
+        # TODO: Guess profile here and still store by url -- don't rely on meta at all
         resource.meta.profile.each { |profile_url| resources[profile_url] << resource }
       rescue StandardError
         skip "Server response at line \"#{line_count}\" is not a processable FHIR resource."
@@ -113,9 +110,9 @@ module ValidationUtils
 
     stream_ndjson(file['url'], headers, process_line, process_headers)
 
-    scratch[:resource_type] = resource_type
-
     metadata_arr.each do |profile|
+      skip_if resources[profile.profile_url].blank?,
+              "No #{resource_type} resources found that conform to profile: #{profile.profile_url}."
       scratch[:metadata] = profile
       @missing_elements = nil
       @missing_slices = nil
@@ -123,18 +120,13 @@ module ValidationUtils
         perform_must_support_test(resources[profile.profile_url])
       rescue Inferno::Exceptions::PassException => e
         next
-      rescue Inferno::Exceptions::SkipException => e
-        raise if metadata_arr.length == 1
-
-        message = "No #{resource_type} resources found that conform to profile: #{profile.profile_url}."
-        raise Inferno::Exceptions::SkipException, message
       end
     end
 
     line_count
   end
 
-  def output_conforms_to_profile?(resource_type, metadata)
+  def perform_bulk_export_validation_test(resource_type, metadata)
     skip 'Could not verify this functionality when Bulk Status Output is not provided' unless status_output.present?
     unless requires_access_token.present?
       skip 'Could not verify this functionality when requiresAccessToken is not provided'
