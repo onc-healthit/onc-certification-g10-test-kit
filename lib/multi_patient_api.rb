@@ -1,4 +1,6 @@
-Dir.glob(File.join(__dir__, 'multi_patient_api', '*.rb')).each { |path| require_relative path.delete_prefix("#{__dir__}/") }
+Dir.glob(File.join(__dir__, 'multi_patient_api', '*.rb')).each do |path|
+  require_relative path.delete_prefix("#{__dir__}/")
+end
 
 module MultiPatientAPI
   class MultiPatientAPIGroup < Inferno::TestGroup
@@ -9,4 +11,4 @@ module MultiPatientAPI
     group from: :bulk_data_group_export
     group from: :bulk_data_group_export_validation
   end
-end 
+end

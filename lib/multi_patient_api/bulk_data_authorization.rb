@@ -20,10 +20,18 @@ module MultiPatientAPI
 
     id :bulk_data_authorization
 
-    input :bulk_token_endpoint, title: 'Backend Services Token Endpoint', description: 'The OAuth 2.0 Token Endpoint used by the Backend Services specification to provide bearer tokens.'
-    input :bulk_client_id, title: 'Bulk Data Client ID', description: 'Client ID provided at registration to the Inferno application.'
-    input :bulk_scope, title: 'Bulk Data Scopes', description: 'Bulk Data Scopes provided at registration to the Inferno application.'
-    input :bulk_encryption_method, title: 'Encryption Method', description: 'The server is required to suport either ES384 or RS384 encryption methods for JWT signature verification. Select which method to use.' #TODO: Make radio button. 
+    input :bulk_token_endpoint,
+          title: 'Backend Services Token Endpoint',
+          description: 'The OAuth 2.0 Token Endpoint used by the Backend Services specification to provide bearer tokens.'
+    input :bulk_client_id,
+          title: 'Bulk Data Client ID',
+          description: 'Client ID provided at registration to the Inferno application.'
+    input :bulk_scope,
+          title: 'Bulk Data Scopes',
+          description: 'Bulk Data Scopes provided at registration to the Inferno application.'
+    input :bulk_encryption_method,
+          title: 'Encryption Method',
+          description: 'The server is required to suport either ES384 or RS384 encryption methods for JWT signature verification. Select which method to use.' # TODO: Make radio button.
 
     output :bulk_access_token
 
@@ -31,7 +39,7 @@ module MultiPatientAPI
       url :bulk_token_endpoint
     end
 
-    # TODO: Write test after TLS Tester class is implemented. 
+    # TODO: Write test after TLS Tester class is implemented.
     test do
       title 'Authorization service token endpoint secured by transport layer security'
       description <<~DESCRIPTION
@@ -39,9 +47,8 @@ module MultiPatientAPI
         all exchanges described herein between a client and a server SHALL be secured using Transport Layer Security (TLS) Protocol Version 1.2 (RFC5246).
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#security-considerations'
-      run {
-
-      }
+      run do
+      end
     end
 
     test do
@@ -63,12 +70,12 @@ module MultiPatientAPI
 
       run do
         post_request_content = build_authorization_request(encryption_method: bulk_encryption_method,
-                                                      scope: bulk_scope,
-                                                      iss: bulk_client_id,
-                                                      sub: bulk_client_id,
-                                                      aud: bulk_token_endpoint,
-                                                      grant_type: 'not_a_grant_type')
-         
+                                                           scope: bulk_scope,
+                                                           iss: bulk_client_id,
+                                                           sub: bulk_client_id,
+                                                           aud: bulk_token_endpoint,
+                                                           grant_type: 'not_a_grant_type')
+
         post({ client: :token_endpoint }.merge(post_request_content))
 
         assert_response_status(400)
@@ -94,12 +101,12 @@ module MultiPatientAPI
 
       run do
         post_request_content = build_authorization_request(encryption_method: bulk_encryption_method,
-                                        scope: bulk_scope,
-                                        iss: bulk_client_id,
-                                        sub: bulk_client_id,
-                                        aud: bulk_token_endpoint,
-                                        client_assertion_type: 'not_an_assertion_type')
-                                      
+                                                           scope: bulk_scope,
+                                                           iss: bulk_client_id,
+                                                           sub: bulk_client_id,
+                                                           aud: bulk_token_endpoint,
+                                                           client_assertion_type: 'not_an_assertion_type')
+
         post({ client: :token_endpoint }.merge(post_request_content))
 
         assert_response_status(400)
@@ -134,10 +141,10 @@ module MultiPatientAPI
 
       run do
         post_request_content = build_authorization_request(encryption_method: bulk_encryption_method,
-                                        scope: bulk_scope,
-                                        iss: 'not_a_valid_iss',
-                                        sub: bulk_client_id,
-                                        aud: bulk_token_endpoint)
+                                                           scope: bulk_scope,
+                                                           iss: 'not_a_valid_iss',
+                                                           sub: bulk_client_id,
+                                                           aud: bulk_token_endpoint)
 
         post({ client: :token_endpoint }.merge(post_request_content))
 
@@ -155,11 +162,11 @@ module MultiPatientAPI
       output :authentication_response
 
       run do
-        post_request_content = build_authorization_request(encryption_method: bulk_encryption_method, 
-                                        scope: bulk_scope, 
-                                        iss: bulk_client_id, 
-                                        sub: bulk_client_id, 
-                                        aud: bulk_token_endpoint)
+        post_request_content = build_authorization_request(encryption_method: bulk_encryption_method,
+                                                           scope: bulk_scope,
+                                                           iss: bulk_client_id,
+                                                           sub: bulk_client_id,
+                                                           aud: bulk_token_endpoint)
 
         authentication_response = post({ client: :token_endpoint }.merge(post_request_content))
 
@@ -187,7 +194,6 @@ module MultiPatientAPI
       output :bearer_token
 
       run do
-
         skip_if authentication_response.blank?, 'No authentication response received.'
 
         assert_valid_json(authentication_response)

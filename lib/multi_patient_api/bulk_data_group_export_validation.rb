@@ -8,13 +8,23 @@ module MultiPatientAPI
     id :bulk_data_group_export_validation
 
     input :status_output, :requires_access_token, :bearer_token
-    input :lines_to_validate, title: 'Limit validation to a maximum resource count', description: 'To validate all, leave blank.', optional: true
-    input :bulk_patient_ids_in_group, title: 'Patient IDs in exported Group', description: 'Comma separated list of every Patient ID that is in the specified Group. This information is provided by the system under test to verify that data returned matches expectations. Leave blank to not verify Group inclusion.'
-    input :bulk_device_types_in_group, title: 'Implantable Device Type Codes in exported Group', description: 'Comma separated list of every Implantable Device type that is in the specified Group. This information is provided by the system under test to verify that data returned matches expectations. Leave blank to verify all Device resources against the Implantable Device profile.', optional: true
+    input :lines_to_validate,
+          title: 'Limit validation to a maximum resource count',
+          description: 'To validate all, leave blank.',
+          optional: true
+    input :bulk_patient_ids_in_group,
+          title: 'Patient IDs in exported Group',
+          description: 'Comma separated list of every Patient ID that is in the specified Group. This information is provided by the system under test to verify that data returned matches expectations. Leave blank to not verify Group inclusion.'
+    input :bulk_device_types_in_group,
+          title: 'Implantable Device Type Codes in exported Group',
+          description: %(
+        Comma separated list of every Implantable Device type that is in the specified Group. This information is provided by the system under test to verify that data returned matches expectations. Leave blank to verify all Device resources against the Implantable Device profile.
+      ),
+          optional: true
 
     http_client :ndjson_endpoint do
       url :output_endpoint
-    end 
+    end
 
     # TODO: Create after implementing TLS Tester Class.
     test do
@@ -25,9 +35,8 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#security-considerations'
 
-      run {
-        
-      }
+      run do
+      end
     end
 
     test do
@@ -43,17 +52,18 @@ module MultiPatientAPI
 
       include ValidationUtils
 
-      run {
+      run do
         skip_if status_output.blank?, 'Could not verify this functionality when Bulk Status Output is not provided'
-        skip_if requires_access_token.blank?, 'Could not verify this functionality when requiresAccessToken is not provided' 
-        skip_if !requires_access_token, 'Could not verify this functionality when requiresAccessToken is false' 
-        skip_if bearer_token.blank?, 'Could not verify this functionality when Bearer Token is not provided' 
+        skip_if requires_access_token.blank?,
+                'Could not verify this functionality when requiresAccessToken is not provided'
+        skip_if !requires_access_token, 'Could not verify this functionality when requiresAccessToken is false'
+        skip_if bearer_token.blank?, 'Could not verify this functionality when Bearer Token is not provided'
 
         output_endpoint = JSON.parse(status_output)[0]['url']
 
         get_file(output_endpoint, false)
         assert_response_status([400, 401])
-      }
+      end
     end
 
     test do
@@ -65,9 +75,10 @@ module MultiPatientAPI
 
       include ValidationUtils
 
-      run {
-        assert output_conforms_to_profile?('Patient', Array.wrap(USCore::PatientGroup::metadata)), 'Resources do not conform to profile.'
-      }
+      run do
+        assert output_conforms_to_profile?('Patient', Array.wrap(USCore::PatientGroup.metadata)),
+               'Resources do not conform to profile.'
+      end
     end
 
     test do
@@ -79,11 +90,12 @@ module MultiPatientAPI
 
       include ValidationUtils
 
-      run {
+      run do
         skip 'No Patient resources processed from bulk data export.' unless patient_ids_seen.present?
 
-        assert patient_ids_seen.length >= ValidationUtils::MIN_RESOURCE_COUNT, 'Bulk data export did not have multiple Patient resources.'
-      }
+        assert patient_ids_seen.length >= ValidationUtils::MIN_RESOURCE_COUNT,
+               'Bulk data export did not have multiple Patient resources.'
+      end
     end
 
     test do
@@ -96,13 +108,14 @@ module MultiPatientAPI
 
       include ValidationUtils
 
-      run {
+      run do
         omit 'No patient ids were given.' unless bulk_patient_ids_in_group.present?
 
         expected_ids = Set.new(bulk_patient_ids_in_group.split(',').map(&:strip))
 
-        assert patient_ids_seen.sort == expected_ids.sort, "Mismatch between patient ids seen (#{patient_ids_seen.to_a.join(', ')}) and patient ids expected (#{bulk_patient_ids_in_group})"
-      }
+        assert patient_ids_seen.sort == expected_ids.sort,
+               "Mismatch between patient ids seen (#{patient_ids_seen.to_a.join(', ')}) and patient ids expected (#{bulk_patient_ids_in_group})"
+      end
     end
 
     test do
@@ -114,9 +127,10 @@ module MultiPatientAPI
 
       include ValidationUtils
 
-      run {
-        assert output_conforms_to_profile?('AllergyIntolerance', Array.wrap(USCore::AllergyIntoleranceGroup::metadata)), 'Resources do not conform to profile.'
-      }
+      run do
+        assert output_conforms_to_profile?('AllergyIntolerance', Array.wrap(USCore::AllergyIntoleranceGroup.metadata)),
+               'Resources do not conform to profile.'
+      end
     end
 
     test do
@@ -128,9 +142,10 @@ module MultiPatientAPI
 
       include ValidationUtils
 
-      run {
-        assert output_conforms_to_profile?('CarePlan', Array.wrap(USCore::CarePlanGroup::metadata)), 'Resources do not conform to profile.'
-      }
+      run do
+        assert output_conforms_to_profile?('CarePlan', Array.wrap(USCore::CarePlanGroup.metadata)),
+               'Resources do not conform to profile.'
+      end
     end
 
     test do
@@ -142,11 +157,11 @@ module MultiPatientAPI
 
       include ValidationUtils
 
-      run {
-        assert output_conforms_to_profile?('CareTeam', Array.wrap(USCore::CareTeamGroup::metadata)), 'Resources do not conform to profile.'
-      }
+      run do
+        assert output_conforms_to_profile?('CareTeam', Array.wrap(USCore::CareTeamGroup.metadata)),
+               'Resources do not conform to profile.'
+      end
     end
-
 
     test do
       title 'Condition resources returned conform to the US Core Condition Profile'
@@ -157,9 +172,10 @@ module MultiPatientAPI
 
       include ValidationUtils
 
-      run {
-        assert output_conforms_to_profile?('Condition', Array.wrap(USCore::ConditionGroup::metadata)), 'Resources do not conform to profile.'
-      }
+      run do
+        assert output_conforms_to_profile?('Condition', Array.wrap(USCore::ConditionGroup.metadata)),
+               'Resources do not conform to profile.'
+      end
     end
 
     test do
@@ -171,9 +187,10 @@ module MultiPatientAPI
 
       include ValidationUtils
 
-      run {
-        assert output_conforms_to_profile?('Device', Array.wrap(USCore::DeviceGroup::metadata)), 'Resources do not conform to profile.'
-      }
+      run do
+        assert output_conforms_to_profile?('Device', Array.wrap(USCore::DeviceGroup.metadata)),
+               'Resources do not conform to profile.'
+      end
     end
 
     test do
@@ -188,10 +205,10 @@ module MultiPatientAPI
 
       include ValidationUtils
 
-      run {
-        metadata = [USCore::DiagnosticReportLabGroup::metadata, USCore::DiagnosticReportNoteGroup::metadata]
+      run do
+        metadata = [USCore::DiagnosticReportLabGroup.metadata, USCore::DiagnosticReportNoteGroup.metadata]
         assert output_conforms_to_profile?('DiagnosticReport', metadata), 'Resources do not conform to profile.'
-      }
+      end
     end
 
     test do
@@ -203,9 +220,10 @@ module MultiPatientAPI
 
       include ValidationUtils
 
-      run {
-        assert output_conforms_to_profile?('DocumentReference', [USCore::DocumentReferenceGroup::metadata]), 'Resources do not conform to profile.'
-      }
+      run do
+        assert output_conforms_to_profile?('DocumentReference', [USCore::DocumentReferenceGroup.metadata]),
+               'Resources do not conform to profile.'
+      end
     end
 
     test do
@@ -214,12 +232,13 @@ module MultiPatientAPI
         This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification.
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-goal'
-      
+
       include ValidationUtils
 
-      run {
-        assert output_conforms_to_profile?('Goal', [USCore::GoalGroup::metadata]), 'Resources do not conform to profile.'
-      }
+      run do
+        assert output_conforms_to_profile?('Goal', [USCore::GoalGroup.metadata]),
+               'Resources do not conform to profile.'
+      end
     end
 
     test do
@@ -231,9 +250,10 @@ module MultiPatientAPI
 
       include ValidationUtils
 
-      run {
-        assert output_conforms_to_profile?('Immunization', [USCore::ImmunizationGroup::metadata]), 'Resources do not conform to profile.'
-      }
+      run do
+        assert output_conforms_to_profile?('Immunization', [USCore::ImmunizationGroup.metadata]),
+               'Resources do not conform to profile.'
+      end
     end
 
     test do
@@ -245,9 +265,10 @@ module MultiPatientAPI
 
       include ValidationUtils
 
-      run {
-        assert output_conforms_to_profile?('MedicationRequest', [USCore::MedicationRequestGroup::metadata]), 'Resources do not conform to profile.'
-      }
+      run do
+        assert output_conforms_to_profile?('MedicationRequest', [USCore::MedicationRequestGroup.metadata]),
+               'Resources do not conform to profile.'
+      end
     end
 
     test do
@@ -274,15 +295,15 @@ module MultiPatientAPI
 
       include ValidationUtils
 
-      run {
-        metadata = [ USCore::PediatricBmiForAgeGroup::metadata, USCore::PediatricWeightForHeightGroup::metadata,
-                      USCore::ObservationLabGroup::metadata, USCore::PulseOximetryGroup::metadata, USCore::SmokingstatusGroup::metadata, 
-                      USCore::HeadCircumferenceGroup::metadata, USCore::BpGroup::metadata, USCore::BodyheightGroup::metadata, 
-                      USCore::BodytempGroup::metadata, USCore::BodyweightGroup::metadata, USCore::HeartrateGroup::metadata, 
-                      USCore::ResprateGroup::metadata ]
+      run do
+        metadata = [USCore::PediatricBmiForAgeGroup.metadata, USCore::PediatricWeightForHeightGroup.metadata,
+                    USCore::ObservationLabGroup.metadata, USCore::PulseOximetryGroup.metadata, USCore::SmokingstatusGroup.metadata,
+                    USCore::HeadCircumferenceGroup.metadata, USCore::BpGroup.metadata, USCore::BodyheightGroup.metadata,
+                    USCore::BodytempGroup.metadata, USCore::BodyweightGroup.metadata, USCore::HeartrateGroup.metadata,
+                    USCore::ResprateGroup.metadata]
 
         assert output_conforms_to_profile?('Observation', metadata), 'Resources do not conform to profile.'
-      }
+      end
     end
 
     test do
@@ -294,9 +315,10 @@ module MultiPatientAPI
 
       include ValidationUtils
 
-      run {
-        assert output_conforms_to_profile?('Procedure', [USCore::ProcedureGroup::metadata]), 'Resources do not conform to profile.'
-      }
+      run do
+        assert output_conforms_to_profile?('Procedure', [USCore::ProcedureGroup.metadata]),
+               'Resources do not conform to profile.'
+      end
     end
 
     test do
@@ -308,9 +330,10 @@ module MultiPatientAPI
 
       include ValidationUtils
 
-      run {
-        assert output_conforms_to_profile?('Encounter', [USCore::EncounterGroup::metadata]), 'Resources do not conform to profile.'
-      }
+      run do
+        assert output_conforms_to_profile?('Encounter', [USCore::EncounterGroup.metadata]),
+               'Resources do not conform to profile.'
+      end
     end
 
     test do
@@ -322,9 +345,10 @@ module MultiPatientAPI
 
       include ValidationUtils
 
-      run {
-        assert output_conforms_to_profile?('Organization', [USCore::OrganizationGroup::metadata]), 'Resources do not conform to profile.'
-      }
+      run do
+        assert output_conforms_to_profile?('Organization', [USCore::OrganizationGroup.metadata]),
+               'Resources do not conform to profile.'
+      end
     end
 
     test do
@@ -336,9 +360,10 @@ module MultiPatientAPI
 
       include ValidationUtils
 
-      run {
-        assert output_conforms_to_profile?('Practitioner', [USCore::PractitionerGroup::metadata]), 'Resources do not conform to profile.'
-      }
+      run do
+        assert output_conforms_to_profile?('Practitioner', [USCore::PractitionerGroup.metadata]),
+               'Resources do not conform to profile.'
+      end
     end
 
     test do
@@ -350,9 +375,10 @@ module MultiPatientAPI
 
       include ValidationUtils
 
-      run {
-        assert output_conforms_to_profile?('Provenance', [USCore::ProvenanceGroup::metadata]), 'Resources do not conform to profile.'
-      }
+      run do
+        assert output_conforms_to_profile?('Provenance', [USCore::ProvenanceGroup.metadata]),
+               'Resources do not conform to profile.'
+      end
     end
 
     test do
@@ -364,11 +390,12 @@ module MultiPatientAPI
 
       include ValidationUtils
 
-      run {
+      run do
         metadata = YAML.load_file(File.join(__dir__, 'metadata/location.yml'))
 
-        assert output_conforms_to_profile?('Location', [USCore::Generator::GroupMetadata.new(metadata)]), 'Resources do not conform to profile.'
-      }
+        assert output_conforms_to_profile?('Location', [USCore::Generator::GroupMetadata.new(metadata)]),
+               'Resources do not conform to profile.'
+      end
     end
 
     test do
@@ -380,11 +407,12 @@ module MultiPatientAPI
 
       include ValidationUtils
 
-      run {
+      run do
         metadata = YAML.load_file(File.join(__dir__, 'metadata/medication.yml'))
 
-        assert output_conforms_to_profile?('Medication', [USCore::Generator::GroupMetadata.new(metadata)]), 'Resources do not conform to profile.'
-      }
+        assert output_conforms_to_profile?('Medication', [USCore::Generator::GroupMetadata.new(metadata)]),
+               'Resources do not conform to profile.'
+      end
     end
   end
 end

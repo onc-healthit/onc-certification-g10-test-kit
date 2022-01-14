@@ -8,10 +8,11 @@ module MultiPatientAPI
     DESCRIPTION
 
     id :bulk_data_group_export
-    
+
     input :bearer_token
     input :bulk_server_url, title: 'Bulk Data FHIR URL', description: 'The URL of the Bulk FHIR server.'
-    input :group_id, title: 'Group ID', description: 'The Group ID associated with the group of patients to be exported.'
+    input :group_id, title: 'Group ID',
+                     description: 'The Group ID associated with the group of patients to be exported.'
 
     output :requires_access_token, :status_output
 
@@ -23,7 +24,7 @@ module MultiPatientAPI
       url :bulk_server_url
     end
 
-    # TODO: Implement TLS Tester Class 
+    # TODO: Implement TLS Tester Class
     test do
       title 'Bulk Data Server is secured by transport layer security'
       description <<~DESCRIPTION
@@ -32,9 +33,8 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#security-considerations'
 
-      run {
-
-      }
+      run do
+      end
     end
 
     test do
@@ -44,8 +44,8 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/OperationDefinition-group-export.html'
 
-      run {
-        fhir_get_capability_statement(client: :bulk_server) 
+      run do
+        fhir_get_capability_statement(client: :bulk_server)
         assert_response_status([200, 201])
 
         assert_valid_json(request.response_body)
@@ -54,25 +54,24 @@ module MultiPatientAPI
         definition = 'http://hl7.org/fhir/uv/bulkdata/OperationDefinition/group-export'
 
         capability_statement.rest&.each do |rest|
-          groups = rest.resource&.select { |resource| resource.type == 'Group' } 
+          groups = rest.resource&.select { |resource| resource.type == 'Group' }
 
           pass if groups&.any? do |group|
             group.operation&.any? do |operation|
-              if operation.definition.is_a? String 
+              if operation.definition.is_a? String
                 operation.definition == definition
               else
                 operation.definition&.flatten&.include?(definition)
               end
-            end 
-          end 
-        end 
+            end
+          end
+        end
 
         assert false, 'Server CapabilityStatement did not declare support for export operation in Group resource'
-      }
+      end
     end
 
     test do
-
       title 'Bulk Data Server rejects $export request without authorization'
       description <<~DESCRIPTION
         The FHIR server SHALL limit the data returned to only those FHIR resources for which the client is authorized.
@@ -85,12 +84,12 @@ module MultiPatientAPI
 
       include ExportUtils
 
-      run {        
+      run do
         skip_if bearer_token.blank?, 'Could not verify this functionality when bearer token is not set'
 
         export_kick_off(false)
         assert_response_status(401)
-      }
+      end
     end
 
     test do
@@ -104,10 +103,10 @@ module MultiPatientAPI
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#response---success'
 
       include ExportUtils
-      
+
       output :polling_url
 
-      run {
+      run do
         export_kick_off
         assert_response_status(202)
 
@@ -116,7 +115,7 @@ module MultiPatientAPI
         assert polling_url.present?, 'Export response headers did not include "Content-Location"'
 
         output polling_url: polling_url
-      }
+      end
     end
 
     test do
@@ -139,15 +138,15 @@ module MultiPatientAPI
 
       output :status_response
 
-      run {
+      run do
         skip 'Server response did not have Content-Location in header' unless polling_url.present?
-        
+
         timeout = 180
         wait_time = 1
         start = Time.now
 
         loop do
-          get(polling_url, headers: { authorization: "Bearer #{bearer_token}"})
+          get(polling_url, headers: { authorization: "Bearer #{bearer_token}" })
 
           retry_after = response[:headers].find { |header| header.name == 'retry-after' }
           retry_after_val = retry_after&.value.to_i || 0
@@ -156,15 +155,17 @@ module MultiPatientAPI
 
           seconds_used = Time.now - start + wait_time
 
-          break if response[:status] != 202 || seconds_used > timeout 
+          break if response[:status] != 202 || seconds_used > timeout
 
           sleep wait_time
-        end 
+        end
 
         skip "Server took more than #{timeout} seconds to process the request." if response[:status] == 202
 
         assert response[:status] == 200, "Bad response code: expected 200, 202, but found #{response[:status]}."
-        assert response[:headers].any? { |header| header.name == 'content-type' && header.value.include?('application/json') }, 'Content-Type not application/json'
+        assert response[:headers].any? { |header|
+                 header.name == 'content-type' && header.value.include?('application/json')
+               }, 'Content-Type not application/json'
 
         response_body = JSON.parse(response[:body])
 
@@ -173,7 +174,7 @@ module MultiPatientAPI
         end
 
         output status_response: response[:body]
-      }
+      end
     end
 
     test do
@@ -196,8 +197,8 @@ module MultiPatientAPI
 
       output :status_output
 
-      run {
-        assert status_response.present?, 'Bulk Data Server status response not found' 
+      run do
+        assert status_response.present?, 'Bulk Data Server status response not found'
 
         status_output = JSON.parse(status_response)['output']
         assert status_output, 'Bulk Data Server status response does not contain output'
@@ -209,7 +210,7 @@ module MultiPatientAPI
             assert file.key?(key), "Output file did not contain \"#{key}\" as required"
           end
         end
-      }
+      end
     end
 
     test do
@@ -221,14 +222,15 @@ module MultiPatientAPI
 
       input :status_response
 
-      run {
-        assert status_response.present?, 'Bulk Data Server status response not found'  
+      run do
+        assert status_response.present?, 'Bulk Data Server status response not found'
 
         requires_access_token = JSON.parse(status_response)['requiresAccessToken']
         output requires_access_token: requires_access_token
 
-        assert requires_access_token.present? && requires_access_token.to_s.downcase == 'true', 'Bulk Data file server access SHALL require access token'
-      }
+        assert requires_access_token.present? && requires_access_token.to_s.downcase == 'true',
+               'Bulk Data file server access SHALL require access token'
+      end
     end
 
     test do
@@ -241,16 +243,16 @@ module MultiPatientAPI
 
       include ExportUtils
 
-      run {
+      run do
         export_kick_off
         assert_response_status(202)
-       
+
         polling_url = response[:headers].find { |header| header.name == 'content-location' }.value
         assert polling_url.present?, 'Export response header did not include "Content-Location"'
 
         # delete(polling_url) TODO: Uncomment after core PR is merged in
         assert_response_status(202)
-      }
+      end
     end
   end
 end

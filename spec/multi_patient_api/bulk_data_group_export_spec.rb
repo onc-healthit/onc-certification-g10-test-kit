@@ -1,8 +1,7 @@
-require_relative '../../lib/multi_patient_api/bulk_data_group_export.rb'
-require_relative '../../lib/multi_patient_api/bulk_data_utils.rb'
+require_relative '../../lib/multi_patient_api/bulk_data_group_export'
+require_relative '../../lib/multi_patient_api/bulk_data_utils'
 
 RSpec.describe MultiPatientAPI::BulkDataGroupExport do
-
   let(:group) { Inferno::Repositories::TestGroups.new.find('bulk_data_group_export') }
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
   let(:test_session) { repo_create(:test_session, test_group_id: 'bulk_data_group_export') }
@@ -32,8 +31,8 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExport do
     test_run = Inferno::Repositories::TestRuns.new.create(test_run_params)
     inputs.each do |name, value|
       session_data_repo.save(
-        test_session_id: test_session.id, 
-        name: name, 
+        test_session_id: test_session.id,
+        name: name,
         value: value,
         type: runnable.config.input_type(name)
       )
@@ -43,7 +42,6 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExport do
 
   # TODO: Write TLS unit tests after TLS tester class created.
   describe 'endpoint TLS tests' do
-
   end
 
   describe '[Bulk Data Server declares support for Group export operation in CapabilityStatement] test' do
@@ -97,7 +95,7 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExport do
   describe '[Bulk Data Server rejects $export request without authorization] test' do
     let(:runnable) { group.tests[2] }
     let(:bad_token_input) do
-      base_input.merge( { bearer_token: nil } )
+      base_input.merge({ bearer_token: nil })
     end
 
     it 'skips if bearer_token not provided' do
@@ -176,7 +174,7 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExport do
   describe '[Bulk Data Server returns "202 Accepted" or "200 OK" for status check] test' do
     let(:input) { base_input.merge(polling_url: polling_url) }
     let(:runnable) { group.tests[4] }
-    let(:headers) { {'content-type' => 'application/json'} } 
+    let(:headers) { { 'content-type' => 'application/json' } }
     let(:incomplete_status_response) do
       status_response_json = JSON.parse(status_response)
       status_response_json.delete('transactionTime')
@@ -189,8 +187,8 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExport do
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('Server response did not have Content-Location in header')
     end
-    
-    # Note: Test commented out as it takes three minutes to fail
+
+    # NOTE: Test commented out as it takes three minutes to fail
     # it 'skips when server only returns "202 Accepted", and not "200 OK" in the allowed timeframe' do
     #   stub_request(:get, "#{polling_url}")
     #     .with(headers: { 'Authorization' => "Bearer #{bearer_token}" } )
@@ -296,7 +294,7 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExport do
 
     it 'fails when server response does not contain requireAccessToken' do
       result = run(runnable, { status_response: no_rAT_status_response })
-      
+
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Bulk Data file server access SHALL require access token')
     end
@@ -313,8 +311,7 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExport do
     end
   end
 
-  # TODO: Write after HTTP Client delete support merged into core. 
+  # TODO: Write after HTTP Client delete support merged into core.
   describe 'delete request tests' do
-
   end
 end
