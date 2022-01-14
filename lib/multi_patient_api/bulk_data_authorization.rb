@@ -1,4 +1,4 @@
-require_relative './bulk_data_utils'
+require_relative './authorization_request_builder'
 
 module MultiPatientAPI
   class BulkDataAuthorization < Inferno::TestGroup
@@ -15,8 +15,6 @@ module MultiPatientAPI
 
       This test returns an access token.
     DESCRIPTION
-
-    include AuthorizationUtils
 
     id :bulk_data_authorization
 
@@ -69,12 +67,12 @@ module MultiPatientAPI
       # link 'http://hl7.org/fhir/uv/bulkdata/authorization/index.html#protocol-details'
 
       run do
-        post_request_content = build_authorization_request(encryption_method: bulk_encryption_method,
-                                                           scope: bulk_scope,
-                                                           iss: bulk_client_id,
-                                                           sub: bulk_client_id,
-                                                           aud: bulk_token_endpoint,
-                                                           grant_type: 'not_a_grant_type')
+        post_request_content = AuthorizationRequestBuilder.build(encryption_method: bulk_encryption_method,
+                                                                 scope: bulk_scope,
+                                                                 iss: bulk_client_id,
+                                                                 sub: bulk_client_id,
+                                                                 aud: bulk_token_endpoint,
+                                                                 grant_type: 'not_a_grant_type')
 
         post({ client: :token_endpoint }.merge(post_request_content))
 
@@ -100,12 +98,12 @@ module MultiPatientAPI
       # link 'http://hl7.org/fhir/uv/bulkdata/authorization/index.html#protocol-details'
 
       run do
-        post_request_content = build_authorization_request(encryption_method: bulk_encryption_method,
-                                                           scope: bulk_scope,
-                                                           iss: bulk_client_id,
-                                                           sub: bulk_client_id,
-                                                           aud: bulk_token_endpoint,
-                                                           client_assertion_type: 'not_an_assertion_type')
+        post_request_content = AuthorizationRequestBuilder.build(encryption_method: bulk_encryption_method,
+                                                                 scope: bulk_scope,
+                                                                 iss: bulk_client_id,
+                                                                 sub: bulk_client_id,
+                                                                 aud: bulk_token_endpoint,
+                                                                 client_assertion_type: 'not_an_assertion_type')
 
         post({ client: :token_endpoint }.merge(post_request_content))
 
@@ -140,11 +138,11 @@ module MultiPatientAPI
       # link 'http://hl7.org/fhir/uv/bulkdata/authorization/index.html#protocol-details'
 
       run do
-        post_request_content = build_authorization_request(encryption_method: bulk_encryption_method,
-                                                           scope: bulk_scope,
-                                                           iss: 'not_a_valid_iss',
-                                                           sub: bulk_client_id,
-                                                           aud: bulk_token_endpoint)
+        post_request_content = AuthorizationRequestBuilder.build(encryption_method: bulk_encryption_method,
+                                                                 scope: bulk_scope,
+                                                                 iss: 'not_a_valid_iss',
+                                                                 sub: bulk_client_id,
+                                                                 aud: bulk_token_endpoint)
 
         post({ client: :token_endpoint }.merge(post_request_content))
 
@@ -162,11 +160,11 @@ module MultiPatientAPI
       output :authentication_response
 
       run do
-        post_request_content = build_authorization_request(encryption_method: bulk_encryption_method,
-                                                           scope: bulk_scope,
-                                                           iss: bulk_client_id,
-                                                           sub: bulk_client_id,
-                                                           aud: bulk_token_endpoint)
+        post_request_content = AuthorizationRequestBuilder.build(encryption_method: bulk_encryption_method,
+                                                                 scope: bulk_scope,
+                                                                 iss: bulk_client_id,
+                                                                 sub: bulk_client_id,
+                                                                 aud: bulk_token_endpoint)
 
         authentication_response = post({ client: :token_endpoint }.merge(post_request_content))
 

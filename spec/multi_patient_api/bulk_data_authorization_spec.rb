@@ -1,7 +1,5 @@
 require_relative '../../lib/multi_patient_api/bulk_data_authorization'
-require_relative '../../lib/multi_patient_api/bulk_data_utils'
-
-include AuthorizationUtils
+require_relative '../../lib/multi_patient_api/authorization_request_builder'
 
 RSpec.describe MultiPatientAPI::BulkDataAuthorization do
   let(:group) { Inferno::Repositories::TestGroups.new.find('bulk_data_authorization') }
@@ -13,15 +11,9 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
   let(:bulk_client_id) { 'clientID' }
   let(:exp) { 5.minutes.from_now }
   let(:jti) { SecureRandom.hex(32) }
+  let(:request_builder) { AuthorizationRequestBuilder.new(builder_input) }
   let(:client_assertion) { create_client_assertion(client_assertion_input) }
-  let(:body) do
-    {
-      'scope' => bulk_scope,
-      'grant_type' => 'client_credentials',
-      'client_assertion_type' => 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
-      'client_assertion' => client_assertion.to_s
-    }.compact
-  end
+  let(:body) { request_builder.authorization_request_query_values }
   let(:input) do
     {
       bulk_token_endpoint: bulk_token_endpoint,
@@ -30,9 +22,10 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
       bulk_client_id: bulk_client_id
     }
   end
-  let(:client_assertion_input) do
+  let(:builder_input) do
     {
       encryption_method: bulk_encryption_method,
+      scope: bulk_scope,
       iss: bulk_client_id,
       sub: bulk_client_id,
       aud: bulk_token_endpoint,
@@ -61,16 +54,12 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
 
   describe '[Invalid grant_type] test' do
     let(:runnable) { group.tests[1] }
-    let(:bad_grant_body) do
-      body.merge({ 'grant_type' => 'not_a_grant_type' })
-    end
 
     it 'fails when token endpoint allows invalid grant_type' do
       stub_request(:post, bulk_token_endpoint)
-        .with(body: bad_grant_body)
+        .with(body: hash_including(grant_type: 'not_a_grant_type'))
         .to_return(status: 200)
 
-      allow_any_instance_of(runnable).to receive(:create_client_assertion).and_return(client_assertion)
       result = run(runnable, input)
 
       expect(result.result).to eq('fail')
@@ -79,10 +68,9 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
 
     it 'passes when token endpoint requires valid grant_type' do
       stub_request(:post, bulk_token_endpoint)
-        .with(body: bad_grant_body)
+        .with(body: hash_including(grant_type: 'not_a_grant_type'))
         .to_return(status: 400)
 
-      allow_any_instance_of(runnable).to receive(:create_client_assertion).and_return(client_assertion)
       result = run(runnable, input)
 
       expect(result.result).to eq('pass')
@@ -91,16 +79,12 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
 
   describe '[Invalid client_assertion_type] test' do
     let(:runnable) { group.tests[2] }
-    let(:bad_client_assertion_body) do
-      body.merge({ 'client_assertion_type' => 'not_an_assertion_type' })
-    end
 
     it 'fails when token endpoint allows invalid client_assertion_type' do
       stub_request(:post, bulk_token_endpoint)
-        .with(body: bad_client_assertion_body)
+        .with(body: hash_including(client_assertion_type: 'not_an_assertion_type'))
         .to_return(status: 200)
 
-      allow_any_instance_of(runnable).to receive(:create_client_assertion).and_return(client_assertion)
       result = run(runnable, input)
 
       expect(result.result).to eq('fail')
@@ -109,10 +93,9 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
 
     it 'passes when token endpoint requires valid client_assertion_type' do
       stub_request(:post, bulk_token_endpoint)
-        .with(body: bad_client_assertion_body)
+        .with(body: hash_including(client_assertion_type: 'not_an_assertion_type'))
         .to_return(status: 400)
 
-      allow_any_instance_of(runnable).to receive(:create_client_assertion).and_return(client_assertion)
       result = run(runnable, input)
 
       expect(result.result).to eq('pass')
@@ -121,19 +104,11 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
 
   describe '[Invalid JWT token] test' do
     let(:runnable) { group.tests[3] }
-    let(:bad_iss_client_assertion) do
-      create_client_assertion(client_assertion_input.merge({ iss: 'not_a_valid_iss' }))
-    end
-    let(:bad_client_assertion_body) do
-      body.merge({ 'client_assertion' => bad_iss_client_assertion.to_s })
-    end
 
     it 'fails when token endpoint allows invalid JWT token' do
       stub_request(:post, bulk_token_endpoint)
-        .with(body: bad_client_assertion_body)
         .to_return(status: 200)
 
-      allow_any_instance_of(runnable).to receive(:create_client_assertion).and_return(bad_iss_client_assertion)
       result = run(runnable, input)
 
       expect(result.result).to eq('fail')
@@ -142,10 +117,8 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
 
     it 'passes when token endpoint requires valid JWT token' do
       stub_request(:post, bulk_token_endpoint)
-        .with(body: bad_client_assertion_body)
         .to_return(status: 400)
 
-      allow_any_instance_of(runnable).to receive(:create_client_assertion).and_return(bad_iss_client_assertion)
       result = run(runnable, input)
 
       expect(result.result).to eq('pass')
@@ -157,10 +130,8 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
 
     it 'fails if the access token request is rejected' do
       stub_request(:post, bulk_token_endpoint)
-        .with(body: body)
         .to_return(status: 400)
 
-      allow_any_instance_of(runnable).to receive(:create_client_assertion).and_return(client_assertion)
       result = run(runnable, input)
 
       expect(result.result).to eq('fail')
@@ -169,10 +140,8 @@ RSpec.describe MultiPatientAPI::BulkDataAuthorization do
 
     it 'passes if the access token request is valid and authorized' do
       stub_request(:post, bulk_token_endpoint)
-        .with(body: body)
         .to_return(status: 200)
 
-      allow_any_instance_of(runnable).to receive(:create_client_assertion).and_return(client_assertion)
       result = run(runnable, input)
 
       expect(result.result).to eq('pass')
