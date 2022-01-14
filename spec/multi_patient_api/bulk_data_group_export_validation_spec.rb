@@ -33,7 +33,7 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
     Inferno::TestRunner.new(test_session: test_session, test_run: test_run).run(runnable, scratch)
   end
 
-  # TODO: Write unit tests after TLS tester class has been implemented.
+  # TODO: Write unit tests after TLS Tester class has been implemented.
   describe 'tls endpoint test' do
 
   end 
