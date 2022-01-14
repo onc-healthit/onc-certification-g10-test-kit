@@ -1,4 +1,4 @@
-require_relative './bulk_data_utils'
+require_relative './export_kick_off_performer'
 
 module MultiPatientAPI
   class BulkDataGroupExport < Inferno::TestGroup
@@ -10,9 +10,12 @@ module MultiPatientAPI
     id :bulk_data_group_export
 
     input :bearer_token
-    input :bulk_server_url, title: 'Bulk Data FHIR URL', description: 'The URL of the Bulk FHIR server.'
-    input :group_id, title: 'Group ID',
-                     description: 'The Group ID associated with the group of patients to be exported.'
+    input :bulk_server_url,
+          title: 'Bulk Data FHIR URL',
+          description: 'The URL of the Bulk FHIR server.'
+    input :group_id,
+          title: 'Group ID',
+          description: 'The Group ID associated with the group of patients to be exported.'
 
     output :requires_access_token, :status_output
 
@@ -82,12 +85,12 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#bulk-data-kick-off-request'
 
-      include ExportUtils
+      include ExportKickOffPerformer
 
       run do
         skip_if bearer_token.blank?, 'Could not verify this functionality when bearer token is not set'
 
-        export_kick_off(false)
+        perform_export_kick_off_request(false)
         assert_response_status(401)
       end
     end
@@ -102,12 +105,12 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#response---success'
 
-      include ExportUtils
+      include ExportKickOffPerformer
 
       output :polling_url
 
       run do
-        export_kick_off
+        perform_export_kick_off_request
         assert_response_status(202)
 
         content_location = response[:headers].find { |header| header.name == 'content-location' }
@@ -131,8 +134,6 @@ module MultiPatientAPI
         * transactionTime, request, requiresAccessToken, output, and error
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#bulk-data-status-request'
-
-      include ExportUtils
 
       input :polling_url
 
@@ -241,10 +242,10 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#bulk-data-delete-request'
 
-      include ExportUtils
+      include ExportKickOffPerformer
 
       run do
-        export_kick_off
+        perform_export_kick_off_request
         assert_response_status(202)
 
         polling_url = response[:headers].find { |header| header.name == 'content-location' }.value

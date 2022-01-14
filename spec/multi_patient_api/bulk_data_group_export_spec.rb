@@ -1,5 +1,4 @@
 require_relative '../../lib/multi_patient_api/bulk_data_group_export'
-require_relative '../../lib/multi_patient_api/bulk_data_utils'
 
 RSpec.describe MultiPatientAPI::BulkDataGroupExport do
   let(:group) { Inferno::Repositories::TestGroups.new.find('bulk_data_group_export') }
