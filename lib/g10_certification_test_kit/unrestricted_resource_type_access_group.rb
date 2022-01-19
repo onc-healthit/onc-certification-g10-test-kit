@@ -132,38 +132,26 @@ module G10CertificationTestKit
       end
     end
 
-    test do
-      title 'Access to Patient resource granted and patient resource can be read.'
+    test from: :g10_resource_access_test do
+      title 'Access to Patient resources granted'
       description %(
-        This test ensures that the authorization service has granted access to
-        the Patient resource and that the patient resource can be read without
-        an authorization error.
+        This test ensures that access to the Patient is granted or
+        denied based on the selection by the tester prior to the execution of
+        the test. If the tester indicated that access will be granted to this
+        resource, this test verifies that a search by patient in this resource
+        does not result in an access denied result. If the tester indicated that
+        access will be denied for this resource, this verifies that search by
+        patient in the resource results in an access denied result.
       )
+      id :g10_patient_unrestricted_access
 
-      def read_scope_granted?(resource_type)
-        received_scopes.match? %r{patient/(#{resource_type}|\*)\.(read|\*)}
-      end
-
-      run do
-        skip_if patient_id.blank?, 'Patient ID not provided to test.'
-        skip_if received_scopes.blank?, 'No scopes were received.'
-
-        fhir_search(:patient, params: { _id: patient_id })
-
-        if read_scope_granted? 'Patient'
-          assert_response_status(200)
-          pass "Access expected to be granted and request properly returned #{response[:status]}"
-        else
-          assert_response_status(
-            [401, 403],
-            "Bad response code: expected 403 (Forbidden) or 401 (Unauthorized), but found #{response[:status]}."
-          )
-        end
+      def resource_group
+        USCore::PatientGroup
       end
     end
 
     test from: :g10_resource_access_test do
-      title 'Access to AllergyIntolerance resources are restricted properly based on patient-selected scope'
+      title 'Access to AllergyIntolerance resources granted'
       description %(
         This test ensures that access to the AllergyIntolerance is granted or
         denied based on the selection by the tester prior to the execution of
@@ -181,7 +169,7 @@ module G10CertificationTestKit
     end
 
     test from: :g10_resource_access_test do
-      title 'Access to CarePlan resources are restricted properly based on patient-selected scope'
+      title 'Access to CarePlan resources granted'
       description %(
         This test ensures that access to the CarePlan is granted or
         denied based on the selection by the tester prior to the execution of
@@ -199,7 +187,7 @@ module G10CertificationTestKit
     end
 
     test from: :g10_resource_access_test do
-      title 'Access to CareTeam resources are restricted properly based on patient-selected scope'
+      title 'Access to CareTeam resources granted'
       description %(
         This test ensures that access to the CareTeam is granted or
         denied based on the selection by the tester prior to the execution of
@@ -217,7 +205,7 @@ module G10CertificationTestKit
     end
 
     test from: :g10_resource_access_test do
-      title 'Access to Condition resources are restricted properly based on patient-selected scope'
+      title 'Access to Condition resources granted'
       description %(
         This test ensures that access to the Condition is granted or
         denied based on the selection by the tester prior to the execution of
@@ -235,7 +223,7 @@ module G10CertificationTestKit
     end
 
     test from: :g10_resource_access_test do
-      title 'Access to Device resources are restricted properly based on patient-selected scope'
+      title 'Access to Device resources granted'
       description %(
         This test ensures that access to the Device is granted or
         denied based on the selection by the tester prior to the execution of
@@ -253,7 +241,7 @@ module G10CertificationTestKit
     end
 
     test from: :g10_resource_access_test do
-      title 'Access to DiagnosticReport resources are restricted properly based on patient-selected scope'
+      title 'Access to DiagnosticReport resources granted'
       description %(
         This test ensures that access to the DiagnosticReport is granted or
         denied based on the selection by the tester prior to the execution of
@@ -271,7 +259,7 @@ module G10CertificationTestKit
     end
 
     test from: :g10_resource_access_test do
-      title 'Access to DocumentReference resources are restricted properly based on patient-selected scope'
+      title 'Access to DocumentReference resources granted'
       description %(
         This test ensures that access to the DocumentReference is granted or
         denied based on the selection by the tester prior to the execution of
@@ -289,7 +277,7 @@ module G10CertificationTestKit
     end
 
     test from: :g10_resource_access_test do
-      title 'Access to Goal resources are restricted properly based on patient-selected scope'
+      title 'Access to Goal resources granted'
       description %(
         This test ensures that access to the Goal is granted or
         denied based on the selection by the tester prior to the execution of
@@ -307,7 +295,7 @@ module G10CertificationTestKit
     end
 
     test from: :g10_resource_access_test do
-      title 'Access to Immunization resources are restricted properly based on patient-selected scope'
+      title 'Access to Immunization resources granted'
       description %(
         This test ensures that access to the Immunization is granted or
         denied based on the selection by the tester prior to the execution of
@@ -325,7 +313,7 @@ module G10CertificationTestKit
     end
 
     test from: :g10_resource_access_test do
-      title 'Access to MedicationRequest resources are restricted properly based on patient-selected scope'
+      title 'Access to MedicationRequest resources granted'
       description %(
         This test ensures that access to the MedicationRequest is granted or
         denied based on the selection by the tester prior to the execution of
@@ -343,7 +331,7 @@ module G10CertificationTestKit
     end
 
     test from: :g10_resource_access_test do
-      title 'Access to Observation resources are restricted properly based on patient-selected scope'
+      title 'Access to Observation resources granted'
       description %(
         This test ensures that access to the Observation is granted or
         denied based on the selection by the tester prior to the execution of
@@ -361,7 +349,7 @@ module G10CertificationTestKit
     end
 
     test from: :g10_resource_access_test do
-      title 'Access to Procedure resources are restricted properly based on patient-selected scope'
+      title 'Access to Procedure resources granted'
       description %(
         This test ensures that access to the Procedure is granted or
         denied based on the selection by the tester prior to the execution of

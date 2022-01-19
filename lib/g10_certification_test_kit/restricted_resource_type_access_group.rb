@@ -57,33 +57,21 @@ module G10CertificationTestKit
       bearer_token :access_token
     end
 
-    test do
-      title 'Access to Patient resource granted and patient resource can be read.'
+    test from: :g10_restricted_access_test do
+      title 'Access to Patient resources are restricted properly based on patient-selected scope'
       description %(
-        This test ensures that the authorization service has granted access to
-        the Patient resource and that the patient resource can be read without
-        an authorization error.
+        This test ensures that access to the Patient is granted or
+        denied based on the selection by the tester prior to the execution of
+        the test. If the tester indicated that access will be granted to this
+        resource, this test verifies that a search by patient in this resource
+        does not result in an access denied result. If the tester indicated that
+        access will be denied for this resource, this verifies that search by
+        patient in the resource results in an access denied result.
       )
+      id :g10_patient_restricted_access
 
-      def read_scope_granted?(resource_type)
-        received_scopes.match? %r{patient/(#{resource_type}|\*)\.(read|\*)}
-      end
-
-      run do
-        skip_if patient_id.blank?, 'Patient ID not provided to test.'
-        skip_if received_scopes.blank?, 'No scopes were received.'
-
-        fhir_search(:patient, params: { _id: patient_id })
-
-        if read_scope_granted? 'Patient'
-          assert_response_status(200)
-          pass "Access expected to be granted and request properly returned #{response[:status]}"
-        else
-          assert_response_status(
-            [401, 403],
-            "Bad response code: expected 403 (Forbidden) or 401 (Unauthorized), but found #{response[:status]}."
-          )
-        end
+      def resource_group
+        USCore::PatientGroup
       end
     end
 
