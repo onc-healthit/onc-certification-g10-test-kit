@@ -104,7 +104,12 @@ module G10CertificationTestKit
           return true if non_patient_compartment_resources.include?(resource_type) &&
                          ["user/#{resource_type}.read", "user/#{resource_type}.*"].include?(scope)
 
-          ['patient/*.read', 'patient/*.*', "patient/#{resource_type}.read", "patient/#{resource_type}.*"].include?(scope)
+          [
+            'patient/*.read',
+            'patient/*.*',
+            "patient/#{resource_type}.read",
+            "patient/#{resource_type}.*"
+          ].include?(scope)
         end
       end
 

@@ -43,18 +43,18 @@ module G10CertificationTestKit
       )
 
       config inputs: {
-               client_id: { locked: true },
-               client_secret: { locked: true },
-               url: { locked: true },
-               code: { name: :limited_code },
-               state: { name: :limited_state },
-               patient_id: { name: :limited_patient_id },
-               access_token: { name: :limited_access_token },
-               requested_scopes: { name: :limited_requested_scopes },
-               smart_authorization_url: { locked: true }, # TODO: separate standalone/ehr discovery outputs
-               smart_token_url: { locked: true }, # TODO: separate standalone/ehr discovery outputs
-               received_scopes: { name: :limited_received_scopes }
-             },
+        client_id: { locked: true },
+        client_secret: { locked: true },
+        url: { locked: true },
+        code: { name: :limited_code },
+        state: { name: :limited_state },
+        patient_id: { name: :limited_patient_id },
+        access_token: { name: :limited_access_token },
+        requested_scopes: { name: :limited_requested_scopes },
+        smart_authorization_url: { locked: true }, # TODO: separate standalone/ehr discovery outputs
+        smart_token_url: { locked: true }, # TODO: separate standalone/ehr discovery outputs
+        received_scopes: { name: :limited_received_scopes }
+      },
              outputs: {
                code: { name: :limited_code },
                token_retrieval_time: { name: :limited_token_retrieval_time },

@@ -50,14 +50,14 @@ module G10CertificationTestKit
         allowed_resources.reject { |resource_type| scope_granting_access?(resource_type, received_scope_list) }
 
       assert improperly_granted_resources.empty?,
-             "User expected to deny the following resources that were granted: " \
+             'User expected to deny the following resources that were granted: ' \
              "#{improperly_granted_resources.join(', ')}"
       assert improperly_denied_resources.empty?,
-             "User expected to grant access to the following resources: " \
+             'User expected to grant access to the following resources: ' \
              "#{improperly_denied_resources.join(', ')}"
 
       assert forbidden_resources.present?,
-             "This test requires at least one resource to be denied, but the received scopes " \
+             'This test requires at least one resource to be denied, but the received scopes ' \
              "`#{received_scopes}` grant access to all resource types."
 
       pass "Resources to be denied: #{forbidden_resources.join(', ')}"

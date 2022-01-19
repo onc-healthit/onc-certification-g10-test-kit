@@ -26,7 +26,7 @@ module G10CertificationTestKit
     end
 
     def search_param_value(name)
-      return patient_id if name == 'patient' || name == '_id' || name == 'subject'
+      return patient_id if ['patient', '_id', 'subject'].include?(name)
 
       resource_group.metadata.search_definitions[name.to_sym][:values].first
     end

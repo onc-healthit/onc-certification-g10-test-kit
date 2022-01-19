@@ -136,7 +136,7 @@ module G10CertificationTestKit
             inputs: {
               access_token: { name: :standalone_access_token },
               received_scopes: { name: :standalone_received_scopes },
-              patient_id: { name: :standalone_patient_id },
+              patient_id: { name: :standalone_patient_id }
             }
           }
   end

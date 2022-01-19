@@ -94,14 +94,13 @@ RSpec.describe G10CertificationTestKit::PatientContextTest do
       allow_any_instance_of(described_class).to(
         receive(:requests).and_return(
           [Inferno::Entities::Request.new(
-             status: 200,
-             verb: 'post',
-             url: 'http://example.com',
-             direction: 'outgoing',
-             test_session_id: test_session.id,
-             result_id: repo_create(:result).id
-           )
-          ]
+            status: 200,
+            verb: 'post',
+            url: 'http://example.com',
+            direction: 'outgoing',
+            test_session_id: test_session.id,
+            result_id: repo_create(:result).id
+          )]
         )
       )
       patient_request =
