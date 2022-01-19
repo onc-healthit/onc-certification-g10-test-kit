@@ -1,18 +1,13 @@
-require_relative 'restricted_access_test'
+require_relative 'resource_access_test'
 
 module G10CertificationTestKit
-  class RestrictedResourceTypeAccessGroup < Inferno::TestGroup
-    title 'Restricted Resource Type Access'
+  class UnrestrictedResourceTypeAccessGroup < Inferno::TestGroup
+    title 'Unrestricted Resource Type Access'
     description %(
-      This test ensures that patients are able to grant or deny access to a
-      subset of resources to an app as requied by the certification criteria.
-      The tester provides a list of resources that will be granted during the
-      SMART App Launch process, and this test verifies that the scopes granted
-      are consistent with what the tester provided. It also formulates queries
-      to ensure that the app is either given access to, or denied access to, the
-      appropriate resource types based on those chosen by the tester.
-
-      Resources that can be mapped to USCDI are checked in this test, including:
+      This test ensures that apps have full access to USCDI resources if granted
+      access by the tester. The tester must grant access to the following
+      resources during the SMART Launch process, and this test ensures they all
+      can be accessed:
 
         * AllergyIntolerance
         * CarePlan
@@ -26,35 +21,115 @@ module G10CertificationTestKit
         * MedicationRequest
         * Observation
         * Procedure
+        * Patient
+        * Provenance
+        * Encounter
+        * Practitioner
+        * Organization
 
-      For each of the resources that can be mapped to USCDI data class or
+      For each of the resource types that can be mapped to USCDI data class or
       elements, this set of tests performs a minimum number of requests to
-      determine if access to the resource type is appropriately allowed or
-      denied given the scope granted. In the case of the Patient resource, this
-      test simply performs a read request. For other resources, it performs a
-      search by patient that must be supported by the server. In some cases,
-      servers can return an error message if a status search parameter is not
-      provided. For these, the test will perform an additional search with the
-      required status search parameter.
+      determine that the resource type can be accessed given the scope granted.
+      In the case of the Patient resource, this test simply performs a read
+      request. For other resources, it performs a search by patient that must be
+      supported by the server. In some cases, servers can return an error
+      message if a status search parameter is not provided. For these, the test
+      will perform an additional search with the required status search
+      parameter.
 
       This set of tests does not attempt to access resources that do not
       directly map to USCDI v1, including Encounter, Location, Organization, and
       Practitioner. It also does not test Provenance, as this resource type is
-      accessed by queries through other resource types. These resource types are
-      accessed in the more comprehensive Single Patient Query tests.
+      accessed by queries through other resource types. These resources types
+      are accessed in the more comprehensive Single Patient Query tests.
 
-      If the tester chooses to not grant access to a resource, the queries
-      associated with that resource must result in either a 401 (Unauthorized)
-      or 403 (Forbidden) status code. The flexiblity provided here is due to
-      some ambiguity in the specifications tested.
+      However, the authorization system must indicate that access is granted to
+      the Encounter, Practitioner and Organization resource types by providing
+      them in the returned scopes because they are required to support the read
+      interaction.
     )
-    id :g10_restricted_resource_type_access
+    id :g10_unrestricted_resource_type_access
 
-    input :url, :access_token, :patient_id, :received_scopes, :expected_resources
+    input :url, :access_token, :patient_id, :received_scopes
 
     fhir_client do
       url :url
       bearer_token :access_token
+    end
+
+    test do
+      title 'Scope granted enables access to all US Core resource types.'
+      description %(
+        This test confirms that the scopes granted during authorization are
+        sufficient to access all relevant US Core resources.
+      )
+
+      def all_resources
+        [
+          'AllergyIntolerance',
+          'CarePlan',
+          'CareTeam',
+          'Condition',
+          'Device',
+          'DiagnosticReport',
+          'DocumentReference',
+          'Goal',
+          'Immunization',
+          'MedicationRequest',
+          'Observation',
+          'Procedure',
+          'Patient',
+          'Provenance',
+          'Encounter',
+          'Practitioner',
+          'Organization'
+        ]
+      end
+
+      def non_patient_compartment_resources
+        [
+          'Encounter',
+          'Device',
+          'Location',
+          'Medication',
+          'Organization',
+          'Practitioner',
+          'PractitionerRole',
+          'RelatedPerson'
+        ]
+      end
+
+      def scope_granting_access?(resource_type)
+        received_scopes.split.find do |scope|
+          return true if non_patient_compartment_resources.include?(resource_type) &&
+                         ["user/#{resource_type}.read", "user/#{resource_type}.*"].include?(scope)
+
+          ['patient/*.read', 'patient/*.*', "patient/#{resource_type}.read", "patient/#{resource_type}.*"].include?(scope)
+        end
+      end
+
+      run do
+        skip_if received_scopes.blank?, 'A list of granted scopes was not provided to this test as required.'
+
+        allowed_resources = all_resources.select { |resource_type| scope_granting_access?(resource_type) }
+        denied_resources = all_resources - allowed_resources
+
+        assert denied_resources.empty?, %(
+          This test requires access to all US Core resources with patient
+          information, but the received scope:
+
+
+
+          `#{received_scopes}`
+
+
+
+          does not grant access to the `#{denied_resources.join(', ')}` resource
+          type(s).
+        )
+
+        pass 'Scopes received indicate access to all necessary resources.'
+      end
     end
 
     test do
@@ -87,7 +162,7 @@ module G10CertificationTestKit
       end
     end
 
-    test from: :g10_restricted_access_test do
+    test from: :g10_resource_access_test do
       title 'Access to AllergyIntolerance resources are restricted properly based on patient-selected scope'
       description %(
         This test ensures that access to the AllergyIntolerance is granted or
@@ -98,14 +173,14 @@ module G10CertificationTestKit
         access will be denied for this resource, this verifies that search by
         patient in the resource results in an access denied result.
       )
-      id :g10_allergy_intolerance_restricted_access
+      id :g10_allergy_intolerance_unrestricted_access
 
       def resource_group
         USCore::AllergyIntoleranceGroup
       end
     end
 
-    test from: :g10_restricted_access_test do
+    test from: :g10_resource_access_test do
       title 'Access to CarePlan resources are restricted properly based on patient-selected scope'
       description %(
         This test ensures that access to the CarePlan is granted or
@@ -116,14 +191,14 @@ module G10CertificationTestKit
         access will be denied for this resource, this verifies that search by
         patient in the resource results in an access denied result.
       )
-      id :g10_care_plan_restricted_access
+      id :g10_care_plan_unrestricted_access
 
       def resource_group
         USCore::CarePlanGroup
       end
     end
 
-    test from: :g10_restricted_access_test do
+    test from: :g10_resource_access_test do
       title 'Access to CareTeam resources are restricted properly based on patient-selected scope'
       description %(
         This test ensures that access to the CareTeam is granted or
@@ -134,14 +209,14 @@ module G10CertificationTestKit
         access will be denied for this resource, this verifies that search by
         patient in the resource results in an access denied result.
       )
-      id :g10_care_team_restricted_access
+      id :g10_care_team_unrestricted_access
 
       def resource_group
         USCore::CareTeamGroup
       end
     end
 
-    test from: :g10_restricted_access_test do
+    test from: :g10_resource_access_test do
       title 'Access to Condition resources are restricted properly based on patient-selected scope'
       description %(
         This test ensures that access to the Condition is granted or
@@ -152,14 +227,14 @@ module G10CertificationTestKit
         access will be denied for this resource, this verifies that search by
         patient in the resource results in an access denied result.
       )
-      id :g10_condition_restricted_access
+      id :g10_condition_unrestricted_access
 
       def resource_group
         USCore::ConditionGroup
       end
     end
 
-    test from: :g10_restricted_access_test do
+    test from: :g10_resource_access_test do
       title 'Access to Device resources are restricted properly based on patient-selected scope'
       description %(
         This test ensures that access to the Device is granted or
@@ -170,14 +245,14 @@ module G10CertificationTestKit
         access will be denied for this resource, this verifies that search by
         patient in the resource results in an access denied result.
       )
-      id :g10_device_restricted_access
+      id :g10_device_unrestricted_access
 
       def resource_group
         USCore::DeviceGroup
       end
     end
 
-    test from: :g10_restricted_access_test do
+    test from: :g10_resource_access_test do
       title 'Access to DiagnosticReport resources are restricted properly based on patient-selected scope'
       description %(
         This test ensures that access to the DiagnosticReport is granted or
@@ -188,14 +263,14 @@ module G10CertificationTestKit
         access will be denied for this resource, this verifies that search by
         patient in the resource results in an access denied result.
       )
-      id :g10_diagnostic_report_restricted_access
+      id :g10_diagnostic_report_unrestricted_access
 
       def resource_group
         USCore::DiagnosticReportLabGroup
       end
     end
 
-    test from: :g10_restricted_access_test do
+    test from: :g10_resource_access_test do
       title 'Access to DocumentReference resources are restricted properly based on patient-selected scope'
       description %(
         This test ensures that access to the DocumentReference is granted or
@@ -206,14 +281,14 @@ module G10CertificationTestKit
         access will be denied for this resource, this verifies that search by
         patient in the resource results in an access denied result.
       )
-      id :g10_document_reference_restricted_access
+      id :g10_document_reference_unrestricted_access
 
       def resource_group
         USCore::DocumentReferenceGroup
       end
     end
 
-    test from: :g10_restricted_access_test do
+    test from: :g10_resource_access_test do
       title 'Access to Goal resources are restricted properly based on patient-selected scope'
       description %(
         This test ensures that access to the Goal is granted or
@@ -224,14 +299,14 @@ module G10CertificationTestKit
         access will be denied for this resource, this verifies that search by
         patient in the resource results in an access denied result.
       )
-      id :g10_goal_restricted_access
+      id :g10_goal_unrestricted_access
 
       def resource_group
         USCore::GoalGroup
       end
     end
 
-    test from: :g10_restricted_access_test do
+    test from: :g10_resource_access_test do
       title 'Access to Immunization resources are restricted properly based on patient-selected scope'
       description %(
         This test ensures that access to the Immunization is granted or
@@ -242,14 +317,14 @@ module G10CertificationTestKit
         access will be denied for this resource, this verifies that search by
         patient in the resource results in an access denied result.
       )
-      id :g10_immunization_restricted_access
+      id :g10_immunization_unrestricted_access
 
       def resource_group
         USCore::ImmunizationGroup
       end
     end
 
-    test from: :g10_restricted_access_test do
+    test from: :g10_resource_access_test do
       title 'Access to MedicationRequest resources are restricted properly based on patient-selected scope'
       description %(
         This test ensures that access to the MedicationRequest is granted or
@@ -267,7 +342,7 @@ module G10CertificationTestKit
       end
     end
 
-    test from: :g10_restricted_access_test do
+    test from: :g10_resource_access_test do
       title 'Access to Observation resources are restricted properly based on patient-selected scope'
       description %(
         This test ensures that access to the Observation is granted or
@@ -278,14 +353,14 @@ module G10CertificationTestKit
         access will be denied for this resource, this verifies that search by
         patient in the resource results in an access denied result.
       )
-      id :g10_observation_restricted_access
+      id :g10_observation_unrestricted_access
 
       def resource_group
         USCore::PulseOximetryGroup
       end
     end
 
-    test from: :g10_restricted_access_test do
+    test from: :g10_resource_access_test do
       title 'Access to Procedure resources are restricted properly based on patient-selected scope'
       description %(
         This test ensures that access to the Procedure is granted or
@@ -296,7 +371,7 @@ module G10CertificationTestKit
         access will be denied for this resource, this verifies that search by
         patient in the resource results in an access denied result.
       )
-      id :g10_procedure_restricted_access
+      id :g10_procedure_unrestricted_access
 
       def resource_group
         USCore::ProcedureGroup

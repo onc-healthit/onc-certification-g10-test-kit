@@ -2,6 +2,7 @@ require_relative 'base_token_refresh_group'
 require_relative 'patient_context_test'
 require_relative 'smart_scopes_test'
 require_relative 'unauthorized_access_test'
+require_relative 'unrestricted_resource_type_access_group'
 require_relative 'well_known_capabilities_test'
 
 module G10CertificationTestKit
@@ -129,5 +130,14 @@ module G10CertificationTestKit
         uses_request :token_refresh
       end
     end
+
+    group from: :g10_unrestricted_resource_type_access,
+          config: {
+            inputs: {
+              access_token: { name: :standalone_access_token },
+              received_scopes: { name: :standalone_received_scopes },
+              patient_id: { name: :standalone_patient_id },
+            }
+          }
   end
 end
