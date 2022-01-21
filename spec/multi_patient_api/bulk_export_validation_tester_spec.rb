@@ -1,17 +1,17 @@
-require_relative '../../lib/multi_patient_api/bulk_data_utils'
+require_relative '../../lib/multi_patient_api/bulk_export_validation_tester'
 
-class BulkDataUtilsTestClass
+class BulkExportValidationTesterClass
   include Inferno::DSL::HTTPClient
   extend Inferno::DSL::Configurable
 
-  include ValidationUtils
+  include BulkExportValidationTester
 
   def test_session_id
     nil
   end
 end
 
-RSpec.describe BulkDataUtilsTestClass do
+RSpec.describe BulkExportValidationTesterClass do
   let(:group) { described_class.new }
   let(:url) { 'https://example1.com' }
   let(:basic_body) { 'single line response_body' }
