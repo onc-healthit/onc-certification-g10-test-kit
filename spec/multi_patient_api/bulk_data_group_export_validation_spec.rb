@@ -1,8 +1,5 @@
 require_relative '../../lib/multi_patient_api/bulk_data_group_export_validation'
-require_relative '../../lib/multi_patient_api/bulk_data_utils'
 require 'NDJSON'
-
-include ValidationUtils
 
 RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
   let(:group) { Inferno::Repositories::TestGroups.new.find('bulk_data_group_export_validation') }
@@ -57,6 +54,7 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
       expect(result.result_message).to eq('Could not verify this functionality when requiresAccessToken is not provided')
     end
 
+    # TODO: Because false evaluates to true?
     # it 'skips when requiresAccessToken is false' do
     #   result = run(runnable, { requires_access_token: false, status_output: status_output })
 
@@ -434,6 +432,7 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, observation_input)
 
+      # binding.pry
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('No Observation resources found that conform to profile: http://hl7.org/fhir/us/core/StructureDefinition/pediatric-bmi-for-age.')
     end
@@ -498,4 +497,6 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
       expect(result.result).to eq('pass')
     end
   end
+
+  # TODO: Remove profile_urls from every profile and run the tests to make sure the guesser works
 end

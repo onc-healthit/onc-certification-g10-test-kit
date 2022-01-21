@@ -1,3 +1,5 @@
+require_relative './bulK_export_validation_tester'
+
 module MultiPatientAPI
   class BulkDataGroupExportValidation < Inferno::TestGroup
     title 'Group Compartment Export Validation Tests'
@@ -21,10 +23,6 @@ module MultiPatientAPI
         Comma separated list of every Implantable Device type that is in the specified Group. This information is provided by the system under test to verify that data returned matches expectations. Leave blank to verify all Device resources against the Implantable Device profile.
       ),
           optional: true
-
-    http_client :ndjson_endpoint do
-      url :output_endpoint
-    end
 
     # TODO: Create after implementing TLS Tester Class.
     test do
@@ -50,8 +48,6 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#file-request'
 
-      include ValidationUtils
-
       run do
         skip_if status_output.blank?, 'Could not verify this functionality when Bulk Status Output is not provided'
         skip_if requires_access_token.blank?,
@@ -61,7 +57,7 @@ module MultiPatientAPI
 
         output_endpoint = JSON.parse(status_output)[0]['url']
 
-        get_file(output_endpoint, false)
+        get(output_endpoint, headers: { accept: 'application/fhir+ndjson' })
         assert_response_status([400, 401])
       end
     end
@@ -73,14 +69,14 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient'
 
-      include ValidationUtils
+      include BulkExportValidationTester
 
       def resource_type
         'Patient'
       end
 
       run do
-        perform_bulk_export_validation_test('Patient', Array.wrap(USCore::PatientGroup.metadata))
+        perform_bulk_export_validation
       end
     end
 
@@ -91,12 +87,12 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://ndjson.org/'
 
-      include ValidationUtils
+      include BulkExportValidationTester
 
       run do
         skip 'No Patient resources processed from bulk data export.' unless patient_ids_seen.present?
 
-        assert patient_ids_seen.length >= ValidationUtils::MIN_RESOURCE_COUNT,
+        assert patient_ids_seen.length >= BulkExportValidationTester::MIN_RESOURCE_COUNT,
                'Bulk data export did not have multiple Patient resources.'
       end
     end
@@ -109,7 +105,7 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient'
 
-      include ValidationUtils
+      include BulkExportValidationTester
 
       run do
         omit 'No patient ids were given.' unless bulk_patient_ids_in_group.present?
@@ -128,14 +124,14 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-allergyintolerance'
 
-      include ValidationUtils
+      include BulkExportValidationTester
 
       def resource_type
         'AllergyIntolerance'
       end
 
       run do
-        perform_bulk_export_validation_test('AllergyIntolerance', Array.wrap(USCore::AllergyIntoleranceGroup.metadata))
+        perform_bulk_export_validation
       end
     end
 
@@ -146,14 +142,14 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-careplan'
 
-      include ValidationUtils
+      include BulkExportValidationTester
 
       def resource_type
         'CarePlan'
       end
 
       run do
-        perform_bulk_export_validation_test('CarePlan', Array.wrap(USCore::CarePlanGroup.metadata))
+        perform_bulk_export_validation
       end
     end
 
@@ -164,14 +160,14 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-careteam'
 
-      include ValidationUtils
+      include BulkExportValidationTester
 
       def resource_type
         'CareTeam'
       end
 
       run do
-        perform_bulk_export_validation_test('CareTeam', Array.wrap(USCore::CareTeamGroup.metadata))
+        perform_bulk_export_validation
       end
     end
 
@@ -182,17 +178,18 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition'
 
-      include ValidationUtils
+      include BulkExportValidationTester
 
       def resource_type
         'Condition'
       end
 
       run do
-        perform_bulk_export_validation_test('Condition', Array.wrap(USCore::ConditionGroup.metadata))
+        perform_bulk_export_validation
       end
     end
 
+    # TODO: Device_type
     test do
       title 'Device resources returned conform to the US Core Implantable Device Profile'
       description <<~DESCRIPTION
@@ -200,14 +197,14 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-implantable-device'
 
-      include ValidationUtils
+      include BulkExportValidationTester
 
       def resource_type
         'Device'
       end
 
       run do
-        perform_bulk_export_validation_test('Device', Array.wrap(USCore::DeviceGroup.metadata))
+        perform_bulk_export_validation
       end
     end
 
@@ -221,15 +218,14 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-l'
 
-      include ValidationUtils
+      include BulkExportValidationTester
 
       def resource_type
         'DiagnosticReport'
       end
 
       run do
-        metadata = [USCore::DiagnosticReportLabGroup.metadata, USCore::DiagnosticReportNoteGroup.metadata]
-        perform_bulk_export_validation_test('DiagnosticReport', metadata)
+        perform_bulk_export_validation
       end
     end
 
@@ -240,14 +236,14 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-documentreference'
 
-      include ValidationUtils
+      include BulkExportValidationTester
 
       def resource_type
         'DocumentReference'
       end
 
       run do
-        perform_bulk_export_validation_test('DocumentReference', [USCore::DocumentReferenceGroup.metadata])
+        perform_bulk_export_validation
       end
     end
 
@@ -258,14 +254,14 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-goal'
 
-      include ValidationUtils
+      include BulkExportValidationTester
 
       def resource_type
         'Goal'
       end
 
       run do
-        perform_bulk_export_validation_test('Goal', [USCore::GoalGroup.metadata])
+        perform_bulk_export_validation
       end
     end
 
@@ -276,14 +272,14 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-Immunization'
 
-      include ValidationUtils
+      include BulkExportValidationTester
 
       def resource_type
         'Immunization'
       end
 
       run do
-        perform_bulk_export_validation_test('Immunization', [USCore::ImmunizationGroup.metadata])
+        perform_bulk_export_validation
       end
     end
 
@@ -294,14 +290,14 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest'
 
-      include ValidationUtils
+      include BulkExportValidationTester
 
       def resource_type
         'MedicationRequest'
       end
 
       run do
-        perform_bulk_export_validation_test('MedicationRequest', [USCore::MedicationRequestGroup.metadata])
+        perform_bulk_export_validation
       end
     end
 
@@ -327,20 +323,14 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab'
 
-      include ValidationUtils
+      include BulkExportValidationTester
 
       def resource_type
         'Observation'
       end
 
       run do
-        metadata = [USCore::PediatricBmiForAgeGroup.metadata, USCore::PediatricWeightForHeightGroup.metadata,
-                    USCore::ObservationLabGroup.metadata, USCore::PulseOximetryGroup.metadata, USCore::SmokingstatusGroup.metadata,
-                    USCore::HeadCircumferenceGroup.metadata, USCore::BpGroup.metadata, USCore::BodyheightGroup.metadata,
-                    USCore::BodytempGroup.metadata, USCore::BodyweightGroup.metadata, USCore::HeartrateGroup.metadata,
-                    USCore::ResprateGroup.metadata]
-
-        perform_bulk_export_validation_test('Observation', metadata)
+        perform_bulk_export_validation
       end
     end
 
@@ -351,14 +341,14 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure'
 
-      include ValidationUtils
+      include BulkExportValidationTester
 
       def resource_type
         'Procedure'
       end
 
       run do
-        perform_bulk_export_validation_test('Procedure', [USCore::ProcedureGroup.metadata])
+        perform_bulk_export_validation
       end
     end
 
@@ -369,14 +359,14 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter'
 
-      include ValidationUtils
+      include BulkExportValidationTester
 
       def resource_type
         'Encounter'
       end
 
       run do
-        perform_bulk_export_validation_test('Encounter', [USCore::EncounterGroup.metadata])
+        perform_bulk_export_validation
       end
     end
 
@@ -387,14 +377,14 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization'
 
-      include ValidationUtils
+      include BulkExportValidationTester
 
       def resource_type
         'Organization'
       end
 
       run do
-        perform_bulk_export_validation_test('Organization', [USCore::OrganizationGroup.metadata])
+        perform_bulk_export_validation
       end
     end
 
@@ -405,14 +395,14 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner'
 
-      include ValidationUtils
+      include BulkExportValidationTester
 
       def resource_type
         'Practitioner'
       end
 
       run do
-        perform_bulk_export_validation_test('Practitioner', [USCore::PractitionerGroup.metadata])
+        perform_bulk_export_validation
       end
     end
 
@@ -423,14 +413,14 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-provenance'
 
-      include ValidationUtils
+      include BulkExportValidationTester
 
       def resource_type
         'Provenance'
       end
 
       run do
-        perform_bulk_export_validation_test('Provenance', [USCore::ProvenanceGroup.metadata])
+        perform_bulk_export_validation
       end
     end
 
@@ -441,16 +431,14 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-location'
 
-      include ValidationUtils
+      include BulkExportValidationTester
 
       def resource_type
         'Location'
       end
 
       run do
-        metadata = YAML.load_file(File.join(__dir__, 'metadata/location.yml'))
-
-        perform_bulk_export_validation_test('Location', [USCore::Generator::GroupMetadata.new(metadata)])
+        perform_bulk_export_validation
       end
     end
 
@@ -461,16 +449,14 @@ module MultiPatientAPI
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-medication'
 
-      include ValidationUtils
+      include BulkExportValidationTester
 
       def resource_type
         'Medication'
       end
 
       run do
-        metadata = YAML.load_file(File.join(__dir__, 'metadata/medication.yml'))
-
-        perform_bulk_export_validation_test('Medication', [USCore::Generator::GroupMetadata.new(metadata)])
+        perform_bulk_export_validation
       end
     end
   end
