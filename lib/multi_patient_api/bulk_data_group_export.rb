@@ -27,7 +27,7 @@ module MultiPatientAPI
       url :bulk_server_url
     end
 
-    # TODO: Implement TLS Tester Class
+    # TODO: Create after implementing TLS Tester Class.
     test do
       title 'Bulk Data Server is secured by transport layer security'
       description <<~DESCRIPTION

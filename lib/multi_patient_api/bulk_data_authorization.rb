@@ -37,7 +37,7 @@ module MultiPatientAPI
       url :bulk_token_endpoint
     end
 
-    # TODO: Write test after TLS Tester class is implemented.
+    # TODO: Create after implementing TLS Tester Class.
     test do
       title 'Authorization service token endpoint secured by transport layer security'
       description <<~DESCRIPTION

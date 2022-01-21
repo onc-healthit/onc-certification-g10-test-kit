@@ -33,7 +33,7 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
     Inferno::TestRunner.new(test_session: test_session, test_run: test_run).run(runnable, scratch)
   end
 
-  # TODO: Write unit tests after TLS Tester class has been implemented.
+  # TODO: Create after implementing TLS Tester Class.
   describe 'tls endpoint test' do
   end
 
@@ -54,7 +54,7 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
       expect(result.result_message).to eq('Could not verify this functionality when requiresAccessToken is not provided')
     end
 
-    # TODO: Because false evaluates to true?
+    # TODO: Figure out why this behaves weirdly. Suspicion: false is stored serially, and then interpreted as a truthy value.
     # it 'skips when requiresAccessToken is false' do
     #   result = run(runnable, { requires_access_token: false, status_output: status_output })
 
@@ -424,7 +424,7 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
         end
         fhir_resource.meta.profile = nil
         contents_missing_profile << (fhir_resource.to_json.gsub(/[ \n]/,
-          '') + "\n")
+                                                                '') + "\n")
       end
     end
 
@@ -493,12 +493,12 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
         .to_return(status: 200, body: contents_missing_profile, headers: headers)
-        
+
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, observation_input)
 
       expect(result.result).to eq('pass')
-    end 
+    end
 
     it 'passes with all possible resources included in the Observation Profile' do
       stub_request(:get, endpoint)
@@ -511,8 +511,4 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
       expect(result.result).to eq('pass')
     end
   end
-
-  # TODO: Remove profile_urls from every profile and run the tests to make sure the guesser works
-  describe '' do
-  end 
 end

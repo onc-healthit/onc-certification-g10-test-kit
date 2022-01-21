@@ -45,7 +45,6 @@ module BulkExportValidationTester
     end
   end
 
-  # TODO: Add in checking that token is present
   def build_headers(use_token)
     headers = { accept: 'application/fhir+ndjson' }
     headers.merge!({ authorization: "Bearer #{bearer_token}" }) if use_token
@@ -72,10 +71,8 @@ module BulkExportValidationTester
     process_response.call(response)
   end
 
-  # Unsure what to do with this -- does it need to be worked into determining profile?
-  # TODO: Review and write relevant tests
   def predefined_device_type?(resource)
-    return true unless bulk_device_types_in_group.present?
+    return true if bulk_device_types_in_group.blank?
 
     expected = Set.new(bulk_device_types_in_group.split(',').map(&:strip))
 
@@ -90,6 +87,21 @@ module BulkExportValidationTester
     return [] if resource.resourceType == 'Device' && !predefined_device_type?(resource)
 
     guess_profile(resource)
+  end
+
+  def validate_conformance(resources)
+    profiles.each do |profile|
+      skip_if resources[profile.profile_url].blank?,
+              "No #{resource_type} resources found that conform to profile: #{profile.profile_url}."
+      scratch[:metadata] = profile
+      @missing_elements = nil
+      @missing_slices = nil
+      begin
+        perform_must_support_test(resources[profile.profile_url])
+      rescue Inferno::Exceptions::PassException => e
+        next
+      end
+    end
   end
 
   def check_file_request(url, validate_all, lines_to_validate)
@@ -127,32 +139,16 @@ module BulkExportValidationTester
     }
 
     stream_ndjson(url, build_headers(requires_access_token), process_line, process_headers)
-
-    profiles.each do |profile|
-      skip_if resources[profile.profile_url].blank?,
-              "No #{resource_type} resources found that conform to profile: #{profile.profile_url}."
-      scratch[:metadata] = profile
-      @missing_elements = nil
-      @missing_slices = nil
-      begin
-        perform_must_support_test(resources[profile.profile_url])
-      rescue Inferno::Exceptions::PassException => e
-        next
-      end
-    end
+    validate_conformance(resources)
 
     line_count
   end
 
-  # TODO: What is going on with these guard statements?
   def perform_bulk_export_validation
-    skip 'Could not verify this functionality when Bulk Status Output is not provided' unless status_output.present?
-    unless requires_access_token.present?
-      skip 'Could not verify this functionality when requiresAccessToken is not provided'
-    end
-    if requires_access_token && !bearer_token.present?
-      skip 'Could not verify this functionality when Bearer Token is required and not provided'
-    end
+    skip_if !status_output, 'Could not verify this functionality when Bulk Status Output is not provided'
+    skip_if !requires_access_token, 'Could not verify this functionality when requiresAccessToken is not provided'
+    skip_if (requires_access_token && !bearer_token),
+            'Could not verify this functionality when Bearer Token is required and not provided'
 
     file_list = JSON.parse(status_output).select { |file| file['type'] == resource_type }
     skip_if file_list.empty?, "No #{resource_type} resource file item returned by server."

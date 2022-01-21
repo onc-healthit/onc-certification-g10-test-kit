@@ -19,9 +19,7 @@ module MultiPatientAPI
           description: 'Comma separated list of every Patient ID that is in the specified Group. This information is provided by the system under test to verify that data returned matches expectations. Leave blank to not verify Group inclusion.'
     input :bulk_device_types_in_group,
           title: 'Implantable Device Type Codes in exported Group',
-          description: %(
-        Comma separated list of every Implantable Device type that is in the specified Group. This information is provided by the system under test to verify that data returned matches expectations. Leave blank to verify all Device resources against the Implantable Device profile.
-      ),
+          description: 'Comma separated list of every Implantable Device type that is in the specified Group. This information is provided by the system under test to verify that data returned matches expectations. Leave blank to verify all Device resources against the Implantable Device profile.',
           optional: true
 
     # TODO: Create after implementing TLS Tester Class.
@@ -189,7 +187,6 @@ module MultiPatientAPI
       end
     end
 
-    # TODO: Device_type
     test do
       title 'Device resources returned conform to the US Core Implantable Device Profile'
       description <<~DESCRIPTION

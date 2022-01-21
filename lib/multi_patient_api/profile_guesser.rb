@@ -15,7 +15,7 @@ module ProfileGuesser
     end
   end
 
-  def guess_profile(resource)    
+  def guess_profile(resource)
     resource.to_hash.dig('meta', 'profile') || begin
       case resource.resourceType
       when 'DiagnosticReport'

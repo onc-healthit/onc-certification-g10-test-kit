@@ -39,7 +39,7 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExport do
     Inferno::TestRunner.new(test_session: test_session, test_run: test_run).run(runnable)
   end
 
-  # TODO: Write TLS unit tests after TLS tester class created.
+  # TODO: Create after implementing TLS Tester Class.
   describe 'endpoint TLS tests' do
   end
 
@@ -310,7 +310,7 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExport do
     end
   end
 
-  # TODO: Write after HTTP Client delete support merged into core.
+  # TODO: Create after implementing HTTP Delete.
   describe 'delete request tests' do
   end
 end
