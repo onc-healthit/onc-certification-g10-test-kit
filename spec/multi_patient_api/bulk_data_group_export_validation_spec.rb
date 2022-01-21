@@ -400,6 +400,7 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
     let(:contents_missing_smokingstatus) { String.new }
     let(:contents_missing_bodyheight) { String.new }
     let(:contents_missing_resprate) { String.new }
+    let(:contents_missing_profile) { String.new }
 
     before do
       resources.each { |r| contents << ("#{r.to_json}\n") }
@@ -421,6 +422,9 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
           contents_missing_resprate << (fhir_resource.to_json.gsub(/[ \n]/,
                                                                    '') + "\n")
         end
+        fhir_resource.meta.profile = nil
+        contents_missing_profile << (fhir_resource.to_json.gsub(/[ \n]/,
+          '') + "\n")
       end
     end
 
@@ -432,7 +436,6 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, observation_input)
 
-      # binding.pry
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('No Observation resources found that conform to profile: http://hl7.org/fhir/us/core/StructureDefinition/pediatric-bmi-for-age.')
     end
@@ -486,6 +489,17 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
       expect(result.result_message).to eq('No Observation resources found that conform to profile: http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab.')
     end
 
+    it 'passes when the profile for every streamed resource needs to be guessed' do
+      stub_request(:get, endpoint)
+        .with(headers: { 'Accept' => 'application/fhir+ndjson' })
+        .to_return(status: 200, body: contents_missing_profile, headers: headers)
+        
+      allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      result = run(runnable, observation_input)
+
+      expect(result.result).to eq('pass')
+    end 
+
     it 'passes with all possible resources included in the Observation Profile' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
@@ -499,4 +513,6 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
   end
 
   # TODO: Remove profile_urls from every profile and run the tests to make sure the guesser works
+  describe '' do
+  end 
 end
