@@ -4,6 +4,10 @@ require 'us_core'
 require_relative 'g10_certification_test_kit/smart_limited_app_group'
 require_relative 'g10_certification_test_kit/smart_standalone_patient_app_group'
 require_relative 'g10_certification_test_kit/smart_ehr_practitioner_app_group'
+require_relative 'g10_certification_test_kit/terminology_binding_validator'
+require_relative 'inferno/terminology'
+
+Inferno::Terminology::Loader.load_validators
 
 module G10CertificationTestKit
   class G10CertificationSuite < Inferno::TestSuite
@@ -19,6 +23,17 @@ module G10CertificationTestKit
         else
           false
         end
+      end
+      perform_additional_validation do |resource, profile_url|
+        metadata = USCore::USCoreTestSuite.metadata.find { |metadata| metadata.profile_url == profile_url }
+
+        next if metadata.nil?
+
+        metadata.bindings
+          .select { |binding_definition| binding_definition[:strength] == 'required' }
+          .flat_map do |binding_definition|
+            TerminologyBindingValidator.validate(resource, binding_definition)
+          end.compact
       end
     end
 
@@ -58,7 +73,7 @@ module G10CertificationTestKit
             title: 'FHIR Endpoint',
             description: 'URL of the FHIR endpoint used by SMART applications',
             default: 'https://inferno.healthit.gov/reference-server/r4'
-      input :bearer_token, optional: true, locked: true
+      input :bearer_token, optional: true, locked: true, default: 'SAMPLE_TOKEN'
 
       fhir_client do
         url :url
@@ -76,7 +91,7 @@ module G10CertificationTestKit
         output :bearer_token
 
         run do
-          output bearer_token: standalone_access_token.presence || ehr_access_token.presence
+          output bearer_token: bearer_token.presence || standalone_access_token.presence || ehr_access_token.presence
         end
       end
 
