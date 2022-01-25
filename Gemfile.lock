@@ -22,6 +22,7 @@ PATH
       bloomer (~> 1.0.0)
       colorize (~> 0.8.1)
       inferno_core (~> 0.1.2)
+      json-jwt
 
 GEM
   remote: https://rubygems.org/
@@ -297,7 +298,6 @@ DEPENDENCIES
   fhir_models
   g10_certification_test_kit!
   inferno_core
-  json-jwt
   mime-types
   ndjson
   nokogiri

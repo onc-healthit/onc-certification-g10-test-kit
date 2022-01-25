@@ -6,11 +6,8 @@ require_relative 'g10_certification_test_kit/smart_invalid_token_group'
 require_relative 'g10_certification_test_kit/smart_limited_app_group'
 require_relative 'g10_certification_test_kit/smart_standalone_patient_app_group'
 require_relative 'g10_certification_test_kit/smart_ehr_practitioner_app_group'
-<<<<<<< HEAD
 require_relative 'g10_certification_test_kit/smart_public_standalone_launch_group'
-=======
 require_relative 'g10_certification_test_kit/multi_patient_api'
->>>>>>> 01039dc (reorganize multi_patient_files into g10 folder)
 require_relative 'g10_certification_test_kit/terminology_binding_validator'
 require_relative 'g10_certification_test_kit/visual_inspection_and_attestations_group'
 require_relative 'inferno/terminology'

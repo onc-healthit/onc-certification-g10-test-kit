@@ -1,6 +1,6 @@
 module ProfileGuesser
   def extract_profile(profile)
-    ["USCore::#{profile}Group".constantize.metadata.profile_url]
+    "USCore::#{profile}Group".constantize.metadata.profile_url
   end
 
   def observation_contains_code(observation_resource, code)
@@ -16,7 +16,7 @@ module ProfileGuesser
   end
 
   def guess_profile(resource)
-    resource.to_hash.dig('meta', 'profile') || begin
+    begin
       case resource.resourceType
       when 'DiagnosticReport'
         return extract_profile('DiagnosticReportLab') if resource_contains_category(resource, 'LAB', 'http://terminology.hl7.org/CodeSystem/v2-0074')
@@ -52,12 +52,12 @@ module ProfileGuesser
 
         return extract_profile('Resprate') if observation_contains_code(resource, '9279-1')
 
-        []
+        return
       else
         extract_profile(resource.resourceType)
       end
-    rescue NameError
-      []
+    rescue => e
+      skip "Could not determine profile of #{resource.resourceType} resource. Raised error: #{e}"
     end
   end
 end

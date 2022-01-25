@@ -1,7 +1,7 @@
-require_relative '../../lib/multi_patient_api/bulk_data_group_export_validation'
+require_relative '../../lib/g10_certification_test_kit/bulk_data_group_export_validation'
 require 'NDJSON'
 
-RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
+RSpec.describe G10CertificationTestKit::BulkDataGroupExportValidation do
   let(:group) { Inferno::Repositories::TestGroups.new.find('bulk_data_group_export_validation') }
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
   let(:test_session) { repo_create(:test_session, test_group_id: 'bulk_data_group_export_validation') }
@@ -93,7 +93,7 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
 
   describe '[Patient resources returned conform to US Core Patient Profile] test' do
     let(:runnable) { group.tests[2] }
-    let(:resources) { NDJSON::Parser.new('spec/multi_patient_api/resources/Patient.ndjson') }
+    let(:resources) { NDJSON::Parser.new('spec/fixtures/Patient.ndjson') }
     let(:patient_input) do
       input.merge({ status_output: "[{\"url\":\"#{endpoint}\",\"type\":\"Patient\",\"count\":2}]" })
     end
@@ -232,7 +232,7 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
 
   describe '[AllergyIntolerance resources returned conform to the US Core AllergyIntolerance Profile] test' do
     let(:runnable) { group.tests[5] }
-    let(:resources) { NDJSON::Parser.new('spec/multi_patient_api/resources/AllergyIntolerance.ndjson') }
+    let(:resources) { NDJSON::Parser.new('spec/fixtures/AllergyIntolerance.ndjson') }
     let(:allergy_input) do
       input.merge({ status_output: '[{"url":"https://www.example.com","type":"AllergyIntolerance","count":10}]' })
     end
@@ -271,7 +271,7 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
 
   describe '[CarePlan resources returned conform to the US Core CarePlan Profile] test' do
     let(:runnable) { group.tests[6] }
-    let(:resources) { NDJSON::Parser.new('spec/multi_patient_api/resources/CarePlan.ndjson') }
+    let(:resources) { NDJSON::Parser.new('spec/fixtures/CarePlan.ndjson') }
     let(:careplan_input) do
       input.merge({ status_output: '[{"url":"https://www.example.com","type":"CarePlan","count":26}]' })
     end
@@ -332,7 +332,7 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
 
   describe '[DiagnosticReport resources returned conform to the US Core DiagnosticReport Profile] test' do
     let(:runnable) { group.tests[10] }
-    let(:resources) { NDJSON::Parser.new('spec/multi_patient_api/resources/DiagnosticReport.ndjson') }
+    let(:resources) { NDJSON::Parser.new('spec/fixtures/DiagnosticReport.ndjson') }
     let(:diagnostic_input) do
       input.merge({ status_output: '[{"url":"https://www.example.com","type":"DiagnosticReport","count":43}]' })
     end
@@ -392,7 +392,7 @@ RSpec.describe MultiPatientAPI::BulkDataGroupExportValidation do
 
   describe '[Observation resources returned conform to the US Core Observation Profile] test' do
     let(:runnable) { group.tests[15] }
-    let(:resources) { NDJSON::Parser.new('spec/multi_patient_api/resources/Observation.ndjson') }
+    let(:resources) { NDJSON::Parser.new('spec/fixtures/Observation.ndjson') }
     let(:observation_input) do
       input.merge({ status_output: '[{"url":"https://www.example.com","type":"Observation","count":174}]' })
     end

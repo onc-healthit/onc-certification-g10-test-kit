@@ -7,7 +7,7 @@ module BulkExportValidationTester
   MAX_NUM_COLLECTED_LINES = 100
   MIN_RESOURCE_COUNT = 2
 
-  def observation_profiles
+  def observation_metadata
     [USCore::PediatricBmiForAgeGroup.metadata, USCore::PediatricWeightForHeightGroup.metadata,
      USCore::ObservationLabGroup.metadata, USCore::PulseOximetryGroup.metadata, USCore::SmokingstatusGroup.metadata,
      USCore::HeadCircumferenceGroup.metadata, USCore::BpGroup.metadata, USCore::BodyheightGroup.metadata,
@@ -15,19 +15,19 @@ module BulkExportValidationTester
      USCore::ResprateGroup.metadata]
   end
 
-  def diagnostic_profiles
+  def diagnostic_metadata
     [USCore::DiagnosticReportLabGroup.metadata, USCore::DiagnosticReportNoteGroup.metadata]
   end
 
-  def determine_profiles
-    return observation_profiles if resource_type == 'Observation'
-    return diagnostic_profiles if resource_type == 'DiagnosticReport'
+  def determine_metadata
+    return observation_metadata if resource_type == 'Observation'
+    return diagnostic_metadata if resource_type == 'DiagnosticReport'
 
     ["USCore::#{resource_type}Group".constantize.metadata]
   end
 
-  def profiles
-    @profiles ||= determine_profiles
+  def metadata_list
+    @metadata_list ||= determine_metadata
   end
 
   def metadata
@@ -84,20 +84,20 @@ module BulkExportValidationTester
   end
 
   def determine_profile(resource)
-    return [] if resource.resourceType == 'Device' && !predefined_device_type?(resource)
+    return if resource.resourceType == 'Device' && !predefined_device_type?(resource)
 
     guess_profile(resource)
   end
 
   def validate_conformance(resources)
-    profiles.each do |profile|
-      skip_if resources[profile.profile_url].blank?,
-              "No #{resource_type} resources found that conform to profile: #{profile.profile_url}."
-      scratch[:metadata] = profile
+    metadata_list.each do |meta|
+      skip_if resources[meta.profile_url].blank?,
+              "No #{resource_type} resources found that conform to profile: #{meta.profile_url}."
+      scratch[:metadata] = meta
       @missing_elements = nil
       @missing_slices = nil
       begin
-        perform_must_support_test(resources[profile.profile_url])
+        perform_must_support_test(resources[meta.profile_url])
       rescue Inferno::Exceptions::PassException => e
         next
       end
@@ -124,11 +124,11 @@ module BulkExportValidationTester
       skip_if resource.resourceType != resource_type,
               "Resource type \"#{resource.resourceType}\" at line \"#{line_count}\" does not match type defined in output \"#{resource_type}\")"
 
-      determine_profile(resource).each { |profile| resources[profile] << resource }
+      resources[determine_profile(resource)] << resource
       patient_ids_seen << resource.id if resource_type == 'Patient'
 
-      assert profiles.any? { |profile|
-               resource_is_valid?(resource: resource, profile_url: profile.profile_url)
+      assert metadata_list.any? { |meta|
+               resource_is_valid?(resource: resource, profile_url: meta.profile_url)
              }, "Resource does not conform to the #{resource_type} profile"
     }
 
@@ -145,9 +145,9 @@ module BulkExportValidationTester
   end
 
   def perform_bulk_export_validation
-    skip_if !status_output, 'Could not verify this functionality when Bulk Status Output is not provided'
-    skip_if !requires_access_token, 'Could not verify this functionality when requiresAccessToken is not provided'
-    skip_if (requires_access_token && !bearer_token),
+    skip_if status_output.blank?, 'Could not verify this functionality when Bulk Status Output is not provided'
+    skip_if requires_access_token.blank?, 'Could not verify this functionality when requiresAccessToken is not provided'
+    skip_if (requires_access_token && bearer_token.blank?),
             'Could not verify this functionality when Bearer Token is required and not provided'
 
     file_list = JSON.parse(status_output).select { |file| file['type'] == resource_type }
