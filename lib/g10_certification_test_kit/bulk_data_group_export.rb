@@ -1,6 +1,6 @@
-require_relative './export_kick_off_performer'
+require_relative 'export_kick_off_performer'
 
-module MultiPatientAPI
+module G10CertificationTestKit
   class BulkDataGroupExport < Inferno::TestGroup
     title 'Group Compartment Export Tests'
     description <<~DESCRIPTION

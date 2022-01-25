@@ -1,13 +1,16 @@
 require 'smart_app_launch_test_kit'
 require 'us_core'
-require_relative 'multi_patient_api'
 
 require_relative 'g10_certification_test_kit/smart_app_launch_invalid_aud_group'
 require_relative 'g10_certification_test_kit/smart_invalid_token_group'
 require_relative 'g10_certification_test_kit/smart_limited_app_group'
 require_relative 'g10_certification_test_kit/smart_standalone_patient_app_group'
 require_relative 'g10_certification_test_kit/smart_ehr_practitioner_app_group'
+<<<<<<< HEAD
 require_relative 'g10_certification_test_kit/smart_public_standalone_launch_group'
+=======
+require_relative 'g10_certification_test_kit/multi_patient_api'
+>>>>>>> 01039dc (reorganize multi_patient_files into g10 folder)
 require_relative 'g10_certification_test_kit/terminology_binding_validator'
 require_relative 'g10_certification_test_kit/visual_inspection_and_attestations_group'
 require_relative 'inferno/terminology'
@@ -116,25 +119,7 @@ module G10CertificationTestKit
       end
     end
 
-    group from: 'multi_patient_api' do
-      title 'Multi-Patient API'
-      description %(
-        Demonstrate the ability to export clinical data for multiple patients in
-        a group using [FHIR Bulk Data Access
-        IG](https://hl7.org/fhir/uv/bulkdata/). This test uses [Backend Services
-        Authorization](https://hl7.org/fhir/uv/bulkdata/authorization/index.html)
-        to obtain an access token from the server. After authorization, a group
-        level bulk data export request is initialized. Finally, this test reads
-        exported NDJSON files from the server and validates the resources in
-        each file. To run the test successfully, the selected group export is
-        required to have every type of resource mapped to [USCDI data
-        elements](https://www.healthit.gov/isa/us-core-data-interoperability-uscdi).
-        Additionally, it is expected the server will provide Encounter,
-        Location, Organization, and Practitioner resources as they are
-        referenced as must support elements in required resources.
-      )
-      run_as_group
-    end
+    group from: 'multi_patient_api'
 
     group do
       title 'Additional Tests'

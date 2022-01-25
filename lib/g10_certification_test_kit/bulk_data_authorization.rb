@@ -1,6 +1,6 @@
-require_relative './authorization_request_builder'
+require_relative 'authorization_request_builder'
 
-module MultiPatientAPI
+module G10CertificationTestKit
   class BulkDataAuthorization < Inferno::TestGroup
     title 'Bulk Data Authorization'
     description <<~DESCRIPTION

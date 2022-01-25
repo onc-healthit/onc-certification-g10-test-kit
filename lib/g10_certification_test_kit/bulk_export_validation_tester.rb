@@ -1,4 +1,4 @@
-require_relative './profile_guesser'
+require_relative 'profile_guesser'
 
 module BulkExportValidationTester
   include USCore::MustSupportTest

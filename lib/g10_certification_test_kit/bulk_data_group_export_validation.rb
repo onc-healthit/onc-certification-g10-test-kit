@@ -1,6 +1,6 @@
-require_relative './bulk_export_validation_tester'
+require_relative 'bulk_export_validation_tester'
 
-module MultiPatientAPI
+module G10CertificationTestKit
   class BulkDataGroupExportValidation < Inferno::TestGroup
     title 'Group Compartment Export Validation Tests'
     description <<~DESCRIPTION
