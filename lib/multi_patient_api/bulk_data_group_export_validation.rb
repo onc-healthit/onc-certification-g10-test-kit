@@ -1,4 +1,4 @@
-require_relative './bulK_export_validation_tester'
+require_relative './bulk_export_validation_tester'
 
 module MultiPatientAPI
   class BulkDataGroupExportValidation < Inferno::TestGroup

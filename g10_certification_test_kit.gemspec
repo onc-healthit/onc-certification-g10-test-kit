@@ -10,6 +10,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'inferno_core', '~> 0.1.2'
   spec.add_runtime_dependency 'bloomer', '~> 1.0.0'
   spec.add_runtime_dependency 'colorize', '~> 0.8.1'
+  spec.add_runtime_dependency 'json-jwt'
   spec.add_development_dependency 'database_cleaner-sequel', '~> 1.8'
   spec.add_development_dependency 'factory_bot', '~> 6.1'
   spec.add_development_dependency 'rspec', '~> 3.10'
