@@ -44,13 +44,6 @@ module G10CertificationTestKit
     end
 
     def add_error(element)
-      message = invalid_binding_message(element)
-      puts "******************************************8"
-      puts "******************************************8"
-      puts "******************************************8"
-      puts "******************************************8"
-      puts message
-      puts element.to_hash.inspect
       validation_messages << {
         type: 'error',
         message: invalid_binding_message(element)
@@ -58,12 +51,6 @@ module G10CertificationTestKit
     end
 
     def add_warning(message)
-      puts "******************************************8"
-      puts "******************************************8"
-      puts "******************************************8"
-      puts "******************************************8"
-      puts message
-      puts element.to_hash.inspect
       validation_messages << {
         type: 'warning',
         message: message

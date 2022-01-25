@@ -6,7 +6,6 @@ require 'bloomer'
 require 'bloomer/msgpackable'
 require 'fileutils'
 require 'pry'
-require 'us_core'
 
 require_relative '../exceptions'
 require_relative '../ext/bloomer'
@@ -169,15 +168,11 @@ module Inferno
           File.write(metadata_path, metadata.to_yaml)
         end
 
-        def value_sets_for_certification
-          @value_sets_for_certification ||=
-            USCore::USCoreTestSuite.metadata
-              .flat_map(&:bindings)
-        end
-
+        # NOTE: resources/value_sets.yml controls which value sets get loaded.
+        # It is currently manually generated from the US Core metadata.
         def get_value_sets(strengths)
           expected_vs_urls =
-            value_sets_for_certification
+            YAML.load_file(File.join('resources', 'value_sets.yml'))
               .select { |vs| strengths.include? vs[:strength] }
               .map! { |vs| vs[:system] }
               .compact
