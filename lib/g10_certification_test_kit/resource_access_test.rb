@@ -5,7 +5,7 @@ module G10CertificationTestKit
 
     title 'Access to resources are restricted properly based on patient-selected scope'
     description %(
-      This test ensures that access to the a resource is granted or denied
+      This test ensures that access to the resource is granted or denied
       based on the selection by the tester prior to the execution of the test.
       If the tester indicated that access will be granted to this resource,
       this test verifies that a search by patient in this resource does not
