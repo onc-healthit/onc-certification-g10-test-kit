@@ -1,6 +1,7 @@
 require 'smart_app_launch_test_kit'
 require 'us_core'
 
+require_relative 'g10_certification_test_kit/smart_limited_app_group'
 require_relative 'g10_certification_test_kit/smart_standalone_patient_app_group'
 require_relative 'g10_certification_test_kit/smart_ehr_practitioner_app_group'
 
@@ -23,22 +24,7 @@ module G10CertificationTestKit
 
     group from: 'g10_smart_standalone_patient_app'
 
-    group do
-      title 'TODO: Limited App'
-      description %(
-        This scenario demonstrates the ability to perform a Patient Standalone
-        Launch to a [SMART on FHIR](http://www.hl7.org/fhir/smart-app-launch/)
-        confidential client with limited access granted to the app based on user
-        input. The tester is expected to grant the application access to a
-        subset of desired resource types.
-      )
-
-      test do
-        title 'TODO'
-
-        run { pass }
-      end
-    end
+    group from: 'g10_smart_limited_app'
 
     group from: 'g10_smart_ehr_practitioner_app'
 
