@@ -7,7 +7,7 @@ require_relative 'g10_certification_test_kit/smart_ehr_practitioner_app_group'
 
 module G10CertificationTestKit
   class G10CertificationSuite < Inferno::TestSuite
-    title '2015 Edition Cures Update - Standardized API Testing'
+    title '2015 Edition Cures Update - Standardized API Testing (v2 Preview)'
     id :g10_certification
 
     validator do
@@ -82,7 +82,7 @@ module G10CertificationTestKit
 
       USCore::USCoreTestSuite.groups.each do |group|
         id = group.ancestors[1].id
-        group from: id
+        group from: id, exclude_optional: true
       end
     end
 

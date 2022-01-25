@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/inferno-framework/smart-app-launch-test-kit.git
-  revision: 99f4677cba8433aff0b30cd84a5c2584823d3904
+  revision: 3fc854a2e3564f321c64f9d382854724f54bbab4
   branch: main
   specs:
     smart_app_launch_test_kit (0.0.1)
@@ -9,17 +9,17 @@ GIT
 
 GIT
   remote: https://github.com/inferno-framework/us-core-test-kit.git
-  revision: ab9d09d9f775587389f303ebad804b59662b1ae6
+  revision: 5e8f4e9729a32ac88df7c11ecd1b4f5be2229581
   branch: main
   specs:
     us_core_test_kit (0.0.1)
-      inferno_core (~> 0.1.0)
+      inferno_core (~> 0.1.1)
 
 PATH
   remote: .
   specs:
     g10_certification_test_kit (0.0.1)
-      inferno_core (~> 0.1.0)
+      inferno_core (~> 0.1.1)
 
 GEM
   remote: https://rubygems.org/
@@ -161,7 +161,7 @@ GEM
     i18n (1.8.11)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
-    inferno_core (0.1.0)
+    inferno_core (0.1.1)
       activesupport (~> 6.1)
       blueprinter (= 0.25.2)
       dotenv (~> 2.7)
@@ -187,7 +187,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2022.0105)
     minitest (5.15.0)
-    msgpack (1.4.2)
+    msgpack (1.4.4)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
@@ -216,7 +216,7 @@ GEM
       nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.3)
-    rainbow (3.0.0)
+    rainbow (3.1.1)
     rake (13.0.6)
     redis (4.5.1)
     regexp_parser (2.2.0)
@@ -232,16 +232,16 @@ GEM
       rspec-mocks (~> 3.10.0)
     rspec-core (3.10.1)
       rspec-support (~> 3.10.0)
-    rspec-expectations (3.10.1)
+    rspec-expectations (3.10.2)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-mocks (3.10.2)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.3)
-    rubocop (1.24.1)
+    rubocop (1.25.0)
       parallel (~> 1.10)
-      parser (>= 3.0.0.0)
+      parser (>= 3.1.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml
@@ -250,7 +250,7 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.15.1)
       parser (>= 3.0.1.1)
-    rubocop-rspec (2.7.0)
+    rubocop-rspec (2.8.0)
       rubocop (~> 1.19)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
