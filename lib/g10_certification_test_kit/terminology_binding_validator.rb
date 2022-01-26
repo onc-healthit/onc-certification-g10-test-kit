@@ -19,9 +19,7 @@ module G10CertificationTestKit
     end
 
     def validate
-      if element_with_invalid_binding.present?
-        add_error(element_with_invalid_binding)
-      end
+      add_error(element_with_invalid_binding) if element_with_invalid_binding.present?
 
       validation_messages
     end

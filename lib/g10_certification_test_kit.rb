@@ -14,10 +14,16 @@ module G10CertificationTestKit
     title '2015 Edition Cures Update - Standardized API Testing (v2 Preview)'
     id :g10_certification
 
+    WARNING_INCLUSION_FILTERS = [
+      /Unknown CodeSystem/,
+      /Unknown ValueSet/
+    ].freeze
+
     validator do
       url ENV.fetch('VALIDATOR_URL', 'http://validator_service:4567')
       exclude_message do |message|
-        if message.type == 'info' || message.type == 'warning' ||
+        if message.type == 'info' ||
+           (message.type == 'warning' && WARNING_INCLUSION_FILTERS.none? { |filter| filter.match? message.message }) ||
            USCore::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS.any? { |filter| filter.match? message.message }
           true
         else
@@ -25,7 +31,9 @@ module G10CertificationTestKit
         end
       end
       perform_additional_validation do |resource, profile_url|
-        metadata = USCore::USCoreTestSuite.metadata.find { |metadata| metadata.profile_url == profile_url }
+        metadata = USCore::USCoreTestSuite.metadata.find do |metadata_candidate|
+          metadata_candidate.profile_url == profile_url
+        end
 
         next if metadata.nil?
 
@@ -33,6 +41,8 @@ module G10CertificationTestKit
           .select { |binding_definition| binding_definition[:strength] == 'required' }
           .flat_map do |binding_definition|
             TerminologyBindingValidator.validate(resource, binding_definition)
+        rescue Inferno::UnknownValueSetException, Inferno::UnknownCodeSystemException => e
+          { type: 'warning', message: e.message }
           end.compact
       end
     end
