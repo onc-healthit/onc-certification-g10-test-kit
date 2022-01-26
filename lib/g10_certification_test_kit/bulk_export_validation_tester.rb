@@ -147,7 +147,7 @@ module BulkExportValidationTester
   def perform_bulk_export_validation
     skip_if status_output.blank?, 'Could not verify this functionality when Bulk Status Output is not provided'
     skip_if requires_access_token.blank?, 'Could not verify this functionality when requiresAccessToken is not provided'
-    skip_if (requires_access_token && bearer_token.blank?),
+    skip_if (requires_access_token == 'true' && bearer_token.blank?),
             'Could not verify this functionality when Bearer Token is required and not provided'
 
     file_list = JSON.parse(status_output).select { |file| file['type'] == resource_type }

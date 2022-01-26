@@ -50,7 +50,7 @@ module G10CertificationTestKit
         skip_if status_output.blank?, 'Could not verify this functionality when Bulk Status Output is not provided'
         skip_if requires_access_token.blank?,
                 'Could not verify this functionality when requiresAccessToken is not provided'
-        skip_if !requires_access_token, 'Could not verify this functionality when requiresAccessToken is false'
+        skip_if requires_access_token == 'false', 'Could not verify this functionality when requiresAccessToken is false'
         skip_if bearer_token.blank?, 'Could not verify this functionality when Bearer Token is not provided'
 
         output_endpoint = JSON.parse(status_output)[0]['url']

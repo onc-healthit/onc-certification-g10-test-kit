@@ -13,7 +13,7 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExportValidation do
   let(:contents_missing_element) { String.new }
   let(:scratch) { {} }
   let(:input) do
-    { requires_access_token: true,
+    { requires_access_token: 'true',
       status_output: status_output,
       bearer_token: bearer_token }
   end
@@ -26,7 +26,7 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExportValidation do
         test_session_id: test_session.id,
         name: name,
         value: value,
-        type: runnable.config.input_type(name)
+        type: runnable.config.input_type(name) # Problem
       )
     end
 
@@ -54,16 +54,15 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExportValidation do
       expect(result.result_message).to eq('Could not verify this functionality when requiresAccessToken is not provided')
     end
 
-    # TODO: Figure out why this behaves weirdly. Suspicion: false is stored serially, and then interpreted as a truthy value.
-    # it 'skips when requiresAccessToken is false' do
-    #   result = run(runnable, { requires_access_token: false, status_output: status_output })
+    it 'skips when requiresAccessToken is false' do
+      result = run(runnable, { requires_access_token: 'false', status_output: status_output })
 
-    #   expect(result.result).to eq('skip')
-    #   expect(result.result_message).to eq('Could not verify this functionality when requireAccessToken is false')
-    # end
+      expect(result.result).to eq('skip')
+      expect(result.result_message).to eq('Could not verify this functionality when requiresAccessToken is false')
+    end
 
     it 'skips when bearer_token is not provided' do
-      result = run(runnable, { requires_access_token: true, status_output: status_output })
+      result = run(runnable, { requires_access_token: 'true', status_output: status_output })
 
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('Could not verify this functionality when Bearer Token is not provided')
@@ -124,7 +123,7 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExportValidation do
     end
 
     it 'skips when bearer_token is not provided' do
-      result = run(runnable, { requires_access_token: true, status_output: status_output })
+      result = run(runnable, { requires_access_token: 'true', status_output: status_output })
 
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('Could not verify this functionality when Bearer Token is required and not provided')

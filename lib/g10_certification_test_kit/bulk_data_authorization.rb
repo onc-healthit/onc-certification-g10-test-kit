@@ -31,7 +31,7 @@ module G10CertificationTestKit
           title: 'Encryption Method',
           description: 'The server is required to suport either ES384 or RS384 encryption methods for JWT signature verification. Select which method to use.' # TODO: Make radio button.
 
-    output :bulk_access_token
+    output :bearer_token
 
     http_client :token_endpoint do
       url :bulk_token_endpoint

@@ -226,10 +226,10 @@ module G10CertificationTestKit
       run do
         assert status_response.present?, 'Bulk Data Server status response not found'
 
-        requires_access_token = JSON.parse(status_response)['requiresAccessToken']
+        requires_access_token = JSON.parse(status_response)['requiresAccessToken'].to_s.downcase
         output requires_access_token: requires_access_token
 
-        assert requires_access_token.present? && requires_access_token.to_s.downcase == 'true',
+        assert requires_access_token.present? && requires_access_token == 'true',
                'Bulk Data file server access SHALL require access token'
       end
     end
