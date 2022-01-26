@@ -41,8 +41,8 @@ module G10CertificationTestKit
           .select { |binding_definition| binding_definition[:strength] == 'required' }
           .flat_map do |binding_definition|
             TerminologyBindingValidator.validate(resource, binding_definition)
-        rescue Inferno::UnknownValueSetException, Inferno::UnknownCodeSystemException => e
-          { type: 'warning', message: e.message }
+          rescue Inferno::UnknownValueSetException, Inferno::UnknownCodeSystemException => e
+            { type: 'warning', message: e.message }
           end.compact
       end
     end
@@ -83,7 +83,7 @@ module G10CertificationTestKit
             title: 'FHIR Endpoint',
             description: 'URL of the FHIR endpoint used by SMART applications',
             default: 'https://inferno.healthit.gov/reference-server/r4'
-      input :bearer_token, optional: true, locked: true, default: 'SAMPLE_TOKEN'
+      input :bearer_token, optional: true, locked: true
 
       fhir_client do
         url :url
@@ -101,7 +101,7 @@ module G10CertificationTestKit
         output :bearer_token
 
         run do
-          output bearer_token: bearer_token.presence || standalone_access_token.presence || ehr_access_token.presence
+          output bearer_token: standalone_access_token.presence || ehr_access_token.presence
         end
       end
 
