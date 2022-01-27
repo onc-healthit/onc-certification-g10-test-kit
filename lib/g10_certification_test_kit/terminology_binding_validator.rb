@@ -76,7 +76,7 @@ module G10CertificationTestKit
       system = binding_definition[:system].presence || 'the declared CodeSystem'
 
       %(
-        #{resource_type}/#{resource.id} at #{resource_type}.#{binding_definition.path}
+        #{resource_type}/#{resource.id} at #{resource_type}.#{binding_definition[:path]}
         with code #{element_code(element)} is not in #{system}.
       )
     end
