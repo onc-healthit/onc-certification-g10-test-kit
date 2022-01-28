@@ -168,12 +168,13 @@ module Inferno
           File.write(metadata_path, metadata.to_yaml)
         end
 
+        # NOTE: resources/value_sets.yml controls which value sets get loaded.
+        # It is currently manually generated from the US Core metadata.
         def get_value_sets(strengths)
           expected_vs_urls =
             YAML.load_file(File.join('resources', 'value_sets.yml'))
-              .map!(&:deep_symbolize_keys!)
               .select { |vs| strengths.include? vs[:strength] }
-              .map! { |vs| vs[:value_set_url] }
+              .map! { |vs| vs[:system] }
               .compact
               .uniq
 

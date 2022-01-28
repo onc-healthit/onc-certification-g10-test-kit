@@ -222,7 +222,7 @@
   :code_systems: []
 - :url: http://hl7.org/fhir/ValueSet/mimetypes
   :file: hl7_org_fhir_ValueSet_mimetypes.msgpack
-  :count: 2353
+  :count: 2382
   :type: bloom
   :code_systems:
   - urn:ietf:bcp:13
@@ -391,6 +391,18 @@
   :type: bloom
   :code_systems:
   - http://hl7.org/fhir/days-of-week
+- :url: http://hl7.org/fhir/us/core/ValueSet/us-core-medication-codes
+  :file: hl7_org_fhir_us_core_ValueSet_us-core-medication-codes.msgpack
+  :count: 130098
+  :type: bloom
+  :code_systems:
+  - http://www.nlm.nih.gov/research/umls/rxnorm
+- :url: http://hl7.org/fhir/ValueSet/medication-status
+  :file: hl7_org_fhir_ValueSet_medication-status.msgpack
+  :count: 3
+  :type: bloom
+  :code_systems:
+  - http://hl7.org/fhir/CodeSystem/medication-status
 - :url: http://hl7.org/fhir/ValueSet/medicationrequest-status
   :file: hl7_org_fhir_ValueSet_medicationrequest-status.msgpack
   :count: 8
@@ -409,12 +421,6 @@
   :type: bloom
   :code_systems:
   - http://hl7.org/fhir/request-priority
-- :url: http://hl7.org/fhir/us/core/ValueSet/us-core-medication-codes
-  :file: hl7_org_fhir_us_core_ValueSet_us-core-medication-codes.msgpack
-  :count: 130098
-  :type: bloom
-  :code_systems:
-  - http://www.nlm.nih.gov/research/umls/rxnorm
 - :url: http://hl7.org/fhir/us/core/ValueSet/us-core-observation-smoking-status-status
   :file: hl7_org_fhir_us_core_ValueSet_us-core-observation-smoking-status-status.msgpack
   :count: 2
@@ -662,7 +668,7 @@
   - http://hl7.org/fhir/provenance-entity-role
 - :url: urn:ietf:bcp:47
   :file: urn_ietf_bcp_47.msgpack
-  :count: 8530
+  :count: 8533
   :type: bloom
   :code_systems: urn:ietf:bcp:47
 - :url: http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical
@@ -827,7 +833,7 @@
   :code_systems: http://hl7.org/fhir/document-relationship-type
 - :url: urn:ietf:bcp:13
   :file: urn_ietf_bcp_13.msgpack
-  :count: 2353
+  :count: 2382
   :type: bloom
   :code_systems: urn:ietf:bcp:13
 - :url: http://ihe.net/fhir/ValueSet/IHE.FormatCode.codesystem
@@ -965,6 +971,11 @@
   :count: 7
   :type: bloom
   :code_systems: http://hl7.org/fhir/days-of-week
+- :url: http://hl7.org/fhir/CodeSystem/medication-status
+  :file: hl7_org_fhir_CodeSystem_medication-status.msgpack
+  :count: 3
+  :type: bloom
+  :code_systems: http://hl7.org/fhir/CodeSystem/medication-status
 - :url: http://hl7.org/fhir/CodeSystem/medicationrequest-status
   :file: hl7_org_fhir_CodeSystem_medicationrequest-status.msgpack
   :count: 8

@@ -19,7 +19,7 @@
 .yardoc
 node_modules
 
-resources/terminology/*
+resources/terminology/validators/*
 
 # Auto-generated terminology files
 MR*.pipe

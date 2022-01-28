@@ -4,21 +4,46 @@ require 'us_core'
 require_relative 'g10_certification_test_kit/smart_limited_app_group'
 require_relative 'g10_certification_test_kit/smart_standalone_patient_app_group'
 require_relative 'g10_certification_test_kit/smart_ehr_practitioner_app_group'
+require_relative 'g10_certification_test_kit/terminology_binding_validator'
+require_relative 'inferno/terminology'
+
+Inferno::Terminology::Loader.load_validators
 
 module G10CertificationTestKit
   class G10CertificationSuite < Inferno::TestSuite
     title '2015 Edition Cures Update - Standardized API Testing (v2 Preview)'
     id :g10_certification
 
+    WARNING_INCLUSION_FILTERS = [
+      /Unknown CodeSystem/,
+      /Unknown ValueSet/
+    ].freeze
+
     validator do
       url ENV.fetch('VALIDATOR_URL', 'http://validator_service:4567')
       exclude_message do |message|
-        if message.type == 'info' || message.type == 'warning' ||
+        if message.type == 'info' ||
+           (message.type == 'warning' && WARNING_INCLUSION_FILTERS.none? { |filter| filter.match? message.message }) ||
            USCore::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS.any? { |filter| filter.match? message.message }
           true
         else
           false
         end
+      end
+      perform_additional_validation do |resource, profile_url|
+        metadata = USCore::USCoreTestSuite.metadata.find do |metadata_candidate|
+          metadata_candidate.profile_url == profile_url
+        end
+
+        next if metadata.nil?
+
+        metadata.bindings
+          .select { |binding_definition| binding_definition[:strength] == 'required' }
+          .flat_map do |binding_definition|
+            TerminologyBindingValidator.validate(resource, binding_definition)
+          rescue Inferno::UnknownValueSetException, Inferno::UnknownCodeSystemException => e
+            { type: 'warning', message: e.message }
+          end.compact
       end
     end
 

@@ -1,0 +1,6 @@
+:exclude_license_restriction_levels:
+  - 3
+:include:
+  - http://nucc.org/provider-taxonomy
+# :exclude:
+#   -

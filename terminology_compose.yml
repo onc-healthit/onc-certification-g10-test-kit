@@ -5,16 +5,14 @@ services:
       context: .
       dockerfile: Dockerfile.terminology
     volumes:
-      - ./config.yml:/var/www/inferno/config.yml
-      - ./data:/var/www/inferno/data
-      - ./batch:/var/www/inferno/batch
+      - ./data:/opt/inferno/data
       - type: bind
         source: "./resources/terminology"
-        target: "/var/www/inferno/resources/terminology"
+        target: "/opt/inferno/resources/terminology"
         consistency: delegated
       - type: bind
         source: "./tmp"
-        target: "/var/www/inferno/tmp"
+        target: "/opt/inferno/tmp"
         consistency: delegated
     environment:
       UMLS_API_KEY:
