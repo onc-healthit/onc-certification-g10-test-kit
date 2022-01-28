@@ -1,8 +1,11 @@
 RSpec.describe G10CertificationTestKit::TerminologyBindingValidator do
+  let(:bad_code) { 'abc' }
+  let(:system_url) { 'http://example.com/system' }
+
   describe '.validate' do
     context 'with a code' do
       let(:resource) do
-        FHIR::Observation.new(id: '123', status: 'abc')
+        FHIR::Observation.new(id: '123', status: bad_code)
       end
       let(:binding_definition) do
         {
@@ -17,7 +20,7 @@ RSpec.describe G10CertificationTestKit::TerminologyBindingValidator do
         allow_any_instance_of(described_class).to(
           receive(:validate_code).with(
             value_set_url: binding_definition[:system],
-            code: resource.status
+            code: bad_code
           ).and_return(false)
         )
 
@@ -30,14 +33,12 @@ RSpec.describe G10CertificationTestKit::TerminologyBindingValidator do
           match(%r{#{resource.resourceType}/#{resource.id}.*#{binding_definition[:path]}})
         )
         expect(result.first[:message]).to(
-          match(/with code `#{resource.status}` is not in #{binding_definition[:system]}/)
+          match(/with code `#{bad_code}` is not in #{binding_definition[:system]}/)
         )
       end
     end
 
     context 'with a Quantity/Coding' do
-      let(:bad_code) { 'abc' }
-      let(:system_url) { 'http://example.com/system' }
       let(:resource) do
         FHIR::DocumentReference.new(
           id: '123',
@@ -84,8 +85,6 @@ RSpec.describe G10CertificationTestKit::TerminologyBindingValidator do
     end
 
     context 'with a CodeableConcept' do
-      let(:bad_code) { 'abc' }
-      let(:system_url) { 'http://example.com/system' }
       let(:resource) do
         FHIR::Observation.new(
           id: '123',
@@ -155,6 +154,62 @@ RSpec.describe G10CertificationTestKit::TerminologyBindingValidator do
 
         expect(result).to be_an(Array)
         expect(result.length).to eq(0)
+      end
+    end
+
+    context 'with extensions' do
+      let(:resource) do
+        FHIR::Patient.new(
+          id: '123',
+          extension: [
+            {
+              url: 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-race',
+              extension: [
+                {
+                  url: 'ombCategory',
+                  valueCoding: {
+                    code: bad_code,
+                    system: system_url
+                  }
+                }
+              ]
+            }
+          ]
+        )
+      end
+      let(:binding_definition) do
+        {
+          type: 'Coding',
+          strength: 'required',
+          system: 'http://hl7.org/fhir/us/core/ValueSet/omb-race-category',
+          path: 'value',
+          extensions: [
+            'http://hl7.org/fhir/us/core/StructureDefinition/us-core-race',
+            'ombCategory'
+          ]
+        }
+      end
+
+      it 'returns an error message if a code is invalid' do
+        allow_any_instance_of(described_class).to(
+          receive(:validate_code).with(
+            value_set_url: binding_definition[:system],
+            code: bad_code,
+            system: system_url
+          ).and_return(false)
+        )
+
+        result = described_class.validate(resource, binding_definition)
+
+        expect(result).to be_an(Array)
+        expect(result.length).to eq(1)
+        expect(result.first[:type]).to eq('error')
+        expect(result.first[:message]).to(
+          match(%r{#{resource.resourceType}/#{resource.id}.*#{binding_definition[:path]}})
+        )
+        expect(result.first[:message]).to(
+          match(/with code `#{system_url}|#{bad_code}` is not in #{binding_definition[:system]}/)
+        )
       end
     end
   end
