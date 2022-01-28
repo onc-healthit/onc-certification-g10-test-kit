@@ -20,17 +20,19 @@ module G10CertificationTestKit
 
     input :bulk_token_endpoint,
           title: 'Backend Services Token Endpoint',
-          description: 'The OAuth 2.0 Token Endpoint used by the Backend Services specification to provide bearer tokens.'
+          description: 'The OAuth 2.0 Token Endpoint used by the Backend Services specification to provide bearer tokens.',
+          default: 'https://inferno.healthit.gov/bulk-data-server/auth/token'
     input :bulk_client_id,
           title: 'Bulk Data Client ID',
           description: 'Client ID provided at registration to the Inferno application.'
     input :bulk_scope,
           title: 'Bulk Data Scopes',
-          description: 'Bulk Data Scopes provided at registration to the Inferno application.'
+          description: 'Bulk Data Scopes provided at registration to the Inferno application.',
+          default: 'system/*.read'
     input :bulk_encryption_method,
           title: 'Encryption Method',
-          description: 'The server is required to suport either ES384 or RS384 encryption methods for JWT signature verification. Select which method to use.' # TODO: Make radio button.
-
+          description: 'The server is required to suport either ES384 or RS384 encryption methods for JWT signature verification. Select which method to use.', # TODO: Make radio button.
+          default: 'ES384'
     output :bearer_token
 
     http_client :token_endpoint do

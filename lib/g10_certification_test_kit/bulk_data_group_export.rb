@@ -15,7 +15,8 @@ module G10CertificationTestKit
           description: 'The URL of the Bulk FHIR server.'
     input :group_id,
           title: 'Group ID',
-          description: 'The Group ID associated with the group of patients to be exported.'
+          description: 'The Group ID associated with the group of patients to be exported.',
+          default: '1'
 
     output :requires_access_token, :status_output
 

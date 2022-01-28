@@ -303,6 +303,7 @@ DEPENDENCIES
   nokogiri
   pry
   pry-byebug
+  pry-nav
   rake
   rest-client
   rspec (~> 3.10)
