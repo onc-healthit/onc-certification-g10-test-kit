@@ -25,8 +25,8 @@ module BulkExportValidationTester
 
     if resource_type == 'Location' || resource_type == 'Medication'
       return Array.wrap(USCore::USCoreTestSuite.metadata.find do |meta|
-               meta.resource == resource_type
-             end)
+                          meta.resource == resource_type
+                        end)
     end
     ["USCore::#{resource_type}Group".constantize.metadata]
   end

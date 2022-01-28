@@ -308,7 +308,7 @@ RSpec.describe BulkExportValidationTester do
         result = tester.check_file_request(url)
 
         expect(result).to eq(5)
-      end 
+      end
 
       it 'returns the expected number of Medication resources' do
         tester.lines_to_validate = nil
@@ -321,8 +321,8 @@ RSpec.describe BulkExportValidationTester do
         result = tester.check_file_request(url)
 
         expect(result).to eq(1)
-      end 
-    end 
+      end
+    end
   end
 
   describe '#determine_profile' do
