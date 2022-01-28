@@ -55,33 +55,18 @@ RSpec.describe BulkExportValidationTester do
       resource['id'] = one_id
       patient_contents_one_id << ("#{resource.to_json.gsub(/[ \n]/, '')}\n")
     end
-  end
-
-  before do
     NDJSON::Parser.new('spec/fixtures/CarePlan.ndjson').each do |resource|
       care_plan_contents << ("#{resource.to_json}\n")
     end
-  end
-
-  before do
     NDJSON::Parser.new('spec/fixtures/Encounter.ndjson').each do |resource|
       encounter_contents << ("#{resource.to_json}\n")
     end
-  end
-
-  before do
     NDJSON::Parser.new('spec/fixtures/Device.ndjson').each do |resource|
       device_contents << ("#{resource.to_json}\n")
     end
-  end
-
-  before do
     NDJSON::Parser.new('spec/fixtures/Location.ndjson').each do |resource|
       location_contents << ("#{resource.to_json}\n")
     end
-  end
-
-  before do
     NDJSON::Parser.new('spec/fixtures/Medication.ndjson').each do |resource|
       medication_contents << ("#{resource.to_json}\n")
     end
@@ -266,7 +251,7 @@ RSpec.describe BulkExportValidationTester do
       allow(tester).to receive(:resource_is_valid?).and_return(false)
       expect { tester.check_file_request(url) }
         .to raise_exception(Inferno::Exceptions::SkipException)
-        .with_message('Resource does not conform to the Patient profile')
+        .with_message('Resource at line "1" has profile "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient" and does not conform to Patient resource.')
     end
 
     context 'with improper headers' do
@@ -568,8 +553,4 @@ RSpec.describe BulkExportValidationTester do
       expect(streamed_chunks).to eq(["multi\n touched", "line\n touched", "response\n touched", "body\n touched"])
     end
   end
-
-  describe '#validate_conformance' do
-    
-  end 
 end
