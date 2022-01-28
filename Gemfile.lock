@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/inferno-framework/smart-app-launch-test-kit.git
-  revision: 4fbc2c706ea59c46de9dc1201d766b755811976e
+  revision: 3fc854a2e3564f321c64f9d382854724f54bbab4
   branch: main
   specs:
     smart_app_launch_test_kit (0.0.1)
@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: https://github.com/inferno-framework/us-core-test-kit.git
-  revision: 79b6b19629a4f2cbf47af706dead5b9f0a2613bb
+  revision: 5e8f4e9729a32ac88df7c11ecd1b4f5be2229581
   branch: main
   specs:
     us_core_test_kit (0.0.1)

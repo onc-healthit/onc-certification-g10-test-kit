@@ -108,34 +108,6 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExportValidation do
       end
     end
 
-    it 'skips when status_output is not provided' do
-      result = run(runnable)
-
-      expect(result.result).to eq('skip')
-      expect(result.result_message).to eq('Could not verify this functionality when Bulk Status Output is not provided')
-    end
-
-    it 'skips when requires_access_token is not provided' do
-      result = run(runnable, { status_output: status_output })
-
-      expect(result.result).to eq('skip')
-      expect(result.result_message).to eq('Could not verify this functionality when requiresAccessToken is not provided')
-    end
-
-    it 'skips when bearer_token is not provided' do
-      result = run(runnable, { requires_access_token: 'true', status_output: status_output })
-
-      expect(result.result).to eq('skip')
-      expect(result.result_message).to eq('Could not verify this functionality when Bearer Token is required and not provided')
-    end
-
-    it 'skips when no Patient resource file item returned by server' do
-      result = run(runnable, not_patient_input)
-
-      expect(result.result).to eq('skip')
-      expect(result.result_message).to eq('No Patient resource file item returned by server.')
-    end
-
     it 'skips when returned resources are missing a must support element' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
@@ -256,7 +228,7 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExportValidation do
       expect(result.result_message).to eq('Could not find clinicalStatus in the 10 provided AllergyIntolerance resource(s)')
     end
 
-    it 'passes when returned resources are fully conformant to the patient profile' do
+    it 'passes when returned resources are fully conformant to the allergy profile' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
         .to_return(status: 200, body: contents, headers: headers)

@@ -1,6 +1,6 @@
 require_relative 'bulk_data_authorization'
 require_relative 'bulk_data_group_export'
-require_relative 'bulk_data_group_export_validation.rb'
+require_relative 'bulk_data_group_export_validation'
 
 module G10CertificationTestKit
   class MultiPatientAPIGroup < Inferno::TestGroup

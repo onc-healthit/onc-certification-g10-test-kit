@@ -23,6 +23,12 @@ module BulkExportValidationTester
     return observation_metadata if resource_type == 'Observation'
     return diagnostic_metadata if resource_type == 'DiagnosticReport'
 
+    if resource_type == 'Location' || resource_type == 'Medication'
+      return USCore::USCoreTestSuite.metadata.find do |meta|
+               meta.resource == resource_type
+             end
+    end
+
     ["USCore::#{resource_type}Group".constantize.metadata]
   end
 
@@ -104,13 +110,13 @@ module BulkExportValidationTester
     end
   end
 
-  def check_file_request(url, validate_all, lines_to_validate)
+  def check_file_request(url)
     line_count = 0
     resources = Hash.new { |h, k| h[k] = [] }
 
     process_line = proc { |line|
-      next unless validate_all ||
-                  line_count < lines_to_validate ||
+      next unless lines_to_validate.blank? ||
+                  line_count < lines_to_validate.to_i ||
                   (resource_type == 'Patient' && patient_ids_seen.length < MIN_RESOURCE_COUNT)
 
       line_count += 1
@@ -122,20 +128,21 @@ module BulkExportValidationTester
       end
 
       skip_if resource.resourceType != resource_type,
-              "Resource type \"#{resource.resourceType}\" at line \"#{line_count}\" does not match type defined in output \"#{resource_type}\")"
+              "Resource type \"#{resource.resourceType}\" at line \"#{line_count}\" does not match type defined in output \"#{resource_type}\""
 
       resources[determine_profile(resource)] << resource
-      patient_ids_seen << resource.id if resource_type == 'Patient'
+      scratch[:patient_ids_seen] = patient_ids_seen | [resource.id]
 
-      assert metadata_list.any? { |meta|
-               resource_is_valid?(resource: resource, profile_url: meta.profile_url)
-             }, "Resource does not conform to the #{resource_type} profile"
+      skip_if metadata_list.none? { |meta|
+                resource_is_valid?(resource: resource, profile_url: meta.profile_url)
+              }, "Resource does not conform to the #{resource_type} profile"
     }
 
     process_headers = proc { |response|
       value = (response[:headers].find { |header| header.name.downcase == 'content-type' })&.value
-      assert value.start_with?('application/fhir+ndjson'),
-             "Content type must have 'application/fhir+ndjson' but found '#{value}'"
+      unless value&.start_with?('application/fhir+ndjson')
+        skip "Content type must have 'application/fhir+ndjson' but found '#{value}'"
+      end
     }
 
     stream_ndjson(url, build_headers(requires_access_token), process_line, process_headers)
@@ -147,6 +154,7 @@ module BulkExportValidationTester
   def perform_bulk_export_validation
     skip_if status_output.blank?, 'Could not verify this functionality when Bulk Status Output is not provided'
     skip_if requires_access_token.blank?, 'Could not verify this functionality when requiresAccessToken is not provided'
+    skip_if requires_access_token == 'false', 'Could not verify this functionality when requiresAccessToken is false'
     skip_if (requires_access_token == 'true' && bearer_token.blank?),
             'Could not verify this functionality when Bearer Token is required and not provided'
 
@@ -155,7 +163,7 @@ module BulkExportValidationTester
 
     success_count = 0
     file_list.each do |file|
-      success_count += check_file_request(file['url'], lines_to_validate.blank?, lines_to_validate.to_i)
+      success_count += check_file_request(file['url'])
     end
 
     pass "Successfully validated #{success_count} #{resource_type} resource(s)."
