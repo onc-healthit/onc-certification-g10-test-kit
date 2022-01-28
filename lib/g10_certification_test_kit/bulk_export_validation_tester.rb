@@ -24,11 +24,10 @@ module BulkExportValidationTester
     return diagnostic_metadata if resource_type == 'DiagnosticReport'
 
     if resource_type == 'Location' || resource_type == 'Medication'
-      return USCore::USCoreTestSuite.metadata.find do |meta|
+      return Array.wrap(USCore::USCoreTestSuite.metadata.find do |meta|
                meta.resource == resource_type
-             end
+             end)
     end
-
     ["USCore::#{resource_type}Group".constantize.metadata]
   end
 

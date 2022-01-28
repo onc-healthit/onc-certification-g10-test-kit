@@ -32,6 +32,8 @@ RSpec.describe BulkExportValidationTester do
   let(:care_plan_contents) { String.new }
   let(:encounter_contents) { String.new }
   let(:device_contents) { String.new }
+  let(:location_contents) { String.new }
+  let(:medication_contents) { String.new }
   let(:patient_contents_one_id) { String.new }
   let(:one_id) { 'one_id' }
   let(:patient_ids_seen) { ['e91975f5-9445-c11f-cabf-c3c6dae161f2', 'd831ec91-c7a3-4a61-9312-7ff0c4a32134'] }
@@ -70,6 +72,18 @@ RSpec.describe BulkExportValidationTester do
   before do
     NDJSON::Parser.new('spec/fixtures/Device.ndjson').each do |resource|
       device_contents << ("#{resource.to_json}\n")
+    end
+  end
+
+  before do
+    NDJSON::Parser.new('spec/fixtures/Location.ndjson').each do |resource|
+      location_contents << ("#{resource.to_json}\n")
+    end
+  end
+
+  before do
+    NDJSON::Parser.new('spec/fixtures/Medication.ndjson').each do |resource|
+      medication_contents << ("#{resource.to_json}\n")
     end
   end
 
@@ -296,6 +310,34 @@ RSpec.describe BulkExportValidationTester do
           .with_message("Content type must have 'application/fhir+ndjson' but found 'wrong_type'")
       end
     end
+
+    context 'with lines_to_validate_unset, proper resources and headers returned' do
+      it 'returns the expected number of Location resources' do
+        tester.lines_to_validate = nil
+        tester.resource_type = 'Location'
+
+        stub_request(:get, url)
+          .to_return(status: 200, headers: headers, body: location_contents)
+
+        allow(tester).to receive(:resource_is_valid?).and_return(true)
+        result = tester.check_file_request(url)
+
+        expect(result).to eq(5)
+      end 
+
+      it 'returns the expected number of Medication resources' do
+        tester.lines_to_validate = nil
+        tester.resource_type = 'Medication'
+
+        stub_request(:get, url)
+          .to_return(status: 200, headers: headers, body: medication_contents)
+
+        allow(tester).to receive(:resource_is_valid?).and_return(true)
+        result = tester.check_file_request(url)
+
+        expect(result).to eq(1)
+      end 
+    end 
   end
 
   describe '#determine_profile' do
@@ -526,4 +568,8 @@ RSpec.describe BulkExportValidationTester do
       expect(streamed_chunks).to eq(["multi\n touched", "line\n touched", "response\n touched", "body\n touched"])
     end
   end
+
+  describe '#validate_conformance' do
+    
+  end 
 end

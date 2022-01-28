@@ -5,7 +5,6 @@ module ProfileGuesser
                meta.resource == profile
              end.profile_url
     end
-
     "USCore::#{profile}Group".constantize.metadata.profile_url
   end
 
