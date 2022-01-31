@@ -26,19 +26,44 @@ module G10CertificationTestKit
     id :g10_smart_invalid_aud
     run_as_group
 
+    input :client_id,
+          :client_secret,
+          :requested_scopes,
+          :url,
+          :smart_authorization_url,
+          :smart_token_url
+
     config(
       inputs: {
         client_id: {
-          name: :standalone_client_id
+          name: :standalone_client_id,
+          title: 'Standalone Client ID',
+          description: 'Client ID provided during registration of Inferno as a standalone application',
+          default: 'SAMPLE_CONFIDENTIAL_CLIENT_ID'
         },
         client_secret: {
           name: :standalone_client_secret,
-          default: nil,
-          optional: true,
-          locked: true
+          title: 'Standalone Client Secret',
+          description: 'Client Secret provided during registration of Inferno as a standalone application',
+          default: 'SAMPLE_CONFIDENTIAL_CLIENT_SECRET'
         },
         requested_scopes: {
           name: :standalone_requested_scopes,
+          title: 'Standalone Scope',
+          description: 'OAuth 2.0 scope provided by system to enable all required functionality',
+          type: 'textarea',
+          default: %(
+            launch/patient openid fhirUser offline_access
+            patient/Medication.read patient/AllergyIntolerance.read
+            patient/CarePlan.read patient/CareTeam.read patient/Condition.read
+            patient/Device.read patient/DiagnosticReport.read
+            patient/DocumentReference.read patient/Encounter.read
+            patient/Goal.read patient/Immunization.read patient/Location.read
+            patient/MedicationRequest.read patient/Observation.read
+            patient/Organization.read patient/Patient.read
+            patient/Practitioner.read patient/Procedure.read
+            patient/Provenance.read patient/PractitionerRole.read
+          ).gsub(/\s{2,}/, ' ').strip
         },
         url: {
           title: 'Standalone FHIR Endpoint',

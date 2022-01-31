@@ -1,4 +1,4 @@
-
+# TODO: Remove when this functionality is released in core
 module Inferno
   module DSL
     module Configurable
@@ -20,6 +20,7 @@ require 'smart_app_launch_test_kit'
 require 'us_core'
 
 require_relative 'g10_certification_test_kit/smart_app_launch_invalid_aud_group'
+require_relative 'g10_certification_test_kit/smart_invalid_token_group'
 require_relative 'g10_certification_test_kit/smart_limited_app_group'
 require_relative 'g10_certification_test_kit/smart_standalone_patient_app_group'
 require_relative 'g10_certification_test_kit/smart_ehr_practitioner_app_group'
@@ -167,8 +168,8 @@ module G10CertificationTestKit
       )
 
       group from: :g10_public_standalone_launch
-
       group from: :g10_smart_invalid_aud
+      group from: :g10_smart_invalid_token_request
     end
   end
 end
