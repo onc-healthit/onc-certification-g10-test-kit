@@ -52,6 +52,18 @@ module G10CertificationTestKit
 
     input :url, :access_token, :patient_id, :received_scopes, :expected_resources
 
+    config(
+      inputs: {
+        client_id: {
+          default: 'SAMPLE_CONFIDENTIAL_CLIENT_ID'
+        },
+        client_secret: {
+          optional: false,
+          default: 'SAMPLE_CONFIDENTIAL_CLIENT_SECRET'
+        }
+      }
+    )
+
     fhir_client do
       url :url
       bearer_token :access_token
