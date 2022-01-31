@@ -251,7 +251,7 @@ RSpec.describe BulkExportValidationTester do
       allow(tester).to receive(:resource_is_valid?).and_return(false)
       expect { tester.check_file_request(url) }
         .to raise_exception(Inferno::Exceptions::SkipException)
-        .with_message('Resource at line "1" has profile "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient" and does not conform to Patient resource.')
+        .with_message('Resource at line "1" does not conform to profile "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient".')
     end
 
     context 'with improper headers' do

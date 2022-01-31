@@ -133,9 +133,8 @@ module BulkExportValidationTester
       resources[profile_url] << resource
       scratch[:patient_ids_seen] = patient_ids_seen | [resource.id] if resource_type == 'Patient'
 
-      skip_if metadata_list.none? { |meta|
-                resource_is_valid?(resource: resource, profile_url: meta.profile_url)
-              }, "Resource at line \"#{line_count}\" has profile \"#{profile_url}\" and does not conform to #{resource_type} resource."
+      skip_if !resource_is_valid?(resource: resource, profile_url: profile_url),
+              "Resource at line \"#{line_count}\" does not conform to profile \"#{profile_url}\"."
     }
 
     process_headers = proc { |response|
