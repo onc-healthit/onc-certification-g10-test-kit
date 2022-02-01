@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/inferno-framework/smart-app-launch-test-kit.git
-  revision: 2bfffe4817366b16617add9bddcac982b034d1d0
-  branch: fi-1392-updates-for-other-smart-launches
+  revision: 4ba8db2ccd1e517b92da0693641459f13a37d6d8
+  branch: main
   specs:
     smart_app_launch_test_kit (0.0.1)
       inferno_core (~> 0.1.0)
@@ -255,7 +255,7 @@ GEM
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
-    sequel (5.52.0)
+    sequel (5.53.0)
     sidekiq (6.2.2)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
