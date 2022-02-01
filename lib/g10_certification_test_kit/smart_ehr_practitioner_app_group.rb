@@ -20,6 +20,18 @@ module G10CertificationTestKit
     id :g10_smart_ehr_practitioner_app
     run_as_group
 
+    config(
+      inputs: {
+        client_id: {
+          default: 'SAMPLE_CONFIDENTIAL_CLIENT_ID'
+        },
+        client_secret: {
+          optional: false,
+          default: 'SAMPLE_CONFIDENTIAL_CLIENT_SECRET'
+        }
+      }
+    )
+
     group from: :smart_discovery do
       test from: 'g10_smart_well_known_capabilities'
     end

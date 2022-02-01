@@ -1,10 +1,32 @@
+# TODO: Remove when this functionality is released in core
+module Inferno
+  module DSL
+    module Configurable
+      def config(new_configuration = {})
+        @config ||= Configuration.new
+
+        return @config if new_configuration.blank?
+
+        @config.apply(new_configuration)
+
+        children.each { |child| child.config(new_configuration) }
+
+        @config
+      end
+    end
+  end
+end
 require 'smart_app_launch_test_kit'
 require 'us_core'
 
+require_relative 'g10_certification_test_kit/smart_app_launch_invalid_aud_group'
+require_relative 'g10_certification_test_kit/smart_invalid_token_group'
 require_relative 'g10_certification_test_kit/smart_limited_app_group'
 require_relative 'g10_certification_test_kit/smart_standalone_patient_app_group'
 require_relative 'g10_certification_test_kit/smart_ehr_practitioner_app_group'
+require_relative 'g10_certification_test_kit/smart_public_standalone_launch_group'
 require_relative 'g10_certification_test_kit/terminology_binding_validator'
+require_relative 'g10_certification_test_kit/visual_inspection_and_attestations_group'
 require_relative 'inferno/terminology'
 
 Inferno::Terminology::Loader.load_validators
@@ -137,7 +159,7 @@ module G10CertificationTestKit
     end
 
     group do
-      title 'TODO: Other'
+      title 'Additional Tests'
       description %(
         Not all requirements that need to be tested fit within the previous
         scenarios. The tests contained in this section addresses remaining
@@ -146,11 +168,11 @@ module G10CertificationTestKit
         may require special setup on the part of the tester.
       )
 
-      test do
-        title 'TODO'
+      group from: :g10_public_standalone_launch
+      group from: :g10_smart_invalid_aud
+      group from: :g10_smart_invalid_token_request
 
-        run { pass }
-      end
+      group from: :g10_visual_inspection_and_attestations
     end
   end
 end
