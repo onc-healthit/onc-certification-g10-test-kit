@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: https://github.com/inferno-framework/us-core-test-kit.git
-  revision: 5e8f4e9729a32ac88df7c11ecd1b4f5be2229581
+  revision: b7fa4581b07f7357a835cca7c62bc317e4a39ea8
   branch: main
   specs:
     us_core_test_kit (0.0.1)
