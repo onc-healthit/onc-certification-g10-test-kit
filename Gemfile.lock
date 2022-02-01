@@ -23,6 +23,7 @@ PATH
       colorize (~> 0.8.1)
       inferno_core (~> 0.1.2)
       json-jwt
+      ndjson
 
 GEM
   remote: https://rubygems.org/
@@ -299,11 +300,9 @@ DEPENDENCIES
   g10_certification_test_kit!
   inferno_core
   mime-types
-  ndjson
   nokogiri
   pry
   pry-byebug
-  pry-nav
   rake
   rest-client
   rspec (~> 3.10)

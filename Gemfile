@@ -18,7 +18,6 @@ gem 'rubocop', '~> 1.9'
 gem 'rubocop-rspec', require: false
 gem 'rubyzip'
 gem 'sqlite3'
-gem 'ndjson'
 
 gem 'us_core_test_kit',
     git: 'https://github.com/inferno-framework/us-core-test-kit.git',
