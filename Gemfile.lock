@@ -19,7 +19,7 @@ PATH
   remote: .
   specs:
     g10_certification_test_kit (0.0.1)
-      inferno_core (~> 0.1.1)
+      inferno_core (~> 0.1.2)
 
 GEM
   remote: https://rubygems.org/
@@ -161,7 +161,7 @@ GEM
     i18n (1.9.1)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
-    inferno_core (0.1.1)
+    inferno_core (0.1.2)
       activesupport (~> 6.1)
       blueprinter (= 0.25.2)
       dotenv (~> 2.7)
@@ -178,7 +178,7 @@ GEM
       puma (~> 5.3)
       rake (~> 13.0)
       sequel (~> 5.42)
-      sidekiq (~> 6.2.1)
+      sidekiq (~> 6.4.0)
       sqlite3 (~> 1.4)
       thor (~> 1.1.0)
     jwt (2.3.0)
@@ -256,7 +256,7 @@ GEM
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
     sequel (5.53.0)
-    sidekiq (6.2.2)
+    sidekiq (6.4.0)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.2.0)

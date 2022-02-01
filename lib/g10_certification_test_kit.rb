@@ -1,21 +1,3 @@
-# TODO: Remove when this functionality is released in core
-module Inferno
-  module DSL
-    module Configurable
-      def config(new_configuration = {})
-        @config ||= Configuration.new
-
-        return @config if new_configuration.blank?
-
-        @config.apply(new_configuration)
-
-        children.each { |child| child.config(new_configuration) }
-
-        @config
-      end
-    end
-  end
-end
 require 'smart_app_launch_test_kit'
 require 'us_core'
 
