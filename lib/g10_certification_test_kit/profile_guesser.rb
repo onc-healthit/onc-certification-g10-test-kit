@@ -16,7 +16,8 @@ module G10CertificationTestKit
     def resource_contains_category(resource, category_code, category_system = nil)
       resource&.category&.any? do |category|
         category.coding&.any? do |coding|
-          coding.code == category_code && (category_system.blank? || coding.system.blank? || category_system == coding.system)
+          coding.code == category_code &&
+            (category_system.blank? || coding.system.blank? || category_system == coding.system)
         end
       end
     end

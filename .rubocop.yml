@@ -31,6 +31,8 @@ Style/WordArray:
 Metrics/CyclomaticComplexity:
   Exclude:
     - 'lib/inferno/terminology/**'
+    - 'lib/g10_certification_test_kit/profile_guesser.rb'
+    - 'lib/g10_certification_test_kit/bulk_export_validation_tester.rb'
 
 # Use code climate's metrics measurement rather than rubocop's
 Metrics/AbcSize:

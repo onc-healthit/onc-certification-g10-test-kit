@@ -102,7 +102,7 @@ module G10CertificationTestKit
         @missing_slices = nil
         begin
           perform_must_support_test(resources[meta.profile_url])
-        rescue Inferno::Exceptions::PassException => e
+        rescue Inferno::Exceptions::PassException
           next
         end
       end
@@ -126,7 +126,8 @@ module G10CertificationTestKit
         end
 
         skip_if resource.resourceType != resource_type,
-                "Resource type \"#{resource.resourceType}\" at line \"#{line_count}\" does not match type defined in output \"#{resource_type}\""
+                "Resource type \"#{resource.resourceType}\" at line \"#{line_count}\" does not match type " \
+                "defined in output \"#{resource_type}\""
 
         profile_url = determine_profile(resource)
         resources[profile_url] << resource

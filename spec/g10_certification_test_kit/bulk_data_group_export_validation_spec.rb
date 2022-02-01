@@ -26,7 +26,7 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExportValidation do
         test_session_id: test_session.id,
         name: name,
         value: value,
-        type: runnable.config.input_type(name) # Problem
+        type: runnable.config.input_type(name)
       )
     end
 
@@ -34,8 +34,8 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExportValidation do
   end
 
   # TODO: Create after implementing TLS Tester Class.
-  describe 'tls endpoint test' do
-  end
+  # describe 'tls endpoint test' do
+  # end
 
   describe '[NDJSON download requires access token] test' do
     let(:runnable) { group.tests[1] }
@@ -51,7 +51,8 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExportValidation do
       result = run(runnable, { status_output: status_output })
 
       expect(result.result).to eq('skip')
-      expect(result.result_message).to eq('Could not verify this functionality when requiresAccessToken is not provided')
+      expect(result.result_message)
+        .to eq('Could not verify this functionality when requiresAccessToken is not provided')
     end
 
     it 'skips when requiresAccessToken is false' do
@@ -117,7 +118,9 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExportValidation do
       result = run(runnable, patient_input)
 
       expect(result.result).to eq('skip')
-      expect(result.result_message).to eq('Could not find identifier, identifier.system, identifier.value, Patient.extension:race, Patient.extension:ethnicity, Patient.extension:birthsex in the 2 provided Patient resource(s)')
+      expect(result.result_message)
+        .to eq('Could not find identifier, identifier.system, identifier.value, Patient.extension:race, ' \
+               'Patient.extension:ethnicity, Patient.extension:birthsex in the 2 provided Patient resource(s)')
     end
 
     it 'passes when returned resources are fully conformant to the patient profile' do
@@ -174,7 +177,8 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExportValidation do
       result = run(runnable, input)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Mismatch between patient ids seen (one_id, one_id, one_id) and patient ids expected (one_id, two_id, three_id)')
+      expect(result.result_message).to eq('Mismatch between patient ids seen (one_id, one_id, one_id) and patient ' \
+                                          'ids expected (one_id, two_id, three_id)')
     end
 
     it 'fails when more input patient ids than ids stored' do
@@ -182,7 +186,8 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExportValidation do
       result = run(runnable, input)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Mismatch between patient ids seen (one_id, two_id) and patient ids expected (one_id, two_id, three_id)')
+      expect(result.result_message).to eq('Mismatch between patient ids seen (one_id, two_id) and patient ' \
+                                          'ids expected (one_id, two_id, three_id)')
     end
 
     it 'fails when less input patient ids than ids stored' do
@@ -190,7 +195,8 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExportValidation do
       result = run(runnable, input)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Mismatch between patient ids seen (one_id, two_id, three_id, four_id) and patient ids expected (one_id, two_id, three_id)')
+      expect(result.result_message).to eq('Mismatch between patient ids seen (one_id, two_id, three_id, four_id) ' \
+                                          'and patient ids expected (one_id, two_id, three_id)')
     end
 
     it 'passes when the input patient ids do not match those stored' do
@@ -225,7 +231,8 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExportValidation do
       result = run(runnable, allergy_input)
 
       expect(result.result).to eq('skip')
-      expect(result.result_message).to eq('Could not find clinicalStatus in the 10 provided AllergyIntolerance resource(s)')
+      expect(result.result_message)
+        .to eq('Could not find clinicalStatus in the 10 provided AllergyIntolerance resource(s)')
     end
 
     it 'passes when returned resources are fully conformant to the allergy profile' do
@@ -286,7 +293,8 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExportValidation do
       result = run(runnable, careplan_input)
 
       expect(result.result).to eq('skip')
-      expect(result.result_message).to eq('Could not find CarePlan.category:AssessPlan in the 26 provided CarePlan resource(s)')
+      expect(result.result_message)
+        .to eq('Could not find CarePlan.category:AssessPlan in the 26 provided CarePlan resource(s)')
     end
 
     it 'passes when returned resources are fully conformant to the patient profile' do
@@ -378,24 +386,19 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExportValidation do
       contents.lines.each do |resource|
         fhir_resource = FHIR.from_contents(resource)
         unless fhir_resource.meta.profile[0] == 'http://hl7.org/fhir/us/core/StructureDefinition/pediatric-bmi-for-age'
-          contents_missing_pediatricbmi << (fhir_resource.to_json.gsub(/[ \n]/,
-                                                                       '') + "\n")
+          contents_missing_pediatricbmi << "#{fhir_resource.to_json.gsub(/[ \n]/, '')}\n"
         end
         unless fhir_resource.meta.profile[0] == 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-smokingstatus'
-          contents_missing_smokingstatus << (fhir_resource.to_json.gsub(/[ \n]/,
-                                                                        '') + "\n")
+          contents_missing_smokingstatus << "#{fhir_resource.to_json.gsub(/[ \n]/, '')}\n"
         end
         unless fhir_resource.meta.profile[0] == 'http://hl7.org/fhir/StructureDefinition/bodyheight'
-          contents_missing_bodyheight << (fhir_resource.to_json.gsub(/[ \n]/,
-                                                                     '') + "\n")
+          contents_missing_bodyheight << "#{fhir_resource.to_json.gsub(/[ \n]/, '')}\n"
         end
         unless fhir_resource.meta.profile[0] == 'http://hl7.org/fhir/StructureDefinition/resprate'
-          contents_missing_resprate << (fhir_resource.to_json.gsub(/[ \n]/,
-                                                                   '') + "\n")
+          contents_missing_resprate << "#{fhir_resource.to_json.gsub(/[ \n]/, '')}\n"
         end
         fhir_resource.meta.profile = nil
-        contents_missing_profile << (fhir_resource.to_json.gsub(/[ \n]/,
-                                                                '') + "\n")
+        contents_missing_profile << "#{fhir_resource.to_json.gsub(/[ \n]/, '')}\n"
       end
     end
 

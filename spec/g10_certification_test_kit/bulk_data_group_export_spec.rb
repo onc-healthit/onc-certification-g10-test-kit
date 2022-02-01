@@ -17,10 +17,16 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExport do
   end
   let(:capability_statement) { File.read('spec/fixtures/capabilitystatement.json') }
   let(:status_response) do
-    '{"transactionTime":"2021-11-30T13:40:29.828Z","request":"https://inferno.healthit.gov/bulk-data-server/eyJlcnIiOiIiLCJwYWdlIjoxMDAwMCwiZHVyIjoxMCwidGx0Ijo2MCwibSI6MSwic3R1Ijo0LCJkZWwiOjB9/fhir/Group/1f76e2b7-a222-4765-9097-a71b86e90d07/$export","requiresAccessToken":true,"output":[],"deleted":[],"error":[]}'
+    '{"transactionTime":"2021-11-30T13:40:29.828Z","request":"https://inferno.healthit.gov/bulk-data-server/' \
+      'eyJlcnIiOiIiLCJwYWdlIjoxMDAwMCwiZHVyIjoxMCwidGx0Ijo2MCwibSI6MSwic3R1Ijo0LCJkZWwiOjB9/fhir/Group/' \
+      '1f76e2b7-a222-4765-9097-a71b86e90d07/$export","requiresAccessToken":true,"output":[],"deleted":[],"error":[]}'
   end
   let(:status_output) do
-    '{"output":[{"type":"AllergyIntolerance","count":14,"url":"https://bulk-data.smarthealthit.org/eyJpZCI6ImQzOWY5MTgxN2JjYTkwZGI2YTgyYTZiZDhkODUwNzQ1Iiwib2Zmc2V0IjowLCJsaW1pdCI6MTQsInNlY3VyZSI6dHJ1ZX0/fhir/bulkfiles/1.AllergyIntolerance.ndjson"},{"type":"CarePlan","count":69,"url":"https://bulk-data.smarthealthit.org/eyJpZCI6ImQzOWY5MTgxN2JjYTkwZGI2YTgyYTZiZDhkODUwNzQ1Iiwib2Zmc2V0IjowLCJsaW1pdCI6NjksInNlY3VyZSI6dHJ1ZX0/fhir/bulkfiles/1.CarePlan.ndjson"}]}'
+    '{"output":[{"type":"AllergyIntolerance","count":14,"url":"https://bulk-data.smarthealthit.org/' \
+      'eyJpZCI6ImQzOWY5MTgxN2JjYTkwZGI2YTgyYTZiZDhkODUwNzQ1Iiwib2Zmc2V0IjowLCJsaW1pdCI6MTQsInNlY3VyZSI6dHJ1ZX0/fhir/' \
+      'bulkfiles/1.AllergyIntolerance.ndjson"},{"type":"CarePlan","count":69,"url":"https://bulk-data.smarthealthit.' \
+      'org/eyJpZCI6ImQzOWY5MTgxN2JjYTkwZGI2YTgyYTZiZDhkODUwNzQ1Iiwib2Zmc2V0IjowLCJsaW1pdCI6NjksInNlY3VyZSI6dHJ1ZX0/' \
+      'fhir/bulkfiles/1.CarePlan.ndjson"}]}'
   end
 
   def run(runnable, inputs = {})
@@ -38,8 +44,8 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExport do
   end
 
   # TODO: Create after implementing TLS Tester Class.
-  describe 'endpoint TLS tests' do
-  end
+  # describe 'endpoint TLS tests' do
+  # end
 
   describe '[Bulk Data Server declares support for Group export operation in CapabilityStatement] test' do
     let(:runnable) { group.tests[1] }
@@ -76,7 +82,8 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExport do
       result = run(runnable, base_input)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Server CapabilityStatement did not declare support for export operation in Group resource')
+      expect(result.result_message)
+        .to eq('Server CapabilityStatement did not declare support for export operation in Group resource')
     end
 
     it 'passes when server declares support in CapabilityStatement' do
@@ -279,8 +286,8 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExport do
 
   describe '[Bulk Data Server returns requiresAccessToken with value true] test' do
     let(:runnable) { group.tests[6] }
-    let(:no_rAT_status_response) { '{"no_requiresAccessToken":"!"}' }
-    let(:false_rAT_status_response) { '{"requiresAccessToken":false}' }
+    let(:no_rat_status_response) { '{"no_requiresAccessToken":"!"}' }
+    let(:false_rat_status_response) { '{"requiresAccessToken":false}' }
 
     it 'fails when response not found' do
       result = run(runnable)
@@ -290,14 +297,14 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExport do
     end
 
     it 'fails when server response does not contain requireAccessToken' do
-      result = run(runnable, { status_response: no_rAT_status_response })
+      result = run(runnable, { status_response: no_rat_status_response })
 
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Bulk Data file server access SHALL require access token')
     end
 
     it 'fails when server does not require access token' do
-      result = run(runnable, { status_response: false_rAT_status_response })
+      result = run(runnable, { status_response: false_rat_status_response })
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Bulk Data file server access SHALL require access token')
     end
@@ -309,6 +316,6 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExport do
   end
 
   # TODO: Create after implementing HTTP Delete.
-  describe 'delete request tests' do
-  end
+  # describe 'delete request tests' do
+  # end
 end

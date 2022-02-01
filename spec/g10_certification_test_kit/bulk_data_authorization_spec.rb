@@ -49,8 +49,8 @@ RSpec.describe G10CertificationTestKit::BulkDataAuthorization do
   end
 
   # TODO: Create after implementing TLS Tester Class.
-  describe 'endpoint TLS tests' do
-  end
+  # describe 'endpoint TLS tests' do
+  # end
 
   describe '[Invalid grant_type] test' do
     let(:runnable) { group.tests[1] }

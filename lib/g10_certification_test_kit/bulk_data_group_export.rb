@@ -37,8 +37,7 @@ module G10CertificationTestKit
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#security-considerations'
 
-      run do
-      end
+      run { pass }
     end
 
     test do
@@ -91,7 +90,7 @@ module G10CertificationTestKit
       run do
         skip_if bearer_token.blank?, 'Could not verify this functionality when bearer token is not set'
 
-        perform_export_kick_off_request(false)
+        perform_export_kick_off_request(use_token: false)
         assert_response_status(401)
       end
     end

@@ -6,14 +6,6 @@ class BulkExportValidationTesterClass < Inferno::Test
   attr_accessor :status_output, :requires_access_token, :bearer_token, :resource_type, :lines_to_validate, :scratch,
                 :bulk_device_types_in_group
 
-  @status_output
-  @requires_access_token
-  @bearer_token
-  @lines_to_validate
-  @resource_type
-  @scratch
-  @bulk_device_types_in_group
-
   def test_session_id
     nil
   end
@@ -47,9 +39,6 @@ RSpec.describe G10CertificationTestKit::BulkExportValidationTester do
     tester.resource_type = resource_type
     tester.scratch = {}
     tester.bulk_device_types_in_group = '72506001'
-  end
-
-  before do
     NDJSON::Parser.new('spec/fixtures/Patient.ndjson').each do |resource|
       patient_contents << ("#{resource.to_json}\n")
       resource['id'] = one_id
@@ -166,7 +155,8 @@ RSpec.describe G10CertificationTestKit::BulkExportValidationTester do
       end
 
       context 'with all returned Patient resources having same id' do
-        it 'respects MIN_RESOURCE_COUNT and validates the two given Patient resources but adds only first id to patient_ids_seen' do
+        it 'respects MIN_RESOURCE_COUNT and validates the two given Patient resources
+             but adds only first id to patient_ids_seen)' do
           stub_request(:get, url)
             .to_return(status: 200, headers: headers, body: patient_contents_one_id)
 
@@ -182,7 +172,7 @@ RSpec.describe G10CertificationTestKit::BulkExportValidationTester do
     context 'with lines_to_validate = 100' do
       before { tester.lines_to_validate = 100 }
 
-      context 'and less than 100 resources returned' do
+      context 'when less than 100 resources are returned' do
         it 'validates all returned resources' do
           tester.resource_type = 'CarePlan'
 
@@ -362,7 +352,7 @@ RSpec.describe G10CertificationTestKit::BulkExportValidationTester do
       expect(result).to eq('http://hl7.org/fhir/us/core/StructureDefinition/us-core-medication')
     end
 
-    context 'given DiagnosticReport resource' do
+    context 'with DiagnosticReport resource' do
       it 'returns lab profile if resource has lab criterion specified' do
         coding = FHIR::Coding.new({ code: 'LAB', system: 'http://terminology.hl7.org/CodeSystem/v2-0074' })
         category = FHIR::CodeableConcept.new({ coding: [coding] })
@@ -378,7 +368,7 @@ RSpec.describe G10CertificationTestKit::BulkExportValidationTester do
       end
     end
 
-    context 'given Observation resource' do
+    context 'with Observation resource' do
       let(:observation) do
         coding = FHIR::Coding.new({ code: '72166-2' })
         code = FHIR::CodeableConcept.new({ coding: [coding] })

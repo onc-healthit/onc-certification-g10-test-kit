@@ -16,34 +16,41 @@ module G10CertificationTestKit
           optional: true
     input :bulk_patient_ids_in_group,
           title: 'Patient IDs in exported Group',
-          description: 'Comma separated list of every Patient ID that is in the specified Group. This information is provided by the system under test to verify that data returned matches expectations. Leave blank to not verify Group inclusion.',
+          description: 'Comma separated list of every Patient ID that is in the specified Group. This information is
+          provided by the system under test to verify that data returned matches expectations. Leave blank to not
+          verify Group inclusion.',
           default: 'd831ec91-c7a3-4a61-9312-7ff0c4a32134, e91975f5-9445-c11f-cabf-c3c6dae161f2'
     input :bulk_device_types_in_group,
           title: 'Implantable Device Type Codes in exported Group',
-          description: 'Comma separated list of every Implantable Device type that is in the specified Group. This information is provided by the system under test to verify that data returned matches expectations. Leave blank to verify all Device resources against the Implantable Device profile.',
+          description: 'Comma separated list of every Implantable Device type that is in the specified Group. This
+          information is provided by the system under test to verify that data returned matches expectations. Leave
+          blank to verify all Device resources against the Implantable Device profile.',
           optional: true
 
     # TODO: Create after implementing TLS Tester Class.
     test do
       title 'Bulk Data Server is secured by transport layer security'
       description <<~DESCRIPTION
-        [§170.315(g)(10) Test Procedure](https://www.healthit.gov/test-method/standardized-api-patient-and-population-services) requires that
-        all exchanges described herein between a client and a server SHALL be secured using Transport Layer Security (TLS) Protocol Version 1.2 (RFC5246).
+        [§170.315(g)(10) Test Procedure]
+        (https://www.healthit.gov/test-method/standardized-api-patient-and-population-services) requires that
+        all exchanges described herein between a client and a server SHALL be secured using Transport Layer Security#{' '}
+        (TLS) Protocol Version 1.2 (RFC5246).
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#security-considerations'
 
-      run do
-      end
+      run { pass }
     end
 
     test do
       title 'NDJSON download requires access token if requireAccessToken is true'
       description <<~DESCRIPTION
-        If the requiresAccessToken field in the Complete Status body is set to true, the request SHALL include a valid access token.
+        If the requiresAccessToken field in the Complete Status body is set to true, the request SHALL include a valid#{' '}
+        access token.
 
         [FHIR R4 Security](http://build.fhir.org/security.html#AccessDenied) and
         [The OAuth 2.0 Authorization Framework: Bearer Token Usage](https://tools.ietf.org/html/rfc6750#section-3.1)
-        recommend using HTTP status code 401 for invalid token but also allow the actual result be controlled by policy and context.
+        recommend using HTTP status code 401 for invalid token but also allow the actual result be controlled by policy#{' '}
+        and context.
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#file-request'
 
@@ -65,7 +72,8 @@ module G10CertificationTestKit
     test do
       title 'Patient resources returned conform to the US Core Patient Profile'
       description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification.
+        This test verifies that the resources returned from bulk data export conform to the US Core profiles. This#{' '}
+        includes checking for missing data elements and value set verification.
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient'
 
@@ -113,7 +121,8 @@ module G10CertificationTestKit
         expected_ids = Set.new(bulk_patient_ids_in_group.split(',').map(&:strip))
 
         assert patient_ids_seen.sort == expected_ids.sort,
-               "Mismatch between patient ids seen (#{patient_ids_seen.to_a.join(', ')}) and patient ids expected (#{bulk_patient_ids_in_group})"
+               "Mismatch between patient ids seen (#{patient_ids_seen.to_a.join(', ')}) " \
+               "and patient ids expected (#{bulk_patient_ids_in_group})"
       end
     end
 
