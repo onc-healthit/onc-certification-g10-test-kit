@@ -121,7 +121,6 @@ module G10CertificationTestKit
       }
     )
 
-
     test from: :smart_app_redirect
     test from: :smart_code_received
 
@@ -152,9 +151,7 @@ module G10CertificationTestKit
           oauth2_params[:client_id] = client_id
         end
 
-        if use_pkce == 'true'
-          oauth2_params[:code_verifier] = pkce_code_verifier
-        end
+        oauth2_params[:code_verifier] = pkce_code_verifier if use_pkce == 'true'
 
         post(smart_token_url, body: oauth2_params, name: :token, headers: oauth2_headers)
 
@@ -191,9 +188,7 @@ module G10CertificationTestKit
           oauth2_params[:client_id] = client_id
         end
 
-        if use_pkce == 'true'
-          oauth2_params[:code_verifier] = pkce_code_verifier
-        end
+        oauth2_params[:code_verifier] = pkce_code_verifier if use_pkce == 'true'
 
         post(smart_token_url, body: oauth2_params, name: :token, headers: oauth2_headers)
 

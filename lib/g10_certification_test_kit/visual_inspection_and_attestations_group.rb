@@ -114,7 +114,7 @@ module G10CertificationTestKit
         granted during authorization.
       )
       input :offline_access_notification_supported,
-            title: 'Health IT Module informed patient when "offline_access" scope is being granted during authorization.',
+            title: 'Health IT Module informed patient when "offline_access" scope is being granted during authorization.', # rubocop:disable Layout/LineLength
             type: 'radio',
             default: 'false',
             options: {
@@ -136,7 +136,8 @@ module G10CertificationTestKit
 
       run do
         assert offline_access_notification_supported == 'true',
-               'Health IT Module did not inform patient when offline access scope is being granted during authorization.'
+               'Health IT Module did not inform patient when offline access scope ' \
+               'is being granted during authorization.'
         pass offline_access_notification_notes if offline_access_notification_notes.present?
       end
     end
@@ -148,7 +149,7 @@ module G10CertificationTestKit
         no shorter than three months.
       )
       input :refresh_token_period_attestation,
-            title: 'Health IT Module attested that refresh tokens are valid for a period of no shorter than three months.',
+            title: 'Health IT Module attested that refresh tokens are valid for a period of no shorter than three months.', # rubocop:disable Layout/LineLength
             type: 'radio',
             default: 'false',
             options: {
@@ -170,19 +171,21 @@ module G10CertificationTestKit
 
       run do
         assert refresh_token_period_attestation == 'true',
-               'Health IT Module did not attest that refresh tokens are valid for a period of no shorter than three months.'
+               'Health IT Module did not attest that refresh tokens are valid ' \
+               'for a period of no shorter than three months.'
         pass refresh_token_period_notes if refresh_token_period_notes.present?
       end
     end
 
     test do
-      title 'Health IT developer demonstrated the ability of the Health IT Module / authorization server to validate token it has issued.'
+      title 'Health IT developer demonstrated the ability of the Health IT Module / ' \
+            'authorization server to validate token it has issued.'
       description %(
         Health IT developer demonstrated the ability of the Health IT Module /
         authorization server to validate token it has issued
       )
       input :token_validation_support,
-            title: 'Health IT developer demonstrated the ability of the Health IT Module / authorization server to validate token it has issued.',
+            title: 'Health IT developer demonstrated the ability of the Health IT Module / authorization server to validate token it has issued.', # rubocop:disable Layout/LineLength
             type: 'radio',
             default: 'false',
             options: {
@@ -204,7 +207,8 @@ module G10CertificationTestKit
 
       run do
         assert token_validation_support == 'true',
-               'Health IT Module did not demonstrate the ability of the Health IT Module / authorization server to validate token it has issued'
+               'Health IT Module did not demonstrate the ability of the Health IT Module / ' \
+               'authorization server to validate token it has issued'
         pass token_validation_notes if token_validation_notes.present?
       end
     end
@@ -311,14 +315,15 @@ module G10CertificationTestKit
     end
 
     test do
-      title 'Health IT developer confirms the Health IT module does not cache the JWK Set received via a TLS-protected URL for longer than the cache-control header received by an application indicates.'
+      title 'Health IT developer confirms the Health IT module does not cache the JWK Set received ' \
+            'via a TLS-protected URL for longer than the cache-control header received by an application indicates.'
       description %(
         The Health IT developer confirms the Health IT module does not cache the
         JWK Set received via a TLS-protected URL for longer than the
         cache-control header indicates.
       )
       input :jwks_cache_attestation,
-            title: 'Health IT developer confirms the Health IT module does not cache the JWK Set received via a TLS-protected URL for longer than the cache-control header indicates.',
+            title: 'Health IT developer confirms the Health IT module does not cache the JWK Set received via a TLS-protected URL for longer than the cache-control header indicates.', # rubocop:disable Layout/LineLength
             type: 'radio',
             default: 'false',
             options: {
@@ -394,7 +399,7 @@ module G10CertificationTestKit
         Core Patient Profile implementation guidance.
       )
       input :patient_previous_name_attestation,
-            title: 'Health IT developer demonstrates support for the Patient Demographics Previous Name USCDI v1 element.',
+            title: 'Health IT developer demonstrates support for the Patient Demographics Previous Name USCDI v1 element.', # rubocop:disable Layout/LineLength
             type: 'radio',
             default: 'false',
             options: {

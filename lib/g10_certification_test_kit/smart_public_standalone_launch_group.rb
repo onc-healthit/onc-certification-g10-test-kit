@@ -39,7 +39,7 @@ module G10CertificationTestKit
           locked: true
         },
         requested_scopes: {
-          name: :public_requested_scopes,
+          name: :public_requested_scopes
         },
         url: {
           title: 'Standalone FHIR Endpoint',
@@ -81,12 +81,12 @@ module G10CertificationTestKit
     )
 
     test from: :g10_patient_context,
-          config: {
-            inputs: {
-              patient_id: { name: :public_patient_id },
-              access_token: { name: :public_access_token }
-            }
-          }
+         config: {
+           inputs: {
+             patient_id: { name: :public_patient_id },
+             access_token: { name: :public_access_token }
+           }
+         }
 
     test do
       title 'OAuth token exchange response contains OpenID Connect id_token'
