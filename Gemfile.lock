@@ -19,6 +19,8 @@ PATH
   remote: .
   specs:
     g10_certification_test_kit (0.0.1)
+      bloomer (~> 1.0.0)
+      colorize (~> 0.8.1)
       inferno_core (~> 0.1.2)
 
 GEM
@@ -283,8 +285,6 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport
-  bloomer
-  colorize
   database_cleaner-sequel (~> 1.8)
   factory_bot (~> 6.1)
   fhir_models
