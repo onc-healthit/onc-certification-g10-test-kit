@@ -26,6 +26,7 @@ require_relative 'g10_certification_test_kit/smart_standalone_patient_app_group'
 require_relative 'g10_certification_test_kit/smart_ehr_practitioner_app_group'
 require_relative 'g10_certification_test_kit/smart_public_standalone_launch_group'
 require_relative 'g10_certification_test_kit/terminology_binding_validator'
+require_relative 'g10_certification_test_kit/visual_inspection_and_attestations_group'
 require_relative 'inferno/terminology'
 
 Inferno::Terminology::Loader.load_validators
@@ -170,6 +171,8 @@ module G10CertificationTestKit
       group from: :g10_public_standalone_launch
       group from: :g10_smart_invalid_aud
       group from: :g10_smart_invalid_token_request
+
+      group from: :g10_visual_inspection_and_attestations
     end
   end
 end
