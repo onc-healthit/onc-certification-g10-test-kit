@@ -26,7 +26,7 @@ module G10CertificationTestKit
     ].freeze
 
     validator do
-      url ENV.fetch('VALIDATOR_URL', 'http://validator_service:4567')
+      url ENV.fetch('G10_VALIDATOR_URL', 'http://validator_service:4567')
       exclude_message do |message|
         if message.type == 'info' ||
            (message.type == 'warning' && WARNING_INCLUSION_FILTERS.none? { |filter| filter.match? message.message }) ||
