@@ -5,7 +5,7 @@ module G10CertificationTestKit
     id :g10_token_revocation
     run_as_group
     input :token_revocation_attestation,
-          title: 'Prior to executing test, Health IT developer demonstrated revoking tokens provided during patient standalone launch..', # rubocop:disable Layout/LineLength
+          title: 'Prior to executing test, Health IT developer demonstrated revoking tokens provided during patient standalone launch.', # rubocop:disable Layout/LineLength
           type: 'radio',
           default: 'false',
           options: {
