@@ -94,7 +94,7 @@ module G10CertificationTestKit
       run do
         skip_if patient_id.blank?,
                 'Patient ID not provided to test. The patient ID is typically provided ' \
-                'during in a SMART launch context.'
+                'during a SMART launch context.'
         skip_if access_token.blank?,
                 'Bearer token not provided. This test verifies that the bearer token can ' \
                 'no longer be used to access a Patient resource.'
