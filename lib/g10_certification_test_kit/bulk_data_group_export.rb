@@ -113,8 +113,7 @@ module G10CertificationTestKit
         perform_export_kick_off_request
         assert_response_status(202)
 
-        content_location = response[:headers].find { |header| header.name == 'content-location' }
-        polling_url = content_location&.value
+        polling_url = request.response_header('content-location')&.value
         assert polling_url.present?, 'Export response headers did not include "Content-Location"'
 
         output polling_url: polling_url
@@ -149,8 +148,7 @@ module G10CertificationTestKit
         loop do
           get(polling_url, headers: { authorization: "Bearer #{bearer_token}" })
 
-          retry_after = response[:headers].find { |header| header.name == 'retry-after' }
-          retry_after_val = retry_after&.value.to_i || 0
+          retry_after_val = request.response_header('retry-after')&.value.to_i
 
           wait_time = retry_after_val.positive? ? retry_after_val : wait_time *= 2
 
@@ -164,9 +162,8 @@ module G10CertificationTestKit
         skip "Server took more than #{timeout} seconds to process the request." if response[:status] == 202
 
         assert response[:status] == 200, "Bad response code: expected 200, 202, but found #{response[:status]}."
-        assert response[:headers].any? { |header|
-                 header.name == 'content-type' && header.value.include?('application/json')
-               }, 'Content-Type not application/json'
+        assert request.response_header('content-type')&.value&.include?('application/json'),
+               'Content-Type not application/json'
 
         response_body = JSON.parse(response[:body])
 
