@@ -1,5 +1,4 @@
 require_relative '../../lib/g10_certification_test_kit/bulk_data_group_export'
-require 'timecop'
 
 RSpec.describe G10CertificationTestKit::BulkDataGroupExport do
   let(:group) { Inferno::Repositories::TestGroups.new.find('bulk_data_group_export') }
@@ -198,7 +197,7 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExport do
         .with(headers: { 'Authorization' => "Bearer #{bearer_token}" })
         .to_return(status: 202)
 
-      allow_any_instance_of(runnable).to receive(:sleep) { |_o, time| Timecop.travel(Time.now + time) }
+      allow_any_instance_of(runnable).to receive(:sleep)
       result = run(runnable, input)
 
       expect(result.result).to eq('skip')

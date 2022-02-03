@@ -248,7 +248,7 @@ module G10CertificationTestKit
         perform_export_kick_off_request
         assert_response_status(202)
 
-        polling_url = response[:headers].find { |header| header.name == 'content-location' }&.value
+        polling_url = request.response_header('content-location')&.value
         assert polling_url.present?, 'Export response header did not include "Content-Location"'
 
         headers = { accept: 'application/json', authorization: "Bearer #{bearer_token}" }

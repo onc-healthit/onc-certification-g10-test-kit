@@ -274,7 +274,6 @@ GEM
     sqlite3 (1.4.2)
     thor (1.1.0)
     tilt (2.0.10)
-    timecop (0.9.4)
     transproc (1.1.1)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
@@ -312,7 +311,6 @@ DEPENDENCIES
   rubyzip
   smart_app_launch_test_kit!
   sqlite3
-  timecop (~> 0.9.4)
   us_core_test_kit!
   webmock (~> 3.11)
 
