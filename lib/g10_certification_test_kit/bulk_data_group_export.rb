@@ -248,10 +248,12 @@ module G10CertificationTestKit
         perform_export_kick_off_request
         assert_response_status(202)
 
-        polling_url = response[:headers].find { |header| header.name == 'content-location' }.value
+        polling_url = response[:headers].find { |header| header.name == 'content-location' }&.value
         assert polling_url.present?, 'Export response header did not include "Content-Location"'
 
-        # delete(polling_url) TODO: Uncomment after core PR is merged in
+        headers = { accept: 'application/json', authorization: "Bearer #{bearer_token}" }
+
+        delete(polling_url, headers: headers)
         assert_response_status(202)
       end
     end

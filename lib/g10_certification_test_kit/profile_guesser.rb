@@ -13,7 +13,7 @@ module G10CertificationTestKit
       observation_resource&.code&.coding&.any? { |coding| coding&.code == code }
     end
 
-    def resource_contains_category(resource, category_code, category_system = nil)
+    def resource_contains_category(resource, category_code, category_system = nil) # rubocop:disable Metrics/CyclomaticComplexity
       resource&.category&.any? do |category|
         category.coding&.any? do |coding|
           coding.code == category_code &&
@@ -22,7 +22,7 @@ module G10CertificationTestKit
       end
     end
 
-    def guess_profile(resource)
+    def guess_profile(resource) # rubocop:disable Metrics/CyclomaticComplexity
       case resource.resourceType
       when 'DiagnosticReport'
         return extract_profile('DiagnosticReportLab') if resource_contains_category(resource, 'LAB', 'http://terminology.hl7.org/CodeSystem/v2-0074')

@@ -1,4 +1,5 @@
 require_relative '../../lib/g10_certification_test_kit/bulk_data_group_export'
+require 'timecop'
 
 RSpec.describe G10CertificationTestKit::BulkDataGroupExport do
   let(:group) { Inferno::Repositories::TestGroups.new.find('bulk_data_group_export') }
@@ -192,17 +193,17 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExport do
       expect(result.result_message).to eq('Server response did not have Content-Location in header')
     end
 
-    # NOTE: Test commented out as it takes three minutes to fail
-    # it 'skips when server only returns "202 Accepted", and not "200 OK" in the allowed timeframe' do
-    #   stub_request(:get, "#{polling_url}")
-    #     .with(headers: { 'Authorization' => "Bearer #{bearer_token}" } )
-    #     .to_return(status: 202)
+    it 'skips when server only returns "202 Accepted", and not "200 OK" in the allowed timeframe' do
+      stub_request(:get, polling_url.to_s)
+        .with(headers: { 'Authorization' => "Bearer #{bearer_token}" })
+        .to_return(status: 202)
 
-    #   result = run(runnable, base_input)
+      allow_any_instance_of(runnable).to receive(:sleep) { |_o, time| Timecop.travel(Time.now + time) }
+      result = run(runnable, input)
 
-    #   expect(result.result).to eq('skip')
-    #   expect(result.result_message).to eq("Server took more than 180 seconds to process the request.")
-    # end
+      expect(result.result).to eq('skip')
+      expect(result.result_message).to eq('Server took more than 180 seconds to process the request.')
+    end
 
     it 'fails when server does not return "202 Accepted" nor "200 OK' do
       stub_request(:get, polling_url.to_s)
@@ -315,7 +316,70 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExport do
     end
   end
 
-  # TODO: Create after implementing HTTP Delete.
-  # describe 'delete request tests' do
-  # end
+  describe 'delete request tests' do
+    let(:runnable) { group.tests[7] }
+    let(:bulk_export_url) { "#{bulk_server_url}/Group/1219/$export" }
+
+    it 'skips when no Bearer Token is given' do
+      result = run(runnable, { bearer_token: nil })
+
+      expect(result.result).to eq('skip')
+      expect(result.result_message).to eq('Could not verify this functionality when bearer token is not set')
+    end
+
+    it 'fails when unable to kick-off export' do
+      stub_request(:get, bulk_export_url)
+        .to_return(status: 404)
+
+      result = run(runnable, base_input)
+
+      expect(result.result).to eq('fail')
+      expect(result.result_message).to eq('Bad response status: expected 202, but received 404')
+    end
+
+    it 'fails when content-location header not provided in kick-off response' do
+      stub_request(:get, bulk_export_url)
+        .to_return(status: 202)
+
+      result = run(runnable, base_input)
+
+      expect(result.result).to eq('fail')
+      expect(result.result_message).to eq('Export response header did not include "Content-Location"')
+    end
+
+    it 'fails when content-location header has no value' do
+      stub_request(:get, bulk_export_url)
+        .to_return(status: 202, headers: { 'content-type': nil })
+
+      result = run(runnable, base_input)
+
+      expect(result.result).to eq('fail')
+      expect(result.result_message).to eq('Export response header did not include "Content-Location"')
+    end
+
+    it 'fails when response to delete request is not 202' do
+      stub_request(:get, bulk_export_url)
+        .to_return(status: 202, headers: { 'content-location': polling_url })
+      stub_request(:delete, polling_url)
+        .with(headers: { authorization: "Bearer #{bearer_token}" })
+        .to_return(status: 404)
+
+      result = run(runnable, base_input)
+
+      expect(result.result).to eq('fail')
+      expect(result.result_message).to eq('Bad response status: expected 202, but received 404')
+    end
+
+    it 'passes when delete request includes bearer token and response is 202' do
+      stub_request(:get, bulk_export_url)
+        .to_return(status: 202, headers: { 'content-location': polling_url })
+      stub_request(:delete, polling_url)
+        .with(headers: { authorization: "Bearer #{bearer_token}" })
+        .to_return(status: 202)
+
+      result = run(runnable, base_input)
+
+      expect(result.result).to eq('pass')
+    end
+  end
 end

@@ -42,13 +42,6 @@ module G10CertificationTestKit
       scratch[:patient_ids_seen] ||= []
     end
 
-    # TODO: Delete this once core functionality is merged in
-    def stream(block, url = '', name: nil, **options)
-      store_request('outgoing', name) do
-        Faraday.get(url, nil, options[:headers]) { |req| req.options.on_data = block }
-      end
-    end
-
     def build_headers(use_token)
       headers = { accept: 'application/fhir+ndjson' }
       headers.merge!({ authorization: "Bearer #{bearer_token}" }) if use_token
@@ -75,7 +68,7 @@ module G10CertificationTestKit
       process_response.call(response)
     end
 
-    def predefined_device_type?(resource)
+    def predefined_device_type?(resource) # rubocop:disable Metrics/CyclomaticComplexity
       return true if bulk_device_types_in_group.blank?
 
       expected = Set.new(bulk_device_types_in_group.split(',').map(&:strip))
@@ -108,7 +101,7 @@ module G10CertificationTestKit
       end
     end
 
-    def check_file_request(url)
+    def check_file_request(url) # rubocop:disable Metrics/CyclomaticComplexity
       line_count = 0
       resources = Hash.new { |h, k| h[k] = [] }
 

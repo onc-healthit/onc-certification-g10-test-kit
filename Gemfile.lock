@@ -22,8 +22,8 @@ PATH
       bloomer (~> 1.0.0)
       colorize (~> 0.8.1)
       inferno_core (~> 0.1.2)
-      json-jwt
-      ndjson
+      json-jwt (~> 1.13.0)
+      ndjson (~> 1.0.0)
 
 GEM
   remote: https://rubygems.org/
@@ -274,6 +274,7 @@ GEM
     sqlite3 (1.4.2)
     thor (1.1.0)
     tilt (2.0.10)
+    timecop (0.9.4)
     transproc (1.1.1)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
@@ -311,6 +312,7 @@ DEPENDENCIES
   rubyzip
   smart_app_launch_test_kit!
   sqlite3
+  timecop (~> 0.9.4)
   us_core_test_kit!
   webmock (~> 3.11)
 

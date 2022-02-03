@@ -34,8 +34,20 @@ module G10CertificationTestKit
           title: 'Encryption Method',
           description: 'The server is required to suport either ES384 or RS384 encryption methods
                         for JWT signature verification. Select which method to use.',
-          default: 'ES384'
-    # TODO: Make radio button
+          type: 'radio',
+          default: 'ES384',
+          options: {
+            list_options: [
+              {
+                label: 'ES384',
+                value: 'ES384'
+              },
+              {
+                label: 'RS384',
+                value: 'RS384'
+              }
+            ]
+          }
     output :bearer_token
 
     http_client :token_endpoint do

@@ -10,11 +10,12 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'bloomer', '~> 1.0.0'
   spec.add_runtime_dependency 'colorize', '~> 0.8.1'
   spec.add_runtime_dependency 'inferno_core', '~> 0.1.2'
-  spec.add_runtime_dependency 'json-jwt'
-  spec.add_runtime_dependency 'ndjson'
+  spec.add_runtime_dependency 'json-jwt', '~> 1.13.0'
+  spec.add_runtime_dependency 'ndjson', '~> 1.0.0'
   spec.add_development_dependency 'database_cleaner-sequel', '~> 1.8'
   spec.add_development_dependency 'factory_bot', '~> 6.1'
   spec.add_development_dependency 'rspec', '~> 3.10'
+  spec.add_development_dependency 'timecop', '~> 0.9.4'
   spec.add_development_dependency 'webmock', '~> 3.11'
   spec.required_ruby_version = Gem::Requirement.new('>= 2.7.0')
   spec.metadata['homepage_uri'] = spec.homepage
