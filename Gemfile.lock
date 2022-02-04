@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/inferno-framework/smart-app-launch-test-kit.git
-  revision: 4ba8db2ccd1e517b92da0693641459f13a37d6d8
-  branch: main
+  revision: 898c250e911e895e3e621af9c38ac8d006a00029
+  branch: fi-1407-refresh-tokens
   specs:
     smart_app_launch_test_kit (0.0.1)
       inferno_core (~> 0.1.0)
@@ -250,7 +250,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.3)
-    rubocop (1.25.0)
+    rubocop (1.25.1)
       parallel (~> 1.10)
       parser (>= 3.1.0.0)
       rainbow (>= 2.2.2, < 4.0)
