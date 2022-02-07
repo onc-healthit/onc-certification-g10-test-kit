@@ -22,6 +22,8 @@ PATH
       bloomer (~> 1.0.0)
       colorize (~> 0.8.1)
       inferno_core (~> 0.1.2)
+      json-jwt (~> 1.13.0)
+      ndjson (~> 1.0.0)
 
 GEM
   remote: https://rubygems.org/
@@ -34,9 +36,11 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
+    aes_key_wrap (1.1.0)
     ast (2.4.2)
     bcp47 (0.3.3)
       i18n
+    bindata (2.4.10)
     bitarray (1.2.0)
     bloomer (1.0.0)
       bitarray
@@ -183,6 +187,10 @@ GEM
       sidekiq (~> 6.4.0)
       sqlite3 (~> 1.4)
       thor (~> 1.1.0)
+    json-jwt (1.13.0)
+      activesupport (>= 4.2)
+      aes_key_wrap
+      bindata
     jwt (2.3.0)
     method_source (1.0.0)
     mime-types (3.4.1)
@@ -193,6 +201,7 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
+    ndjson (1.0.0)
     netrc (0.11.0)
     nio4r (2.5.8)
     nokogiri (1.13.1-x86_64-darwin)
@@ -207,12 +216,12 @@ GEM
     parallel (1.21.0)
     parser (3.1.0.0)
       ast (~> 2.4.1)
-    pry (0.13.1)
+    pry (0.14.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    pry-byebug (3.9.0)
+    pry-byebug (3.8.0)
       byebug (~> 11.0)
-      pry (~> 0.13.0)
+      pry (~> 0.10)
     public_suffix (4.0.6)
     puma (5.6.1)
       nio4r (~> 2.0)
@@ -220,7 +229,7 @@ GEM
     rack (2.2.3)
     rainbow (3.1.1)
     rake (13.0.6)
-    redis (4.5.1)
+    redis (4.6.0)
     regexp_parser (2.2.0)
     rest-client (2.1.0)
       http-accept (>= 1.7.0, < 2.0)
@@ -306,4 +315,4 @@ DEPENDENCIES
   webmock (~> 3.11)
 
 BUNDLED WITH
-   2.2.29
+   2.2.32
