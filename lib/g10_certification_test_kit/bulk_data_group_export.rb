@@ -211,25 +211,6 @@ module G10CertificationTestKit
       end
     end
 
-    test do
-      title 'Bulk Data Server returns requiresAccessToken with value true'
-      description <<~DESCRIPTION
-        Bulk Data Server SHALL restrict bulk data file access with access token
-      DESCRIPTION
-      # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#response---complete-status'
-
-      input :status_response
-
-      run do
-        assert status_response.present?, 'Bulk Data Server status response not found'
-
-        requires_access_token = JSON.parse(status_response)['requiresAccessToken'].to_s.downcase
-        output requires_access_token: requires_access_token
-
-        assert requires_access_token.present? && requires_access_token == 'true',
-               'Bulk Data file server access SHALL require access token'
-      end
-    end
 
     test do
       title 'Bulk Data Server returns "202 Accepted" for delete request'
