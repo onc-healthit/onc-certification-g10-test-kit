@@ -91,7 +91,7 @@ module G10CertificationTestKit
         skip_if bearer_token.blank?, 'Could not verify this functionality when bearer token is not set'
 
         perform_export_kick_off_request(use_token: false)
-        assert_response_status(401)
+        assert_response_status([400, 401])
       end
     end
 
@@ -160,8 +160,8 @@ module G10CertificationTestKit
         end
 
         skip "Server took more than #{timeout} seconds to process the request." if response[:status] == 202
-
-        assert response[:status] == 200, "Bad response code: expected 200, 202, but found #{response[:status]}."
+        assert_response_status(200)
+        
         assert request.response_header('content-type')&.value&.include?('application/json'),
                'Content-Type not application/json'
 
