@@ -9,6 +9,7 @@ require_relative 'g10_certification_test_kit/smart_ehr_practitioner_app_group'
 require_relative 'g10_certification_test_kit/smart_public_standalone_launch_group'
 require_relative 'g10_certification_test_kit/multi_patient_api'
 require_relative 'g10_certification_test_kit/terminology_binding_validator'
+require_relative 'g10_certification_test_kit/token_revocation_group'
 require_relative 'g10_certification_test_kit/visual_inspection_and_attestations_group'
 require_relative 'inferno/terminology'
 
@@ -25,7 +26,7 @@ module G10CertificationTestKit
     ].freeze
 
     validator do
-      url ENV.fetch('VALIDATOR_URL', 'http://validator_service:4567')
+      url ENV.fetch('G10_VALIDATOR_URL', 'http://validator_service:4567')
       exclude_message do |message|
         if message.type == 'info' ||
            (message.type == 'warning' && WARNING_INCLUSION_FILTERS.none? { |filter| filter.match? message.message }) ||
@@ -129,6 +130,8 @@ module G10CertificationTestKit
       )
 
       group from: :g10_public_standalone_launch
+      group from: :g10_token_revocation
+
       group from: :g10_smart_invalid_aud
       group from: :g10_smart_invalid_token_request
 
