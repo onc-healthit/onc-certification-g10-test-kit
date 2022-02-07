@@ -24,4 +24,4 @@ gem 'us_core_test_kit',
     branch: 'main'
 gem 'smart_app_launch_test_kit',
     git: 'https://github.com/inferno-framework/smart-app-launch-test-kit.git',
-    branch: 'fi-1407-refresh-tokens'
+    branch: 'main'
