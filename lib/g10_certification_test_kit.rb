@@ -144,3 +144,28 @@ module G10CertificationTestKit
     end
   end
 end
+
+# TODO: address this input issue in core
+Inferno::Repositories::Tests.new
+  .find('g10_certification-g10_smart_limited_app-smart_standalone_launch-standalone_auth_tls')
+  .config(
+    inputs: {
+      url: {
+        title: 'Standalone Authorization URL',
+        description: '',
+        default: ''
+      }
+    }
+  )
+
+Inferno::Repositories::Tests.new
+  .find('g10_certification-g10_smart_limited_app-smart_standalone_launch-standalone_token_tls')
+  .config(
+    inputs: {
+      url: {
+        title: 'Standalone Token URL',
+        description: '',
+        default: ''
+      }
+    }
+  )
