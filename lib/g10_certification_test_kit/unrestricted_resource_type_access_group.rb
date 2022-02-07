@@ -50,11 +50,12 @@ module G10CertificationTestKit
     )
     id :g10_unrestricted_resource_type_access
 
-    input :url, :access_token, :patient_id, :received_scopes
+    input :url, :smart_credentials, :patient_id, :received_scopes
+    input :smart_credentials, type: :oauth_credentials
 
     fhir_client do
       url :url
-      bearer_token :access_token
+      oauth_credentials :smart_credentials
     end
 
     test do

@@ -42,36 +42,40 @@ module G10CertificationTestKit
           Sequence](http://hl7.org/fhir/smart-app-launch/#standalone-launch-sequence)
       )
 
-      config inputs: {
-        client_id: { locked: true },
-        client_secret: { locked: true },
-        url: { locked: true },
-        code: { name: :limited_code },
-        state: { name: :limited_state },
-        patient_id: { name: :limited_patient_id },
-        access_token: { name: :limited_access_token },
-        requested_scopes: { name: :limited_requested_scopes },
-        smart_authorization_url: { locked: true }, # TODO: separate standalone/ehr discovery outputs
-        smart_token_url: { locked: true }, # TODO: separate standalone/ehr discovery outputs
-        received_scopes: { name: :limited_received_scopes }
-      },
-             outputs: {
-               code: { name: :limited_code },
-               token_retrieval_time: { name: :limited_token_retrieval_time },
-               state: { name: :limited_state },
-               id_token: { name: :limited_id_token },
-               refresh_token: { name: :limited_refresh_token },
-               access_token: { name: :limited_access_token },
-               expires_in: { name: :limited_expires_in },
-               patient_id: { name: :limited_patient_id },
-               encounter_id: { name: :limited_encounter_id },
-               received_scopes: { name: :limited_received_scopes },
-               intent: { name: :limited_intent }
-             },
-             requests: {
-               redirect: { name: :limited_redirect },
-               token: { name: :limited_token }
-             }
+      config(
+        inputs: {
+          client_id: { locked: true },
+          client_secret: { locked: true },
+          url: { locked: true },
+          code: { name: :limited_code },
+          state: { name: :limited_state },
+          patient_id: { name: :limited_patient_id },
+          access_token: { name: :limited_access_token },
+          requested_scopes: { name: :limited_requested_scopes },
+          smart_authorization_url: { locked: true }, # TODO: separate standalone/ehr discovery outputs
+          smart_token_url: { locked: true }, # TODO: separate standalone/ehr discovery outputs
+          received_scopes: { name: :limited_received_scopes },
+          smart_credentials: { name: :limited_smart_credentials }
+        },
+        outputs: {
+          code: { name: :limited_code },
+          token_retrieval_time: { name: :limited_token_retrieval_time },
+          state: { name: :limited_state },
+          id_token: { name: :limited_id_token },
+          refresh_token: { name: :limited_refresh_token },
+          access_token: { name: :limited_access_token },
+          expires_in: { name: :limited_expires_in },
+          patient_id: { name: :limited_patient_id },
+          encounter_id: { name: :limited_encounter_id },
+          received_scopes: { name: :limited_received_scopes },
+          intent: { name: :limited_intent },
+          smart_credentials: { name: :limited_smart_credentials }
+        },
+        requests: {
+          redirect: { name: :limited_redirect },
+          token: { name: :limited_token }
+        }
+      )
 
       input :expected_resources,
             title: 'Expected Resource Grant',
@@ -82,7 +86,7 @@ module G10CertificationTestKit
            config: {
              inputs: {
                patient_id: { name: :limited_patient_id },
-               access_token: { name: :limited_access_token }
+               smart_credentials: { name: :limited_smart_credentials }
              }
            }
 
@@ -100,9 +104,9 @@ module G10CertificationTestKit
           config: {
             inputs: {
               patient_id: { name: :limited_patient_id },
-              access_token: { name: :limited_access_token },
               requested_scopes: { name: :limited_requested_scopes },
-              received_scopes: { name: :limited_received_scopes }
+              received_scopes: { name: :limited_received_scopes },
+              smart_credentials: { name: :limited_smart_credentials }
             }
           }
   end

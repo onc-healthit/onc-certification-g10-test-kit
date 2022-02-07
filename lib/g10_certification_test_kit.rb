@@ -1,3 +1,20 @@
+module Inferno
+  module DSL
+    module Runnable
+      def required_inputs(prior_outputs = [])
+        required_inputs =
+          inputs
+            .reject { |input| input_definitions[input][:optional] }
+            .map { |input| config.input_name(input) }
+            .reject { |input| prior_outputs.include?(input) }
+        children_required_inputs = children.flat_map { |child| child.required_inputs(prior_outputs) }
+        prior_outputs.concat(outputs.map { |output| config.output_name(output) })
+        (required_inputs + children_required_inputs).flatten.uniq
+      end
+    end
+  end
+end
+
 require 'smart_app_launch_test_kit'
 require 'us_core'
 
@@ -89,26 +106,14 @@ module G10CertificationTestKit
             title: 'FHIR Endpoint',
             description: 'URL of the FHIR endpoint used by SMART applications',
             default: 'https://inferno.healthit.gov/reference-server/r4'
-      input :bearer_token, optional: true, locked: true
+      input :smart_credentials,
+            title: 'SMART App Launch Credentials',
+            type: :oauth_credentials,
+            locked: true
 
       fhir_client do
         url :url
-        bearer_token :bearer_token
-      end
-
-      test do
-        id :preparation
-        title 'Test preparation'
-        input :standalone_access_token, optional: true, locked: true
-        input :ehr_access_token, optional: true, locked: true
-        # input :standalone_refresh_token, optional: true, locked: true
-        # input :ehr_refresh_token, optional: true, locked: true
-
-        output :bearer_token
-
-        run do
-          output bearer_token: standalone_access_token.presence || ehr_access_token.presence
-        end
+        oauth_credentials :smart_credentials
       end
 
       USCore::USCoreTestSuite.groups.each do |group|

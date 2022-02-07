@@ -28,6 +28,9 @@ module G10CertificationTestKit
         client_secret: {
           optional: false,
           default: 'SAMPLE_CONFIDENTIAL_CLIENT_SECRET'
+        },
+        smart_credentials: {
+          name: :ehr_smart_credentials
         }
       }
     )
@@ -142,7 +145,7 @@ module G10CertificationTestKit
               id_token: { name: :ehr_id_token },
               client_id: { name: :ehr_client_id },
               requested_scopes: { name: :ehr_requested_scopes },
-              access_token: { name: :ehr_access_token }
+              smart_credentials: { name: :ehr_smart_credentials }
             }
           }
 
@@ -161,21 +164,33 @@ module G10CertificationTestKit
           received_scopes: { name: :ehr_received_scopes },
           access_token: { name: :ehr_access_token },
           token_retrieval_time: { name: :ehr_token_retrieval_time },
-          expires_in: { name: :ehr_expires_in }
+          expires_in: { name: :ehr_expires_in },
+          smart_credentials: { name: :ehr_smart_credentials }
         }
       )
 
       test from: :g10_patient_context do
         config(
           inputs: {
-            patient_id: { name: :ehr_patient_id },
-            access_token: { name: :ehr_access_token }
+            patient_id: { name: :ehr_patient_id }
           },
           options: {
             refresh_test: true
           }
         )
         uses_request :token_refresh
+      end
+    end
+
+    test do
+      id :g10_ehr_credentials_export
+      title 'Set SMART Credentials to EHR Launch Credentials'
+
+      input :ehr_smart_credentials, type: :oauth_credentials
+      output :smart_credentials
+
+      run do
+        output smart_credentials: ehr_smart_credentials.to_s
       end
     end
   end

@@ -50,7 +50,8 @@ module G10CertificationTestKit
     )
     id :g10_restricted_resource_type_access
 
-    input :url, :access_token, :patient_id, :received_scopes, :expected_resources
+    input :url, :patient_id, :received_scopes, :expected_resources
+    input :smart_credentials, type: :oauth_credentials
 
     config(
       inputs: {
@@ -66,7 +67,7 @@ module G10CertificationTestKit
 
     fhir_client do
       url :url
-      bearer_token :access_token
+      oauth_credentials :smart_credentials
     end
 
     test from: :g10_restricted_access_test do
