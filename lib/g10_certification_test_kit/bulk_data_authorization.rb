@@ -25,8 +25,8 @@ module G10CertificationTestKit
           default: 'https://inferno.healthit.gov/bulk-data-server/auth/token'
     input :bulk_client_id,
           title: 'Bulk Data Client ID',
-          description: 'Client ID provided at registration to the Inferno application.'
-          default: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJlZ2lzdHJhdGlvbi10b2tlbiJ9.eyJqd2tzX3VybCI6Imh0dHBzOi8vaW5mZXJuby5oZWFsdGhpdC5nb3YvaW5mZXJuby8ud2VsbC1rbm93bi9qd2tzLmpzb24iLCJhY2Nlc3NUb2tlbnNFeHBpcmVJbiI6MTUsImlhdCI6MTU5OTE1NzgyMX0.-wulnE05BlY_Zcm5iP77Meqxr6iNiYxBsOADB5CGE8I'
+          description: 'Client ID provided at registration to the Inferno application.',
+          default: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJlZ2lzdHJhdGlvbi10b2tlbiJ9.eyJqd2tzX3VybCI6Imh0dHBzOi8vaW5mZXJuby5oZWFsdGhpdC5nb3YvaW5mZXJuby8ud2VsbC1rbm93bi9qd2tzLmpzb24iLCJhY2Nlc3NUb2tlbnNFeHBpcmVJbiI6MTUsImlhdCI6MTU5OTE1NzgyMX0.-wulnE05BlY_Zcm5iP77Meqxr6iNiYxBsOADB5CGE8I' # rubocop:disable Layout/LineLength
     input :bulk_scope,
           title: 'Bulk Data Scopes',
           description: 'Bulk Data Scopes provided at registration to the Inferno application.',

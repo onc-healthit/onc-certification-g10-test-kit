@@ -12,7 +12,7 @@ module G10CertificationTestKit
     input :bearer_token
     input :bulk_server_url,
           title: 'Bulk Data FHIR URL',
-          description: 'The URL of the Bulk FHIR server.'
+          description: 'The URL of the Bulk FHIR server.',
           default: 'https://inferno.healthit.gov/bulk-data-server/eyJlcnIiOiIiLCJwYWdlIjoxMDAwMCwiZHVyIjoxMCwidGx0IjoxNSwibSI6MSwic3R1Ijo0fQ/fhir'
     input :group_id,
           title: 'Group ID',
