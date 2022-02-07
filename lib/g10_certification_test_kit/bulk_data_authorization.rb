@@ -8,8 +8,8 @@ module G10CertificationTestKit
       [Backend Service Authorization](http://hl7.org/fhir/uv/bulkdata/STU1/authorization/)
       specification as defined in the [FHIR Bulk Data Access IG v1.0.0](http://hl7.org/fhir/uv/bulkdata/STU1/).
 
-      In this set of tests, Inferno serves as a Bulk Data client that attempts to authorize
-      to the Bulk Data authorization server.  It also performs a number of negative tests
+      In this set of tests, Inferno serves as a Bulk Data client that requests authorization
+      from the Bulk Data authorization server.  It also performs a number of negative tests
       to validate that the authorization service does not improperly authorize invalid
       requests.
 
