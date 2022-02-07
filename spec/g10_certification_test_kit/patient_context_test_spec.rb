@@ -16,16 +16,27 @@ RSpec.describe G10CertificationTestKit::PatientContextTest do
   let(:test) { described_class }
   let(:test_session) { repo_create(:test_session, test_suite_id: 'g10_certification') }
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
+  let(:smart_credentials) do
+    {
+      access_token: 'ACCESS_TOKEN',
+      refresh_token: 'REFRESH_TOKEN',
+      expires_in: 3600,
+      client_id: 'CLIENT_ID',
+      token_retrieval_time: Time.now.iso8601,
+      token_url: 'http://example.com/token'
+    }.to_json
+  end
   let(:default_inputs) do
     {
       url: 'http://example.com/fhir',
       patient_id: '123',
-      access_token: 'ACCESS_TOKEN'
+      smart_credentials: smart_credentials
     }
   end
 
   it 'skips if the access token is blank' do
-    inputs = default_inputs.merge(access_token: '')
+    credentials = Inferno::DSL::OAuthCredentials.new(JSON.parse(smart_credentials).merge('access_token' => ''))
+    inputs = default_inputs.merge(smart_credentials: credentials.to_s)
     result = run(test, inputs)
 
     expect(result.result).to eq('skip')

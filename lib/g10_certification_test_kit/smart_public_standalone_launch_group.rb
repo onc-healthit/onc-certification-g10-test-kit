@@ -59,6 +59,9 @@ module G10CertificationTestKit
         smart_token_url: {
           title: 'OAuth 2.0 Token Endpoint',
           description: 'OAuth 2.0 Token Endpoint provided during the patient standalone launch'
+        },
+        smart_credentials: {
+          name: :public_smart_credentials
         }
       },
       outputs: {
@@ -72,7 +75,8 @@ module G10CertificationTestKit
         patient_id: { name: :public_patient_id },
         encounter_id: { name: :public_encounter_id },
         received_scopes: { name: :public_received_scopes },
-        intent: { name: :public_intent }
+        intent: { name: :public_intent },
+        smart_credentials: { name: :public_smart_credentials }
       },
       requests: {
         redirect: { name: :public_redirect },
@@ -84,7 +88,7 @@ module G10CertificationTestKit
          config: {
            inputs: {
              patient_id: { name: :public_patient_id },
-             access_token: { name: :public_access_token }
+             smart_credentials: { name: :public_smart_credentials }
            }
          }
 

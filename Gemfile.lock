@@ -1,19 +1,21 @@
 GIT
   remote: https://github.com/inferno-framework/smart-app-launch-test-kit.git
-  revision: 4ba8db2ccd1e517b92da0693641459f13a37d6d8
+  revision: 9bece50196d0021a755f944002c60999ef5c910c
   branch: main
   specs:
     smart_app_launch_test_kit (0.0.1)
       inferno_core (~> 0.1.0)
       jwt (~> 2.2)
+      tls_test_kit (~> 0.0.1)
 
 GIT
   remote: https://github.com/inferno-framework/us-core-test-kit.git
-  revision: b7fa4581b07f7357a835cca7c62bc317e4a39ea8
+  revision: 2c6da84e62a536334d0876402ac1f536fbaebfc6
   branch: main
   specs:
     us_core_test_kit (0.0.1)
       inferno_core (~> 0.1.1)
+      tls_test_kit (~> 0.0.1)
 
 PATH
   remote: .
@@ -216,12 +218,12 @@ GEM
     parallel (1.21.0)
     parser (3.1.0.0)
       ast (~> 2.4.1)
-    pry (0.14.1)
+    pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    pry-byebug (3.8.0)
+    pry-byebug (3.9.0)
       byebug (~> 11.0)
-      pry (~> 0.10)
+      pry (~> 0.13.0)
     public_suffix (4.0.6)
     puma (5.6.1)
       nio4r (~> 2.0)
@@ -250,7 +252,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.3)
-    rubocop (1.25.0)
+    rubocop (1.25.1)
       parallel (~> 1.10)
       parser (>= 3.1.0.0)
       rainbow (>= 2.2.2, < 4.0)
@@ -274,6 +276,8 @@ GEM
     sqlite3 (1.4.2)
     thor (1.1.0)
     tilt (2.0.10)
+    tls_test_kit (0.0.1)
+      inferno_core (~> 0.1.2)
     transproc (1.1.1)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)

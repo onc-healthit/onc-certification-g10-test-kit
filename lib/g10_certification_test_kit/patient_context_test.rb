@@ -6,15 +6,16 @@ module G10CertificationTestKit
       the app was launched in the context of this FHIR Patient.
     )
     id :g10_patient_context
-    input :patient_id, :access_token, :url
+    input :patient_id, :url
+    input :smart_credentials, type: :oauth_credentials
 
     fhir_client :authenticated do
       url :url
-      bearer_token :access_token
+      oauth_credentials :smart_credentials
     end
 
     run do
-      skip_if access_token.blank?, 'No access token was received during the SMART launch'
+      skip_if smart_credentials.access_token.blank?, 'No access token was received during the SMART launch'
 
       skip_if patient_id.blank?, 'Token response did not contain `patient` field'
 

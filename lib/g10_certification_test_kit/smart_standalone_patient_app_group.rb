@@ -95,7 +95,7 @@ module G10CertificationTestKit
            config: {
              inputs: {
                patient_id: { name: :standalone_patient_id },
-               access_token: { name: :standalone_access_token }
+               smart_credentials: { name: :standalone_smart_credentials }
              }
            }
     end
@@ -106,7 +106,7 @@ module G10CertificationTestKit
               id_token: { name: :standalone_id_token },
               client_id: { name: :standalone_client_id },
               requested_scopes: { name: :standalone_requested_scopes },
-              access_token: { name: :standalone_access_token }
+              smart_credentials: { name: :standalone_smart_credentials }
             }
           }
 
@@ -125,7 +125,8 @@ module G10CertificationTestKit
           received_scopes: { name: :standalone_received_scopes },
           access_token: { name: :standalone_access_token },
           token_retrieval_time: { name: :standalone_token_retrieval_time },
-          expires_in: { name: :standalone_expires_in }
+          expires_in: { name: :standalone_expires_in },
+          smart_credentials: { name: :standalone_smart_credentials }
         }
       )
 
@@ -133,7 +134,7 @@ module G10CertificationTestKit
         config(
           inputs: {
             patient_id: { name: :standalone_patient_id },
-            access_token: { name: :standalone_access_token }
+            smart_credentials: { name: :standalone_smart_credentials }
           },
           options: {
             refresh_test: true
@@ -146,10 +147,22 @@ module G10CertificationTestKit
     group from: :g10_unrestricted_resource_type_access,
           config: {
             inputs: {
-              access_token: { name: :standalone_access_token },
               received_scopes: { name: :standalone_received_scopes },
-              patient_id: { name: :standalone_patient_id }
+              patient_id: { name: :standalone_patient_id },
+              smart_credentials: { name: :standalone_smart_credentials }
             }
           }
+
+    test do
+      id :g10_standalone_credentials_export
+      title 'Set SMART Credentials to Standalone Launch Credentials'
+
+      input :standalone_smart_credentials, type: :oauth_credentials
+      output :smart_credentials
+
+      run do
+        output smart_credentials: standalone_smart_credentials.to_s
+      end
+    end
   end
 end
