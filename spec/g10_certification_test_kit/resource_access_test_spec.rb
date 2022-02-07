@@ -19,12 +19,14 @@ RSpec.describe G10CertificationTestKit::ResourceAccessTest do
     Class.new(G10CertificationTestKit::ResourceAccessTest) do
       fhir_client do
         url 'http://example.com/fhir'
-        bearer_token 'ACCESS_TOKEN'
+        oauth_credentials :smart_credentials
       end
 
       def resource_group
         USCore::AllergyIntoleranceGroup
       end
+
+      input :smart_credentials, type: :oauth_credentials
     end
   end
 
@@ -32,11 +34,21 @@ RSpec.describe G10CertificationTestKit::ResourceAccessTest do
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
   let(:url) { 'http://example.com/fhir' }
   let(:patient_id) { '123' }
+  let(:smart_credentials) do
+    {
+      access_token: 'ACCESS_TOKEN',
+      refresh_token: 'REFRESH_TOKEN',
+      expires_in: 3600,
+      client_id: 'CLIENT_ID',
+      token_retrieval_time: Time.now.iso8601,
+      token_url: 'http://example.com/token'
+    }.to_json
+  end
   let(:base_inputs) do
     {
       url: url,
       patient_id: patient_id,
-      access_token: 'ACCESS_TOKEN'
+      smart_credentials: smart_credentials
     }
   end
 
