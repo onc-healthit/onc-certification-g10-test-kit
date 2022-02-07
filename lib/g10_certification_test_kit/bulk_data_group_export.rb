@@ -161,7 +161,7 @@ module G10CertificationTestKit
 
         skip "Server took more than #{timeout} seconds to process the request." if response[:status] == 202
         assert_response_status(200)
-        
+
         assert request.response_header('content-type')&.value&.include?('application/json'),
                'Content-Type not application/json'
 
@@ -210,7 +210,6 @@ module G10CertificationTestKit
         end
       end
     end
-
 
     test do
       title 'Bulk Data Server returns "202 Accepted" for delete request'

@@ -116,7 +116,7 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExport do
       result = run(runnable, base_input)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Bad response status: expected 401, but received 200')
+      expect(result.result_message).to eq('Bad response status: expected 400, 401, but received 200')
     end
 
     it 'passes if client can not $export without authorization' do
@@ -212,7 +212,7 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExport do
       result = run(runnable, input)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Bad response code: expected 200, 202, but found 401.')
+      expect(result.result_message).to eq('Bad response status: expected 200, but received 401')
     end
 
     it 'fails when server returns "200 OK" and impromper headers' do
@@ -284,39 +284,8 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExport do
     end
   end
 
-  describe '[Bulk Data Server returns requiresAccessToken with value true] test' do
-    let(:runnable) { group.tests[6] }
-    let(:no_rat_status_response) { '{"no_requiresAccessToken":"!"}' }
-    let(:false_rat_status_response) { '{"requiresAccessToken":false}' }
-
-    it 'fails when response not found' do
-      result = run(runnable)
-
-      expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Bulk Data Server status response not found')
-    end
-
-    it 'fails when server response does not contain requireAccessToken' do
-      result = run(runnable, { status_response: no_rat_status_response })
-
-      expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Bulk Data file server access SHALL require access token')
-    end
-
-    it 'fails when server does not require access token' do
-      result = run(runnable, { status_response: false_rat_status_response })
-      expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Bulk Data file server access SHALL require access token')
-    end
-
-    it 'passes when server does require access token' do
-      result = run(runnable, { status_response: status_response })
-      expect(result.result).to eq('pass')
-    end
-  end
-
   describe 'delete request tests' do
-    let(:runnable) { group.tests[7] }
+    let(:runnable) { group.tests[6] }
     let(:bulk_export_url) { "#{bulk_server_url}/Group/1219/$export" }
 
     it 'skips when no Bearer Token is given' do
