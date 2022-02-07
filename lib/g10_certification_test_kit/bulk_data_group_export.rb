@@ -56,17 +56,11 @@ module G10CertificationTestKit
 
         definition = 'http://hl7.org/fhir/uv/bulkdata/OperationDefinition/group-export'
 
-        capability_statement.rest&.each do |rest|
-          groups = rest.resource&.select { |resource| resource.type == 'Group' }
+        capability_statement.rest.each do |rest|
+          groups = rest.resource.select { |resource| resource.type == 'Group' }
 
-          pass if groups&.any? do |group|
-            group.operation&.any? do |operation|
-              if operation.definition.is_a? String
-                operation.definition == definition
-              else
-                operation.definition&.flatten&.include?(definition)
-              end
-            end
+          pass if groups.any? do |group|
+            group.operation.any? { |operation| operation.definition == definition }
           end
         end
 
@@ -208,6 +202,26 @@ module G10CertificationTestKit
             assert file.key?(key), "Output file did not contain \"#{key}\" as required"
           end
         end
+      end
+    end
+
+    test do
+      title 'Bulk Data Server returns requiresAccessToken with value true'
+      description <<~DESCRIPTION
+        Bulk Data Server SHALL restrict bulk data file access with access token
+      DESCRIPTION
+      # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#response---complete-status'
+
+      input :status_response
+
+      run do
+        assert status_response.present?, 'Bulk Data Server status response not found'
+
+        requires_access_token = JSON.parse(status_response)['requiresAccessToken'].to_s.downcase
+        output requires_access_token: requires_access_token
+
+        assert requires_access_token.present? && requires_access_token == 'true',
+               'Bulk Data file server access SHALL require access token'
       end
     end
 
