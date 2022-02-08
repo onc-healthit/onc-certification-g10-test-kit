@@ -70,22 +70,6 @@ RSpec.describe G10CertificationTestKit::BulkExportValidationTester do
         .with_message('Could not verify this functionality when Bulk Status Output is not provided')
     end
 
-    it 'skips when requires_access_token is not provided' do
-      tester.requires_access_token = nil
-
-      expect { tester.perform_bulk_export_validation }
-        .to raise_exception(Inferno::Exceptions::SkipException)
-        .with_message('Could not verify this functionality when requiresAccessToken is not provided')
-    end
-
-    it 'skips when requires_access_token is false' do
-      tester.requires_access_token = 'false'
-
-      expect { tester.perform_bulk_export_validation }
-        .to raise_exception(Inferno::Exceptions::SkipException)
-        .with_message('Could not verify this functionality when requiresAccessToken is false')
-    end
-
     it 'skips when requires_access_token is true and bearer_token is not provided' do
       tester.bearer_token = nil
 
@@ -100,6 +84,42 @@ RSpec.describe G10CertificationTestKit::BulkExportValidationTester do
       expect { tester.perform_bulk_export_validation }
         .to raise_exception(Inferno::Exceptions::SkipException)
         .with_message('No Patient resource file item returned by server.')
+    end
+
+    it 'makes a request without bearer token header when requires_access_token is not provided' do
+      tester.requires_access_token = nil
+
+      bearer_req = stub_request(:get, url)
+        .with(headers: { 'authorization' => "Bearer #{bearer_token}" })
+        .to_return(status: 200, headers: headers, body: patient_contents)
+      non_bearer_req = stub_request(:get, url)
+        .to_return(status: 200, headers: headers, body: patient_contents)
+
+      allow(tester).to receive(:resource_is_valid?).and_return(true)
+
+      expect { tester.perform_bulk_export_validation }
+        .to raise_exception(Inferno::Exceptions::PassException)
+
+      expect(bearer_req).to_not have_been_made
+      expect(non_bearer_req).to have_been_made.once
+    end
+
+    it 'makes a request without bearer token header when requires_access_token is false' do
+      tester.requires_access_token = 'false'
+
+      bearer_req = stub_request(:get, url)
+        .with(headers: { 'authorization' => "Bearer #{bearer_token}" })
+        .to_return(status: 200, headers: headers, body: patient_contents)
+      non_bearer_req = stub_request(:get, url)
+        .to_return(status: 200, headers: headers, body: patient_contents)
+
+      allow(tester).to receive(:resource_is_valid?).and_return(true)
+
+      expect { tester.perform_bulk_export_validation }
+        .to raise_exception(Inferno::Exceptions::PassException)
+
+      expect(bearer_req).to_not have_been_made
+      expect(non_bearer_req).to have_been_made.once
     end
 
     it 'passes when lines_to_validate is unset' do
