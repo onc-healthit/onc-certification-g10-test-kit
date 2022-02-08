@@ -63,7 +63,7 @@ module G10CertificationTestKit
         skip_if bulk_download_url.blank?, 'Could not verify this functionality when no download link was provided'
         skip_if requires_access_token.blank?,
                 'Could not verify this functionality when requiresAccessToken is not provided'
-        skip_if requires_access_token == 'false',
+        omit_if requires_access_token == 'false',
                 'Could not verify this functionality when requiresAccessToken is false'
         skip_if bearer_token.blank?, 'Could not verify this functionality when Bearer Token is not provided'
 
