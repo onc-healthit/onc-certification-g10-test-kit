@@ -13,9 +13,11 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExportValidation do
   let(:contents_missing_element) { String.new }
   let(:scratch) { {} }
   let(:input) do
-    { requires_access_token: 'true',
+    {
+      requires_access_token: 'true',
       status_output: status_output,
-      bearer_token: bearer_token }
+      bearer_token: bearer_token
+    }
   end
 
   def run(runnable, inputs = {})
@@ -33,22 +35,18 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExportValidation do
     Inferno::TestRunner.new(test_session: test_session, test_run: test_run).run(runnable, scratch)
   end
 
-  # TODO: Create after implementing TLS Tester Class.
-  # describe 'tls endpoint test' do
-  # end
-
   describe '[NDJSON download requires access token] test' do
     let(:runnable) { group.tests[1] }
 
-    it 'skips when status_ouput is not provided' do
+    it 'skips when bulk_download_url is not provided' do
       result = run(runnable)
 
       expect(result.result).to eq('skip')
-      expect(result.result_message).to eq('Could not verify this functionality when Bulk Status Output is not provided')
+      expect(result.result_message).to eq('Could not verify this functionality when no download link was provided')
     end
 
     it 'skips when requires_access_token is not provided' do
-      result = run(runnable, { status_output: status_output })
+      result = run(runnable, { bulk_download_url: endpoint })
 
       expect(result.result).to eq('skip')
       expect(result.result_message)
@@ -56,25 +54,25 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExportValidation do
     end
 
     it 'skips when requiresAccessToken is false' do
-      result = run(runnable, { requires_access_token: 'false', status_output: status_output })
+      result = run(runnable, { requires_access_token: 'false', bulk_download_url: endpoint })
 
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('Could not verify this functionality when requiresAccessToken is false')
     end
 
     it 'skips when bearer_token is not provided' do
-      result = run(runnable, { requires_access_token: 'true', status_output: status_output })
+      result = run(runnable, { requires_access_token: 'true', bulk_download_url: endpoint })
 
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('Could not verify this functionality when Bearer Token is not provided')
     end
 
-    context 'when status_output and bearer_token are given and requiresAccessToken is true' do
+    context 'when bulk_download_url and bearer_token are given and requiresAccessToken is true' do
       it 'fails if endpoint can be accessed without token' do
         stub_request(:get, endpoint)
           .to_return(status: 200)
 
-        result = run(runnable, input)
+        result = run(runnable, input.merge(bulk_download_url: endpoint))
 
         expect(result.result).to eq('fail')
         expect(result.result_message).to eq('Bad response status: expected 400, 401, but received 200')
@@ -84,7 +82,7 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExportValidation do
         stub_request(:get, endpoint)
           .to_return(status: 400)
 
-        result = run(runnable, input)
+        result = run(runnable, input.merge(bulk_download_url: endpoint))
 
         expect(result.result).to eq('pass')
       end

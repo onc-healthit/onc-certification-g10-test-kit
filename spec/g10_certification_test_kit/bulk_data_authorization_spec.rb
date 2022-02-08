@@ -48,10 +48,6 @@ RSpec.describe G10CertificationTestKit::BulkDataAuthorization do
     Inferno::TestRunner.new(test_session: test_session, test_run: test_run).run(runnable)
   end
 
-  # TODO: Create after implementing TLS Tester Class.
-  # describe 'endpoint TLS tests' do
-  # end
-
   describe '[Invalid grant_type] test' do
     let(:runnable) { group.tests[1] }
 

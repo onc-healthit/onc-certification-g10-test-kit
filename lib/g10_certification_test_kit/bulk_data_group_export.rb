@@ -19,7 +19,7 @@ module G10CertificationTestKit
           description: 'The Group ID associated with the group of patients to be exported.',
           default: '1'
 
-    output :requires_access_token, :status_output
+    output :requires_access_token, :status_output, :bulk_download_url
 
     fhir_client :bulk_server do
       url :bulk_server_url
@@ -29,16 +29,21 @@ module G10CertificationTestKit
       url :bulk_server_url
     end
 
-    # TODO: Create after implementing TLS Tester Class.
-    test do
+    test from: :tls_version_test do
       title 'Bulk Data Server is secured by transport layer security'
       description <<~DESCRIPTION
-        [§170.315(g)(10) Test Procedure](https://www.healthit.gov/test-method/standardized-api-patient-and-population-services) requires that
-        all exchanges described herein between a client and a server SHALL be secured using Transport Layer Security (TLS) Protocol Version 1.2 (RFC5246).
+        [§170.315(g)(10) Test
+        Procedure](https://www.healthit.gov/test-method/standardized-api-patient-and-population-services)
+        requires that all exchanges described herein between a client and a
+        server SHALL be secured using Transport Layer Security (TLS) Protocol
+        Version 1.2 (RFC5246).
       DESCRIPTION
-      # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#security-considerations'
+      id :g10_bulk_data_server_tls_version
 
-      run { pass }
+      config(
+        inputs: { url: { name: :bulk_server_url } },
+        options: { minimum_allowed_version: OpenSSL::SSL::TLS1_2_VERSION }
+      )
     end
 
     test do
@@ -188,7 +193,7 @@ module G10CertificationTestKit
 
       input :status_response
 
-      output :status_output
+      output :status_output, :bulk_download_url
 
       run do
         assert status_response.present?, 'Bulk Data Server status response not found'
@@ -196,7 +201,8 @@ module G10CertificationTestKit
         status_output = JSON.parse(status_response)['output']
         assert status_output, 'Bulk Data Server status response does not contain output'
 
-        output status_output: status_output.to_json
+        output status_output: status_output.to_json,
+               bulk_download_url: status_output[0]['url']
 
         status_output.each do |file|
           ['type', 'url'].each do |key|
