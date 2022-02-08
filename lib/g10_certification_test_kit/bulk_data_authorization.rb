@@ -3,6 +3,7 @@ require_relative 'authorization_request_builder'
 module G10CertificationTestKit
   class BulkDataAuthorization < Inferno::TestGroup
     title 'Bulk Data Authorization'
+    short_description 'Demonstrate SMART Backend Services Authorization for Bulk Data.'
     description <<~DESCRIPTION
       Bulk Data servers are required to authorize clients using the
       [Backend Service Authorization](http://hl7.org/fhir/uv/bulkdata/STU1/authorization/)

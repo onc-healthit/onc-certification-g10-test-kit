@@ -1,6 +1,7 @@
 module G10CertificationTestKit
   class VisualInspectionAndAttestationsGroup < Inferno::TestGroup
     title 'Visual Inspection and Attestation'
+    short_title 'Visual Inspection'
     description 'Verify conformance to portions of the test procedure that are not automated.'
     id :g10_visual_inspection_and_attestations
     run_as_group

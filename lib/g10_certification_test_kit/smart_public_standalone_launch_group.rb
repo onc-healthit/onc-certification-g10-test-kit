@@ -1,6 +1,7 @@
 module G10CertificationTestKit
   class SMARTPublicStandaloneLaunchGroup < SMARTAppLaunch::StandaloneLaunchGroup
     title 'Public Client Standalone Launch with OpenID Connect'
+    short_title 'SMART Public Client Launch'
     description %(
       # Background
 

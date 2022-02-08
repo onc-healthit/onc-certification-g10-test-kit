@@ -3,6 +3,7 @@ require_relative 'bulk_export_validation_tester'
 module G10CertificationTestKit
   class BulkDataGroupExportValidation < Inferno::TestGroup
     title 'Group Compartment Export Validation Tests'
+    short_description 'Verify that the exported data conforms to the US Core Implementation Guide.'
     description <<~DESCRIPTION
       Verify that Group compartment export from the Bulk Data server follow US Core Implementation Guide
     DESCRIPTION

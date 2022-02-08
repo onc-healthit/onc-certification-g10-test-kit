@@ -6,6 +6,17 @@ require_relative 'well_known_capabilities_test'
 module G10CertificationTestKit
   class SmartEHRPractitionerAppGroup < Inferno::TestGroup
     title 'EHR Practitioner App'
+    short_title 'EHR Practitioner App'
+    input_instructions %(
+      Enter in the appropriate scope to enable user-level access to all relevant
+      resources. In addition, support for the OpenID Connect (openid fhirUser),
+      refresh tokens (offline_access), and EHR context (launch) are required. This
+      test expects that the EHR will launch the application with a patient context.
+
+      After execute is pressed, Inferno will wait for the system under test to launch
+      the application.
+    )
+
     description %(
       Demonstrate the ability to perform an EHR launch to a [SMART on
       FHIR](http://www.hl7.org/fhir/smart-app-launch/) confidential client with
