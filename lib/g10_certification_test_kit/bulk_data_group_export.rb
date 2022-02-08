@@ -136,7 +136,7 @@ module G10CertificationTestKit
 
       input :polling_url
 
-      output :status_response
+      output :status_response, :requires_access_token
 
       run do
         skip 'Server response did not have Content-Location in header' unless polling_url.present?
@@ -171,6 +171,7 @@ module G10CertificationTestKit
           assert response_body.key?(key), "Complete Status response did not contain \"#{key}\" as required"
         end
 
+        output requires_access_token: response_body['requiresAccessToken'].to_s.downcase
         output status_response: response[:body]
       end
     end
@@ -209,26 +210,6 @@ module G10CertificationTestKit
             assert file.key?(key), "Output file did not contain \"#{key}\" as required"
           end
         end
-      end
-    end
-
-    test do
-      title 'Bulk Data Server returns requiresAccessToken with value true'
-      description <<~DESCRIPTION
-        Bulk Data Server SHALL restrict bulk data file access with access token
-      DESCRIPTION
-      # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#response---complete-status'
-
-      input :status_response
-
-      run do
-        assert status_response.present?, 'Bulk Data Server status response not found'
-
-        requires_access_token = JSON.parse(status_response)['requiresAccessToken'].to_s.downcase
-        output requires_access_token: requires_access_token
-
-        assert requires_access_token.present? && requires_access_token == 'true',
-               'Bulk Data file server access SHALL require access token'
       end
     end
 

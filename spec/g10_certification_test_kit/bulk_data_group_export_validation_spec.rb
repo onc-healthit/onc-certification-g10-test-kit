@@ -53,10 +53,10 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExportValidation do
         .to eq('Could not verify this functionality when requiresAccessToken is not provided')
     end
 
-    it 'skips when requiresAccessToken is false' do
+    it 'omits when requiresAccessToken is false' do
       result = run(runnable, { requires_access_token: 'false', bulk_download_url: endpoint })
 
-      expect(result.result).to eq('skip')
+      expect(result.result).to eq('omit')
       expect(result.result_message).to eq('Could not verify this functionality when requiresAccessToken is false')
     end
 

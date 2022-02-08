@@ -44,7 +44,7 @@ module G10CertificationTestKit
 
     def build_headers(use_token)
       headers = { accept: 'application/fhir+ndjson' }
-      headers.merge!({ authorization: "Bearer #{bearer_token}" }) if use_token
+      headers.merge!({ authorization: "Bearer #{bearer_token}" }) if use_token == 'true'
       headers
     end
 
@@ -145,9 +145,6 @@ module G10CertificationTestKit
 
     def perform_bulk_export_validation
       skip_if status_output.blank?, 'Could not verify this functionality when Bulk Status Output is not provided'
-      skip_if requires_access_token.blank?,
-              'Could not verify this functionality when requiresAccessToken is not provided'
-      skip_if requires_access_token == 'false', 'Could not verify this functionality when requiresAccessToken is false'
       skip_if (requires_access_token == 'true' && bearer_token.blank?),
               'Could not verify this functionality when Bearer Token is required and not provided'
 
