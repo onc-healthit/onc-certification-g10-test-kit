@@ -19,7 +19,7 @@ module G10CertificationTestKit
           description: 'The Group ID associated with the group of patients to be exported.',
           default: '1'
 
-    output :requires_access_token, :status_output
+    output :requires_access_token, :status_output, :bulk_download_url
 
     fhir_client :bulk_server do
       url :bulk_server_url
