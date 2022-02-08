@@ -1,6 +1,7 @@
 module G10CertificationTestKit
   class SMARTAppLaunchInvalidAudGroup < Inferno::TestGroup
     title 'SMART App Launch Error: Invalid AUD Parameter'
+    short_title 'SMART Invalid AUD Launch'
     description %(
       # Background
 

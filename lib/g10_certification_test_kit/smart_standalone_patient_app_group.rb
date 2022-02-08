@@ -8,6 +8,15 @@ require_relative 'well_known_capabilities_test'
 module G10CertificationTestKit
   class SmartStandalonePatientAppGroup < Inferno::TestGroup
     title 'Standalone Patient App - Full Access'
+    short_title 'Standalone Patient App'
+
+    input_instructions %(
+      Enter in the appropriate scope to enable patient-level access to all
+      relevant resources. In addition, support for the OpenID Connect (openid
+      fhirUser), refresh tokens (offline_access), and patient context
+      (launch/patient) are required.
+    )
+
     description %(
         This scenario demonstrates the ability of a system to perform a Patient
         Standalone Launch to a [SMART on

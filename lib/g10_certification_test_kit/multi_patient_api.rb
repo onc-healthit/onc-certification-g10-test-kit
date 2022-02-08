@@ -4,7 +4,16 @@ require_relative 'bulk_data_group_export_validation'
 
 module G10CertificationTestKit
   class MultiPatientAPIGroup < Inferno::TestGroup
-    title 'Multi-Patient API'
+    title 'Multi-Patient Authorization and API'
+    short_title 'Multi-Patient API'
+
+    input_instructions %(
+      Register Inferno as a bulk data client with the following information, and
+      enter the client id and client registration in the appropriate fields. This
+      set of tests only checks the Group export. Enter the group export
+      information in the appropriate box.
+    )
+
     description %(
       Demonstrate the ability to export clinical data for multiple patients in
       a group using [FHIR Bulk Data Access

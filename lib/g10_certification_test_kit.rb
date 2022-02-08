@@ -35,6 +35,7 @@ Inferno::Terminology::Loader.load_validators
 module G10CertificationTestKit
   class G10CertificationSuite < Inferno::TestSuite
     title '2015 Edition Cures Update - Standardized API Testing (v2 Preview)'
+    short_title 'ONC Standardized API'
     id :g10_certification
 
     WARNING_INCLUSION_FILTERS = [
@@ -69,6 +70,22 @@ module G10CertificationTestKit
           end.compact
       end
     end
+
+    description %(
+      The ONC Inferno (g)(10) certification test kit is a testing tool for
+      Health Level 7 (HL7®) Fast Healthcare Interoperability Resources (FHIR®)
+      services seeking to meet the requirements of the Standardized API for
+      Patient and Population Services criterion § 170.315(g)(10) in the 2015
+      Edition Cures Update.
+
+      This test kit is the successor to "Inferno Program Edition", and is currently
+      in preview status.  Please [create an issue](https://github.com/inferno-framework/g10-certification-test-kit/issues)
+      if there are discrepencies between these tests and the "Inferno Program Edition v1.9" tests.
+
+      To get started, select a scenario in the menu on the left and click 'Run Tests.'
+      Systems must pass all tests in order to qualify for ONC certification.
+
+    )
 
     group from: 'g10_smart_standalone_patient_app'
 

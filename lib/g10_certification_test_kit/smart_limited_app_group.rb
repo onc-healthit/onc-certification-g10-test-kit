@@ -5,6 +5,16 @@ require_relative 'restricted_resource_type_access_group'
 module G10CertificationTestKit
   class SmartLimitedAppGroup < Inferno::TestGroup
     title 'Standalone Patient App - Limited Access'
+    short_title 'Limited Access App'
+
+    input_instructions %(
+      The purpose of this test is to demonstrate that users can restrict access
+      granted to apps to a limited number of resources. Enter which resources the
+      user will grant access to below, and during the launch process only grant
+      access to those resources. Inferno will verify that access granted matches
+      these expectations.
+    )
+
     description %(
       This scenario demonstrates the ability to perform a Patient Standalone
       Launch to a [SMART on FHIR](http://www.hl7.org/fhir/smart-app-launch/)
