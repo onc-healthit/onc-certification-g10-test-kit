@@ -8,6 +8,11 @@ module G10CertificationTestKit
     title 'EHR Practitioner App'
     short_title 'EHR Practitioner App'
     input_instructions %(
+      Register Inferno as an EHR-launched application using the following information:
+
+      * Launch URI: `#{SMARTAppLaunch::AppLaunchTest.config.options[:launch_uri]}`
+      * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
+
       Enter in the appropriate scope to enable user-level access to all relevant
       resources. In addition, support for the OpenID Connect (openid fhirUser),
       refresh tokens (offline_access), and EHR context (launch) are required. This
