@@ -13,7 +13,7 @@ module G10CertificationTestKit
       refresh tokens (offline_access), and EHR context (launch) are required. This
       test expects that the EHR will launch the application with a patient context.
 
-      After execute is pressed, Inferno will wait for the system under test to launch
+      After submit is pressed, Inferno will wait for the system under test to launch
       the application.
     )
 
