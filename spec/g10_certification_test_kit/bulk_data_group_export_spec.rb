@@ -43,10 +43,6 @@ RSpec.describe G10CertificationTestKit::BulkDataGroupExport do
     Inferno::TestRunner.new(test_session: test_session, test_run: test_run).run(runnable)
   end
 
-  # TODO: Create after implementing TLS Tester Class.
-  # describe 'endpoint TLS tests' do
-  # end
-
   describe '[Bulk Data Server declares support for Group export operation in CapabilityStatement] test' do
     let(:runnable) { group.tests[1] }
     let(:no_export_capability_statement) do

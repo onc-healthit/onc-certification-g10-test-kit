@@ -55,15 +55,21 @@ module G10CertificationTestKit
       url :bulk_token_endpoint
     end
 
-    # TODO: Create after implementing TLS Tester Class.
-    test do
+    test from: :tls_version_test do
       title 'Authorization service token endpoint secured by transport layer security'
       description <<~DESCRIPTION
-        [§170.315(g)(10) Test Procedure](https://www.healthit.gov/test-method/standardized-api-patient-and-population-services) requires that
-        all exchanges described herein between a client and a server SHALL be secured using Transport Layer Security (TLS) Protocol Version 1.2 (RFC5246).
+        [§170.315(g)(10) Test
+        Procedure](https://www.healthit.gov/test-method/standardized-api-patient-and-population-services)
+        requires that all exchanges described herein between a client and a
+        server SHALL be secured using Transport Layer Security (TLS) Protocol
+        Version 1.2 (RFC5246).
       DESCRIPTION
-      # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#security-considerations'
-      run { pass }
+      id :g10_bulk_token_tls_version
+
+      config(
+        inputs: { url: { name: :bulk_token_endpoint } },
+        options: {  minimum_allowed_version: OpenSSL::SSL::TLS1_2_VERSION }
+      )
     end
 
     test do

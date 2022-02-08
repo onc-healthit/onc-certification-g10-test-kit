@@ -27,18 +27,21 @@ module G10CertificationTestKit
           blank to verify all Device resources against the Implantable Device profile.',
           optional: true
 
-    # TODO: Create after implementing TLS Tester Class.
-    test do
+    test from: :tls_version_test do
       title 'Bulk Data Server is secured by transport layer security'
       description <<~DESCRIPTION
         [§170.315(g)(10) Test Procedure]
-        (https://www.healthit.gov/test-method/standardized-api-patient-and-population-services) requires that
-        all exchanges described herein between a client and a server SHALL be secured using Transport Layer Security#{' '}
-        (TLS) Protocol Version 1.2 (RFC5246).
+        (https://www.healthit.gov/test-method/standardized-api-patient-and-population-services)
+        requires that all exchanges described herein between a client and a
+        server SHALL be secured using Transport Layer Security  (TLS)
+        Protocol Version 1.2 (RFC5246).
       DESCRIPTION
-      # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#security-considerations'
+      id :g10_bulk_file_server_tls_version
 
-      run { pass }
+      config(
+        inputs: { url: { name: :bulk_download_url } },
+        options: { minimum_allowed_version: OpenSSL::SSL::TLS1_2_VERSION }
+      )
     end
 
     test do
@@ -54,17 +57,17 @@ module G10CertificationTestKit
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#file-request'
 
+      input :bulk_download_url
+
       run do
-        skip_if status_output.blank?, 'Could not verify this functionality when Bulk Status Output is not provided'
+        skip_if bulk_download_url.blank?, 'Could not verify this functionality when no download link was provided'
         skip_if requires_access_token.blank?,
                 'Could not verify this functionality when requiresAccessToken is not provided'
         skip_if requires_access_token == 'false',
                 'Could not verify this functionality when requiresAccessToken is false'
         skip_if bearer_token.blank?, 'Could not verify this functionality when Bearer Token is not provided'
 
-        output_endpoint = JSON.parse(status_output)[0]['url']
-
-        get(output_endpoint, headers: { accept: 'application/fhir+ndjson' })
+        get(bulk_download_url, headers: { accept: 'application/fhir+ndjson' })
         assert_response_status([400, 401])
       end
     end
