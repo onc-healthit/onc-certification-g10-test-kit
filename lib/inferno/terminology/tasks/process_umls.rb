@@ -12,7 +12,7 @@ module Inferno
 
         attr_reader :version
 
-        def initalize(version:)
+        def initialize(version:)
           @version = version
         end
 
