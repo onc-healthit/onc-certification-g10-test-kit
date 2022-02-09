@@ -11,7 +11,7 @@ module G10CertificationTestKit
     short_title 'Standalone Patient App'
 
     input_instructions %(
-      Register Inferno as an standalone application using the following information:
+      Register Inferno as a standalone application using the following information:
 
       * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
 
