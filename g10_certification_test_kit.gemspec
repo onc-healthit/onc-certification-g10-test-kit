@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.license       = 'Apache-2.0'
   spec.add_runtime_dependency 'bloomer', '~> 1.0.0'
   spec.add_runtime_dependency 'colorize', '~> 0.8.1'
-  spec.add_runtime_dependency 'inferno_core', '~> 0.1.2'
+  spec.add_runtime_dependency 'inferno_core', '~> 0.1.3'
   spec.add_runtime_dependency 'json-jwt', '~> 1.13.0'
   spec.add_runtime_dependency 'ndjson', '~> 1.0.0'
   spec.add_development_dependency 'database_cleaner-sequel', '~> 1.8'
