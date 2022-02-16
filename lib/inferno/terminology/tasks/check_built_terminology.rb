@@ -35,7 +35,7 @@ module Inferno
         end
 
         def expected_manifest
-          YAML.load_file(File.join(Dir.pwd, 'expected_manifest.yml'))
+          YAML.load_file(File.join(__dir__, '..', 'expected_manifest.yml'))
         end
 
         def new_manifest
