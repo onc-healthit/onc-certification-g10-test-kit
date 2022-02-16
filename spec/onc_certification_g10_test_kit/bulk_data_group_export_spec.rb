@@ -50,6 +50,11 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExport do
       capability_statement_json['rest'][0]['resource'][1]['operation'][0]['definition'] = ''
       capability_statement_json.to_json
     end
+    let(:capability_statement_with_version) do
+      capability_statement_json = JSON.parse(capability_statement)
+      capability_statement_json['rest'][0]['resource'][1]['operation'][0]['definition'] += '|1.0.1'
+      capability_statement_json.to_json
+    end
 
     it 'fails when CapabilityStatement can not be retrieved' do
       stub_request(:get, "#{bulk_server_url}/metadata")
@@ -85,6 +90,15 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExport do
     it 'passes when server declares support in CapabilityStatement' do
       stub_request(:get, "#{bulk_server_url}/metadata")
         .to_return(status: 200, body: capability_statement)
+
+      result = run(runnable, base_input)
+
+      expect(result.result).to eq('pass')
+    end
+
+    it 'passes when server declares support with version in CapabilityStatement' do
+      stub_request(:get, "#{bulk_server_url}/metadata")
+        .to_return(status: 200, body: capability_statement_with_version)
 
       result = run(runnable, base_input)
 

@@ -61,17 +61,17 @@ module ONCCertificationG10TestKit
         assert_valid_json(request.response_body)
         capability_statement = FHIR.from_contents(request.response_body)
 
-        definition = 'http://hl7.org/fhir/uv/bulkdata/OperationDefinition/group-export'
-
-        capability_statement.rest.each do |rest|
-          groups = rest.resource.select { |resource| resource.type == 'Group' }
-
-          pass if groups.any? do |group|
-            group.operation.any? { |operation| operation.definition == definition }
+        has_export_operation = capability_statement&.rest&.any? do |rest|
+          rest.resource&.any? do |resource|
+            resource.type == 'Group' &&
+              resource.respond_to?(:operation) &&
+              resource.operation&.find do |operation|
+                operation.definition&.match(%r{^http://hl7.org/fhir/uv/bulkdata/OperationDefinition/group-export(\|\S+)?})
+              end
           end
         end
 
-        assert false, 'Server CapabilityStatement did not declare support for export operation in Group resource'
+        assert has_export_operation, 'Server CapabilityStatement did not declare support for export operation in Group resource'
       end
     end
 
