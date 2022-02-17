@@ -38,8 +38,15 @@ module Inferno
           YAML.load_file(File.join(__dir__, '..', 'expected_manifest.yml'))
         end
 
+        def new_manifest_path
+          @new_manifest_path ||=
+            File.join(Dir.pwd, 'resources', 'terminology', 'validators', 'bloom', 'manifest.yml')
+        end
+
         def new_manifest
-          YAML.load_file(File.join(Dir.pwd, 'resources', 'terminology', 'validators', 'bloom', 'manifest.yml'))
+          return [] unless File.exist? new_manifest_path
+
+          YAML.load_file(new_manifest_path)
         end
 
         def mismatched_value_sets
