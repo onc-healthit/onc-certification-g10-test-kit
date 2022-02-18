@@ -1,4 +1,4 @@
-module G10CertificationTestKit
+module ONCCertificationG10TestKit
   class UnauthorizedAccessTest < Inferno::Test
     title 'Server rejects unauthorized access'
     description %(

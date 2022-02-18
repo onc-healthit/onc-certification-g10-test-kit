@@ -1,6 +1,6 @@
-require_relative '../../lib/g10_certification_test_kit/resource_access_test'
+require_relative '../../lib/onc_certification_g10_test_kit/resource_access_test'
 
-RSpec.describe G10CertificationTestKit::ResourceAccessTest do
+RSpec.describe ONCCertificationG10TestKit::ResourceAccessTest do
   def run(runnable, inputs = {})
     test_run_params = { test_session_id: test_session.id }.merge(runnable.reference_hash)
     test_run = Inferno::Repositories::TestRuns.new.create(test_run_params)
@@ -16,7 +16,7 @@ RSpec.describe G10CertificationTestKit::ResourceAccessTest do
   end
 
   let(:test) do
-    Class.new(G10CertificationTestKit::ResourceAccessTest) do
+    Class.new(ONCCertificationG10TestKit::ResourceAccessTest) do
       fhir_client do
         url 'http://example.com/fhir'
         oauth_credentials :smart_credentials

@@ -1,7 +1,7 @@
-require_relative '../../lib/g10_certification_test_kit/bulk_data_group_export_validation'
+require_relative '../../lib/onc_certification_g10_test_kit/bulk_data_group_export_validation'
 require 'NDJSON'
 
-RSpec.describe G10CertificationTestKit::BulkDataGroupExportValidation do
+RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
   let(:group) { Inferno::Repositories::TestGroups.new.find('bulk_data_group_export_validation') }
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
   let(:test_session) { repo_create(:test_session, test_group_id: 'bulk_data_group_export_validation') }

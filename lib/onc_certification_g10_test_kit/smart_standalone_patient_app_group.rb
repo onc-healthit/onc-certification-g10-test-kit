@@ -5,7 +5,7 @@ require_relative 'unauthorized_access_test'
 require_relative 'unrestricted_resource_type_access_group'
 require_relative 'well_known_capabilities_test'
 
-module G10CertificationTestKit
+module ONCCertificationG10TestKit
   class SmartStandalonePatientAppGroup < Inferno::TestGroup
     title 'Standalone Patient App - Full Access'
     short_title 'Standalone Patient App'

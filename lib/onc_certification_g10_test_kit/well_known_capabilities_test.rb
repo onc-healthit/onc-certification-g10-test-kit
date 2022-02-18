@@ -1,4 +1,4 @@
-module G10CertificationTestKit
+module ONCCertificationG10TestKit
   class SMARTWellKnownCapabilitiesTest < Inferno::Test
     title 'Well-known configuration declares support for required capabilities'
     description %(

@@ -1,4 +1,4 @@
-RSpec.describe G10CertificationTestKit::PatientContextTest do
+RSpec.describe ONCCertificationG10TestKit::PatientContextTest do
   def run(runnable, inputs = {})
     test_run_params = { test_session_id: test_session.id }.merge(runnable.reference_hash)
     test_run = Inferno::Repositories::TestRuns.new.create(test_run_params)

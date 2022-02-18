@@ -1,6 +1,6 @@
 require_relative 'authorization_request_builder'
 
-module G10CertificationTestKit
+module ONCCertificationG10TestKit
   class BulkDataAuthorization < Inferno::TestGroup
     title 'Bulk Data Authorization'
     short_description 'Demonstrate SMART Backend Services Authorization for Bulk Data.'

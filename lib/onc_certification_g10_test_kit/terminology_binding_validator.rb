@@ -1,7 +1,7 @@
 require_relative '../inferno/terminology/terminology_validation'
 require_relative '../inferno/exceptions'
 
-module G10CertificationTestKit
+module ONCCertificationG10TestKit
   class TerminologyBindingValidator
     include USCore::FHIRResourceNavigation
     include Inferno::Terminology::TerminologyValidation

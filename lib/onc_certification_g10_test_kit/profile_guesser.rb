@@ -1,4 +1,4 @@
-module G10CertificationTestKit
+module ONCCertificationG10TestKit
   module ProfileGuesser
     def extract_profile(profile)
       if ['Location', 'Medication'].include?(profile)

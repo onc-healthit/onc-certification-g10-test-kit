@@ -1,4 +1,4 @@
-RSpec.describe G10CertificationTestKit::TerminologyBindingValidator do
+RSpec.describe ONCCertificationG10TestKit::TerminologyBindingValidator do
   let(:bad_code) { 'abc' }
   let(:system_url) { 'http://example.com/system' }
 

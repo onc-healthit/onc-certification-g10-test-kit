@@ -1,6 +1,6 @@
 require 'json/jwt'
 
-module G10CertificationTestKit
+module ONCCertificationG10TestKit
   class AuthorizationRequestBuilder
     def self.build(...)
       new(...).authorization_request

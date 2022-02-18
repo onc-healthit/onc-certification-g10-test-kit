@@ -1,4 +1,4 @@
-module G10CertificationTestKit
+module ONCCertificationG10TestKit
   class PatientContextTest < Inferno::Test
     title 'OAuth token exchange response body contains patient context and patient resource can be retrieved'
     description %(

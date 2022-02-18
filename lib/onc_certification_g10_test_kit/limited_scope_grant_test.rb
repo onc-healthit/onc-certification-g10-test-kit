@@ -1,4 +1,4 @@
-module G10CertificationTestKit
+module ONCCertificationG10TestKit
   class LimitedScopeGrantTest < Inferno::Test
     title 'OAuth token exchange response grants scope that is limited to those selected by user'
     description %(

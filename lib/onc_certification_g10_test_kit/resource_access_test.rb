@@ -1,4 +1,4 @@
-module G10CertificationTestKit
+module ONCCertificationG10TestKit
   class ResourceAccessTest < Inferno::Test
     id :g10_resource_access_test
     input :patient_id, :received_scopes

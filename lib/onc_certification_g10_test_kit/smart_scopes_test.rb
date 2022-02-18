@@ -1,4 +1,4 @@
-module G10CertificationTestKit
+module ONCCertificationG10TestKit
   class SMARTScopesTest < Inferno::Test
     title 'Patient-level access with OpenID Connect and Refresh Token scopes used.'
     description %(

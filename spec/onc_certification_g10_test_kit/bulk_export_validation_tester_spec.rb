@@ -1,8 +1,8 @@
-require_relative '../../lib/g10_certification_test_kit/bulk_export_validation_tester'
+require_relative '../../lib/onc_certification_g10_test_kit/bulk_export_validation_tester'
 require 'NDJSON'
 
 class BulkExportValidationTesterClass < Inferno::Test
-  include G10CertificationTestKit::BulkExportValidationTester
+  include ONCCertificationG10TestKit::BulkExportValidationTester
   attr_accessor :status_output, :requires_access_token, :bearer_token, :resource_type, :lines_to_validate, :scratch,
                 :bulk_device_types_in_group
 
@@ -11,7 +11,7 @@ class BulkExportValidationTesterClass < Inferno::Test
   end
 end
 
-RSpec.describe G10CertificationTestKit::BulkExportValidationTester do
+RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
   let(:url) { 'https://example1.com' }
   let(:status_output) { "[{\"url\":\"#{url}\",\"type\":\"Patient\",\"count\":2}]" }
   let(:requires_access_token) { 'true' }

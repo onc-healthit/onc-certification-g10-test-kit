@@ -1,6 +1,6 @@
 require_relative 'resource_access_test'
 
-module G10CertificationTestKit
+module ONCCertificationG10TestKit
   class RestrictedAccessTest < ResourceAccessTest
     id :g10_restricted_access_test
     input :expected_resources

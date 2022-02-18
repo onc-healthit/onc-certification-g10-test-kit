@@ -2,7 +2,7 @@ require_relative 'bulk_data_authorization'
 require_relative 'bulk_data_group_export'
 require_relative 'bulk_data_group_export_validation'
 
-module G10CertificationTestKit
+module ONCCertificationG10TestKit
   class MultiPatientAPIGroup < Inferno::TestGroup
     title 'Multi-Patient Authorization and API'
     short_title 'Multi-Patient API'

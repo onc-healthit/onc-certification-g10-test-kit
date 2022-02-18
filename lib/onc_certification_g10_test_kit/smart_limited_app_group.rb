@@ -2,7 +2,7 @@ require_relative 'patient_context_test'
 require_relative 'limited_scope_grant_test'
 require_relative 'restricted_resource_type_access_group'
 
-module G10CertificationTestKit
+module ONCCertificationG10TestKit
   class SmartLimitedAppGroup < Inferno::TestGroup
     title 'Standalone Patient App - Limited Access'
     short_title 'Limited Access App'

@@ -1,4 +1,4 @@
-module G10CertificationTestKit
+module ONCCertificationG10TestKit
   class TokenRevocationGroup < Inferno::TestGroup
     title 'Token Revocation'
     description 'Demonstrate the Health IT module is capable of revoking access granted to an application.'

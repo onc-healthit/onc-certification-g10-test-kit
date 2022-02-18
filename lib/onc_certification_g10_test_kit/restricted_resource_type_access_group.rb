@@ -1,6 +1,6 @@
 require_relative 'restricted_access_test'
 
-module G10CertificationTestKit
+module ONCCertificationG10TestKit
   class RestrictedResourceTypeAccessGroup < Inferno::TestGroup
     title 'Restricted Resource Type Access'
     description %(

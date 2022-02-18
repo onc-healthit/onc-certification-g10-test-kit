@@ -1,4 +1,4 @@
-module G10CertificationTestKit
+module ONCCertificationG10TestKit
   class SMARTPublicStandaloneLaunchGroup < SMARTAppLaunch::StandaloneLaunchGroup
     title 'Public Client Standalone Launch with OpenID Connect'
     short_title 'SMART Public Client Launch'

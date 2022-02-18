@@ -18,21 +18,21 @@ end
 require 'smart_app_launch_test_kit'
 require 'us_core'
 
-require_relative 'g10_certification_test_kit/smart_app_launch_invalid_aud_group'
-require_relative 'g10_certification_test_kit/smart_invalid_token_group'
-require_relative 'g10_certification_test_kit/smart_limited_app_group'
-require_relative 'g10_certification_test_kit/smart_standalone_patient_app_group'
-require_relative 'g10_certification_test_kit/smart_ehr_practitioner_app_group'
-require_relative 'g10_certification_test_kit/smart_public_standalone_launch_group'
-require_relative 'g10_certification_test_kit/multi_patient_api'
-require_relative 'g10_certification_test_kit/terminology_binding_validator'
-require_relative 'g10_certification_test_kit/token_revocation_group'
-require_relative 'g10_certification_test_kit/visual_inspection_and_attestations_group'
+require_relative 'onc_certification_g10_test_kit/smart_app_launch_invalid_aud_group'
+require_relative 'onc_certification_g10_test_kit/smart_invalid_token_group'
+require_relative 'onc_certification_g10_test_kit/smart_limited_app_group'
+require_relative 'onc_certification_g10_test_kit/smart_standalone_patient_app_group'
+require_relative 'onc_certification_g10_test_kit/smart_ehr_practitioner_app_group'
+require_relative 'onc_certification_g10_test_kit/smart_public_standalone_launch_group'
+require_relative 'onc_certification_g10_test_kit/multi_patient_api'
+require_relative 'onc_certification_g10_test_kit/terminology_binding_validator'
+require_relative 'onc_certification_g10_test_kit/token_revocation_group'
+require_relative 'onc_certification_g10_test_kit/visual_inspection_and_attestations_group'
 require_relative 'inferno/terminology'
 
 Inferno::Terminology::Loader.load_validators
 
-module G10CertificationTestKit
+module ONCCertificationG10TestKit
   class G10CertificationSuite < Inferno::TestSuite
     title 'ONC Certification (g)(10) Test Kit'
     short_title '(g)(10) Test Kit'

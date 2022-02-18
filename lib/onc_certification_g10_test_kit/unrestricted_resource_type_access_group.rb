@@ -1,6 +1,6 @@
 require_relative 'resource_access_test'
 
-module G10CertificationTestKit
+module ONCCertificationG10TestKit
   class UnrestrictedResourceTypeAccessGroup < Inferno::TestGroup
     title 'Unrestricted Resource Type Access'
     description %(

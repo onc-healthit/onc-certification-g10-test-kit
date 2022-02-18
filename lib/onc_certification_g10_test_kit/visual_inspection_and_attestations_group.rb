@@ -1,4 +1,4 @@
-module G10CertificationTestKit
+module ONCCertificationG10TestKit
   class VisualInspectionAndAttestationsGroup < Inferno::TestGroup
     title 'Visual Inspection and Attestation'
     short_title 'Visual Inspection'

@@ -1,4 +1,4 @@
-module G10CertificationTestKit
+module ONCCertificationG10TestKit
   class BaseTokenRefreshGroup < Inferno::TestGroup
     title 'Token Refresh'
     description %(

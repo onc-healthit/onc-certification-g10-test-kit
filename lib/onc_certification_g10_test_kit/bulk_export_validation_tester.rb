@@ -1,6 +1,6 @@
 require_relative 'profile_guesser'
 
-module G10CertificationTestKit
+module ONCCertificationG10TestKit
   module BulkExportValidationTester
     include USCore::MustSupportTest
     include ProfileGuesser

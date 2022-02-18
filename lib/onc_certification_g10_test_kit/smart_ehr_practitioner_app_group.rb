@@ -3,7 +3,7 @@ require_relative 'smart_scopes_test'
 require_relative 'unauthorized_access_test'
 require_relative 'well_known_capabilities_test'
 
-module G10CertificationTestKit
+module ONCCertificationG10TestKit
   class SmartEHRPractitionerAppGroup < Inferno::TestGroup
     title 'EHR Practitioner App'
     short_title 'EHR Practitioner App'
