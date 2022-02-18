@@ -34,8 +34,8 @@ Inferno::Terminology::Loader.load_validators
 
 module G10CertificationTestKit
   class G10CertificationSuite < Inferno::TestSuite
-    title '2015 Edition Cures Update - Standardized API Testing (v2 Preview)'
-    short_title 'ONC Standardized API'
+    title 'ONC Certification (g)(10) Test Kit'
+    short_title '(g)(10) Test Kit'
     id :g10_certification
 
     WARNING_INCLUSION_FILTERS = [
