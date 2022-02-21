@@ -1,6 +1,6 @@
 require_relative '../inferno/terminology/tasks/check_built_terminology'
 
-module G10CertificationTestKit
+module ONCCertificationG10TestKit
   class ConfigurationChecker
     EXPECTED_VALIDATOR_VERSION = '2.1.0'.freeze
 
@@ -17,8 +17,7 @@ module G10CertificationTestKit
     end
 
     def validator_url
-      @validator_url ||=
-        G10CertificationTestKit::G10CertificationSuite.find_validator(:default).url
+      @validator_url ||= G10CertificationSuite.find_validator(:default).url
     end
 
     def validator_version_message
