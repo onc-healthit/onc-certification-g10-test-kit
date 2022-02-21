@@ -1,4 +1,4 @@
-# G10CertificationTestKit (Preview Version)
+# ONC Certification (g)(10) Test Kit (Preview Version)
 
 This is a preview version of an
 [Inferno](https://github.com/inferno-framework/inferno-core) test kit for

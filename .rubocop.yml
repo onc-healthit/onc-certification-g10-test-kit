@@ -75,3 +75,6 @@ RSpec/NotToNot:
 Style/OpenStructUse:
   Exclude:
     - 'spec/**/*'
+
+Gemspec/RequireMFA:
+  Enabled: false
