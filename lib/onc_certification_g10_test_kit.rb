@@ -134,7 +134,13 @@ module ONCCertificationG10TestKit
       end
 
       USCore::USCoreTestSuite.groups.each do |group|
-        id = group.ancestors[1].id
+        test_group = group.ancestors[1]
+        id = test_group.id
+
+        if test_group.respond_to?(:metadata) && test_group.metadata.delayed?
+          test_group.children.reject! { |child| child.include? USCore::SearchTest }
+        end
+
         group from: id, exclude_optional: true
       end
     end
