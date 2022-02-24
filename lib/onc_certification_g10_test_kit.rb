@@ -19,6 +19,8 @@ require 'smart_app_launch_test_kit'
 require 'us_core'
 
 require_relative 'onc_certification_g10_test_kit/configuration_checker'
+require_relative 'onc_certification_g10_test_kit/version'
+
 require_relative 'onc_certification_g10_test_kit/smart_app_launch_invalid_aud_group'
 require_relative 'onc_certification_g10_test_kit/smart_invalid_token_group'
 require_relative 'onc_certification_g10_test_kit/smart_limited_app_group'
@@ -37,6 +39,7 @@ module ONCCertificationG10TestKit
   class G10CertificationSuite < Inferno::TestSuite
     title 'ONC Certification (g)(10) Standardized API Test Kit'
     short_title '(g)(10) Standardized API Test Kit'
+    version VERSION
     id :g10_certification
 
     check_configuration do
