@@ -34,8 +34,8 @@ Inferno::Terminology::Loader.load_validators
 
 module ONCCertificationG10TestKit
   class G10CertificationSuite < Inferno::TestSuite
-    title 'ONC Certification (g)(10) Test Kit'
-    short_title '(g)(10) Test Kit'
+    title 'ONC Certification (g)(10) Standardized API Test Kit'
+    short_title '(g)(10) Standardized API Test Kit'
     id :g10_certification
 
     WARNING_INCLUSION_FILTERS = [
@@ -72,20 +72,35 @@ module ONCCertificationG10TestKit
     end
 
     description %(
-      The ONC Inferno (g)(10) certification test kit is a testing tool for
+      The ONC Certification (g)(10) Standardized API Test Kit is a testing tool for
       Health Level 7 (HL7®) Fast Healthcare Interoperability Resources (FHIR®)
       services seeking to meet the requirements of the Standardized API for
       Patient and Population Services criterion § 170.315(g)(10) in the 2015
       Edition Cures Update.
 
-      This test kit is the successor to "Inferno Program Edition", and is currently
-      in preview status.  Please [create an issue](https://github.com/inferno-framework/g10-certification-test-kit/issues)
-      if there are discrepencies between these tests and the "Inferno Program Edition v1.9" tests.
+      This test kit is the successor to "Inferno Program Edition", and is
+      currently in preview status.  Please [create an
+      issue](https://github.com/inferno-framework/g10-certification-test-kit/issues)
+      if there are discrepencies between these tests and the "Inferno Program
+      Edition v1.9" tests.
 
-      To get started, select a scenario in the menu on the left and click 'Run Tests.'
+      To get started, please first register the Inferno client as a SMART App
+      with the following information:
+
+      * SMART Launch URI: `#{SMARTAppLaunch::AppLaunchTest.config.options[:launch_uri]}`
+      * OAuth Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
+
       Systems must pass all tests in order to qualify for ONC certification.
 
     )
+
+      input_instructions %(
+        Register Inferno as a SMART app using the following information:
+
+        * Launch URI: `#{SMARTAppLaunch::AppLaunchTest.config.options[:launch_uri]}`
+        * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
+
+      )
 
     group from: 'g10_smart_standalone_patient_app'
 
