@@ -79,6 +79,20 @@ module ONCCertificationG10TestKit
       end
     end
 
+    def self.jwks_json
+      @jwks_json ||= File.read(File.join(__dir__, 'onc_certification_g10_test_kit', 'bulk_data_jwks.json'))
+    end
+
+    def self.well_known_route_handler
+      ->(env) { [200, {}, [jwks_json]] }
+    end
+
+    route(
+      :get,
+      '/.well-known/jwks.json',
+      self.well_known_route_handler
+    )
+
     description %(
       The ONC Certification (g)(10) Standardized API Test Kit is a testing tool for
       Health Level 7 (HL7®) Fast Healthcare Interoperability Resources (FHIR®)
