@@ -158,8 +158,7 @@ module ONCCertificationG10TestKit
 
       input :url,
             title: 'FHIR Endpoint',
-            description: 'URL of the FHIR endpoint used by SMART applications',
-            default: 'https://inferno.healthit.gov/reference-server/r4'
+            description: 'URL of the FHIR endpoint used by SMART applications'
       input :smart_credentials,
             title: 'SMART App Launch Credentials',
             type: :oauth_credentials,

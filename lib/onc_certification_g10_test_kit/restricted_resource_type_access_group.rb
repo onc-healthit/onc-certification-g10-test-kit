@@ -55,12 +55,8 @@ module ONCCertificationG10TestKit
 
     config(
       inputs: {
-        client_id: {
-          default: 'SAMPLE_CONFIDENTIAL_CLIENT_ID'
-        },
         client_secret: {
-          optional: false,
-          default: 'SAMPLE_CONFIDENTIAL_CLIENT_SECRET'
+          optional: false
         }
       }
     )
