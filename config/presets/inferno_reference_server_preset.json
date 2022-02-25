@@ -1,0 +1,572 @@
+{
+  "title": "Inferno Reference Server",
+  "id": null,
+  "test_suite_id": "g10_certification",
+  "inputs": [
+    {
+      "name": "url",
+      "type": "text",
+      "title": "Standalone FHIR Endpoint",
+      "description": "URL of the FHIR endpoint used by standalone applications",
+      "value": "https://inferno.healthit.gov/reference-server/r4"
+    },
+    {
+      "name": "standalone_client_id",
+      "type": "text",
+      "title": "Standalone Client ID",
+      "description": "Client ID provided during registration of Inferno as a standalone application",
+      "value": "SAMPLE_CONFIDENTIAL_CLIENT_ID"
+    },
+    {
+      "name": "standalone_requested_scopes",
+      "type": "textarea",
+      "title": "Standalone Scope",
+      "description": "OAuth 2.0 scope provided by system to enable all required functionality",
+      "value": "launch/patient openid fhirUser offline_access patient/Medication.read patient/AllergyIntolerance.read patient/CarePlan.read patient/CareTeam.read patient/Condition.read patient/Device.read patient/DiagnosticReport.read patient/DocumentReference.read patient/Encounter.read patient/Goal.read patient/Immunization.read patient/Location.read patient/MedicationRequest.read patient/Observation.read patient/Organization.read patient/Patient.read patient/Practitioner.read patient/Procedure.read patient/Provenance.read patient/PractitionerRole.read"
+    },
+    {
+      "name": "use_pkce",
+      "type": "radio",
+      "title": "Proof Key for Code Exchange (PKCE)",
+      "options": {
+        "list_options": [
+          {
+            "label": "Enabled",
+            "value": "true"
+          },
+          {
+            "label": "Disabled",
+            "value": "false"
+          }
+        ]
+      },
+      "value": "false"
+    },
+    {
+      "name": "pkce_code_challenge_method",
+      "type": "radio",
+      "optional": true,
+      "title": "PKCE Code Challenge Method",
+      "options": {
+        "list_options": [
+          {
+            "label": "S256",
+            "value": "S256"
+          },
+          {
+            "label": "plain",
+            "value": "plain"
+          }
+        ]
+      },
+      "value": "S256"
+    },
+    {
+      "name": "standalone_client_secret",
+      "type": "text",
+      "title": "Standalone Client Secret",
+      "description": "Client Secret provided during registration of Inferno as a standalone application",
+      "value": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET"
+    },
+    {
+      "name": "expected_resources",
+      "type": "text",
+      "value": null
+    },
+    {
+      "name": "limited_requested_scopes",
+      "type": "textarea",
+      "title": "Standalone Scope",
+      "description": "OAuth 2.0 scope provided by system to enable all required functionality",
+      "value": "launch/patient openid fhirUser offline_access patient/Medication.read patient/AllergyIntolerance.read patient/CarePlan.read patient/CareTeam.read patient/Condition.read patient/Device.read patient/DiagnosticReport.read patient/DocumentReference.read patient/Encounter.read patient/Goal.read patient/Immunization.read patient/Location.read patient/MedicationRequest.read patient/Observation.read patient/Organization.read patient/Patient.read patient/Practitioner.read patient/Procedure.read patient/Provenance.read patient/PractitionerRole.read"
+    },
+    {
+      "name": "ehr_client_id",
+      "type": "text",
+      "value": "SAMPLE_CONFIDENTIAL_CLIENT_ID"
+    },
+    {
+      "name": "ehr_requested_scopes",
+      "type": "text",
+      "value": "launch openid fhirUser offline_access user/Medication.read user/AllergyIntolerance.read user/CarePlan.read user/CareTeam.read user/Condition.read user/Device.read user/DiagnosticReport.read user/DocumentReference.read user/Encounter.read user/Goal.read user/Immunization.read user/Location.read user/MedicationRequest.read user/Observation.read user/Organization.read user/Patient.read user/Practitioner.read user/Procedure.read user/Provenance.read user/PractitionerRole.read"
+    },
+    {
+      "name": "ehr_client_secret",
+      "type": "text",
+      "optional": false,
+      "value": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET"
+    },
+    {
+      "name": "patient_ids",
+      "type": "text",
+      "title": "Patient IDs",
+      "description": "Comma separated list of patient IDs that in sum contain all MUST SUPPORT elements",
+      "value": "85,355"
+    },
+    {
+      "name": "implantable_device_codes",
+      "type": "text",
+      "title": "Implantable Device Type Code",
+      "description": "Enter the code for an Implantable Device type, or multiple codes separated by commas. If blank, Inferno will validate all Device resources against the Implantable Device profile",
+      "optional": true,
+      "value": null
+    },
+    {
+      "name": "bulk_token_endpoint",
+      "type": "text",
+      "title": "Backend Services Token Endpoint",
+      "description": "The OAuth 2.0 Token Endpoint used by the Backend Services specification\n                        to provide bearer tokens.",
+      "value": "https://inferno.healthit.gov/bulk-data-server/auth/token"
+    },
+    {
+      "name": "bulk_client_id",
+      "type": "text",
+      "title": "Bulk Data Client ID",
+      "description": "Client ID provided at registration to the Inferno application.",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJlZ2lzdHJhdGlvbi10b2tlbiJ9.eyJqd2tzX3VybCI6Imh0dHBzOi8vaW5mZXJuby5oZWFsdGhpdC5nb3YvaW5mZXJuby8ud2VsbC1rbm93bi9qd2tzLmpzb24iLCJhY2Nlc3NUb2tlbnNFeHBpcmVJbiI6MTUsImlhdCI6MTU5OTE1NzgyMX0.-wulnE05BlY_Zcm5iP77Meqxr6iNiYxBsOADB5CGE8I"
+    },
+    {
+      "name": "bulk_scope",
+      "type": "text",
+      "title": "Bulk Data Scopes",
+      "description": "Bulk Data Scopes provided at registration to the Inferno application.",
+      "value": "system/*.read"
+    },
+    {
+      "name": "bulk_encryption_method",
+      "type": "radio",
+      "title": "Encryption Method",
+      "description": "The server is required to suport either ES384 or RS384 encryption methods\n                        for JWT signature verification. Select which method to use.",
+      "options": {
+        "list_options": [
+          {
+            "label": "ES384",
+            "value": "ES384"
+          },
+          {
+            "label": "RS384",
+            "value": "RS384"
+          }
+        ]
+      },
+      "value": "ES384"
+    },
+    {
+      "name": "bulk_server_url",
+      "type": "text",
+      "title": "Bulk Data FHIR URL",
+      "description": "The URL of the Bulk FHIR server.",
+      "value": "https://inferno.healthit.gov/bulk-data-server/eyJlcnIiOiIiLCJwYWdlIjoxMDAwMCwiZHVyIjoxMCwidGx0IjoxNSwibSI6MSwic3R1Ijo0fQ/fhir"
+    },
+    {
+      "name": "group_id",
+      "type": "text",
+      "title": "Group ID",
+      "description": "The Group ID associated with the group of patients to be exported.",
+      "value": "1"
+    },
+    {
+      "name": "bulk_timeout",
+      "type": "text",
+      "title": "Export Times Out after (1-600)",
+      "description": "While testing, Inferno waits for the server to complete the exporting task.\n          If the calculated totalTime is greater than the timeout value specified here,\n          Inferno bulk client stops testing. Please enter an integer for the maximum wait time in seconds.\n          If timeout is less than 1, Inferno uses default value 180.\n          If the timeout is greater than 600 (10 minutes), Inferno uses the maximum value 600.",
+      "value": 180
+    },
+    {
+      "name": "lines_to_validate",
+      "type": "text",
+      "title": "Limit validation to a maximum resource count",
+      "description": "To validate all, leave blank.",
+      "optional": true,
+      "value": null
+    },
+    {
+      "name": "bulk_patient_ids_in_group",
+      "type": "text",
+      "title": "Patient IDs in exported Group",
+      "description": "Comma separated list of every Patient ID that is in the specified Group. This information is\n          provided by the system under test to verify that data returned matches expectations. Leave blank to not\n          verify Group inclusion.",
+      "value": "d831ec91-c7a3-4a61-9312-7ff0c4a32134, e91975f5-9445-c11f-cabf-c3c6dae161f2"
+    },
+    {
+      "name": "bulk_device_types_in_group",
+      "type": "text",
+      "title": "Implantable Device Type Codes in exported Group",
+      "description": "Comma separated list of every Implantable Device type that is in the specified Group. This\n          information is provided by the system under test to verify that data returned matches expectations. Leave\n          blank to verify all Device resources against the Implantable Device profile.",
+      "optional": true,
+      "value": null
+    },
+    {
+      "name": "public_client_id",
+      "type": "text",
+      "title": "Standalone Client ID",
+      "description": "Client ID provided during registration of Inferno as a standalone application",
+      "value": "SAMPLE_PUBLIC_CLIENT_ID"
+    },
+    {
+      "name": "public_requested_scopes",
+      "type": "textarea",
+      "title": "Standalone Scope",
+      "description": "OAuth 2.0 scope provided by system to enable all required functionality",
+      "value": "launch/patient openid fhirUser offline_access patient/Medication.read patient/AllergyIntolerance.read patient/CarePlan.read patient/CareTeam.read patient/Condition.read patient/Device.read patient/DiagnosticReport.read patient/DocumentReference.read patient/Encounter.read patient/Goal.read patient/Immunization.read patient/Location.read patient/MedicationRequest.read patient/Observation.read patient/Organization.read patient/Patient.read patient/Practitioner.read patient/Procedure.read patient/Provenance.read patient/PractitionerRole.read"
+    },
+    {
+      "name": "public_client_secret",
+      "type": "text",
+      "optional": true,
+      "title": "Standalone Client Secret",
+      "description": "Client Secret provided during registration of Inferno as a standalone application",
+      "locked": true,
+      "value": null
+    },
+    {
+      "name": "token_revocation_attestation",
+      "type": "radio",
+      "title": "Prior to executing test, Health IT developer demonstrated revoking tokens provided during patient standalone launch.",
+      "options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      },
+      "value": "false"
+    },
+    {
+      "name": "token_revocation_notes",
+      "type": "textarea",
+      "title": "Notes, if applicable:",
+      "optional": true,
+      "value": null
+    },
+    {
+      "name": "single_patient_registration_supported",
+      "type": "radio",
+      "title": "Health IT Module demonstrated support for application registration for single patients.",
+      "options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      },
+      "value": "false"
+    },
+    {
+      "name": "single_patient_registration_notes",
+      "type": "textarea",
+      "title": "Notes, if applicable:",
+      "optional": true,
+      "value": null
+    },
+    {
+      "name": "multiple_patient_registration_supported",
+      "type": "radio",
+      "title": "Health IT Module demonstrated support for application registration for multiple patients.",
+      "options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      },
+      "value": "false"
+    },
+    {
+      "name": "multiple_patient_registration_notes",
+      "type": "textarea",
+      "title": "Notes, if applicable:",
+      "optional": true,
+      "value": null
+    },
+    {
+      "name": "resource_authorization_gui_supported",
+      "type": "radio",
+      "title": "Health IT Module demonstrated a graphical user interface for user to authorize FHIR resources.",
+      "options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      },
+      "value": "false"
+    },
+    {
+      "name": "resource_authorization_gui_notes",
+      "type": "textarea",
+      "title": "Notes, if applicable:",
+      "optional": true,
+      "value": null
+    },
+    {
+      "name": "offline_access_notification_supported",
+      "type": "radio",
+      "title": "Health IT Module informed patient when \"offline_access\" scope is being granted during authorization.",
+      "options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      },
+      "value": "false"
+    },
+    {
+      "name": "offline_access_notification_notes",
+      "type": "textarea",
+      "title": "Notes, if applicable:",
+      "optional": true,
+      "value": null
+    },
+    {
+      "name": "refresh_token_period_attestation",
+      "type": "radio",
+      "title": "Health IT Module attested that refresh tokens are valid for a period of no shorter than three months.",
+      "options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      },
+      "value": "false"
+    },
+    {
+      "name": "refresh_token_period_notes",
+      "type": "textarea",
+      "title": "Notes, if applicable:",
+      "optional": true,
+      "value": null
+    },
+    {
+      "name": "token_validation_support",
+      "type": "radio",
+      "title": "Health IT developer demonstrated the ability of the Health IT Module / authorization server to validate token it has issued.",
+      "options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      },
+      "value": "false"
+    },
+    {
+      "name": "token_validation_notes",
+      "type": "textarea",
+      "title": "Notes, if applicable:",
+      "optional": true,
+      "value": null
+    },
+    {
+      "name": "information_accuracy_attestation",
+      "type": "radio",
+      "title": "Tester verifies that all information is accurate and without omission.",
+      "options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      },
+      "value": "false"
+    },
+    {
+      "name": "information_accuracy_notes",
+      "type": "textarea",
+      "title": "Notes, if applicable:",
+      "optional": true,
+      "value": null
+    },
+    {
+      "name": "multi_patient_scopes_attestation",
+      "type": "radio",
+      "title": "Information returned no greater than scopes pre-authorized for multi-patient queries.",
+      "options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      },
+      "value": "false"
+    },
+    {
+      "name": "multi_patient_scopes_notes",
+      "type": "textarea",
+      "title": "Notes, if applicable:",
+      "optional": true,
+      "value": null
+    },
+    {
+      "name": "developer_documentation_attestation",
+      "type": "radio",
+      "title": "Health IT developer demonstrated the documentation is available at a publicly accessible URL.",
+      "options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      },
+      "value": "false"
+    },
+    {
+      "name": "developer_documentation_notes",
+      "type": "textarea",
+      "title": "Notes, if applicable:",
+      "optional": true,
+      "value": null
+    },
+    {
+      "name": "jwks_cache_attestation",
+      "type": "radio",
+      "title": "Health IT developer confirms the Health IT module does not cache the JWK Set received via a TLS-protected URL for longer than the cache-control header indicates.",
+      "options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      },
+      "value": "false"
+    },
+    {
+      "name": "jwks_cache_notes",
+      "type": "textarea",
+      "title": "Notes, if applicable:",
+      "optional": true,
+      "value": null
+    },
+    {
+      "name": "patient_suffix_attestation",
+      "type": "radio",
+      "title": "Health IT developer demonstrates support for the Patient Demographics Suffix USCDI v1 element.",
+      "options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      },
+      "value": "false"
+    },
+    {
+      "name": "patient_suffix_notes",
+      "type": "textarea",
+      "title": "Notes, if applicable:",
+      "optional": true,
+      "value": null
+    },
+    {
+      "name": "patient_previous_name_attestation",
+      "type": "radio",
+      "title": "Health IT developer demonstrates support for the Patient Demographics Previous Name USCDI v1 element.",
+      "options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      },
+      "value": "false"
+    },
+    {
+      "name": "patient_previous_name_notes",
+      "type": "textarea",
+      "title": "Notes, if applicable:",
+      "optional": true,
+      "value": null
+    },
+    {
+      "name": "native_refresh_attestation",
+      "type": "radio",
+      "title": "Health IT developer demonstrates support for issuing refresh tokens to native applications.",
+      "options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      },
+      "value": "false"
+    },
+    {
+      "name": "native_refresh_notes",
+      "type": "textarea",
+      "title": "Notes, if applicable:",
+      "optional": true,
+      "value": null
+    }
+  ]
+}
