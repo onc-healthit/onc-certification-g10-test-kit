@@ -174,11 +174,13 @@ module ONCCertificationG10TestKit
         test_group = group.ancestors[1]
         id = test_group.id
 
+        group_config = {}
         if test_group.respond_to?(:metadata) && test_group.metadata.delayed?
           test_group.children.reject! { |child| child.include? USCore::SearchTest }
+          group_config[:options] = { read_all_resources: true }
         end
 
-        group from: id, exclude_optional: true
+        group(from: id, exclude_optional: true, config: group_config )
       end
     end
 
