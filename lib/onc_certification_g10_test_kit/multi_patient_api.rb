@@ -13,8 +13,7 @@ module ONCCertificationG10TestKit
       This set of tests only checks the Group export. Enter the group export
       information in the appropriate box.
 
-      If the server supports it, register Inferno with the following JWK Set
-      Url:
+      Register Inferno with the following JWK Set Url:
 
       * `#{Inferno::Application[:base_url]}/custom/g10_certification/.well-known/jwks.json`
     )
