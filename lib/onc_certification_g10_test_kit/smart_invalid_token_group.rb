@@ -7,7 +7,7 @@ module ONCCertificationG10TestKit
 
       The Invalid Access Token Request Sequence verifies that a SMART Launch
       Sequence, specifically the [Standalone
-      Launch](http://hl7.org/fhir/smart-app-launch/#standalone-launch-sequence)
+      Launch](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#standalone-launch-sequence)
       Sequence, does not work in the case where the client sends an invalid
       Authorization code or client ID during the code exchange step. This must
       not result in a successful launch.

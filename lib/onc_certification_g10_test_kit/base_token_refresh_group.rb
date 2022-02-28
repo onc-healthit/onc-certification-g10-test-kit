@@ -12,7 +12,7 @@ module ONCCertificationG10TestKit
 
       Token refreshes are accomplished through a `POST` request to the token
       exchange endpoint as described in the [SMART App Launch
-      Framework](http://www.hl7.org/fhir/smart-app-launch/#step-5-later-app-uses-a-refresh-token-to-obtain-a-new-access-token).
+      Framework](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#step-5-later-app-uses-a-refresh-token-to-obtain-a-new-access-token).
 
       # Test Methodology
 
@@ -25,7 +25,7 @@ module ONCCertificationG10TestKit
       * [The OAuth 2.0 Authorization
         Framework](https://tools.ietf.org/html/rfc6749)
       * [Using a refresh token to obtain a new access
-        token](http://hl7.org/fhir/smart-app-launch/#step-5-later-app-uses-a-refresh-token-to-obtain-a-new-access-token)
+        token](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#step-5-later-app-uses-a-refresh-token-to-obtain-a-new-access-token)
     )
     id :g10_token_refresh
 

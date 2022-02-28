@@ -17,7 +17,7 @@ module ONCCertificationG10TestKit
 
     description %(
       This scenario demonstrates the ability to perform a Patient Standalone
-      Launch to a [SMART on FHIR](http://www.hl7.org/fhir/smart-app-launch/)
+      Launch to a [SMART on FHIR](http://hl7.org/fhir/smart-app-launch/1.0.0/)
       confidential client with limited access granted to the app based on user
       input. The tester is expected to grant the application access to a subset
       of desired resource types.
@@ -31,7 +31,7 @@ module ONCCertificationG10TestKit
         # Background
 
         The [Standalone
-        Launch Sequence](http://hl7.org/fhir/smart-app-launch/app-launch.html#launch-app-standalone-launch)
+        Launch Sequence](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#standalone-launch-sequence)
         allows an app, like Inferno, to be launched independent of an
         existing EHR session. It is one of the two launch methods described in
         the SMART App Launch Framework alongside EHR Launch. The app will
@@ -49,7 +49,7 @@ module ONCCertificationG10TestKit
         For more information on the #{title}:
 
         * [Standalone Launch
-          Sequence](http://hl7.org/fhir/smart-app-launch/app-launch.html#launch-app-standalone-launch)
+          Sequence](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#standalone-launch-sequence)
       )
 
       config(
