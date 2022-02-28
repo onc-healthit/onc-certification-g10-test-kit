@@ -1,6 +1,8 @@
+require_relative 'lib/onc_certification_g10_test_kit/version'
+
 Gem::Specification.new do |spec|
   spec.name          = 'onc_certification_g10_test_kit'
-  spec.version       = '0.0.1'
+  spec.version       = ONCCertificationG10TestKit::VERSION
   spec.authors       = ['Stephen MacVicar']
   spec.email         = ['inferno@groups.mitre.org']
   spec.summary       = 'ONC Certification (g)(10) Test Kit'
