@@ -110,7 +110,7 @@ module ONCCertificationG10TestKit
         * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
 
         For the multi-patient API, register Inferno with the following JWK Set
-        Url, if the server supports it:
+        Url:
 
         * `#{Inferno::Application[:base_url]}/custom/g10_certification/.well-known/jwks.json`
       )
