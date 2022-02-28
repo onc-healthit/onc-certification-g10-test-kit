@@ -20,8 +20,8 @@ Inferno::Terminology::Loader.load_validators
 
 module ONCCertificationG10TestKit
   class G10CertificationSuite < Inferno::TestSuite
-    title 'ONC Certification (g)(10) Standardized API Test Kit'
-    short_title '(g)(10) Standardized API Test Kit'
+    title 'ONC Certification (g)(10) Standardized API'
+    short_title '(g)(10) Standardized API'
     version VERSION
     id :g10_certification
 
@@ -95,8 +95,12 @@ module ONCCertificationG10TestKit
       * SMART Launch URI: `#{SMARTAppLaunch::AppLaunchTest.config.options[:launch_uri]}`
       * OAuth Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
 
-      Systems must pass all tests in order to qualify for ONC certification.
+      For the multi-patient API, register Inferno with the following JWK Set
+      Url, if the server supports it:
 
+      * `#{Inferno::Application[:base_url]}/custom/g10_certification/.well-known/jwks.json`
+
+      Systems must pass all tests in order to qualify for ONC certification.
     )
 
     input_instructions %(
@@ -105,6 +109,10 @@ module ONCCertificationG10TestKit
         * Launch URI: `#{SMARTAppLaunch::AppLaunchTest.config.options[:launch_uri]}`
         * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
 
+        For the multi-patient API, register Inferno with the following JWK Set
+        Url, if the server supports it:
+
+        * `#{Inferno::Application[:base_url]}/custom/g10_certification/.well-known/jwks.json`
       )
 
     group from: 'g10_smart_standalone_patient_app'
