@@ -19,8 +19,7 @@ module ONCCertificationG10TestKit
           title: 'Patient IDs in exported Group',
           description: 'Comma separated list of every Patient ID that is in the specified Group. This information is
           provided by the system under test to verify that data returned matches expectations. Leave blank to not
-          verify Group inclusion.',
-          default: 'd831ec91-c7a3-4a61-9312-7ff0c4a32134, e91975f5-9445-c11f-cabf-c3c6dae161f2'
+          verify Group inclusion.'
     input :bulk_device_types_in_group,
           title: 'Implantable Device Type Codes in exported Group',
           description: 'Comma separated list of every Implantable Device type that is in the specified Group. This

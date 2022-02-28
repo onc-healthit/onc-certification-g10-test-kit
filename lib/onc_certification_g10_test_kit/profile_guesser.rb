@@ -2,11 +2,11 @@ module ONCCertificationG10TestKit
   module ProfileGuesser
     def extract_profile(profile)
       if ['Location', 'Medication'].include?(profile)
-        return USCore::USCoreTestSuite.metadata.find do |meta|
+        return USCoreTestKit::USCoreTestSuite.metadata.find do |meta|
                  meta.resource == profile
                end.profile_url
       end
-      "USCore::#{profile}Group".constantize.metadata.profile_url
+      "USCoreTestKit::#{profile}Group".constantize.metadata.profile_url
     end
 
     def observation_contains_code(observation_resource, code)

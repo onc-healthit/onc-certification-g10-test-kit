@@ -39,14 +39,12 @@ module ONCCertificationG10TestKit
         client_id: {
           name: :standalone_client_id,
           title: 'Standalone Client ID',
-          description: 'Client ID provided during registration of Inferno as a standalone application',
-          default: 'SAMPLE_CONFIDENTIAL_CLIENT_ID'
+          description: 'Client ID provided during registration of Inferno as a standalone application'
         },
         client_secret: {
           name: :standalone_client_secret,
           title: 'Standalone Client Secret',
-          description: 'Client Secret provided during registration of Inferno as a standalone application',
-          default: 'SAMPLE_CONFIDENTIAL_CLIENT_SECRET'
+          description: 'Client Secret provided during registration of Inferno as a standalone application'
         },
         requested_scopes: {
           name: :standalone_requested_scopes,
@@ -68,8 +66,7 @@ module ONCCertificationG10TestKit
         },
         url: {
           title: 'Standalone FHIR Endpoint',
-          description: 'URL of the FHIR endpoint used by standalone applications',
-          default: 'https://inferno.healthit.gov/reference-server/r4'
+          description: 'URL of the FHIR endpoint used by standalone applications'
         },
         smart_authorization_url: {
           title: 'OAuth 2.0 Authorize Endpoint',

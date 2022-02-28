@@ -44,8 +44,7 @@ module ONCCertificationG10TestKit
         },
         url: {
           title: 'Standalone FHIR Endpoint',
-          description: 'URL of the FHIR endpoint used by standalone applications',
-          default: 'https://inferno.healthit.gov/reference-server/r4'
+          description: 'URL of the FHIR endpoint used by standalone applications'
         },
         code: {
           name: :public_code

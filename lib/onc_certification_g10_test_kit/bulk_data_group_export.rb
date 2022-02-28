@@ -13,12 +13,10 @@ module ONCCertificationG10TestKit
     input :bearer_token
     input :bulk_server_url,
           title: 'Bulk Data FHIR URL',
-          description: 'The URL of the Bulk FHIR server.',
-          default: 'https://inferno.healthit.gov/bulk-data-server/eyJlcnIiOiIiLCJwYWdlIjoxMDAwMCwiZHVyIjoxMCwidGx0IjoxNSwibSI6MSwic3R1Ijo0fQ/fhir'
+          description: 'The URL of the Bulk FHIR server.'
     input :group_id,
           title: 'Group ID',
-          description: 'The Group ID associated with the group of patients to be exported.',
-          default: '1'
+          description: 'The Group ID associated with the group of patients to be exported.'
     input :bulk_timeout,
           title: 'Export Times Out after (1-600)',
           description: 'While testing, Inferno waits for the server to complete the exporting task.

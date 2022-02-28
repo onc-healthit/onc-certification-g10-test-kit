@@ -2,7 +2,7 @@ require_relative 'profile_guesser'
 
 module ONCCertificationG10TestKit
   module BulkExportValidationTester
-    include USCore::MustSupportTest
+    include USCoreTestKit::MustSupportTest
     include ProfileGuesser
 
     attr_reader :metadata
@@ -11,15 +11,24 @@ module ONCCertificationG10TestKit
     MIN_RESOURCE_COUNT = 2
 
     def observation_metadata
-      [USCore::PediatricBmiForAgeGroup.metadata, USCore::PediatricWeightForHeightGroup.metadata,
-       USCore::ObservationLabGroup.metadata, USCore::PulseOximetryGroup.metadata, USCore::SmokingstatusGroup.metadata,
-       USCore::HeadCircumferenceGroup.metadata, USCore::BpGroup.metadata, USCore::BodyheightGroup.metadata,
-       USCore::BodytempGroup.metadata, USCore::BodyweightGroup.metadata, USCore::HeartrateGroup.metadata,
-       USCore::ResprateGroup.metadata]
+      [
+        USCoreTestKit::PediatricBmiForAgeGroup.metadata,
+        USCoreTestKit::PediatricWeightForHeightGroup.metadata,
+        USCoreTestKit::ObservationLabGroup.metadata,
+        USCoreTestKit::PulseOximetryGroup.metadata,
+        USCoreTestKit::SmokingstatusGroup.metadata,
+        USCoreTestKit::HeadCircumferenceGroup.metadata,
+        USCoreTestKit::BpGroup.metadata,
+        USCoreTestKit::BodyheightGroup.metadata,
+        USCoreTestKit::BodytempGroup.metadata,
+        USCoreTestKit::BodyweightGroup.metadata,
+        USCoreTestKit::HeartrateGroup.metadata,
+        USCoreTestKit::ResprateGroup.metadata
+      ]
     end
 
     def diagnostic_metadata
-      [USCore::DiagnosticReportLabGroup.metadata, USCore::DiagnosticReportNoteGroup.metadata]
+      [USCoreTestKit::DiagnosticReportLabGroup.metadata, USCoreTestKit::DiagnosticReportNoteGroup.metadata]
     end
 
     def determine_metadata
@@ -27,11 +36,11 @@ module ONCCertificationG10TestKit
       return diagnostic_metadata if resource_type == 'DiagnosticReport'
 
       if resource_type == 'Location' || resource_type == 'Medication'
-        return Array.wrap(USCore::USCoreTestSuite.metadata.find do |meta|
+        return Array.wrap(USCoreTestKit::USCoreTestSuite.metadata.find do |meta|
                             meta.resource == resource_type
                           end)
       end
-      ["USCore::#{resource_type}Group".constantize.metadata]
+      ["USCoreTestKit::#{resource_type}Group".constantize.metadata]
     end
 
     def metadata_list

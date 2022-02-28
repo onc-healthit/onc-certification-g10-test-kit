@@ -340,7 +340,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
       tester.bulk_device_types_in_group = 'not_it'
 
       result = tester.determine_profile(device_resource)
-      expect(result).to be(nil)
+      expect(result).to be_nil
     end
 
     it 'returns the vice profile if given a Device resource that is predefined' do
@@ -484,7 +484,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
         observation.code.coding[0].code = 'bad_code'
 
         result = tester.determine_profile(observation)
-        expect(result).to be(nil)
+        expect(result).to be_nil
       end
     end
   end
@@ -494,7 +494,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
       tester.bulk_device_types_in_group = nil
 
       result = tester.predefined_device_type?(device_resource)
-      expect(result).to eq(true)
+      expect(result).to be(true)
     end
 
     context 'with bulk_device_types_in_group' do
@@ -502,19 +502,19 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
         device_resource.type.coding[0].code = nil
 
         result = tester.predefined_device_type?(device_resource)
-        expect(result).to eq(false)
+        expect(result).to be(false)
       end
 
       it 'returns false if no code in the given resource matches any code in bulk_device_types_in_group' do
         device_resource.type.coding[0].code = 'not_it'
 
         result = tester.predefined_device_type?(device_resource)
-        expect(result).to eq(false)
+        expect(result).to be(false)
       end
 
       it 'returns true if a code in the given resource matches a code in bulk_device_types_in_group' do
         result = tester.predefined_device_type?(device_resource)
-        expect(result).to eq(true)
+        expect(result).to be(true)
       end
     end
   end

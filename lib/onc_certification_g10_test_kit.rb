@@ -1,24 +1,9 @@
-module Inferno
-  module DSL
-    module Runnable
-      def required_inputs(prior_outputs = [])
-        required_inputs =
-          inputs
-            .reject { |input| input_definitions[input][:optional] }
-            .map { |input| config.input_name(input) }
-            .reject { |input| prior_outputs.include?(input) }
-        children_required_inputs = children.flat_map { |child| child.required_inputs(prior_outputs) }
-        prior_outputs.concat(outputs.map { |output| config.output_name(output) })
-        (required_inputs + children_required_inputs).flatten.uniq
-      end
-    end
-  end
-end
-
 require 'smart_app_launch_test_kit'
-require 'us_core'
+require 'us_core_test_kit'
 
 require_relative 'onc_certification_g10_test_kit/configuration_checker'
+require_relative 'onc_certification_g10_test_kit/version'
+
 require_relative 'onc_certification_g10_test_kit/smart_app_launch_invalid_aud_group'
 require_relative 'onc_certification_g10_test_kit/smart_invalid_token_group'
 require_relative 'onc_certification_g10_test_kit/smart_limited_app_group'
@@ -35,8 +20,9 @@ Inferno::Terminology::Loader.load_validators
 
 module ONCCertificationG10TestKit
   class G10CertificationSuite < Inferno::TestSuite
-    title 'ONC Certification (g)(10) Standardized API Test Kit'
-    short_title '(g)(10) Standardized API Test Kit'
+    title 'ONC Certification (g)(10) Standardized API'
+    short_title '(g)(10) Standardized API'
+    version VERSION
     id :g10_certification
 
     check_configuration do
@@ -53,14 +39,14 @@ module ONCCertificationG10TestKit
       exclude_message do |message|
         if message.type == 'info' ||
            (message.type == 'warning' && WARNING_INCLUSION_FILTERS.none? { |filter| filter.match? message.message }) ||
-           USCore::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS.any? { |filter| filter.match? message.message }
+           USCoreTestKit::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS.any? { |filter| filter.match? message.message }
           true
         else
           false
         end
       end
       perform_additional_validation do |resource, profile_url|
-        metadata = USCore::USCoreTestSuite.metadata.find do |metadata_candidate|
+        metadata = USCoreTestKit::USCoreTestSuite.metadata.find do |metadata_candidate|
           metadata_candidate.profile_url == profile_url
         end
 
@@ -75,6 +61,20 @@ module ONCCertificationG10TestKit
           end.compact
       end
     end
+
+    def self.jwks_json
+      @jwks_json ||= File.read(File.join(__dir__, 'onc_certification_g10_test_kit', 'bulk_data_jwks.json'))
+    end
+
+    def self.well_known_route_handler
+      ->(_env) { [200, {}, [jwks_json]] }
+    end
+
+    route(
+      :get,
+      '/.well-known/jwks.json',
+      well_known_route_handler
+    )
 
     description %(
       The ONC Certification (g)(10) Standardized API Test Kit is a testing tool for
@@ -95,16 +95,24 @@ module ONCCertificationG10TestKit
       * SMART Launch URI: `#{SMARTAppLaunch::AppLaunchTest.config.options[:launch_uri]}`
       * OAuth Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
 
-      Systems must pass all tests in order to qualify for ONC certification.
+      For the multi-patient API, register Inferno with the following JWK Set
+      Url:
 
+      * `#{Inferno::Application[:base_url]}/custom/g10_certification/.well-known/jwks.json`
+
+      Systems must pass all tests in order to qualify for ONC certification.
     )
 
-      input_instructions %(
+    input_instructions %(
         Register Inferno as a SMART app using the following information:
 
         * Launch URI: `#{SMARTAppLaunch::AppLaunchTest.config.options[:launch_uri]}`
         * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
 
+        For the multi-patient API, register Inferno with the following JWK Set
+        Url:
+
+        * `#{Inferno::Application[:base_url]}/custom/g10_certification/.well-known/jwks.json`
       )
 
     group from: 'g10_smart_standalone_patient_app'
@@ -141,8 +149,7 @@ module ONCCertificationG10TestKit
 
       input :url,
             title: 'FHIR Endpoint',
-            description: 'URL of the FHIR endpoint used by SMART applications',
-            default: 'https://inferno.healthit.gov/reference-server/r4'
+            description: 'URL of the FHIR endpoint used by SMART applications'
       input :smart_credentials,
             title: 'SMART App Launch Credentials',
             type: :oauth_credentials,
@@ -153,15 +160,17 @@ module ONCCertificationG10TestKit
         oauth_credentials :smart_credentials
       end
 
-      USCore::USCoreTestSuite.groups.each do |group|
+      USCoreTestKit::USCoreTestSuite.groups.each do |group|
         test_group = group.ancestors[1]
         id = test_group.id
 
+        group_config = {}
         if test_group.respond_to?(:metadata) && test_group.metadata.delayed?
-          test_group.children.reject! { |child| child.include? USCore::SearchTest }
+          test_group.children.reject! { |child| child.include? USCoreTestKit::SearchTest }
+          group_config[:options] = { read_all_resources: true }
         end
 
-        group from: id, exclude_optional: true
+        group(from: id, exclude_optional: true, config: group_config)
       end
     end
 

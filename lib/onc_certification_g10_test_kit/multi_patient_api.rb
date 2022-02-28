@@ -9,9 +9,13 @@ module ONCCertificationG10TestKit
 
     input_instructions %(
       Register Inferno as a bulk data client with the following information, and
-      enter the client id and client registration in the appropriate fields. This
-      set of tests only checks the Group export. Enter the group export
+      enter the client id and client registration in the appropriate fields.
+      This set of tests only checks the Group export. Enter the group export
       information in the appropriate box.
+
+      Register Inferno with the following JWK Set Url:
+
+      * `#{Inferno::Application[:base_url]}/custom/g10_certification/.well-known/jwks.json`
     )
 
     description %(
