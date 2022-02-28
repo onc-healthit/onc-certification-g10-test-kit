@@ -23,7 +23,7 @@ RSpec.describe ONCCertificationG10TestKit::ResourceAccessTest do
       end
 
       def resource_group
-        USCore::AllergyIntoleranceGroup
+        USCoreTestKit::AllergyIntoleranceGroup
       end
 
       input :smart_credentials, type: :oauth_credentials

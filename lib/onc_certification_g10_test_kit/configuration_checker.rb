@@ -42,7 +42,7 @@ module ONCCertificationG10TestKit
       }]
     end
 
-    def terminology_messages
+    def terminology_messages # rubocop:disable Metrics/CyclomaticComplexity
       success_messages = []
       warning_messages = []
       error_messages = []
@@ -51,22 +51,24 @@ module ONCCertificationG10TestKit
         url = expected_value_set[:url]
         actual_value_set = terminology_checker.new_value_set(url)
 
-
         if actual_value_set == expected_value_set
           success_messages << "* `#{url}`: #{actual_value_set[:count]} codes"
         elsif actual_value_set.nil?
           error_messages << "* `#{url}`: Not loaded"
         elsif terminology_checker.class::MIME_TYPE_SYSTEMS.include? url
-          warning_messages << "* `#{url}`: Expected codes: #{expected_value_set[:count]} Actual codes: #{actual_value_set[:count]}"
+          warning_messages <<
+            "* `#{url}`: Expected codes: #{expected_value_set[:count]} Actual codes: #{actual_value_set[:count]}"
         else
-          error_messages << "* `#{url}`: Expected codes: #{expected_value_set[:count]} Actual codes: #{actual_value_set[:count]}"
+          error_messages <<
+            "* `#{url}`: Expected codes: #{expected_value_set[:count]} Actual codes: #{actual_value_set[:count]}"
         end
       end
 
       if success_messages.present?
         messages << {
           type: 'info',
-          message: "The following value sets and code systems have been properly loaded:\n" + success_messages.join("\n")
+          message:
+            "The following value sets and code systems have been properly loaded:\n#{success_messages.join("\n")}"
         }
       end
 

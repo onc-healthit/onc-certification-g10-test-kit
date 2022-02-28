@@ -152,7 +152,7 @@ module ONCCertificationG10TestKit
       id :g10_patient_unrestricted_access
 
       def resource_group
-        USCore::PatientGroup
+        USCoreTestKit::PatientGroup
       end
     end
 
@@ -170,7 +170,7 @@ module ONCCertificationG10TestKit
       id :g10_allergy_intolerance_unrestricted_access
 
       def resource_group
-        USCore::AllergyIntoleranceGroup
+        USCoreTestKit::AllergyIntoleranceGroup
       end
     end
 
@@ -188,7 +188,7 @@ module ONCCertificationG10TestKit
       id :g10_care_plan_unrestricted_access
 
       def resource_group
-        USCore::CarePlanGroup
+        USCoreTestKit::CarePlanGroup
       end
     end
 
@@ -206,7 +206,7 @@ module ONCCertificationG10TestKit
       id :g10_care_team_unrestricted_access
 
       def resource_group
-        USCore::CareTeamGroup
+        USCoreTestKit::CareTeamGroup
       end
     end
 
@@ -224,7 +224,7 @@ module ONCCertificationG10TestKit
       id :g10_condition_unrestricted_access
 
       def resource_group
-        USCore::ConditionGroup
+        USCoreTestKit::ConditionGroup
       end
     end
 
@@ -242,7 +242,7 @@ module ONCCertificationG10TestKit
       id :g10_device_unrestricted_access
 
       def resource_group
-        USCore::DeviceGroup
+        USCoreTestKit::DeviceGroup
       end
     end
 
@@ -260,7 +260,7 @@ module ONCCertificationG10TestKit
       id :g10_diagnostic_report_unrestricted_access
 
       def resource_group
-        USCore::DiagnosticReportLabGroup
+        USCoreTestKit::DiagnosticReportLabGroup
       end
     end
 
@@ -278,7 +278,7 @@ module ONCCertificationG10TestKit
       id :g10_document_reference_unrestricted_access
 
       def resource_group
-        USCore::DocumentReferenceGroup
+        USCoreTestKit::DocumentReferenceGroup
       end
     end
 
@@ -296,7 +296,7 @@ module ONCCertificationG10TestKit
       id :g10_goal_unrestricted_access
 
       def resource_group
-        USCore::GoalGroup
+        USCoreTestKit::GoalGroup
       end
     end
 
@@ -314,7 +314,7 @@ module ONCCertificationG10TestKit
       id :g10_immunization_unrestricted_access
 
       def resource_group
-        USCore::ImmunizationGroup
+        USCoreTestKit::ImmunizationGroup
       end
     end
 
@@ -332,7 +332,7 @@ module ONCCertificationG10TestKit
       id :g10_medication_request_access
 
       def resource_group
-        USCore::MedicationRequestGroup
+        USCoreTestKit::MedicationRequestGroup
       end
     end
 
@@ -350,7 +350,7 @@ module ONCCertificationG10TestKit
       id :g10_observation_unrestricted_access
 
       def resource_group
-        USCore::PulseOximetryGroup
+        USCoreTestKit::PulseOximetryGroup
       end
     end
 
@@ -368,7 +368,7 @@ module ONCCertificationG10TestKit
       id :g10_procedure_unrestricted_access
 
       def resource_group
-        USCore::ProcedureGroup
+        USCoreTestKit::ProcedureGroup
       end
     end
   end
