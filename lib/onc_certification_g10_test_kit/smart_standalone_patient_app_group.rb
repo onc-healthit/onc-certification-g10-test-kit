@@ -168,10 +168,12 @@ module ONCCertificationG10TestKit
       title 'Set SMART Credentials to Standalone Launch Credentials'
 
       input :standalone_smart_credentials, type: :oauth_credentials
-      output :smart_credentials
+      input :standalone_patient_id
+      output :smart_credentials, :patient_id
 
       run do
-        output smart_credentials: standalone_smart_credentials.to_s
+        output smart_credentials: standalone_smart_credentials.to_s,
+               patient_id: standalone_patient_id
       end
     end
   end
