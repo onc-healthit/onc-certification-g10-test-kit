@@ -1,3 +1,5 @@
+require_relative 'temp_dir'
+
 module Inferno
   module Terminology
     module Tasks
