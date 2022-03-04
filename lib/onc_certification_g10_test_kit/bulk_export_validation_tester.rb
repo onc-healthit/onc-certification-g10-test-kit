@@ -98,6 +98,8 @@ module ONCCertificationG10TestKit
 
     def validate_conformance(resources)
       metadata_list.each do |meta|
+        next if resource_type == 'Location'
+
         skip_if resources[meta.profile_url].blank?,
                 "No #{resource_type} resources found that conform to profile: #{meta.profile_url}."
         @metadata = meta
@@ -137,8 +139,9 @@ module ONCCertificationG10TestKit
         resources[profile_url] << resource
         scratch[:patient_ids_seen] = patient_ids_seen | [resource.id] if resource_type == 'Patient'
 
-        skip_if !resource_is_valid?(resource: resource, profile_url: profile_url),
-                "Resource at line \"#{line_count}\" does not conform to profile \"#{profile_url}\"."
+        unless resource_is_valid?(resource: resource, profile_url: profile_url)
+          assert false, "Resource at line \"#{line_count}\" does not conform to profile \"#{profile_url}\"."
+        end
       }
 
       process_headers = proc { |response|

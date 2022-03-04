@@ -494,11 +494,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     let(:not_location_contents) { '' }
 
     before do
-      resources.each do |resource|
-        contents << ("#{resource.to_json}\n")
-        resource['status'] = nil
-        contents_missing_element << ("#{resource.to_json.gsub(/[ \n]/, '')}\n")
-      end
+      resources.each { |resource| contents << ("#{resource.to_json}\n") }
       not_location_resource.each { |resource| not_location_contents << ("#{resource.to_json}\n") }
     end
 
@@ -521,19 +517,6 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       expect(result.result).to eq('fail')
       expect(result.result_message)
         .to eq('Resource type "Device" at line "1" does not match type defined in output "Location"')
-    end
-
-    it 'skips when returned resources are missing a must support slice' do
-      stub_request(:get, endpoint)
-        .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_element, headers: headers)
-
-      allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
-      result = run(runnable, location_input)
-
-      expect(result.result).to eq('skip')
-      expect(result.result_message)
-        .to eq('Could not find status in the 5 provided Location resource(s)')
     end
 
     it 'passes when the returned resources are fully conformant' do
