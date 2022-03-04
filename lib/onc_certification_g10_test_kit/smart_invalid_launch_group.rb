@@ -1,21 +1,22 @@
 module ONCCertificationG10TestKit
-  class SMARTAppLaunchInvalidAudGroup < Inferno::TestGroup
-    title 'SMART App Launch Error: Invalid AUD Parameter'
-    short_title 'SMART Invalid AUD Launch'
+  class SMARTInvalidLaunchGroup < Inferno::TestGroup
+    title 'SMART App Launch Error: Invalid Launch Parameter'
+    short_title 'SMART Invalid Launch Parameter'
     input_instructions %(
-      Register Inferno as a standalone application using the following information:
+      Register Inferno as an EHR-launched application using the following information:
 
+      * Launch URI: `#{SMARTAppLaunch::AppLaunchTest.config.options[:launch_uri]}`
       * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
     )
     description %(
       # Background
 
-      The Invalid AUD Sequence verifies that a SMART Launch Sequence,
-      specifically the [Standalone
-      Launch](http://hl7.org/fhir/smart-app-launch/#standalone-launch-sequence)
+      The Invalid Launch Parameter Sequence verifies that a SMART Launch
+      Sequence, specifically the [EHR
+      Launch](http://www.hl7.org/fhir/smart-app-launch/#ehr-launch-sequence)
       Sequence, does not work in the case where the client sends an invalid FHIR
-      server as the `aud` parameter during launch. This must fail to ensure that
-      a genuine bearer token is not leaked to a counterfit resource server.
+      server as the `launch` parameter during launch. This must fail to ensure
+      that a genuine bearer token is not leaked to a counterfit resource server.
 
       This test is not included as part of a regular SMART Launch Sequence
       because it requires the browser of the user to be redirected to the
@@ -24,12 +25,8 @@ module ONCCertificationG10TestKit
       requirement is that Inferno is not granted a code to exchange for a valid
       access token. Since this is a special case, it is tested independently in
       a separate sequence.
-
-      Note that this test will launch a new browser window. The user is required
-      to 'Attest' in the Inferno user interface after the launch does not
-      succeed, if the server does not return an error code.
     )
-    id :g10_smart_invalid_aud
+    id :g10_smart_invalid_launch_param
     run_as_group
 
     input :client_id,
@@ -42,58 +39,58 @@ module ONCCertificationG10TestKit
     config(
       inputs: {
         client_id: {
-          name: :standalone_client_id,
-          title: 'Standalone Client ID',
-          description: 'Client ID provided during registration of Inferno as a standalone application'
+          name: :ehr_client_id,
+          title: 'EHR Client ID',
+          description: 'Client ID provided during registration of Inferno as an EHR launch application'
         },
         client_secret: {
           name: :standalone_client_secret,
-          title: 'Standalone Client Secret',
-          description: 'Client Secret provided during registration of Inferno as a standalone application'
+          title: 'EHR Client Secret',
+          description: 'Client Secret provided during registration of Inferno as an EHR launch application'
         },
         requested_scopes: {
-          name: :standalone_requested_scopes,
-          title: 'Standalone Scope',
+          name: :ehr_requested_scopes,
+          title: 'EHR Launch Scope',
           description: 'OAuth 2.0 scope provided by system to enable all required functionality',
           type: 'textarea',
           default: %(
-            launch/patient openid fhirUser offline_access
-            patient/Medication.read patient/AllergyIntolerance.read
-            patient/CarePlan.read patient/CareTeam.read patient/Condition.read
-            patient/Device.read patient/DiagnosticReport.read
-            patient/DocumentReference.read patient/Encounter.read
-            patient/Goal.read patient/Immunization.read patient/Location.read
-            patient/MedicationRequest.read patient/Observation.read
-            patient/Organization.read patient/Patient.read
-            patient/Practitioner.read patient/Procedure.read
-            patient/Provenance.read patient/PractitionerRole.read
+            launch openid fhirUser offline_access user/Medication.read
+            user/AllergyIntolerance.read user/CarePlan.read user/CareTeam.read
+            user/Condition.read user/Device.read user/DiagnosticReport.read
+            user/DocumentReference.read user/Encounter.read user/Goal.read
+            user/Immunization.read user/Location.read
+            user/MedicationRequest.read user/Observation.read
+            user/Organization.read user/Patient.read user/Practitioner.read
+            user/Procedure.read user/Provenance.read user/PractitionerRole.read
           ).gsub(/\s{2,}/, ' ').strip
         },
         url: {
-          title: 'Standalone FHIR Endpoint',
-          description: 'URL of the FHIR endpoint used by standalone applications'
+          title: 'EHR Launch FHIR Endpoint',
+          description: 'URL of the FHIR endpoint used by EHR launched applications'
         },
         smart_authorization_url: {
           title: 'OAuth 2.0 Authorize Endpoint',
-          description: 'OAuth 2.0 Authorize Endpoint provided during the patient standalone launch'
+          description: 'OAuth 2.0 Authorize Endpoint provided during an EHR launch'
         },
         smart_token_url: {
           title: 'OAuth 2.0 Token Endpoint',
-          description: 'OAuth 2.0 Token Endpoint provided during the patient standalone launch'
+          description: 'OAuth 2.0 Token Endpoint provided during an EHR launch'
         }
       },
       outputs: {
-        state: { name: :invalid_aud_state }
+        state: { name: :invalid_launch_state }
       },
       requests: {
-        redirect: { name: :invalid_aud_redirect }
+        redirect: { name: :invalid_launch_redirect }
       }
     )
 
+    test from: :smart_app_launch
+    test from: :smart_launch_received
     test from: :smart_app_redirect do
-      def aud
-        'https://inferno.healthit.gov/invalid_aud'
-      end
+      config(
+        options: { launch: 'INVALID_LAUNCH_PARAM' }
+      )
 
       def wait_message(auth_url)
         %(
@@ -112,10 +109,11 @@ module ONCCertificationG10TestKit
     test do
       title 'Inferno client app does not receive code parameter redirect URI'
       description %(
-        Inferno redirected the user to the authorization service with an invalid AUD.
-        Inferno expects that the authorization request will not succeed.  This can
-        either be from the server explicitely pass an error, or stopping and the
-        tester returns to Inferno to confirm that the server presented them a failure.
+        Inferno redirected the user to the authorization service with an invalid
+        launch parameter. Inferno expects that the authorization request will
+        not succeed. This can either be from the server explicitely pass an
+        error, or stopping and the tester returns to Inferno to confirm that the
+        server presented them a failure.
       )
       uses_request :redirect
 
