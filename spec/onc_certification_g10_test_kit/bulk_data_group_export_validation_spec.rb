@@ -510,7 +510,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       expect(result.result_message).to eq('No Location resource file item returned by server.')
     end
 
-    it 'omits when non Location resources are returned' do
+    it 'fails when non Location resources are returned' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
         .to_return(status: 200, body: not_location_contents, headers: headers)
@@ -518,7 +518,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, location_input)
 
-      expect(result.result).to eq('omit')
+      expect(result.result).to eq('fail')
       expect(result.result_message)
         .to eq('Resource type "Device" at line "1" does not match type defined in output "Location"')
     end
@@ -574,7 +574,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       expect(result.result_message).to eq('No Medication resource file item returned by server.')
     end
 
-    it 'omits when the returned resources are not of the expected profile' do
+    it 'fails when the returned resources are not of the expected profile' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
         .to_return(status: 200, body: not_medication_contents, headers: headers)
@@ -582,7 +582,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, medication_input)
 
-      expect(result.result).to eq('omit')
+      expect(result.result).to eq('fail')
       expect(result.result_message)
         .to eq('Resource type "Device" at line "1" does not match type defined in output "Medication"')
     end
