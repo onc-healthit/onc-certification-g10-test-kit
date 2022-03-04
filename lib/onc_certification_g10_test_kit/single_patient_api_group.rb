@@ -65,9 +65,9 @@ module ONCCertificationG10TestKit
             .map(&:presence)
             .compact
 
-        all_patient_ids = ([smart_app_launch_patient_id] + [additional_patient_ids_list]).compact
+        all_patient_ids = ([smart_app_launch_patient_id] + [additional_patient_ids_list]).compact.uniq
 
-        output patient_ids: all_patient_ids
+        output patient_ids: all_patient_ids.join(',')
       end
     end
 
