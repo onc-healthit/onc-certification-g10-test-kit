@@ -6,7 +6,6 @@ require_relative 'lib/inferno/terminology/fhir_package_manager'
 require_relative 'lib/inferno/terminology/tasks'
 require_relative 'lib/onc_certification_g10_test_kit/tasks/generate_matrix'
 
-
 begin
   require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new(:spec)

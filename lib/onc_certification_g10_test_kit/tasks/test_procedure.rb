@@ -11,8 +11,7 @@ module ONCCertificationG10TestKit
       end
 
       class Section
-        attr_accessor :name
-        attr_accessor :steps
+        attr_accessor :name, :steps
 
         def initialize(data)
           @name = data[:section]
@@ -31,14 +30,7 @@ module ONCCertificationG10TestKit
       end
 
       class Step
-        attr_accessor :group
-        attr_accessor :id
-        attr_accessor :s_u_t
-        attr_accessor :t_l_v
-        attr_accessor :inferno_supported
-        attr_accessor :inferno_notes
-        attr_accessor :inferno_tests
-        attr_accessor :alternate_test
+        attr_accessor :group, :id, :s_u_t, :t_l_v, :inferno_supported, :inferno_notes, :inferno_tests, :alternate_test
 
         def initialize(data)
           @group = data[:group]
@@ -61,7 +53,7 @@ module ONCCertificationG10TestKit
               second_prefix, _, ending = second.rpartition('.')
               raise "'#{prefix}' != '#{second_prefix}' in #{@group} #{@id}" unless prefix == second_prefix
 
-              (beginning.to_i..ending.to_i).map { |index| prefix + '.' + format('%02<index>d', { index: index }) }
+              (beginning.to_i..ending.to_i).map { |index| "#{prefix}.#{format('%02<index>d', { index: index })}" }
             else
               [test]
             end
