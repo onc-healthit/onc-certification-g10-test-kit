@@ -483,4 +483,132 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       expect(result.result).to eq('pass')
     end
   end
+
+  describe '[Location resources returned conform to the US Core Location Profile] test' do
+    let(:runnable) { group.tests[21] }
+    let(:resources) { NDJSON::Parser.new('spec/fixtures/Location.ndjson') }
+    let(:location_input) do
+      input.merge({ status_output: '[{"url":"https://www.example.com","type":"Location","count":5}]' })
+    end
+    let(:not_location_resource) { NDJSON::Parser.new('spec/fixtures/Device.ndjson') }
+    let(:not_location_contents) { '' }
+
+    before do
+      resources.each do |resource|
+        contents << ("#{resource.to_json}\n")
+        resource['status'] = nil
+        contents_missing_element << ("#{resource.to_json.gsub(/[ \n]/, '')}\n")
+      end
+      not_location_resource.each { |resource| not_location_contents << ("#{resource.to_json}\n") }
+    end
+
+    it 'omits when no Location resources listed in status output' do
+      bad_status_output = '[{"url":"https://www.example.com","type":"notLocation","count":5}]'
+      result = run(runnable, location_input.merge({ status_output: bad_status_output }))
+
+      expect(result.result).to eq('omit')
+      expect(result.result_message).to eq('No Location resource file item returned by server.')
+    end
+
+    it 'omits when non Location resources are returned' do
+      stub_request(:get, endpoint)
+        .with(headers: { 'Accept' => 'application/fhir+ndjson' })
+        .to_return(status: 200, body: not_location_contents, headers: headers)
+
+      allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      result = run(runnable, location_input)
+
+      expect(result.result).to eq('omit')
+      expect(result.result_message)
+        .to eq('Resource type "Device" at line "1" does not match type defined in output "Location"')
+    end
+
+    it 'skips when returned resources are missing a must support slice' do
+      stub_request(:get, endpoint)
+        .with(headers: { 'Accept' => 'application/fhir+ndjson' })
+        .to_return(status: 200, body: contents_missing_element, headers: headers)
+
+      allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      result = run(runnable, location_input)
+
+      expect(result.result).to eq('skip')
+      expect(result.result_message)
+        .to eq('Could not find status in the 5 provided Location resource(s)')
+    end
+
+    it 'passes when the returned resources are fully conformant' do
+      stub_request(:get, endpoint)
+        .with(headers: { 'Accept' => 'application/fhir+ndjson' })
+        .to_return(status: 200, body: contents, headers: headers)
+
+      allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      result = run(runnable, location_input)
+
+      expect(result.result).to eq('pass')
+    end
+  end
+
+  describe '[Medication resources returned conform to the US Core Medication Profile] test' do
+    let(:runnable) { group.tests[22] }
+    let(:resources) { NDJSON::Parser.new('spec/fixtures/Medication.ndjson') }
+    let(:medication_input) do
+      input.merge({ status_output: '[{"url":"https://www.example.com","type":"Medication","count":1}]' })
+    end
+    let(:not_medication_resource) { NDJSON::Parser.new('spec/fixtures/Device.ndjson') }
+    let(:not_medication_contents) { '' }
+
+    before do
+      resources.each do |resource|
+        contents << ("#{resource.to_json}\n")
+        resource['code'] = nil
+        contents_missing_element << ("#{resource.to_json.gsub(/[ \n]/, '')}\n")
+      end
+      not_medication_resource.each { |resource| not_medication_contents << ("#{resource.to_json}\n") }
+    end
+
+    it 'omits when no resources are returned' do
+      bad_status_output = '[{"url":"https://www.example.com","type":"notMeds","count":5}]'
+      result = run(runnable, medication_input.merge({ status_output: bad_status_output }))
+
+      expect(result.result).to eq('omit')
+      expect(result.result_message).to eq('No Medication resource file item returned by server.')
+    end
+
+    it 'omits when the returned resources are not of the expected profile' do
+      stub_request(:get, endpoint)
+        .with(headers: { 'Accept' => 'application/fhir+ndjson' })
+        .to_return(status: 200, body: not_medication_contents, headers: headers)
+
+      allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      result = run(runnable, medication_input)
+
+      expect(result.result).to eq('omit')
+      expect(result.result_message)
+        .to eq('Resource type "Device" at line "1" does not match type defined in output "Medication"')
+    end
+
+    it 'skips when returned resources are missing a must support slice' do
+      stub_request(:get, endpoint)
+        .with(headers: { 'Accept' => 'application/fhir+ndjson' })
+        .to_return(status: 200, body: contents_missing_element, headers: headers)
+
+      allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      result = run(runnable, medication_input)
+
+      expect(result.result).to eq('skip')
+      expect(result.result_message)
+        .to eq('Could not find code in the 1 provided Medication resource(s)')
+    end
+
+    it 'passes when the returned resources are fully conformant' do
+      stub_request(:get, endpoint)
+        .with(headers: { 'Accept' => 'application/fhir+ndjson' })
+        .to_return(status: 200, body: contents, headers: headers)
+
+      allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      result = run(runnable, medication_input)
+
+      expect(result.result).to eq('pass')
+    end
+  end
 end

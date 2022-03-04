@@ -9,6 +9,7 @@ module ONCCertificationG10TestKit
 
     MAX_NUM_COLLECTED_LINES = 100
     MIN_RESOURCE_COUNT = 2
+    OMIT_KLASS = ['Medication', 'Location'].freeze
 
     def observation_metadata
       [
@@ -127,9 +128,11 @@ module ONCCertificationG10TestKit
           skip "Server response at line \"#{line_count}\" is not a processable FHIR resource."
         end
 
-        skip_if resource.resourceType != resource_type,
-                "Resource type \"#{resource.resourceType}\" at line \"#{line_count}\" does not match type " \
-                "defined in output \"#{resource_type}\""
+        if resource.resourceType != resource_type
+          message = "Resource type \"#{resource.resourceType}\" at line \"#{line_count}\" does not match type" \
+                    " defined in output \"#{resource_type}\""
+          omit_or_skip message
+        end
 
         profile_url = determine_profile(resource)
         resources[profile_url] << resource
@@ -152,13 +155,19 @@ module ONCCertificationG10TestKit
       line_count
     end
 
+    def omit_or_skip(message)
+      omit_if (OMIT_KLASS.include? resource_type), message
+      skip message
+    end
+
     def perform_bulk_export_validation
       skip_if status_output.blank?, 'Could not verify this functionality when Bulk Status Output is not provided'
       skip_if (requires_access_token == 'true' && bearer_token.blank?),
               'Could not verify this functionality when Bearer Token is required and not provided'
 
       file_list = JSON.parse(status_output).select { |file| file['type'] == resource_type }
-      skip_if file_list.empty?, "No #{resource_type} resource file item returned by server."
+      message = "No #{resource_type} resource file item returned by server."
+      omit_or_skip(message) if file_list.empty?
 
       success_count = 0
       file_list.each do |file|
