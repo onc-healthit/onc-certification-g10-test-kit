@@ -4,6 +4,8 @@ require 'pry-byebug'
 require_relative 'lib/inferno/terminology'
 require_relative 'lib/inferno/terminology/fhir_package_manager'
 require_relative 'lib/inferno/terminology/tasks'
+require_relative 'lib/onc_certification_g10_test_kit/tasks/generate_matrix'
+
 
 begin
   require 'rspec/core/rake_task'
@@ -123,5 +125,12 @@ namespace :terminology do |_argv|
   desc 'Check if the terminology filters have been built correctly'
   task :check_built_terminology do |_t, _args|
     Inferno::Terminology::Tasks::CheckBuiltTerminology.new.run
+  end
+end
+
+namespace :g10_test_kit do
+  desc 'Generate ONC Certification (g)(10) Test Kit Matrix'
+  task :generate_matrix do
+    ONCCertificationG10TestKit::Tasks::GenerateMatrix.new.run
   end
 end
