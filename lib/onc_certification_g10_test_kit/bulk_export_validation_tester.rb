@@ -156,11 +156,6 @@ module ONCCertificationG10TestKit
       line_count
     end
 
-    def omit_or_skip(message)
-      omit_if (OMIT_KLASS.include? resource_type), message
-      skip message
-    end
-
     def perform_bulk_export_validation
       skip_if status_output.blank?, 'Could not verify this functionality when Bulk Status Output is not provided'
       skip_if (requires_access_token == 'true' && bearer_token.blank?),
@@ -168,7 +163,10 @@ module ONCCertificationG10TestKit
 
       file_list = JSON.parse(status_output).select { |file| file['type'] == resource_type }
       message = "No #{resource_type} resource file item returned by server."
-      omit_or_skip(message) if file_list.empty?
+      if file_list.empty?
+        omit_if (OMIT_KLASS.include? resource_type), message
+        skip message
+      end
 
       success_count = 0
       file_list.each do |file|
