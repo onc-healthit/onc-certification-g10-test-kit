@@ -456,7 +456,7 @@ module ONCCertificationG10TestKit
     test do
       title 'Medication resources returned conform to the US Core Medication Profile'
       description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification. This test is omitted if bulk data export does not return any Medication resources.#{' '}
+        This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification. This test is omitted if bulk data export does not return any Medication resources.
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-medication'
 

@@ -131,7 +131,8 @@ module ONCCertificationG10TestKit
         if resource.resourceType != resource_type
           message = "Resource type \"#{resource.resourceType}\" at line \"#{line_count}\" does not match type" \
                     " defined in output \"#{resource_type}\""
-          omit_or_skip message
+          omit_if (OMIT_KLASS.include? resource_type), message
+          assert false, message
         end
 
         profile_url = determine_profile(resource)
