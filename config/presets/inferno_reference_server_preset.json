@@ -97,10 +97,10 @@
       "value": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET"
     },
     {
-      "name": "patient_ids",
+      "name": "additional_patient_ids",
       "type": "text",
-      "title": "Patient IDs",
-      "description": "Comma separated list of patient IDs that in sum contain all MUST SUPPORT elements",
+      "title": "Additional Patient IDs",
+      "description": "Comma separated list of Patient IDs that together with the Patient ID from the SMART App Launch contain all MUST SUPPORT elements.",
       "value": "85,355"
     },
     {

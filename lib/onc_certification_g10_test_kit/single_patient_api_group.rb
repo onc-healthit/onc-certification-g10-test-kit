@@ -83,6 +83,5 @@ module ONCCertificationG10TestKit
 
       group(from: id, exclude_optional: true, config: group_config)
     end
-
   end
 end
