@@ -9,6 +9,7 @@ module ONCCertificationG10TestKit
 
     MAX_NUM_COLLECTED_LINES = 100
     MIN_RESOURCE_COUNT = 2
+    OMIT_KLASS = ['Medication', 'Location'].freeze
 
     def observation_metadata
       [
@@ -97,6 +98,8 @@ module ONCCertificationG10TestKit
 
     def validate_conformance(resources)
       metadata_list.each do |meta|
+        next if resource_type == 'Location'
+
         skip_if resources[meta.profile_url].blank?,
                 "No #{resource_type} resources found that conform to profile: #{meta.profile_url}."
         @metadata = meta
@@ -127,16 +130,18 @@ module ONCCertificationG10TestKit
           skip "Server response at line \"#{line_count}\" is not a processable FHIR resource."
         end
 
-        skip_if resource.resourceType != resource_type,
-                "Resource type \"#{resource.resourceType}\" at line \"#{line_count}\" does not match type " \
-                "defined in output \"#{resource_type}\""
+        if resource.resourceType != resource_type
+          assert false, "Resource type \"#{resource.resourceType}\" at line \"#{line_count}\" does not match type" \
+                        " defined in output \"#{resource_type}\""
+        end
 
         profile_url = determine_profile(resource)
         resources[profile_url] << resource
         scratch[:patient_ids_seen] = patient_ids_seen | [resource.id] if resource_type == 'Patient'
 
-        skip_if !resource_is_valid?(resource: resource, profile_url: profile_url),
-                "Resource at line \"#{line_count}\" does not conform to profile \"#{profile_url}\"."
+        unless resource_is_valid?(resource: resource, profile_url: profile_url)
+          assert false, "Resource at line \"#{line_count}\" does not conform to profile \"#{profile_url}\"."
+        end
       }
 
       process_headers = proc { |response|
@@ -158,7 +163,11 @@ module ONCCertificationG10TestKit
               'Could not verify this functionality when Bearer Token is required and not provided'
 
       file_list = JSON.parse(status_output).select { |file| file['type'] == resource_type }
-      skip_if file_list.empty?, "No #{resource_type} resource file item returned by server."
+      if file_list.empty?
+        message = "No #{resource_type} resource file item returned by server."
+        omit_if (OMIT_KLASS.include? resource_type), message
+        skip message
+      end
 
       success_count = 0
       file_list.each do |file|

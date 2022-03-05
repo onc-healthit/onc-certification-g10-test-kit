@@ -245,22 +245,22 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
         .with_message('Server response at line "1" is not a processable FHIR resource.')
     end
 
-    it 'skips when returned contents is not of the expected resource type' do
+    it 'fails when returned contents is not of the expected resource type' do
       stub_request(:get, url)
         .to_return(status: 200, headers: headers, body: encounter_contents)
 
       expect { tester.check_file_request(url) }
-        .to raise_exception(Inferno::Exceptions::SkipException)
+        .to raise_exception(Inferno::Exceptions::AssertionException)
         .with_message('Resource type "Encounter" at line "1" does not match type defined in output "Patient"')
     end
 
-    it 'skips when returned contents is not valid for the expected resource type' do
+    it 'fails when returned contents is not valid for the expected resource type' do
       stub_request(:get, url)
         .to_return(status: 200, headers: headers, body: patient_contents)
 
       allow(tester).to receive(:resource_is_valid?).and_return(false)
       expect { tester.check_file_request(url) }
-        .to raise_exception(Inferno::Exceptions::SkipException)
+        .to raise_exception(Inferno::Exceptions::AssertionException)
         .with_message('Resource at line "1" does not conform to profile "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient".')
     end
 
@@ -364,7 +364,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
 
     it "returns Location's profile when given a Location resource" do
       result = tester.determine_profile(FHIR::Location.new)
-      expect(result).to eq('http://hl7.org/fhir/us/core/StructureDefinition/us-core-location')
+      expect(result).to eq('http://hl7.org/fhir/StructureDefinition/Location')
     end
 
     it "returns Medications's profile when given a Medication resource" do

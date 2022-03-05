@@ -436,9 +436,10 @@ module ONCCertificationG10TestKit
     end
 
     test do
-      title 'Location resources returned conform to the US Core Location Profile'
+      title 'Location resources returned conform to the HL7 FHIR Specification Location Resource if bulk data export' \
+            ' has Location resources'
       description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification.
+        This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification. This test is omitted if bulk data export does not return any Location resources.
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-location'
 
@@ -454,9 +455,10 @@ module ONCCertificationG10TestKit
     end
 
     test do
-      title 'Medication resources returned conform to the US Core Medication Profile'
+      title 'Medication resources returned conform to the US Core Medication Profile if bulk data export has' \
+            ' Medication resources'
       description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification.
+        This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification. This test is omitted if bulk data export does not return any Medication resources.
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-medication'
 

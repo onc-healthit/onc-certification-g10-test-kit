@@ -1,10 +1,13 @@
 module ONCCertificationG10TestKit
   module ProfileGuesser
     def extract_profile(profile)
-      if ['Location', 'Medication'].include?(profile)
+      case profile
+      when 'Medication'
         return USCoreTestKit::USCoreTestSuite.metadata.find do |meta|
                  meta.resource == profile
                end.profile_url
+      when 'Location'
+        return 'http://hl7.org/fhir/StructureDefinition/Location'
       end
       "USCoreTestKit::#{profile}Group".constantize.metadata.profile_url
     end
