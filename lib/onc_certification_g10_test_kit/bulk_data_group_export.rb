@@ -58,7 +58,7 @@ module ONCCertificationG10TestKit
       description <<~DESCRIPTION
         The Bulk Data Server SHALL declare support for Group/[id]/$export operation in its server CapabilityStatement
       DESCRIPTION
-      # link 'http://hl7.org/fhir/uv/bulkdata/OperationDefinition-group-export.html'
+      # link 'http://hl7.org/fhir/uv/bulkdata/STU1/OperationDefinition-group-export.html'
 
       run do
         fhir_get_capability_statement(client: :bulk_server)
@@ -91,7 +91,7 @@ module ONCCertificationG10TestKit
         [The OAuth 2.0 Authorization Framework: Bearer Token Usage](https://tools.ietf.org/html/rfc6750#section-3.1)
         recommend using HTTP status code 401 for invalid token but also allow the actual result be controlled by policy and context.
       DESCRIPTION
-      # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#bulk-data-kick-off-request'
+      # link 'http://hl7.org/fhir/uv/bulkdata/STU1/export/index.html#bulk-data-kick-off-request'
 
       include ExportKickOffPerformer
 
@@ -111,7 +111,7 @@ module ONCCertificationG10TestKit
         * HTTP Status Code of 202 Accepted
         * Content-Location header with the absolute URL of an endpoint for subsequent status requests (polling location)
       DESCRIPTION
-      # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#response---success'
+      # link 'http://hl7.org/fhir/uv/bulkdata/STU1/export/index.html#response---success'
 
       include ExportKickOffPerformer
 
@@ -140,7 +140,7 @@ module ONCCertificationG10TestKit
 
         * transactionTime, request, requiresAccessToken, output, and error
       DESCRIPTION
-      # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#bulk-data-status-request'
+      # link 'http://hl7.org/fhir/uv/bulkdata/STU1/export/index.html#bulk-data-status-request'
 
       input :polling_url
 
@@ -205,7 +205,7 @@ module ONCCertificationG10TestKit
 
         * url - the path to the file. The format of the file SHOULD reflect that requested in the _outputFormat parameter of the initial kick-off request.
       DESCRIPTION
-      # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#response---complete-status'
+      # link 'http://hl7.org/fhir/uv/bulkdata/STU1/export/index.html#response---complete-status'
 
       input :status_response
 
@@ -234,7 +234,7 @@ module ONCCertificationG10TestKit
         After a bulk data request has been started, a client MAY send a delete request to the URL provided in the Content-Location header to cancel the request.
         Bulk Data Server MUST support client's delete request and return HTTP Status Code of "202 Accepted"
       DESCRIPTION
-      # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#bulk-data-delete-request'
+      # link 'http://hl7.org/fhir/uv/bulkdata/STU1/export/index.html#bulk-data-delete-request'
 
       include ExportKickOffPerformer
 

@@ -12,7 +12,7 @@ module ONCCertificationG10TestKit
 
       The Invalid AUD Sequence verifies that a SMART Launch Sequence,
       specifically the [Standalone
-      Launch](http://hl7.org/fhir/smart-app-launch/#standalone-launch-sequence)
+      Launch](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#standalone-launch-sequence)
       Sequence, does not work in the case where the client sends an invalid FHIR
       server as the `aud` parameter during launch. This must fail to ensure that
       a genuine bearer token is not leaked to a counterfit resource server.

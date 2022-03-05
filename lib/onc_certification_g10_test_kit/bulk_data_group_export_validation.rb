@@ -55,7 +55,7 @@ module ONCCertificationG10TestKit
         recommend using HTTP status code 401 for invalid token but also allow the actual result be controlled by policy#{' '}
         and context.
       DESCRIPTION
-      # link 'http://hl7.org/fhir/uv/bulkdata/export/index.html#file-request'
+      # link 'http://hl7.org/fhir/uv/bulkdata/STU1/export/index.html#file-request'
 
       input :bulk_download_url
 

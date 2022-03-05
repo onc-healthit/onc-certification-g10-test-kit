@@ -24,8 +24,8 @@ module ONCCertificationG10TestKit
     description %(
         This scenario demonstrates the ability of a system to perform a Patient
         Standalone Launch to a [SMART on
-        FHIR](http://www.hl7.org/fhir/smart-app-launch/) confidential client
-        with a patient context, refresh token, 1 1 and [OpenID Connect
+        FHIR](http://www.hl7.org/fhir/smart-app-launch/1.0.0/) confidential client
+        with a patient context, refresh token, and [OpenID Connect
         (OIDC)](https://openid.net/specs/openid-connect-core-1_0.html) identity
         token. After launch, a simple Patient resource read is performed on the
         patient in context. The access token is then refreshed, and the Patient
@@ -55,8 +55,8 @@ module ONCCertificationG10TestKit
         # Background
 
         The [Standalone
-        Launch](http://hl7.org/fhir/smart-app-launch/#standalone-launch-sequence)
-        Sequence allows an app, like Inferno, to be launched independent of an
+        Launch Sequence](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#standalone-launch-sequence)
+        allows an app, like Inferno, to be launched independent of an
         existing EHR session. It is one of the two launch methods described in
         the SMART App Launch Framework alongside EHR Launch. The app will
         request authorization for the provided scope from the authorization
@@ -73,7 +73,7 @@ module ONCCertificationG10TestKit
         For more information on the #{title}:
 
         * [Standalone Launch
-          Sequence](http://hl7.org/fhir/smart-app-launch/#standalone-launch-sequence)
+          Sequence](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#standalone-launch-sequence)
       )
 
       test from: :g10_smart_scopes do

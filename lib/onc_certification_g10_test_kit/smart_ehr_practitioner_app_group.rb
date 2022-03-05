@@ -24,7 +24,7 @@ module ONCCertificationG10TestKit
 
     description %(
       Demonstrate the ability to perform an EHR launch to a [SMART on
-      FHIR](http://www.hl7.org/fhir/smart-app-launch/) confidential client with
+      FHIR](https://hl7.org/fhir/smart-app-launch/1.0.0/) confidential client with
       patient context, refresh token, and [OpenID Connect
       (OIDC)](https://openid.net/specs/openid-connect-core-1_0.html) identity
       token. After launch, a simple Patient resource read is performed on the
