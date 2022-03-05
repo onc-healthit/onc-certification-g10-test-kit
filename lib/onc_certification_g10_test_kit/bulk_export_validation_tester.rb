@@ -163,8 +163,8 @@ module ONCCertificationG10TestKit
               'Could not verify this functionality when Bearer Token is required and not provided'
 
       file_list = JSON.parse(status_output).select { |file| file['type'] == resource_type }
-      message = "No #{resource_type} resource file item returned by server."
       if file_list.empty?
+        message = "No #{resource_type} resource file item returned by server."
         omit_if (OMIT_KLASS.include? resource_type), message
         skip message
       end
