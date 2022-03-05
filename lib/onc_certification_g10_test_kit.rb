@@ -5,6 +5,7 @@ require_relative 'onc_certification_g10_test_kit/configuration_checker'
 require_relative 'onc_certification_g10_test_kit/version'
 
 require_relative 'onc_certification_g10_test_kit/smart_app_launch_invalid_aud_group'
+require_relative 'onc_certification_g10_test_kit/smart_invalid_launch_group'
 require_relative 'onc_certification_g10_test_kit/smart_invalid_token_group'
 require_relative 'onc_certification_g10_test_kit/smart_limited_app_group'
 require_relative 'onc_certification_g10_test_kit/smart_standalone_patient_app_group'
@@ -190,6 +191,7 @@ module ONCCertificationG10TestKit
       group from: :g10_token_revocation
 
       group from: :g10_smart_invalid_aud
+      group from: :g10_smart_invalid_launch_param
       group from: :g10_smart_invalid_token_request
 
       group from: :g10_visual_inspection_and_attestations
