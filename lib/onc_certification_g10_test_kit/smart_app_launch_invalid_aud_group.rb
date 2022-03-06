@@ -104,7 +104,8 @@ module ONCCertificationG10TestKit
           window.
 
           * [Perform Invalid Launch](#{auth_url})
-          * [Attest launch failed](/custom/smart/redirect?state=#{state}&confirm_fail=true)
+          * [Attest launch
+            failed](#{Inferno::Application['base_url']}/custom/smart/redirect?state=#{state}&confirm_fail=true)
         )
       end
     end
