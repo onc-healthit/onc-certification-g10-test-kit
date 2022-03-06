@@ -1,3 +1,7 @@
+# 2.0.0
+
+Initial public release
+
 # 2.0.0.rc3
 
 * Fix links in invalid aud & invalid launch groups.
