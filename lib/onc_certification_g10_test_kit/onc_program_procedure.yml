@@ -16,7 +16,7 @@ procedure:
           registration functions to enable authentication and authorization in §
           170.315(g)(10)(v).
         inferno_tests:
-          - 6.5.01
+          - 6.6.01
         inferno_supported: 'yes'
         inferno_notes: |
           This requires a visual inspection and attestation because it is not
@@ -36,7 +36,7 @@ procedure:
           registration functions to enable authentication and authorization in §
           170.315(g)(10)(v).
         inferno_tests: 
-          - 6.5.02
+          - 6.6.02
         inferno_supported: 'yes'
         inferno_notes: |
           This requires a visual inspection and attestation because it is not
@@ -438,8 +438,8 @@ procedure:
           * “aud”.
         inferno_supported: 'yes'
         inferno_tests:
-          - 6.3.02
-          # - SIL-01 - SIL-02
+          - 6.3.01 - 6.3.02
+          - 6.4.01 - 6.4.04
       - id: AUTH-PATIENT-14
         SUT: |
           [Both] The health IT developer demonstrates the ability of the
@@ -566,7 +566,7 @@ procedure:
         inferno_tests:
           - 2.1.02 - 2.1.09
           - 2.2.01 - 2.2.13
-          - 6.4.01 - 6.4.04
+          - 6.5.01 - 6.5.04
       - id: AUTH-PATIENT-19
         SUT: |
           [Standalone-Launch] The health IT developer the ability of the Health IT
@@ -609,7 +609,7 @@ procedure:
           months to native applications capable of storing a refresh token.
         inferno_supported: 'yes'
         inferno_tests:
-          - 6.5.13
+          - 6.6.13
       - group: 'Subsequent Connections: Authentication and Authorization for Patient and User Scopes'
         id: AUTH-PATIENT-22
         SUT: | 
@@ -628,7 +628,7 @@ procedure:
           in § 170.215(a)(3).
         inferno_supported: 'yes'
         inferno_tests:
-          - 6.5.05
+          - 6.6.05
         inferno_notes: |
           Inferno cannot verify the three month token expiration requirement
           automatically during the token refresh tests, but the tester can
@@ -762,7 +762,7 @@ procedure:
           This test requires the tester to register an attestation from the
           Health IT Module that the "cache-control" header is obeyed.
         inferno_tests:
-          - 6.5.10
+          - 6.6.10
       - id: AUTH-SYSTEM-6
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
@@ -811,7 +811,7 @@ procedure:
           more than what was pre-authorized.  The Health IT module must
           demonstrate this and register its attestation within Inferno.
         inferno_tests:
-          - 6.5.08
+          - 6.6.08
       - id: AUTH-SYSTEM-9
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
@@ -865,7 +865,7 @@ procedure:
           an automated fashion and this is recorded as an attestation
           within Inferno.
         inferno_tests:
-          - 6.5.06
+          - 6.6.06
   - section: Paragraph (g)(10)(ii) – Supported search operations
     steps:
       - group: Supported Search Operations for a Single Patient’s Data
@@ -1072,9 +1072,9 @@ procedure:
           * All references within the resources can be resolved and validated, as applicable, according to steps 2-6 of this section
         inferno_supported: 'yes'
         inferno_tests:
-          - 6.5.07
-          - 6.5.11
-          - 6.5.12
+          - 6.6.07
+          - 6.6.11
+          - 6.6.12
           - 4.2.01
           - 4.3.01
           - 4.4.01
@@ -1434,7 +1434,7 @@ procedure:
           * All technical requirements and attributes necessary for registration.
         inferno_supported: 'yes'
         inferno_tests:
-          - 6.5.09
+          - 6.6.09
       - id: DOCUMENTATION-2
         SUT: |
           The health IT developer demonstrates that the documentation
@@ -1448,4 +1448,4 @@ procedure:
           additional steps to access.
         inferno_supported: 'yes'
         inferno_tests:
-          - 6.5.09
+          - 6.6.09

@@ -49,7 +49,7 @@ module ONCCertificationG10TestKit
         matrix_worksheet.sheet_name = 'Matrix'
 
         col = 2
-        matrix_worksheet.add_cell(0, 1, "Inferno Program Tests (v#{Inferno::VERSION})")
+        matrix_worksheet.add_cell(0, 1, "ONC Certification (g)(10) Test Kit (v#{ONCCertificationG10TestKit::VERSION})")
         matrix_worksheet.change_row_height(0, 20)
         matrix_worksheet.change_row_vertical_alignment(0, 'distributed')
         column_map = {}
