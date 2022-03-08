@@ -1,12 +1,43 @@
-# ONC Certification (g)(10) Test Kit (Preview Version)
+# ONC Certification (g)(10) Standardized API Test Kit
 
-This is a preview version of an
-[Inferno](https://github.com/inferno-framework/inferno-core) test kit for
-services seeking to meet the requirements of the Standardized API for Patient
-and Population Services criterion § 170.315(g)(10) in the 2015 Edition Cures
-Update.
+The **ONC Certification (g)(10) Standardized API Test Kit** is a testing tool
+for Health IT systems seeking to meet the requirements of the Standardized API
+for Patient and Population Services criterion § 170.315(g)(10) in the 2015
+Edition Cures Update.
 
-## Instructions
+The ONC Certification (g)(10) Standardized API Test Kit is the successor to [Inferno Program
+Edition](/onc-healthit/inferno-program).  Currently, systems can use either
+Inferno Program Edition v1.9 or the ONC Certification (g)(10) Standardized API
+Test Kit v2.0+ to certify to the ONC (g)(10) criteria.  Users should expect Inferno
+Program Edition to be sunsetted over the coming months.
+
+The (g)(10) Standardized API Test Kit behaves like an API consumer, making a
+series of HTTP requests that mimic a real world client to ensure that the API
+supports all required standards, including:
+
+* Health Level 7 (HL7®) Fast Healthcare Interoperability Resources (FHIR®) Release 4.0.1
+* FHIR US Core Implementation Guide (IG) STU 3.1.1
+* SMART Application Launch Framework Implementation Guide Release 1.0.0
+* HL7 FHIR Bulk Data Access (Flat FHIR) (v1.0.0: STU 1)
+
+This test kit is [open
+source](https://github.com/onc-healthit/onc-certification-g10-test-kit) and
+freely available for use or adoption by the health IT community including EHR
+vendors, health app developers, and testing labs. It can be used as a testing
+tool for the EHR Certification program supported by the Office of the National
+Coordinator for Health IT (ONC).
+
+The (g)(10) Standarized API Test Kit is built using the [Inferno
+Framework](https://inferno-framework.github.io/inferno-core).  The Inferno
+Framework is designed for reuse and aims to make it easier to build test kits
+for any FHIR-based data exchanges.
+
+Please report any issues with this set of tests in the [GitHub
+Issues](/onc-healthit/onc-certification-g10-test-kit) section of this
+repository.
+
+
+## Local Installation Instruction
 
 - Clone this repo.
 - run `setup.sh`
