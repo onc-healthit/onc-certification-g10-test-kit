@@ -8,7 +8,7 @@ services:
     depends_on:
       - validator_service
   validator_service:
-    image: infernocommunity/fhir-validator-service
+    image: infernocommunity/fhir-validator-service:v2.1.0
     # Update this path to match your directory structure
     environment:
       - DISABLE_TX= true
