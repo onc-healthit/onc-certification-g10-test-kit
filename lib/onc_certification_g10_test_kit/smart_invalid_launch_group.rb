@@ -85,6 +85,16 @@ module ONCCertificationG10TestKit
       }
     )
 
+    # TODO: fix duplicate ids
+    input_order :url,
+                :ehr_client_id,
+                :ehr_client_secret,
+                :ehr_requested_scopes,
+                :use_pkce,
+                :pkce_code_challenge_method,
+                :smart_authorization_url,
+                :smart_token_url
+
     test from: :smart_app_launch
     test from: :smart_launch_received
     test from: :smart_app_redirect do

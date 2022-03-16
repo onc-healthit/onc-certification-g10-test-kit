@@ -66,6 +66,17 @@ module ONCCertificationG10TestKit
       }
     )
 
+    # TODO: fix duplicate ids
+    input_order :token_revocation_attestation,
+                :token_revocation_notes,
+                :standalone_access_token,
+                :standalone_refresh_token,
+                :standalone_patient_id,
+                :url,
+                :smart_token_url,
+                :standalone_client_id,
+                :standalone_client_secret
+
     test do
       title 'Health IT developer demonstrated the ability of the Health IT Module to revoke tokens.'
       description %(

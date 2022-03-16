@@ -47,6 +47,8 @@ module ONCCertificationG10TestKit
       }
     )
 
+    input_order :url, :ehr_client_id, :client_secret
+
     group from: :smart_discovery do
       test from: 'g10_smart_well_known_capabilities'
     end

@@ -36,6 +36,17 @@ module ONCCertificationG10TestKit
     id :multi_patient_api
     run_as_group
 
+    input_order :bulk_server_url,
+                :bulk_token_endpoint,
+                :bulk_client_id,
+                :bulk_scope,
+                :bulk_encryption_method,
+                :group_id,
+                :bulk_patient_ids_in_group,
+                :bulk_device_types_in_group,
+                :lines_to_validate,
+                :bulk_timeout
+
     group from: :bulk_data_authorization
     group from: :bulk_data_group_export
     group from: :bulk_data_group_export_validation

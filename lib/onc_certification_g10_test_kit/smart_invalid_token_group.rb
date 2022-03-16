@@ -60,6 +60,16 @@ module ONCCertificationG10TestKit
             ]
           }
 
+    # TODO: fix duplicate ids
+    input_order :url,
+                :standalone_client_id,
+                :standalone_client_secret,
+                :standalone_requested_scopes,
+                :use_pkce,
+                :pkce_code_challenge_method,
+                :smart_authorization_url,
+                :smart_token_url
+
     config(
       inputs: {
         client_id: {

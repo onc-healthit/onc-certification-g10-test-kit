@@ -94,6 +94,15 @@ module ONCCertificationG10TestKit
       }
     )
 
+    input_order :url,
+                :public_client_id,
+                :public_client_secret,
+                :public_requested_scopes,
+                :use_pkce,
+                :pkce_code_challenge_method,
+                :smart_authorization_url,
+                :smart_token_url
+
     test from: :g10_patient_context,
          config: {
            inputs: {

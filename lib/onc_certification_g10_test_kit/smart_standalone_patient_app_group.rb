@@ -46,6 +46,8 @@ module ONCCertificationG10TestKit
       }
     )
 
+    input_order :url, :standalone_client_id, :standalone_client_secret
+
     group from: :smart_discovery do
       test from: 'g10_smart_well_known_capabilities'
     end
