@@ -24,8 +24,6 @@ module ONCCertificationG10TestKit
     id :g10_smart_invalid_token_request
     run_as_group
 
-    input :client_id, :client_secret, :requested_scopes, :url, :smart_authorization_url, :smart_token_url
-
     input :use_pkce,
           title: 'Proof Key for Code Exchange (PKCE)',
           type: 'radio',
@@ -60,7 +58,6 @@ module ONCCertificationG10TestKit
             ]
           }
 
-    # TODO: fix duplicate ids
     input_order :url,
                 :standalone_client_id,
                 :standalone_client_secret,
@@ -76,11 +73,6 @@ module ONCCertificationG10TestKit
           name: :standalone_client_id,
           title: 'Standalone Client ID',
           description: 'Client ID provided during registration of Inferno as a standalone application'
-        },
-        client_secret: {
-          name: :standalone_client_secret,
-          title: 'Standalone Client Secret',
-          description: 'Client Secret provided during registration of Inferno as a standalone application'
         },
         requested_scopes: {
           name: :standalone_requested_scopes,
@@ -146,6 +138,10 @@ module ONCCertificationG10TestKit
       uses_request :redirect
 
       input :use_pkce, :pkce_code_verifier
+      input :client_secret,
+            name: :standalone_client_secret,
+            title: 'Standalone Client Secret',
+            description: 'Client Secret provided during registration of Inferno as a standalone application'
 
       run do
         skip_if request.query_parameters['error'].present?, 'Error during authorization request'
