@@ -3,7 +3,7 @@ require_relative '../../lib/onc_certification_g10_test_kit/bulk_data_group_expor
 RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExport do
   let(:group) { Inferno::Repositories::TestGroups.new.find('bulk_data_group_export') }
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
-  let(:test_session) { repo_create(:test_session, test_group_id: 'bulk_data_group_export') }
+  let(:test_session) { repo_create(:test_session, test_suite_id: 'g10_certification') }
   let(:bulk_server_url) { 'https://example.com/fhir' }
   let(:bearer_token) { 'some_bearer_token_alphanumeric' }
   let(:group_id) { '1219' }
