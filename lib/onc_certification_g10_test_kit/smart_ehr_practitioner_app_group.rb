@@ -38,16 +38,13 @@ module ONCCertificationG10TestKit
 
     config(
       inputs: {
-        client_secret: {
-          optional: false
-        },
         smart_credentials: {
           name: :ehr_smart_credentials
         }
       }
     )
 
-    input_order :url, :ehr_client_id, :client_secret
+    input_order :url, :ehr_client_id, :ehr_client_secret
 
     group from: :smart_discovery do
       test from: 'g10_smart_well_known_capabilities'
@@ -55,6 +52,11 @@ module ONCCertificationG10TestKit
 
     group from: :smart_ehr_launch do
       title 'EHR Launch With Practitioner Scope'
+      input :client_secret,
+            name: :ehr_client_secret,
+            title: 'EHR Launch Client Secret',
+            description: 'Client Secret provided during registration of Inferno as an EHR launch application',
+            optional: false
 
       config(
         inputs: {

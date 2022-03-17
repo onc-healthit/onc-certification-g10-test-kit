@@ -41,19 +41,22 @@ module ONCCertificationG10TestKit
     config(
       inputs: {
         client_id: {
-          name: :public_client_id
+          name: :public_client_id,
+          title: 'Public Launch Client ID'
         },
         client_secret: {
           name: :public_client_secret,
+          title: 'Public Launch Client Secret',
           default: nil,
           optional: true,
           locked: true
         },
         requested_scopes: {
-          name: :public_requested_scopes
+          name: :public_requested_scopes,
+          title: 'Public Launch Scope'
         },
         url: {
-          title: 'Standalone FHIR Endpoint',
+          title: 'Public Launch FHIR Endpoint',
           description: 'URL of the FHIR endpoint used by standalone applications'
         },
         code: {

@@ -74,6 +74,11 @@ module ONCCertificationG10TestKit
           title: 'Standalone Client ID',
           description: 'Client ID provided during registration of Inferno as a standalone application'
         },
+        client_secret: {
+          name: :standalone_client_secret,
+          title: 'Standalone Client Secret',
+          description: 'Client Secret provided during registration of Inferno as a standalone application'
+        },
         requested_scopes: {
           name: :standalone_requested_scopes,
           title: 'Standalone Scope',
@@ -137,11 +142,7 @@ module ONCCertificationG10TestKit
       )
       uses_request :redirect
 
-      input :use_pkce, :pkce_code_verifier
-      input :client_secret,
-            name: :standalone_client_secret,
-            title: 'Standalone Client Secret',
-            description: 'Client Secret provided during registration of Inferno as a standalone application'
+      input :use_pkce, :pkce_code_verifier, :client_id, :client_secret, :smart_token_url
 
       run do
         skip_if request.query_parameters['error'].present?, 'Error during authorization request'
@@ -176,7 +177,7 @@ module ONCCertificationG10TestKit
       )
       uses_request :redirect
 
-      input :use_pkce, :pkce_code_verifier, :code
+      input :use_pkce, :pkce_code_verifier, :code, :smart_token_url, :client_secret
 
       run do
         skip_if request.query_parameters['error'].present?, 'Error during authorization request'

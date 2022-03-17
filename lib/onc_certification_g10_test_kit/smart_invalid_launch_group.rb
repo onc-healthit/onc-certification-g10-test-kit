@@ -59,10 +59,6 @@ module ONCCertificationG10TestKit
         smart_authorization_url: {
           title: 'OAuth 2.0 Authorize Endpoint',
           description: 'OAuth 2.0 Authorize Endpoint provided during an EHR launch'
-        },
-        smart_token_url: {
-          title: 'OAuth 2.0 Token Endpoint',
-          description: 'OAuth 2.0 Token Endpoint provided during an EHR launch'
         }
       },
       outputs: {
@@ -79,8 +75,7 @@ module ONCCertificationG10TestKit
                 :ehr_requested_scopes,
                 :use_pkce,
                 :pkce_code_challenge_method,
-                :smart_authorization_url,
-                :smart_token_url
+                :smart_authorization_url
 
     test from: :smart_app_launch
     test from: :smart_launch_received

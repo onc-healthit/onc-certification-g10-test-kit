@@ -84,8 +84,7 @@ module ONCCertificationG10TestKit
                 :standalone_requested_scopes,
                 :use_pkce,
                 :pkce_code_challenge_method,
-                :smart_authorization_url,
-                :smart_token_url
+                :smart_authorization_url
 
     test from: :smart_app_redirect do
       input :client_secret,

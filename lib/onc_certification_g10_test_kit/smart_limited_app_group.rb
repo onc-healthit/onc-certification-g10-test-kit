@@ -71,12 +71,15 @@ module ONCCertificationG10TestKit
           state: { name: :limited_state },
           patient_id: { name: :limited_patient_id },
           access_token: { name: :limited_access_token },
-          requested_scopes: { name: :limited_requested_scopes },
+          requested_scopes: {
+            name: :limited_requested_scopes,
+            title: 'Limited Access Scope'
+          },
           # TODO: separate standalone/ehr discovery outputs
           smart_authorization_url: { locked: true, title: 'SMART Authorization Url' },
           smart_token_url: { locked: true, title: 'SMART Token Url' },
           received_scopes: { name: :limited_received_scopes },
-          smart_credentials: { name: :limited_smart_credentials }
+          smart_credentials: { name: :limited_smart_credentials },
         },
         outputs: {
           code: { name: :limited_code },
