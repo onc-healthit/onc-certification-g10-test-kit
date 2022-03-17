@@ -4,69 +4,7 @@ module ONCCertificationG10TestKit
     description 'Demonstrate the Health IT module is capable of revoking access granted to an application.'
     id :g10_token_revocation
     run_as_group
-    input :token_revocation_attestation,
-          title: 'Prior to executing test, Health IT developer demonstrated revoking tokens provided during patient standalone launch.', # rubocop:disable Layout/LineLength
-          type: 'radio',
-          default: 'false',
-          options: {
-            list_options: [
-              {
-                label: 'Yes',
-                value: 'true'
-              },
-              {
-                label: 'No',
-                value: 'false'
-              }
-            ]
-          }
-    input :token_revocation_notes,
-          title: 'Notes, if applicable:',
-          type: 'textarea',
-          optional: true
-    input :url, :access_token, :refresh_token, :smart_token_url, :patient_id, :client_id, :client_secret
 
-    config(
-      inputs: {
-        url: {
-          title: 'FHIR Endpoint',
-          description: 'URL of the FHIR endpoint used by standalone applications'
-        },
-        smart_token_url: {
-          title: 'OAuth 2.0 Token Endpoint',
-          description: 'OAuth token endpoint provided during the patient standalone launch'
-        },
-        access_token: {
-          name: :standalone_access_token,
-          title: 'Revoked Bearer Token',
-          description: 'Prior to the test, please revoke this bearer token from patient standalone launch.'
-        },
-        refresh_token: {
-          name: :standalone_refresh_token,
-          title: 'Revoked Refresh Token',
-          description: 'Prior to the test, please revoke this refresh token from patient standalone launch.'
-        },
-        patient_id: {
-          name: :standalone_patient_id,
-          title: 'Patient ID',
-          description: 'Patient ID associated with revoked tokens provided as context in the patient standalone launch. This will be used to verify access is no longer granted using the revoked token.' # rubocop:disable Layout/LineLength
-        },
-        client_id: {
-          name: :standalone_client_id,
-          title: 'Standalone Client ID',
-          description: 'Client ID provided during registration of Inferno as a standalone application',
-          locked: true
-        },
-        client_secret: {
-          name: :standalone_client_secret,
-          title: 'Standalone Client Secret',
-          description: 'Client Secret provided during registration of Inferno as a standalone application',
-          locked: true
-        }
-      }
-    )
-
-    # TODO: fix duplicate ids
     input_order :token_revocation_attestation,
                 :token_revocation_notes,
                 :standalone_access_token,
@@ -84,6 +22,27 @@ module ONCCertificationG10TestKit
         authorization server to revoke tokens.
       )
 
+      input :token_revocation_attestation,
+            title: 'Prior to executing test, Health IT developer demonstrated revoking tokens provided during patient standalone launch.', # rubocop:disable Layout/LineLength
+            type: 'radio',
+            default: 'false',
+            options: {
+              list_options: [
+                {
+                  label: 'Yes',
+                  value: 'true'
+                },
+                {
+                  label: 'No',
+                  value: 'false'
+                }
+              ]
+            }
+      input :token_revocation_notes,
+            title: 'Notes, if applicable:',
+            type: 'textarea',
+            optional: true
+
       run do
         assert token_revocation_attestation == 'true',
                'Health IT Module did not demonstrate support for application registration for single patients.'
@@ -96,6 +55,18 @@ module ONCCertificationG10TestKit
       description %(
         This test checks that the Patient resource returns unuathorized after token revocation.
       )
+
+      input :url,
+            title: 'FHIR Endpoint',
+            description: 'URL of the FHIR endpoint used by standalone applications'
+      input :patient_id,
+            name: :standalone_patient_id,
+            title: 'Patient ID',
+            description: 'Patient ID associated with revoked tokens provided as context in the patient standalone launch. This will be used to verify access is no longer granted using the revoked token.' # rubocop:disable Layout/LineLength
+      input :access_token,
+            name: :standalone_access_token,
+            title: 'Revoked Bearer Token',
+            description: 'Prior to the test, please revoke this bearer token from patient standalone launch.'
 
       fhir_client :revoked_token do
         url :url
@@ -121,6 +92,24 @@ module ONCCertificationG10TestKit
       description %(
         This test checks that refreshing token fails after token revokation.
       )
+
+      input :smart_token_url,
+            title: 'OAuth 2.0 Token Endpoint',
+            description: 'OAuth token endpoint provided during the patient standalone launch'
+      input :refresh_token,
+            name: :standalone_refresh_token,
+            title: 'Revoked Refresh Token',
+            description: 'Prior to the test, please revoke this refresh token from patient standalone launch.'
+      input :client_id,
+            name: :standalone_client_id,
+            title: 'Standalone Client ID',
+            description: 'Client ID provided during registration of Inferno as a standalone application',
+            locked: true
+      input :client_secret,
+            name: :standalone_client_secret,
+            title: 'Standalone Client Secret',
+            description: 'Client Secret provided during registration of Inferno as a standalone application',
+            locked: true
 
       run do
         skip_if refresh_token.blank?,
