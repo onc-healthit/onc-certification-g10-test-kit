@@ -256,6 +256,16 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExport do
 
       expect(result.result).to eq('pass')
     end
+
+    it 'sends content type headers' do
+      get_stub = stub_request(:get, polling_url.to_s)
+        .with(headers: { 'Authorization' => "Bearer #{bearer_token}" })
+        .with(headers: { 'Accept' => 'application/fhir+json' })
+
+      result = run(runnable, input)
+
+      assert_requested get_stub
+    end
   end
 
   describe '[Bulk Data Server returns output with type and url for status complete] test' do
