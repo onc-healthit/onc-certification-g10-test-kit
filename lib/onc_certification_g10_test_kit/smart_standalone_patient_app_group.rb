@@ -40,7 +40,8 @@ module ONCCertificationG10TestKit
     config(
       inputs: {
         client_secret: {
-          optional: false
+          optional: false,
+          name: :standalone_client_secret
         }
       }
     )
