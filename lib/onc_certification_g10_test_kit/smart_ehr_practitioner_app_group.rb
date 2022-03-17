@@ -199,10 +199,12 @@ module ONCCertificationG10TestKit
       title 'Set SMART Credentials to EHR Launch Credentials'
 
       input :ehr_smart_credentials, type: :oauth_credentials
-      output :smart_credentials
+      input :ehr_patient_id
+      output :smart_credentials, :patient_id
 
       run do
-        output smart_credentials: ehr_smart_credentials.to_s
+        output smart_credentials: ehr_smart_credentials.to_s,
+               patient_id: ehr_patient_id
       end
     end
   end

@@ -4,6 +4,7 @@ require 'us_core_test_kit'
 require_relative 'onc_certification_g10_test_kit/configuration_checker'
 require_relative 'onc_certification_g10_test_kit/version'
 
+require_relative 'onc_certification_g10_test_kit/single_patient_api_group'
 require_relative 'onc_certification_g10_test_kit/smart_app_launch_invalid_aud_group'
 require_relative 'onc_certification_g10_test_kit/smart_invalid_launch_group'
 require_relative 'onc_certification_g10_test_kit/smart_invalid_token_group'
@@ -122,58 +123,7 @@ module ONCCertificationG10TestKit
 
     group from: 'g10_smart_ehr_practitioner_app'
 
-    group do
-      id :single_patient_api
-      title 'Single Patient API'
-      description %(
-        For each of the relevant USCDI data elements provided in the
-        CapabilityStatement, this test executes the [required supported
-        searches](http://www.hl7.org/fhir/us/core/STU3.1.1/CapabilityStatement-us-core-server.html)
-        as defined by the US Core Implementation Guide v3.1.1. The test begins
-        by searching by one or more patients, with the expectation that the
-        Bearer token provided to the test grants access to all USCDI resources.
-        It uses results returned from that query to generate other queries and
-        checks that the results are consistent with the provided search
-        parameters. It then performs a read on each Resource returned and
-        validates the response against the relevant
-        [profile](http://www.hl7.org/fhir/us/core/STU3.1.1/profiles.html) as
-        currently defined in the US Core Implementation Guide. All MUST SUPPORT
-        elements must be seen before the test can pass, as well as Data Absent
-        Reason to demonstrate that the server can properly handle missing data.
-        Note that Encounter, Organization and Practitioner resources must be
-        accessible as references in some US Core profiles to satisfy must
-        support requirements, and those references will be validated to their US
-        Core profile. These resources will not be tested for FHIR search
-        support.
-      )
-      run_as_group
-
-      input :url,
-            title: 'FHIR Endpoint',
-            description: 'URL of the FHIR endpoint used by SMART applications'
-      input :smart_credentials,
-            title: 'SMART App Launch Credentials',
-            type: :oauth_credentials,
-            locked: true
-
-      fhir_client do
-        url :url
-        oauth_credentials :smart_credentials
-      end
-
-      USCoreTestKit::USCoreTestSuite.groups.each do |group|
-        test_group = group.ancestors[1]
-        id = test_group.id
-
-        group_config = {}
-        if test_group.respond_to?(:metadata) && test_group.metadata.delayed?
-          test_group.children.reject! { |child| child.include? USCoreTestKit::SearchTest }
-          group_config[:options] = { read_all_resources: true }
-        end
-
-        group(from: id, exclude_optional: true, config: group_config)
-      end
-    end
+    group from: 'g10_single_patient_api'
 
     group from: 'multi_patient_api'
 
