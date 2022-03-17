@@ -247,9 +247,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExport do
       expect(result.result_message).to eq('Complete Status response did not contain "transactionTime" as required')
     end
 
-    it 'passes when server returns "202 
-    
-    ed" and response body contains required attributes' do
+    it 'passes when server returns "202 Accepted" and response body contains required attributes' do
       stub_request(:get, polling_url.to_s)
         .with(headers: { 'Authorization' => "Bearer #{bearer_token}" })
         .to_return(status: 200, body: status_response, headers: headers)
@@ -261,8 +259,10 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExport do
 
     it 'sends content type headers' do
       get_stub = stub_request(:get, polling_url.to_s)
-        .with(headers: { 'Authorization' => "Bearer #{bearer_token}" })
-        .with(headers: { 'Accept' => 'application/json' })
+        .with(headers: {
+          'Authorization' => "Bearer #{bearer_token}",
+          'Accept' => 'application/json'
+        })
 
       result = run(runnable, input)
 
