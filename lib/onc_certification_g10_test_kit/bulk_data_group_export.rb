@@ -161,7 +161,7 @@ module ONCCertificationG10TestKit
         start = Time.now
 
         loop do
-          get(polling_url, headers: { authorization: "Bearer #{bearer_token}", accept: 'application/fhir+json' })
+          get(polling_url, headers: { authorization: "Bearer #{bearer_token}", accept: 'application/json' })
 
           retry_after_val = request.response_header('retry-after')&.value.to_i
 
