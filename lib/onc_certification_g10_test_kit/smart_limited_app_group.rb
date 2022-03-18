@@ -102,7 +102,7 @@ module ONCCertificationG10TestKit
       )
 
       input :expected_resources,
-            title: 'Expected Resource Grant',
+            title: 'Expected Resource Grant for Limited Access Launch',
             description: 'The user will only grant access to the following resources during authorization.',
             default: 'Patient, Condition, Observation'
 
