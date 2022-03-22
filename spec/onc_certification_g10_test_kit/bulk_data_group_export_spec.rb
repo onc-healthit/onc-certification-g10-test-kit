@@ -55,6 +55,11 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExport do
       capability_statement_json['rest'][0]['resource'][1]['operation'][0]['definition'] += '|1.0.1'
       capability_statement_json.to_json
     end
+    let(:capability_with_custom_base_url) do
+      capability_statement_json = JSON.parse(capability_statement)
+      capability_statement_json['rest'][0]['resource'][1]['operation'][0]['definition'] = 'https://example.org/fhir/uv/bulkdata/OperationDefinition/group-export|1.0.1'
+      capability_statement_json.to_json
+    end
 
     it 'fails when CapabilityStatement can not be retrieved' do
       stub_request(:get, "#{bulk_server_url}/metadata")
@@ -99,6 +104,15 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExport do
     it 'passes when server declares support with version in CapabilityStatement' do
       stub_request(:get, "#{bulk_server_url}/metadata")
         .to_return(status: 200, body: capability_statement_with_version)
+
+      result = run(runnable, base_input)
+
+      expect(result.result).to eq('pass')
+    end
+
+    it 'has an operation definition URL for group-export' do
+      stub_request(:get, "#{bulk_server_url}/metadata")
+        .to_return(status: 200, body: capability_with_custom_base_url)
 
       result = run(runnable, base_input)
 

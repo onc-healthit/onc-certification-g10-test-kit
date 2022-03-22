@@ -73,7 +73,7 @@ module ONCCertificationG10TestKit
             resource.type == 'Group' &&
               resource.respond_to?(:operation) &&
               resource.operation&.find do |operation|
-                operation.definition&.match(%r{^http://hl7.org/fhir/uv/bulkdata/OperationDefinition/group-export(\|\S+)?})
+                operation.definition&.match(%r{^http(s)?://.*/OperationDefinition/group-export(\|\S+)?$})
               end
           end
         end
