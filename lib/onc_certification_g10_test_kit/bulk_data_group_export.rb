@@ -19,11 +19,12 @@ module ONCCertificationG10TestKit
           description: 'The Group ID associated with the group of patients to be exported.'
     input :bulk_timeout,
           title: 'Export Times Out after (1-600)',
-          description: 'While testing, Inferno waits for the server to complete the exporting task.
-          If the calculated totalTime is greater than the timeout value specified here,
-          Inferno bulk client stops testing. Please enter an integer for the maximum wait time in seconds.
-          If timeout is less than 1, Inferno uses default value 180.
-          If the timeout is greater than 600 (10 minutes), Inferno uses the maximum value 600.',
+          description: <<~DESCRIPTION,
+            While testing, Inferno waits for the server to complete the exporting task. If the calculated totalTime is
+            greater than the timeout value specified here, Inferno bulk client stops testing. Please enter an integer
+            for the maximum wait time in seconds. If timeout is less than 1, Inferno uses default value 180. If the 
+              timeout is greater than 600 (10 minutes), Inferno uses the maximum value 600.
+          DESCRIPTION
           default: 180
 
     output :requires_access_token, :status_output, :bulk_download_url

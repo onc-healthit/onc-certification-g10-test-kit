@@ -21,8 +21,9 @@ module ONCCertificationG10TestKit
 
     input :bulk_token_endpoint,
           title: 'Backend Services Token Endpoint',
-          description: 'The OAuth 2.0 Token Endpoint used by the Backend Services specification
-                        to provide bearer tokens.'
+          description: <<~DESCRIPTION,
+            The OAuth 2.0 Token Endpoint used by the Backend Services specification to provide bearer tokens.
+          DESCRIPTION
     input :bulk_client_id,
           title: 'Bulk Data Client ID',
           description: 'Client ID provided at registration to the Inferno application.'
@@ -32,8 +33,10 @@ module ONCCertificationG10TestKit
           default: 'system/*.read'
     input :bulk_encryption_method,
           title: 'Encryption Method',
-          description: 'The server is required to suport either ES384 or RS384 encryption methods
-                        for JWT signature verification. Select which method to use.',
+          description: <<~DESCRIPTION, 
+            The server is required to suport either ES384 or RS384 encryption methods for JWT signature verification. 
+            Select which method to use.
+          DESCRIPTION
           type: 'radio',
           default: 'ES384',
           options: {
