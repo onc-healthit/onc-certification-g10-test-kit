@@ -22,7 +22,7 @@ module ONCCertificationG10TestKit
           description: <<~DESCRIPTION,
             While testing, Inferno waits for the server to complete the exporting task. If the calculated totalTime is
             greater than the timeout value specified here, Inferno bulk client stops testing. Please enter an integer
-            for the maximum wait time in seconds. If timeout is less than 1, Inferno uses default value 180. If the 
+            for the maximum wait time in seconds. If timeout is less than 1, Inferno uses default value 180. If the#{' '}
               timeout is greater than 600 (10 minutes), Inferno uses the maximum value 600.
           DESCRIPTION
           default: 180

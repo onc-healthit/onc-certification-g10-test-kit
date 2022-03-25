@@ -21,7 +21,7 @@ module ONCCertificationG10TestKit
 
     input :bulk_token_endpoint,
           title: 'Backend Services Token Endpoint',
-          description: <<~DESCRIPTION,
+          description: <<~DESCRIPTION
             The OAuth 2.0 Token Endpoint used by the Backend Services specification to provide bearer tokens.
           DESCRIPTION
     input :bulk_client_id,
@@ -33,8 +33,8 @@ module ONCCertificationG10TestKit
           default: 'system/*.read'
     input :bulk_encryption_method,
           title: 'Encryption Method',
-          description: <<~DESCRIPTION, 
-            The server is required to suport either ES384 or RS384 encryption methods for JWT signature verification. 
+          description: <<~DESCRIPTION,
+            The server is required to suport either ES384 or RS384 encryption methods for JWT signature verification.#{' '}
             Select which method to use.
           DESCRIPTION
           type: 'radio',
