@@ -85,8 +85,7 @@ module ONCCertificationG10TestKit
       Patient and Population Services criterion § 170.315(g)(10) in the 2015
       Edition Cures Update.
 
-      This test kit is the successor to "Inferno Program Edition", and is
-      currently in preview status.  Please [create an
+      This test kit is the successor to "Inferno Program Edition". Please [create an
       issue](https://github.com/inferno-framework/g10-certification-test-kit/issues)
       if there are discrepencies between these tests and the "Inferno Program
       Edition v1.9" tests.
