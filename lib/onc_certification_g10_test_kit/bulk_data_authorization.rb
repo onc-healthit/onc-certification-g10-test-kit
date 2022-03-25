@@ -34,7 +34,7 @@ module ONCCertificationG10TestKit
     input :bulk_encryption_method,
           title: 'Encryption Method',
           description: <<~DESCRIPTION,
-            The server is required to suport either ES384 or RS384 encryption methods for JWT signature verification.#{' '}
+            The server is required to suport either ES384 or RS384 encryption methods for JWT signature verification.
             Select which method to use.
           DESCRIPTION
           type: 'radio',
