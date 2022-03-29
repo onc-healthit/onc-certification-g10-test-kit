@@ -106,7 +106,7 @@ namespace :terminology do |_argv|
 
   desc 'Download FHIR Package'
   task :download_package, [:package, :location] do |_t, args|
-    Inferno::FHIRPackageManager.get_package(args.package, args.location)
+    Inferno::Terminology::FHIRPackageManager.get_package(args.package, args.location)
   end
 
   desc 'Download Terminology from FHIR Package'
