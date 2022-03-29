@@ -4,9 +4,11 @@ module Inferno
   module Terminology
     module Tasks
       class CheckBuiltTerminology
-        MIME_TYPE_SYSTEMS = [
+        NON_UMLS_SYSTEMS = [
           'http://hl7.org/fhir/ValueSet/mimetypes',
-          'urn:ietf:bcp:13'
+          'urn:ietf:bcp:13',
+          'http://hl7.org/fhir/us/core/ValueSet/simple-language',
+          'urn:ietf:bcp:47'
         ].freeze
 
         def run
@@ -15,16 +17,16 @@ module Inferno
             return
           end
 
-          if only_mime_types_mismatch?
-            Inferno.logger.info <<~MIME
+          if only_non_umls_mismatch?
+            Inferno.logger.info <<~NON_UMLS
               Terminology built successfully.
 
-              Mime-type based terminology did not match, but this can be a
-              result of using a newer version of the `mime-types-data` gem and
-              does not necessarily reflect a problem with the terminology build.
-              The expected mime-types codes were generated with version
-              `mime-types-data` version `3.2021.0901`.
-            MIME
+              Some terminology not based on UMLS did not match, but this can be
+              a result of these terminologies having a different update schedule
+              than UMLS. As long as the actual number of codes is close to the
+              expected number, this does not does not reflect a problem with the
+              terminology build.
+            NON_UMLS
           else
             Inferno.logger.info 'Terminology build results different than expected.'
           end
@@ -61,8 +63,8 @@ module Inferno
           new_manifest.find { |value_set| value_set[:url] == url }
         end
 
-        def only_mime_types_mismatch?
-          mismatched_value_sets.all? { |value_set| MIME_TYPE_SYSTEMS.include? value_set[:url] }
+        def only_non_umls_mismatch?
+          mismatched_value_sets.all? { |value_set| NON_UMLS_SYSTEMS.include? value_set[:url] }
         end
 
         def mismatched_value_set_message(expected_value_set)

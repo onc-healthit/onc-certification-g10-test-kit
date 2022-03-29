@@ -55,7 +55,7 @@ module ONCCertificationG10TestKit
           success_messages << "* `#{url}`: #{actual_value_set[:count]} codes"
         elsif actual_value_set.nil?
           error_messages << "* `#{url}`: Not loaded"
-        elsif terminology_checker.class::MIME_TYPE_SYSTEMS.include? url
+        elsif terminology_checker.class::NON_UMLS_SYSTEMS.include? url
           warning_messages <<
             "* `#{url}`: Expected codes: #{expected_value_set[:count]} Actual codes: #{actual_value_set[:count]}"
         else
@@ -74,10 +74,11 @@ module ONCCertificationG10TestKit
 
       if warning_messages.present?
         warning_message = <<~WARNING
-          Mime-type based terminology did not exactly match. This can be the
-          result of using a slightly different version of the `mime-types-data`
-          gem and does not reflect a problem with the terminology build as long
-          as the expected and actual number of codes are close to each other.
+          Some terminology not based on UMLS did not match, but this can be a
+          result of these terminologies having a different update schedule than
+          UMLS. As long as the actual number of codes is close to the expected
+          number, this does not does not reflect a problem with the terminology
+          build.
         WARNING
         messages << {
           type: 'warning',
