@@ -15,7 +15,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExport do
       group_id: group_id
     }
   end
-  let(:capability_statement) { File.read('spec/fixtures/capabilitystatement.json') }
+  let(:capability_statement) { File.read('spec/fixtures/CapabilityStatement.json') }
   let(:status_response) do
     '{"transactionTime":"2021-11-30T13:40:29.828Z","request":"https://inferno.healthit.gov/bulk-data-server/' \
       'eyJlcnIiOiIiLCJwYWdlIjoxMDAwMCwiZHVyIjoxMCwidGx0Ijo2MCwibSI6MSwic3R1Ijo0LCJkZWwiOjB9/fhir/Group/' \
