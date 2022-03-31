@@ -15,7 +15,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExport do
       group_id: group_id
     }
   end
-  let(:capability_statement) { File.read('spec/fixtures/capabilitystatement.json') }
+  let(:capability_statement) { File.read('spec/fixtures/CapabilityStatement.json') }
   let(:status_response) do
     '{"transactionTime":"2021-11-30T13:40:29.828Z","request":"https://inferno.healthit.gov/bulk-data-server/' \
       'eyJlcnIiOiIiLCJwYWdlIjoxMDAwMCwiZHVyIjoxMCwidGx0Ijo2MCwibSI6MSwic3R1Ijo0LCJkZWwiOjB9/fhir/Group/' \
@@ -260,11 +260,11 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExport do
     it 'sends content type headers' do
       get_stub = stub_request(:get, polling_url.to_s)
         .with(headers: {
-          'Authorization' => "Bearer #{bearer_token}",
-          'Accept' => 'application/json'
-        })
+                'Authorization' => "Bearer #{bearer_token}",
+                'Accept' => 'application/json'
+              })
 
-      result = run(runnable, input)
+      run(runnable, input)
 
       assert_requested get_stub
     end

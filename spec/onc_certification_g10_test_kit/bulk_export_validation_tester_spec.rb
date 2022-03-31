@@ -1,5 +1,5 @@
 require_relative '../../lib/onc_certification_g10_test_kit/bulk_export_validation_tester'
-require 'NDJSON'
+require 'ndjson'
 
 class BulkExportValidationTesterClass < Inferno::Test
   include ONCCertificationG10TestKit::BulkExportValidationTester
