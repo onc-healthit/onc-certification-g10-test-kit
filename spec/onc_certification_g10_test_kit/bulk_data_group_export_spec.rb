@@ -45,21 +45,6 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExport do
 
   describe '[Bulk Data Server declares support for Group export operation in CapabilityStatement] test' do
     let(:runnable) { group.tests[1] }
-    let(:no_export_capability_statement) do
-      capability_statement_json = JSON.parse(capability_statement)
-      capability_statement_json['rest'][0]['resource'][1]['operation'][0]['definition'] = ''
-      capability_statement_json.to_json
-    end
-    let(:capability_statement_with_version) do
-      capability_statement_json = JSON.parse(capability_statement)
-      capability_statement_json['rest'][0]['resource'][1]['operation'][0]['definition'] += '|1.0.1'
-      capability_statement_json.to_json
-    end
-    let(:capability_with_custom_base_url) do
-      capability_statement_json = JSON.parse(capability_statement)
-      capability_statement_json['rest'][0]['resource'][1]['operation'][0]['definition'] = 'https://example.org/fhir/uv/bulkdata/OperationDefinition/group-export|1.0.1'
-      capability_statement_json.to_json
-    end
 
     it 'fails when CapabilityStatement can not be retrieved' do
       stub_request(:get, "#{bulk_server_url}/metadata")
@@ -82,8 +67,10 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExport do
     end
 
     it 'fails when server does not declare support in CapabilityStatement' do
+      capability_statement.rest.first.resource[1].operation = []
+
       stub_request(:get, "#{bulk_server_url}/metadata")
-        .to_return(status: 200, body: no_export_capability_statement)
+        .to_return(status: 200, body: capability_statement.to_json)
 
       result = run(runnable, base_input)
 
@@ -94,25 +81,18 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExport do
 
     it 'passes when server declares support in CapabilityStatement' do
       stub_request(:get, "#{bulk_server_url}/metadata")
-        .to_return(status: 200, body: capability_statement)
+        .to_return(status: 200, body: capability_statement.to_json)
 
       result = run(runnable, base_input)
 
       expect(result.result).to eq('pass')
     end
 
-    it 'passes when server declares support with version in CapabilityStatement' do
+    it 'passes when server declars support of a derived export operation' do
+      capability_statement.rest.first.resource[1].operation.first.definition = 'https://example.org/fhir/uv/bulkdata/OperationDefinition/group-export|1.0.0'
+
       stub_request(:get, "#{bulk_server_url}/metadata")
-        .to_return(status: 200, body: capability_statement_with_version)
-
-      result = run(runnable, base_input)
-
-      expect(result.result).to eq('pass')
-    end
-
-    it 'has an operation definition URL for group-export' do
-      stub_request(:get, "#{bulk_server_url}/metadata")
-        .to_return(status: 200, body: capability_with_custom_base_url)
+        .to_return(status: 200, body: capability_statement.to_json)
 
       result = run(runnable, base_input)
 
