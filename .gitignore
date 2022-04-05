@@ -2,7 +2,8 @@
 /data/*.db-journal
 /data/redis/*.rdb
 /data/redis/*.aof
-/tmp
+/tmp/*
+!/tmp/.keep
 .env.local
 .env.*.local
 **/.DS_Store
