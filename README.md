@@ -71,6 +71,7 @@ Prerequisites:
     requirement to around 40 GB.
 * A copy of the Inferno repository, which contains the required Docker and Ruby
   files
+* Run `setup.sh` to initialize Inferno's database
 
 You can prebuild the terminology docker container by running the following
 command:
