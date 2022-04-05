@@ -73,7 +73,7 @@ module ONCCertificationG10TestKit
             resource.type == 'Group' &&
               resource.respond_to?(:operation) &&
               resource.operation&.find do |operation|
-                name_match = operation.name == 'export'
+                name_match = ['export', 'group-export'].include?(operation.name)
                 if name_match && !operation.definition&.match(%r{^http://hl7.org/fhir/uv/bulkdata/OperationDefinition/group-export(\|\S+)?$})
                   info('Server CapabilityStatement does not include export operation with definition http://hl7.org/fhir/uv/bulkdata/OperationDefinition/group-export')
                 end

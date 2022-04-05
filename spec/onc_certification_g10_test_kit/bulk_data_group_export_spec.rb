@@ -79,7 +79,17 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExport do
         .to eq('Server CapabilityStatement did not declare support for export operation in Group resource')
     end
 
-    it 'passes when server declares support in CapabilityStatement' do
+    it 'passes when server declares support export in CapabilityStatement' do
+      stub_request(:get, "#{bulk_server_url}/metadata")
+        .to_return(status: 200, body: capability_statement.to_json)
+
+      result = run(runnable, base_input)
+
+      expect(result.result).to eq('pass')
+    end
+
+    it 'passes when server declares support group-export in CapabilityStatement' do
+      capability_statement.rest.first.resource[1].operation.first.name = 'group-export'
       stub_request(:get, "#{bulk_server_url}/metadata")
         .to_return(status: 200, body: capability_statement.to_json)
 
