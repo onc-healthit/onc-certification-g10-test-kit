@@ -80,7 +80,7 @@ module ONCCertificationG10TestKit
       id :g10_patient_restricted_access
 
       def resource_group
-        USCoreTestKit::PatientGroup
+        USCoreTestKit::USCoreV311::PatientGroup
       end
     end
 
@@ -98,7 +98,7 @@ module ONCCertificationG10TestKit
       id :g10_allergy_intolerance_restricted_access
 
       def resource_group
-        USCoreTestKit::AllergyIntoleranceGroup
+        USCoreTestKit::USCoreV311::AllergyIntoleranceGroup
       end
     end
 
@@ -116,7 +116,7 @@ module ONCCertificationG10TestKit
       id :g10_care_plan_restricted_access
 
       def resource_group
-        USCoreTestKit::CarePlanGroup
+        USCoreTestKit::USCoreV311::CarePlanGroup
       end
     end
 
@@ -134,7 +134,7 @@ module ONCCertificationG10TestKit
       id :g10_care_team_restricted_access
 
       def resource_group
-        USCoreTestKit::CareTeamGroup
+        USCoreTestKit::USCoreV311::CareTeamGroup
       end
     end
 
@@ -152,7 +152,7 @@ module ONCCertificationG10TestKit
       id :g10_condition_restricted_access
 
       def resource_group
-        USCoreTestKit::ConditionGroup
+        USCoreTestKit::USCoreV311::ConditionGroup
       end
     end
 
@@ -170,7 +170,7 @@ module ONCCertificationG10TestKit
       id :g10_device_restricted_access
 
       def resource_group
-        USCoreTestKit::DeviceGroup
+        USCoreTestKit::USCoreV311::DeviceGroup
       end
     end
 
@@ -188,7 +188,7 @@ module ONCCertificationG10TestKit
       id :g10_diagnostic_report_restricted_access
 
       def resource_group
-        USCoreTestKit::DiagnosticReportLabGroup
+        USCoreTestKit::USCoreV311::DiagnosticReportLabGroup
       end
     end
 
@@ -206,7 +206,7 @@ module ONCCertificationG10TestKit
       id :g10_document_reference_restricted_access
 
       def resource_group
-        USCoreTestKit::DocumentReferenceGroup
+        USCoreTestKit::USCoreV311::DocumentReferenceGroup
       end
     end
 
@@ -224,7 +224,7 @@ module ONCCertificationG10TestKit
       id :g10_goal_restricted_access
 
       def resource_group
-        USCoreTestKit::GoalGroup
+        USCoreTestKit::USCoreV311::GoalGroup
       end
     end
 
@@ -242,7 +242,7 @@ module ONCCertificationG10TestKit
       id :g10_immunization_restricted_access
 
       def resource_group
-        USCoreTestKit::ImmunizationGroup
+        USCoreTestKit::USCoreV311::ImmunizationGroup
       end
     end
 
@@ -260,7 +260,7 @@ module ONCCertificationG10TestKit
       id :g10_medication_request_access
 
       def resource_group
-        USCoreTestKit::MedicationRequestGroup
+        USCoreTestKit::USCoreV311::MedicationRequestGroup
       end
     end
 
@@ -278,7 +278,7 @@ module ONCCertificationG10TestKit
       id :g10_observation_restricted_access
 
       def resource_group
-        USCoreTestKit::PulseOximetryGroup
+        USCoreTestKit::USCoreV311::PulseOximetryGroup
       end
     end
 
@@ -296,7 +296,7 @@ module ONCCertificationG10TestKit
       id :g10_procedure_restricted_access
 
       def resource_group
-        USCoreTestKit::ProcedureGroup
+        USCoreTestKit::USCoreV311::ProcedureGroup
       end
     end
   end

@@ -41,7 +41,7 @@ module ONCCertificationG10TestKit
       exclude_message do |message|
         if message.type == 'info' ||
            (message.type == 'warning' && WARNING_INCLUSION_FILTERS.none? { |filter| filter.match? message.message }) ||
-           USCoreTestKit::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS.any? { |filter| filter.match? message.message } ||
+           USCoreTestKit::USCoreV311::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS.any? { |filter| filter.match? message.message } ||
            (
              message.type == 'error' && (
                message.message.match?(/\A\S+: Unknown Code/) ||
@@ -54,7 +54,7 @@ module ONCCertificationG10TestKit
         end
       end
       perform_additional_validation do |resource, profile_url|
-        metadata = USCoreTestKit::USCoreTestSuite.metadata.find do |metadata_candidate|
+        metadata = USCoreTestKit::USCoreV311::USCoreTestSuite.metadata.find do |metadata_candidate|
           metadata_candidate.profile_url == profile_url
         end
 

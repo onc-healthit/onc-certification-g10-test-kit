@@ -73,7 +73,7 @@ module ONCCertificationG10TestKit
       end
     end
 
-    USCoreTestKit::USCoreTestSuite.groups.each do |group|
+    USCoreTestKit::USCoreV311::USCoreTestSuite.groups.each do |group|
       test_group = group.ancestors[1]
       id = test_group.id
 
