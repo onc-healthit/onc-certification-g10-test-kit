@@ -575,13 +575,49 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
           accept: 'application/fhir+ndjson'
         }
       end
-      let(:redirect_url) { 'http://example.com/redirect' }
 
       it 'accepts 301 redirect' do
+        redirect_url = 'http://example.com/redirect'
+
         stub_request(:get, url.to_s)
           .with(headers: headers_with_authorization)
           .to_return(status: 301, headers: { 'location' => redirect_url })
         stub_request(:get, redirect_url)
+          .with(headers: headers_without_authorization)
+          .to_return(status: 200)
+
+        tester.stream_ndjson(url, headers_with_authorization, process_line_block, generic_block)
+
+        expect(tester.response[:status]).to eq(200)
+      end
+
+      it 'accepts 301 redirect to relative url' do
+        redirect_url = 'relative_redirect'
+
+        stub_request(:get, url.to_s)
+          .with(headers: headers_with_authorization)
+          .to_return(status: 301, headers: { 'location' => redirect_url })
+        stub_request(:get, "#{url}/#{redirect_url}")
+          .with(headers: headers_without_authorization)
+          .to_return(status: 200)
+
+        tester.stream_ndjson(url, headers_with_authorization, process_line_block, generic_block)
+
+        expect(tester.response[:status]).to eq(200)
+      end
+
+      it 'accepts multiple redirect' do
+        redirect_url = 'http://example.com/redirect'
+        redirect_url_2 = 'http://example.com/redirect_2'
+
+
+        stub_request(:get, url.to_s)
+          .with(headers: headers_with_authorization)
+          .to_return(status: 301, headers: { 'location' => redirect_url })
+        stub_request(:get, redirect_url)
+          .with(headers: headers_without_authorization)
+          .to_return(status: 307, headers: { 'location' => redirect_url_2 })
+        stub_request(:get, redirect_url_2)
           .with(headers: headers_without_authorization)
           .to_return(status: 200)
 
