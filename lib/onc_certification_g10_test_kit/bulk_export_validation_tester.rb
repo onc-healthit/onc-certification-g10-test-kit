@@ -58,7 +58,7 @@ module ONCCertificationG10TestKit
       headers
     end
 
-    def stream_ndjson(endpoint, headers, process_chunk_line, process_response)
+    def stream_ndjson(endpoint, headers, process_chunk_line, process_response) # rubocop:disable Metrics/CyclomaticComplexity
       hanging_chunk = String.new
 
       process_body = proc { |chunk|
@@ -155,7 +155,7 @@ module ONCCertificationG10TestKit
         scratch[:patient_ids_seen] = patient_ids_seen | [resource.id] if resource_type == 'Patient'
 
         unless resource_is_valid?(resource: resource, profile_url: profile_url)
-         assert false, "Resource at line \"#{line_count}\" does not conform to profile \"#{profile_url}\"."
+          assert false, "Resource at line \"#{line_count}\" does not conform to profile \"#{profile_url}\"."
         end
       }
 

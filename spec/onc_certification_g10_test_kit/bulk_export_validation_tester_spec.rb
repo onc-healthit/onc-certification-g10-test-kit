@@ -563,19 +563,18 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
       expect(streamed_chunks).to eq(["multi\n touched", "line\n touched", "response\n touched", "body\n touched"])
     end
 
-
-    context '301 redirect' do
-      let(:headers_with_authorization) {
+    context 'with redirect' do
+      let(:headers_with_authorization) do
         {
           accept: 'application/fhir+ndjson',
           authorization: "Bearer #{bearer_token}"
         }
-      }
-      let(:headers_without_authorization) {
+      end
+      let(:headers_without_authorization) do
         {
           accept: 'application/fhir+ndjson'
         }
-      }
+      end
       let(:redirect_url) { 'http://example.com/redirect' }
 
       it 'accepts 301 redirect' do
