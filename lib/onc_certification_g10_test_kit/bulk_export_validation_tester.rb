@@ -76,7 +76,7 @@ module ONCCertificationG10TestKit
 
       max_redirect = 5
 
-      redirect_url = (response[:headers].find { |header| header.name.downcase == 'location' })&.value
+      redirect_url = request.response_header('location')&.value
 
       while [301, 302, 303, 307].include?(response[:status]) && redirect_url.present? && max_redirect.positive?
         max_redirect -= 1
