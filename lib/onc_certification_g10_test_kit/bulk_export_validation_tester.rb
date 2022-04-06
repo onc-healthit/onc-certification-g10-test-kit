@@ -58,7 +58,7 @@ module ONCCertificationG10TestKit
       headers
     end
 
-    def stream_ndjson(endpoint, headers, process_chunk_line, process_response)
+    def stream_ndjson(endpoint, headers, process_chunk_line, process_response) # rubocop:disable Metrics/CyclomaticComplexity
       hanging_chunk = String.new
 
       process_body = proc { |chunk|
@@ -73,6 +73,24 @@ module ONCCertificationG10TestKit
       }
 
       stream(process_body, endpoint, headers: headers)
+
+      max_redirect = 5
+
+      while [301, 302, 303, 307].include?(response[:status]) &&
+            request.response_header('location')&.value.present? &&
+            max_redirect.positive?
+
+        max_redirect -= 1
+
+        redirect_url = request.response_header('location')&.value
+
+        # handle relative redirects
+        redirect_url = URI.parse(endpoint).merge(redirect_url).to_s unless redirect_url.start_with?('http')
+
+        redirect_headers = headers.reject { |key, _value| key == :authorization }
+
+        stream(process_body, redirect_url, headers: redirect_headers)
+      end
 
       process_chunk_line.call(hanging_chunk)
       process_response.call(response)
