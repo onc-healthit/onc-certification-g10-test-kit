@@ -144,7 +144,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
-      title 'Health IT Module attested that it is capable of issuing refresh tokens / '\
+      title 'Health IT Module attested that it is capable of issuing refresh tokens ' \
             'that are valid for a period of no shorter than three months.'
       description %(
         Health IT Module attested that it is capable of issuing refresh tokens
