@@ -606,7 +606,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
         expect(tester.response[:status]).to eq(200)
       end
 
-      it 'accepts multiple redirect' do
+      it 'accepts multiple redirects' do
         redirect_url = 'http://example.com/redirect'
         redirect_url2 = 'http://example.com/redirect_2'
 
@@ -616,7 +616,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
         stub_request(:get, redirect_url)
           .with(headers: headers_without_authorization)
           .to_return(status: 307, headers: { 'location' => redirect_url2 })
-        stub_request(:get, redirect_url_2)
+        stub_request(:get, redirect_url2)
           .with(headers: headers_without_authorization)
           .to_return(status: 200)
 
