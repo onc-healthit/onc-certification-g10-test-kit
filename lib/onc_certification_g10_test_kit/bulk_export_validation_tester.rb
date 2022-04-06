@@ -74,6 +74,21 @@ module ONCCertificationG10TestKit
 
       stream(process_body, endpoint, headers: headers)
 
+      max_redirect = 5
+
+      redirect_url = (response[:headers].find { |header| header.name.downcase == 'location' })&.value
+
+      while [301, 302, 303, 307].include?(response[:status]) && redirect_url.present? && max_redirect.positive?
+        max_redirect -= 1
+
+        # handle relative redirects
+        redirect_url = URI.parse(endpoint).merge(redirect_url).to_s unless redirect_url.start_with?('http')
+
+        redirect_headers = headers.reject { |key, _value| key == :authorization }
+
+        stream(process_body, redirect_url, headers: redirect_headers)
+      end
+
       process_chunk_line.call(hanging_chunk)
       process_response.call(response)
     end
@@ -140,7 +155,7 @@ module ONCCertificationG10TestKit
         scratch[:patient_ids_seen] = patient_ids_seen | [resource.id] if resource_type == 'Patient'
 
         unless resource_is_valid?(resource: resource, profile_url: profile_url)
-          assert false, "Resource at line \"#{line_count}\" does not conform to profile \"#{profile_url}\"."
+         assert false, "Resource at line \"#{line_count}\" does not conform to profile \"#{profile_url}\"."
         end
       }
 
