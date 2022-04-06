@@ -144,13 +144,14 @@ module ONCCertificationG10TestKit
     end
 
     test do
-      title 'Health IT Module attested that refresh tokens are valid for a period of no shorter than three months.'
+      title 'Health IT Module attested that it is capable of issuing refresh tokens / '\
+            'that are valid for a period of no shorter than three months.'
       description %(
-        Health IT Module attested that refresh tokens are valid for a period of
-        no shorter than three months.
+        Health IT Module attested that it is capable of issuing refresh tokens
+        that are valid for a period of no shorter than three months.
       )
       input :refresh_token_period_attestation,
-            title: 'Health IT Module attested that refresh tokens are valid for a period of no shorter than three months.', # rubocop:disable Layout/LineLength
+            title: 'Health IT Module attested that it is capable of issuing refresh tokens that are valid for a period of no shorter than three months.', # rubocop:disable Layout/LineLength
             type: 'radio',
             default: 'false',
             options: {
@@ -172,8 +173,8 @@ module ONCCertificationG10TestKit
 
       run do
         assert refresh_token_period_attestation == 'true',
-               'Health IT Module did not attest that refresh tokens are valid ' \
-               'for a period of no shorter than three months.'
+               'Health IT Module did not attest that it is capable of issuing refresh tokens / ' \
+               'that are valid for a period of no shorter than three months.'
         pass refresh_token_period_notes if refresh_token_period_notes.present?
       end
     end
