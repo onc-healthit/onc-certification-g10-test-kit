@@ -173,7 +173,7 @@ module ONCCertificationG10TestKit
 
       run do
         assert refresh_token_period_attestation == 'true',
-               'Health IT Module did not attest that it is capable of issuing refresh tokens / ' \
+               'Health IT Module did not attest that it is capable of issuing refresh tokens ' \
                'that are valid for a period of no shorter than three months.'
         pass refresh_token_period_notes if refresh_token_period_notes.present?
       end
