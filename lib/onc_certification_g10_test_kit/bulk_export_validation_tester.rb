@@ -76,10 +76,13 @@ module ONCCertificationG10TestKit
 
       max_redirect = 5
 
-      redirect_url = request.response_header('location')&.value
+      while [301, 302, 303, 307].include?(response[:status]) &&
+            request.response_header('location')&.value.present? &&
+            max_redirect.positive?
 
-      while [301, 302, 303, 307].include?(response[:status]) && redirect_url.present? && max_redirect.positive?
         max_redirect -= 1
+
+        redirect_url = request.response_header('location')&.value
 
         # handle relative redirects
         redirect_url = URI.parse(endpoint).merge(redirect_url).to_s unless redirect_url.start_with?('http')
@@ -87,8 +90,6 @@ module ONCCertificationG10TestKit
         redirect_headers = headers.reject { |key, _value| key == :authorization }
 
         stream(process_body, redirect_url, headers: redirect_headers)
-
-        redirect_url = request.response_header('location')&.value
       end
 
       process_chunk_line.call(hanging_chunk)
