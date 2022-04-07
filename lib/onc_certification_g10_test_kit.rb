@@ -41,7 +41,13 @@ module ONCCertificationG10TestKit
       exclude_message do |message|
         if message.type == 'info' ||
            (message.type == 'warning' && WARNING_INCLUSION_FILTERS.none? { |filter| filter.match? message.message }) ||
-           USCoreTestKit::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS.any? { |filter| filter.match? message.message }
+           USCoreTestKit::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS.any? { |filter| filter.match? message.message } ||
+           (
+             message.type == 'error' && (
+               message.message.match?(/\A\S+: Unknown Code/) ||
+               message.message.match?(/\A\S+: None of the codings provided are in the value set/)
+             )
+           )
           true
         else
           false

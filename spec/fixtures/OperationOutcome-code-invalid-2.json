@@ -1,0 +1,33 @@
+{
+  "resourceType": "OperationOutcome",
+  "text": {
+    "status": "extensions",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"></div>"
+  },
+  "issue": [
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger": 20
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger": 16
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueCode": "TerminologyEngine"
+        }
+      ],
+      "severity": "error",
+      "code": "code-invalid",
+      "details": {
+        "text": "None of the codings provided are in the value set 'AllergyIntolerance Clinical Status Codes' (http://hl7.org/fhir/ValueSet/allergyintolerance-clinical), and a coding from this value set is required) (codes = http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical#actives)"
+      },
+      "expression": [
+        "AllergyIntolerance.clinicalStatus"
+      ]
+    }
+  ]
+}
