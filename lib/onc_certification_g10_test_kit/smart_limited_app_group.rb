@@ -25,6 +25,16 @@ module ONCCertificationG10TestKit
     id :g10_smart_limited_app
     run_as_group
 
+    input_order :expected_resources,
+                :limited_requested_scopes,
+                :use_pkce,
+                :pkce_code_challenge_method,
+                :url,
+                :standalone_client_id,
+                :standalone_client_secret,
+                :smart_authorization_url,
+                :smart_token_url
+
     group from: :smart_standalone_launch do
       title 'Standalone Launch With Limited Scope'
       description %(
@@ -61,7 +71,10 @@ module ONCCertificationG10TestKit
           state: { name: :limited_state },
           patient_id: { name: :limited_patient_id },
           access_token: { name: :limited_access_token },
-          requested_scopes: { name: :limited_requested_scopes },
+          requested_scopes: {
+            name: :limited_requested_scopes,
+            title: 'Limited Access Scope'
+          },
           # TODO: separate standalone/ehr discovery outputs
           smart_authorization_url: { locked: true, title: 'SMART Authorization Url' },
           smart_token_url: { locked: true, title: 'SMART Token Url' },
@@ -89,7 +102,7 @@ module ONCCertificationG10TestKit
       )
 
       input :expected_resources,
-            title: 'Expected Resource Grant',
+            title: 'Expected Resource Grant for Limited Access Launch',
             description: 'The user will only grant access to the following resources during authorization.',
             default: 'Patient, Condition, Observation'
 

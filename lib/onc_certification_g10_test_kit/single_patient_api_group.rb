@@ -49,6 +49,8 @@ module ONCCertificationG10TestKit
       oauth_credentials :smart_credentials
     end
 
+    input_order :url, :patient_id, :additional_patient_ids, :implantable_device_codes, :smart_credentials
+
     test do
       id :g10_patient_id_setup
       title 'Manage patient id list'

@@ -24,8 +24,6 @@ module ONCCertificationG10TestKit
     id :g10_smart_invalid_token_request
     run_as_group
 
-    input :client_id, :client_secret, :requested_scopes, :url, :smart_authorization_url, :smart_token_url
-
     input :use_pkce,
           title: 'Proof Key for Code Exchange (PKCE)',
           type: 'radio',
@@ -59,6 +57,15 @@ module ONCCertificationG10TestKit
               }
             ]
           }
+
+    input_order :url,
+                :standalone_client_id,
+                :standalone_client_secret,
+                :standalone_requested_scopes,
+                :use_pkce,
+                :pkce_code_challenge_method,
+                :smart_authorization_url,
+                :smart_token_url
 
     config(
       inputs: {
@@ -135,7 +142,7 @@ module ONCCertificationG10TestKit
       )
       uses_request :redirect
 
-      input :use_pkce, :pkce_code_verifier
+      input :use_pkce, :pkce_code_verifier, :client_id, :client_secret, :smart_token_url
 
       run do
         skip_if request.query_parameters['error'].present?, 'Error during authorization request'
@@ -170,7 +177,7 @@ module ONCCertificationG10TestKit
       )
       uses_request :redirect
 
-      input :use_pkce, :pkce_code_verifier, :code
+      input :use_pkce, :pkce_code_verifier, :code, :smart_token_url, :client_secret
 
       run do
         skip_if request.query_parameters['error'].present?, 'Error during authorization request'

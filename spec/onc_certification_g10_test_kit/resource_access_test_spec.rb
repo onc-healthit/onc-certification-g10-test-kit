@@ -9,7 +9,7 @@ RSpec.describe ONCCertificationG10TestKit::ResourceAccessTest do
         test_session_id: test_session.id,
         name: name,
         value: value,
-        type: runnable.config.input_type(name)
+        type: runnable.config.input_type(name).presence || 'text'
       )
     end
     Inferno::TestRunner.new(test_session: test_session, test_run: test_run).run(runnable)

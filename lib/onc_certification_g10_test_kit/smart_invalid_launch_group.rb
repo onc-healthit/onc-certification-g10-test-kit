@@ -29,24 +29,12 @@ module ONCCertificationG10TestKit
     id :g10_smart_invalid_launch_param
     run_as_group
 
-    input :client_id,
-          :client_secret,
-          :requested_scopes,
-          :url,
-          :smart_authorization_url,
-          :smart_token_url
-
     config(
       inputs: {
         client_id: {
           name: :ehr_client_id,
           title: 'EHR Client ID',
           description: 'Client ID provided during registration of Inferno as an EHR launch application'
-        },
-        client_secret: {
-          name: :standalone_client_secret,
-          title: 'EHR Client Secret',
-          description: 'Client Secret provided during registration of Inferno as an EHR launch application'
         },
         requested_scopes: {
           name: :ehr_requested_scopes,
@@ -71,10 +59,6 @@ module ONCCertificationG10TestKit
         smart_authorization_url: {
           title: 'OAuth 2.0 Authorize Endpoint',
           description: 'OAuth 2.0 Authorize Endpoint provided during an EHR launch'
-        },
-        smart_token_url: {
-          title: 'OAuth 2.0 Token Endpoint',
-          description: 'OAuth 2.0 Token Endpoint provided during an EHR launch'
         }
       },
       outputs: {
@@ -85,9 +69,22 @@ module ONCCertificationG10TestKit
       }
     )
 
+    input_order :url,
+                :ehr_client_id,
+                :ehr_client_secret,
+                :ehr_requested_scopes,
+                :use_pkce,
+                :pkce_code_challenge_method,
+                :smart_authorization_url
+
     test from: :smart_app_launch
     test from: :smart_launch_received
     test from: :smart_app_redirect do
+      input :client_secret,
+            name: :ehr_client_secret,
+            title: 'EHR Client Secret',
+            description: 'Client Secret provided during registration of Inferno as an EHR launch application'
+
       config(
         options: { launch: 'INVALID_LAUNCH_PARAM' }
       )
