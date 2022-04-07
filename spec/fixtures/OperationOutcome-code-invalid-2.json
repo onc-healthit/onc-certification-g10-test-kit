@@ -1,70 +1,33 @@
 {
-  "resourceType": "AllergyIntolerance",
-  "id": "example",
-  "meta": {
-    "extension": [
-      {
-        "url": "http://hl7.org/fhir/StructureDefinition/instance-name",
-        "valueString": "AllergyIntolerance Example"
-      },
-      {
-        "url": "http://hl7.org/fhir/StructureDefinition/instance-description",
-        "valueMarkdown": "This is a allergyintolerance example for the *US Core AllergyIntolerance Profile*."
-      }
-    ],
-    "profile": [
-      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-allergyintolerance"
-    ]
+  "resourceType": "OperationOutcome",
+  "text": {
+    "status": "extensions",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"></div>"
   },
-  "clinicalStatus": {
-    "coding": [
-      {
-        "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
-        "code": "actives"
-      }
-    ]
-  },
-  "verificationStatus": {
-    "coding": [
-      {
-        "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",
-        "code": "confirmed"
-      }
-    ]
-  },
-  "category": [
-    "medication"
-  ],
-  "criticality": "high",
-  "code": {
-    "coding": [
-      {
-        "system": "http://snomed.info/sct",
-        "code": "763875007",
-        "display": "Product containing sulfonamide (product)"
-      }
-    ],
-    "text": "sulfonamide antibacterial"
-  },
-  "patient": {
-    "reference": "Patient/example",
-    "display": "Amy V. Shaw"
-  },
-  "reaction": [
+  "issue": [
     {
-      "manifestation": [
+      "extension": [
         {
-          "coding": [
-            {
-              "system": "http://snomed.info/sct",
-              "code": "271807003",
-              "display": "skin rash"
-            }
-          ],
-          "text": "skin rash"
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-line",
+          "valueInteger": 20
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-col",
+          "valueInteger": 16
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/operationoutcome-issue-source",
+          "valueCode": "TerminologyEngine"
         }
       ],
-      "severity": "mild"
+      "severity": "error",
+      "code": "code-invalid",
+      "details": {
+        "text": "None of the codings provided are in the value set 'AllergyIntolerance Clinical Status Codes' (http://hl7.org/fhir/ValueSet/allergyintolerance-clinical), and a coding from this value set is required) (codes = http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical#actives)"
+      },
+      "expression": [
+        "AllergyIntolerance.clinicalStatus"
+      ]
     }
   ]
 }

@@ -2,7 +2,7 @@
   "resourceType": "OperationOutcome",
   "text": {
     "status": "extensions",
-    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table class=\"grid\"><tr><td><b>Severity</b></td><td><b>Location</b></td><td><b>Code</b></td><td><b>Details</b></td><td><b>Diagnostics</b></td><td><b>Source</b></td></tr><tr><td>ERROR</td><td/><td>Invalid Code</td><td>Unknown Code http://terminology.hl7.org/CodeSystem/immunization-subpotent-reason#partialdose in http://terminology.hl7.org/CodeSystem/immunization-subpotent-reason for 'http://terminology.hl7.org/CodeSystem/immunization-subpotent-reason#partialdose'</td><td/><td>No display for Extension</td></tr></table></div>"
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"></div>"
   },
   "issue": [
     {
