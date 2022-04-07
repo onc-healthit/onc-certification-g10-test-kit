@@ -158,7 +158,7 @@ module ONCCertificationG10TestKit
 
         post(smart_token_url, body: oauth2_params, name: :token, headers: oauth2_headers)
 
-        assert_response_status(400)
+        assert_response_status([400, 401, 403])
       end
     end
 
