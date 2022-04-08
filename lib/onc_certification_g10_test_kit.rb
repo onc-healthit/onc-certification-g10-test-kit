@@ -1,5 +1,5 @@
 require 'smart_app_launch_test_kit'
-require 'us_core_test_kit'
+require 'us_core_test_kit/generated/v3.1.1/us_core_test_suite'
 
 require_relative 'onc_certification_g10_test_kit/configuration_checker'
 require_relative 'onc_certification_g10_test_kit/version'
