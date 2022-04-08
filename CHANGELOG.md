@@ -1,3 +1,7 @@
+# 2.1.0.rc1
+
+Initial 2.1.0 release candidate
+
 # 2.0.0
 
 Initial public release

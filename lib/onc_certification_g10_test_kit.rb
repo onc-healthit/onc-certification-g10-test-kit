@@ -1,5 +1,5 @@
 require 'smart_app_launch_test_kit'
-require 'us_core_test_kit'
+require 'us_core_test_kit/generated/v3.1.1/us_core_test_suite'
 
 require_relative 'onc_certification_g10_test_kit/configuration_checker'
 require_relative 'onc_certification_g10_test_kit/version'
@@ -38,10 +38,12 @@ module ONCCertificationG10TestKit
 
     validator do
       url ENV.fetch('G10_VALIDATOR_URL', 'http://validator_service:4567')
+
       exclude_message do |message|
+        us_core_message_filters = USCoreTestKit::USCoreV311::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
         if message.type == 'info' ||
            (message.type == 'warning' && WARNING_INCLUSION_FILTERS.none? { |filter| filter.match? message.message }) ||
-           USCoreTestKit::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS.any? { |filter| filter.match? message.message } ||
+           us_core_message_filters.any? { |filter| filter.match? message.message } ||
            (
              message.type == 'error' && (
                message.message.match?(/\A\S+: Unknown Code/) ||
@@ -53,8 +55,9 @@ module ONCCertificationG10TestKit
           false
         end
       end
+
       perform_additional_validation do |resource, profile_url|
-        metadata = USCoreTestKit::USCoreTestSuite.metadata.find do |metadata_candidate|
+        metadata = USCoreTestKit::USCoreV311::USCoreTestSuite.metadata.find do |metadata_candidate|
           metadata_candidate.profile_url == profile_url
         end
 
