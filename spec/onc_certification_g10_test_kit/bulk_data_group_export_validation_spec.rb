@@ -117,8 +117,8 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
 
       expect(result.result).to eq('skip')
       expect(result.result_message)
-        .to eq('Could not find identifier, identifier.system, identifier.value, Patient.extension:race, ' \
-               'Patient.extension:ethnicity, Patient.extension:birthsex in the 2 provided Patient resource(s)')
+        .to eq('Could not find identifier, identifier.system, identifier.value ' \
+               'in the 2 provided Patient resource(s)')
     end
 
     it 'passes when returned resources are fully conformant to the patient profile' do
