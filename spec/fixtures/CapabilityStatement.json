@@ -56,13 +56,7 @@
           "type": "Patient",
           "operation": [
             {
-              "extension": [
-                {
-                  "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
-                  "valueCode": "SHOULD"
-                }
-              ],
-              "name": "patient-export",
+              "name": "export",
               "definition": "http://hl7.org/fhir/uv/bulkdata/OperationDefinition/patient-export"
             }
           ]
@@ -71,44 +65,10 @@
           "type": "Group",
           "operation": [
             {
-              "extension": [
-                {
-                  "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
-                  "valueCode": "SHOULD"
-                }
-              ],
               "name": "export",
               "definition": "http://hl7.org/fhir/uv/bulkdata/OperationDefinition/group-export"
             }
           ]
-        },
-        {
-          "type": "OperationDefinition",
-          "profile": {
-            "reference": "http://hl7.org/fhir/Profile/OperationDefinition"
-          },
-          "interaction": [
-            {
-              "code": "read"
-            }
-          ],
-          "searchParam": []
-        }
-      ],
-      "operation": [
-        {
-          "name": "get-resource-counts",
-          "definition": "OperationDefinition/-s-get-resource-counts"
-        },
-        {
-          "extension": [
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/capabilitystatement-expectation",
-              "valueCode": "SHOULD"
-            }
-          ],
-          "name": "export",
-          "definition": "http://hl7.org/fhir/uv/bulkdata/OperationDefinition/export"
         }
       ]
     }

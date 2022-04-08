@@ -57,9 +57,30 @@ module ONCCertificationG10TestKit
     test do
       title 'Bulk Data Server declares support for Group export operation in CapabilityStatement'
       description <<~DESCRIPTION
-        The Bulk Data Server SHALL declare support for Group/[id]/$export operation in its server CapabilityStatement
+        This test verifies that the Bulk Data Server declares support for
+        Group/[id]/$export operation in its server CapabilityStatement.
+
+        Given flexibility in the FHIR specification for declaring constrained
+        OperationDefinitions, this test only verifies that the server declares
+        any operation on the Group resource.  It does not verify that it
+        declares the standard group export OperationDefinition provided in the
+        Bulk Data specification, nor does it attempt to resolve any non-standard
+        OperationDefinitions to verify if it is a constrained version of the
+        standard OperationDefintion.
+
+        This test will provide a warning if no operations are declared at
+        `Group/[id]/$export`, via the
+        `CapabilityStatement.rest.resource.operation.name` element.  It will
+        also provide an informational message if an operation on the Group
+        resource exists, but does not point to the standard OperationDefinition
+        canonical URL:
+        http://hl7.org/fhir/uv/bulkdata/OperationDefinition/group-export
+
+        Additionally, this test provides a warning if the bulk data server does
+        not include the following URL in its `CapabilityStatement.instantiates`
+        element: http://hl7.org/fhir/uv/bulkdata/CapabilityStatement/bulk-data
+
       DESCRIPTION
-      # link 'http://hl7.org/fhir/uv/bulkdata/STU1/OperationDefinition-group-export.html'
 
       run do
         fhir_get_capability_statement(client: :bulk_server)
@@ -68,23 +89,39 @@ module ONCCertificationG10TestKit
         assert_valid_json(request.response_body)
         capability_statement = FHIR.from_contents(request.response_body)
 
-        has_export_operation = capability_statement&.rest&.any? do |rest|
-          rest.resource&.any? do |resource|
-            resource.type == 'Group' &&
-              resource.respond_to?(:operation) &&
-              resource.operation&.find do |operation|
-                name_match = ['export', 'group-export'].include?(operation.name)
-                if name_match && !operation.definition&.match(%r{^http://hl7.org/fhir/uv/bulkdata/OperationDefinition/group-export(\|\S+)?$})
-                  info('Server CapabilityStatement does not include export operation with definition http://hl7.org/fhir/uv/bulkdata/OperationDefinition/group-export')
-                end
+        warning do
+          has_instantiates = capability_statement&.instantiates&.any? do |canonical|
+            canonical.match(%r{^http://hl7.org/fhir/uv/bulkdata/CapabilityStatement/bulk-data(\|\S+)?$})
+          end
+          assert has_instantiates,
+                 'Server did not declare conformance to the Bulk Data IG by including ' \
+                 "'http://hl7.org/fhir/uv/bulkdata/CapabilityStatement/bulk-data' in " \
+                 " CapabilityStatement.instantiates element (#{capability_statement&.instantiates})"
+        end
 
-                name_match
-              end
+        group_resource_capabilities = nil
+
+        capability_statement&.rest&.each do |rest|
+          group_resource_capabilities = rest.resource&.find do |resource|
+            resource.type == 'Group'
           end
         end
 
-        assert has_export_operation,
-               'Server CapabilityStatement did not declare support for export operation in Group resource'
+        assert group_resource_capabilities.respond_to?(:operation) && group_resource_capabilities.operation&.any?,
+               'Server CapabilityStatement did not declare support for any operations on the Group resource'
+
+        has_export_operation = group_resource_capabilities.operation&.any? do |operation|
+          name_match = (operation.name == 'export')
+          if name_match && !operation.definition&.match(%r{^http://hl7.org/fhir/uv/bulkdata/OperationDefinition/group-export(\|\S+)?$})
+            info('Server CapabilityStatement does not include export operation with definition http://hl7.org/fhir/uv/bulkdata/OperationDefinition/group-export')
+          end
+          name_match
+        end
+        warning do
+          assert has_export_operation,
+                 'Server CapabilityStatement did not declare support for an operation named "export" in the Group ' \
+                 ' resource (operation.name should be "export")'
+        end
       end
     end
 
