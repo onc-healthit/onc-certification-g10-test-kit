@@ -29,7 +29,10 @@ module ONCCertificationG10TestKit
     end
 
     def diagnostic_metadata
-      [USCoreTestKit::USCoreV311::DiagnosticReportLabGroup.metadata, USCoreTestKit::USCoreV311::DiagnosticReportNoteGroup.metadata]
+      [
+        USCoreTestKit::USCoreV311::DiagnosticReportLabGroup.metadata,
+        USCoreTestKit::USCoreV311::DiagnosticReportNoteGroup.metadata
+      ]
     end
 
     def determine_metadata
