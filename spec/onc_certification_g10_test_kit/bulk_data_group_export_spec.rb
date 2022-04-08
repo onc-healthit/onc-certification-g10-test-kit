@@ -66,7 +66,20 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExport do
       expect(result.result_message).to eq('Invalid JSON. ')
     end
 
-    it 'fails when server does not declare support in CapabilityStatement' do
+    it 'fails when server does not declare support for the Group resource in CapabilityStatement' do
+      capability_statement.rest.first.resource.delete_at(1)
+
+      stub_request(:get, "#{bulk_server_url}/metadata")
+        .to_return(status: 200, body: capability_statement.to_json)
+
+      result = run(runnable, base_input)
+
+      expect(result.result).to eq('fail')
+      expect(result.result_message)
+        .to eq('Server CapabilityStatement did not declare support for any operations on the Group resource')
+    end
+
+    it 'fails when server does not declare support for any Group operations in CapabilityStatement' do
       capability_statement.rest.first.resource[1].operation = []
 
       stub_request(:get, "#{bulk_server_url}/metadata")
@@ -76,7 +89,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExport do
 
       expect(result.result).to eq('fail')
       expect(result.result_message)
-        .to eq('Server CapabilityStatement did not declare support for export operation in Group resource')
+        .to eq('Server CapabilityStatement did not declare support for any operations on the Group resource')
     end
 
     it 'passes when server declares support export in CapabilityStatement' do
@@ -88,8 +101,8 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExport do
       expect(result.result).to eq('pass')
     end
 
-    it 'passes when server declares support group-export in CapabilityStatement' do
-      capability_statement.rest.first.resource[1].operation.first.name = 'group-export'
+    it 'passes when server declares support for group export in CapabilityStatement with wrong name' do
+      capability_statement.rest.first.resource[1].operation.first.name = 'bad-name'
       stub_request(:get, "#{bulk_server_url}/metadata")
         .to_return(status: 200, body: capability_statement.to_json)
 
@@ -98,7 +111,17 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExport do
       expect(result.result).to eq('pass')
     end
 
-    it 'passes when server declars support of a derived export operation' do
+    it 'passes when server declares support for group export in CapabilityStatement' do
+      capability_statement.rest.first.resource[1].operation.first.name = 'export'
+      stub_request(:get, "#{bulk_server_url}/metadata")
+        .to_return(status: 200, body: capability_statement.to_json)
+
+      result = run(runnable, base_input)
+
+      expect(result.result).to eq('pass')
+    end
+
+    it 'passes when server declars support of a potentially derived export operation' do
       capability_statement.rest.first.resource[1].operation.first.definition = 'https://example.org/fhir/uv/bulkdata/OperationDefinition/group-export|1.0.0'
 
       stub_request(:get, "#{bulk_server_url}/metadata")
