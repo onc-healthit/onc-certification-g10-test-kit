@@ -11,7 +11,7 @@ PATH
       rubyzip (~> 2.3.2)
       smart_app_launch_test_kit (= 0.1.2)
       tls_test_kit (= 0.1.1)
-      us_core_test_kit (= 0.2.0)
+      us_core_test_kit (= 0.2.1)
 
 GEM
   remote: https://rubygems.org/
@@ -286,7 +286,7 @@ GEM
     unicode-display_width (2.1.0)
     url_mount (0.2.1)
       rack
-    us_core_test_kit (0.2.0)
+    us_core_test_kit (0.2.1)
       inferno_core (> 0.1.3)
       tls_test_kit (~> 0.1.0)
     webmock (3.14.0)

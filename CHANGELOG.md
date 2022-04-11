@@ -25,9 +25,11 @@
   url of the Operation defined in the Bulk Data IG. An additional warning will
   be displayed if the server does not declare that it instantiates the Bulk Data
   IG.
-* Update US Core Test Kit from `v0.1.1` to `v0.2.0`:
+* Update US Core Test Kit from `v0.1.1` to `v0.2.1`:
   * Reference resolution tests now only check Must Support references
   * Reference resolution tests now requests and display them in the UI
+  * Reference resolution tests removed for profiles with no Must Support
+    references
   * Fix a string interpolation bug in reference search checks.
   * Fix a bug in the error message for mismatched ids in read tests.
 * Update SMART App Launch Test Kit from `v0.1.1` to `v0.1.2`:
