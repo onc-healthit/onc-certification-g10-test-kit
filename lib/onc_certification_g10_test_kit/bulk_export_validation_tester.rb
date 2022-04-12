@@ -51,6 +51,10 @@ module ONCCertificationG10TestKit
       @metadata_list ||= determine_metadata
     end
 
+    def resources_from_all_files
+      @resources_from_all_files ||= {}
+    end
+
     def patient_ids_seen
       scratch[:patient_ids_seen] ||= []
     end
@@ -126,6 +130,7 @@ module ONCCertificationG10TestKit
         @metadata = meta
         @missing_elements = nil
         @missing_slices = nil
+        @missing_extensions = nil
         begin
           perform_must_support_test(resources[meta.profile_url])
         rescue Inferno::Exceptions::PassException
@@ -173,8 +178,7 @@ module ONCCertificationG10TestKit
       }
 
       stream_ndjson(url, build_headers(requires_access_token), process_line, process_headers)
-      validate_conformance(resources)
-
+      resources_from_all_files.merge!(resources) { |key, all_resources, file_resources| all_resources | file_resources }
       line_count
     end
 
@@ -190,10 +194,13 @@ module ONCCertificationG10TestKit
         skip message
       end
 
+      @resources_from_all_files = {}
       success_count = 0
       file_list.each do |file|
         success_count += check_file_request(file['url'])
       end
+
+      validate_conformance(resources_from_all_files)
 
       pass "Successfully validated #{success_count} #{resource_type} resource(s)."
     end

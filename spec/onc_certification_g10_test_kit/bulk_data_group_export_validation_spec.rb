@@ -95,8 +95,8 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     let(:patient_input) do
       input.merge({ status_output: "[{\"url\":\"#{endpoint}\",\"type\":\"Patient\",\"count\":2}]" })
     end
-    let(:not_patient_input) do
-      input.merge({ status_output: "[{\"url\":\"#{endpoint}\",\"type\":\"Location\",\"count\":2}]" })
+    let(:patient_input_two_files) do
+      input.merge({ status_output: "[{\"url\":\"#{endpoint}\",\"type\":\"Patient\",\"count\":2},{\"url\":\"#{endpoint}/2\",\"type\":\"Patient\",\"count\":2}]" })
     end
 
     before do
@@ -128,6 +128,20 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, patient_input)
+
+      expect(result.result).to eq('pass')
+    end
+
+    it 'passes when returned multiple files and are fully conformant to the patient profile' do
+      stub_request(:get, endpoint)
+        .with(headers: { 'Accept' => 'application/fhir+ndjson' })
+        .to_return(status: 200, body: contents_missing_element, headers: headers)
+      stub_request(:get, "#{endpoint}/2")
+        .with(headers: { 'Accept' => 'application/fhir+ndjson' })
+        .to_return(status: 200, body: contents, headers: headers)
+
+      allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      result = run(runnable, patient_input_two_files)
 
       expect(result.result).to eq('pass')
     end
@@ -311,10 +325,15 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     let(:runnable) { group.tests[10] }
     let(:resources) { NDJSON::Parser.new('spec/fixtures/DiagnosticReport.ndjson') }
     let(:diagnostic_input) do
-      input.merge({ status_output: '[{"url":"https://www.example.com","type":"DiagnosticReport","count":43}]' })
+      input.merge({ status_output: "[{\"url\":\"#{endpoint}\",\"type\":\"DiagnosticReport\",\"count\":43}]" })
+    end
+    let(:diagnostic_input_two_files) do
+      input.merge({ status_output: "[{\"url\":\"#{endpoint}\",\"type\":\"DiagnosticReport\",\"count\":43},{\"url\":\"#{endpoint}/2\",\"type\":\"DiagnosticReport\",\"count\":43}]" })
     end
     let(:contents_missing_lab) { String.new }
     let(:contents_missing_note) { String.new }
+    let(:contents_lab) { String.new }
+    let(:contents_note) { String.new }
 
     before do
       resources.each { |r| contents << ("#{r.to_json}\n") }
@@ -362,6 +381,20 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, diagnostic_input)
+
+      expect(result.result).to eq('pass')
+    end
+
+    it 'pass with both DiagnosticReport Lab and Note metadata in separated files' do
+      stub_request(:get, endpoint)
+        .with(headers: { 'Accept' => 'application/fhir+ndjson' })
+        .to_return(status: 200, body: contents_missing_lab, headers: headers)
+      stub_request(:get, "#{endpoint}/2")
+        .with(headers: { 'Accept' => 'application/fhir+ndjson' })
+        .to_return(status: 200, body: contents_missing_note, headers: headers)
+
+      allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      result = run(runnable, diagnostic_input_two_files)
 
       expect(result.result).to eq('pass')
     end
