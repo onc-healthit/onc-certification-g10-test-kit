@@ -25,6 +25,8 @@
   url of the Operation defined in the Bulk Data IG. An additional warning will
   be displayed if the server does not declare that it instantiates the Bulk Data
   IG.
+* Fix a bug with the bulk data group export validation tests where tests would
+  fail if all Must Support fields were not present in a single export file.
 * Update US Core Test Kit from `v0.1.1` to `v0.2.1`:
   * Reference resolution tests now only check Must Support references
   * Reference resolution tests now requests and display them in the UI
