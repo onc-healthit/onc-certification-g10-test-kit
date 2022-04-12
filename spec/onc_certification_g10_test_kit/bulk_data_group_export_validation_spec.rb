@@ -96,7 +96,12 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       input.merge({ status_output: "[{\"url\":\"#{endpoint}\",\"type\":\"Patient\",\"count\":2}]" })
     end
     let(:patient_input_two_files) do
-      input.merge({ status_output: "[{\"url\":\"#{endpoint}\",\"type\":\"Patient\",\"count\":2},{\"url\":\"#{endpoint}/2\",\"type\":\"Patient\",\"count\":2}]" })
+      input.merge(
+        {
+          status_output: "[{\"url\":\"#{endpoint}\",\"type\":\"Patient\",\"count\":2}," \
+                         "{\"url\":\"#{endpoint}/2\",\"type\":\"Patient\",\"count\":2}]"
+        }
+      )
     end
 
     before do
@@ -328,7 +333,12 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       input.merge({ status_output: "[{\"url\":\"#{endpoint}\",\"type\":\"DiagnosticReport\",\"count\":43}]" })
     end
     let(:diagnostic_input_two_files) do
-      input.merge({ status_output: "[{\"url\":\"#{endpoint}\",\"type\":\"DiagnosticReport\",\"count\":43},{\"url\":\"#{endpoint}/2\",\"type\":\"DiagnosticReport\",\"count\":43}]" })
+      input.merge(
+        {
+          status_output: "[{\"url\":\"#{endpoint}\",\"type\":\"DiagnosticReport\",\"count\":43}," \
+                         "{\"url\":\"#{endpoint}/2\",\"type\":\"DiagnosticReport\",\"count\":43}]"
+        }
+      )
     end
     let(:contents_missing_lab) { String.new }
     let(:contents_missing_note) { String.new }

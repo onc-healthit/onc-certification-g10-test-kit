@@ -178,7 +178,9 @@ module ONCCertificationG10TestKit
       }
 
       stream_ndjson(url, build_headers(requires_access_token), process_line, process_headers)
-      resources_from_all_files.merge!(resources) { |key, all_resources, file_resources| all_resources | file_resources }
+      resources_from_all_files.merge!(resources) do |_key, all_resources, file_resources|
+        all_resources | file_resources
+      end
       line_count
     end
 
