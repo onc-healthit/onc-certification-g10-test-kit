@@ -198,10 +198,14 @@ module ONCCertificationG10TestKit
           ['Inferno Test ID', 22, ->(test) { test.short_id.to_s }],
           ['Inferno Test Name', 65, ->(test) { test.title }],
           ['Inferno Test Description', 65, lambda do |test|
-            natural_indent = test.description.lines
-              .collect { |l| l.index(/[^ ]/) }
-              .select { |l| !l.nil? && l.positive? }.min || 0
-            test.description.lines.map { |l| l[natural_indent..] || "\n" }.join.strip
+            description = test.description || ''
+            natural_indent =
+              description
+                .lines
+                .collect { |l| l.index(/[^ ]/) }
+                .select { |l| !l.nil? && l.positive? }
+                .min || 0
+            description.lines.map { |l| l[natural_indent..] || "\n" }.join.strip
           end],
           ['Test Procedure Steps', 30, ->(test) { inferno_to_procedure_map[test.short_id].join(', ') }]
         ]
@@ -227,7 +231,7 @@ module ONCCertificationG10TestKit
               this_row.each_with_index do |value, index|
                 inferno_worksheet.add_cell(row, index, value).change_text_wrap(true)
               end
-              inferno_worksheet.change_row_height(row, [26, (test.description.strip.lines.count * 10) + 10].max)
+              inferno_worksheet.change_row_height(row, [26, ((test.description || '').strip.lines.count * 10) + 10].max)
               inferno_worksheet.change_row_vertical_alignment(row, 'top')
               row += 1
             end
