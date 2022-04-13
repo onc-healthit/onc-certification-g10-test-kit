@@ -61,11 +61,15 @@ module ONCCertificationG10TestKit
       run do
         smart_app_launch_patient_id = patient_id.presence
         additional_patient_ids_list =
-          additional_patient_ids
-            .split(',')
-            .map(&:strip)
-            .map(&:presence)
-            .compact
+          if additional_patient_ids.present?
+            additional_patient_ids
+              .split(',')
+              .map(&:strip)
+              .map(&:presence)
+              .compact
+          else
+            []
+          end
 
         all_patient_ids = ([smart_app_launch_patient_id] + additional_patient_ids_list).compact.uniq
 
