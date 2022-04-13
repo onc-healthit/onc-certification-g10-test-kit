@@ -1,3 +1,7 @@
+# 2.1.1
+
+* Fix a bug caused by leaving the 'Additional Patient IDs' input in the
+  Single Patient API group empty.
 # 2.1.0
 
 * Update patient ID inputs from a single list of patient IDs to the patient ID
