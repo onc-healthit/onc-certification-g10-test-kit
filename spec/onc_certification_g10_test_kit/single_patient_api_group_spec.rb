@@ -24,5 +24,19 @@ RSpec.describe ONCCertificationG10TestKit::SinglePatientAPIGroup do
 
       expect(result.result).to eq('pass')
     end
+
+    it 'outputs the correct patient_ids when additional_patient_ids is not provided' do
+      run(test, patient_id: '85')
+      patient_ids = session_data_repo.load(test_session_id: test_session.id, name: 'patient_ids')
+
+      expect(patient_ids).to eq('85')
+    end
+
+    it 'outputs the correct patient_ids when additional_patient_ids are provided' do
+      run(test, patient_id: '85', additional_patient_ids: '85 , 123,, , 456 ,789')
+      patient_ids = session_data_repo.load(test_session_id: test_session.id, name: 'patient_ids')
+
+      expect(patient_ids).to eq('85,123,456,789')
+    end
   end
 end
