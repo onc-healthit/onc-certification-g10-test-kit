@@ -2,7 +2,11 @@ require_relative '../../lib/onc_certification_g10_test_kit/bulk_data_group_expor
 require 'ndjson'
 
 RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
-  let(:group) { Inferno::Repositories::TestGroups.new.find('bulk_data_group_export_validation') }
+  let(:group) do
+    ONCCertificationG10TestKit::G10CertificationSuite.groups
+      .find { |group| group.id.include? 'multi_patient_api' }
+      .groups.find { |group| group.id.include? 'bulk_data_group_export_validation' }
+  end
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
   let(:test_session) { repo_create(:test_session, test_suite_id: 'g10_certification') }
   let(:endpoint) { 'https://www.example.com' }
@@ -92,17 +96,35 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
   describe '[Patient resources returned conform to US Core Patient Profile] test' do
     let(:runnable) { group.tests[2] }
     let(:resources) { NDJSON::Parser.new('spec/fixtures/Patient.ndjson') }
+    let(:count) {2}
     let(:patient_input) do
-      input.merge({ status_output: "[{\"url\":\"#{endpoint}\",\"type\":\"Patient\",\"count\":2}]" })
+      input.merge({ status_output: "[{\"url\":\"#{endpoint}\",\"type\":\"Patient\",\"count\":#{count}}]" })
     end
     let(:patient_input_two_files) do
       input.merge(
         {
-          status_output: "[{\"url\":\"#{endpoint}\",\"type\":\"Patient\",\"count\":2}," \
-                         "{\"url\":\"#{endpoint}/2\",\"type\":\"Patient\",\"count\":2}]"
+          status_output: "[{\"url\":\"#{endpoint}\",\"type\":\"Patient\",\"count\":#{count}}," \
+                         "{\"url\":\"#{endpoint}/2\",\"type\":\"Patient\",\"count\":#{count}}]"
         }
       )
     end
+    let(:operation_outcome_no_name) do
+      FHIR::OperationOutcome.new(
+        issue: [
+          {
+            severity: 'error',
+            code: 'required',
+            details: {
+              text: "Patient.name: minimum required = 1, but only found 0"
+            },
+            expression: [
+              "Patient"
+            ]
+          }
+        ]
+      )
+    end
+    let(:validator_url) { runnable.find_validator(:default).url }
 
     before do
       resources.each do |resource|
@@ -149,6 +171,20 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       result = run(runnable, patient_input_two_files)
 
       expect(result.result).to eq('pass')
+    end
+
+    it 'catches all validation errors' do
+      stub_request(:get, "#{endpoint}")
+        .with(headers: { 'Accept' => 'application/fhir+ndjson' })
+        .to_return(status: 200, body: contents, headers: headers)
+
+      stub_request(:post, "#{validator_url}/validate?profile=http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient")
+        .to_return(status: 200, body: operation_outcome_no_name.to_json)
+
+      result = run(runnable, patient_input)
+
+      expect(result.result).to eq('fail')
+      expect(Inferno::Repositories::Messages.new.messages_for_result(result.id).count { |message| message.type == 'error'}).to be(count)
     end
   end
 
