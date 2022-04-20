@@ -178,11 +178,13 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
         .to_return(status: 200, body: contents, headers: headers)
 
-      stub_request(:post, "#{validator_url}/validate?profile=http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient")
+      validation_request = stub_request(:post,
+                            "#{validator_url}/validate?profile=http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient")
         .to_return(status: 200, body: operation_outcome_no_name.to_json)
 
       result = run(runnable, patient_input)
 
+      expect(validation_request).to have_been_made.twice
       expect(result.result).to eq('fail')
       expect(result.result_message).to start_with('2 / 2 Patient resources failed profile validation')
       expect(Inferno::Repositories::Messages.new.messages_for_result(result.id).count do |message|
@@ -530,7 +532,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       expect(result.result_message).to eq('No Observation resources found that conform to profile: http://hl7.org/fhir/StructureDefinition/resprate.')
     end
 
-    it 'skips if lines_to_validate does not include enough resources to verify profile conformance', pending: true do
+    it 'skips if lines_to_validate does not include enough resources to verify profile conformance' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
         .to_return(status: 200, body: contents, headers: headers)
@@ -540,7 +542,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       result = run(runnable, observation_input.merge(lines_to_validate: 75))
 
       expect(result.result).to eq('skip')
-      expect(result.result_message).to eq('No Observation resources found that conform to profile: http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab.')
+      expect(result.result_message).to start_with('No Observation resources found that conform to profile')
     end
 
     it 'passes when the profile for every streamed resource needs to be guessed' do

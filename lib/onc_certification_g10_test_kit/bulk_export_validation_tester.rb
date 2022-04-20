@@ -171,9 +171,9 @@ module ONCCertificationG10TestKit
 
         unless resource_is_valid?(resource: resource, profile_url: profile_url)
           if first_error.key?(:line_number)
-            @invalid_line_count += 1
+            @invalid_resource_count += 1
           else
-            @invalid_line_count = 1
+            @invalid_resource_count = 1
             first_error[:line_number] = line_count
             first_error[:messages] = messages.select { |message| ['error', 'warning'].include? message[:type] }
           end
@@ -194,16 +194,16 @@ module ONCCertificationG10TestKit
       line_count
     end
 
-    def process_validation_errors(total)
-      return if @invalid_line_count.zero?
+    def process_validation_errors(resource_count)
+      return if @invalid_resource_count.nil? || @invalid_resource_count.zero?
 
       first_error_message = "The line number for the first failed resource is #{first_error[:line_number]}."
 
       messages.clear
       messages.concat(first_error[:messages])
 
-      assert @invalid_line_count.zero?,
-             "#{@invalid_line_count} / #{total} #{resource_type} resources failed profile validation. " \
+      assert false,
+             "#{@invalid_resource_count} / #{resource_count} #{resource_type} resources failed profile validation. " \
              "#{first_error_message}"
     end
 
@@ -220,19 +220,17 @@ module ONCCertificationG10TestKit
       end
 
       @resources_from_all_files = {}
-      @first_error = {}
-      @invalid_line_count = 0
-      success_count = 0
+      resource_count = 0
 
       file_list.each do |file|
-        success_count += check_file_request(file['url'])
+        resource_count += check_file_request(file['url'])
       end
 
-      process_validation_errors(success_count)
+      process_validation_errors(resource_count)
 
       validate_conformance(resources_from_all_files)
 
-      pass "Successfully validated #{success_count} #{resource_type} resource(s)."
+      pass "Successfully validated #{resource_count} #{resource_type} resource(s)."
     end
   end
 end
