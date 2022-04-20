@@ -178,8 +178,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
         .to_return(status: 200, body: contents, headers: headers)
 
-      validation_request = stub_request(:post,
-                            "#{validator_url}/validate?profile=http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient")
+      validation_request = stub_request(:post, "#{validator_url}/validate?profile=http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient")
         .to_return(status: 200, body: operation_outcome_no_name.to_json)
 
       result = run(runnable, patient_input)
