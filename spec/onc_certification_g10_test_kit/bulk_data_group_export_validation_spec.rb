@@ -96,7 +96,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
   describe '[Patient resources returned conform to US Core Patient Profile] test' do
     let(:runnable) { group.tests[2] }
     let(:resources) { NDJSON::Parser.new('spec/fixtures/Patient.ndjson') }
-    let(:count) {2}
+    let(:count) { 2 }
     let(:patient_input) do
       input.merge({ status_output: "[{\"url\":\"#{endpoint}\",\"type\":\"Patient\",\"count\":#{count}}]" })
     end
@@ -115,10 +115,10 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
             severity: 'error',
             code: 'required',
             details: {
-              text: "Patient.name: minimum required = 1, but only found 0"
+              text: 'Patient.name: minimum required = 1, but only found 0'
             },
             expression: [
-              "Patient"
+              'Patient'
             ]
           }
         ]
@@ -174,7 +174,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     end
 
     it 'catches all validation errors' do
-      stub_request(:get, "#{endpoint}")
+      stub_request(:get, endpoint.to_s)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
         .to_return(status: 200, body: contents, headers: headers)
 
@@ -185,7 +185,9 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
 
       expect(result.result).to eq('fail')
       expect(result.result_message).to start_with('2 / 2 Patient resources failed profile validation')
-      expect(Inferno::Repositories::Messages.new.messages_for_result(result.id).count { |message| message.type == 'error'}).to be(1)
+      expect(Inferno::Repositories::Messages.new.messages_for_result(result.id).count do |message|
+               message.type == 'error'
+             end).to be(1)
     end
   end
 

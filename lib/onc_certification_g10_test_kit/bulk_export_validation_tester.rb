@@ -194,14 +194,17 @@ module ONCCertificationG10TestKit
       error_count = messages.count { |message| message[:type] == 'error' }
       return if error_count.zero?
 
-      first_error_message = first_error[:resource_id].present? ?
-                      "The id for the first failed resource is #{first_error[:resource_id]}" :
-                      "The line for the first failed resource is #{first_error[:line_number]}"
+      first_error_message = if first_error[:resource_id].present?
+                              "The id for the first failed resource is #{first_error[:resource_id]}"
+                            else
+                              "The line for the first failed resource is #{first_error[:line_number]}"
+                            end
 
       messages.clear
       messages.concat(first_error[:messages])
 
-      assert error_count.zero?, "#{error_count} / #{total} #{resource_type} resources failed profile validation. #{first_error_message}"
+      assert error_count.zero?,
+             "#{error_count} / #{total} #{resource_type} resources failed profile validation. #{first_error_message}"
     end
 
     def perform_bulk_export_validation
