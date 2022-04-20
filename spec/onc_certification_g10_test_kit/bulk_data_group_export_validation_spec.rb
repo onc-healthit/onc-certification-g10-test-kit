@@ -173,7 +173,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       expect(result.result).to eq('pass')
     end
 
-    it 'catches all validation errors' do
+    it 'validates all lines and saves errors for the first failed line' do
       stub_request(:get, endpoint.to_s)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
         .to_return(status: 200, body: contents, headers: headers)
