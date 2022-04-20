@@ -184,7 +184,8 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       result = run(runnable, patient_input)
 
       expect(result.result).to eq('fail')
-      expect(Inferno::Repositories::Messages.new.messages_for_result(result.id).count { |message| message.type == 'error'}).to be(count)
+      expect(result.result_message).to start_with('2 / 2 Patient resources failed profile validation')
+      expect(Inferno::Repositories::Messages.new.messages_for_result(result.id).count { |message| message.type == 'error'}).to be(1)
     end
   end
 
