@@ -171,7 +171,6 @@ module ONCCertificationG10TestKit
 
         if !resource_is_valid?(resource: resource, profile_url: profile_url) && !first_error.key?(:line_number)
           first_error[:line_number] = line_count
-          first_error[:resource_id] = resource.id
           first_error[:messages] = messages.select { |message| ['error', 'warning'].include? message[:type] }
         end
       }
@@ -194,11 +193,7 @@ module ONCCertificationG10TestKit
       error_count = messages.count { |message| message[:type] == 'error' }
       return if error_count.zero?
 
-      first_error_message = if first_error[:resource_id].present?
-                              "The id for the first failed resource is #{first_error[:resource_id]}"
-                            else
-                              "The line for the first failed resource is #{first_error[:line_number]}"
-                            end
+      first_error_message = "The line number for the first failed resource is #{first_error[:line_number]}."
 
       messages.clear
       messages.concat(first_error[:messages])
