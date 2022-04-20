@@ -169,9 +169,14 @@ module ONCCertificationG10TestKit
         resources[profile_url] << resource
         scratch[:patient_ids_seen] = patient_ids_seen | [resource.id] if resource_type == 'Patient'
 
-        if !resource_is_valid?(resource: resource, profile_url: profile_url) && !first_error.key?(:line_number)
-          first_error[:line_number] = line_count
-          first_error[:messages] = messages.select { |message| ['error', 'warning'].include? message[:type] }
+        unless resource_is_valid?(resource: resource, profile_url: profile_url)
+          if first_error.key?(:line_number)
+            @invalid_line_count += 1
+          else
+            @invalid_line_count = 1
+            first_error[:line_number] = line_count
+            first_error[:messages] = messages.select { |message| ['error', 'warning'].include? message[:type] }
+          end
         end
       }
 
@@ -190,16 +195,15 @@ module ONCCertificationG10TestKit
     end
 
     def process_validation_errors(total)
-      error_count = messages.count { |message| message[:type] == 'error' }
-      return if error_count.zero?
+      return if @invalid_line_count.zero?
 
       first_error_message = "The line number for the first failed resource is #{first_error[:line_number]}."
 
       messages.clear
       messages.concat(first_error[:messages])
 
-      assert error_count.zero?,
-             "#{error_count} / #{total} #{resource_type} resources failed profile validation. #{first_error_message}"
+      assert @invalid_line_count.zero?,
+             "#{@invalid_line_count} / #{total} #{resource_type} resources failed profile validation. #{first_error_message}"
     end
 
     def perform_bulk_export_validation
@@ -216,6 +220,7 @@ module ONCCertificationG10TestKit
 
       @resources_from_all_files = {}
       @first_error = {}
+      @invalid_line_count = 0
       success_count = 0
 
       file_list.each do |file|
