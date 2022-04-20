@@ -203,7 +203,8 @@ module ONCCertificationG10TestKit
       messages.concat(first_error[:messages])
 
       assert @invalid_line_count.zero?,
-             "#{@invalid_line_count} / #{total} #{resource_type} resources failed profile validation. #{first_error_message}"
+             "#{@invalid_line_count} / #{total} #{resource_type} resources failed profile validation. " \
+             "#{first_error_message}"
     end
 
     def perform_bulk_export_validation
