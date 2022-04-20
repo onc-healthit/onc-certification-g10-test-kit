@@ -175,7 +175,7 @@ module ONCCertificationG10TestKit
           else
             @invalid_resource_count = 1
             first_error[:line_number] = line_count
-            first_error[:messages] = messages.select { |message| ['error', 'warning'].include? message[:type] }
+            first_error[:messages] = messages.dup
           end
         end
       }
