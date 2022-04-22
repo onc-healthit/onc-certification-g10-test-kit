@@ -55,6 +55,10 @@ module ONCCertificationG10TestKit
       @resources_from_all_files ||= {}
     end
 
+    def first_error
+      @first_error ||= {}
+    end
+
     def patient_ids_seen
       scratch[:patient_ids_seen] ||= []
     end
@@ -166,7 +170,13 @@ module ONCCertificationG10TestKit
         scratch[:patient_ids_seen] = patient_ids_seen | [resource.id] if resource_type == 'Patient'
 
         unless resource_is_valid?(resource: resource, profile_url: profile_url)
-          assert false, "Resource at line \"#{line_count}\" does not conform to profile \"#{profile_url}\"."
+          if first_error.key?(:line_number)
+            @invalid_resource_count += 1
+          else
+            @invalid_resource_count = 1
+            first_error[:line_number] = line_count
+            first_error[:messages] = messages.dup
+          end
         end
       }
 
@@ -184,6 +194,19 @@ module ONCCertificationG10TestKit
       line_count
     end
 
+    def process_validation_errors(resource_count)
+      return if @invalid_resource_count.nil? || @invalid_resource_count.zero?
+
+      first_error_message = "The line number for the first failed resource is #{first_error[:line_number]}."
+
+      messages.clear
+      messages.concat(first_error[:messages])
+
+      assert false,
+             "#{@invalid_resource_count} / #{resource_count} #{resource_type} resources failed profile validation. " \
+             "#{first_error_message}"
+    end
+
     def perform_bulk_export_validation
       skip_if status_output.blank?, 'Could not verify this functionality when Bulk Status Output is not provided'
       skip_if (requires_access_token == 'true' && bearer_token.blank?),
@@ -197,14 +220,17 @@ module ONCCertificationG10TestKit
       end
 
       @resources_from_all_files = {}
-      success_count = 0
+      resource_count = 0
+
       file_list.each do |file|
-        success_count += check_file_request(file['url'])
+        resource_count += check_file_request(file['url'])
       end
+
+      process_validation_errors(resource_count)
 
       validate_conformance(resources_from_all_files)
 
-      pass "Successfully validated #{success_count} #{resource_type} resource(s)."
+      pass "Successfully validated #{resource_count} #{resource_type} resource(s)."
     end
   end
 end

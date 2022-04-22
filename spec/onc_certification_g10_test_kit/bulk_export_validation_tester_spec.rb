@@ -254,14 +254,14 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
         .with_message('Resource type "Encounter" at line "1" does not match type defined in output "Patient"')
     end
 
-    it 'fails when returned contents is not valid for the expected resource type' do
+    it 'logs messages when returned contents is not valid for the expected resource type' do
       stub_request(:get, url)
         .to_return(status: 200, headers: headers, body: patient_contents)
 
       allow(tester).to receive(:resource_is_valid?).and_return(false)
-      expect { tester.check_file_request(url) }
-        .to raise_exception(Inferno::Exceptions::AssertionException)
-        .with_message('Resource at line "1" does not conform to profile "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient".')
+      tester.check_file_request(url)
+
+      expect(tester.first_error[:line_number]).to eq(1)
     end
 
     context 'with improper headers' do
