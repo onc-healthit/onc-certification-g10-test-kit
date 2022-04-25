@@ -106,15 +106,15 @@ module ONCCertificationG10TestKit
       return [] if VERSION.match?(/\A\d+\.\d+\.\d+\z/)
 
       [{
-         type: 'error',
-         message: <<~MESSAGE
-           This is a development version (`#{VERSION}`) of the ONC Certification
-           (g)(10) Standardized API Test Kit and is not suitable for
-           certification. Please [download an official
-           release](https://github.com/onc-healthit/onc-certification-g10-test-kit/releases)
-           if you did not intend to use the development version.
-         MESSAGE
-       }]
+        type: 'error',
+        message: <<~MESSAGE
+          This is a development version (`#{VERSION}`) of the ONC Certification
+          (g)(10) Standardized API Test Kit and is not suitable for
+          certification. Please [download an official
+          release](https://github.com/onc-healthit/onc-certification-g10-test-kit/releases)
+          if you did not intend to use the development version.
+        MESSAGE
+      }]
     end
   end
 end
