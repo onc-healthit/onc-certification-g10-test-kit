@@ -5,7 +5,7 @@ module ONCCertificationG10TestKit
     EXPECTED_VALIDATOR_VERSION = '2.1.0'.freeze
 
     def configuration_messages
-      validator_version_message + terminology_messages
+      validator_version_message + terminology_messages + version_message
     end
 
     def terminology_checker
@@ -100,6 +100,21 @@ module ONCCertificationG10TestKit
       end
 
       messages
+    end
+
+    def version_message
+      return [] if VERSION.match?(/\A\d+\.\d+\.\d+\z/)
+
+      [{
+        type: 'error',
+        message: <<~MESSAGE
+          This is a development version (`#{VERSION}`) of the ONC Certification
+          (g)(10) Standardized API Test Kit and is not suitable for
+          certification. Please [download an official
+          release](https://github.com/onc-healthit/onc-certification-g10-test-kit/releases)
+          if you did not intend to use the development version.
+        MESSAGE
+      }]
     end
   end
 end

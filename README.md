@@ -39,7 +39,8 @@ repository.
 
 ## Local Installation Instruction
 
-- Clone this repo.
+- [Download an official
+  release](https://github.com/onc-healthit/onc-certification-g10-test-kit/releases)
 - run `setup.sh`
 - run `run.sh`
 - navigate to `http://localhost`
