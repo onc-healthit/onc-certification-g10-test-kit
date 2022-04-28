@@ -215,7 +215,7 @@ module ONCCertificationG10TestKit
       file_list = JSON.parse(status_output).select { |file| file['type'] == resource_type }
       if file_list.empty?
         message = "No #{resource_type} resource file item returned by server."
-        omit_if (OMIT_KLASS.include? resource_type), message
+        omit_if (OMIT_KLASS.include? resource_type), "#{message} #{resource_type} resources are optional."
         skip message
       end
 
