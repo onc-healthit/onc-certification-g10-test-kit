@@ -586,7 +586,8 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       result = run(runnable, location_input.merge({ status_output: bad_status_output }))
 
       expect(result.result).to eq('omit')
-      expect(result.result_message).to eq('No Location resource file item returned by server.')
+      expect(result.result_message).to eq('No Location resource file item returned by server. ' \
+                                          'Location resources are optional.')
     end
 
     it 'fails when non Location resources are returned' do
@@ -637,7 +638,8 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       result = run(runnable, medication_input.merge({ status_output: bad_status_output }))
 
       expect(result.result).to eq('omit')
-      expect(result.result_message).to eq('No Medication resource file item returned by server.')
+      expect(result.result_message).to eq('No Medication resource file item returned by server. ' \
+                                          'Medication resources are optional.')
     end
 
     it 'fails when the returned resources are not of the expected profile' do
