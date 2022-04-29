@@ -49,7 +49,20 @@ module ONCCertificationG10TestKit
     input_order :url, :standalone_client_id, :standalone_client_secret
 
     group from: :smart_discovery do
-      test from: 'g10_smart_well_known_capabilities'
+      test from: 'g10_smart_well_known_capabilities',
+           config: {
+             options: {
+               required_capabilities: [
+                 'launch-standalone',
+                 'client-public',
+                 'client-confidential-symmetric',
+                 'sso-openid-connect',
+                 'context-standalone-patient',
+                 'permission-offline',
+                 'permission-patient'
+               ]
+             }
+           }
     end
 
     group from: :smart_standalone_launch do

@@ -19,17 +19,7 @@ module ONCCertificationG10TestKit
       assert capabilities.is_a?(Array),
              "Expected the well-known capabilities to be an Array, but found #{capabilities.class.name}"
 
-      required_smart_capabilities = [
-        'launch-standalone',
-        'client-public',
-        'client-confidential-symmetric',
-        'sso-openid-connect',
-        'context-standalone-patient',
-        'permission-offline',
-        'permission-patient'
-      ]
-
-      missing_capabilities = required_smart_capabilities - capabilities
+      missing_capabilities = (config.options[:required_capabilities] || []) - capabilities
       assert missing_capabilities.empty?,
              "The following capabilities required for this scenario are missing: #{missing_capabilities.join(', ')}"
     end

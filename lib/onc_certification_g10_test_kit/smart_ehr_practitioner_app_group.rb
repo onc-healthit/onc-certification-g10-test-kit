@@ -47,7 +47,21 @@ module ONCCertificationG10TestKit
     input_order :url, :ehr_client_id, :ehr_client_secret
 
     group from: :smart_discovery do
-      test from: 'g10_smart_well_known_capabilities'
+      test from: 'g10_smart_well_known_capabilities',
+           config: {
+             options: {
+               required_capabilities: [
+                 'launch-ehr',
+                 'client-confidential-symmetric',
+                 'sso-openid-connect',
+                 'context-banner',
+                 'context-style',
+                 'context-ehr-patient',
+                 'permission-offline',
+                 'permission-user'
+               ]
+             }
+           }
     end
 
     group from: :smart_ehr_launch do
