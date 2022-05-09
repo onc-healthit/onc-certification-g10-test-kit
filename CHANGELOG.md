@@ -1,3 +1,7 @@
+# 2.1.2.rc1
+
+* Initial 2.1.2 release candidate
+
 # 2.1.1
 
 * Fix a bug caused by leaving the 'Additional Patient IDs' input in the
