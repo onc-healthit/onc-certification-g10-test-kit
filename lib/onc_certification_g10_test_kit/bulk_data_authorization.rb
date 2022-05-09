@@ -6,8 +6,8 @@ module ONCCertificationG10TestKit
     short_description 'Demonstrate SMART Backend Services Authorization for Bulk Data.'
     description <<~DESCRIPTION
       Bulk Data servers are required to authorize clients using the
-      [Backend Service Authorization](http://hl7.org/fhir/uv/bulkdata/STU1/authorization/index.html)
-      specification as defined in the [FHIR Bulk Data Access IG v1.0.0](http://hl7.org/fhir/uv/bulkdata/STU1/).
+      [Backend Service Authorization](http://hl7.org/fhir/uv/bulkdata/STU1.0.1/authorization/index.html)
+      specification as defined in the [FHIR Bulk Data Access IG v1.0.1](http://hl7.org/fhir/uv/bulkdata/STU1.0.1/).
 
       In this set of tests, Inferno serves as a Bulk Data client that requests authorization
       from the Bulk Data authorization server.  It also performs a number of negative tests
@@ -89,7 +89,7 @@ module ONCCertificationG10TestKit
         error response as described in [Section 5.2](https://tools.ietf.org/html/rfc6749#section-5.2).
         ```
       DESCRIPTION
-      # link 'http://hl7.org/fhir/uv/bulkdata/STU1/authorization/index.html#protocol-details'
+      # link 'http://hl7.org/fhir/uv/bulkdata/STU1.0.1/authorization/index.html#protocol-details'
 
       run do
         post_request_content = AuthorizationRequestBuilder.build(encryption_method: bulk_encryption_method,
@@ -120,7 +120,7 @@ module ONCCertificationG10TestKit
         error response as described in [Section 5.2](https://tools.ietf.org/html/rfc6749#section-5.2).
         ```
       DESCRIPTION
-      # link 'http://hl7.org/fhir/uv/bulkdata/STU1/authorization/index.html#protocol-details'
+      # link 'http://hl7.org/fhir/uv/bulkdata/STU1.0.1/authorization/index.html#protocol-details'
 
       run do
         post_request_content = AuthorizationRequestBuilder.build(encryption_method: bulk_encryption_method,
@@ -160,7 +160,7 @@ module ONCCertificationG10TestKit
         error response as described in [Section 5.2](https://tools.ietf.org/html/rfc6749#section-5.2).
         ```
       DESCRIPTION
-      # link 'http://hl7.org/fhir/uv/bulkdata/STU1/authorization/index.html#protocol-details'
+      # link 'http://hl7.org/fhir/uv/bulkdata/STU1.0.1/authorization/index.html#protocol-details'
 
       run do
         post_request_content = AuthorizationRequestBuilder.build(encryption_method: bulk_encryption_method,
@@ -180,7 +180,7 @@ module ONCCertificationG10TestKit
       description <<~DESCRIPTION
         If the access token request is valid and authorized, the authorization server SHALL issue an access token in response.
       DESCRIPTION
-      # link 'http://hl7.org/fhir/uv/bulkdata/STU1/authorization/index.html#issuing-access-tokens'
+      # link 'http://hl7.org/fhir/uv/bulkdata/STU1.0.1/authorization/index.html#issuing-access-tokens'
 
       output :authentication_response
 
@@ -211,7 +211,7 @@ module ONCCertificationG10TestKit
         | expires_in | required | The lifetime in seconds of the access token. The recommended value is 300, for a five-minute token lifetime. |
         | scope | required | Scope of access authorized. Note that this can be different from the scopes requested by the app. |
       DESCRIPTION
-      # link 'http://hl7.org/fhir/uv/bulkdata/STU1/authorization/index.html#issuing-access-tokens'
+      # link 'http://hl7.org/fhir/uv/bulkdata/STU1.0.1/authorization/index.html#issuing-access-tokens'
 
       input :authentication_response
       output :bearer_token

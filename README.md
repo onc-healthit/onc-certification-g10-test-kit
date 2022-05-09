@@ -18,7 +18,7 @@ supports all required standards, including:
 * Health Level 7 (HL7®) Fast Healthcare Interoperability Resources (FHIR®) Release 4.0.1
 * FHIR US Core Implementation Guide (IG) STU 3.1.1
 * SMART Application Launch Framework Implementation Guide Release 1.0.0
-* HL7 FHIR Bulk Data Access (Flat FHIR) (v1.0.0: STU 1)
+* HL7 FHIR Bulk Data Access (Flat FHIR) (v1.0.1: STU 1)
 
 This test kit is [open
 source](https://github.com/onc-healthit/onc-certification-g10-test-kit) and

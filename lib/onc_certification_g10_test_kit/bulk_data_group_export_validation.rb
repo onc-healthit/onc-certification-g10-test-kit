@@ -54,12 +54,12 @@ module ONCCertificationG10TestKit
         If the requiresAccessToken field in the Complete Status body is set to true, the request SHALL include a valid#{' '}
         access token.
 
-        [FHIR R4 Security](http://build.fhir.org/security.html#AccessDenied) and
+        [FHIR R4 Security](https://www.hl7.org/fhir/security.html#AccessDenied) and
         [The OAuth 2.0 Authorization Framework: Bearer Token Usage](https://tools.ietf.org/html/rfc6750#section-3.1)
         recommend using HTTP status code 401 for invalid token but also allow the actual result be controlled by policy#{' '}
         and context.
       DESCRIPTION
-      # link 'http://hl7.org/fhir/uv/bulkdata/STU1/export/index.html#file-request'
+      # link 'http://hl7.org/fhir/uv/bulkdata/STU1.0.1/export/index.html#file-request'
 
       input :bulk_download_url
 

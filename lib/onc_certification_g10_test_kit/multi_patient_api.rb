@@ -21,8 +21,8 @@ module ONCCertificationG10TestKit
     description %(
       Demonstrate the ability to export clinical data for multiple patients in
       a group using [FHIR Bulk Data Access
-      IG](http://hl7.org/fhir/uv/bulkdata/STU1/). This test uses [Backend Services
-      Authorization](http://hl7.org/fhir/uv/bulkdata/STU1/authorization/index.html)
+      IG](http://hl7.org/fhir/uv/bulkdata/STU1.0.1/). This test uses [Backend Services
+      Authorization](http://hl7.org/fhir/uv/bulkdata/STU1.0.1/authorization/index.html)
       to obtain an access token from the server. After authorization, a group
       level bulk data export request is initialized. Finally, this test reads
       exported NDJSON files from the server and validates the resources in
