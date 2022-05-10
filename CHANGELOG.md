@@ -7,8 +7,14 @@
   official release. 
 * Update omit message in Bulk Data Export tests when no Medication/Location 
   resources are returned to explicitly state that they are not required.
-* Fix EHR Launch capabilities check.
+* Fix EHR Launch capabilities check, which were incorrectly verifying
+  against Standalone capabilities.
 * Update links in Bulk Data group to v1.0.1 of Bulk Data rather than v1.0.0.
+* Validate `sub` field in OpenID Connect tests.
+* Limit Clinical Notes Guidance attachment tests to specific DiagnosticReport
+  types.
+* Update to inferno-core v0.3.2, which includes a number of UI and failure message
+  improvements.
 
 # 2.1.1
 
