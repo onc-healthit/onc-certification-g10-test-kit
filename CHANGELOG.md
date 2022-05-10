@@ -13,8 +13,8 @@
 * Validate `sub` field in OpenID Connect tests.
 * Limit Clinical Notes Guidance attachment tests to specific DiagnosticReport
   types.
-* Update to inferno-core v0.3.2, which includes a number of UI and failure message
-  improvements.
+* Update to inferno-core v0.3.2, which includes a number of UI and failure 
+  message improvements.
 
 # 2.1.1
 
