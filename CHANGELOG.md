@@ -1,3 +1,15 @@
+# 2.2.0
+
+* Update Bulk Data Export validation test to continue validating all returned 
+  resources even after encountering an invalid one. It now reports total number 
+  of invalid resources and their line number.
+* Add configuration error message when using a development version, and not an 
+  official release. 
+* Update omit message in Bulk Data Export tests when no Medication/Location 
+  resources are returned to explicitly state that they are not required.
+* Fix EHR Launch capabilities check.
+* Update links in Bulk Data group to v1.0.1 of Bulk Data rather than v1.0.0.
+
 # 2.1.2.rc1
 
 * Initial 2.1.2 release candidate
