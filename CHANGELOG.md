@@ -1,6 +1,20 @@
-# 2.1.2.rc1
+# 2.2.0
 
-* Initial 2.1.2 release candidate
+* Update Bulk Data Export validation test to continue validating all returned 
+  resources even after encountering an invalid one. It now reports total number 
+  of invalid resources and their line number.
+* Add configuration error message when using a development version, and not an 
+  official release. 
+* Update omit message in Bulk Data Export tests when no Medication/Location 
+  resources are returned to explicitly state that they are not required.
+* Fix EHR Launch capabilities check, which were incorrectly verifying
+  against Standalone capabilities.
+* Update links in Bulk Data group to v1.0.1 of Bulk Data rather than v1.0.0.
+* Validate `sub` field in OpenID Connect tests.
+* Limit Clinical Notes Guidance attachment tests to specific DiagnosticReport
+  types.
+* Update to inferno-core v0.3.2, which includes a number of UI and failure 
+  message improvements.
 
 # 2.1.1
 
@@ -66,10 +80,6 @@
     they were validated.
   * Fix a bug where a test run could be created without all of the required
     inputs.
-
-# 2.1.0.rc1
-
-Initial 2.1.0 release candidate
 
 # 2.0.0
 
