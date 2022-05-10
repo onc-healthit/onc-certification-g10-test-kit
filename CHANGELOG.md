@@ -10,10 +10,6 @@
 * Fix EHR Launch capabilities check.
 * Update links in Bulk Data group to v1.0.1 of Bulk Data rather than v1.0.0.
 
-# 2.1.2.rc1
-
-* Initial 2.1.2 release candidate
-
 # 2.1.1
 
 * Fix a bug caused by leaving the 'Additional Patient IDs' input in the
@@ -78,10 +74,6 @@
     they were validated.
   * Fix a bug where a test run could be created without all of the required
     inputs.
-
-# 2.1.0.rc1
-
-Initial 2.1.0 release candidate
 
 # 2.0.0
 
