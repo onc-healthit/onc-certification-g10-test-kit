@@ -74,11 +74,11 @@ module ONCCertificationG10TestKit
     end
 
     def self.jwks_json
-      @jwks_json ||= File.read(File.join(__dir__, 'onc_certification_g10_test_kit', 'bulk_data_jwks.json'))
+      @jwks_json ||= File.read(File.join(__dir__, 'onc_certification_g10_test_kit', 'bulk_data_jwks_public.json'))
     end
 
     def self.well_known_route_handler
-      ->(_env) { [200, {}, [jwks_json]] }
+      ->(_env) { [200, { 'Content-Type' => 'application/json' }, [jwks_json]] }
     end
 
     route(
