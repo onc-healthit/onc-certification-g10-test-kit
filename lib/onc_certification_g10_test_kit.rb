@@ -75,7 +75,9 @@ module ONCCertificationG10TestKit
 
     def self.jwks_json
       bulk_data_jwks = JSON.parse(File.read(File.join(__dir__, 'onc_certification_g10_test_kit', 'bulk_data_jwks.json')))
-      @jwks_json ||= { keys: bulk_data_jwks['keys'].select { |key| key['key_ops']&.include?('verify') } }.to_json
+      @jwks_json ||= JSON.pretty_generate({
+        keys: bulk_data_jwks['keys'].select { |key| key['key_ops']&.include?('verify') }
+      })
     end
 
     def self.well_known_route_handler
