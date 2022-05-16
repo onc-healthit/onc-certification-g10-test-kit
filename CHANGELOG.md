@@ -1,3 +1,9 @@
+# 2.2.1
+
+* Update JWK Set response while acting as a Backend Services client in
+  the Multi-Patient API tests to not include corresponding private keys.
+* Update JWK Set response to include `application/json` Content-Type header.
+
 # 2.2.0
 
 * Update Bulk Data Export validation test to continue validating all returned 
