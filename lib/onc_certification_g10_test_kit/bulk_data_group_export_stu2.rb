@@ -20,7 +20,7 @@ module ONCCertificationG10TestKit
       include ExportKickOffPerformer
 
       run do
-        ['application/fhir+ndjson', 'application/ndjson', 'ndjson'].each do |format|
+        ["application/fhir+ndjson", "application/ndjson", "ndjson"].each do |format|
           perform_export_kick_off_request(params: "_outputFormat=#{format}")
           assert_response_status(202)
         end 
