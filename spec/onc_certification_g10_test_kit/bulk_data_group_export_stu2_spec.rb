@@ -14,7 +14,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU2 do
       bearer_token: bearer_token,
       group_id: group_id
     }
-  end 
+  end
 
   def run(runnable, inputs = {})
     test_run_params = { test_session_id: test_session.id }.merge(runnable.reference_hash)
@@ -41,12 +41,12 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU2 do
 
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Bad response status: expected 202, but received 400')
-    end 
+    end
 
     it 'fails when server does not support application/ndjson or ndjson content type' do
       stub_request(:get, "#{export_url}?_outputFormat=application/fhir+ndjson")
         .to_return(status: 202)
-      
+
       stub_request(:get, "#{export_url}?_outputFormat=application/ndjson")
         .to_return(status: 400)
 
@@ -54,15 +54,15 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU2 do
 
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Bad response status: expected 202, but received 400')
-    end 
+    end
 
     it 'fails when server only does not support ndjson content type' do
       stub_request(:get, "#{export_url}?_outputFormat=application/fhir+ndjson")
         .to_return(status: 202)
-      
+
       stub_request(:get, "#{export_url}?_outputFormat=application/ndjson")
         .to_return(status: 202)
-      
+
       stub_request(:get, "#{export_url}?_outputFormat=ndjson")
         .to_return(status: 400)
 
@@ -70,21 +70,21 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU2 do
 
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Bad response status: expected 202, but received 400')
-    end 
+    end
 
     it 'passes when server supports all ndjson content types' do
       stub_request(:get, "#{export_url}?_outputFormat=application/fhir+ndjson")
         .to_return(status: 202)
-      
+
       stub_request(:get, "#{export_url}?_outputFormat=application/ndjson")
         .to_return(status: 202)
-      
+
       stub_request(:get, "#{export_url}?_outputFormat=ndjson")
         .to_return(status: 202)
 
       result = run(runnable, input)
 
       expect(result.result).to eq('pass')
-    end 
+    end
   end
-end 
+end
