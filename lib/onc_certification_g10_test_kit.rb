@@ -178,6 +178,22 @@ module ONCCertificationG10TestKit
         may require special setup on the part of the tester.
       )
 
+      config(
+        options: {
+          redirect_message_proc: lambda do |auth_url|
+            %(
+              ### #{self.class.parent.title}
+
+              [Follow this link to authorize with the SMART
+              server](#{auth_url}).
+
+              Tests will resume once Inferno receives a request at
+              `#{config.options[:redirect_uri]}` with a state of `#{state}`.
+            )
+          end
+        }
+      )
+
       group from: :g10_public_standalone_launch
       group from: :g10_token_revocation
 
