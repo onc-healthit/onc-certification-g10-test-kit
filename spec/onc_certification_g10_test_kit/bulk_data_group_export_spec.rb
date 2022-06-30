@@ -1,4 +1,4 @@
-require_relative '../../lib/onc_certification_g10_test_kit/bulk_data_group_export'
+require_relative '../../lib/onc_certification_g10_test_kit/bulk_data_group_export_stu1'
 
 RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExport do
   let(:group) { Inferno::Repositories::TestGroups.new.find('bulk_data_group_export') }

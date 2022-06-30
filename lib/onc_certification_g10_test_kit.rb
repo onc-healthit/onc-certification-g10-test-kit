@@ -17,7 +17,8 @@ require_relative 'onc_certification_g10_test_kit/smart_limited_app_group'
 require_relative 'onc_certification_g10_test_kit/smart_standalone_patient_app_group'
 require_relative 'onc_certification_g10_test_kit/smart_ehr_practitioner_app_group'
 require_relative 'onc_certification_g10_test_kit/smart_public_standalone_launch_group'
-require_relative 'onc_certification_g10_test_kit/multi_patient_api'
+require_relative 'onc_certification_g10_test_kit/multi_patient_api_stu1'
+require_relative 'onc_certification_g10_test_kit/multi_patient_api_stu2'
 require_relative 'onc_certification_g10_test_kit/terminology_binding_validator'
 require_relative 'onc_certification_g10_test_kit/token_revocation_group'
 require_relative 'onc_certification_g10_test_kit/visual_inspection_and_attestations_group'
@@ -166,6 +167,8 @@ module ONCCertificationG10TestKit
     end
 
     group from: 'multi_patient_api'
+
+    group from: 'multi_patient_api_stu2'
 
     group do
       title 'Additional Tests'

@@ -1,11 +1,11 @@
 require_relative 'bulk_data_authorization'
-require_relative 'bulk_data_group_export'
+require_relative 'bulk_data_group_export_stu2'
 require_relative 'bulk_data_group_export_validation'
 
 module ONCCertificationG10TestKit
-  class MultiPatientAPIGroup < Inferno::TestGroup
-    title 'Multi-Patient Authorization and API'
-    short_title 'Multi-Patient API'
+  class MultiPatientAPIGroupSTU2 < Inferno::TestGroup
+    title 'Multi-Patient Authorization and API STU2'
+    short_title 'Multi-Patient API STU2'
 
     input_instructions %(
       Register Inferno as a bulk data client with the following information, and
@@ -21,8 +21,8 @@ module ONCCertificationG10TestKit
     description %(
       Demonstrate the ability to export clinical data for multiple patients in
       a group using [FHIR Bulk Data Access
-      IG](http://hl7.org/fhir/uv/bulkdata/STU1.0.1/). This test uses [Backend Services
-      Authorization](http://hl7.org/fhir/uv/bulkdata/STU1.0.1/authorization/index.html)
+      IG](https://hl7.org/fhir/uv/bulkdata/). This test uses [Backend Services
+      Authorization](http://www.hl7.org/fhir/smart-app-launch/backend-services.html#top-level-steps-for-backend-services-authorization)
       to obtain an access token from the server. After authorization, a group
       level bulk data export request is initialized. Finally, this test reads
       exported NDJSON files from the server and validates the resources in
@@ -33,7 +33,7 @@ module ONCCertificationG10TestKit
       Location, Organization, and Practitioner resources as they are
       referenced as must support elements in required resources.
     )
-    id :multi_patient_api
+    id :multi_patient_api_stu2
     run_as_group
 
     input_order :bulk_server_url,
@@ -48,7 +48,7 @@ module ONCCertificationG10TestKit
                 :bulk_timeout
 
     group from: :bulk_data_authorization
-    group from: :bulk_data_group_export
+    group from: :bulk_data_group_export_stu2
     group from: :bulk_data_group_export_validation
   end
 end
