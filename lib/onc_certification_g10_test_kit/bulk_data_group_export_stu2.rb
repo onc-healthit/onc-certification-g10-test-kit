@@ -23,6 +23,8 @@ module ONCCertificationG10TestKit
         ['application/fhir+ndjson', 'application/ndjson', 'ndjson'].each do |format|
           perform_export_kick_off_request(params: "_outputFormat=#{format}")
           assert_response_status(202)
+
+          delete_export_kick_off_request
         end
       end
     end

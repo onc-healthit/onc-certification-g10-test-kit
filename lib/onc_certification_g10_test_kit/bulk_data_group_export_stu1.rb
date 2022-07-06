@@ -285,13 +285,7 @@ module ONCCertificationG10TestKit
         perform_export_kick_off_request
         assert_response_status(202)
 
-        polling_url = request.response_header('content-location')&.value
-        assert polling_url.present?, 'Export response header did not include "Content-Location"'
-
-        headers = { accept: 'application/json', authorization: "Bearer #{bearer_token}" }
-
-        delete(polling_url, headers: headers)
-        assert_response_status(202)
+        delete_export_kick_off_request
       end
     end
   end
