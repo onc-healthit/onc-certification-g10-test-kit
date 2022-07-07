@@ -22,7 +22,7 @@ module ONCCertificationG10TestKit
       Demonstrate the ability to export clinical data for multiple patients in
       a group using [FHIR Bulk Data Access
       IG](https://hl7.org/fhir/uv/bulkdata/). This test uses [Backend Services
-      Authorization](http://www.hl7.org/fhir/smart-app-launch/backend-services.html#top-level-steps-for-backend-services-authorization)
+      Authorization](http://www.hl7.org/fhir/smart-app-launch/backend-services.html)
       to obtain an access token from the server. After authorization, a group
       level bulk data export request is initialized. Finally, this test reads
       exported NDJSON files from the server and validates the resources in
@@ -47,8 +47,22 @@ module ONCCertificationG10TestKit
                 :lines_to_validate,
                 :bulk_timeout
 
-    group from: :bulk_data_authorization
+    group from: :bulk_data_authorization,
+      description: <<~DESCRIPTION
+      Bulk Data servers are required to authorize clients using the
+      [Backend Service Authorization](http://www.hl7.org/fhir/smart-app-launch/backend-services.html)
+      specification as defined in the [FHIR Bulk Data Access IG v2.0.0](https://hl7.org/fhir/uv/bulkdata/).
+
+      In this set of tests, Inferno serves as a Bulk Data client that requests authorization
+      from the Bulk Data authorization server.  It also performs a number of negative tests
+      to validate that the authorization service does not improperly authorize invalid
+      requests.
+
+      This test returns an access token.
+    DESCRIPTION
+
     group from: :bulk_data_group_export_stu2
+
     group from: :bulk_data_group_export_validation
   end
 end

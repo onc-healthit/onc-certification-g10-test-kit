@@ -2,7 +2,7 @@ require_relative 'export_kick_off_performer'
 require_relative 'bulk_data_group_export_stu1'
 
 module ONCCertificationG10TestKit
-  class BulkDataGroupExportSTU2 < BulkDataGroupExportSTU1
+  class BulkDataGroupExportSTU2 < Inferno::TestGroup
     title 'Group Compartment Export Tests STU2'
     short_description 'Verify that the system supports Group compartment export.'
     description <<~DESCRIPTION
@@ -10,6 +10,8 @@ module ONCCertificationG10TestKit
     DESCRIPTION
 
     id :bulk_data_group_export_stu2
+
+    test from: :g10_bulk_data_server_tls_version
 
     test do
       title 'Bulk Data Server supports "_outputFormat" query parameter'
