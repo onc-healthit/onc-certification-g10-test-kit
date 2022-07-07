@@ -1,3 +1,7 @@
+# 2.3.0
+
+* Remove invalid launch parameter tests.
+
 # 2.2.1
 
 * Update JWK Set response while acting as a Backend Services client in
