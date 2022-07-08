@@ -161,8 +161,8 @@ module ONCCertificationG10TestKit
         end
 
         if resource.resourceType != resource_type
-          assert false, "Resource type \"#{resource.resourceType}\" at line \"#{line_count}\" does not match type" \
-                        " defined in output \"#{resource_type}\""
+          assert false, "Resource type \"#{resource.resourceType}\" at line \"#{line_count}\" does not match type " \
+                        "defined in output \"#{resource_type}\""
         end
 
         profile_url = determine_profile(resource)
