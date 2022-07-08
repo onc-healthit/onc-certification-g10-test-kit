@@ -45,8 +45,8 @@ module ONCCertificationG10TestKit
            us_core_message_filters.any? { |filter| filter.match? message.message } ||
            (
              message.type == 'error' && (
-               message.message.match?(/\A\S+: Unknown Code/) ||
-               message.message.match?(/\A\S+: None of the codings provided are in the value set/)
+               message.message.match?(/\A\S+: \S+: Unknown Code/) ||
+               message.message.match?(/\A\S+: \S+: None of the codings provided are in the value set/)
              )
            )
           true
