@@ -1,4 +1,4 @@
-require 'smart_app_launch_test_kit'
+require 'smart_app_launch/smart_stu1_suite'
 require 'us_core_test_kit/generated/v3.1.1/us_core_test_suite'
 
 require_relative 'onc_certification_g10_test_kit/configuration_checker'
@@ -45,8 +45,8 @@ module ONCCertificationG10TestKit
            us_core_message_filters.any? { |filter| filter.match? message.message } ||
            (
              message.type == 'error' && (
-               message.message.match?(/\A\S+: Unknown Code/) ||
-               message.message.match?(/\A\S+: None of the codings provided are in the value set/)
+               message.message.match?(/\A\S+: \S+: Unknown Code/) ||
+               message.message.match?(/\A\S+: \S+: None of the codings provided are in the value set/)
              )
            )
           true

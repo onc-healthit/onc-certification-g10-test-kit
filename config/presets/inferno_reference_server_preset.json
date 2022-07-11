@@ -116,14 +116,14 @@
       "type": "text",
       "title": "Backend Services Token Endpoint",
       "description": "The OAuth 2.0 Token Endpoint used by the Backend Services specification\n                        to provide bearer tokens.",
-      "value": "https://inferno.healthit.gov/bulk-data-server/auth/token"
+      "value": "https://inferno.healthit.gov/reference-server/oauth/bulk-token"
     },
     {
       "name": "bulk_client_id",
       "type": "text",
       "title": "Bulk Data Client ID",
       "description": "Client ID provided at registration to the Inferno application.",
-      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJlZ2lzdHJhdGlvbi10b2tlbiJ9.eyJqd2tzX3VybCI6Imh0dHBzOi8vaW5mZXJuby5oZWFsdGhpdC5nb3YvaW5mZXJuby8ud2VsbC1rbm93bi9qd2tzLmpzb24iLCJhY2Nlc3NUb2tlbnNFeHBpcmVJbiI6MTUsImlhdCI6MTU5OTE1NzgyMX0.-wulnE05BlY_Zcm5iP77Meqxr6iNiYxBsOADB5CGE8I"
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJlZ2lzdHJhdGlvbi10b2tlbiJ9.eyJqd2tzX3VybCI6Imh0dHA6Ly8xMC4xNS4yNTIuNzMvaW5mZXJuby8ud2VsbC1rbm93bi9qd2tzLmpzb24iLCJhY2Nlc3NUb2tlbnNFeHBpcmVJbiI6MTUsImlhdCI6MTU5NzQxMzE5NX0.q4v4Msc74kN506KTZ0q_minyapJw0gwlT6M_uiL73S4"
     },
     {
       "name": "bulk_scope",
@@ -156,14 +156,14 @@
       "type": "text",
       "title": "Bulk Data FHIR URL",
       "description": "The URL of the Bulk FHIR server.",
-      "value": "https://inferno.healthit.gov/bulk-data-server/eyJlcnIiOiIiLCJwYWdlIjoxMDAwMCwiZHVyIjoxMCwidGx0IjoxNSwibSI6MSwic3R1Ijo0fQ/fhir"
+      "value": "https://inferno.healthit.gov/reference-server/r4"
     },
     {
       "name": "group_id",
       "type": "text",
       "title": "Group ID",
       "description": "The Group ID associated with the group of patients to be exported.",
-      "value": "1"
+      "value": "1a"
     },
     {
       "name": "bulk_timeout",
@@ -185,7 +185,7 @@
       "type": "text",
       "title": "Patient IDs in exported Group",
       "description": "Comma separated list of every Patient ID that is in the specified Group. This information is\n          provided by the system under test to verify that data returned matches expectations. Leave blank to not\n          verify Group inclusion.",
-      "value": "d831ec91-c7a3-4a61-9312-7ff0c4a32134, e91975f5-9445-c11f-cabf-c3c6dae161f2"
+      "value": "85, 355"
     },
     {
       "name": "bulk_device_types_in_group",
