@@ -102,12 +102,40 @@ module ONCCertificationG10TestKit
                    title: 'US Core Version',
                    list_options: [
                      {
-                       label: 'US Core 3.1.1',
+                       label: 'US Core 3.1.1 / USCDI v1',
                        value: 'us_core_3'
                      },
                      {
-                       label: 'US Core 4.0.0',
+                       label: 'US Core 4.0.0 / USCDI v1',
                        value: 'us_core_4'
+                     },
+                     {
+                       label: 'US Core 5.0.0 / USCDI v2',
+                       value: 'us_core_5'
+                     }
+                   ]
+      suite_option :smart_app_launch_version,
+                   title: 'SMART App Launch Version',
+                   list_options: [
+                     {
+                       label: 'SMART App Launch 1.0.0',
+                       value: 'smart_v1'
+                     },
+                     {
+                       label: 'SMART App Launch 2.0.0',
+                       value: 'smart_v2'
+                     }
+                   ]
+      suite_option :bulk_data_version,
+                   title: 'Bulk Data Version',
+                   list_options: [
+                     {
+                       label: 'Bulk Data 1.0.1',
+                       value: 'bulk_data_v1'
+                     },
+                     {
+                       label: 'Bulk Data 2.0.0',
+                       value: 'bulk_data_v2'
                      }
                    ]
     end
