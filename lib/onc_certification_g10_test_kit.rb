@@ -2,9 +2,7 @@ require_relative 'onc_certification_g10_test_kit/feature'
 
 require 'smart_app_launch/smart_stu1_suite'
 require 'us_core_test_kit/generated/v3.1.1/us_core_test_suite'
-if ONCCertificationG10TestKit::Feature.us_core_v4?
-  require 'us_core_test_kit/generated/v4.0.0/us_core_test_suite'
-end
+require 'us_core_test_kit/generated/v4.0.0/us_core_test_suite' if ONCCertificationG10TestKit::Feature.us_core_v4?
 
 require_relative 'onc_certification_g10_test_kit/configuration_checker'
 require_relative 'onc_certification_g10_test_kit/version'
