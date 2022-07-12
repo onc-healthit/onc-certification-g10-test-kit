@@ -102,11 +102,11 @@ module ONCCertificationG10TestKit
                    title: 'US Core Version',
                    list_options: [
                      {
-                       title: 'US Core 3.1.1',
+                       label: 'US Core 3.1.1',
                        value: 'us_core_3'
                      },
                      {
-                       title: 'US Core 4.0.0',
+                       label: 'US Core 4.0.0',
                        value: 'us_core_4'
                      }
                    ]
