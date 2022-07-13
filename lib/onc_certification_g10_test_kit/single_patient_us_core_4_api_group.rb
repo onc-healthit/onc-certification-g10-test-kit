@@ -1,12 +1,12 @@
 module ONCCertificationG10TestKit
-  class SinglePatientAPIGroup < Inferno::TestGroup
-    id :g10_single_patient_api
-    title 'Single Patient API (US Core 3.1.1)'
+  class SinglePatientUSCore4APIGroup < Inferno::TestGroup
+    id :g10_single_patient_us_core_4_api
+    title 'Single Patient API (US Core 4.0.0)'
     description %(
       For each of the relevant USCDI data elements provided in the
       CapabilityStatement, this test executes the [required supported
-      searches](http://www.hl7.org/fhir/us/core/STU3.1.1/CapabilityStatement-us-core-server.html)
-      as defined by the US Core Implementation Guide v3.1.1.
+      searches](http://hl7.org/fhir/us/core/STU4/CapabilityStatement-us-core-server.html)
+      as defined by the US Core Implementation Guide v4.0.0.
 
       The test begins by searching by one or more patients, with the expectation
       that the Bearer token provided to the test grants access to all USCDI
@@ -14,8 +14,8 @@ module ONCCertificationG10TestKit
       queries and checks that the results are consistent with the provided
       search parameters. It then performs a read on each Resource returned and
       validates the response against the relevant
-      [profile](http://www.hl7.org/fhir/us/core/STU3.1.1/profiles.html) as
-      currently defined in the US Core Implementation Guide.
+      [profile](http://hl7.org/fhir/us/core/STU4/profiles-and-extensions.html)
+      as currently defined in the US Core Implementation Guide.
 
       All MUST SUPPORT elements must be seen before the test can pass, as well
       as Data Absent Reason to demonstrate that the server can properly handle
@@ -77,7 +77,7 @@ module ONCCertificationG10TestKit
       end
     end
 
-    USCoreTestKit::USCoreV311::USCoreTestSuite.groups.each do |group|
+    USCoreTestKit::USCoreV400::USCoreTestSuite.groups.each do |group|
       test_group = group.ancestors[1]
       id = test_group.id
 

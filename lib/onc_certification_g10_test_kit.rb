@@ -1,10 +1,16 @@
+require_relative 'onc_certification_g10_test_kit/feature'
+
 require 'smart_app_launch/smart_stu1_suite'
 require 'us_core_test_kit/generated/v3.1.1/us_core_test_suite'
+require 'us_core_test_kit/generated/v4.0.0/us_core_test_suite' if ONCCertificationG10TestKit::Feature.us_core_v4?
 
 require_relative 'onc_certification_g10_test_kit/configuration_checker'
 require_relative 'onc_certification_g10_test_kit/version'
 
 require_relative 'onc_certification_g10_test_kit/single_patient_api_group'
+if ONCCertificationG10TestKit::Feature.us_core_v4?
+  require_relative 'onc_certification_g10_test_kit/single_patient_us_core_4_api_group'
+end
 require_relative 'onc_certification_g10_test_kit/smart_app_launch_invalid_aud_group'
 require_relative 'onc_certification_g10_test_kit/smart_invalid_token_group'
 require_relative 'onc_certification_g10_test_kit/smart_limited_app_group'
@@ -91,6 +97,21 @@ module ONCCertificationG10TestKit
       well_known_route_handler
     )
 
+    if Feature.us_core_v4?
+      suite_option :us_core_version,
+                   title: 'US Core Version',
+                   list_options: [
+                     {
+                       label: 'US Core 3.1.1',
+                       value: 'us_core_3'
+                     },
+                     {
+                       label: 'US Core 4.0.0',
+                       value: 'us_core_4'
+                     }
+                   ]
+    end
+
     description %(
       The ONC Certification (g)(10) Standardized API Test Kit is a testing tool for
       Health Level 7 (HL7®) Fast Healthcare Interoperability Resources (FHIR®)
@@ -135,12 +156,20 @@ module ONCCertificationG10TestKit
 
     group from: 'g10_smart_ehr_practitioner_app'
 
-    group from: 'g10_single_patient_api'
+    group from: 'g10_single_patient_api' do
+      required_suite_options us_core_version: 'us_core_3' if Feature.us_core_v4?
+    end
+
+    if Feature.us_core_v4?
+      group from: 'g10_single_patient_us_core_4_api',
+            required_suite_options: { us_core_version: 'us_core_4' }
+    end
 
     group from: 'multi_patient_api'
 
     group do
       title 'Additional Tests'
+      id 'Group06'
       description %(
         Not all requirements that need to be tested fit within the previous
         scenarios. The tests contained in this section addresses remaining

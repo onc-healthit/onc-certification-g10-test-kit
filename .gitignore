@@ -2,6 +2,7 @@
 /data/*.db-journal
 /data/redis/*.rdb
 /data/redis/*.aof
+/data/redis/appendonlydir
 /tmp/*
 !/tmp/.keep
 .env.local
