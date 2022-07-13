@@ -169,6 +169,7 @@ module ONCCertificationG10TestKit
 
     group do
       title 'Additional Tests'
+      id 'Group06'
       description %(
         Not all requirements that need to be tested fit within the previous
         scenarios. The tests contained in this section addresses remaining
