@@ -1,5 +1,5 @@
 require_relative 'export_kick_off_performer'
-require_relative 'bulk_data_group_export_stu1'
+require_relative 'bulk_data_group_export'
 
 module ONCCertificationG10TestKit
   class BulkDataGroupExportSTU2 < Inferno::TestGroup
@@ -11,7 +11,7 @@ module ONCCertificationG10TestKit
 
     id :bulk_data_group_export_stu2
 
-    test from: :g10_bulk_data_server_tls_version
+    # test from: :g10_bulk_data_server_tls_version
 
     test do
       title 'Bulk Data Server supports "_outputFormat" query parameter'
