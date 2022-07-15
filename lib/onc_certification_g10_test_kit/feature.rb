@@ -7,7 +7,7 @@ module ONCCertificationG10TestKit
 
       def bulk_data_v2?
         ENV.fetch('BULk_DATA_V2_ENABLED', 'false')&.casecmp?('true')
-      end 
+      end
     end
   end
 end
