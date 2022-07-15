@@ -113,6 +113,21 @@ module ONCCertificationG10TestKit
                    ]
     end
 
+    if Feature.bulk_data_v2?
+      suite_option :multi_patient_version,
+        title: 'Multi-Patient Authorization and API Version',
+        list_options: [
+          {
+            label: 'Multi-Patient Authorization and API STU1',
+            value: 'multi_patient_api_stu1'
+          },
+          {
+            label: 'Multi-Patient Authorization and API STU2',
+            value: 'multi_patient_api_stu2'
+          }
+        ]
+    end 
+
     description %(
       The ONC Certification (g)(10) Standardized API Test Kit is a testing tool for
       Health Level 7 (HL7®) Fast Healthcare Interoperability Resources (FHIR®)
@@ -166,10 +181,15 @@ module ONCCertificationG10TestKit
             required_suite_options: { us_core_version: 'us_core_4' }
     end
 
-    group from: 'multi_patient_api_stu1'
+    group from: 'multi_patient_api_stu1' do
+      required_suite_options multi_patient_version: 'multi_patient_api_stu1' if Feature.bulk_data_v2?
+    end 
 
-    group from: 'multi_patient_api_stu2'
-
+    if Feature.bulk_data_v2?
+      group from: 'multi_patient_api_stu2',
+        required_suite_options: { multi_patient_version: 'multi_patient_api_stu2' }
+    end
+    
     group do
       title 'Additional Tests'
       id 'Group06'
