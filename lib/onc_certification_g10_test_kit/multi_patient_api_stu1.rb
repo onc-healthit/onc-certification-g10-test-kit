@@ -33,7 +33,7 @@ module ONCCertificationG10TestKit
       Location, Organization, and Practitioner resources as they are
       referenced as must support elements in required resources.
     )
-    id :multi_patient_api
+    id :multi_patient_api_stu1
     run_as_group
 
     input_order :bulk_server_url,
@@ -47,7 +47,20 @@ module ONCCertificationG10TestKit
                 :lines_to_validate,
                 :bulk_timeout
 
-    group from: :bulk_data_authorization
+    group from: :bulk_data_authorization,
+      description: <<~DESCRIPTION
+        Bulk Data servers are required to authorize clients using the
+        [Backend Service Authorization](http://hl7.org/fhir/uv/bulkdata/STU1.0.1/authorization/index.html)
+        specification as defined in the [FHIR Bulk Data Access IG v1.0.1](http://hl7.org/fhir/uv/bulkdata/STU1.0.1/).
+
+        In this set of tests, Inferno serves as a Bulk Data client that requests authorization
+        from the Bulk Data authorization server.  It also performs a number of negative tests
+        to validate that the authorization service does not improperly authorize invalid
+        requests.
+
+        This test returns an access token.
+      DESCRIPTION
+
     group from: :bulk_data_group_export_stu1
     group from: :bulk_data_group_export_validation
   end

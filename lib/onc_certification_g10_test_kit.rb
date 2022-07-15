@@ -166,7 +166,7 @@ module ONCCertificationG10TestKit
             required_suite_options: { us_core_version: 'us_core_4' }
     end
 
-    group from: 'multi_patient_api'
+    group from: 'multi_patient_api_stu1'
 
     group from: 'multi_patient_api_stu2'
 
