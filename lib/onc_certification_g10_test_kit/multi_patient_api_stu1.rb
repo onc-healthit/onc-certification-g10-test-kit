@@ -48,7 +48,7 @@ module ONCCertificationG10TestKit
                 :bulk_timeout
 
     group from: :bulk_data_authorization
-    group from: :bulk_data_group_export
+    group from: :bulk_data_group_export_stu1
     group from: :bulk_data_group_export_validation
   end
 end

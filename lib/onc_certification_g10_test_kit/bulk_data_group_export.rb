@@ -2,12 +2,6 @@ require_relative 'export_kick_off_performer'
 
 module ONCCertificationG10TestKit
   class BulkDataGroupExport < Inferno::TestGroup
-    title 'Group Compartment Export Tests'
-    short_description 'Verify that the system supports Group compartment export.'
-    description <<~DESCRIPTION
-      Verify that system level export on the Bulk Data server follow the Bulk Data Access Implementation Guide
-    DESCRIPTION
-
     id :bulk_data_group_export
 
     input :bearer_token
