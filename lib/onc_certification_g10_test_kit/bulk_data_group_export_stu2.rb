@@ -1,4 +1,5 @@
 require_relative 'bulk_data_group_export'
+require_relative 'export_kick_off_performer'
 
 module ONCCertificationG10TestKit
   class BulkDataGroupExportSTU2 < Inferno::TestGroup
@@ -57,6 +58,12 @@ module ONCCertificationG10TestKit
       DESCRIPTION
 
       include ExportKickOffPerformer
+
+      input :bearer_token, :group_id, :bulk_server_url
+
+      http_client :bulk_server do
+        url :bulk_server_url
+      end
 
       run do
         ['application/fhir+ndjson', 'application/ndjson', 'ndjson'].each do |format|

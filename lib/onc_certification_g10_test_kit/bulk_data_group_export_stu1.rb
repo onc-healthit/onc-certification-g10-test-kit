@@ -1,5 +1,4 @@
 require_relative 'bulk_data_group_export'
-require_relative 'export_kick_off_performer'
 
 module ONCCertificationG10TestKit
   class BulkDataGroupExportSTU1 < Inferno::TestGroup
@@ -10,6 +9,8 @@ module ONCCertificationG10TestKit
     DESCRIPTION
 
     id :bulk_data_group_export_stu1
+
+    # group from: 'bulk_data_group_export'
 
     test from: 'bulk_data_group_export-g10_bulk_data_server_tls_version'
 

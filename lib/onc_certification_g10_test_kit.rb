@@ -168,8 +168,7 @@ module ONCCertificationG10TestKit
 
     group from: 'multi_patient_api'
 
-    group from: 'multi_patient_api_stu2',
-          id: 'Group06'
+    group from: 'multi_patient_api_stu2'
 
     group do
       title 'Additional Tests'
