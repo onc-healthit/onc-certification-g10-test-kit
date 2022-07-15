@@ -91,7 +91,7 @@ module ONCCertificationG10TestKit
           assert has_instantiates,
                  'Server did not declare conformance to the Bulk Data IG by including ' \
                  "'http://hl7.org/fhir/uv/bulkdata/CapabilityStatement/bulk-data' in " \
-                 " CapabilityStatement.instantiates element (#{capability_statement&.instantiates})"
+                 "CapabilityStatement.instantiates element (#{capability_statement&.instantiates})"
         end
 
         group_resource_capabilities = nil
@@ -115,7 +115,7 @@ module ONCCertificationG10TestKit
         warning do
           assert has_export_operation,
                  'Server CapabilityStatement did not declare support for an operation named "export" in the Group ' \
-                 ' resource (operation.name should be "export")'
+                 'resource (operation.name should be "export")'
         end
       end
     end
