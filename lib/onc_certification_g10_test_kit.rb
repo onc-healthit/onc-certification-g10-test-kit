@@ -1,6 +1,7 @@
 require_relative 'onc_certification_g10_test_kit/feature'
 
 require 'smart_app_launch/smart_stu1_suite'
+require 'smart_app_launch/smart_stu2_suite' if ONCCertificationG10TestKit::Feature.smart_v2?
 require 'us_core_test_kit/generated/v3.1.1/us_core_test_suite'
 require 'us_core_test_kit/generated/v4.0.0/us_core_test_suite' if ONCCertificationG10TestKit::Feature.us_core_v4?
 
@@ -140,6 +141,21 @@ module ONCCertificationG10TestKit
                      {
                        label: 'Multi-Patient Authorization and API STU2',
                        value: 'multi_patient_api_stu2'
+                     }
+                   ]
+    end
+
+    if Feature.smart_v2?
+      suite_option :smart_app_launch_version,
+                   title: 'SMART App Launch Version',
+                   list_options: [
+                     {
+                       label: 'SMART App Launch 1.0.0',
+                       value: 'smart_app_launch_1'
+                     },
+                     {
+                       label: 'SMART App Launch 2.0.0',
+                       value: 'smart_app_launch_2'
                      }
                    ]
     end
