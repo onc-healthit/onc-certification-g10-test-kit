@@ -98,6 +98,30 @@ module ONCCertificationG10TestKit
         requests: {
           redirect: { name: :limited_redirect },
           token: { name: :limited_token }
+        },
+        options: {
+          redirect_message_proc: lambda do |auth_url|
+            expected_resource_string =
+              expected_resources
+                .split(',')
+                .map(&:strip)
+                .map { |resource_type| "* #{resource_type}\n" }
+                .join
+
+            <<~MESSAGE
+              ### #{self.class.parent.parent.title}
+
+              [Follow this link to authorize with the SMART
+              server](#{auth_url}).
+
+              Tests will resume once Inferno receives a request at
+              `#{config.options[:redirect_uri]}` with a state of `#{state}`.
+
+              Access should only be granted to the following resources:
+
+              #{expected_resource_string}
+            MESSAGE
+          end
         }
       )
 
