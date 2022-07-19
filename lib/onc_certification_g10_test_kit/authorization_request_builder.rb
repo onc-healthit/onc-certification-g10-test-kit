@@ -7,8 +7,8 @@ module ONCCertificationG10TestKit
     end
 
     def self.bulk_data_jwks
-
-      @bulk_data_jwks ||= JSON.parse(File.read(ENV.fetch('G10_BULK_DATA_JWKS', File.join(__dir__, 'bulk_data_jwks.json'))))
+      @bulk_data_jwks ||= JSON.parse(File.read(ENV.fetch('G10_BULK_DATA_JWKS',
+                                                         File.join(__dir__, 'bulk_data_jwks.json'))))
     end
 
     attr_reader :encryption_method, :scope, :iss, :sub, :aud, :content_type, :grant_type, :client_assertion_type, :exp,

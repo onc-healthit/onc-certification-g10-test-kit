@@ -80,8 +80,10 @@ module ONCCertificationG10TestKit
 
     def self.jwks_json
       bulk_data_jwks = JSON.parse(File.read(
-        ENV.fetch('G10_BULK_DATA_JWKS', File.join(__dir__, 'onc_certification_g10_test_kit', 'bulk_data_jwks.json'))
-      ))
+                                    ENV.fetch('G10_BULK_DATA_JWKS',
+                                              File.join(__dir__, 'onc_certification_g10_test_kit',
+                                                        'bulk_data_jwks.json'))
+                                  ))
       @jwks_json ||= JSON.pretty_generate(
         { keys: bulk_data_jwks['keys'].select { |key| key['key_ops']&.include?('verify') } }
       )
