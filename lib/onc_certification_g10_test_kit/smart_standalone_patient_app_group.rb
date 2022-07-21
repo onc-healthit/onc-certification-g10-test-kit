@@ -49,6 +49,8 @@ module ONCCertificationG10TestKit
     input_order :url, :standalone_client_id, :standalone_client_secret
 
     group from: :smart_discovery do
+      required_suite_options(smart_app_launch_version: 'smart_app_launch_1') if Feature.smart_v2?
+
       test from: 'g10_smart_well_known_capabilities',
            config: {
              options: {
@@ -65,7 +67,30 @@ module ONCCertificationG10TestKit
            }
     end
 
+    if Feature.smart_v2?
+      group from: :smart_discovery_stu2 do
+        required_suite_options(smart_app_launch_version: 'smart_app_launch_2')
+
+        test from: 'g10_smart_well_known_capabilities',
+             config: {
+               options: {
+                 required_capabilities: [
+                   'launch-standalone',
+                   'client-public',
+                   'client-confidential-symmetric',
+                   'sso-openid-connect',
+                   'context-standalone-patient',
+                   'permission-offline',
+                   'permission-patient'
+                 ]
+               }
+             }
+      end
+    end
+
     group from: :smart_standalone_launch do
+      required_suite_options(smart_app_launch_version: 'smart_app_launch_1') if Feature.smart_v2?
+
       title 'Standalone Launch With Patient Scope'
       description %(
         # Background
@@ -123,6 +148,85 @@ module ONCCertificationG10TestKit
                smart_credentials: { name: :standalone_smart_credentials }
              }
            }
+    end
+
+    if Feature.smart_v2?
+      group from: :smart_standalone_launch_stu2,
+            config: {
+              inputs: {
+                use_pkce: {
+                  options: {
+                    list_options: [{ label: 'Enabled', value: 'true' }]
+                  }
+                },
+                pkce_code_challenge_method: {
+                  options: {
+                    list_options: [{ label: 'S256', value: 'S256' }]
+                  }
+                }
+              }
+            } do
+        required_suite_options(smart_app_launch_version: 'smart_app_launch_2')
+
+        title 'Standalone Launch With Patient Scope'
+        description %(
+          # Background
+
+          The [Standalone
+          Launch Sequence](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#standalone-launch-sequence)
+          allows an app, like Inferno, to be launched independent of an
+          existing EHR session. It is one of the two launch methods described in
+          the SMART App Launch Framework alongside EHR Launch. The app will
+          request authorization for the provided scope from the authorization
+          endpoint, ultimately receiving an authorization token which can be used
+          to gain access to resources on the FHIR server.
+
+          # Test Methodology
+
+          Inferno will redirect the user to the the authorization endpoint so that
+          they may provide any required credentials and authorize the application.
+          Upon successful authorization, Inferno will exchange the authorization
+          code provided for an access token.
+
+          For more information on the #{title}:
+
+          * [Standalone Launch
+            Sequence](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#standalone-launch-sequence)
+        )
+
+
+        test from: :g10_smart_scopes do
+          config(
+            inputs: {
+              requested_scopes: { name: :standalone_requested_scopes },
+              received_scopes: { name: :standalone_received_scopes }
+            }
+          )
+
+          def required_scopes
+            ['openid', 'fhirUser', 'launch/patient', 'offline_access']
+          end
+
+          def scope_type
+            'patient'
+          end
+        end
+
+        test from: :g10_unauthorized_access,
+            config: {
+              inputs: {
+                patient_id: { name: :standalone_patient_id }
+              }
+            }
+
+        test from: :g10_patient_context,
+            config: {
+              inputs: {
+                patient_id: { name: :standalone_patient_id },
+                smart_credentials: { name: :standalone_smart_credentials }
+              }
+            }
+      end
     end
 
     group from: :smart_openid_connect,
