@@ -151,7 +151,21 @@ module ONCCertificationG10TestKit
     end
 
     if Feature.smart_v2?
-      group from: :smart_standalone_launch_stu2 do
+      group from: :smart_standalone_launch_stu2,
+            config: {
+              inputs: {
+                use_pkce: {
+                  options: {
+                    list_options: [{ label: 'Enabled', value: 'true' }]
+                  }
+                },
+                pkce_code_challenge_method: {
+                  options: {
+                    list_options: [{ label: 'S256', value: 'S256' }]
+                  }
+                }
+              }
+            } do
         title 'Standalone Launch With Limited Scope'
         description %(
           # Background

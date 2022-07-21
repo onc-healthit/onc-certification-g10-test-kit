@@ -47,6 +47,8 @@ module ONCCertificationG10TestKit
     input_order :url, :ehr_client_id, :ehr_client_secret
 
     group from: :smart_discovery do
+      required_suite_options(smart_app_launch_version: 'smart_app_launch_1') if Feature.smart_v2?
+
       test from: 'g10_smart_well_known_capabilities',
            config: {
              options: {
@@ -64,7 +66,31 @@ module ONCCertificationG10TestKit
            }
     end
 
+    if Feature.smart_v2?
+      group from: :smart_discovery_stu2 do
+        required_suite_options(smart_app_launch_version: 'smart_app_launch_2')
+
+        test from: 'g10_smart_well_known_capabilities',
+             config: {
+               options: {
+                 required_capabilities: [
+                   'launch-ehr',
+                   'client-confidential-symmetric',
+                   'sso-openid-connect',
+                   'context-banner',
+                   'context-style',
+                   'context-ehr-patient',
+                   'permission-offline',
+                   'permission-user'
+                 ]
+               }
+             }
+      end
+    end
+
     group from: :smart_ehr_launch do
+      required_suite_options(smart_app_launch_version: 'smart_app_launch_1') if Feature.smart_v2?
+
       title 'EHR Launch With Practitioner Scope'
       input :client_secret,
             name: :ehr_client_secret,
@@ -168,6 +194,130 @@ module ONCCertificationG10TestKit
         end
       end
     end
+
+    if Feature.smart_v2?
+      group from: :smart_ehr_launch,
+            config: {
+              inputs: {
+                use_pkce: {
+                  options: {
+                    list_options: [{ label: 'Enabled', value: 'true' }]
+                  }
+                },
+                pkce_code_challenge_method: {
+                  options: {
+                    list_options: [{ label: 'S256', value: 'S256' }]
+                  }
+                }
+              }
+            } do
+        required_suite_options(smart_app_launch_version: 'smart_app_launch_2')
+
+        title 'EHR Launch With Practitioner Scope'
+        input :client_secret,
+              name: :ehr_client_secret,
+              title: 'EHR Launch Client Secret',
+              description: 'Client Secret provided during registration of Inferno as an EHR launch application',
+              optional: false
+
+        config(
+          inputs: {
+            requested_scopes: {
+              default: %(
+                launch openid fhirUser offline_access user/Medication.read
+                user/AllergyIntolerance.read user/CarePlan.read user/CareTeam.read
+                user/Condition.read user/Device.read user/DiagnosticReport.read
+                user/DocumentReference.read user/Encounter.read user/Goal.read
+                user/Immunization.read user/Location.read
+                user/MedicationRequest.read user/Observation.read
+                user/Organization.read user/Patient.read user/Practitioner.read
+                user/Procedure.read user/Provenance.read
+                user/PractitionerRole.read
+              ).gsub(/\s{2,}/, ' ').strip
+            }
+          }
+        )
+
+        test from: :g10_smart_scopes do
+          title 'User-level access with OpenID Connect and Refresh Token scopes used.'
+          config(
+            inputs: {
+              requested_scopes: { name: :ehr_requested_scopes },
+              received_scopes: { name: :ehr_received_scopes }
+            }
+          )
+
+          def required_scopes
+            ['openid', 'fhirUser', 'launch', 'offline_access']
+          end
+
+          def scope_type
+            'user'
+          end
+        end
+
+        test from: :g10_unauthorized_access,
+            config: {
+              inputs: {
+                patient_id: { name: :ehr_patient_id }
+              }
+            }
+
+        test from: :g10_patient_context,
+            config: {
+              inputs: {
+                patient_id: { name: :ehr_patient_id },
+                access_token: { name: :ehr_access_token }
+              }
+            }
+
+        test do
+          title 'Launch context contains smart_style_url which links to valid JSON'
+          description %(
+            In order to mimic the style of the SMART host more closely, SMART apps
+            can check for the existence of this launch context parameter and
+            download the JSON file referenced by the URL value.
+          )
+          uses_request :token
+
+          run do
+            skip_if request.status != 200, 'No token response received'
+            assert_valid_json response[:body]
+
+            body = JSON.parse(response[:body])
+
+            assert body['smart_style_url'].present?,
+                  'Token response did not contain `smart_style_url`'
+
+            get(body['smart_style_url'])
+
+            assert_response_status(200)
+            assert_valid_json(response[:body])
+          end
+        end
+
+        test do
+          title 'Launch context contains need_patient_banner'
+          description %(
+            `need_patient_banner` is a boolean value indicating whether the app
+            was launched in a UX context where a patient banner is required (when
+            true) or not required (when false).
+          )
+          uses_request :token
+
+          run do
+            skip_if request.status != 200, 'No token response received'
+            assert_valid_json response[:body]
+
+            body = JSON.parse(response[:body])
+
+            assert body.key?('need_patient_banner'),
+                  'Token response did not contain `need_patient_banner`'
+          end
+        end
+      end
+    end
+
 
     group from: :smart_openid_connect,
           config: {
