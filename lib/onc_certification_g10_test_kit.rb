@@ -258,12 +258,12 @@ module ONCCertificationG10TestKit
       else
         group from: :g10_public_standalone_launch
       end
-    #   group from: :g10_token_revocation
+      group from: :g10_token_revocation
 
-    #   group from: :g10_smart_invalid_aud
-    #   group from: :g10_smart_invalid_token_request
+      group from: :g10_smart_invalid_aud
+      #   group from: :g10_smart_invalid_token_request
 
-    #   group from: :g10_visual_inspection_and_attestations
+      #   group from: :g10_visual_inspection_and_attestations
     end
   end
 end

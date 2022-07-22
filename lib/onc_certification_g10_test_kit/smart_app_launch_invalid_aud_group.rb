@@ -87,6 +87,8 @@ module ONCCertificationG10TestKit
                 :smart_authorization_url
 
     test from: :smart_app_redirect do
+      required_suite_options smart_app_launch_version: 'smart_app_launch_1' if Feature.smart_v2?
+
       input :client_secret,
             name: :standalone_client_secret,
             title: 'Standalone Client Secret',
@@ -108,6 +110,50 @@ module ONCCertificationG10TestKit
           * [Attest launch
             failed](#{Inferno::Application['base_url']}/custom/smart/redirect?state=#{state}&confirm_fail=true)
         )
+      end
+    end
+
+    if Feature.smart_v2?
+      test from: :smart_app_redirect_stu2 do
+        required_suite_options smart_app_launch_version: 'smart_app_launch_2'
+
+        config(
+          inputs: {
+            use_pkce: {
+              options: {
+                list_options: [{ label: 'Enabled', value: 'true' }]
+              }
+            },
+            pkce_code_challenge_method: {
+              options: {
+                list_options: [{ label: 'S256', value: 'S256' }]
+              }
+            }
+          }
+        )
+
+        input :client_secret,
+              name: :standalone_client_secret,
+              title: 'Standalone Client Secret',
+              description: 'Client Secret provided during registration of Inferno as a standalone application'
+
+        def aud
+          'https://inferno.healthit.gov/invalid_aud'
+        end
+
+        def wait_message(auth_url)
+          %(
+            Inferno will redirect you to an external website for authorization.
+            **It is expected this will fail**. If the server does not return to
+            Inferno automatically, but does provide an error message, you may
+            return to Inferno and confirm that an error was presented in this
+            window.
+
+            * [Perform Invalid Launch](#{auth_url})
+            * [Attest launch
+              failed](#{Inferno::Application['base_url']}/custom/smart/redirect?state=#{state}&confirm_fail=true)
+          )
+        end
       end
     end
 
