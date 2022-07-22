@@ -257,19 +257,19 @@ module ONCCertificationG10TestKit
         end
 
         test from: :g10_unauthorized_access,
-            config: {
-              inputs: {
-                patient_id: { name: :ehr_patient_id }
-              }
-            }
+             config: {
+               inputs: {
+                 patient_id: { name: :ehr_patient_id }
+               }
+             }
 
         test from: :g10_patient_context,
-            config: {
-              inputs: {
-                patient_id: { name: :ehr_patient_id },
-                access_token: { name: :ehr_access_token }
-              }
-            }
+             config: {
+               inputs: {
+                 patient_id: { name: :ehr_patient_id },
+                 access_token: { name: :ehr_access_token }
+               }
+             }
 
         test do
           title 'Launch context contains smart_style_url which links to valid JSON'
@@ -287,7 +287,7 @@ module ONCCertificationG10TestKit
             body = JSON.parse(response[:body])
 
             assert body['smart_style_url'].present?,
-                  'Token response did not contain `smart_style_url`'
+                   'Token response did not contain `smart_style_url`'
 
             get(body['smart_style_url'])
 
@@ -312,12 +312,11 @@ module ONCCertificationG10TestKit
             body = JSON.parse(response[:body])
 
             assert body.key?('need_patient_banner'),
-                  'Token response did not contain `need_patient_banner`'
+                   'Token response did not contain `need_patient_banner`'
           end
         end
       end
     end
-
 
     group from: :smart_openid_connect,
           config: {

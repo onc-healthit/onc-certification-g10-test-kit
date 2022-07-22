@@ -194,7 +194,6 @@ module ONCCertificationG10TestKit
             Sequence](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#standalone-launch-sequence)
         )
 
-
         test from: :g10_smart_scopes do
           config(
             inputs: {
@@ -213,19 +212,19 @@ module ONCCertificationG10TestKit
         end
 
         test from: :g10_unauthorized_access,
-            config: {
-              inputs: {
-                patient_id: { name: :standalone_patient_id }
-              }
-            }
+             config: {
+               inputs: {
+                 patient_id: { name: :standalone_patient_id }
+               }
+             }
 
         test from: :g10_patient_context,
-            config: {
-              inputs: {
-                patient_id: { name: :standalone_patient_id },
-                smart_credentials: { name: :standalone_smart_credentials }
-              }
-            }
+             config: {
+               inputs: {
+                 patient_id: { name: :standalone_patient_id },
+                 smart_credentials: { name: :standalone_smart_credentials }
+               }
+             }
       end
     end
 
