@@ -54,14 +54,11 @@ module ONCCertificationG10TestKit
           name: :public_smart_credentials
         },
         use_pkce: {
-          options: {
-            list_options: [{ label: 'Enabled', value: 'true' }]
-          }
+          default: 'true',
+          locked: true
         },
         pkce_code_challenge_method: {
-          options: {
-            list_options: [{ label: 'S256', value: 'S256' }]
-          }
+          locked: true
         }
       },
       outputs: {

@@ -28,11 +28,16 @@ module ONCCertificationG10TestKit
           title: 'Proof Key for Code Exchange (PKCE)',
           type: 'radio',
           default: 'true',
+          locked: true,
           options: {
             list_options: [
               {
                 label: 'Enabled',
                 value: 'true'
+              },
+              {
+                label: 'Disabled',
+                value: 'false'
               }
             ]
           }
@@ -41,11 +46,16 @@ module ONCCertificationG10TestKit
           title: 'PKCE Code Challenge Method',
           type: 'radio',
           default: 'S256',
+          locked: true,
           options: {
             list_options: [
               {
                 label: 'S256',
                 value: 'S256'
+              },
+              {
+                label: 'Plain',
+                value: 'plain'
               }
             ]
           }
