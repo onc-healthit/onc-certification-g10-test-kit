@@ -18,6 +18,7 @@ require_relative 'onc_certification_g10_test_kit/smart_limited_app_group'
 require_relative 'onc_certification_g10_test_kit/smart_standalone_patient_app_group'
 require_relative 'onc_certification_g10_test_kit/smart_ehr_practitioner_app_group'
 require_relative 'onc_certification_g10_test_kit/smart_public_standalone_launch_group'
+require_relative 'onc_certification_g10_test_kit/smart_public_standalone_launch_group_stu2'
 require_relative 'onc_certification_g10_test_kit/multi_patient_api'
 require_relative 'onc_certification_g10_test_kit/terminology_binding_validator'
 require_relative 'onc_certification_g10_test_kit/token_revocation_group'
@@ -212,7 +213,14 @@ module ONCCertificationG10TestKit
         }
       )
 
-      # group from: :g10_public_standalone_launch
+      if Feature.smart_v2?
+        group from: :g10_public_standalone_launch,
+              required_suite_options: { smart_app_launch_version: 'smart_app_launch_1' }
+        group from: :g10_public_standalone_launch_stu2,
+              required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' }
+      else
+        group from: :g10_public_standalone_launch
+      end
     #   group from: :g10_token_revocation
 
     #   group from: :g10_smart_invalid_aud
