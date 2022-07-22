@@ -14,6 +14,7 @@ if ONCCertificationG10TestKit::Feature.us_core_v4?
 end
 require_relative 'onc_certification_g10_test_kit/smart_app_launch_invalid_aud_group'
 require_relative 'onc_certification_g10_test_kit/smart_invalid_token_group'
+require_relative 'onc_certification_g10_test_kit/smart_invalid_token_group_stu2'
 require_relative 'onc_certification_g10_test_kit/smart_limited_app_group'
 require_relative 'onc_certification_g10_test_kit/smart_standalone_patient_app_group'
 require_relative 'onc_certification_g10_test_kit/smart_ehr_practitioner_app_group'
@@ -261,9 +262,16 @@ module ONCCertificationG10TestKit
       group from: :g10_token_revocation
 
       group from: :g10_smart_invalid_aud
-      #   group from: :g10_smart_invalid_token_request
+      if Feature.smart_v2?
+        group from: :g10_smart_invalid_token_request,
+              required_suite_options: { smart_app_launch_version: 'smart_app_launch_1' }
+        group from: :g10_smart_invalid_token_request_stu2,
+              required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' }
+      else
+        group from: :g10_smart_invalid_token_request
+      end
 
-      #   group from: :g10_visual_inspection_and_attestations
+      group from: :g10_visual_inspection_and_attestations
     end
   end
 end
