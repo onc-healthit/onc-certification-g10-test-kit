@@ -17,10 +17,14 @@ module ONCCertificationG10TestKit
 
     description %(
       This scenario demonstrates the ability to perform a Patient Standalone
-      Launch to a [SMART on FHIR](http://hl7.org/fhir/smart-app-launch/1.0.0/)
-      confidential client with limited access granted to the app based on user
-      input. The tester is expected to grant the application access to a subset
-      of desired resource types.
+      Launch to a SMART on FHIR confidential client with limited access granted
+      to the app based on user input. The tester is expected to grant the
+      application access to a subset of desired resource types.
+
+      * [SMART on FHIR
+        (STU1)](http://www.hl7.org/fhir/smart-app-launch/1.0.0/)
+      * [SMART on FHIR
+        (STU2)](http://hl7.org/fhir/smart-app-launch/STU2)
     )
     id :g10_smart_limited_app
     run_as_group
