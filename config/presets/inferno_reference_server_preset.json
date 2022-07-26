@@ -25,43 +25,6 @@
       "value": "launch/patient openid fhirUser offline_access patient/Medication.read patient/AllergyIntolerance.read patient/CarePlan.read patient/CareTeam.read patient/Condition.read patient/Device.read patient/DiagnosticReport.read patient/DocumentReference.read patient/Encounter.read patient/Goal.read patient/Immunization.read patient/Location.read patient/MedicationRequest.read patient/Observation.read patient/Organization.read patient/Patient.read patient/Practitioner.read patient/Procedure.read patient/Provenance.read patient/PractitionerRole.read"
     },
     {
-      "name": "use_pkce",
-      "type": "radio",
-      "title": "Proof Key for Code Exchange (PKCE)",
-      "options": {
-        "list_options": [
-          {
-            "label": "Enabled",
-            "value": "true"
-          },
-          {
-            "label": "Disabled",
-            "value": "false"
-          }
-        ]
-      },
-      "value": "false"
-    },
-    {
-      "name": "pkce_code_challenge_method",
-      "type": "radio",
-      "optional": true,
-      "title": "PKCE Code Challenge Method",
-      "options": {
-        "list_options": [
-          {
-            "label": "S256",
-            "value": "S256"
-          },
-          {
-            "label": "plain",
-            "value": "plain"
-          }
-        ]
-      },
-      "value": "S256"
-    },
-    {
       "name": "standalone_client_secret",
       "type": "text",
       "title": "Standalone Client Secret",
