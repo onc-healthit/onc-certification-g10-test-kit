@@ -23,20 +23,24 @@ module ONCCertificationG10TestKit
     )
 
     description %(
-      Demonstrate the ability to perform an EHR launch to a [SMART on
-      FHIR](https://hl7.org/fhir/smart-app-launch/1.0.0/) confidential client with
-      patient context, refresh token, and [OpenID Connect
-      (OIDC)](https://openid.net/specs/openid-connect-core-1_0.html) identity
-      token. After launch, a simple Patient resource read is performed on the
-      patient in context. The access token is then refreshed, and the Patient
-      resource is read using the new access token to ensure that the refresh was
-      successful. Finally, the authentication information provided by OpenID
-      Connect is decoded and validated.
+      Demonstrate the ability to perform an EHR launch to a SMART on FHIR
+      confidential client with patient context, refresh token, and OpenID
+      Connect (OIDC) identity token. After launch, a simple Patient resource
+      read is performed on the patient in context. The access token is then
+      refreshed, and the Patient resource is read using the new access token to
+      ensure that the refresh was successful. Finally, the authentication
+      information provided by OpenID Connect is decoded and validated.
 
       For EHRs that use Internet Explorer 11 to display embedded apps,
       please review [instructions on how to complete the EHR Practitioner App
       test](https://github.com/onc-healthit/onc-certification-g10-test-kit/wiki/Completing-EHR-Practitioner-App-test-in-Internet-Explorer/).
 
+      * [SMART on FHIR
+        (STU1)](http://www.hl7.org/fhir/smart-app-launch/1.0.0/)
+      * [SMART on FHIR
+        (STU2)](http://hl7.org/fhir/smart-app-launch/STU2)
+      * [OpenID Connect
+        (OIDC)](https://openid.net/specs/openid-connect-core-1_0.html)
     )
     id :g10_smart_ehr_practitioner_app
     run_as_group
