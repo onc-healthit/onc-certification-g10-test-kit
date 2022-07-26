@@ -20,7 +20,10 @@ module ONCCertificationG10TestKit
       Launch to a [SMART on FHIR](http://hl7.org/fhir/smart-app-launch/1.0.0/)
       confidential client with limited access granted to the app based on user
       input. The tester is expected to grant the application access to a subset
-      of desired resource types.
+      of desired resource types.  The launch is performed using the same app
+      configuration as in the Standalone Patient App test, demonstrating that
+      the user is control over what scopes are granted to the app as required in
+      the (g)(10) Standardized API criterion.
     )
     id :g10_smart_limited_app
     run_as_group
@@ -45,16 +48,25 @@ module ONCCertificationG10TestKit
         allows an app, like Inferno, to be launched independent of an
         existing EHR session. It is one of the two launch methods described in
         the SMART App Launch Framework alongside EHR Launch. The app will
-        request authorization for the provided scope from the authorization
-        endpoint, ultimately receiving an authorization token which can be used
-        to gain access to resources on the FHIR server.
+        request authorization for the provided scope(s) from the authorization
+        endpoint, and the user of the app will choose to either grant
+        the app access to the requested scope(s), or to deny one or all of the requested
+        scope(s).
+
+        This test verifies the ability of a server to provide a user
+        with the choice of which scopes to grant an app.  Allowing users to choose
+        which resource types to grant access to is a requirement of the ONC
+        (g)(10) certification criteria.  Prior to the test, the tester specifies
+        which resource types will be granted, and then during the authorization
+        process the tester grants access to those scopes.
 
         # Test Methodology
 
-        Inferno will redirect the user to the the authorization endpoint so that
+        Inferno will redirect the user to the authorization endpoint so that
         they may provide any required credentials and authorize the application.
         Upon successful authorization, Inferno will exchange the authorization
-        code provided for an access token.
+        code provided for an access token. Inferno verifies that the server only
+        grants access to the resources specified by the user.
 
         For more information on the #{title}:
 
@@ -67,14 +79,13 @@ module ONCCertificationG10TestKit
           client_id: { locked: true },
           client_secret: { locked: true },
           url: { locked: true },
+          requested_scopes: { locked: true },
+          use_pkce: { locked: true },
+          pkce_code_challenge_method: { locked: true },
           code: { name: :limited_code },
           state: { name: :limited_state },
           patient_id: { name: :limited_patient_id },
           access_token: { name: :limited_access_token },
-          requested_scopes: {
-            name: :limited_requested_scopes,
-            title: 'Limited Access Scope'
-          },
           # TODO: separate standalone/ehr discovery outputs
           smart_authorization_url: { locked: true, title: 'SMART Authorization Url' },
           smart_token_url: { locked: true, title: 'SMART Token Url' },
