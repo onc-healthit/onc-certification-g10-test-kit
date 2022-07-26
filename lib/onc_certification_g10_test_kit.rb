@@ -181,7 +181,7 @@ module ONCCertificationG10TestKit
             required_suite_options: { us_core_version: 'us_core_4' }
     end
 
-    group from: 'multi_patient_api_stu1' do
+    group from: 'multi_patient_api' do
       required_suite_options multi_patient_version: 'multi_patient_api_stu1' if Feature.bulk_data_v2?
     end
 

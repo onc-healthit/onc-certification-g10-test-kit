@@ -33,7 +33,7 @@ module ONCCertificationG10TestKit
       Location, Organization, and Practitioner resources as they are
       referenced as must support elements in required resources.
     )
-    id :multi_patient_api_stu1
+    id :multi_patient_api
     run_as_group
 
     input_order :bulk_server_url,

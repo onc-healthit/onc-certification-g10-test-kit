@@ -2,6 +2,10 @@ require_relative 'export_kick_off_performer'
 
 module ONCCertificationG10TestKit
   class BulkDataGroupExport < Inferno::TestGroup
+    short_description 'Verify that the system supports Group compartment export.'
+    description <<~DESCRIPTION
+      Verify that system level export on the Bulk Data server follow the Bulk Data Access Implementation Guide
+    DESCRIPTION
     id :bulk_data_group_export
 
     input :bearer_token
@@ -75,8 +79,6 @@ module ONCCertificationG10TestKit
         element: http://hl7.org/fhir/uv/bulkdata/CapabilityStatement/bulk-data
       DESCRIPTION
 
-      id :export_capability_statement
-
       run do
         fhir_get_capability_statement(client: :bulk_server)
         assert_response_status([200, 201])
@@ -131,8 +133,6 @@ module ONCCertificationG10TestKit
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/STU1.0.1/export/index.html#bulk-data-kick-off-request'
 
-      id :rejects_unauthorized_export
-
       include ExportKickOffPerformer
 
       run do
@@ -152,8 +152,6 @@ module ONCCertificationG10TestKit
         * Content-Location header with the absolute URL of an endpoint for subsequent status requests (polling location)
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/STU1.0.1/export/index.html#response---success'
-
-      id :export_returns_okay_and_content_header
 
       include ExportKickOffPerformer
 
@@ -183,8 +181,6 @@ module ONCCertificationG10TestKit
         * transactionTime, request, requiresAccessToken, output, and error
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/STU1.0.1/export/index.html#bulk-data-status-request'
-
-      id :status_check_returns_okay
 
       input :polling_url
 
@@ -251,8 +247,6 @@ module ONCCertificationG10TestKit
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/STU1.0.1/export/index.html#response---complete-status'
 
-      id :status_complete_outputs_type_and_url
-
       input :status_response
 
       output :status_output, :bulk_download_url
@@ -281,8 +275,6 @@ module ONCCertificationG10TestKit
         Bulk Data Server MUST support client's delete request and return HTTP Status Code of "202 Accepted"
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/STU1.0.1/export/index.html#bulk-data-delete-request'
-
-      id :delete_request_accepted
 
       include ExportKickOffPerformer
 
