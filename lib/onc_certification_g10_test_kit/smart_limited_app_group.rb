@@ -29,7 +29,6 @@ module ONCCertificationG10TestKit
     run_as_group
 
     input_order :expected_resources,
-                :limited_requested_scopes,
                 :use_pkce,
                 :pkce_code_challenge_method,
                 :url,
@@ -152,7 +151,6 @@ module ONCCertificationG10TestKit
       test from: :g10_limited_scope_grant do
         config(
           inputs: {
-            requested_scopes: { name: :limited_requested_scopes },
             received_scopes: { name: :limited_received_scopes }
           }
         )
@@ -163,7 +161,6 @@ module ONCCertificationG10TestKit
           config: {
             inputs: {
               patient_id: { name: :limited_patient_id },
-              requested_scopes: { name: :limited_requested_scopes },
               received_scopes: { name: :limited_received_scopes },
               smart_credentials: { name: :limited_smart_credentials }
             }
