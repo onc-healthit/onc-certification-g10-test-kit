@@ -8,11 +8,14 @@ module ONCCertificationG10TestKit
     short_title 'Limited Access App'
 
     input_instructions %(
-      The purpose of this test is to demonstrate that users can restrict access
-      granted to apps to a limited number of resources. Enter which resources the
-      user will grant access to below, and during the launch process only grant
-      access to those resources. Inferno will verify that access granted matches
-      these expectations.
+      The purpose of this test is to demonstrate that app users can restrict
+      access granted to apps to a limited number of resources. Enter which
+      resources the user will grant access to below, and during the launch
+      process only grant access to those resources. Inferno will verify that
+      access granted matches these expectations.
+
+      All other inputs are locked to ensure the same app configuration as in the
+      Standalone Patient App - Full Access test.
     )
 
     description %(
@@ -76,7 +79,7 @@ module ONCCertificationG10TestKit
       config(
         inputs: {
           client_id: { locked: true },
-          client_secret: { locked: true },
+          client_secret: { locked: true, optional: false },
           url: { locked: true },
           requested_scopes: { locked: true },
           use_pkce: { locked: true },
