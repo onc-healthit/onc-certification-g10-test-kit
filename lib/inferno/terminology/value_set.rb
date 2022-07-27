@@ -72,6 +72,10 @@ module Inferno
           abbreviation: 'CPT',
           name: 'Current Procedural Terminology (CPT)'
         }.freeze,
+        'http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets' => {
+          abbreviation: 'HCPCS',
+          name: 'Healthcare Common Procedure Coding System (HCPCS)'
+        }.freeze,
         'urn:oid:2.16.840.1.113883.6.285' => {
           abbreviation: 'HCPCS',
           name: 'Healthcare Common Procedure Coding System (HCPCS)'
@@ -79,7 +83,11 @@ module Inferno
         'urn:oid:2.16.840.1.113883.6.13' => {
           abbreviation: 'CDT',
           name: 'Code on Dental Procedures and Nomenclature (CDT)'
-        }.freeze
+        }.freeze,
+        'http://ada.org/cdt' => {
+          abbreviation: 'CDT',
+          name: 'Code on Dental Procedures and Nomenclature (CDT)'
+        }
       }.freeze
 
       CODE_SYS = {
