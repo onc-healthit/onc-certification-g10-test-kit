@@ -16,6 +16,7 @@ module Inferno
 
         def download_us_core
           FHIRPackageManager.get_package('hl7.fhir.us.core#3.1.1', PACKAGE_DIR, ['ValueSet', 'CodeSystem'])
+          FHIRPackageManager.get_package('hl7.fhir.us.core#4.0.0', PACKAGE_DIR, ['ValueSet', 'CodeSystem'])
         end
 
         def download_fhir_expansions
