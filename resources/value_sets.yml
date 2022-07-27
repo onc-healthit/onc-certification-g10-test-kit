@@ -389,7 +389,7 @@
   :path: target.measure
 - :type: Quantity
   :strength: example
-  :system:
+  :system: 
   :path: target.detail
 - :type: CodeableConcept
   :strength: example
@@ -1661,3 +1661,59 @@
   :strength: required
   :system: http://hl7.org/fhir/ValueSet/provenance-entity-role
   :path: entity.role
+- :type: CodeableConcept
+  :strength: extensible
+  :system: http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1186.8
+  :path: code
+- :type: code
+  :strength: required
+  :system: http://hl7.org/fhir/ValueSet/narrative-status
+  :path: text.status
+- :type: CodeableConcept
+  :strength: extensible
+  :system: http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1099.30
+  :path: participant.role
+- :type: CodeableConcept
+  :strength: extensible
+  :system: http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1010.6
+  :path: vaccineCode
+- :type: CodeableConcept
+  :strength: extensible
+  :system: http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1010.4
+  :path: code
+- :type: CodeableConcept
+  :strength: preferred
+  :system: http://hl7.org/fhir/ValueSet/medicationrequest-category
+  :path: category
+- :type: CodeableConcept
+  :strength: extensible
+  :system: http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1010.4
+  :path: medication
+- :type: CodeableConcept
+  :strength: extensible
+  :system: http://hl7.org/fhir/us/core/ValueSet/us-core-vital-signs
+  :path: code
+- :type: Quantity
+  :strength: extensible
+  :system: http://hl7.org/fhir/ValueSet/ucum-vitals-common
+  :path: value
+- :type: CodeableConcept
+  :strength: extensible
+  :system: http://hl7.org/fhir/us/core/ValueSet/us-core-vital-signs
+  :path: component.code
+- :type: Quantity
+  :strength: extensible
+  :system: http://hl7.org/fhir/ValueSet/ucum-vitals-common
+  :path: component.value
+- :type: CodeableConcept
+  :strength: preferred
+  :system: http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.11.20.9.38
+  :path: value
+- :type: CodeableConcept
+  :strength: extensible
+  :system: http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.114222.4.11.1066
+  :path: specialty
+- :type: uri
+  :strength: extensible
+  :system: http://hl7.org/fhir/ValueSet/resource-types
+  :path: target.type
