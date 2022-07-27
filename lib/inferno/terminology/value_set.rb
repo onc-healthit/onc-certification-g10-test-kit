@@ -88,7 +88,19 @@ module Inferno
         'http://ihe.net/fhir/ValueSet/IHE.FormatCode.codesystem' =>
           -> { value_sets_repo.find('http://hl7.org/fhir/ValueSet/formatcodes').value_set },
         'https://www.usps.com/' =>
-          -> { value_sets_repo.find('http://hl7.org/fhir/us/core/ValueSet/us-core-usps-state').value_set }
+          -> do
+            codes = [
+              'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM',
+              'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA',
+              'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV',
+              'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW',
+              'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA',
+              'WA', 'WV', 'WI', 'WY', 'AE', 'AP', 'AA'
+            ]
+            codes.each_with_object(Set.new) do |code, set|
+              set.add(system: 'https://www.usps.com/', code: code)
+            end
+          end
       }.freeze
 
       # https://www.nlm.nih.gov/research/umls/knowledge_sources/metathesaurus/release/attribute_names.html
