@@ -338,9 +338,9 @@ module Inferno
 
         unless vscs.valueSet.empty?
           # If no concepts or filtered systems were present and already created the intersection_set
-          im_val_set = import_value_set(vscs.valueSet.first)
+          im_val_set = import_value_set(vscs.valueSet.first).value_set
           vscs.valueSet.drop(1).each do |im_val|
-            im_val_set = im_val_set.intersection(im_val)
+            im_val_set = im_val_set.intersection(import_value_set(im_val).value_set)
           end
           intersection_set = intersection_set.nil? ? im_val_set : intersection_set.intersection(im_val_set)
         end
