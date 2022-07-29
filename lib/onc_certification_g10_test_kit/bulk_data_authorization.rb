@@ -4,18 +4,6 @@ module ONCCertificationG10TestKit
   class BulkDataAuthorization < Inferno::TestGroup
     title 'Bulk Data Authorization'
     short_description 'Demonstrate SMART Backend Services Authorization for Bulk Data.'
-    description <<~DESCRIPTION
-      Bulk Data servers are required to authorize clients using the
-      [Backend Service Authorization](http://hl7.org/fhir/uv/bulkdata/STU1.0.1/authorization/index.html)
-      specification as defined in the [FHIR Bulk Data Access IG v1.0.1](http://hl7.org/fhir/uv/bulkdata/STU1.0.1/).
-
-      In this set of tests, Inferno serves as a Bulk Data client that requests authorization
-      from the Bulk Data authorization server.  It also performs a number of negative tests
-      to validate that the authorization service does not improperly authorize invalid
-      requests.
-
-      This test returns an access token.
-    DESCRIPTION
 
     id :bulk_data_authorization
 

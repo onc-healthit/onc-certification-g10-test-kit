@@ -2,12 +2,10 @@ require_relative 'export_kick_off_performer'
 
 module ONCCertificationG10TestKit
   class BulkDataGroupExport < Inferno::TestGroup
-    title 'Group Compartment Export Tests'
     short_description 'Verify that the system supports Group compartment export.'
     description <<~DESCRIPTION
       Verify that system level export on the Bulk Data server follow the Bulk Data Access Implementation Guide
     DESCRIPTION
-
     id :bulk_data_group_export
 
     input :bearer_token
@@ -79,7 +77,6 @@ module ONCCertificationG10TestKit
         Additionally, this test provides a warning if the bulk data server does
         not include the following URL in its `CapabilityStatement.instantiates`
         element: http://hl7.org/fhir/uv/bulkdata/CapabilityStatement/bulk-data
-
       DESCRIPTION
 
       run do
@@ -285,13 +282,7 @@ module ONCCertificationG10TestKit
         perform_export_kick_off_request
         assert_response_status(202)
 
-        polling_url = request.response_header('content-location')&.value
-        assert polling_url.present?, 'Export response header did not include "Content-Location"'
-
-        headers = { accept: 'application/json', authorization: "Bearer #{bearer_token}" }
-
-        delete(polling_url, headers: headers)
-        assert_response_status(202)
+        delete_export_kick_off_request
       end
     end
   end
