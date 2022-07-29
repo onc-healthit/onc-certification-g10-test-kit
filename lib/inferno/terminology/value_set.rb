@@ -64,6 +64,10 @@ module Inferno
           abbreviation: 'NCI_UCUM',
           name: 'Unified Code for Units of Measure (UCUM)'
         }.freeze,
+        'urn:oid:2.16.840.1.113883.6.101' => {
+          abbreviation: 'NUCCHCPT',
+          name: 'National Uniform Claim Committee - Health Care Provider Taxonomy (NUCCHCPT)'
+        },
         'http://nucc.org/provider-taxonomy' => {
           abbreviation: 'NUCCHCPT',
           name: 'National Uniform Claim Committee - Health Care Provider Taxonomy (NUCCHCPT)'
@@ -124,7 +128,9 @@ module Inferno
       end
 
       def umls_abbreviation(system)
-        return SAB.dig(system, :abbreviation) if system != 'http://nucc.org/provider-taxonomy'
+        if system != 'http://nucc.org/provider-taxonomy' && system != 'urn:oid:2.16.840.1.113883.6.101'
+          return SAB.dig(system, :abbreviation)
+        end
 
         @nucc_system ||= # rubocop:disable Naming/MemoizedInstanceVariableName
           if @db.execute("SELECT COUNT(*) FROM mrconso WHERE SAB = 'NUCCPT'").flatten.first.positive?

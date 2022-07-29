@@ -674,6 +674,17 @@
   :type: bloom
   :code_systems:
   - http://hl7.org/fhir/narrative-status
+- :url: http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1099.30
+  :file: cts_nlm_nih_gov_fhir_ValueSet_2_16_840_1_113762_1_4_1099_30.msgpack
+  :count: 124
+  :type: bloom
+  :code_systems: []
+- :url: http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1010.6
+  :file: cts_nlm_nih_gov_fhir_ValueSet_2_16_840_1_113762_1_4_1010_6.msgpack
+  :count: 172
+  :type: bloom
+  :code_systems:
+  - http://hl7.org/fhir/sid/cvx
 - :url: http://hl7.org/fhir/ValueSet/medicationrequest-category
   :file: hl7_org_fhir_ValueSet_medicationrequest-category.msgpack
   :count: 4
@@ -686,6 +697,18 @@
   :type: bloom
   :code_systems:
   - http://loinc.org
+- :url: http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.11.20.9.38
+  :file: cts_nlm_nih_gov_fhir_ValueSet_2_16_840_1_113883_11_20_9_38.msgpack
+  :count: 8
+  :type: bloom
+  :code_systems:
+  - http://snomed.info/sct
+- :url: http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.114222.4.11.1066
+  :file: cts_nlm_nih_gov_fhir_ValueSet_2_16_840_1_114222_4_11_1066.msgpack
+  :count: 852
+  :type: bloom
+  :code_systems:
+  - urn:oid:2.16.840.1.113883.6.101
 - :url: http://hl7.org/fhir/ValueSet/resource-types
   :file: hl7_org_fhir_ValueSet_resource-types.msgpack
   :count: 148
@@ -1152,3 +1175,8 @@
   :count: 4
   :type: bloom
   :code_systems: http://terminology.hl7.org/CodeSystem/medicationrequest-category
+- :url: urn:oid:2.16.840.1.113883.6.101
+  :file: urn_oid_2_16_840_1_113883_6_101.msgpack
+  :count: 970
+  :type: bloom
+  :code_systems: urn:oid:2.16.840.1.113883.6.101

@@ -17,7 +17,7 @@ module Inferno
 
         def run
           Loader.register_umls_db db_for_version
-          Loader.load_value_sets_from_directory(Inferno::Terminology::PACKAGE_DIR, true)
+          Loader.load_value_sets_from_directory(PACKAGE_DIR, true)
           Loader.create_validators(
             type: type,
             minimum_binding_strength: minimum_binding_strength,
