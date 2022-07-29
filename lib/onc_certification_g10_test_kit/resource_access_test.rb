@@ -80,7 +80,7 @@ module ONCCertificationG10TestKit
             assert false, error_message
           end
           fhir_search(
-            :allergy_intolerance,
+            resource_type,
             params: search_params.merge(status_search_params)
           )
         end
