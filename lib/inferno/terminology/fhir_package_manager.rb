@@ -10,6 +10,19 @@ module Inferno
     module FHIRPackageManager
       class << self
         REGISTRY_SERVER_URL = 'https://packages.fhir.org'.freeze
+        REQUIRED_VSAC_VALUE_SET_URLS = [
+          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1186.8',
+          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1099.30',
+          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1010.6',
+          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1010.4',
+          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.11.20.9.38',
+          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.114222.4.11.1066',
+          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.1.11.10267',
+          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1099.27',
+          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.88.12.80.17',
+          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1010.5'
+        ].freeze
+
         # Get the FHIR Package from the registry.
         #
         # e.g. get_package('hl7.fhir.us.core#3.1.1')
@@ -48,6 +61,8 @@ module Inferno
 
             resource = JSON.parse(entry.read) if file_name.end_with? '.json'
             next unless resource&.[]('url')
+
+            next if package.start_with?('us.nlm.vsac') && !REQUIRED_VSAC_VALUE_SET_URLS.include?(resource['url'])
 
             encoded_name = "#{encode_name(resource['url'])}.json"
             encoded_file_name = File.join(path, encoded_name)
