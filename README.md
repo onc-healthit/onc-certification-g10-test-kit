@@ -45,6 +45,15 @@ repository.
 - run `run.sh`
 - navigate to `http://localhost`
 
+### Multi-user Installations
+
+The default configuration of this test kit uses SQLite for data persistence and
+is optimized for running on a local machine with a single user.  For
+installations on shared servers that may have multiple tests running
+simultaniously, please [configure the installation to use
+PostgreSQL](https://inferno-framework.github.io/inferno-core/deployment/database.html#postgresql)
+to ensure stability in this type of environment.
+
 ### Terminology Support
 #### Terminology prerequisites
 
