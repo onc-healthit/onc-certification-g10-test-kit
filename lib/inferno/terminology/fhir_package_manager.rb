@@ -20,7 +20,19 @@ module Inferno
           'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.1.11.10267',
           'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1099.27',
           'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.88.12.80.17',
-          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1010.5'
+          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1010.5',
+          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1021.32',
+          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.114222.4.11.836',
+          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.1.11.14914',
+          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.114222.4.11.837',
+          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.114222.4.11.877',
+          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1',
+          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1186.1',
+          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.88.12.80.17',
+          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1021.102',
+          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1021.103',
+          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1186.2',
+          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.2074.1.1.3'
         ].freeze
 
         # Get the FHIR Package from the registry.
