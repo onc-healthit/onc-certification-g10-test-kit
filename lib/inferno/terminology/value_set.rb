@@ -91,6 +91,10 @@ module Inferno
         'http://ada.org/cdt' => {
           abbreviation: 'CDT',
           name: 'Code on Dental Procedures and Nomenclature (CDT)'
+        },
+        'http://www.ada.org/cdt' => {
+          abbreviation: 'CDT',
+          name: 'Code on Dental Procedures and Nomenclature (CDT)'
         }
       }.freeze
 
@@ -192,8 +196,21 @@ module Inferno
         @value_set.length
       end
 
+      def all_included_code_systems
+        (included_code_systems + code_systems_in_codings).uniq
+      end
+
       def included_code_systems
         @value_set_model.compose.include.map(&:system).compact.uniq
+      end
+
+      def code_systems_in_codings
+        return [] if value_set.blank?
+
+        value_set
+          .map { |coding| coding[:system] }
+          .compact
+          .uniq
       end
 
       TOO_COSTLY_URL = 'http://hl7.org/fhir/StructureDefinition/valueset-toocostly'.freeze
@@ -431,6 +448,9 @@ module Inferno
           raise FilterOperationException, filter&.op
         end
         filtered_set
+      rescue UnknownCodeSystemException => e
+        Inferno.logger.debug e.message
+        filtered_set.presence || Set.new
       end
 
       # Imports the ValueSet with the provided URL from the known local ValueSet Authority

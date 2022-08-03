@@ -175,7 +175,7 @@
   - http://loinc.org
 - :url: http://hl7.org/fhir/us/core/ValueSet/us-core-diagnosticreport-report-and-note-codes
   :file: hl7_org_fhir_us_core_ValueSet_us-core-diagnosticreport-report-and-note-codes.msgpack
-  :count: 270991
+  :count: 24810
   :type: bloom
   :code_systems:
   - http://loinc.org
@@ -220,7 +220,11 @@
   :file: hl7_org_fhir_ValueSet_security-labels.msgpack
   :count: 200
   :type: bloom
-  :code_systems: []
+  :code_systems:
+  - http://terminology.hl7.org/CodeSystem/v3-Confidentiality
+  - http://terminology.hl7.org/CodeSystem/v3-ActCode
+  - http://terminology.hl7.org/CodeSystem/v3-ObservationValue
+  - http://terminology.hl7.org/CodeSystem/v3-ActReason
 - :url: http://hl7.org/fhir/ValueSet/mimetypes
   :file: hl7_org_fhir_ValueSet_mimetypes.msgpack
   :count: 2382
@@ -569,32 +573,35 @@
   - http://hl7.org/fhir/link-type
 - :url: http://hl7.org/fhir/us/core/ValueSet/omb-race-category
   :file: hl7_org_fhir_us_core_ValueSet_omb-race-category.msgpack
-  :count: 7
+  :count: 8
   :type: bloom
   :code_systems:
   - urn:oid:2.16.840.1.113883.6.238
   - http://terminology.hl7.org/CodeSystem/v3-NullFlavor
 - :url: http://hl7.org/fhir/us/core/ValueSet/detailed-race
   :file: hl7_org_fhir_us_core_ValueSet_detailed-race.msgpack
-  :count: 917
+  :count: 919
   :type: bloom
   :code_systems:
   - urn:oid:2.16.840.1.113883.6.238
+  - http://terminology.hl7.org/CodeSystem/v3-NullFlavor
 - :url: http://hl7.org/fhir/us/core/ValueSet/omb-ethnicity-category
   :file: hl7_org_fhir_us_core_ValueSet_omb-ethnicity-category.msgpack
-  :count: 2
+  :count: 4
   :type: bloom
   :code_systems:
   - urn:oid:2.16.840.1.113883.6.238
+  - http://terminology.hl7.org/CodeSystem/v3-NullFlavor
 - :url: http://hl7.org/fhir/us/core/ValueSet/detailed-ethnicity
   :file: hl7_org_fhir_us_core_ValueSet_detailed-ethnicity.msgpack
-  :count: 42
+  :count: 44
   :type: bloom
   :code_systems:
   - urn:oid:2.16.840.1.113883.6.238
+  - http://terminology.hl7.org/CodeSystem/v3-NullFlavor
 - :url: http://hl7.org/fhir/us/core/ValueSet/birthsex
   :file: hl7_org_fhir_us_core_ValueSet_birthsex.msgpack
-  :count: 3
+  :count: 5
   :type: bloom
   :code_systems:
   - http://terminology.hl7.org/CodeSystem/v3-AdministrativeGender
@@ -626,7 +633,7 @@
   - http://snomed.info/sct
   - http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets
   - http://www.cms.gov/Medicare/Coding/ICD10
-  - http://ada.org/cdt
+  - http://www.ada.org/cdt
   - http://loinc.org
   - urn:oid:2.16.840.1.113883.6.285
   - urn:oid:2.16.840.1.113883.6.13
@@ -670,6 +677,13 @@
   :type: bloom
   :code_systems:
   - http://hl7.org/fhir/provenance-entity-role
+- :url: http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1186.8
+  :file: cts_nlm_nih_gov_fhir_ValueSet_2_16_840_1_113762_1_4_1186_8.msgpack
+  :count: 766
+  :type: bloom
+  :code_systems:
+  - http://www.nlm.nih.gov/research/umls/rxnorm
+  - http://snomed.info/sct
 - :url: http://hl7.org/fhir/ValueSet/narrative-status
   :file: hl7_org_fhir_ValueSet_narrative-status.msgpack
   :count: 4
@@ -678,15 +692,23 @@
   - http://hl7.org/fhir/narrative-status
 - :url: http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1099.30
   :file: cts_nlm_nih_gov_fhir_ValueSet_2_16_840_1_113762_1_4_1099_30.msgpack
-  :count: 124
+  :count: 590
   :type: bloom
-  :code_systems: []
+  :code_systems:
+  - http://snomed.info/sct
+  - http://terminology.hl7.org/CodeSystem/v3-ParticipationFunction
 - :url: http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1010.6
   :file: cts_nlm_nih_gov_fhir_ValueSet_2_16_840_1_113762_1_4_1010_6.msgpack
-  :count: 172
+  :count: 196
   :type: bloom
   :code_systems:
   - http://hl7.org/fhir/sid/cvx
+- :url: http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1010.4
+  :file: cts_nlm_nih_gov_fhir_ValueSet_2_16_840_1_113762_1_4_1010_4.msgpack
+  :count: 1000
+  :type: bloom
+  :code_systems:
+  - http://www.nlm.nih.gov/research/umls/rxnorm
 - :url: http://hl7.org/fhir/ValueSet/medicationrequest-category
   :file: hl7_org_fhir_ValueSet_medicationrequest-category.msgpack
   :count: 4
@@ -707,16 +729,106 @@
   - http://snomed.info/sct
 - :url: http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.114222.4.11.1066
   :file: cts_nlm_nih_gov_fhir_ValueSet_2_16_840_1_114222_4_11_1066.msgpack
-  :count: 852
+  :count: 856
   :type: bloom
   :code_systems:
-  - urn:oid:2.16.840.1.113883.6.101
+  - http://nucc.org/provider-taxonomy
 - :url: http://hl7.org/fhir/ValueSet/resource-types
   :file: hl7_org_fhir_ValueSet_resource-types.msgpack
   :count: 148
   :type: bloom
   :code_systems:
   - http://hl7.org/fhir/resource-types
+- :url: http://hl7.org/fhir/ValueSet/condition-category
+  :file: hl7_org_fhir_ValueSet_condition-category.msgpack
+  :count: 2
+  :type: bloom
+  :code_systems:
+  - http://terminology.hl7.org/CodeSystem/condition-category
+- :url: http://hl7.org/fhir/us/core/ValueSet/us-core-problem-or-health-concern
+  :file: hl7_org_fhir_us_core_ValueSet_us-core-problem-or-health-concern.msgpack
+  :count: 2
+  :type: bloom
+  :code_systems:
+  - http://terminology.hl7.org/CodeSystem/condition-category
+  - http://hl7.org/fhir/us/core/CodeSystem/condition-category
+- :url: http://hl7.org/fhir/us/core/ValueSet/us-core-discharge-disposition
+  :file: hl7_org_fhir_us_core_ValueSet_us-core-discharge-disposition.msgpack
+  :count: 0
+  :type: bloom
+  :code_systems:
+  - http://www.nubc.org/patient-discharge
+- :url: http://hl7.org/fhir/us/core/ValueSet/us-core-goal-description
+  :file: hl7_org_fhir_us_core_ValueSet_us-core-goal-description.msgpack
+  :count: 760133
+  :type: bloom
+  :code_systems:
+  - http://snomed.info/sct
+  - http://loinc.org
+- :url: http://hl7.org/fhir/us/core/ValueSet/us-core-common-sdoh-assessments
+  :file: hl7_org_fhir_us_core_ValueSet_us-core-common-sdoh-assessments.msgpack
+  :count: 47
+  :type: bloom
+  :code_systems:
+  - http://loinc.org
+- :url: http://hl7.org/fhir/us/core/ValueSet/us-core-sexual-orientation
+  :file: hl7_org_fhir_us_core_ValueSet_us-core-sexual-orientation.msgpack
+  :count: 6
+  :type: bloom
+  :code_systems:
+  - http://snomed.info/sct
+  - http://terminology.hl7.org/CodeSystem/v3-NullFlavor
+- :url: http://hl7.org/fhir/us/core/ValueSet/us-core-survey-codes
+  :file: hl7_org_fhir_us_core_ValueSet_us-core-survey-codes.msgpack
+  :count: 11120
+  :type: bloom
+  :code_systems:
+  - http://loinc.org
+- :url: http://hl7.org/fhir/us/core/ValueSet/us-core-clinical-test-codes
+  :file: hl7_org_fhir_us_core_ValueSet_us-core-clinical-test-codes.msgpack
+  :count: 461
+  :type: bloom
+  :code_systems:
+  - http://loinc.org
+- :url: http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1021.32
+  :file: cts_nlm_nih_gov_fhir_ValueSet_2_16_840_1_113762_1_4_1021_32.msgpack
+  :count: 7
+  :type: bloom
+  :code_systems:
+  - http://snomed.info/sct
+  - http://terminology.hl7.org/CodeSystem/v3-NullFlavor
+- :url: http://hl7.org/fhir/us/core/ValueSet/us-core-tags
+  :file: hl7_org_fhir_us_core_ValueSet_us-core-tags.msgpack
+  :count: 1
+  :type: bloom
+  :code_systems:
+  - http://hl7.org/fhir/us/core/CodeSystem/us-core-tags
+- :url: http://hl7.org/fhir/ValueSet/questionnaire-answers-status
+  :file: hl7_org_fhir_ValueSet_questionnaire-answers-status.msgpack
+  :count: 5
+  :type: bloom
+  :code_systems:
+  - http://hl7.org/fhir/questionnaire-answers-status
+- :url: http://hl7.org/fhir/ValueSet/relatedperson-relationshiptype
+  :file: hl7_org_fhir_ValueSet_relatedperson-relationshiptype.msgpack
+  :count: 117
+  :type: bloom
+  :code_systems:
+  - http://terminology.hl7.org/CodeSystem/v2-0131
+  - http://terminology.hl7.org/CodeSystem/v3-RoleCode
+- :url: http://hl7.org/fhir/ValueSet/request-intent
+  :file: hl7_org_fhir_ValueSet_request-intent.msgpack
+  :count: 9
+  :type: bloom
+  :code_systems:
+  - http://hl7.org/fhir/request-intent
+- :url: http://hl7.org/fhir/us/core/ValueSet/us-core-servicerequest-category
+  :file: hl7_org_fhir_us_core_ValueSet_us-core-servicerequest-category.msgpack
+  :count: 8
+  :type: bloom
+  :code_systems:
+  - http://hl7.org/fhir/us/core/CodeSystem/us-core-tags
+  - http://snomed.info/sct
 - :url: urn:ietf:bcp:47
   :file: urn_ietf_bcp_47.msgpack
   :count: 8561
@@ -882,6 +994,26 @@
   :count: 4
   :type: bloom
   :code_systems: http://hl7.org/fhir/document-relationship-type
+- :url: http://terminology.hl7.org/CodeSystem/v3-Confidentiality
+  :file: terminology_hl7_org_CodeSystem_v3-Confidentiality.msgpack
+  :count: 20
+  :type: bloom
+  :code_systems: http://terminology.hl7.org/CodeSystem/v3-Confidentiality
+- :url: http://terminology.hl7.org/CodeSystem/v3-ActCode
+  :file: terminology_hl7_org_CodeSystem_v3-ActCode.msgpack
+  :count: 1116
+  :type: bloom
+  :code_systems: http://terminology.hl7.org/CodeSystem/v3-ActCode
+- :url: http://terminology.hl7.org/CodeSystem/v3-ObservationValue
+  :file: terminology_hl7_org_CodeSystem_v3-ObservationValue.msgpack
+  :count: 250
+  :type: bloom
+  :code_systems: http://terminology.hl7.org/CodeSystem/v3-ObservationValue
+- :url: http://terminology.hl7.org/CodeSystem/v3-ActReason
+  :file: terminology_hl7_org_CodeSystem_v3-ActReason.msgpack
+  :count: 280
+  :type: bloom
+  :code_systems: http://terminology.hl7.org/CodeSystem/v3-ActReason
 - :url: urn:ietf:bcp:13
   :file: urn_ietf_bcp_13.msgpack
   :count: 2382
@@ -907,11 +1039,6 @@
   :count: 9
   :type: bloom
   :code_systems: http://hl7.org/fhir/encounter-status
-- :url: http://terminology.hl7.org/CodeSystem/v3-ActCode
-  :file: terminology_hl7_org_CodeSystem_v3-ActCode.msgpack
-  :count: 1116
-  :type: bloom
-  :code_systems: http://terminology.hl7.org/CodeSystem/v3-ActCode
 - :url: http://www.ama-assn.org/go/cpt
   :file: www_ama-assn_org_go_cpt.msgpack
   :count: 14654
@@ -1137,8 +1264,8 @@
   :count: 190673
   :type: bloom
   :code_systems: http://www.cms.gov/Medicare/Coding/ICD10
-- :url: http://ada.org/cdt
-  :file: ada_org_cdt.msgpack
+- :url: http://www.ada.org/cdt
+  :file: www_ada_org_cdt.msgpack
   :count: 867
   :type: bloom
   :code_systems: http://ada.org/cdt
@@ -1182,13 +1309,28 @@
   :count: 5
   :type: bloom
   :code_systems: http://hl7.org/fhir/provenance-entity-role
+- :url: http://terminology.hl7.org/CodeSystem/v3-ParticipationFunction
+  :file: terminology_hl7_org_CodeSystem_v3-ParticipationFunction.msgpack
+  :count: 49
+  :type: bloom
+  :code_systems: http://terminology.hl7.org/CodeSystem/v3-ParticipationFunction
 - :url: http://terminology.hl7.org/CodeSystem/medicationrequest-category
   :file: terminology_hl7_org_CodeSystem_medicationrequest-category.msgpack
   :count: 4
   :type: bloom
   :code_systems: http://terminology.hl7.org/CodeSystem/medicationrequest-category
-- :url: urn:oid:2.16.840.1.113883.6.101
-  :file: urn_oid_2_16_840_1_113883_6_101.msgpack
-  :count: 970
+- :url: http://www.nubc.org/patient-discharge
+  :file: www_nubc_org_patient-discharge.msgpack
+  :count: 0
   :type: bloom
-  :code_systems: urn:oid:2.16.840.1.113883.6.101
+  :code_systems: http://www.nubc.org/patient-discharge
+- :url: http://hl7.org/fhir/us/core/CodeSystem/us-core-tags
+  :file: hl7_org_fhir_us_core_CodeSystem_us-core-tags.msgpack
+  :count: 1
+  :type: bloom
+  :code_systems: http://hl7.org/fhir/us/core/CodeSystem/us-core-tags
+- :url: http://hl7.org/fhir/questionnaire-answers-status
+  :file: hl7_org_fhir_questionnaire-answers-status.msgpack
+  :count: 5
+  :type: bloom
+  :code_systems: http://hl7.org/fhir/questionnaire-answers-status
