@@ -31,6 +31,20 @@ module ONCCertificationG10TestKit
     short_title '(g)(10) Standardized API'
     version VERSION
     id :g10_certification
+    links [
+      {
+        label: 'Report Issue',
+        url: 'https://github.com/onc-healthit/onc-certification-g10-test-kit/issues/'
+      },
+      {
+        label: 'Open Source',
+        url: 'https://github.com/onc-healthit/onc-certification-g10-test-kit/'
+      },
+      {
+        label: 'Download',
+        url: 'https://github.com/onc-healthit/onc-certification-g10-test-kit/releases'
+      }
+    ]
 
     check_configuration do
       ConfigurationChecker.new.configuration_messages
