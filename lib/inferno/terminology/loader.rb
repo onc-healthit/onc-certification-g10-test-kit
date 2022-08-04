@@ -56,6 +56,8 @@ module Inferno
             code_systems << 'http://ada.org/cdt'
             code_systems << 'urn:oid:2.16.840.1.113883.6.13'
           end
+          code_systems << 'urn:oid:2.16.840.1.113883.6.101' if code_systems.include? 'http://nucc.org/provider-taxonomy'
+          code_systems << 'urn:oid:2.16.840.1.113883.6.101' if code_systems.include? 'http://hl7.org/fhir/questionnaire-answers-status'
           code_systems.uniq!
         end
 

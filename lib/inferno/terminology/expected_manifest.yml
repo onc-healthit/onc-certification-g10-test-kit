@@ -97,6 +97,7 @@
   :code_systems:
   - http://nucc.org/provider-taxonomy
   - http://snomed.info/sct
+  - urn:oid:2.16.840.1.113883.6.101
 - :url: http://hl7.org/fhir/ValueSet/condition-clinical
   :file: hl7_org_fhir_ValueSet_condition-clinical.msgpack
   :count: 6
@@ -612,12 +613,14 @@
   :type: bloom
   :code_systems:
   - http://nucc.org/provider-taxonomy
+  - urn:oid:2.16.840.1.113883.6.101
 - :url: http://hl7.org/fhir/us/core/ValueSet/us-core-provider-specialty
   :file: hl7_org_fhir_us_core_ValueSet_us-core-provider-specialty.msgpack
   :count: 862
   :type: bloom
   :code_systems:
   - http://nucc.org/provider-taxonomy
+  - urn:oid:2.16.840.1.113883.6.101
 - :url: http://hl7.org/fhir/ValueSet/event-status
   :file: hl7_org_fhir_ValueSet_event-status.msgpack
   :count: 8
@@ -734,6 +737,7 @@
   :type: bloom
   :code_systems:
   - http://nucc.org/provider-taxonomy
+  - urn:oid:2.16.840.1.113883.6.101
 - :url: http://hl7.org/fhir/ValueSet/resource-types
   :file: hl7_org_fhir_ValueSet_resource-types.msgpack
   :count: 148
@@ -810,6 +814,7 @@
   :type: bloom
   :code_systems:
   - http://hl7.org/fhir/questionnaire-answers-status
+  - urn:oid:2.16.840.1.113883.6.101
 - :url: http://hl7.org/fhir/ValueSet/relatedperson-relationshiptype
   :file: hl7_org_fhir_ValueSet_relatedperson-relationshiptype.msgpack
   :count: 117
@@ -910,6 +915,11 @@
   :count: 862
   :type: bloom
   :code_systems: http://nucc.org/provider-taxonomy
+- :url: urn:oid:2.16.840.1.113883.6.101
+  :file: urn_oid_2_16_840_1_113883_6_101.msgpack
+  :count: 970
+  :type: bloom
+  :code_systems: urn:oid:2.16.840.1.113883.6.101
 - :url: http://terminology.hl7.org/CodeSystem/condition-clinical
   :file: terminology_hl7_org_CodeSystem_condition-clinical.msgpack
   :count: 6
