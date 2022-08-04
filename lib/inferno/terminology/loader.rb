@@ -49,6 +49,11 @@ module Inferno
           end
         end
 
+        def add_alternative_code_system_names(code_systems)
+          code_systems << 'urn:oid:2.16.840.1.113883.6.285' if code_systems.include? 'http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets'
+          code_systems << 'urn:oid:2.16.840.1.113883.6.13' if code_systems.include? 'http://ada.org/cdt'
+        end
+
         # Creates the valueset validators, based on the passed in parameters and
         # the value_sets_repo
         #
@@ -86,13 +91,15 @@ module Inferno
             begin
               # Save the validator to file, and get the "new" count of number of codes
               new_count = save_to_file(vs.value_set, filename, type)
+              code_systems = vs.included_code_systems
 
+              add_alternative_code_system_names(code_systems)
               {
                 url: vs_url,
                 file: name_by_type(File.basename(filename), type),
                 count: new_count,
                 type: type.to_s,
-                code_systems: vs.included_code_systems
+                code_systems: code_systems
               }
             rescue UnknownCodeSystemException,
                    FilterOperationException,
