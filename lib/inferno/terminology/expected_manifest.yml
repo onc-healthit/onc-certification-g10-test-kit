@@ -636,6 +636,7 @@
   - http://www.ada.org/cdt
   - http://loinc.org
   - urn:oid:2.16.840.1.113883.6.285
+  - http://ada.org/cdt
   - urn:oid:2.16.840.1.113883.6.13
 - :url: http://hl7.org/fhir/ValueSet/device-action
   :file: hl7_org_fhir_ValueSet_device-action.msgpack
@@ -1268,22 +1269,22 @@
   :file: www_ada_org_cdt.msgpack
   :count: 867
   :type: bloom
-  :code_systems: http://ada.org/cdt
+  :code_systems: http://www.ada.org/cdt
 - :url: urn:oid:2.16.840.1.113883.6.285
   :file: urn_oid_2_16_840_1_113883_6_285.msgpack
   :count: 7783
   :type: bloom
   :code_systems: urn:oid:2.16.840.1.113883.6.285
+- :url: http://ada.org/cdt
+  :file: ada_org_cdt.msgpack
+  :count: 867
+  :type: bloom
+  :code_systems: http://ada.org/cdt
 - :url: urn:oid:2.16.840.1.113883.6.13
   :file: urn_oid_2_16_840_1_113883_6_13.msgpack
   :count: 867
   :type: bloom
   :code_systems: urn:oid:2.16.840.1.113883.6.13
-- :url: http://terminology.hl7.org/CodeSystem/v3-ActReason
-  :file: terminology_hl7_org_CodeSystem_v3-ActReason.msgpack
-  :count: 280
-  :type: bloom
-  :code_systems: http://terminology.hl7.org/CodeSystem/v3-ActReason
 - :url: http://terminology.hl7.org/CodeSystem/v3-DocumentCompletion
   :file: terminology_hl7_org_CodeSystem_v3-DocumentCompletion.msgpack
   :count: 9

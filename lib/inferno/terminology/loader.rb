@@ -52,6 +52,11 @@ module Inferno
         def add_alternative_code_system_names(code_systems)
           code_systems << 'urn:oid:2.16.840.1.113883.6.285' if code_systems.include? 'http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets'
           code_systems << 'urn:oid:2.16.840.1.113883.6.13' if code_systems.include? 'http://ada.org/cdt'
+          if code_systems.include? 'http://www.ada.org/cdt'
+            code_systems << 'http://ada.org/cdt'
+            code_systems << 'urn:oid:2.16.840.1.113883.6.13'
+          end
+          code_systems.uniq!
         end
 
         # Creates the valueset validators, based on the passed in parameters and
