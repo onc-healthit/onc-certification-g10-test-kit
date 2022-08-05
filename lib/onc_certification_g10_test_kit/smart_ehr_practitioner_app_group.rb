@@ -32,6 +32,11 @@ module ONCCertificationG10TestKit
       resource is read using the new access token to ensure that the refresh was
       successful. Finally, the authentication information provided by OpenID
       Connect is decoded and validated.
+
+      For EHRs that use Internet Explorer 11 to display embedded apps,
+      please review [instructions on how to complete the EHR Pracitioner App
+      test](https://github.com/onc-healthit/onc-certification-g10-test-kit/wiki/Completing-EHR-Practitioner-App-test-in-Internet-Explorer/).
+
     )
     id :g10_smart_ehr_practitioner_app
     run_as_group
