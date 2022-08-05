@@ -4,8 +4,8 @@ require_relative 'bulk_data_group_export_validation'
 
 module ONCCertificationG10TestKit
   class MultiPatientAPIGroupSTU1 < Inferno::TestGroup
-    title 'Multi-Patient Authorization and API STU1'
-    short_title 'Multi-Patient API STU1'
+    title 'Multi-Patient Authorization and API'
+    short_title 'Multi-Patient API'
 
     input_instructions %(
       Register Inferno as a bulk data client with the following information, and
