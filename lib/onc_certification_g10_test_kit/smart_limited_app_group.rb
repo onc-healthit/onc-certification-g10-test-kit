@@ -113,7 +113,7 @@ module ONCCertificationG10TestKit
           token: { name: :limited_token }
         },
         options: {
-          limited_launch: true,
+          ignore_missing_scopes_check: true,
           redirect_message_proc: lambda do |auth_url|
             expected_resource_string =
               expected_resources
