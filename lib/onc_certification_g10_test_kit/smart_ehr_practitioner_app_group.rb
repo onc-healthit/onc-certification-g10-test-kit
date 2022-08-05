@@ -16,7 +16,7 @@ module ONCCertificationG10TestKit
       Enter in the appropriate scope to enable user-level access to all relevant
       resources. In addition, support for the OpenID Connect (openid fhirUser),
       refresh tokens (offline_access), and EHR context (launch) are required. This
-      test expects hat the EHR will launch the application with a patient context.
+      test expects that the EHR will launch the application with a patient context.
 
       After submit is pressed, Inferno will wait for the system under test to launch
       the application.
@@ -36,7 +36,7 @@ module ONCCertificationG10TestKit
       For EHRs that use Internet Explorer 11 to display embedded apps,
       please review [instructions on how to complete the EHR Pracitioner App
       test](https://github.com/onc-healthit/onc-certification-g10-test-kit/wiki/Completing-EHR-Practitioner-App-test-in-Internet-Explorer/).
-      
+
     )
     id :g10_smart_ehr_practitioner_app
     run_as_group
