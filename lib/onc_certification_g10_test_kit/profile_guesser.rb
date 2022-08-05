@@ -9,7 +9,7 @@ module ONCCertificationG10TestKit
       when 'Location'
         return 'http://hl7.org/fhir/StructureDefinition/Location'
       end
-      "USCoreTestKit::USCoreV311::#{profile}Group".constantize.metadata.profile_url
+      versioned_us_core_module.const_get("#{profile}Group").metadata.profile_url
     end
 
     def observation_contains_code(observation_resource, code)
