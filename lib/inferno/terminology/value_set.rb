@@ -100,7 +100,7 @@ module Inferno
         'http://ihe.net/fhir/ValueSet/IHE.FormatCode.codesystem' =>
           -> { value_sets_repo.find('http://hl7.org/fhir/ValueSet/formatcodes').value_set },
         'https://www.usps.com/' =>
-          -> do
+          lambda do
             codes = [
               'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM',
               'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA',
