@@ -1,3 +1,14 @@
+# 2.3.0
+
+* Add feature flags to support planned SVAP updates.
+* Allow custom bulk data JWKS.
+* Set Limited App Launch test to use same inputs as Standalone Patient App Launch test.
+* Remove warning on Limited App Launch test for "missing" scopes.
+* Fix hard coded resource type in resource access test.
+* Add README reference to PostgreSQL installation for mult-user deployments.
+* Customize footer links for downloading and issue reporting.
+* Add IE11 instructions for EHR Launches.
+
 # 2.2.2
 
 * Remove invalid launch parameter tests.
