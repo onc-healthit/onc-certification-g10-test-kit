@@ -17,7 +17,7 @@ module ONCCertificationG10TestKit
       case suite_options[:us_core_version]
       when 'us_core_4'
         USCoreTestKit::USCoreV400
-      else 'us_core_3'
+      else
         USCoreTestKit::USCoreV311
       end
     end

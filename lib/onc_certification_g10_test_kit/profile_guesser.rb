@@ -42,31 +42,102 @@ module ONCCertificationG10TestKit
 
         return extract_profile('PulseOximetry') if observation_contains_code(resource, '59408-5')
 
-        return extract_profile('HeadCircumference') if observation_contains_code(resource, '8289-1')
+        if observation_contains_code(resource, '8289-1')
+          return extract_profile('HeadCircumference') unless Feature.us_core_v4?
+
+          case suite_options[:us_core_version]
+          when 'us_core_4'
+            return extract_profile('HeadCircumferencePercentile')
+          else
+            return extract_profile('HeadCircumference')
+          end
+        end
+
+        if Feature.us_core_v4?
+          return extract_profile('HeadCircumference') if observation_contains_code(resource, '9843-4')
+        end
 
         # FHIR Vital Signs profiles: https://www.hl7.org/fhir/observation-vitalsigns.html
         # Vital Signs Panel, Oxygen Saturation are not required by USCDI
         # Body Mass Index is replaced by :pediatric_bmi_age Profile
         # Systolic Blood Pressure, Diastolic Blood Pressure are covered by :blood_pressure Profile
         # Head Circumference is replaced by US Core Head Occipital-frontal Circumference Percentile Profile
-        return extract_profile('Bp') if observation_contains_code(resource, '85354-9')
+        if Feature.us_core_v4?
+          return extract_profile('Bmi') if observation_contains_code(resource, '39156-5')
+        end
 
-        return extract_profile('Bodyheight') if observation_contains_code(resource, '8302-2')
+        if observation_contains_code(resource, '85354-9')
+          return extract_profile('Bp') unless Feature.us_core_v4?
 
-        return extract_profile('Bodytemp') if observation_contains_code(resource, '8310-5')
+          case suite_options[:us_core_version]
+          when 'us_core_4'
+            return extract_profile('BloodPressure')
+          else
+            return extract_profile('Bp')
+          end
+        end
 
-        return extract_profile('Bodyweight') if observation_contains_code(resource, '29463-7')
+        if observation_contains_code(resource, '8302-2')
+          return extract_profile('Bodyheight') unless Feature.us_core_v4?
 
-        return extract_profile('Heartrate') if observation_contains_code(resource, '8867-4')
+          case suite_options[:us_core_version]
+          when 'us_core_4'
+            return extract_profile('BodyHeight')
+          else
+            return extract_profile('Bodyheight')
+          end
+        end
 
-        return extract_profile('Resprate') if observation_contains_code(resource, '9279-1')
+        if observation_contains_code(resource, '8310-5')
+          return extract_profile('Bodytemp') unless Feature.us_core_v4?
+
+          case suite_options[:us_core_version]
+          when 'us_core_4'
+            return extract_profile('BodyTemperature')
+          else
+            return extract_profile('Bodytemp')
+          end
+        end
+
+        if observation_contains_code(resource, '29463-7')
+          return extract_profile('Bodyweight') unless Feature.us_core_v4?
+
+          case suite_options[:us_core_version]
+          when 'us_core_4'
+            return extract_profile('BodyWeight')
+          else
+            return extract_profile('Bodyweight')
+          end
+        end
+
+        if observation_contains_code(resource, '8867-4')
+          return extract_profile('Heartrate') unless Feature.us_core_v4?
+
+          case suite_options[:us_core_version]
+          when 'us_core_4'
+            return extract_profile('HeartRate')
+          else
+            return extract_profile('Heartrate')
+          end
+        end
+
+        if observation_contains_code(resource, '9279-1')
+          return extract_profile('Resprate') unless Feature.us_core_v4?
+
+          case suite_options[:us_core_version]
+          when 'us_core_4'
+            return extract_profile('RespiratoryRate')
+          else
+            return extract_profile('Resprate')
+          end
+        end
 
         nil
       else
         extract_profile(resource.resourceType)
       end
     rescue StandardError
-      skip "Could not determine profile of \"#{resource.resourceType}\" resource."
+      skip "Could not determine profile of `#{resource.resourceType}/#{resource.id}` resource."
     end
   end
 end
