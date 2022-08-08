@@ -54,7 +54,7 @@ module ONCCertificationG10TestKit
         end
 
         if Feature.us_core_v4?
-          return extract_profile('HeadCircumference') if observation_contains_code(resource, '9843-4')
+          return extract_profile('HeadCircumference') if observation_contains_code(resource, '9843-4') # rubocop:disable Style/SoleNestedConditional
         end
 
         # FHIR Vital Signs profiles: https://www.hl7.org/fhir/observation-vitalsigns.html
@@ -63,7 +63,9 @@ module ONCCertificationG10TestKit
         # Systolic Blood Pressure, Diastolic Blood Pressure are covered by :blood_pressure Profile
         # Head Circumference is replaced by US Core Head Occipital-frontal Circumference Percentile Profile
         if Feature.us_core_v4?
-          return extract_profile('Bmi') if observation_contains_code(resource, '39156-5')
+          if observation_contains_code(resource, '39156-5') && suite_options[:us_core_version] != 'us_core_3' # rubocop:disable Style/SoleNestedConditional
+            return extract_profile('Bmi')
+          end
         end
 
         if observation_contains_code(resource, '85354-9')
@@ -137,7 +139,7 @@ module ONCCertificationG10TestKit
         extract_profile(resource.resourceType)
       end
     rescue StandardError
-      skip "Could not determine profile of `#{resource.resourceType}/#{resource.id}` resource."
+      skip "Could not determine profile of \"#{resource.resourceType}\" resource."
     end
   end
 end
