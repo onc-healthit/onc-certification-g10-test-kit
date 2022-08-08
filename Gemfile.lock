@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    onc_certification_g10_test_kit (2.2.2.dev)
+    onc_certification_g10_test_kit (2.3.0)
       bloomer (~> 1.0.0)
       colorize (~> 0.8.1)
       inferno_core (>= 0.3.6)
@@ -86,7 +86,7 @@ GEM
       dry-logic (~> 1.0, >= 1.0.2)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
-    faraday (1.10.0)
+    faraday (1.10.1)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
