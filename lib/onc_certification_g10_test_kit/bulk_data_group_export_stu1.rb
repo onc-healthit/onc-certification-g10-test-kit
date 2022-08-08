@@ -244,7 +244,8 @@ module ONCCertificationG10TestKit
 
         Each file SHALL contain resources of only one type, but a server MAY create more than one file for each resource type returned.
 
-        * url - the path to the file. The format of the file SHOULD reflect that requested in the _outputFormat parameter of the initial kick-off request.
+        * url - the #{'absolute' if config.options[:require_absolute_urls_in_output]} path to the file.
+        The format of the file SHOULD reflect that requested in the _outputFormat parameter of the initial kick-off request.
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/STU1.0.1/export/index.html#response---complete-status'
 

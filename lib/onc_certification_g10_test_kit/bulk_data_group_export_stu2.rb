@@ -6,6 +6,8 @@ module ONCCertificationG10TestKit
     title 'Group Compartment Export Tests STU2'
     id :bulk_data_group_export_stu2
 
+    config(options: { require_absolute_urls_in_output: true })
+
     test do
       title 'Bulk Data Server supports "_outputFormat" query parameter'
       description <<~DESCRIPTION
