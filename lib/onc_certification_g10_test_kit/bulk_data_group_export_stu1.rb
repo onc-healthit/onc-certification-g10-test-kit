@@ -265,6 +265,10 @@ module ONCCertificationG10TestKit
           ['type', 'url'].each do |key|
             assert file.key?(key), "Output file did not contain \"#{key}\" as required"
           end
+
+          if config.options[:require_absolute_urls_in_output]
+            assert file['url'].match?(%r{\Ahttps?://}), "URLs in output file were not absolute as required."
+          end
         end
       end
     end
