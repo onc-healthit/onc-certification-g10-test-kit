@@ -175,7 +175,7 @@ module ONCCertificationG10TestKit
           # Background
 
           The [Standalone
-          Launch Sequence](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#standalone-launch-sequence)
+          Launch Sequence](http://hl7.org/fhir/smart-app-launch/STU2/app-launch.html#launch-app-standalone-launch)
           allows an app, like Inferno, to be launched independent of an
           existing EHR session. It is one of the two launch methods described in
           the SMART App Launch Framework alongside EHR Launch. The app will
@@ -193,7 +193,7 @@ module ONCCertificationG10TestKit
           For more information on the #{title}:
 
           * [Standalone Launch
-            Sequence](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#standalone-launch-sequence)
+            Sequence](http://hl7.org/fhir/smart-app-launch/STU2/app-launch.html#launch-app-standalone-launch)
         )
 
         test from: :g10_smart_scopes do
