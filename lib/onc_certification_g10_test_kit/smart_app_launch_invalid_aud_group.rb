@@ -11,11 +11,10 @@ module ONCCertificationG10TestKit
       # Background
 
       The Invalid AUD Sequence verifies that a SMART Launch Sequence,
-      specifically the [Standalone
-      Launch](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#standalone-launch-sequence)
-      Sequence, does not work in the case where the client sends an invalid FHIR
-      server as the `aud` parameter during launch. This must fail to ensure that
-      a genuine bearer token is not leaked to a counterfit resource server.
+      specifically the Standalone Launch Sequence, does not work in the case
+      where the client sends an invalid FHIR server as the `aud` parameter
+      during launch. This must fail to ensure that a genuine bearer token is not
+      leaked to a counterfit resource server.
 
       This test is not included as part of a regular SMART Launch Sequence
       because it requires the browser of the user to be redirected to the
@@ -28,6 +27,11 @@ module ONCCertificationG10TestKit
       Note that this test will launch a new browser window. The user is required
       to 'Attest' in the Inferno user interface after the launch does not
       succeed, if the server does not return an error code.
+
+      * [Standalone Launch Sequence
+        (STU1)](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#standalone-launch-sequence)
+      * [Standalone Launch
+        (STU2)](http://hl7.org/fhir/smart-app-launch/STU2/app-launch.html#launch-app-standalone-launch)
     )
     id :g10_smart_invalid_aud
     run_as_group
@@ -87,6 +91,8 @@ module ONCCertificationG10TestKit
                 :smart_authorization_url
 
     test from: :smart_app_redirect do
+      required_suite_options smart_app_launch_version: 'smart_app_launch_1' if Feature.smart_v2?
+
       input :client_secret,
             name: :standalone_client_secret,
             title: 'Standalone Client Secret',
@@ -108,6 +114,47 @@ module ONCCertificationG10TestKit
           * [Attest launch
             failed](#{Inferno::Application['base_url']}/custom/smart/redirect?state=#{state}&confirm_fail=true)
         )
+      end
+    end
+
+    if Feature.smart_v2?
+      test from: :smart_app_redirect_stu2 do
+        required_suite_options smart_app_launch_version: 'smart_app_launch_2'
+
+        config(
+          inputs: {
+            use_pkce: {
+              default: 'true',
+              locked: true
+            },
+            pkce_code_challenge_method: {
+              locked: true
+            }
+          }
+        )
+
+        input :client_secret,
+              name: :standalone_client_secret,
+              title: 'Standalone Client Secret',
+              description: 'Client Secret provided during registration of Inferno as a standalone application'
+
+        def aud
+          'https://inferno.healthit.gov/invalid_aud'
+        end
+
+        def wait_message(auth_url)
+          %(
+            Inferno will redirect you to an external website for authorization.
+            **It is expected this will fail**. If the server does not return to
+            Inferno automatically, but does provide an error message, you may
+            return to Inferno and confirm that an error was presented in this
+            window.
+
+            * [Perform Invalid Launch](#{auth_url})
+            * [Attest launch
+              failed](#{Inferno::Application['base_url']}/custom/smart/redirect?state=#{state}&confirm_fail=true)
+          )
+        end
       end
     end
 

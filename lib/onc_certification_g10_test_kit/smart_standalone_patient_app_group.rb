@@ -23,16 +23,21 @@ module ONCCertificationG10TestKit
 
     description %(
         This scenario demonstrates the ability of a system to perform a Patient
-        Standalone Launch to a [SMART on
-        FHIR](http://www.hl7.org/fhir/smart-app-launch/1.0.0/) confidential client
-        with a patient context, refresh token, and [OpenID Connect
-        (OIDC)](https://openid.net/specs/openid-connect-core-1_0.html) identity
-        token. After launch, a simple Patient resource read is performed on the
-        patient in context. The access token is then refreshed, and the Patient
-        resource is read using the new access token to ensure that the refresh
-        was successful. The authentication information provided by OpenID
-        Connect is decoded and validated, and simple queries are performed to
-        ensure that access is granted to all USCDI data elements.
+        Standalone Launch to a SMART on FHIR confidential client with a patient
+        context, refresh token, and OpenID Connect (OIDC) identity token. After
+        launch, a simple Patient resource read is performed on the patient in
+        context. The access token is then refreshed, and the Patient resource is
+        read using the new access token to ensure that the refresh was
+        successful. The authentication information provided by OpenID Connect is
+        decoded and validated, and simple queries are performed to ensure that
+        access is granted to all USCDI data elements.
+
+        * [SMART on FHIR
+          (STU1)](http://www.hl7.org/fhir/smart-app-launch/1.0.0/)
+        * [SMART on FHIR
+          (STU2)](http://hl7.org/fhir/smart-app-launch/STU2)
+        * [OpenID Connect
+          (OIDC)](https://openid.net/specs/openid-connect-core-1_0.html)
       )
     id :g10_smart_standalone_patient_app
     run_as_group
@@ -49,6 +54,8 @@ module ONCCertificationG10TestKit
     input_order :url, :standalone_client_id, :standalone_client_secret
 
     group from: :smart_discovery do
+      required_suite_options(smart_app_launch_version: 'smart_app_launch_1') if Feature.smart_v2?
+
       test from: 'g10_smart_well_known_capabilities',
            config: {
              options: {
@@ -65,7 +72,30 @@ module ONCCertificationG10TestKit
            }
     end
 
+    if Feature.smart_v2?
+      group from: :smart_discovery_stu2 do
+        required_suite_options(smart_app_launch_version: 'smart_app_launch_2')
+
+        test from: 'g10_smart_well_known_capabilities',
+             config: {
+               options: {
+                 required_capabilities: [
+                   'launch-standalone',
+                   'client-public',
+                   'client-confidential-symmetric',
+                   'sso-openid-connect',
+                   'context-standalone-patient',
+                   'permission-offline',
+                   'permission-patient'
+                 ]
+               }
+             }
+      end
+    end
+
     group from: :smart_standalone_launch do
+      required_suite_options(smart_app_launch_version: 'smart_app_launch_1') if Feature.smart_v2?
+
       title 'Standalone Launch With Patient Scope'
       description %(
         # Background
@@ -123,6 +153,81 @@ module ONCCertificationG10TestKit
                smart_credentials: { name: :standalone_smart_credentials }
              }
            }
+    end
+
+    if Feature.smart_v2?
+      group from: :smart_standalone_launch_stu2,
+            config: {
+              inputs: {
+                use_pkce: {
+                  default: 'true',
+                  locked: true
+                },
+                pkce_code_challenge_method: {
+                  locked: true
+                }
+              }
+            } do
+        required_suite_options(smart_app_launch_version: 'smart_app_launch_2')
+
+        title 'Standalone Launch With Patient Scope'
+        description %(
+          # Background
+
+          The [Standalone
+          Launch Sequence](http://hl7.org/fhir/smart-app-launch/STU2/app-launch.html#launch-app-standalone-launch)
+          allows an app, like Inferno, to be launched independent of an
+          existing EHR session. It is one of the two launch methods described in
+          the SMART App Launch Framework alongside EHR Launch. The app will
+          request authorization for the provided scope from the authorization
+          endpoint, ultimately receiving an authorization token which can be used
+          to gain access to resources on the FHIR server.
+
+          # Test Methodology
+
+          Inferno will redirect the user to the the authorization endpoint so that
+          they may provide any required credentials and authorize the application.
+          Upon successful authorization, Inferno will exchange the authorization
+          code provided for an access token.
+
+          For more information on the #{title}:
+
+          * [Standalone Launch
+            Sequence](http://hl7.org/fhir/smart-app-launch/STU2/app-launch.html#launch-app-standalone-launch)
+        )
+
+        test from: :g10_smart_scopes do
+          config(
+            inputs: {
+              requested_scopes: { name: :standalone_requested_scopes },
+              received_scopes: { name: :standalone_received_scopes }
+            }
+          )
+
+          def required_scopes
+            ['openid', 'fhirUser', 'launch/patient', 'offline_access']
+          end
+
+          def scope_type
+            'patient'
+          end
+        end
+
+        test from: :g10_unauthorized_access,
+             config: {
+               inputs: {
+                 patient_id: { name: :standalone_patient_id }
+               }
+             }
+
+        test from: :g10_patient_context,
+             config: {
+               inputs: {
+                 patient_id: { name: :standalone_patient_id },
+                 smart_credentials: { name: :standalone_smart_credentials }
+               }
+             }
+      end
     end
 
     group from: :smart_openid_connect,

@@ -20,13 +20,17 @@ module ONCCertificationG10TestKit
 
     description %(
       This scenario demonstrates the ability to perform a Patient Standalone
-      Launch to a [SMART on FHIR](http://hl7.org/fhir/smart-app-launch/1.0.0/)
-      confidential client with limited access granted to the app based on user
-      input. The tester is expected to grant the application access to a subset
-      of desired resource types.  The launch is performed using the same app
-      configuration as in the Standalone Patient App test, demonstrating that
-      the user is control over what scopes are granted to the app as required in
-      the (g)(10) Standardized API criterion.
+      Launch to a SMART on FHIR confidential client with limited access granted
+      to the app based on user input. The tester is expected to grant the
+      application access to a subset of desired resource types. The launch is
+      performed using the same app configuration as in the Standalone Patient
+      App test, demonstrating that the user is control over what scopes are
+      granted to the app as required in the (g)(10) Standardized API criterion.
+
+      * [SMART on FHIR
+        (STU1)](http://www.hl7.org/fhir/smart-app-launch/1.0.0/)
+      * [SMART on FHIR
+        (STU2)](http://hl7.org/fhir/smart-app-launch/STU2)
     )
     id :g10_smart_limited_app
     run_as_group
@@ -76,14 +80,14 @@ module ONCCertificationG10TestKit
           Sequence](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#standalone-launch-sequence)
       )
 
+      required_suite_options smart_app_launch_version: 'smart_app_launch_1' if Feature.smart_v2?
+
       config(
         inputs: {
           client_id: { locked: true },
           client_secret: { locked: true, optional: false },
           url: { locked: true },
           requested_scopes: { locked: true },
-          use_pkce: { locked: true },
-          pkce_code_challenge_method: { locked: true },
           code: { name: :limited_code },
           state: { name: :limited_state },
           patient_id: { name: :limited_patient_id },
@@ -158,6 +162,130 @@ module ONCCertificationG10TestKit
             received_scopes: { name: :limited_received_scopes }
           }
         )
+      end
+    end
+
+    if Feature.smart_v2?
+      group from: :smart_standalone_launch_stu2,
+            config: {
+              inputs: {
+                use_pkce: {
+                  default: 'true',
+                  locked: true
+                },
+                pkce_code_challenge_method: {
+                  locked: true
+                }
+              }
+            } do
+        title 'Standalone Launch With Limited Scope'
+        description %(
+          # Background
+
+          The [Standalone
+          Launch Sequence](http://hl7.org/fhir/smart-app-launch/STU2/app-launch.html#launch-app-standalone-launch)
+          allows an app, like Inferno, to be launched independent of an
+          existing EHR session. It is one of the two launch methods described in
+          the SMART App Launch Framework alongside EHR Launch. The app will
+          request authorization for the provided scope from the authorization
+          endpoint, ultimately receiving an authorization token which can be used
+          to gain access to resources on the FHIR server.
+
+          # Test Methodology
+
+          Inferno will redirect the user to the the authorization endpoint so that
+          they may provide any required credentials and authorize the application.
+          Upon successful authorization, Inferno will exchange the authorization
+          code provided for an access token.
+
+          For more information on the #{title}:
+
+          * [Standalone Launch
+            Sequence](http://hl7.org/fhir/smart-app-launch/STU2/app-launch.html#launch-app-standalone-launch)
+        )
+
+        required_suite_options smart_app_launch_version: 'smart_app_launch_2'
+
+        config(
+          inputs: {
+            client_id: { locked: true },
+            client_secret: { locked: true },
+            url: { locked: true },
+            requested_scopes: { locked: true },
+            code: { name: :limited_code },
+            state: { name: :limited_state },
+            patient_id: { name: :limited_patient_id },
+            access_token: { name: :limited_access_token },
+            # TODO: separate standalone/ehr discovery outputs
+            smart_authorization_url: { locked: true, title: 'SMART Authorization Url' },
+            smart_token_url: { locked: true, title: 'SMART Token Url' },
+            received_scopes: { name: :limited_received_scopes },
+            smart_credentials: { name: :limited_smart_credentials }
+          },
+          outputs: {
+            code: { name: :limited_code },
+            token_retrieval_time: { name: :limited_token_retrieval_time },
+            state: { name: :limited_state },
+            id_token: { name: :limited_id_token },
+            refresh_token: { name: :limited_refresh_token },
+            access_token: { name: :limited_access_token },
+            expires_in: { name: :limited_expires_in },
+            patient_id: { name: :limited_patient_id },
+            encounter_id: { name: :limited_encounter_id },
+            received_scopes: { name: :limited_received_scopes },
+            intent: { name: :limited_intent },
+            smart_credentials: { name: :limited_smart_credentials }
+          },
+          requests: {
+            redirect: { name: :limited_redirect },
+            token: { name: :limited_token }
+          },
+          options: {
+            redirect_message_proc: lambda do |auth_url|
+              expected_resource_string =
+                expected_resources
+                  .split(',')
+                  .map(&:strip)
+                  .map { |resource_type| "* #{resource_type}\n" }
+                  .join
+
+              <<~MESSAGE
+                ### #{self.class.parent.parent.title}
+
+                [Follow this link to authorize with the SMART
+                server](#{auth_url}).
+
+                Tests will resume once Inferno receives a request at
+                `#{config.options[:redirect_uri]}` with a state of `#{state}`.
+
+                Access should only be granted to the following resources:
+
+                #{expected_resource_string}
+              MESSAGE
+            end
+          }
+        )
+
+        input :expected_resources,
+              title: 'Expected Resource Grant for Limited Access Launch',
+              description: 'The user will only grant access to the following resources during authorization.',
+              default: 'Patient, Condition, Observation'
+
+        test from: :g10_patient_context,
+             config: {
+               inputs: {
+                 patient_id: { name: :limited_patient_id },
+                 smart_credentials: { name: :limited_smart_credentials }
+               }
+             }
+
+        test from: :g10_limited_scope_grant do
+          config(
+            inputs: {
+              received_scopes: { name: :limited_received_scopes }
+            }
+          )
+        end
       end
     end
 

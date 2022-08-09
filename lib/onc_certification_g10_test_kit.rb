@@ -1,6 +1,7 @@
 require_relative 'onc_certification_g10_test_kit/feature'
 
 require 'smart_app_launch/smart_stu1_suite'
+require 'smart_app_launch/smart_stu2_suite' if ONCCertificationG10TestKit::Feature.smart_v2?
 require 'us_core_test_kit/generated/v3.1.1/us_core_test_suite'
 require 'us_core_test_kit/generated/v4.0.0/us_core_test_suite' if ONCCertificationG10TestKit::Feature.us_core_v4?
 
@@ -13,10 +14,16 @@ if ONCCertificationG10TestKit::Feature.us_core_v4?
 end
 require_relative 'onc_certification_g10_test_kit/smart_app_launch_invalid_aud_group'
 require_relative 'onc_certification_g10_test_kit/smart_invalid_token_group'
+if ONCCertificationG10TestKit::Feature.smart_v2?
+  require_relative 'onc_certification_g10_test_kit/smart_invalid_token_group_stu2'
+end
 require_relative 'onc_certification_g10_test_kit/smart_limited_app_group'
 require_relative 'onc_certification_g10_test_kit/smart_standalone_patient_app_group'
 require_relative 'onc_certification_g10_test_kit/smart_ehr_practitioner_app_group'
 require_relative 'onc_certification_g10_test_kit/smart_public_standalone_launch_group'
+if ONCCertificationG10TestKit::Feature.smart_v2?
+  require_relative 'onc_certification_g10_test_kit/smart_public_standalone_launch_group_stu2'
+end
 require_relative 'onc_certification_g10_test_kit/multi_patient_api_stu1'
 require_relative 'onc_certification_g10_test_kit/multi_patient_api_stu2'
 require_relative 'onc_certification_g10_test_kit/terminology_binding_validator'
@@ -144,6 +151,21 @@ module ONCCertificationG10TestKit
                    ]
     end
 
+    if Feature.smart_v2?
+      suite_option :smart_app_launch_version,
+                   title: 'SMART App Launch Version',
+                   list_options: [
+                     {
+                       label: 'SMART App Launch 1.0.0',
+                       value: 'smart_app_launch_1'
+                     },
+                     {
+                       label: 'SMART App Launch 2.0.0',
+                       value: 'smart_app_launch_2'
+                     }
+                   ]
+    end
+
     description %(
       The ONC Certification (g)(10) Standardized API Test Kit is a testing tool for
       Health Level 7 (HL7®) Fast Healthcare Interoperability Resources (FHIR®)
@@ -233,11 +255,25 @@ module ONCCertificationG10TestKit
         }
       )
 
-      group from: :g10_public_standalone_launch
+      if Feature.smart_v2?
+        group from: :g10_public_standalone_launch,
+              required_suite_options: { smart_app_launch_version: 'smart_app_launch_1' }
+        group from: :g10_public_standalone_launch_stu2,
+              required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' }
+      else
+        group from: :g10_public_standalone_launch
+      end
       group from: :g10_token_revocation
 
       group from: :g10_smart_invalid_aud
-      group from: :g10_smart_invalid_token_request
+      if Feature.smart_v2?
+        group from: :g10_smart_invalid_token_request,
+              required_suite_options: { smart_app_launch_version: 'smart_app_launch_1' }
+        group from: :g10_smart_invalid_token_request_stu2,
+              required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' }
+      else
+        group from: :g10_smart_invalid_token_request
+      end
 
       group from: :g10_visual_inspection_and_attestations
     end
