@@ -88,8 +88,6 @@ module ONCCertificationG10TestKit
           client_secret: { locked: true, optional: false },
           url: { locked: true },
           requested_scopes: { locked: true },
-          use_pkce: { locked: true },
-          pkce_code_challenge_method: { locked: true },
           code: { name: :limited_code },
           state: { name: :limited_state },
           patient_id: { name: :limited_patient_id },
