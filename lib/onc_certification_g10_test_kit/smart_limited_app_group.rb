@@ -211,14 +211,11 @@ module ONCCertificationG10TestKit
             client_id: { locked: true },
             client_secret: { locked: true },
             url: { locked: true },
+            requested_scopes: { locked: true },
             code: { name: :limited_code },
             state: { name: :limited_state },
             patient_id: { name: :limited_patient_id },
             access_token: { name: :limited_access_token },
-            requested_scopes: {
-              name: :limited_requested_scopes,
-              title: 'Limited Access Scope'
-            },
             # TODO: separate standalone/ehr discovery outputs
             smart_authorization_url: { locked: true, title: 'SMART Authorization Url' },
             smart_token_url: { locked: true, title: 'SMART Token Url' },
@@ -285,7 +282,6 @@ module ONCCertificationG10TestKit
         test from: :g10_limited_scope_grant do
           config(
             inputs: {
-              requested_scopes: { name: :limited_requested_scopes },
               received_scopes: { name: :limited_received_scopes }
             }
           )
