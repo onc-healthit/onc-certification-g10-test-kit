@@ -64,6 +64,10 @@ module Inferno
           abbreviation: 'NCI_UCUM',
           name: 'Unified Code for Units of Measure (UCUM)'
         }.freeze,
+        'urn:oid:2.16.840.1.113883.6.101' => {
+          abbreviation: 'NUCCHCPT',
+          name: 'National Uniform Claim Committee - Health Care Provider Taxonomy (NUCCHCPT)'
+        },
         'http://nucc.org/provider-taxonomy' => {
           abbreviation: 'NUCCHCPT',
           name: 'National Uniform Claim Committee - Health Care Provider Taxonomy (NUCCHCPT)'
@@ -72,6 +76,10 @@ module Inferno
           abbreviation: 'CPT',
           name: 'Current Procedural Terminology (CPT)'
         }.freeze,
+        'http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets' => {
+          abbreviation: 'HCPCS',
+          name: 'Healthcare Common Procedure Coding System (HCPCS)'
+        }.freeze,
         'urn:oid:2.16.840.1.113883.6.285' => {
           abbreviation: 'HCPCS',
           name: 'Healthcare Common Procedure Coding System (HCPCS)'
@@ -79,7 +87,11 @@ module Inferno
         'urn:oid:2.16.840.1.113883.6.13' => {
           abbreviation: 'CDT',
           name: 'Code on Dental Procedures and Nomenclature (CDT)'
-        }.freeze
+        }.freeze,
+        'http://ada.org/cdt' => {
+          abbreviation: 'CDT',
+          name: 'Code on Dental Procedures and Nomenclature (CDT)'
+        }
       }.freeze
 
       CODE_SYS = {
@@ -88,7 +100,19 @@ module Inferno
         'http://ihe.net/fhir/ValueSet/IHE.FormatCode.codesystem' =>
           -> { value_sets_repo.find('http://hl7.org/fhir/ValueSet/formatcodes').value_set },
         'https://www.usps.com/' =>
-          -> { value_sets_repo.find('http://hl7.org/fhir/us/core/ValueSet/us-core-usps-state').value_set }
+          lambda do
+            codes = [
+              'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM',
+              'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA',
+              'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV',
+              'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW',
+              'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA',
+              'WA', 'WV', 'WI', 'WY', 'AE', 'AP', 'AA'
+            ]
+            codes.each_with_object(Set.new) do |code, set|
+              set.add(system: 'https://www.usps.com/', code: code)
+            end
+          end
       }.freeze
 
       # https://www.nlm.nih.gov/research/umls/knowledge_sources/metathesaurus/release/attribute_names.html
@@ -104,7 +128,9 @@ module Inferno
       end
 
       def umls_abbreviation(system)
-        return SAB.dig(system, :abbreviation) if system != 'http://nucc.org/provider-taxonomy'
+        if system != 'http://nucc.org/provider-taxonomy' && system != 'urn:oid:2.16.840.1.113883.6.101'
+          return SAB.dig(system, :abbreviation)
+        end
 
         @nucc_system ||= # rubocop:disable Naming/MemoizedInstanceVariableName
           if @db.execute("SELECT COUNT(*) FROM mrconso WHERE SAB = 'NUCCPT'").flatten.first.positive?
@@ -318,9 +344,9 @@ module Inferno
 
         unless vscs.valueSet.empty?
           # If no concepts or filtered systems were present and already created the intersection_set
-          im_val_set = import_value_set(vscs.valueSet.first)
+          im_val_set = import_value_set(vscs.valueSet.first).value_set
           vscs.valueSet.drop(1).each do |im_val|
-            im_val_set = im_val_set.intersection(im_val)
+            im_val_set = im_val_set.intersection(import_value_set(im_val).value_set)
           end
           intersection_set = intersection_set.nil? ? im_val_set : intersection_set.intersection(im_val_set)
         end
