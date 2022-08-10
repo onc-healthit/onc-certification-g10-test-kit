@@ -11,44 +11,22 @@ module ONCCertificationG10TestKit
     MIN_RESOURCE_COUNT = 2
     OMIT_KLASS = ['Medication', 'Location'].freeze
 
-    def observation_metadata
-      [
-        USCoreTestKit::USCoreV311::PediatricBmiForAgeGroup.metadata,
-        USCoreTestKit::USCoreV311::PediatricWeightForHeightGroup.metadata,
-        USCoreTestKit::USCoreV311::ObservationLabGroup.metadata,
-        USCoreTestKit::USCoreV311::PulseOximetryGroup.metadata,
-        USCoreTestKit::USCoreV311::SmokingstatusGroup.metadata,
-        USCoreTestKit::USCoreV311::HeadCircumferenceGroup.metadata,
-        USCoreTestKit::USCoreV311::BpGroup.metadata,
-        USCoreTestKit::USCoreV311::BodyheightGroup.metadata,
-        USCoreTestKit::USCoreV311::BodytempGroup.metadata,
-        USCoreTestKit::USCoreV311::BodyweightGroup.metadata,
-        USCoreTestKit::USCoreV311::HeartrateGroup.metadata,
-        USCoreTestKit::USCoreV311::ResprateGroup.metadata
-      ]
-    end
+    def versioned_us_core_module
+      return USCoreTestKit::USCoreV311 unless Feature.us_core_v4?
 
-    def diagnostic_metadata
-      [
-        USCoreTestKit::USCoreV311::DiagnosticReportLabGroup.metadata,
-        USCoreTestKit::USCoreV311::DiagnosticReportNoteGroup.metadata
-      ]
-    end
-
-    def determine_metadata
-      return observation_metadata if resource_type == 'Observation'
-      return diagnostic_metadata if resource_type == 'DiagnosticReport'
-
-      if resource_type == 'Location' || resource_type == 'Medication'
-        return Array.wrap(USCoreTestKit::USCoreV311::USCoreTestSuite.metadata.find do |meta|
-                            meta.resource == resource_type
-                          end)
+      case suite_options[:us_core_version]
+      when 'us_core_4'
+        USCoreTestKit::USCoreV400
+      else
+        USCoreTestKit::USCoreV311
       end
-      ["USCoreTestKit::USCoreV311::#{resource_type}Group".constantize.metadata]
     end
 
     def metadata_list
-      @metadata_list ||= determine_metadata
+      @metadata_list ||=
+        versioned_us_core_module::USCoreTestSuite
+          .metadata
+          .select { |metadata| metadata.resource == resource_type }
     end
 
     def resources_from_all_files
@@ -143,6 +121,12 @@ module ONCCertificationG10TestKit
       end
     end
 
+    def versioned_profile_url(profile_url)
+      profile_version = metadata_list.find { |metadata| metadata.profile_url == profile_url }&.profile_version
+
+      profile_version ? "#{profile_url}|#{profile_version}" : profile_url
+    end
+
     def check_file_request(url) # rubocop:disable Metrics/CyclomaticComplexity
       line_count = 0
       resources = Hash.new { |h, k| h[k] = [] }
@@ -169,7 +153,8 @@ module ONCCertificationG10TestKit
         resources[profile_url] << resource
         scratch[:patient_ids_seen] = patient_ids_seen | [resource.id] if resource_type == 'Patient'
 
-        unless resource_is_valid?(resource: resource, profile_url: profile_url)
+        profile_with_version = versioned_profile_url(profile_url)
+        unless resource_is_valid?(resource: resource, profile_url: profile_with_version)
           if first_error.key?(:line_number)
             @invalid_resource_count += 1
           else
