@@ -100,6 +100,7 @@ module Inferno
               new_count = save_to_file(vs.value_set, filename, type)
               code_systems = vs.all_included_code_systems
               Inferno.logger.debug "  #{new_count} codes"
+              next if new_count.zero?
 
               add_alternative_code_system_names(code_systems)
               {
