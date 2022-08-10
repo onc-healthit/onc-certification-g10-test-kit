@@ -128,31 +128,16 @@ module ONCCertificationG10TestKit
                    title: 'US Core Version',
                    list_options: [
                      {
-                       label: 'US Core 3.1.1',
+                       label: 'US Core 3.1.1 / USCDI v1',
                        value: 'us_core_3'
                      },
                      {
-                       label: 'US Core 4.0.0',
+                       label: 'US Core 4.0.0 / USCDI v1',
                        value: 'us_core_4'
                      },
                      {
-                       label: 'US Core 5.0.0',
+                       label: 'US Core 5.0.1 / USCDI v2',
                        value: 'us_core_5'
-                     }
-                   ]
-    end
-
-    if Feature.bulk_data_v2?
-      suite_option :multi_patient_version,
-                   title: 'Multi-Patient Authorization and API Version',
-                   list_options: [
-                     {
-                       label: 'Multi-Patient Authorization and API STU1',
-                       value: 'multi_patient_api_stu1'
-                     },
-                     {
-                       label: 'Multi-Patient Authorization and API STU2',
-                       value: 'multi_patient_api_stu2'
                      }
                    ]
     end
@@ -168,6 +153,21 @@ module ONCCertificationG10TestKit
                      {
                        label: 'SMART App Launch 2.0.0',
                        value: 'smart_app_launch_2'
+                     }
+                   ]
+    end
+
+    if Feature.bulk_data_v2?
+      suite_option :multi_patient_version,
+                   title: 'Bulk Data Version',
+                   list_options: [
+                     {
+                       label: 'Bulk Data 1.0.1',
+                       value: 'multi_patient_api_stu1'
+                     },
+                     {
+                       label: 'Bulk Data 2.0.0',
+                       value: 'multi_patient_api_stu2'
                      }
                    ]
     end
