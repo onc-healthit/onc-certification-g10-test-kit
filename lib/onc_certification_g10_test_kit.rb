@@ -4,6 +4,7 @@ require 'smart_app_launch/smart_stu1_suite'
 require 'smart_app_launch/smart_stu2_suite' if ONCCertificationG10TestKit::Feature.smart_v2?
 require 'us_core_test_kit/generated/v3.1.1/us_core_test_suite'
 require 'us_core_test_kit/generated/v4.0.0/us_core_test_suite' if ONCCertificationG10TestKit::Feature.us_core_v4?
+require 'us_core_test_kit/generated/v5.0.1/us_core_test_suite'
 
 require_relative 'onc_certification_g10_test_kit/configuration_checker'
 require_relative 'onc_certification_g10_test_kit/version'
@@ -11,6 +12,7 @@ require_relative 'onc_certification_g10_test_kit/version'
 require_relative 'onc_certification_g10_test_kit/single_patient_api_group'
 if ONCCertificationG10TestKit::Feature.us_core_v4?
   require_relative 'onc_certification_g10_test_kit/single_patient_us_core_4_api_group'
+  require_relative 'onc_certification_g10_test_kit/single_patient_us_core_5_api_group'
 end
 require_relative 'onc_certification_g10_test_kit/smart_app_launch_invalid_aud_group'
 require_relative 'onc_certification_g10_test_kit/smart_invalid_token_group'
@@ -132,6 +134,10 @@ module ONCCertificationG10TestKit
                      {
                        label: 'US Core 4.0.0',
                        value: 'us_core_4'
+                     },
+                     {
+                       label: 'US Core 5.0.0',
+                       value: 'us_core_5'
                      }
                    ]
     end
@@ -217,6 +223,8 @@ module ONCCertificationG10TestKit
     if Feature.us_core_v4?
       group from: 'g10_single_patient_us_core_4_api',
             required_suite_options: { us_core_version: 'us_core_4' }
+      group from: 'g10_single_patient_us_core_5_api',
+            required_suite_options: { us_core_version: 'us_core_5' }
     end
 
     group from: 'multi_patient_api' do
