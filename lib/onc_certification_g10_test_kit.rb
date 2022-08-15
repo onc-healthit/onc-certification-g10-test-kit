@@ -16,6 +16,7 @@ require_relative 'onc_certification_g10_test_kit/smart_app_launch_invalid_aud_gr
 require_relative 'onc_certification_g10_test_kit/smart_invalid_token_group'
 if ONCCertificationG10TestKit::Feature.smart_v2?
   require_relative 'onc_certification_g10_test_kit/smart_invalid_token_group_stu2'
+  require_relative 'onc_certification_g10_test_kit/smart_invalid_pkce_group'
 end
 require_relative 'onc_certification_g10_test_kit/smart_limited_app_group'
 require_relative 'onc_certification_g10_test_kit/smart_standalone_patient_app_group'
@@ -270,6 +271,8 @@ module ONCCertificationG10TestKit
         group from: :g10_smart_invalid_token_request,
               required_suite_options: { smart_app_launch_version: 'smart_app_launch_1' }
         group from: :g10_smart_invalid_token_request_stu2,
+              required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' }
+        group from: :g10_smart_invalid_pkce_code_verifier_group,
               required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' }
       else
         group from: :g10_smart_invalid_token_request
