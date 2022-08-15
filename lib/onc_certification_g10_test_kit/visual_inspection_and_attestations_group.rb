@@ -373,6 +373,11 @@ module ONCCertificationG10TestKit
         Core Patient Profile implementation guidance.
       )
       id 'Test11'
+
+      if Feature.us_core_v4?
+        required_suite_options us_core_version: 'us_core_3'
+      end
+
       input :patient_suffix_attestation,
             title: 'Health IT developer demonstrates support for the Patient Demographics Suffix USCDI v1 element.',
             type: 'radio',
@@ -412,6 +417,11 @@ module ONCCertificationG10TestKit
         Core Patient Profile implementation guidance.
       )
       id 'Test12'
+
+      if Feature.us_core_v4?
+        required_suite_options us_core_version: 'us_core_3'
+      end
+
       input :patient_previous_name_attestation,
             title: 'Health IT developer demonstrates support for the Patient Demographics Previous Name USCDI v1 element.', # rubocop:disable Layout/LineLength
             type: 'radio',
