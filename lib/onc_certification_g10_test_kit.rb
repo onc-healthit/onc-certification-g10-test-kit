@@ -240,42 +240,46 @@ module ONCCertificationG10TestKit
         may require special setup on the part of the tester.
       )
 
-      config(
-        options: {
-          redirect_message_proc: lambda do |auth_url|
-            %(
-              ### #{self.class.parent.title}
+      default_redirect_message_proc = lambda do |auth_url|
+        %(
+          ### #{self.class.parent.title}
 
-              [Follow this link to authorize with the SMART
-              server](#{auth_url}).
+          [Follow this link to authorize with the SMART server](#{auth_url}).
 
-              Tests will resume once Inferno receives a request at
-              `#{config.options[:redirect_uri]}` with a state of `#{state}`.
-            )
-          end
-        }
-      )
+          Tests will resume once Inferno receives a request at
+          `#{config.options[:redirect_uri]}` with a state of `#{state}`.
+        )
+      end
 
       if Feature.smart_v2?
         group from: :g10_public_standalone_launch,
-              required_suite_options: { smart_app_launch_version: 'smart_app_launch_1' }
+              required_suite_options: { smart_app_launch_version: 'smart_app_launch_1' },
+              config: { options: { redirect_message_proc: default_redirect_message_proc } }
         group from: :g10_public_standalone_launch_stu2,
-              required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' }
+              required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' },
+              config: { options: { redirect_message_proc: default_redirect_message_proc } }
+
       else
-        group from: :g10_public_standalone_launch
+        group from: :g10_public_standalone_launch,
+              config: { options: { redirect_message_proc: default_redirect_message_proc } }
       end
       group from: :g10_token_revocation
 
-      group from: :g10_smart_invalid_aud
+      group from: :g10_smart_invalid_aud,
+            config: { options: { redirect_message_proc: default_redirect_message_proc } }
+
       if Feature.smart_v2?
         group from: :g10_smart_invalid_token_request,
-              required_suite_options: { smart_app_launch_version: 'smart_app_launch_1' }
+              required_suite_options: { smart_app_launch_version: 'smart_app_launch_1' },
+              config: { options: { redirect_message_proc: default_redirect_message_proc } }
         group from: :g10_smart_invalid_token_request_stu2,
-              required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' }
+              required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' },
+              config: { options: { redirect_message_proc: default_redirect_message_proc } }
         group from: :g10_smart_invalid_pkce_code_verifier_group,
               required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' }
       else
-        group from: :g10_smart_invalid_token_request
+        group from: :g10_smart_invalid_token_request,
+              config: { options: { redirect_message_proc: default_redirect_message_proc } }
       end
 
       group from: :g10_visual_inspection_and_attestations
