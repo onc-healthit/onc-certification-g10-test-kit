@@ -54,14 +54,19 @@ module ONCCertificationG10TestKit
       The #{title} Group verifies that a SMART Launch Sequence, specifically the
       [Standalone
       Launch](http://hl7.org/fhir/smart-app-launch/STU2/app-launch.html#launch-app-standalone-launch)
-      Sequence, does not work in the case where the client sends an invalid PKCE
-      `code_verifier`. This group performs four launches without a valid
-      `code_verifier` and verifies that these do not result in a successful
-      launch.
+      Sequence, verifies that servers properly support PKCE.  It does this by ensuring the launch fails
+      in the case where the client sends an invalid PKCE `code_verifier`.
+      
+      This group performs four launches with various forms of an invalid `code_verifier` 
+      (e.g. incorrect `code_verifier`, blank `code_identifier`) and verifies that these do
+      not result in a successful launch.  Testers can expect to be prompted four times
+      that a redirect will occur in this test.
 
-      This test is not included as part of a regular SMART Launch Sequence
-      because some servers may not accept an authorization code after it has
-      been used unsuccessfully in this manner.
+      This test is not included as part of the Single Patient App group
+      because there is no way for a client to infer that PKCE is supported on the server
+      properly without performing extra launches.  Attempting to verify this within the
+      same launch cannot be done because some servers may not accept an authorization code
+      after it has been used unsuccessfully in this manner.
     )
     id :g10_smart_invalid_pkce_code_verifier_group
     run_as_group
