@@ -1,5 +1,5 @@
 module ONCCertificationG10TestKit
-  module ProfileGuesser
+  module ProfileSelector
     def extract_profile(profile)
       case profile
       when 'Medication'
@@ -25,8 +25,25 @@ module ONCCertificationG10TestKit
       end
     end
 
-    def guess_profile(resource) # rubocop:disable Metrics/CyclomaticComplexity
+    def select_profile(resource) # rubocop:disable Metrics/CyclomaticComplexity
       case resource.resourceType
+      when 'Condition'
+
+        return extract_profile(resource.resourceType) unless Feature.us_core_v4?
+
+        case suite_options[:us_core_version]
+        when 'us_core_5'
+          if resource_contains_category(resource, 'encounter-diagnosis', 'http://terminology.hl7.org/CodeSystem/condition-category')
+            extract_profile('ConditionEncounterDiagnosis')
+          elsif resource_contains_category(resource, 'problem-list-item',
+                                           'http://terminology.hl7.org/CodeSystem/condition-category') ||
+                resource_contains_category(resource, 'health-concern', 'http://terminology.hl7.org/CodeSystem/condition-category')
+            extract_profile('ConditionProblemsHealthConcerns')
+          end
+        else
+          extract_profile(resource.resourceType)
+        end
+
       when 'DiagnosticReport'
         return extract_profile('DiagnosticReportLab') if resource_contains_category(resource, 'LAB', 'http://terminology.hl7.org/CodeSystem/v2-0074')
 
@@ -55,6 +72,31 @@ module ONCCertificationG10TestKit
 
         if Feature.us_core_v4?
           return extract_profile('HeadCircumference') if observation_contains_code(resource, '9843-4') # rubocop:disable Style/SoleNestedConditional
+        end
+
+        if Feature.us_core_v4? # New profiles in us core v5
+
+          return extract_profile('ObservationClinicalTest') if suite_options[:us_core_version] == 'us_core_5' &&
+                                                               resource_contains_category(
+                                                                 resource, 'clinical-test', 'http://terminology.hl7.org/CodeSystem/observation-category'
+                                                               )
+
+          return extract_profile('ObservationSexualOrientation') if suite_options[:us_core_version] == 'us_core_5' &&
+                                                                    observation_contains_code(resource, '76690-7')
+
+          return extract_profile('ObservationSocialHistory') if suite_options[:us_core_version] == 'us_core_5' &&
+                                                                resource_contains_category(resource, 'social-history',
+                                                                                           'http://terminology.hl7.org/CodeSystem/observation-category')
+
+          return extract_profile('ObservationSdohAssessment') if suite_options[:us_core_version] == 'us_core_5' &&
+                                                                 resource_contains_category(resource, 'sdoh',
+                                                                                            'http://terminology.hl7.org/CodeSystem/observation-category') && # rubocop:disable Layout/LineLength
+                                                                 resource_contains_category(resource, 'survey', 'http://terminology.hl7.org/CodeSystem/observation-category') # rubocop:disable Layout/LineLength
+
+          return extract_profile('ObservationSurvey') if suite_options[:us_core_version] == 'us_core_5' &&
+                                                         resource_contains_category(
+                                                           resource, 'survey', 'http://terminology.hl7.org/CodeSystem/observation-category'
+                                                         )
         end
 
         # FHIR Vital Signs profiles: https://www.hl7.org/fhir/observation-vitalsigns.html

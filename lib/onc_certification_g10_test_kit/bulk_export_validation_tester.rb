@@ -1,15 +1,15 @@
-require_relative 'profile_guesser'
+require_relative 'profile_selector'
 
 module ONCCertificationG10TestKit
   module BulkExportValidationTester
     include USCoreTestKit::MustSupportTest
-    include ProfileGuesser
+    include ProfileSelector
 
     attr_reader :metadata
 
     MAX_NUM_COLLECTED_LINES = 100
     MIN_RESOURCE_COUNT = 2
-    OMIT_KLASS = ['Medication', 'Location'].freeze
+    OMIT_KLASS = ['Medication', 'Location', 'QuestionnaireResponse', 'PractitionerRole'].freeze
 
     def versioned_us_core_module
       return USCoreTestKit::USCoreV311 unless Feature.us_core_v4?
@@ -100,7 +100,7 @@ module ONCCertificationG10TestKit
     def determine_profile(resource)
       return if resource.resourceType == 'Device' && !predefined_device_type?(resource)
 
-      guess_profile(resource)
+      select_profile(resource)
     end
 
     def validate_conformance(resources)
