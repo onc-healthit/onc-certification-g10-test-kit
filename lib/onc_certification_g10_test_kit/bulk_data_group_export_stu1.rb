@@ -267,7 +267,8 @@ module ONCCertificationG10TestKit
           end
 
           if config.options[:require_absolute_urls_in_output]
-            assert file['url'].to_s.match?(%r{\Ahttps?://}), "URLs in output file must be absolute, but found `#{file['url']}`."
+            assert file['url'].to_s.match?(%r{\Ahttps?://}),
+                   "URLs in output file must be absolute, but found `#{file['url']}`."
           end
         end
       end
