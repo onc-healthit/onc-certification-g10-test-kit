@@ -1,6 +1,6 @@
 module ONCCertificationG10TestKit
   class InvalidSMARTTokenRequestTest < Inferno::Test
-    title ' OAuth token exchange fails when supplied invalid code_verifier'
+    title 'OAuth token exchange fails when supplied invalid code_verifier'
     description %(
       If the request failed verification or is invalid, the authorization
       server returns an error response.
@@ -36,7 +36,7 @@ module ONCCertificationG10TestKit
 
       post(smart_token_url, body: oauth2_params, name: :token, headers: oauth2_headers)
 
-      assert_response_status(400)
+      assert_response_status([400, 401])
     end
   end
 
@@ -179,27 +179,57 @@ module ONCCertificationG10TestKit
       }
     )
 
-    # no code_verifier
-
     test from: :smart_app_redirect_stu2,
-         id: :smart_no_code_verifier_redirect
+         id: :smart_no_code_verifier_redirect,
+         config: {
+           options: {
+             redirect_message_proc: lambda do |auth_url|
+               %(
+                ### Invalid PKCE code_verifier 1/4
+
+                This launch does not provide a `code_verifier` and verifies the
+                server does not issue an access token.
+
+                [Follow this link to authorize with the SMART
+                server](#{auth_url}).
+
+                  Tests will resume once Inferno receives a request at
+                  `#{config.options[:redirect_uri]}` with a state of `#{state}`.
+               )
+             end
+           }
+         }
     test from: :smart_code_received,
          id: :smart_no_code_verifier_code_received
-
     test from: :invalid_pkce_request do
-      title ' OAuth token exchange fails when no code_verifier is given'
+      title 'OAuth token exchange fails when no code_verifier is given'
       id :smart_no_verifier_token_request
     end
 
-    # code_verifier=
-
     test from: :smart_app_redirect_stu2,
-         id: :smart_blank_code_verifier_redirect
+         id: :smart_blank_code_verifier_redirect,
+         config: {
+           options: {
+             redirect_message_proc: lambda do |auth_url|
+               %(
+                ### Invalid PKCE code_verifier 2/4
+
+                This launch provides a blank `code_verifier` and verifies the
+                server does not issue an access token.
+
+                [Follow this link to authorize with the SMART
+                server](#{auth_url}).
+
+                  Tests will resume once Inferno receives a request at
+                  `#{config.options[:redirect_uri]}` with a state of `#{state}`.
+               )
+             end
+           }
+         }
     test from: :smart_code_received,
          id: :smart_blank_code_verifier_code_received
-
     test from: :invalid_pkce_request do
-      title ' OAuth token exchange fails when code_verifier is blank'
+      title 'OAuth token exchange fails when code_verifier is blank'
       id :smart_blank_verifier_token_request
 
       def modify_oauth_params(oauth_params)
@@ -207,15 +237,30 @@ module ONCCertificationG10TestKit
       end
     end
 
-    # code_verifier=BAD_VALUE
-
     test from: :smart_app_redirect_stu2,
-         id: :smart_bad_code_verifier_redirect
+         id: :smart_bad_code_verifier_redirect,
+         config: {
+           options: {
+             redirect_message_proc: lambda do |auth_url|
+               %(
+                ### Invalid PKCE code_verifier 3/4
+
+                This launch provides an invalid `code_verifier` and verifies the
+                server does not issue an access token.
+
+                [Follow this link to authorize with the SMART
+                server](#{auth_url}).
+
+                  Tests will resume once Inferno receives a request at
+                  `#{config.options[:redirect_uri]}` with a state of `#{state}`.
+               )
+             end
+           }
+         }
     test from: :smart_code_received,
          id: :smart_bad_code_verifier_code_received
-
     test from: :invalid_pkce_request do
-      title ' OAuth token exchange fails when code_verifier is incorrect'
+      title 'OAuth token exchange fails when code_verifier is incorrect'
       id :smart_bad_code_verifier_token_request
 
       def modify_oauth_params(oauth_params)
@@ -223,15 +268,31 @@ module ONCCertificationG10TestKit
       end
     end
 
-    # code_verifier=CODE_CHALLENGE_VALUE
-
     test from: :smart_app_redirect_stu2,
-         id: :smart_plain_code_verifier_redirect
+         id: :smart_plain_code_verifier_redirect,
+         config: {
+           options: {
+             redirect_message_proc: lambda do |auth_url|
+               %(
+                ### Invalid PKCE code_verifier 4/4
+
+                This launch provides a `plain` `code_verifier` instead of one
+                encoded with `S256` and verifies the server does not issue an
+                access token.
+
+                [Follow this link to authorize with the SMART
+                server](#{auth_url}).
+
+                  Tests will resume once Inferno receives a request at
+                  `#{config.options[:redirect_uri]}` with a state of `#{state}`.
+               )
+             end
+           }
+         }
     test from: :smart_code_received,
          id: :smart_plain_code_verifier_code_received
-
     test from: :invalid_pkce_request do
-      title ' OAuth token exchange fails when code_verifier matches code_challenge'
+      title 'OAuth token exchange fails when code_verifier matches code_challenge'
       id :smart_plain_code_verifier_token_request
 
       input :pkce_code_challenge
