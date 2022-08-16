@@ -12,6 +12,7 @@ module ONCCertificationG10TestKit
         Health IT Module demonstrated support for application registration for
         single patients.
       )
+      id 'Test01'
       input :single_patient_registration_supported,
             title: 'Health IT Module demonstrated support for application registration for single patients.',
             type: 'radio',
@@ -46,6 +47,7 @@ module ONCCertificationG10TestKit
         Health IT Module demonstrated support for supports application
         registration for multiple patients.
       )
+      id 'Test02'
       input :multiple_patient_registration_supported,
             title: 'Health IT Module demonstrated support for application registration for multiple patients.',
             type: 'radio',
@@ -80,6 +82,7 @@ module ONCCertificationG10TestKit
         Health IT Module demonstrated a graphical user interface for user to
         authorize FHIR resources
       )
+      id 'Test03'
       input :resource_authorization_gui_supported,
             title: 'Health IT Module demonstrated a graphical user interface for user to authorize FHIR resources.',
             type: 'radio',
@@ -114,6 +117,7 @@ module ONCCertificationG10TestKit
         Health IT Module informed patient when "offline_access" scope is being
         granted during authorization.
       )
+      id 'Test04'
       input :offline_access_notification_supported,
             title: 'Health IT Module informed patient when "offline_access" scope is being granted during authorization.', # rubocop:disable Layout/LineLength
             type: 'radio',
@@ -150,6 +154,7 @@ module ONCCertificationG10TestKit
         Health IT Module attested that it is capable of issuing refresh tokens
         that are valid for a period of no shorter than three months.
       )
+      id 'Test05'
       input :refresh_token_period_attestation,
             title: 'Health IT Module attested that it is capable of issuing refresh tokens that are valid for a period of no shorter than three months.', # rubocop:disable Layout/LineLength
             type: 'radio',
@@ -186,6 +191,7 @@ module ONCCertificationG10TestKit
         Health IT developer demonstrated the ability of the Health IT Module /
         authorization server to validate token it has issued
       )
+      id 'Test06'
       input :token_validation_support,
             title: 'Health IT developer demonstrated the ability of the Health IT Module / authorization server to validate token it has issued.', # rubocop:disable Layout/LineLength
             type: 'radio',
@@ -220,6 +226,7 @@ module ONCCertificationG10TestKit
       description %(
         Tester verifies that all information is accurate and without omission.
       )
+      id 'Test07'
       input :information_accuracy_attestation,
             title: 'Tester verifies that all information is accurate and without omission.',
             type: 'radio',
@@ -254,6 +261,7 @@ module ONCCertificationG10TestKit
         Information returned no greater than scopes pre-authorized for
         multi-patient queries.
       )
+      id 'Test08'
       input :multi_patient_scopes_attestation,
             title: 'Information returned no greater than scopes pre-authorized for multi-patient queries.',
             type: 'radio',
@@ -288,6 +296,7 @@ module ONCCertificationG10TestKit
         Health IT developer demonstrated the documentation is available at a
         publicly accessible URL.
       )
+      id 'Test09'
       input :developer_documentation_attestation,
             title: 'Health IT developer demonstrated the documentation is available at a publicly accessible URL.',
             type: 'radio',
@@ -324,6 +333,7 @@ module ONCCertificationG10TestKit
         JWK Set received via a TLS-protected URL for longer than the
         cache-control header indicates.
       )
+      id 'Test10'
       input :jwks_cache_attestation,
             title: 'Health IT developer confirms the Health IT module does not cache the JWK Set received via a TLS-protected URL for longer than the cache-control header indicates.', # rubocop:disable Layout/LineLength
             type: 'radio',
@@ -362,6 +372,10 @@ module ONCCertificationG10TestKit
         demonstrate support for this USCDI v1 element as described in the US
         Core Patient Profile implementation guidance.
       )
+      id 'Test11'
+
+      required_suite_options us_core_version: 'us_core_3' if Feature.us_core_v4?
+
       input :patient_suffix_attestation,
             title: 'Health IT developer demonstrates support for the Patient Demographics Suffix USCDI v1 element.',
             type: 'radio',
@@ -400,6 +414,10 @@ module ONCCertificationG10TestKit
         demonstrate support for this USCDI v1 element as described in the US
         Core Patient Profile implementation guidance.
       )
+      id 'Test12'
+
+      required_suite_options us_core_version: 'us_core_3' if Feature.us_core_v4?
+
       input :patient_previous_name_attestation,
             title: 'Health IT developer demonstrates support for the Patient Demographics Previous Name USCDI v1 element.', # rubocop:disable Layout/LineLength
             type: 'radio',
@@ -440,6 +458,7 @@ module ONCCertificationG10TestKit
         OAuth 2.0 authorization flow to ensure authorization is sufficiently
         secure for native applications.
       )
+      id 'Test13'
       input :native_refresh_attestation,
             title: 'Health IT developer demonstrates support for issuing refresh tokens to native applications.',
             type: 'radio',
