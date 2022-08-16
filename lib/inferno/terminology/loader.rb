@@ -52,6 +52,13 @@ module Inferno
         def add_alternative_code_system_names(code_systems)
           code_systems << 'urn:oid:2.16.840.1.113883.6.285' if code_systems.include? 'http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets'
           code_systems << 'urn:oid:2.16.840.1.113883.6.13' if code_systems.include? 'http://ada.org/cdt'
+          if code_systems.include? 'http://www.ada.org/cdt'
+            code_systems << 'http://ada.org/cdt'
+            code_systems << 'urn:oid:2.16.840.1.113883.6.13'
+          end
+          code_systems << 'urn:oid:2.16.840.1.113883.6.101' if code_systems.include? 'http://nucc.org/provider-taxonomy'
+          code_systems << 'urn:oid:2.16.840.1.113883.6.101' if code_systems.include? 'http://hl7.org/fhir/questionnaire-answers-status'
+          code_systems.uniq!
         end
 
         # Creates the valueset validators, based on the passed in parameters and
@@ -91,7 +98,9 @@ module Inferno
             begin
               # Save the validator to file, and get the "new" count of number of codes
               new_count = save_to_file(vs.value_set, filename, type)
-              code_systems = vs.included_code_systems
+              code_systems = vs.all_included_code_systems
+              Inferno.logger.debug "  #{new_count} codes"
+              next if new_count.zero?
 
               add_alternative_code_system_names(code_systems)
               {
@@ -197,6 +206,11 @@ module Inferno
 
         # Chooses which filetype to save the validator as, based on the type variable passed in
         def save_to_file(codeset, filename, type)
+          if codeset.blank?
+            Inferno.logger.debug "Unable to save #{filename} because it contains no codes"
+            return 0
+          end
+
           case type
           when :bloom
             save_bloom_to_file(codeset, name_by_type(filename, type))
