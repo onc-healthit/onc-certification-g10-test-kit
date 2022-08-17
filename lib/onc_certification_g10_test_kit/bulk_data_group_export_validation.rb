@@ -188,7 +188,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
-      title 'Condition resources returned conform to the US Core Condition Profile'
+      title 'Condition resources returned conform to the relevant US Core Condition Profile'
       description <<~DESCRIPTION
         This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification.
       DESCRIPTION
@@ -224,7 +224,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
-      title 'DiagnosticReport resources returned conform to the US Core DiagnosticReport Profile'
+      title 'DiagnosticReport resources returned conform to the relevant US Core DiagnosticReport Profile'
       description <<~DESCRIPTION
         This test verifies that the resources returned from bulk data export conform to the following US Core profiles. This includes checking for missing data elements and value set verification.
 
@@ -317,11 +317,12 @@ module ONCCertificationG10TestKit
     end
 
     test do
-      title 'Observation resources returned conform to the US Core Observation Profile'
+      title 'Observation resources returned conform to the relevant US Core Observation Profile'
       description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data
-        export conform to the following US Core profiles. This includes
-        checking for missing data elements and value set verification.
+        This test verifies that the resources returned from bulk data export
+        conform to the following US Core profiles, based on the category or code
+        associated with the Observation. This includes checking for missing data
+        elements and value set verification.
 
         * http://hl7.org/fhir/us/core/StructureDefinition/pediatric-bmi-for-age
         * http://hl7.org/fhir/us/core/StructureDefinition/pediatric-weight-for-height
@@ -526,7 +527,7 @@ module ONCCertificationG10TestKit
         include BulkExportValidationTester
 
         def resource_type
-          'QuesionnaireResponse'
+          'QuestionnaireResponse'
         end
 
         run do

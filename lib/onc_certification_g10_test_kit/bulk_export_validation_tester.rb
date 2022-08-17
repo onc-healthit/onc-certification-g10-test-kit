@@ -15,6 +15,8 @@ module ONCCertificationG10TestKit
       return USCoreTestKit::USCoreV311 unless Feature.us_core_v4?
 
       case suite_options[:us_core_version]
+      when 'us_core_5'
+        USCoreTestKit::USCoreV501
       when 'us_core_4'
         USCoreTestKit::USCoreV400
       else
