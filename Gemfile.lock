@@ -1,12 +1,3 @@
-GIT
-  remote: https://github.com/inferno-framework/us-core-test-kit.git
-  revision: 2063f6c1e719a291f5f63c54b28912e03d5ee765
-  ref: main
-  specs:
-    us_core_test_kit (0.2.5)
-      inferno_core (> 0.1.3)
-      tls_test_kit (~> 0.1.0)
-
 PATH
   remote: .
   specs:
@@ -20,6 +11,7 @@ PATH
       rubyzip (~> 2.3.2)
       smart_app_launch_test_kit (= 0.1.5)
       tls_test_kit (= 0.1.1)
+      us_core_test_kit (= 0.3.0)
 
 GEM
   remote: https://rubygems.org/
@@ -165,7 +157,7 @@ GEM
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
-    inferno_core (0.3.7)
+    inferno_core (0.3.8)
       activesupport (~> 6.1)
       blueprinter (= 0.25.2)
       dotenv (~> 2.7)
@@ -198,7 +190,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2022.0105)
     mini_portile2 (2.8.0)
-    minitest (5.16.2)
+    minitest (5.16.3)
     msgpack (1.5.4)
     multi_json (1.15.0)
     multi_xml (0.6.0)
@@ -226,9 +218,9 @@ GEM
     pry (0.14.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    pry-byebug (3.8.0)
+    pry-byebug (3.10.1)
       byebug (~> 11.0)
-      pry (~> 0.10)
+      pry (>= 0.13, < 0.15)
     public_suffix (4.0.7)
     puma (5.6.4)
       nio4r (~> 2.0)
@@ -300,6 +292,9 @@ GEM
     unicode-display_width (2.2.0)
     url_mount (0.2.1)
       rack
+    us_core_test_kit (0.3.0)
+      inferno_core (> 0.1.3)
+      tls_test_kit (~> 0.1.0)
     webmock (3.17.0)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -319,7 +314,6 @@ DEPENDENCIES
   rubocop (~> 1.9)
   rubocop-rspec
   rubyXL
-  us_core_test_kit!
   webmock (~> 3.11)
 
 BUNDLED WITH
