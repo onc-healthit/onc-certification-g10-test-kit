@@ -12,7 +12,7 @@ module ONCCertificationG10TestKit
 
     input :received_scopes, :expected_resources
 
-    def possible_resources
+    POSSIBLE_RESOURCES =
       [
         'AllergyIntolerance',
         'CarePlan',
@@ -27,7 +27,15 @@ module ONCCertificationG10TestKit
         'Observation',
         'Procedure',
         'Patient'
-      ]
+      ].freeze
+
+    V5_POSSIBLE_RESOURCES =
+      (POSSIBLE_RESOURCES + ['ServiceRequest']).freeze
+
+    def possible_resources
+      return V5_POSSIBLE_RESOURCES if suite_options[:us_core_version] == 'us_core_5'
+
+      POSSIBLE_RESOURCES
     end
 
     def scope_granting_access?(resource_type, scopes)
