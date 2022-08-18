@@ -142,7 +142,7 @@ module ONCCertificationG10TestKit
           ['openid', 'fhirUser', 'launch', 'offline_access']
         end
 
-        def scope_type
+        def required_scope_type
           'user'
         end
       end
@@ -261,7 +261,7 @@ module ONCCertificationG10TestKit
             ['openid', 'fhirUser', 'launch', 'offline_access']
           end
 
-          def scope_type
+          def required_scope_type
             'user'
           end
         end

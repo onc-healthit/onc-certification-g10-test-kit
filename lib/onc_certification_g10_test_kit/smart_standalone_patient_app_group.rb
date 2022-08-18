@@ -138,7 +138,7 @@ module ONCCertificationG10TestKit
           ['openid', 'fhirUser', 'launch/patient', 'offline_access']
         end
 
-        def scope_type
+        def required_scope_type
           'patient'
         end
       end
@@ -212,7 +212,7 @@ module ONCCertificationG10TestKit
             ['openid', 'fhirUser', 'launch/patient', 'offline_access']
           end
 
-          def scope_type
+          def required_scope_type
             'patient'
           end
         end
