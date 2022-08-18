@@ -544,7 +544,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       expect(result.result_message).to start_with('No Observation resources found that conform to profile')
     end
 
-    it 'passes when the profile for every streamed resource needs to be guessed' do
+    it 'passes when the profile for every streamed resource needs to be selected' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
         .to_return(status: 200, body: contents_missing_profile, headers: headers)

@@ -1,9 +1,10 @@
 module ONCCertificationG10TestKit
-  module ProfileGuesser
+  module ProfileSelector
     def extract_profile(profile)
       case profile
       when 'Medication'
-        return USCoreTestKit::USCoreV311::USCoreTestSuite.metadata.find do |meta|
+        # TODO: verify why this is the case
+        return versioned_us_core_module.const_get('USCoreTestSuite').metadata.find do |meta|
                  meta.resource == profile
                end.profile_url
       when 'Location'
@@ -25,8 +26,25 @@ module ONCCertificationG10TestKit
       end
     end
 
-    def guess_profile(resource) # rubocop:disable Metrics/CyclomaticComplexity
+    def select_profile(resource) # rubocop:disable Metrics/CyclomaticComplexity
       case resource.resourceType
+      when 'Condition'
+
+        return extract_profile(resource.resourceType) unless Feature.us_core_v4?
+
+        case suite_options[:us_core_version]
+        when 'us_core_5'
+          if resource_contains_category(resource, 'encounter-diagnosis', 'http://terminology.hl7.org/CodeSystem/condition-category')
+            extract_profile('ConditionEncounterDiagnosis')
+          elsif resource_contains_category(resource, 'problem-list-item',
+                                           'http://terminology.hl7.org/CodeSystem/condition-category') ||
+                resource_contains_category(resource, 'health-concern', 'http://terminology.hl7.org/CodeSystem/condition-category')
+            extract_profile('ConditionProblemsHealthConcerns')
+          end
+        else
+          extract_profile(resource.resourceType)
+        end
+
       when 'DiagnosticReport'
         return extract_profile('DiagnosticReportLab') if resource_contains_category(resource, 'LAB', 'http://terminology.hl7.org/CodeSystem/v2-0074')
 
@@ -46,10 +64,10 @@ module ONCCertificationG10TestKit
           return extract_profile('HeadCircumference') unless Feature.us_core_v4?
 
           case suite_options[:us_core_version]
-          when 'us_core_4'
-            return extract_profile('HeadCircumferencePercentile')
-          else
+          when 'us_core_3'
             return extract_profile('HeadCircumference')
+          else
+            return extract_profile('HeadCircumferencePercentile')
           end
         end
 
@@ -72,10 +90,10 @@ module ONCCertificationG10TestKit
           return extract_profile('Bp') unless Feature.us_core_v4?
 
           case suite_options[:us_core_version]
-          when 'us_core_4'
-            return extract_profile('BloodPressure')
-          else
+          when 'us_core_3'
             return extract_profile('Bp')
+          else
+            return extract_profile('BloodPressure')
           end
         end
 
@@ -83,10 +101,10 @@ module ONCCertificationG10TestKit
           return extract_profile('Bodyheight') unless Feature.us_core_v4?
 
           case suite_options[:us_core_version]
-          when 'us_core_4'
-            return extract_profile('BodyHeight')
-          else
+          when 'us_core_3'
             return extract_profile('Bodyheight')
+          else
+            return extract_profile('BodyHeight')
           end
         end
 
@@ -94,10 +112,10 @@ module ONCCertificationG10TestKit
           return extract_profile('Bodytemp') unless Feature.us_core_v4?
 
           case suite_options[:us_core_version]
-          when 'us_core_4'
-            return extract_profile('BodyTemperature')
-          else
+          when 'us_core_3'
             return extract_profile('Bodytemp')
+          else
+            return extract_profile('BodyTemperature')
           end
         end
 
@@ -105,10 +123,10 @@ module ONCCertificationG10TestKit
           return extract_profile('Bodyweight') unless Feature.us_core_v4?
 
           case suite_options[:us_core_version]
-          when 'us_core_4'
-            return extract_profile('BodyWeight')
-          else
+          when 'us_core_3'
             return extract_profile('Bodyweight')
+          else
+            return extract_profile('BodyWeight')
           end
         end
 
@@ -116,10 +134,10 @@ module ONCCertificationG10TestKit
           return extract_profile('Heartrate') unless Feature.us_core_v4?
 
           case suite_options[:us_core_version]
-          when 'us_core_4'
-            return extract_profile('HeartRate')
-          else
+          when 'us_core_3'
             return extract_profile('Heartrate')
+          else
+            return extract_profile('HeartRate')
           end
         end
 
@@ -127,11 +145,40 @@ module ONCCertificationG10TestKit
           return extract_profile('Resprate') unless Feature.us_core_v4?
 
           case suite_options[:us_core_version]
-          when 'us_core_4'
-            return extract_profile('RespiratoryRate')
-          else
+          when 'us_core_3'
             return extract_profile('Resprate')
+          else
+            return extract_profile('RespiratoryRate')
           end
+        end
+        if Feature.us_core_v4? # New profiles in us core v5 based on categories
+
+          return extract_profile('ObservationClinicalTest') if suite_options[:us_core_version] == 'us_core_5' &&
+                                                               resource_contains_category(
+                                                                 resource, 'clinical-test', 'http://terminology.hl7.org/CodeSystem/observation-category'
+                                                               )
+
+          return extract_profile('ObservationSexualOrientation') if suite_options[:us_core_version] == 'us_core_5' &&
+                                                                    observation_contains_code(resource, '76690-7')
+
+          return extract_profile('ObservationSocialHistory') if suite_options[:us_core_version] == 'us_core_5' &&
+                                                                resource_contains_category(resource, 'social-history',
+                                                                                           'http://terminology.hl7.org/CodeSystem/observation-category')
+
+          # We will simply match all Observations of category "survey" to SDOH,
+          # and do not look at the category "sdoh".  US Core spec team says that
+          # support for the "sdoh" category is limited, and the validation rules
+          # allow for very generic surveys to validate against this profile.
+          # And will not validate against the ObservationSurvey profile itself.
+          # This may not be exactly precise but it works out the same
+
+          # if we wanted to be more specific here, we would add:
+          # `resource_contains_category(resource, 'sdoh',
+          #                                       'http://terminology.hl7.org/CodeSystem/observation-category') &&`
+          # along with a specific extract_profile('ObservationSurvey') to catch non-sdoh.
+          return extract_profile('ObservationSdohAssessment') if suite_options[:us_core_version] == 'us_core_5' &&
+                                                                 resource_contains_category(resource, 'survey', 'http://terminology.hl7.org/CodeSystem/observation-category') # rubocop:disable Layout/LineLength
+
         end
 
         nil
