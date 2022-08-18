@@ -30,7 +30,7 @@ module ONCCertificationG10TestKit
       ].freeze
 
     V5_POSSIBLE_RESOURCES =
-      (POSSIBLE_RESOURCES + ['ServiceRequest']).freeze
+      (POSSIBLE_RESOURCES + ['Encounter', 'ServiceRequest']).freeze
 
     def possible_resources
       return V5_POSSIBLE_RESOURCES if suite_options[:us_core_version] == 'us_core_5'

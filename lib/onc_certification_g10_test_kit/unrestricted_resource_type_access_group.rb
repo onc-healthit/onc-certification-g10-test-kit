@@ -27,6 +27,8 @@ module ONCCertificationG10TestKit
         * Practitioner
         * Organization
 
+      If testing against USCDI v2, ServiceRequest is also checked.
+
       For each of the resource types that can be mapped to USCDI data class or
       elements, this set of tests performs a minimum number of requests to
       determine that the resource type can be accessed given the scope granted.
@@ -38,10 +40,22 @@ module ONCCertificationG10TestKit
       parameter.
 
       This set of tests does not attempt to access resources that do not
-      directly map to USCDI v1, including Encounter, Location, Organization, and
-      Practitioner. It also does not test Provenance, as this resource type is
-      accessed by queries through other resource types. These resources types
-      are accessed in the more comprehensive Single Patient Query tests.
+      directly map to USCDI. For USCDI v1 this includes:
+
+        * Encounter
+        * Location
+        * Organization
+        * Practitioner
+
+      For USCDI v2 this includes:
+
+        * Location
+        * Organization
+        * Practitioner
+
+      It also does not test Provenance, as this resource type is accessed by
+      queries through other resource types. These resources types are accessed
+      in the more comprehensive Single Patient Query tests.
 
       However, the authorization system must indicate that access is granted to
       the Encounter, Practitioner and Organization resource types by providing
@@ -81,6 +95,21 @@ module ONCCertificationG10TestKit
 
     V5_ALL_RESOURCES = (ALL_RESOURCES + ['ServiceRequest']).freeze
 
+    NON_PATIENT_COMPARTMENT_RESOURCES =
+      [
+        'Encounter',
+        'Device',
+        'Location',
+        'Medication',
+        'Organization',
+        'Practitioner',
+        'PractitionerRole',
+        'RelatedPerson'
+      ]
+
+    V5_NON_PATIENT_COMPARTMENT_RESOURCES =
+      (NON_PATIENT_COMPARTMENT_RESOURCES - ['Encounter'] + ['ServiceRequest'])
+
     test do
       title 'Scope granted enables access to all US Core resource types.'
       description %(
@@ -95,16 +124,9 @@ module ONCCertificationG10TestKit
       end
 
       def non_patient_compartment_resources
-        [
-          'Encounter',
-          'Device',
-          'Location',
-          'Medication',
-          'Organization',
-          'Practitioner',
-          'PractitionerRole',
-          'RelatedPerson'
-        ]
+        return V5_NON_PATIENT_COMPARTMENT_RESOURCES if suite_options[:us_core_version] == 'us_core_5'
+
+        NON_PATIENT_COMPARTMENT_RESOURCES
       end
 
       def scope_granting_access?(resource_type)
@@ -302,6 +324,20 @@ module ONCCertificationG10TestKit
     end
 
     if Feature.us_core_v4?
+      test from: :g10_resource_access_test do
+        title 'Access to Encounter resources granted'
+        description %(
+          This test ensures that access to the Encounter is granted.
+        )
+        id :g10_encounter_unrestricted_access
+
+        required_suite_options us_core_version: 'us_core_5'
+
+        def resource_group
+          USCoreTestKit::USCoreV501::EncounterGroup
+        end
+      end
+
       test from: :g10_resource_access_test do
         title 'Access to ServiceRequest resources granted'
         description %(
