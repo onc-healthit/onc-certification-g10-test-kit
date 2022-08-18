@@ -90,7 +90,11 @@ module ONCCertificationG10TestKit
                    'context-style',
                    'context-ehr-patient',
                    'permission-offline',
-                   'permission-user'
+                   'permission-user',
+                   'authorize-post',
+                   'permission-v1',
+                   'permission-v2'
+
                  ]
                }
              }

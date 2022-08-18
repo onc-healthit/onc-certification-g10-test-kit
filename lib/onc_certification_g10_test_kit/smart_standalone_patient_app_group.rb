@@ -86,7 +86,11 @@ module ONCCertificationG10TestKit
                    'sso-openid-connect',
                    'context-standalone-patient',
                    'permission-offline',
-                   'permission-patient'
+                   'permission-patient',
+                   'authorize-post',
+                   'permission-v1',
+                   'permission-v2'
+
                  ]
                }
              }
