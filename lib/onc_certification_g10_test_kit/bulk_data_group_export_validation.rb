@@ -79,8 +79,9 @@ module ONCCertificationG10TestKit
     test do
       title 'Patient resources returned conform to the US Core Patient Profile'
       description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export conform to the US Core profiles. This#{' '}
-        includes checking for missing data elements and value set verification.
+        This test verifies that the resources returned from bulk data export
+        conform to the US Core Patient profile. This includes checking for missing data
+        elements and value set verification.
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient'
 
@@ -136,7 +137,9 @@ module ONCCertificationG10TestKit
     test do
       title 'AllergyIntolerance resources returned conform to the US Core AllergyIntolerance Profile'
       description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification.
+        This test verifies that the resources returned from bulk data export
+        conform to the US Core AllergyIntolerance profile. This includes
+        checking for missing data elements and value set verification.
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-allergyintolerance'
 
@@ -154,7 +157,9 @@ module ONCCertificationG10TestKit
     test do
       title 'CarePlan resources returned conform to the US Core CarePlan Profile'
       description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification.
+        This test verifies that the resources returned from bulk data export
+        conform to the US Core CarePlan profile. This includes checking for
+        missing data elements and value set verification.
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-careplan'
 
@@ -172,7 +177,9 @@ module ONCCertificationG10TestKit
     test do
       title 'CareTeam resources returned conform to the US Core CareTeam Profile'
       description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification.
+        This test verifies that the resources returned from bulk data export
+        conform to the US Core CareTeam profile. This includes checking for missing data
+        elements and value set verification.
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-careteam'
 
@@ -190,9 +197,21 @@ module ONCCertificationG10TestKit
     test do
       title 'Condition resources returned conform to the relevant US Core Condition Profile'
       description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification.
+        This test verifies that the server can provide evidence of support for
+        the following US Core Condition profiles.  This includes checking for
+        missing data elements and value set verification.
+
+        For US Core v3.1.1 and v4.0.0 all resources must conform to the following profile:
+
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition
+
+
+        For US Core v5.0.1, evidence of support for the following two profiles must be demonstrated:
+
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-problems-health-concerns
+
       DESCRIPTION
-      # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition'
 
       include BulkExportValidationTester
 
@@ -208,7 +227,13 @@ module ONCCertificationG10TestKit
     test do
       title 'Device resources returned conform to the US Core Implantable Device Profile'
       description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification.
+        This test verifies that relevant resources returned from bulk data export
+        conform to the US Core Implantable Device profile. This includes
+        checking for missing data elements and value set verification.
+
+        Because not all Device resources on a system must conform to the Implantable Device
+        profile, the tester may choose to provide a list of relevant Device Type Codes
+        as an input to this test.
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-implantable-device'
 
@@ -226,12 +251,14 @@ module ONCCertificationG10TestKit
     test do
       title 'DiagnosticReport resources returned conform to the relevant US Core DiagnosticReport Profile'
       description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export conform to the following US Core profiles. This includes checking for missing data elements and value set verification.
+        This test verifies that the server can provide evidence of support for
+        the following US Core DiagnosticReport profile based on the category of
+        the DiagnosticReport. This includes checking for missing data elements
+        and value set verification.
 
         * http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-lab
         * http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note
       DESCRIPTION
-      # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-l'
 
       include BulkExportValidationTester
 
@@ -247,7 +274,9 @@ module ONCCertificationG10TestKit
     test do
       title 'DocumentReference resources returned conform to the US Core DocumentReference Profile'
       description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification.
+        This test verifies that the resources returned from bulk data export
+        conform to the US Core DocumenReference profile. This includes checking
+        for missing data elements and value set verification.
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-documentreference'
 
@@ -265,7 +294,9 @@ module ONCCertificationG10TestKit
     test do
       title 'Goal resources returned conform to the US Core Goal Profile'
       description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification.
+        This test verifies that the resources returned from bulk data export
+        conform to the US Core Goal profile. This includes checking for missing
+        data elements and value set verification.
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-goal'
 
@@ -283,7 +314,9 @@ module ONCCertificationG10TestKit
     test do
       title 'Immunization resources returned conform to the US Core Immunization Profile'
       description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification.
+        This test verifies that the resources returned from bulk data export
+        conform to the US Core Immunization profile. This includes checking for
+        missing data elements and value set verification.
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-Immunization'
 
@@ -301,7 +334,9 @@ module ONCCertificationG10TestKit
     test do
       title 'MedicationRequest resources returned conform to the US Core MedicationRequest Profile'
       description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification.
+        This test verifies that the resources returned from bulk data export
+        conform to the US Core MedicationRequest profile. This includes checking
+        for missing data elements and value set verification.
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest'
 
@@ -324,6 +359,8 @@ module ONCCertificationG10TestKit
         associated with the Observation. This includes checking for missing data
         elements and value set verification.
 
+        For US Core v3.1.1, this test expects evidence of the following US Core profiles
+
         * http://hl7.org/fhir/us/core/StructureDefinition/pediatric-bmi-for-age
         * http://hl7.org/fhir/us/core/StructureDefinition/pediatric-weight-for-height
         * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab
@@ -336,8 +373,47 @@ module ONCCertificationG10TestKit
         * http://hl7.org/fhir/StructureDefinition/bodyweight
         * http://hl7.org/fhir/StructureDefinition/heartrate
         * http://hl7.org/fhir/StructureDefinition/resprate
+
+        For US Core v4.0.0, this test expects evidence of the following US Core profiles
+
+        * http://hl7.org/fhir/us/core/StructureDefinition/pediatric-bmi-for-age
+        * http://hl7.org/fhir/us/core/StructureDefinition/pediatric-weight-for-height
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-pulse-oximetry
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-smokingstatus
+        * http://hl7.org/fhir/us/core/StructureDefinition/head-occipital-frontal-circumference-percentile
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-blood-pressure
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-bmi
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-head-circumference
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-body-height
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-body-weight
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-body-temperature
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-heart-rate
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-respiratory-rate
+
+        For US Core v5.0.1, this test expects evidence of the following US Core profiles
+
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-clinical-test
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-imaging
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-sexual-orientation
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-social-history
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-sdoh-assessment
+        * http://hl7.org/fhir/us/core/StructureDefinition/pediatric-bmi-for-age
+        * http://hl7.org/fhir/us/core/StructureDefinition/pediatric-weight-for-height
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-pulse-oximetry
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-smokingstatus
+        * http://hl7.org/fhir/us/core/StructureDefinition/head-occipital-frontal-circumference-percentile
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-blood-pressure
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-bmi
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-head-circumference
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-body-height
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-body-weight
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-body-temperature
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-heart-rate
+        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-respiratory-rate
+
       DESCRIPTION
-      # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab'
 
       include BulkExportValidationTester
 
@@ -353,7 +429,9 @@ module ONCCertificationG10TestKit
     test do
       title 'Procedure resources returned conform to the US Core Procedure Profile'
       description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification.
+        This test verifies that the resources returned from bulk data export
+        conform to the US Core Procedure profile. This includes checking for
+        missing data elements and value set verification.
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure'
 
@@ -371,7 +449,9 @@ module ONCCertificationG10TestKit
     test do
       title 'Encounter resources returned conform to the US Core Encounter Profile'
       description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification.
+        This test verifies that the resources returned from bulk data export
+        conform to the US Core Encounter profile. This includes checking for
+        missing data elements and value set verification.
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter'
 
@@ -389,7 +469,9 @@ module ONCCertificationG10TestKit
     test do
       title 'Organization resources returned conform to the US Core Organization Profile'
       description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification.
+        This test verifies that the resources returned from bulk data export
+        conform to the US Core Organization profile. This includes checking for
+        missing data elements and value set verification.
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization'
 
@@ -407,7 +489,9 @@ module ONCCertificationG10TestKit
     test do
       title 'Practitioner resources returned conform to the US Core Practitioner Profile'
       description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification.
+        This test verifies that the resources returned from bulk data export
+        conform to the US Core Practioner profile. This includes checking for
+        missing data elements and value set verification.
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner'
 
@@ -425,7 +509,9 @@ module ONCCertificationG10TestKit
     test do
       title 'Provenance resources returned conform to the US Core Provenance Profile'
       description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification.
+        This test verifies that the resources returned from bulk data export
+        conform to the US Core profiles. This includes checking for missing data
+        elements and value set verification.
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-provenance'
 
@@ -444,7 +530,10 @@ module ONCCertificationG10TestKit
       title 'Location resources returned conform to the HL7 FHIR Specification Location Resource if bulk data export ' \
             'has Location resources'
       description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification. This test is omitted if bulk data export does not return any Location resources.
+        This test verifies that the resources returned from bulk data export
+        conform to the HL7 FHIR Specification Location Resource. This includes
+        checking for missing data elements and value set verification. This test
+        is omitted if bulk data export does not return any Location resources.
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-location'
 
@@ -463,7 +552,10 @@ module ONCCertificationG10TestKit
       title 'Medication resources returned conform to the US Core Medication Profile if bulk data export has ' \
             'Medication resources'
       description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification. This test is omitted if bulk data export does not return any Medication resources.
+        This test verifies that the resources returned from bulk data export
+        conform to the US Core Medication profile, if available. This includes
+        checking for missing data elements and value set verification. This test
+        is omitted if bulk data export does not return any Medication resources.
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-medication'
 
@@ -482,7 +574,9 @@ module ONCCertificationG10TestKit
       test do
         title 'ServiceRequest resources returned conform to the US Core ServiceRequest Profile'
         description <<~DESCRIPTION
-          This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification.
+          This test verifies that the resources returned from bulk data export
+          conform to the US Core ServiceRequest profile. This includes checking
+          for missing data elements and value set verification.
         DESCRIPTION
 
         required_suite_options us_core_version: 'us_core_5'
@@ -501,7 +595,9 @@ module ONCCertificationG10TestKit
       test do
         title 'RelatedPerson resources returned conform to the US Core RelatedPerson Profile'
         description <<~DESCRIPTION
-          This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification.
+          This test verifies that the resources returned from bulk data export
+          conform to the US Core RelatedPerson profile. This includes checking
+          for missing data elements and value set verification.
         DESCRIPTION
         required_suite_options us_core_version: 'us_core_5'
 
@@ -517,10 +613,13 @@ module ONCCertificationG10TestKit
       end
 
       test do
-        title 'QuestionnaireResponse  resources returned conform to the US Core QuestionnaireResponse Profile if ' \
+        title 'QuestionnaireResponse resources returned conform to the US Core QuestionnaireResponse Profile if ' \
               'bulk data has QuestionnaireResponse resources'
         description <<~DESCRIPTION
-          This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification. This test is omitted if bulk data export does not return any QuestionnaireResponse resources.
+          This test verifies that the resources returned from bulk data export
+          conform to the US Core QuestionnaireResponse profile. This includes checking for missing
+          data elements and value set verification. This test is omitted if bulk
+          data export does not return any QuestionnaireResponse resources.
         DESCRIPTION
         required_suite_options us_core_version: 'us_core_5'
 
@@ -539,7 +638,10 @@ module ONCCertificationG10TestKit
         title 'PractionerRole resources returned conform to the US Core PractionerRole Profile if bulk data export ' \
               'has PractionerRole resources'
         description <<~DESCRIPTION
-          This test verifies that the resources returned from bulk data export conform to the US Core profiles. This includes checking for missing data elements and value set verification. This test is omitted if bulk data export does not return any  resources.
+          This test verifies that the resources returned from bulk data export
+          conform to the US Core PractitionerRole profile. This includes checking for missing
+          data elements and value set verification. This test is omitted if bulk
+          data export does not return any  resources.
         DESCRIPTION
         required_suite_options us_core_version: 'us_core_5'
 
