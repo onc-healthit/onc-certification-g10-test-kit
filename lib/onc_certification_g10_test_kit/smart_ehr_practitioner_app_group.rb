@@ -135,6 +135,9 @@ module ONCCertificationG10TestKit
           inputs: {
             requested_scopes: { name: :ehr_requested_scopes },
             received_scopes: { name: :ehr_received_scopes }
+          },
+          options: {
+            scope_version: :v1
           }
         )
 
@@ -254,6 +257,9 @@ module ONCCertificationG10TestKit
             inputs: {
               requested_scopes: { name: :ehr_requested_scopes },
               received_scopes: { name: :ehr_received_scopes }
+            },
+            options: {
+              scope_version: :v2
             }
           )
 

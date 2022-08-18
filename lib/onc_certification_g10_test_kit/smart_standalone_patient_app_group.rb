@@ -131,6 +131,9 @@ module ONCCertificationG10TestKit
           inputs: {
             requested_scopes: { name: :standalone_requested_scopes },
             received_scopes: { name: :standalone_received_scopes }
+          },
+          options: {
+            scope_version: :v1
           }
         )
 
@@ -205,6 +208,9 @@ module ONCCertificationG10TestKit
             inputs: {
               requested_scopes: { name: :standalone_requested_scopes },
               received_scopes: { name: :standalone_received_scopes }
+            },
+            options: {
+              scope_version: :v2
             }
           )
 
