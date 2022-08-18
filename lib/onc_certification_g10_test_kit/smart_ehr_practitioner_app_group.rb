@@ -14,9 +14,10 @@ module ONCCertificationG10TestKit
       * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
 
       Enter in the appropriate scope to enable user-level access to all relevant
-      resources. In addition, support for the OpenID Connect (openid fhirUser),
-      refresh tokens (offline_access), and EHR context (launch) are required. This
-      test expects that the EHR will launch the application with a patient context.
+      resources. If using SMART v2, v2-style scopes must be used. In addition,
+      support for the OpenID Connect (openid fhirUser), refresh tokens
+      (offline_access), and EHR context (launch) are required. This test expects
+      that the EHR will launch the application with a patient context.
 
       After submit is pressed, Inferno will wait for the system under test to launch
       the application.

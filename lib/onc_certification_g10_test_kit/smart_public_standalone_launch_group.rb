@@ -8,9 +8,9 @@ module ONCCertificationG10TestKit
       * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
 
       Enter in the appropriate scope to enable patient-level access to all
-      relevant resources. In addition, support for the OpenID Connect (openid
-      fhirUser), refresh tokens (offline_access), and patient context
-      (launch/patient) are required.
+      relevant resources. If using SMART v2, v2-style scopes must be used. In
+      addition, support for the OpenID Connect (openid fhirUser), refresh tokens
+      (offline_access), and patient context (launch/patient) are required.
     )
     description %(
       # Background
