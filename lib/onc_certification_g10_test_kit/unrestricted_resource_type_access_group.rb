@@ -27,6 +27,8 @@ module ONCCertificationG10TestKit
         * Practitioner
         * Organization
 
+      If testing against USCDI v2, ServiceRequest is also checked.
+
       For each of the resource types that can be mapped to USCDI data class or
       elements, this set of tests performs a minimum number of requests to
       determine that the resource type can be accessed given the scope granted.
@@ -38,10 +40,22 @@ module ONCCertificationG10TestKit
       parameter.
 
       This set of tests does not attempt to access resources that do not
-      directly map to USCDI v1, including Encounter, Location, Organization, and
-      Practitioner. It also does not test Provenance, as this resource type is
-      accessed by queries through other resource types. These resources types
-      are accessed in the more comprehensive Single Patient Query tests.
+      directly map to USCDI. For USCDI v1 this includes:
+
+        * Encounter
+        * Location
+        * Organization
+        * Practitioner
+
+      For USCDI v2 this includes:
+
+        * Location
+        * Organization
+        * Practitioner
+
+      It also does not test Provenance, as this resource type is accessed by
+      queries through other resource types. These resources types are accessed
+      in the more comprehensive Single Patient Query tests.
 
       However, the authorization system must indicate that access is granted to
       the Encounter, Practitioner and Organization resource types by providing
@@ -58,6 +72,44 @@ module ONCCertificationG10TestKit
       oauth_credentials :smart_credentials
     end
 
+    ALL_RESOURCES =
+      [
+        'AllergyIntolerance',
+        'CarePlan',
+        'CareTeam',
+        'Condition',
+        'Device',
+        'DiagnosticReport',
+        'DocumentReference',
+        'Goal',
+        'Immunization',
+        'MedicationRequest',
+        'Observation',
+        'Procedure',
+        'Patient',
+        'Provenance',
+        'Encounter',
+        'Practitioner',
+        'Organization'
+      ].freeze
+
+    V5_ALL_RESOURCES = (ALL_RESOURCES + ['ServiceRequest']).freeze
+
+    NON_PATIENT_COMPARTMENT_RESOURCES =
+      [
+        'Encounter',
+        'Device',
+        'Location',
+        'Medication',
+        'Organization',
+        'Practitioner',
+        'PractitionerRole',
+        'RelatedPerson'
+      ].freeze
+
+    V5_NON_PATIENT_COMPARTMENT_RESOURCES =
+      (NON_PATIENT_COMPARTMENT_RESOURCES - ['Encounter'] + ['ServiceRequest']).freeze
+
     test do
       title 'Scope granted enables access to all US Core resource types.'
       description %(
@@ -66,38 +118,15 @@ module ONCCertificationG10TestKit
       )
 
       def all_resources
-        [
-          'AllergyIntolerance',
-          'CarePlan',
-          'CareTeam',
-          'Condition',
-          'Device',
-          'DiagnosticReport',
-          'DocumentReference',
-          'Goal',
-          'Immunization',
-          'MedicationRequest',
-          'Observation',
-          'Procedure',
-          'Patient',
-          'Provenance',
-          'Encounter',
-          'Practitioner',
-          'Organization'
-        ]
+        return V5_ALL_RESOURCES if suite_options[:us_core_version] == 'us_core_5'
+
+        ALL_RESOURCES
       end
 
       def non_patient_compartment_resources
-        [
-          'Encounter',
-          'Device',
-          'Location',
-          'Medication',
-          'Organization',
-          'Practitioner',
-          'PractitionerRole',
-          'RelatedPerson'
-        ]
+        return V5_NON_PATIENT_COMPARTMENT_RESOURCES if suite_options[:us_core_version] == 'us_core_5'
+
+        NON_PATIENT_COMPARTMENT_RESOURCES
       end
 
       def scope_granting_access?(resource_type)
@@ -141,13 +170,7 @@ module ONCCertificationG10TestKit
     test from: :g10_resource_access_test do
       title 'Access to Patient resources granted'
       description %(
-        This test ensures that access to the Patient is granted or
-        denied based on the selection by the tester prior to the execution of
-        the test. If the tester indicated that access will be granted to this
-        resource, this test verifies that a search by patient in this resource
-        does not result in an access denied result. If the tester indicated that
-        access will be denied for this resource, this verifies that search by
-        patient in the resource results in an access denied result.
+        This test ensures that access to the Patient is granted.
       )
       id :g10_patient_unrestricted_access
 
@@ -159,13 +182,7 @@ module ONCCertificationG10TestKit
     test from: :g10_resource_access_test do
       title 'Access to AllergyIntolerance resources granted'
       description %(
-        This test ensures that access to the AllergyIntolerance is granted or
-        denied based on the selection by the tester prior to the execution of
-        the test. If the tester indicated that access will be granted to this
-        resource, this test verifies that a search by patient in this resource
-        does not result in an access denied result. If the tester indicated that
-        access will be denied for this resource, this verifies that search by
-        patient in the resource results in an access denied result.
+        This test ensures that access to the AllergyIntolerance is granted.
       )
       id :g10_allergy_intolerance_unrestricted_access
 
@@ -177,13 +194,7 @@ module ONCCertificationG10TestKit
     test from: :g10_resource_access_test do
       title 'Access to CarePlan resources granted'
       description %(
-        This test ensures that access to the CarePlan is granted or
-        denied based on the selection by the tester prior to the execution of
-        the test. If the tester indicated that access will be granted to this
-        resource, this test verifies that a search by patient in this resource
-        does not result in an access denied result. If the tester indicated that
-        access will be denied for this resource, this verifies that search by
-        patient in the resource results in an access denied result.
+        This test ensures that access to the CarePlan is granted.
       )
       id :g10_care_plan_unrestricted_access
 
@@ -195,13 +206,7 @@ module ONCCertificationG10TestKit
     test from: :g10_resource_access_test do
       title 'Access to CareTeam resources granted'
       description %(
-        This test ensures that access to the CareTeam is granted or
-        denied based on the selection by the tester prior to the execution of
-        the test. If the tester indicated that access will be granted to this
-        resource, this test verifies that a search by patient in this resource
-        does not result in an access denied result. If the tester indicated that
-        access will be denied for this resource, this verifies that search by
-        patient in the resource results in an access denied result.
+        This test ensures that access to the CareTeam is granted.
       )
       id :g10_care_team_unrestricted_access
 
@@ -213,13 +218,7 @@ module ONCCertificationG10TestKit
     test from: :g10_resource_access_test do
       title 'Access to Condition resources granted'
       description %(
-        This test ensures that access to the Condition is granted or
-        denied based on the selection by the tester prior to the execution of
-        the test. If the tester indicated that access will be granted to this
-        resource, this test verifies that a search by patient in this resource
-        does not result in an access denied result. If the tester indicated that
-        access will be denied for this resource, this verifies that search by
-        patient in the resource results in an access denied result.
+        This test ensures that access to the Condition is granted.
       )
       id :g10_condition_unrestricted_access
 
@@ -231,13 +230,7 @@ module ONCCertificationG10TestKit
     test from: :g10_resource_access_test do
       title 'Access to Device resources granted'
       description %(
-        This test ensures that access to the Device is granted or
-        denied based on the selection by the tester prior to the execution of
-        the test. If the tester indicated that access will be granted to this
-        resource, this test verifies that a search by patient in this resource
-        does not result in an access denied result. If the tester indicated that
-        access will be denied for this resource, this verifies that search by
-        patient in the resource results in an access denied result.
+        This test ensures that access to the Device is granted.
       )
       id :g10_device_unrestricted_access
 
@@ -249,13 +242,7 @@ module ONCCertificationG10TestKit
     test from: :g10_resource_access_test do
       title 'Access to DiagnosticReport resources granted'
       description %(
-        This test ensures that access to the DiagnosticReport is granted or
-        denied based on the selection by the tester prior to the execution of
-        the test. If the tester indicated that access will be granted to this
-        resource, this test verifies that a search by patient in this resource
-        does not result in an access denied result. If the tester indicated that
-        access will be denied for this resource, this verifies that search by
-        patient in the resource results in an access denied result.
+        This test ensures that access to the DiagnosticReport is granted.
       )
       id :g10_diagnostic_report_unrestricted_access
 
@@ -267,13 +254,7 @@ module ONCCertificationG10TestKit
     test from: :g10_resource_access_test do
       title 'Access to DocumentReference resources granted'
       description %(
-        This test ensures that access to the DocumentReference is granted or
-        denied based on the selection by the tester prior to the execution of
-        the test. If the tester indicated that access will be granted to this
-        resource, this test verifies that a search by patient in this resource
-        does not result in an access denied result. If the tester indicated that
-        access will be denied for this resource, this verifies that search by
-        patient in the resource results in an access denied result.
+        This test ensures that access to the DocumentReference is granted.
       )
       id :g10_document_reference_unrestricted_access
 
@@ -285,13 +266,7 @@ module ONCCertificationG10TestKit
     test from: :g10_resource_access_test do
       title 'Access to Goal resources granted'
       description %(
-        This test ensures that access to the Goal is granted or
-        denied based on the selection by the tester prior to the execution of
-        the test. If the tester indicated that access will be granted to this
-        resource, this test verifies that a search by patient in this resource
-        does not result in an access denied result. If the tester indicated that
-        access will be denied for this resource, this verifies that search by
-        patient in the resource results in an access denied result.
+        This test ensures that access to the Goal is granted.
       )
       id :g10_goal_unrestricted_access
 
@@ -303,13 +278,7 @@ module ONCCertificationG10TestKit
     test from: :g10_resource_access_test do
       title 'Access to Immunization resources granted'
       description %(
-        This test ensures that access to the Immunization is granted or
-        denied based on the selection by the tester prior to the execution of
-        the test. If the tester indicated that access will be granted to this
-        resource, this test verifies that a search by patient in this resource
-        does not result in an access denied result. If the tester indicated that
-        access will be denied for this resource, this verifies that search by
-        patient in the resource results in an access denied result.
+        This test ensures that access to the Immunization is granted.
       )
       id :g10_immunization_unrestricted_access
 
@@ -321,13 +290,7 @@ module ONCCertificationG10TestKit
     test from: :g10_resource_access_test do
       title 'Access to MedicationRequest resources granted'
       description %(
-        This test ensures that access to the MedicationRequest is granted or
-        denied based on the selection by the tester prior to the execution of
-        the test. If the tester indicated that access will be granted to this
-        resource, this test verifies that a search by patient in this resource
-        does not result in an access denied result. If the tester indicated that
-        access will be denied for this resource, this verifies that search by
-        patient in the resource results in an access denied result.
+        This test ensures that access to the MedicationRequest is granted.
       )
       id :g10_medication_request_access
 
@@ -339,13 +302,7 @@ module ONCCertificationG10TestKit
     test from: :g10_resource_access_test do
       title 'Access to Observation resources granted'
       description %(
-        This test ensures that access to the Observation is granted or
-        denied based on the selection by the tester prior to the execution of
-        the test. If the tester indicated that access will be granted to this
-        resource, this test verifies that a search by patient in this resource
-        does not result in an access denied result. If the tester indicated that
-        access will be denied for this resource, this verifies that search by
-        patient in the resource results in an access denied result.
+        This test ensures that access to the Observation is granted.
       )
       id :g10_observation_unrestricted_access
 
@@ -357,18 +314,42 @@ module ONCCertificationG10TestKit
     test from: :g10_resource_access_test do
       title 'Access to Procedure resources granted'
       description %(
-        This test ensures that access to the Procedure is granted or
-        denied based on the selection by the tester prior to the execution of
-        the test. If the tester indicated that access will be granted to this
-        resource, this test verifies that a search by patient in this resource
-        does not result in an access denied result. If the tester indicated that
-        access will be denied for this resource, this verifies that search by
-        patient in the resource results in an access denied result.
+        This test ensures that access to the Procedure is granted.
       )
       id :g10_procedure_unrestricted_access
 
       def resource_group
         USCoreTestKit::USCoreV311::ProcedureGroup
+      end
+    end
+
+    if Feature.us_core_v4?
+      test from: :g10_resource_access_test do
+        title 'Access to Encounter resources granted'
+        description %(
+          This test ensures that access to the Encounter is granted.
+        )
+        id :g10_encounter_unrestricted_access
+
+        required_suite_options us_core_version: 'us_core_5'
+
+        def resource_group
+          USCoreTestKit::USCoreV501::EncounterGroup
+        end
+      end
+
+      test from: :g10_resource_access_test do
+        title 'Access to ServiceRequest resources granted'
+        description %(
+          This test ensures that access to the ServiceRequest is granted.
+        )
+        id :g10_service_request_unrestricted_access
+
+        required_suite_options us_core_version: 'us_core_5'
+
+        def resource_group
+          USCoreTestKit::USCoreV501::ServiceRequestGroup
+        end
       end
     end
   end

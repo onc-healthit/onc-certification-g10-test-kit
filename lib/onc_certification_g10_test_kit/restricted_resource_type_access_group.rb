@@ -27,6 +27,8 @@ module ONCCertificationG10TestKit
         * Observation
         * Procedure
 
+      If testing against USCDI v2, ServiceRequest is also checked.
+
       For each of the resources that can be mapped to USCDI data class or
       elements, this set of tests performs a minimum number of requests to
       determine if access to the resource type is appropriately allowed or
@@ -38,10 +40,18 @@ module ONCCertificationG10TestKit
       required status search parameter.
 
       This set of tests does not attempt to access resources that do not
-      directly map to USCDI v1, including Encounter, Location, Organization, and
-      Practitioner. It also does not test Provenance, as this resource type is
-      accessed by queries through other resource types. These resource types are
-      accessed in the more comprehensive Single Patient Query tests.
+      directly map to USCDI. For USCDI v1 this includes:
+
+        * Encounter
+        * Location
+        * Organization
+        * Practitioner
+
+      For USCDI v2 this includes:
+
+        * Location
+        * Organization
+        * Practitioner
 
       If the tester chooses to not grant access to a resource, the queries
       associated with that resource must result in either a 401 (Unauthorized)
@@ -297,6 +307,48 @@ module ONCCertificationG10TestKit
 
       def resource_group
         USCoreTestKit::USCoreV311::ProcedureGroup
+      end
+    end
+
+    if Feature.us_core_v4?
+      test from: :g10_restricted_access_test do
+        title 'Access to Encounter resources are restricted properly based on patient-selected scope'
+        description %(
+          This test ensures that access to the Encounter is granted or
+          denied based on the selection by the tester prior to the execution of
+          the test. If the tester indicated that access will be granted to this
+          resource, this test verifies that a search by patient in this resource
+          does not result in an access denied result. If the tester indicated that
+          access will be denied for this resource, this verifies that search by
+          patient in the resource results in an access denied result.
+        )
+        id :g10_encounter_restricted_access
+
+        required_suite_options us_core_version: 'us_core_5'
+
+        def resource_group
+          USCoreTestKit::USCoreV501::EncounterGroup
+        end
+      end
+
+      test from: :g10_restricted_access_test do
+        title 'Access to ServiceRequest resources are restricted properly based on patient-selected scope'
+        description %(
+          This test ensures that access to the ServiceRequest is granted or
+          denied based on the selection by the tester prior to the execution of
+          the test. If the tester indicated that access will be granted to this
+          resource, this test verifies that a search by patient in this resource
+          does not result in an access denied result. If the tester indicated that
+          access will be denied for this resource, this verifies that search by
+          patient in the resource results in an access denied result.
+        )
+        id :g10_service_request_restricted_access
+
+        required_suite_options us_core_version: 'us_core_5'
+
+        def resource_group
+          USCoreTestKit::USCoreV501::ServiceRequestGroup
+        end
       end
     end
   end
