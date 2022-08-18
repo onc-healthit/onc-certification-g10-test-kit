@@ -105,10 +105,10 @@ module ONCCertificationG10TestKit
         'Practitioner',
         'PractitionerRole',
         'RelatedPerson'
-      ]
+      ].freeze
 
     V5_NON_PATIENT_COMPARTMENT_RESOURCES =
-      (NON_PATIENT_COMPARTMENT_RESOURCES - ['Encounter'] + ['ServiceRequest'])
+      (NON_PATIENT_COMPARTMENT_RESOURCES - ['Encounter'] + ['ServiceRequest']).freeze
 
     test do
       title 'Scope granted enables access to all US Core resource types.'
