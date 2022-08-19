@@ -18,6 +18,7 @@ require_relative 'onc_certification_g10_test_kit/smart_standalone_patient_app_gr
 require_relative 'onc_certification_g10_test_kit/smart_ehr_practitioner_app_group'
 require_relative 'onc_certification_g10_test_kit/smart_public_standalone_launch_group'
 require_relative 'onc_certification_g10_test_kit/smart_public_standalone_launch_group_stu2'
+require_relative 'onc_certification_g10_test_kit/smart_inferred_patient_ehr_launch_group'
 require_relative 'onc_certification_g10_test_kit/multi_patient_api_stu1'
 require_relative 'onc_certification_g10_test_kit/multi_patient_api_stu2'
 require_relative 'onc_certification_g10_test_kit/terminology_binding_validator'
@@ -271,6 +272,16 @@ module ONCCertificationG10TestKit
 
       group from: :g10_smart_invalid_pkce_code_verifier_group,
             required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' }
+
+      group from: :g10_inferred_patient_ehr_launch,
+            config: {
+              inputs: {
+                requested_scopes: {
+                  default: 'launch launch/patient openid fhirUser offline_access patient/Patient.rs',
+                  locked: true
+                }
+              }
+            }
 
       group from: :g10_visual_inspection_and_attestations
     end
