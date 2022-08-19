@@ -52,7 +52,7 @@ module ONCCertificationG10TestKit
       },
       outputs: {
         launch: { name: :inferred_launch },
-        code: { name: :inferred_code},
+        code: { name: :inferred_code },
         token_retrieval_time: { name: :inferred_token_retrieval_time },
         state: { name: :inferred_state },
         id_token: { name: :inferred_id_token },
