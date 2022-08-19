@@ -207,7 +207,6 @@ module ONCCertificationG10TestKit
       as approved by the ONC Standards Version Advancement Process (SVAP).
       Please select which approved version of each standard to use, and click
       ‘Select Options’ to begin testing.
-
     )
 
     input_instructions %(
