@@ -274,14 +274,7 @@ module ONCCertificationG10TestKit
             required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' }
 
       group from: :g10_inferred_patient_ehr_launch,
-            config: {
-              inputs: {
-                requested_scopes: {
-                  default: 'launch launch/patient openid fhirUser offline_access patient/Patient.rs',
-                  locked: true
-                }
-              }
-            }
+            required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' }
 
       group from: :g10_visual_inspection_and_attestations
     end
