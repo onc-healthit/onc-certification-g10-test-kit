@@ -28,7 +28,7 @@ module ONCCertificationG10TestKit
         },
         requested_scopes: {
           name: :inferred_requested_scopes,
-          default: 'launch launch/patient openid fhirUser offline_access patient/Patient.rs',
+          default: 'launch/patient openid fhirUser offline_access patient/Patient.rs',
           locked: true
         },
         code: {
