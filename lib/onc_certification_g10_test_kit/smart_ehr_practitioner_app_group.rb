@@ -24,12 +24,13 @@ module ONCCertificationG10TestKit
 
     description %(
       Demonstrate the ability to perform an EHR launch to a SMART on FHIR
-      confidential client with patient context, refresh token, and OpenID
-      Connect (OIDC) identity token. After launch, a simple Patient resource
-      read is performed on the patient in context. The access token is then
-      refreshed, and the Patient resource is read using the new access token to
-      ensure that the refresh was successful. Finally, the authentication
-      information provided by OpenID Connect is decoded and validated.
+      confidential client with patient context, refresh token, OpenID Connect
+      (OIDC) identity token, and (SMART v2 only) use the POST HTTP method for
+      code exchange. After launch, a simple Patient resource read is performed
+      on the patient in context. The access token is then refreshed, and the
+      Patient resource is read using the new access token to ensure that the
+      refresh was successful. Finally, the authentication information provided
+      by OpenID Connect is decoded and validated.
 
       For EHRs that use Internet Explorer 11 to display embedded apps,
       please review [instructions on how to complete the EHR Practitioner App
@@ -217,6 +218,11 @@ module ONCCertificationG10TestKit
                   locked: true
                 },
                 pkce_code_challenge_method: {
+                  locked: true
+                },
+                authorization_method: {
+                  name: :ehr_authorization_method,
+                  default: 'post',
                   locked: true
                 }
               }
