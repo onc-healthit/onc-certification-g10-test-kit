@@ -210,7 +210,7 @@ module ONCCertificationG10TestKit
     end
 
     if Feature.smart_v2?
-      group from: :smart_ehr_launch,
+      group from: :smart_ehr_launch_stu2,
             config: {
               inputs: {
                 use_pkce: {
