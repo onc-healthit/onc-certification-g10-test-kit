@@ -19,7 +19,13 @@ module ONCCertificationG10TestKit
       assert capabilities.is_a?(Array),
              "Expected the well-known capabilities to be an Array, but found #{capabilities.class.name}"
 
-      missing_capabilities = (config.options[:required_capabilities] || []) - capabilities
+      required_capabilities = config.options[:required_capabilities] || []
+
+      if suite_options[:us_core_version] == 'us_core_5' && required_capabilities.include?('launch-ehr')
+        required_capabilities << 'context-ehr-encounter'
+      end
+
+      missing_capabilities = required_capabilities - capabilities
       assert missing_capabilities.empty?,
              "The following capabilities required for this scenario are missing: #{missing_capabilities.join(', ')}"
     end

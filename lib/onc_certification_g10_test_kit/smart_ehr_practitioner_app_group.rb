@@ -95,7 +95,6 @@ module ONCCertificationG10TestKit
                    'authorize-post',
                    'permission-v1',
                    'permission-v2'
-
                  ]
                }
              }
