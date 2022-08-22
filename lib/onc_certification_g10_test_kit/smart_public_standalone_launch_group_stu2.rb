@@ -30,7 +30,18 @@ module ONCCertificationG10TestKit
         },
         requested_scopes: {
           name: :public_requested_scopes,
-          title: 'Public Launch Scope'
+          title: 'Public Launch Scope',
+          default: %(
+            launch/patient openid fhirUser offline_access patient/Medication.rs
+            patient/AllergyIntolerance.rs patient/CarePlan.rs
+            patient/CareTeam.rs patient/Condition.rs patient/Device.rs
+            patient/DiagnosticReport.rs patient/DocumentReference.rs
+            patient/Encounter.rs patient/Goal.rs patient/Immunization.rs
+            patient/Location.rs patient/MedicationRequest.rs
+            patient/Observation.rs patient/Organization.rs patient/Patient.rs
+            patient/Practitioner.rs patient/Procedure.rs patient/Provenance.rs
+            patient/PractitionerRole.rs
+          ).gsub(/\s{2,}/, ' ').strip
         },
         url: {
           title: 'Public Launch FHIR Endpoint',

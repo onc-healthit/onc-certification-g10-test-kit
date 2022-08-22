@@ -140,7 +140,7 @@ module ONCCertificationG10TestKit
               patient/Organization.read patient/Patient.read
               patient/Practitioner.read patient/Procedure.read
               patient/Provenance.read patient/PractitionerRole.read
-              ).gsub(/\s{2,}/, ' ').strip
+            ).gsub(/\s{2,}/, ' ').strip
           }
         }
       )
