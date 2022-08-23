@@ -328,33 +328,31 @@ module ONCCertificationG10TestKit
       end
     end
 
-    if Feature.us_core_v4?
-      test from: :g10_resource_access_test do
-        title 'Access to Encounter resources granted'
-        description %(
-          This test ensures that access to the Encounter is granted.
-        )
-        id :g10_encounter_unrestricted_access
+    test from: :g10_resource_access_test do
+      title 'Access to Encounter resources granted'
+      description %(
+        This test ensures that access to the Encounter is granted.
+      )
+      id :g10_encounter_unrestricted_access
 
-        required_suite_options us_core_version: 'us_core_5'
+      required_suite_options us_core_version: 'us_core_5'
 
-        def resource_group
-          USCoreTestKit::USCoreV501::EncounterGroup
-        end
+      def resource_group
+        USCoreTestKit::USCoreV501::EncounterGroup
       end
+    end
 
-      test from: :g10_resource_access_test do
-        title 'Access to ServiceRequest resources granted'
-        description %(
-          This test ensures that access to the ServiceRequest is granted.
-        )
-        id :g10_service_request_unrestricted_access
+    test from: :g10_resource_access_test do
+      title 'Access to ServiceRequest resources granted'
+      description %(
+        This test ensures that access to the ServiceRequest is granted.
+      )
+      id :g10_service_request_unrestricted_access
 
-        required_suite_options us_core_version: 'us_core_5'
+      required_suite_options us_core_version: 'us_core_5'
 
-        def resource_group
-          USCoreTestKit::USCoreV501::ServiceRequestGroup
-        end
+      def resource_group
+        USCoreTestKit::USCoreV501::ServiceRequestGroup
       end
     end
   end
