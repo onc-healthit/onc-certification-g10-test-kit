@@ -2,6 +2,7 @@ require_relative 'base_token_refresh_group'
 require_relative 'smart_scopes_test'
 require_relative 'unauthorized_access_test'
 require_relative 'well_known_capabilities_test'
+require_relative 'encounter_context_test' if ONCCertificationG10TestKit::Feature.us_core_v4?
 
 module ONCCertificationG10TestKit
   class SmartEHRPractitionerAppGroup < Inferno::TestGroup
@@ -96,7 +97,6 @@ module ONCCertificationG10TestKit
                    'authorize-post',
                    'permission-v1',
                    'permission-v2'
-
                  ]
                }
              }
@@ -167,6 +167,17 @@ module ONCCertificationG10TestKit
              }
            }
 
+      if Feature.us_core_v4?
+        test from: :g10_encounter_context,
+             config: {
+               inputs: {
+                 encounter_id: { name: :ehr_encounter_id },
+                 access_token: { name: :ehr_access_token }
+               }
+             },
+             required_suite_options: { us_core_version: 'us_core_5' }
+      end
+
       test do
         title 'Launch context contains smart_style_url which links to valid JSON'
         description %(
@@ -174,6 +185,7 @@ module ONCCertificationG10TestKit
           can check for the existence of this launch context parameter and
           download the JSON file referenced by the URL value.
         )
+        id :Test13
         uses_request :token
 
         run do
@@ -199,6 +211,7 @@ module ONCCertificationG10TestKit
           was launched in a UX context where a patient banner is required (when
           true) or not required (when false).
         )
+        id :Test14
         uses_request :token
 
         run do
@@ -293,6 +306,17 @@ module ONCCertificationG10TestKit
                }
              }
 
+        if Feature.us_core_v4?
+          test from: :g10_encounter_context,
+               config: {
+                 inputs: {
+                   encounter_id: { name: :ehr_encounter_id },
+                   access_token: { name: :ehr_access_token }
+                 }
+               },
+               required_suite_options: { us_core_version: 'us_core_5' }
+        end
+
         test do
           title 'Launch context contains smart_style_url which links to valid JSON'
           description %(
@@ -301,6 +325,7 @@ module ONCCertificationG10TestKit
             download the JSON file referenced by the URL value.
           )
           uses_request :token
+          id :g10_smart_style_url
 
           run do
             skip_if request.status != 200, 'No token response received'
@@ -326,6 +351,7 @@ module ONCCertificationG10TestKit
             true) or not required (when false).
           )
           uses_request :token
+          id :g10_smart_need_patient_banner
 
           run do
             skip_if request.status != 200, 'No token response received'
