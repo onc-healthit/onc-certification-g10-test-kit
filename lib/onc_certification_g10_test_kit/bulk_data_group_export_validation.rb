@@ -570,90 +570,88 @@ module ONCCertificationG10TestKit
       end
     end
 
-    if Feature.us_core_v4?
-      test do
-        title 'ServiceRequest resources returned conform to the US Core ServiceRequest Profile'
-        description <<~DESCRIPTION
-          This test verifies that the resources returned from bulk data export
-          conform to the US Core ServiceRequest profile. This includes checking
-          for missing data elements and value set verification.
-        DESCRIPTION
+    test do
+      title 'ServiceRequest resources returned conform to the US Core ServiceRequest Profile'
+      description <<~DESCRIPTION
+        This test verifies that the resources returned from bulk data export
+        conform to the US Core ServiceRequest profile. This includes checking
+        for missing data elements and value set verification.
+      DESCRIPTION
 
-        required_suite_options us_core_version: 'us_core_5'
+      required_suite_options us_core_version: 'us_core_5'
 
-        include BulkExportValidationTester
+      include BulkExportValidationTester
 
-        def resource_type
-          'ServiceRequest'
-        end
-
-        run do
-          perform_bulk_export_validation
-        end
+      def resource_type
+        'ServiceRequest'
       end
 
-      test do
-        title 'RelatedPerson resources returned conform to the US Core RelatedPerson Profile'
-        description <<~DESCRIPTION
-          This test verifies that the resources returned from bulk data export
-          conform to the US Core RelatedPerson profile. This includes checking
-          for missing data elements and value set verification.
-        DESCRIPTION
-        required_suite_options us_core_version: 'us_core_5'
+      run do
+        perform_bulk_export_validation
+      end
+    end
 
-        include BulkExportValidationTester
+    test do
+      title 'RelatedPerson resources returned conform to the US Core RelatedPerson Profile'
+      description <<~DESCRIPTION
+        This test verifies that the resources returned from bulk data export
+        conform to the US Core RelatedPerson profile. This includes checking
+        for missing data elements and value set verification.
+      DESCRIPTION
+      required_suite_options us_core_version: 'us_core_5'
 
-        def resource_type
-          'RelatedPerson'
-        end
+      include BulkExportValidationTester
 
-        run do
-          perform_bulk_export_validation
-        end
+      def resource_type
+        'RelatedPerson'
       end
 
-      test do
-        title 'QuestionnaireResponse resources returned conform to the US Core QuestionnaireResponse Profile if ' \
-              'bulk data has QuestionnaireResponse resources'
-        description <<~DESCRIPTION
-          This test verifies that the resources returned from bulk data export
-          conform to the US Core QuestionnaireResponse profile. This includes checking for missing
-          data elements and value set verification. This test is omitted if bulk
-          data export does not return any QuestionnaireResponse resources.
-        DESCRIPTION
-        required_suite_options us_core_version: 'us_core_5'
+      run do
+        perform_bulk_export_validation
+      end
+    end
 
-        include BulkExportValidationTester
+    test do
+      title 'QuestionnaireResponse resources returned conform to the US Core QuestionnaireResponse Profile if ' \
+            'bulk data has QuestionnaireResponse resources'
+      description <<~DESCRIPTION
+        This test verifies that the resources returned from bulk data export
+        conform to the US Core QuestionnaireResponse profile. This includes checking for missing
+        data elements and value set verification. This test is omitted if bulk
+        data export does not return any QuestionnaireResponse resources.
+      DESCRIPTION
+      required_suite_options us_core_version: 'us_core_5'
 
-        def resource_type
-          'QuestionnaireResponse'
-        end
+      include BulkExportValidationTester
 
-        run do
-          perform_bulk_export_validation
-        end
+      def resource_type
+        'QuestionnaireResponse'
       end
 
-      test do
-        title 'PractionerRole resources returned conform to the US Core PractionerRole Profile if bulk data export ' \
-              'has PractionerRole resources'
-        description <<~DESCRIPTION
-          This test verifies that the resources returned from bulk data export
-          conform to the US Core PractitionerRole profile. This includes checking for missing
-          data elements and value set verification. This test is omitted if bulk
-          data export does not return any  resources.
-        DESCRIPTION
-        required_suite_options us_core_version: 'us_core_5'
+      run do
+        perform_bulk_export_validation
+      end
+    end
 
-        include BulkExportValidationTester
+    test do
+      title 'PractionerRole resources returned conform to the US Core PractionerRole Profile if bulk data export ' \
+            'has PractionerRole resources'
+      description <<~DESCRIPTION
+        This test verifies that the resources returned from bulk data export
+        conform to the US Core PractitionerRole profile. This includes checking for missing
+        data elements and value set verification. This test is omitted if bulk
+        data export does not return any  resources.
+      DESCRIPTION
+      required_suite_options us_core_version: 'us_core_5'
 
-        def resource_type
-          'PractitionerRole'
-        end
+      include BulkExportValidationTester
 
-        run do
-          perform_bulk_export_validation
-        end
+      def resource_type
+        'PractitionerRole'
+      end
+
+      run do
+        perform_bulk_export_validation
       end
     end
   end
