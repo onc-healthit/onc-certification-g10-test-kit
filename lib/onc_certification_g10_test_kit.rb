@@ -80,6 +80,7 @@ module ONCCertificationG10TestKit
              message.type == 'error' && (
                message.message.match?(/\A\S+: \S+: Unknown Code/) ||
                message.message.match?(/\A\S+: \S+: None of the codings provided are in the value set/)
+               message.message.match?(/\A\S+: \S+: The Coding provided \(\S*\) is not in the value set/)
              )
            )
           true
