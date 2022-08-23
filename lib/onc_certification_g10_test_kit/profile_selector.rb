@@ -3,7 +3,6 @@ module ONCCertificationG10TestKit
     def extract_profile(profile)
       case profile
       when 'Medication'
-        # TODO: verify why this is the case
         return versioned_us_core_module.const_get('USCoreTestSuite').metadata.find do |meta|
                  meta.resource == profile
                end.profile_url
@@ -29,9 +28,6 @@ module ONCCertificationG10TestKit
     def select_profile(resource) # rubocop:disable Metrics/CyclomaticComplexity
       case resource.resourceType
       when 'Condition'
-
-        return extract_profile(resource.resourceType) unless Feature.us_core_v4?
-
         case suite_options[:us_core_version]
         when 'us_core_5'
           if resource_contains_category(resource, 'encounter-diagnosis', 'http://terminology.hl7.org/CodeSystem/condition-category')
@@ -44,7 +40,6 @@ module ONCCertificationG10TestKit
         else
           extract_profile(resource.resourceType)
         end
-
       when 'DiagnosticReport'
         return extract_profile('DiagnosticReportLab') if resource_contains_category(resource, 'LAB', 'http://terminology.hl7.org/CodeSystem/v2-0074')
 
@@ -61,8 +56,6 @@ module ONCCertificationG10TestKit
         return extract_profile('PulseOximetry') if observation_contains_code(resource, '59408-5')
 
         if observation_contains_code(resource, '8289-1')
-          return extract_profile('HeadCircumference') unless Feature.us_core_v4?
-
           case suite_options[:us_core_version]
           when 'us_core_3'
             return extract_profile('HeadCircumference')
@@ -71,24 +64,18 @@ module ONCCertificationG10TestKit
           end
         end
 
-        if Feature.us_core_v4?
-          return extract_profile('HeadCircumference') if observation_contains_code(resource, '9843-4') # rubocop:disable Style/SoleNestedConditional
-        end
+        return extract_profile('HeadCircumference') if observation_contains_code(resource, '9843-4')
 
         # FHIR Vital Signs profiles: https://www.hl7.org/fhir/observation-vitalsigns.html
         # Vital Signs Panel, Oxygen Saturation are not required by USCDI
         # Body Mass Index is replaced by :pediatric_bmi_age Profile
         # Systolic Blood Pressure, Diastolic Blood Pressure are covered by :blood_pressure Profile
         # Head Circumference is replaced by US Core Head Occipital-frontal Circumference Percentile Profile
-        if Feature.us_core_v4?
-          if observation_contains_code(resource, '39156-5') && suite_options[:us_core_version] != 'us_core_3' # rubocop:disable Style/SoleNestedConditional
-            return extract_profile('Bmi')
-          end
+        if observation_contains_code(resource, '39156-5') && suite_options[:us_core_version] != 'us_core_3'
+          return extract_profile('Bmi')
         end
 
         if observation_contains_code(resource, '85354-9')
-          return extract_profile('Bp') unless Feature.us_core_v4?
-
           case suite_options[:us_core_version]
           when 'us_core_3'
             return extract_profile('Bp')
@@ -98,8 +85,6 @@ module ONCCertificationG10TestKit
         end
 
         if observation_contains_code(resource, '8302-2')
-          return extract_profile('Bodyheight') unless Feature.us_core_v4?
-
           case suite_options[:us_core_version]
           when 'us_core_3'
             return extract_profile('Bodyheight')
@@ -109,8 +94,6 @@ module ONCCertificationG10TestKit
         end
 
         if observation_contains_code(resource, '8310-5')
-          return extract_profile('Bodytemp') unless Feature.us_core_v4?
-
           case suite_options[:us_core_version]
           when 'us_core_3'
             return extract_profile('Bodytemp')
@@ -120,8 +103,6 @@ module ONCCertificationG10TestKit
         end
 
         if observation_contains_code(resource, '29463-7')
-          return extract_profile('Bodyweight') unless Feature.us_core_v4?
-
           case suite_options[:us_core_version]
           when 'us_core_3'
             return extract_profile('Bodyweight')
@@ -131,8 +112,6 @@ module ONCCertificationG10TestKit
         end
 
         if observation_contains_code(resource, '8867-4')
-          return extract_profile('Heartrate') unless Feature.us_core_v4?
-
           case suite_options[:us_core_version]
           when 'us_core_3'
             return extract_profile('Heartrate')
@@ -142,8 +121,6 @@ module ONCCertificationG10TestKit
         end
 
         if observation_contains_code(resource, '9279-1')
-          return extract_profile('Resprate') unless Feature.us_core_v4?
-
           case suite_options[:us_core_version]
           when 'us_core_3'
             return extract_profile('Resprate')
@@ -151,34 +128,40 @@ module ONCCertificationG10TestKit
             return extract_profile('RespiratoryRate')
           end
         end
-        if Feature.us_core_v4? # New profiles in us core v5 based on categories
 
-          return extract_profile('ObservationClinicalTest') if suite_options[:us_core_version] == 'us_core_5' &&
-                                                               resource_contains_category(
-                                                                 resource, 'clinical-test', 'http://terminology.hl7.org/CodeSystem/observation-category'
-                                                               )
+        if suite_options[:us_core_version] == 'us_core_5' &&
+           resource_contains_category(
+             resource, 'clinical-test', 'http://terminology.hl7.org/CodeSystem/observation-category'
+           )
+          return extract_profile('ObservationClinicalTest')
+        end
 
-          return extract_profile('ObservationSexualOrientation') if suite_options[:us_core_version] == 'us_core_5' &&
-                                                                    observation_contains_code(resource, '76690-7')
+        if suite_options[:us_core_version] == 'us_core_5' && observation_contains_code(resource, '76690-7')
+          return extract_profile('ObservationSexualOrientation')
+        end
 
-          return extract_profile('ObservationSocialHistory') if suite_options[:us_core_version] == 'us_core_5' &&
-                                                                resource_contains_category(resource, 'social-history',
-                                                                                           'http://terminology.hl7.org/CodeSystem/observation-category')
+        if suite_options[:us_core_version] == 'us_core_5' &&
+           resource_contains_category(resource, 'social-history',
+                                      'http://terminology.hl7.org/CodeSystem/observation-category')
+          return extract_profile('ObservationSocialHistory')
+        end
 
-          # We will simply match all Observations of category "survey" to SDOH,
-          # and do not look at the category "sdoh".  US Core spec team says that
-          # support for the "sdoh" category is limited, and the validation rules
-          # allow for very generic surveys to validate against this profile.
-          # And will not validate against the ObservationSurvey profile itself.
-          # This may not be exactly precise but it works out the same
+        # We will simply match all Observations of category "survey" to SDOH,
+        # and do not look at the category "sdoh".  US Core spec team says that
+        # support for the "sdoh" category is limited, and the validation rules
+        # allow for very generic surveys to validate against this profile.
+        # And will not validate against the ObservationSurvey profile itself.
+        # This may not be exactly precise but it works out the same
 
-          # if we wanted to be more specific here, we would add:
-          # `resource_contains_category(resource, 'sdoh',
-          #                                       'http://terminology.hl7.org/CodeSystem/observation-category') &&`
-          # along with a specific extract_profile('ObservationSurvey') to catch non-sdoh.
-          return extract_profile('ObservationSdohAssessment') if suite_options[:us_core_version] == 'us_core_5' &&
-                                                                 resource_contains_category(resource, 'survey', 'http://terminology.hl7.org/CodeSystem/observation-category') # rubocop:disable Layout/LineLength
+        # if we wanted to be more specific here, we would add:
+        # `resource_contains_category(resource, 'sdoh',
+        #                                       'http://terminology.hl7.org/CodeSystem/observation-category') &&`
+        # along with a specific extract_profile('ObservationSurvey') to catch non-sdoh.
+        if suite_options[:us_core_version] == 'us_core_5' &&
+           resource_contains_category(resource, 'survey',
+                                      'http://terminology.hl7.org/CodeSystem/observation-category')
 
+          return extract_profile('ObservationSdohAssessment')
         end
 
         nil
