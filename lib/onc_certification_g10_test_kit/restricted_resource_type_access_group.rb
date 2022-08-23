@@ -310,45 +310,43 @@ module ONCCertificationG10TestKit
       end
     end
 
-    if Feature.us_core_v4?
-      test from: :g10_restricted_access_test do
-        title 'Access to Encounter resources are restricted properly based on patient-selected scope'
-        description %(
-          This test ensures that access to the Encounter is granted or
-          denied based on the selection by the tester prior to the execution of
-          the test. If the tester indicated that access will be granted to this
-          resource, this test verifies that a search by patient in this resource
-          does not result in an access denied result. If the tester indicated that
-          access will be denied for this resource, this verifies that search by
-          patient in the resource results in an access denied result.
-        )
-        id :g10_encounter_restricted_access
+    test from: :g10_restricted_access_test do
+      title 'Access to Encounter resources are restricted properly based on patient-selected scope'
+      description %(
+        This test ensures that access to the Encounter is granted or
+        denied based on the selection by the tester prior to the execution of
+        the test. If the tester indicated that access will be granted to this
+        resource, this test verifies that a search by patient in this resource
+        does not result in an access denied result. If the tester indicated that
+        access will be denied for this resource, this verifies that search by
+        patient in the resource results in an access denied result.
+      )
+      id :g10_encounter_restricted_access
 
-        required_suite_options us_core_version: 'us_core_5'
+      required_suite_options us_core_version: 'us_core_5'
 
-        def resource_group
-          USCoreTestKit::USCoreV501::EncounterGroup
-        end
+      def resource_group
+        USCoreTestKit::USCoreV501::EncounterGroup
       end
+    end
 
-      test from: :g10_restricted_access_test do
-        title 'Access to ServiceRequest resources are restricted properly based on patient-selected scope'
-        description %(
-          This test ensures that access to the ServiceRequest is granted or
-          denied based on the selection by the tester prior to the execution of
-          the test. If the tester indicated that access will be granted to this
-          resource, this test verifies that a search by patient in this resource
-          does not result in an access denied result. If the tester indicated that
-          access will be denied for this resource, this verifies that search by
-          patient in the resource results in an access denied result.
-        )
-        id :g10_service_request_restricted_access
+    test from: :g10_restricted_access_test do
+      title 'Access to ServiceRequest resources are restricted properly based on patient-selected scope'
+      description %(
+        This test ensures that access to the ServiceRequest is granted or
+        denied based on the selection by the tester prior to the execution of
+        the test. If the tester indicated that access will be granted to this
+        resource, this test verifies that a search by patient in this resource
+        does not result in an access denied result. If the tester indicated that
+        access will be denied for this resource, this verifies that search by
+        patient in the resource results in an access denied result.
+      )
+      id :g10_service_request_restricted_access
 
-        required_suite_options us_core_version: 'us_core_5'
+      required_suite_options us_core_version: 'us_core_5'
 
-        def resource_group
-          USCoreTestKit::USCoreV501::ServiceRequestGroup
-        end
+      def resource_group
+        USCoreTestKit::USCoreV501::ServiceRequestGroup
       end
     end
   end
