@@ -24,13 +24,14 @@ module ONCCertificationG10TestKit
     description %(
         This scenario demonstrates the ability of a system to perform a Patient
         Standalone Launch to a SMART on FHIR confidential client with a patient
-        context, refresh token, and OpenID Connect (OIDC) identity token. After
-        launch, a simple Patient resource read is performed on the patient in
-        context. The access token is then refreshed, and the Patient resource is
-        read using the new access token to ensure that the refresh was
-        successful. The authentication information provided by OpenID Connect is
-        decoded and validated, and simple queries are performed to ensure that
-        access is granted to all USCDI data elements.
+        context, refresh token, OpenID Connect (OIDC) identity token, and use
+        the GET HTTP method for code exchange. After launch, a simple Patient
+        resource read is performed on the patient in context. The access token
+        is then refreshed, and the Patient resource is read using the new access
+        token to ensure that the refresh was successful. The authentication
+        information provided by OpenID Connect is decoded and validated, and
+        simple queries are performed to ensure that access is granted to all
+        USCDI data elements.
 
         * [SMART on FHIR
           (STU1)](http://www.hl7.org/fhir/smart-app-launch/1.0.0/)
@@ -168,6 +169,11 @@ module ONCCertificationG10TestKit
                   locked: true
                 },
                 pkce_code_challenge_method: {
+                  locked: true
+                },
+                authorization_method: {
+                  name: :standalone_authorization_method,
+                  default: 'get',
                   locked: true
                 }
               }

@@ -158,6 +158,12 @@ module ONCCertificationG10TestKit
                        value: 'smart_app_launch_2'
                      }
                    ]
+
+      config(
+        options: {
+          post_authorization_uri: "#{Inferno::Application['base_url']}/custom/smart_stu2/post_auth"
+        }
+      )
     end
 
     if Feature.bulk_data_v2?
