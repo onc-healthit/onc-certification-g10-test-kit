@@ -1,34 +1,23 @@
-require_relative 'onc_certification_g10_test_kit/feature'
-
 require 'smart_app_launch/smart_stu1_suite'
-require 'smart_app_launch/smart_stu2_suite' if ONCCertificationG10TestKit::Feature.smart_v2?
-require 'us_core_test_kit/generated/v3.1.1/us_core_test_suite'
-if ONCCertificationG10TestKit::Feature.us_core_v4?
-  require 'us_core_test_kit/generated/v4.0.0/us_core_test_suite'
-  require 'us_core_test_kit/generated/v5.0.1/us_core_test_suite'
-end
+require 'smart_app_launch/smart_stu2_suite'
+require 'us_core_test_kit'
 
 require_relative 'onc_certification_g10_test_kit/configuration_checker'
 require_relative 'onc_certification_g10_test_kit/version'
 
+require_relative 'onc_certification_g10_test_kit/feature'
 require_relative 'onc_certification_g10_test_kit/single_patient_api_group'
-if ONCCertificationG10TestKit::Feature.us_core_v4?
-  require_relative 'onc_certification_g10_test_kit/single_patient_us_core_4_api_group'
-  require_relative 'onc_certification_g10_test_kit/single_patient_us_core_5_api_group'
-end
+require_relative 'onc_certification_g10_test_kit/single_patient_us_core_4_api_group'
+require_relative 'onc_certification_g10_test_kit/single_patient_us_core_5_api_group'
 require_relative 'onc_certification_g10_test_kit/smart_app_launch_invalid_aud_group'
 require_relative 'onc_certification_g10_test_kit/smart_invalid_token_group'
-if ONCCertificationG10TestKit::Feature.smart_v2?
-  require_relative 'onc_certification_g10_test_kit/smart_invalid_token_group_stu2'
-  require_relative 'onc_certification_g10_test_kit/smart_invalid_pkce_group'
-end
+require_relative 'onc_certification_g10_test_kit/smart_invalid_token_group_stu2'
+require_relative 'onc_certification_g10_test_kit/smart_invalid_pkce_group'
 require_relative 'onc_certification_g10_test_kit/smart_limited_app_group'
 require_relative 'onc_certification_g10_test_kit/smart_standalone_patient_app_group'
 require_relative 'onc_certification_g10_test_kit/smart_ehr_practitioner_app_group'
 require_relative 'onc_certification_g10_test_kit/smart_public_standalone_launch_group'
-if ONCCertificationG10TestKit::Feature.smart_v2?
-  require_relative 'onc_certification_g10_test_kit/smart_public_standalone_launch_group_stu2'
-end
+require_relative 'onc_certification_g10_test_kit/smart_public_standalone_launch_group_stu2'
 require_relative 'onc_certification_g10_test_kit/multi_patient_api_stu1'
 require_relative 'onc_certification_g10_test_kit/multi_patient_api_stu2'
 require_relative 'onc_certification_g10_test_kit/terminology_binding_validator'
@@ -126,60 +115,54 @@ module ONCCertificationG10TestKit
       well_known_route_handler
     )
 
-    if Feature.us_core_v4?
-      suite_option :us_core_version,
-                   title: 'US Core Version',
-                   list_options: [
-                     {
-                       label: 'US Core 3.1.1 / USCDI v1',
-                       value: 'us_core_3'
-                     },
-                     {
-                       label: 'US Core 4.0.0 / USCDI v1',
-                       value: 'us_core_4'
-                     },
-                     {
-                       label: 'US Core 5.0.1 / USCDI v2',
-                       value: 'us_core_5'
-                     }
-                   ]
-    end
+    suite_option :us_core_version,
+                 title: 'US Core Version',
+                 list_options: [
+                   {
+                     label: 'US Core 3.1.1 / USCDI v1',
+                     value: 'us_core_3'
+                   },
+                   {
+                     label: 'US Core 4.0.0 / USCDI v1',
+                     value: 'us_core_4'
+                   },
+                   {
+                     label: 'US Core 5.0.1 / USCDI v2',
+                     value: 'us_core_5'
+                   }
+                 ]
 
-    if Feature.smart_v2?
-      suite_option :smart_app_launch_version,
-                   title: 'SMART App Launch Version',
-                   list_options: [
-                     {
-                       label: 'SMART App Launch 1.0.0',
-                       value: 'smart_app_launch_1'
-                     },
-                     {
-                       label: 'SMART App Launch 2.0.0',
-                       value: 'smart_app_launch_2'
-                     }
-                   ]
+    suite_option :smart_app_launch_version,
+                 title: 'SMART App Launch Version',
+                 list_options: [
+                   {
+                     label: 'SMART App Launch 1.0.0',
+                     value: 'smart_app_launch_1'
+                   },
+                   {
+                     label: 'SMART App Launch 2.0.0',
+                     value: 'smart_app_launch_2'
+                   }
+                 ]
 
-      config(
-        options: {
-          post_authorization_uri: "#{Inferno::Application['base_url']}/custom/smart_stu2/post_auth"
-        }
-      )
-    end
+    suite_option :multi_patient_version,
+                 title: 'Bulk Data Version',
+                 list_options: [
+                   {
+                     label: 'Bulk Data 1.0.1',
+                     value: 'multi_patient_api_stu1'
+                   },
+                   {
+                     label: 'Bulk Data 2.0.0',
+                     value: 'multi_patient_api_stu2'
+                   }
+                 ]
 
-    if Feature.bulk_data_v2?
-      suite_option :multi_patient_version,
-                   title: 'Bulk Data Version',
-                   list_options: [
-                     {
-                       label: 'Bulk Data 1.0.1',
-                       value: 'multi_patient_api_stu1'
-                     },
-                     {
-                       label: 'Bulk Data 2.0.0',
-                       value: 'multi_patient_api_stu2'
-                     }
-                   ]
-    end
+    config(
+      options: {
+        post_authorization_uri: "#{Inferno::Application['base_url']}/custom/smart_stu2/post_auth"
+      }
+    )
 
     description %(
       The ONC Certification (g)(10) Standardized API Test Kit is a testing tool for
@@ -233,25 +216,17 @@ module ONCCertificationG10TestKit
 
     group from: 'g10_smart_ehr_practitioner_app'
 
-    group from: 'g10_single_patient_api' do
-      required_suite_options us_core_version: 'us_core_3' if Feature.us_core_v4?
-    end
+    group from: 'g10_single_patient_api',
+          required_suite_options: { us_core_version: 'us_core_3' }
+    group from: 'g10_single_patient_us_core_4_api',
+          required_suite_options: { us_core_version: 'us_core_4' }
+    group from: 'g10_single_patient_us_core_5_api',
+          required_suite_options: { us_core_version: 'us_core_5' }
 
-    if Feature.us_core_v4?
-      group from: 'g10_single_patient_us_core_4_api',
-            required_suite_options: { us_core_version: 'us_core_4' }
-      group from: 'g10_single_patient_us_core_5_api',
-            required_suite_options: { us_core_version: 'us_core_5' }
-    end
-
-    group from: 'multi_patient_api' do
-      required_suite_options multi_patient_version: 'multi_patient_api_stu1' if Feature.bulk_data_v2?
-    end
-
-    if Feature.bulk_data_v2?
-      group from: 'multi_patient_api_stu2',
-            required_suite_options: { multi_patient_version: 'multi_patient_api_stu2' }
-    end
+    group from: 'multi_patient_api',
+          required_suite_options: { multi_patient_version: 'multi_patient_api_stu1' }
+    group from: 'multi_patient_api_stu2',
+          required_suite_options: { multi_patient_version: 'multi_patient_api_stu2' }
 
     group do
       title 'Additional Tests'
@@ -275,36 +250,27 @@ module ONCCertificationG10TestKit
         )
       end
 
-      if Feature.smart_v2?
-        group from: :g10_public_standalone_launch,
-              required_suite_options: { smart_app_launch_version: 'smart_app_launch_1' },
-              config: { options: { redirect_message_proc: default_redirect_message_proc } }
-        group from: :g10_public_standalone_launch_stu2,
-              required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' },
-              config: { options: { redirect_message_proc: default_redirect_message_proc } }
+      group from: :g10_public_standalone_launch,
+            required_suite_options: { smart_app_launch_version: 'smart_app_launch_1' },
+            config: { options: { redirect_message_proc: default_redirect_message_proc } }
+      group from: :g10_public_standalone_launch_stu2,
+            required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' },
+            config: { options: { redirect_message_proc: default_redirect_message_proc } }
 
-      else
-        group from: :g10_public_standalone_launch,
-              config: { options: { redirect_message_proc: default_redirect_message_proc } }
-      end
       group from: :g10_token_revocation
 
       group from: :g10_smart_invalid_aud,
             config: { options: { redirect_message_proc: default_redirect_message_proc } }
 
-      if Feature.smart_v2?
-        group from: :g10_smart_invalid_token_request,
-              required_suite_options: { smart_app_launch_version: 'smart_app_launch_1' },
-              config: { options: { redirect_message_proc: default_redirect_message_proc } }
-        group from: :g10_smart_invalid_token_request_stu2,
-              required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' },
-              config: { options: { redirect_message_proc: default_redirect_message_proc } }
-        group from: :g10_smart_invalid_pkce_code_verifier_group,
-              required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' }
-      else
-        group from: :g10_smart_invalid_token_request,
-              config: { options: { redirect_message_proc: default_redirect_message_proc } }
-      end
+      group from: :g10_smart_invalid_token_request,
+            required_suite_options: { smart_app_launch_version: 'smart_app_launch_1' },
+            config: { options: { redirect_message_proc: default_redirect_message_proc } }
+      group from: :g10_smart_invalid_token_request_stu2,
+            required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' },
+            config: { options: { redirect_message_proc: default_redirect_message_proc } }
+
+      group from: :g10_smart_invalid_pkce_code_verifier_group,
+            required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' }
 
       group from: :g10_visual_inspection_and_attestations
     end
