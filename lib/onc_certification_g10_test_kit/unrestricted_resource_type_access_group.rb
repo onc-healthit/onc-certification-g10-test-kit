@@ -130,17 +130,22 @@ module ONCCertificationG10TestKit
       end
 
       def scope_granting_access?(resource_type)
-        received_scopes.split.find do |scope|
-          return true if non_patient_compartment_resources.include?(resource_type) &&
-                         ["user/#{resource_type}.read", "user/#{resource_type}.*"].include?(scope)
+        possible_prefixes =
+          if non_patient_compartment_resources.include?(resource_type)
+            ["patient/#{resource_type}", 'patient/*', "user/#{resource_type}", 'user/*']
+          else
+            ["patient/#{resource_type}", 'patient/*']
+          end
 
-          [
-            'patient/*.read',
-            'patient/*.*',
-            "patient/#{resource_type}.read",
-            "patient/#{resource_type}.*"
-          ].include?(scope)
-        end
+        received_scopes
+          .split
+          .select { |scope| scope.start_with?(*possible_prefixes) }
+          .any? do |scope|
+            _type, resource_access = scope.split('/')
+            _resource, access_level = resource_access.split('.')
+
+            access_level.match?(/\A(\*|read|c?ru?d?s?\b)/)
+          end
       end
 
       run do

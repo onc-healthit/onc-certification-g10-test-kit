@@ -14,9 +14,10 @@ module ONCCertificationG10TestKit
       * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
 
       Enter in the appropriate scope to enable user-level access to all relevant
-      resources. In addition, support for the OpenID Connect (openid fhirUser),
-      refresh tokens (offline_access), and EHR context (launch) are required. This
-      test expects that the EHR will launch the application with a patient context.
+      resources. If using SMART v2, v2-style scopes must be used. In addition,
+      support for the OpenID Connect (openid fhirUser), refresh tokens
+      (offline_access), and EHR context (launch) are required. This test expects
+      that the EHR will launch the application with a patient context.
 
       After submit is pressed, Inferno will wait for the system under test to launch
       the application.
@@ -136,6 +137,9 @@ module ONCCertificationG10TestKit
           inputs: {
             requested_scopes: { name: :ehr_requested_scopes },
             received_scopes: { name: :ehr_received_scopes }
+          },
+          options: {
+            scope_version: :v1
           }
         )
 
@@ -143,7 +147,7 @@ module ONCCertificationG10TestKit
           ['openid', 'fhirUser', 'launch', 'offline_access']
         end
 
-        def scope_type
+        def required_scope_type
           'user'
         end
       end
@@ -240,15 +244,14 @@ module ONCCertificationG10TestKit
           inputs: {
             requested_scopes: {
               default: %(
-                launch openid fhirUser offline_access user/Medication.read
-                user/AllergyIntolerance.read user/CarePlan.read user/CareTeam.read
-                user/Condition.read user/Device.read user/DiagnosticReport.read
-                user/DocumentReference.read user/Encounter.read user/Goal.read
-                user/Immunization.read user/Location.read
-                user/MedicationRequest.read user/Observation.read
-                user/Organization.read user/Patient.read user/Practitioner.read
-                user/Procedure.read user/Provenance.read
-                user/PractitionerRole.read
+                launch openid fhirUser offline_access user/Medication.rs
+                user/AllergyIntolerance.rs user/CarePlan.rs user/CareTeam.rs
+                user/Condition.rs user/Device.rs user/DiagnosticReport.rs
+                user/DocumentReference.rs user/Encounter.rs user/Goal.rs
+                user/Immunization.rs user/Location.rs user/MedicationRequest.rs
+                user/Observation.rs user/Organization.rs user/Patient.rs
+                user/Practitioner.rs user/Procedure.rs user/Provenance.rs
+                user/PractitionerRole.rs
               ).gsub(/\s{2,}/, ' ').strip
             }
           }
@@ -260,6 +263,9 @@ module ONCCertificationG10TestKit
             inputs: {
               requested_scopes: { name: :ehr_requested_scopes },
               received_scopes: { name: :ehr_received_scopes }
+            },
+            options: {
+              scope_version: :v2
             }
           )
 
@@ -267,7 +273,7 @@ module ONCCertificationG10TestKit
             ['openid', 'fhirUser', 'launch', 'offline_access']
           end
 
-          def scope_type
+          def required_scope_type
             'user'
           end
         end
