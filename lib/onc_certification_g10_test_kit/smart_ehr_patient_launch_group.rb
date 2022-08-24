@@ -16,7 +16,7 @@ module ONCCertificationG10TestKit
       For more information on the #{title}
 
       * [Apps that launch from the
-        EHR](http://hl7.org/fhir/smart-app-launch/scopes-and-launch-context.html#apps-that-launch-from-the-ehr)
+        EHR](http://hl7.org/fhir/smart-app-launch/STU2/scopes-and-launch-context.html#apps-that-launch-from-the-ehr)
     )
     id :g10_ehr_patient_launch
     run_as_group
