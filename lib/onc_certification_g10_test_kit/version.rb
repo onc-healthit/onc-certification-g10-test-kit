@@ -1,3 +1,3 @@
 module ONCCertificationG10TestKit
-  VERSION = '2.3.0.dev'.freeze
+  VERSION = '3.0.0'.freeze
 end
