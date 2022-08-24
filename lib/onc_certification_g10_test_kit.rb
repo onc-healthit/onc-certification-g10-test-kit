@@ -19,6 +19,7 @@ require_relative 'onc_certification_g10_test_kit/smart_ehr_practitioner_app_grou
 require_relative 'onc_certification_g10_test_kit/smart_public_standalone_launch_group'
 require_relative 'onc_certification_g10_test_kit/smart_public_standalone_launch_group_stu2'
 require_relative 'onc_certification_g10_test_kit/smart_ehr_patient_launch_group'
+require_relative 'onc_certification_g10_test_kit/smart_ehr_patient_launch_group_stu2'
 require_relative 'onc_certification_g10_test_kit/multi_patient_api_stu1'
 require_relative 'onc_certification_g10_test_kit/multi_patient_api_stu2'
 require_relative 'onc_certification_g10_test_kit/terminology_binding_validator'
@@ -274,6 +275,8 @@ module ONCCertificationG10TestKit
             required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' }
 
       group from: :g10_ehr_patient_launch,
+            required_suite_options: { smart_app_launch_version: 'smart_app_launch_1' }
+      group from: :g10_ehr_patient_launch_stu2,
             required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' }
 
       group from: :g10_visual_inspection_and_attestations

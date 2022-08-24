@@ -1,5 +1,5 @@
 module ONCCertificationG10TestKit
-  class SMARTEHRPatientLaunchGroup < SMARTAppLaunch::EHRLaunchGroup
+  class SMARTEHRPatientLaunchGroupSTU2 < SMARTAppLaunch::EHRLaunchGroupSTU2
     title 'EHR Launch with Patient Scopes'
     description %(
       # Background
@@ -18,7 +18,7 @@ module ONCCertificationG10TestKit
       * [Apps that launch from the
         EHR](http://hl7.org/fhir/smart-app-launch/scopes-and-launch-context.html#apps-that-launch-from-the-ehr)
     )
-    id :g10_ehr_patient_launch
+    id :g10_ehr_patient_launch_stu2
     run_as_group
 
     config(
@@ -31,7 +31,7 @@ module ONCCertificationG10TestKit
         },
         requested_scopes: {
           name: :ehr_patient_requested_scopes,
-          default: 'launch openid fhirUser offline_access patient/Patient.read',
+          default: 'launch openid fhirUser offline_access patient/Patient.rs',
           locked: true
         },
         code: {
