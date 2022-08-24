@@ -12,8 +12,6 @@ module ONCCertificationG10TestKit
     OMIT_KLASS = ['Medication', 'Location', 'QuestionnaireResponse', 'PractitionerRole'].freeze
 
     def versioned_us_core_module
-      return USCoreTestKit::USCoreV311 unless Feature.us_core_v4?
-
       case suite_options[:us_core_version]
       when 'us_core_5'
         USCoreTestKit::USCoreV501

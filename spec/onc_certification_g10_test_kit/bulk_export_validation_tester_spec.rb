@@ -9,6 +9,12 @@ class BulkExportValidationTesterClass < Inferno::Test
   def test_session_id
     nil
   end
+
+  def suite_options
+    {
+      us_core_version: 'us_core_3'
+    }
+  end
 end
 
 RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
