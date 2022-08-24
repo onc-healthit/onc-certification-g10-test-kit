@@ -175,6 +175,20 @@
       "value": null
     },
     {
+      "name": "ehr_patient_client_id",
+      "type": "text",
+      "title": "EHR Launch Client ID",
+      "description": "Client ID provided during registration of Inferno as an EHR launch application",
+      "value": "SAMPLE_CONFIDENTIAL_CLIENT_ID"
+    },
+    {
+      "name": "ehr_patient_client_secret",
+      "type": "text",
+      "title": "EHR Launch Client Secret",
+      "description": "Client Secret provided during registration of Inferno as an EHR launch application",
+      "value": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET"
+    },
+    {
       "name": "token_revocation_attestation",
       "type": "radio",
       "title": "Prior to executing test, Health IT developer demonstrated revoking tokens provided during patient standalone launch.",
