@@ -1,3 +1,14 @@
+# 3.0.0
+
+* Add tests for US Core 4.0.0, US Core 5.0.1, SMART App Launch 2.0.0, and Bulk
+  Data 2.0.0.
+* Update the terminology build process for US Core 4.0.0 and 5.0.1.
+* Update the resource validation tests to include the profile version in
+  validation calls.
+* Add tests for EHR Launch with patient scopes.
+* Fix a bug where terminology errors from the FHIR validator service were not
+  being excluded.
+
 # 2.3.0
 
 * Add feature flags to support planned SVAP updates.
