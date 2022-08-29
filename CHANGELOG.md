@@ -1,3 +1,9 @@
+# 3.0.1
+
+* Use new version of Inferno Core which fixes performance issue when running the
+  entire test suite.
+* Fix the input order for the SMART 1.0.0 EHR Launch with Patient Scopes.
+
 # 3.0.0
 
 * Add tests for US Core 4.0.0, US Core 5.0.1, SMART App Launch 2.0.0, and Bulk
