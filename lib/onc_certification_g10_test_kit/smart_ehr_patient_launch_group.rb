@@ -80,8 +80,7 @@ module ONCCertificationG10TestKit
                 :ehr_patient_client_id,
                 :ehr_patient_client_secret,
                 :smart_authorization_url,
-                :smart_token_url,
-                :authorization_method
+                :smart_token_url
 
     test from: :g10_patient_context,
          config: {
