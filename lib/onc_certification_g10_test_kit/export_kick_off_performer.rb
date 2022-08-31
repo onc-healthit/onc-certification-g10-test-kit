@@ -7,7 +7,7 @@ module ONCCertificationG10TestKit
       headers.merge!({ authorization: "Bearer #{bearer_token}" }) if use_token
 
       url = "Group/#{group_id}/$export"
-      param_str = params.map { |k, v| URI.encode_www_form(k => v) }.join("&")
+      param_str = params.map { |k, v| URI.encode_www_form(k => v) }.join('&')
       url.concat("?#{param_str}") unless param_str.empty?
       get(url, client: :bulk_server, name: :export, headers: headers)
     end

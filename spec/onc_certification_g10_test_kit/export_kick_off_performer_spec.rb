@@ -70,12 +70,13 @@ RSpec.describe ONCCertificationG10TestKit::ExportKickOffPerformer do
         .with(headers: { 'authorization' => "Bearer #{token}" })
         .to_return(status: 200)
 
-      performer.perform_export_kick_off_request(params: { _outputFormat: 'appplication/fhir+ndjson' } )
+      performer.perform_export_kick_off_request(params: { _outputFormat: 'appplication/fhir+ndjson' })
       expect(params_url_req).to have_been_made.once
     end
 
     it 'includes multiple params in request url if params' do
-      params_url_req = stub_request(:get, "#{bulk_export_url}?_outputFormat=appplication/fhir%2Bndjson&_sort=sample%2Bvalue")
+      params_url_req = stub_request(:get,
+                                    "#{bulk_export_url}?_outputFormat=appplication/fhir%2Bndjson&_sort=sample%2Bvalue")
         .with(headers: { 'authorization' => "Bearer #{token}" })
         .to_return(status: 200)
 
