@@ -2,7 +2,7 @@ procedure:
   - section: Paragraph (g)(10)(iii) - Application registration
     steps:
       - group: Application Registration
-        id: APP-REGISTRATION-1
+        id: APP-REG-1
         SUT: |
           The health IT developer demonstrates the Health IT Module supports
           application registration with an authorization server for the purposes
@@ -22,7 +22,7 @@ procedure:
           This requires a visual inspection and attestation because it is not
           possible to automate without any standard method required for application
           registration.
-      - id: APP-REGISTRATION-2
+      - id: APP-REG-2
         SUT: |
           The health IT developer demonstrates the Health IT Module supports
           application registration with an authorization server for the purposes
@@ -35,7 +35,7 @@ procedure:
           access for multiple patients including support for application
           registration functions to enable authentication and authorization in §
           170.315(g)(10)(v).
-        inferno_tests: 
+        inferno_tests:
           - 6.5.02
         inferno_supported: 'yes'
         inferno_notes: |
@@ -45,22 +45,22 @@ procedure:
   - section: Paragraph (g)(10)(iv) – Secure connection
     steps:
       - group: Secure connection
-        id: SECURE-CONNECTION-1
-        SUT: | 
+        id: SEC-CNN-1
+        SUT: |
           For all transmissions between the Health IT Module and the
-          application, the health IT developer demonstrates the use of a
-          secure and trusted connection in accordance with the
-          implementation specifications adopted in § 170.215(a)(2) and §
-          170.215(a)(3), including:
+          application, the health IT developer demonstrates the use of a secure
+          and trusted connection in accordance with the implementation
+          specifications adopted in § 170.215(a)(2) and § 170.215(a)(3),
+          including:
           * Using TLS version 1.2 or higher; and
-          * Conformance to FHIR Communications Security requirements.
+          * Conformance to FHIR® Communications Security requirements.
         TLV: |
           For all transmissions between the Health IT Module and the
           application, the tester verifies the use of a secure and trusted
           connection in accordance with the implementation specifications
           adopted in § 170.215(a)(2) and § 170.215(a)(3), including:
           * Using TLS version 1.2 or higher; and
-          * Conformance to FHIR Communications Security requirements.
+          * Conformance to FHIR® Communications Security requirements.
         inferno_supported: 'yes'
         inferno_tests:
           - 1.2.01
@@ -87,16 +87,15 @@ procedure:
   - section: Paragraph (g)(10)(v)(A) – Authentication and authorization for patient and user scopes
     steps:
       - group: Authentication and Authorization for Patient and User Scopes
-        id: AUTH-PATIENT-1
-        SUT: | 
+        id: AUT-PAT-1
+        SUT: |
           The health IT developer demonstrates the ability of the Health IT
-          Module to support the following for “EHR-Launch,” “StandaloneLaunch,”
-          and “Both” (“EHR-Launch” and “Standalone-Launch”) as
-          specified in the implementation specification adopted in §
-          170.215(a)(3).
+          Module to support the following for “EHR-Launch,” “Standalone-Launch,”
+          and “Both” (“EHR-Launch” and “Standalone-Launch”) as specified in the
+          implementation specification adopted in § 170.215(a)(3).
         TLV: |
-          The tester verifies the ability of the Health IT Module to support
-          the following for “EHR-Launch,” “Standalone-Launch,” and “Both”
+          The tester verifies the ability of the Health IT Module to support the
+          following for “EHR-Launch,” “Standalone-Launch,” and “Both”
           (“EHR-Launch” and “Standalone-Launch”) as specified in the
           implementation specification adopted in § 170.215(a)(3).
         inferno_supported: 'yes'
@@ -106,43 +105,41 @@ procedure:
         inferno_notes: |
           Complete demonstration of these capabilities are accomplished
           through subsequent steps in the test procedure.
-      - id: AUTH-PATIENT-2
+      - id: AUT-PAT-2
         SUT: |
-          [EHR-Launch] The health IT developer demonstrates the ability of
-          the Health IT Module to initiate a “launch sequence” using the
-          “launch-ehr" “SMART on FHIR Core Capability” SMART EHR Launch
-          mode detailed in the implementation specification adopted in §
+          [EHR-Launch] The health IT developer demonstrates the ability of the
+          Health IT Module to initiate a “launch sequence” using the
+          “launch-ehr" “SMART on FHIR® Core Capability” SMART EHR Launch mode
+          detailed in the implementation specification adopted in §
           170.215(a)(3), including:
           * Launching the registered launch URL of the application; and
           * Passing the parameters: “iss” and “launch”.
         TLV: |
-          [EHR-Launch] The tester verifies the ability of the Health IT
-          Module to initiate a “launch sequence” using the “launch-ehr"
-          “SMART on FHIR Core Capability” SMART EHR Launch mode
-          detailed in the implementation specification adopted in §
-          170.215(a)(3), including:
+          [EHR-Launch] The tester verifies the ability of the Health IT Module
+          to initiate a “launch sequence” using the “launch-ehr" “SMART on FHIR®
+          Core Capability” SMART EHR Launch mode detailed in the implementation
+          specification adopted in § 170.215(a)(3), including:
           * Launching the registered launch URL of the application; and
           * Passing the parameters: “iss” and “launch”.
         inferno_supported: 'yes'
         inferno_tests:
           - 3.2.01 - 3.2.02
           - 3.2.04
-      - id: AUTH-PATIENT-3
+      - id: AUT-PAT-3
         SUT: |
-          [Standalone-Launch] The health IT developer demonstrates the
-          ability of the Health IT Module to launch using the “launch-standalone"
-          "SMART on FHIR Core Capability" SMART Standalone
-          Launch mode detailed in the implementation specification
-          adopted in § 170.215(a)(3).
+          [Standalone-Launch] The health IT developer demonstrates the ability
+          of the Health IT Module to launch using the “launch-standalone" “SMART
+          on FHIR® Core Capability” SMART Standalone Launch mode detailed in the
+          implementation specification adopted in § 170.215(a)(3).
         TLV: |
           [Standalone-Launch] The tester verifies the ability of the Health IT
-          Module to launch using the “launch-standalone" “SMART on FHIR
-          Core Capability” SMART Standalone Launch mode detailed in the
+          Module to launch using the “launch-standalone" “SMART on FHIR® Core
+          Capability” SMART Standalone Launch mode detailed in the
           implementation specification adopted in § 170.215(a)(3).
         inferno_supported: 'yes'
         inferno_tests:
           - 1.2.02
-      - id: AUTH-PATIENT-4
+      - id: AUT-PAT-4
         SUT: |
           [Standalone-Launch] The health IT developer demonstrates the ability
           of the Health IT Module to support SMART’s public client profile.
@@ -153,41 +150,57 @@ procedure:
         inferno_tests:
           - 6.1.02 - 6.1.03
           - 6.1.05 - 6.1.09
-      - id: AUTH-PATIENT-5
+      - id: AUT-PAT-5
         SUT: |
-          [Both] The health IT developer demonstrates the ability of the
-          Health IT Module to support the following as detailed in the
-          implementation specification adopted in § 170.215(a)(3) and
-          standard adopted in § 170.215(a)(1):
-          * The “.well-known/smart-configuration.json” path; and
-          * A FHIR “CapabilityStatement”.
-        TLV: |
-          [Both] The tester verifies the ability of the Health IT Module to
-          support the following as detailed in the implementation
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to support the following as detailed in the implementation
           specification adopted in § 170.215(a)(3) and standard adopted in §
           170.215(a)(1):
           * The “.well-known/smart-configuration.json” path; and
-          * A FHIR “CapabilityStatement”.
+          * A FHIR® “CapabilityStatement”.
+        TLV: |
+          [Both] The tester verifies the ability of the Health IT Module to
+          support the following as detailed in the implementation specification
+          adopted in § 170.215(a)(3) and standard adopted in § 170.215(a)(1):
+          * The “.well-known/smart-configuration.json” path; and
+          * A FHIR® “CapabilityStatement”.
         inferno_supported: 'yes'
         inferno_tests:
           - 1.1.01 - 1.1.03
           - 3.1.01 - 3.1.03
-      - id: AUTH-PATIENT-6
+      # TODO: check position, add tests
+      - id: AUT-PAT-24
+        SUT: |
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to support a “.well-known/smart-configuration.json” path as
+          detailed in the implementation specification adopted in §
+          170.215(a)(3) and standard adopted in § 170.215(a)(1).
+        TLV: |
+          [Both] The tester verifies the ability of the Health IT Module to
+          support a “.well-known/smart-configuration.json” path as detailed in
+          the implementation specification adopted in § 170.215(a)(3) and
+          standard adopted in § 170.215(a)(1).
+        inferno_supported: 'yes'
+        inferno_tests:
+      - id: AUT-PAT-6
         SUT: |
           [Both] The health IT developer demonstrates the ability of the
-          “.well-known/smart-configuration.json” path to support at least
-          the following as detailed in the implementation specification
-          adopted in § 170.215(a)(3):
+          “.well-known/smart-configuration.json” path to support at least the
+          following as detailed in the implementation specification adopted in §
+          170.215(a)(3):
           * “authorization_endpoint”;
           * “token_endpoint”; and
-          * “capabilities” (including support for all the “SMART on FHIR Core Capabilities”).
+          * “capabilities” (including support for all the “SMART on FHIR® Core
+            Capabilities”).
         TLV: |
-          [Both] The tester verifies the ability of the “.well-known/smartconfiguration.json”
-          path to support at least the following as detailed in the implementation specification
-          adopted in § 170.215(a)(3):
+          [Both] The tester verifies the ability of the
+          “.well-known/smart-configuration.json” path to support at least the
+          following as detailed in the implementation specification adopted in §
+          170.215(a)(3):
           * “authorization_endpoint”;
           * “token_endpoint”; and
-          * “capabilities” (including support for all the “SMART on FHIR Core Capabilities”).
+          * “capabilities” (including support for all the “SMART on FHIR® Core
+            Capabilities”).
         inferno_supported: 'yes'
         inferno_tests:
           - 1.1.02
@@ -198,21 +211,67 @@ procedure:
           Inferno additionally checks that the "authorization endpoint" and the
           "token endpoint" are consistent between the Capability Statement and
           the well-known endpoint.
-      - id: AUTH-PATIENT-7
+      # TODO: check position, add tests
+      - id: AUT-PAT-25
         SUT: |
           [Both] The health IT developer demonstrates the ability of the
-          FHIR “CapabilityStatement” to support at least the following
-          components as detailed in the implementation specification
-          adopted in § 170.215(a)(3) and standard adopted in §
-          170.215(a)(1), including:
+          “.well-known/smart-configuration.json” path to support at least the
+          following as detailed in the implementation specification adopted in §
+          170.215(a)(3):
+          * “authorization_endpoint”;
+          * “token_endpoint”;
+          * “capabilities” including support for “launch-ehr",
+            “launch-standalone”, “client-public”,
+            “client-confidential-symmetric", “sso-openid-connect",
+            “context-banner”, “context-style”, “context-ehr-patient",
+            “context-standalone-patient", “permission-offline”,
+            “permission-patient”, “permission-user”, “authorize-post”,
+            “permission-v2”;
+          * “grant_types_supported” with support for “authorization_code” and
+            “client_credentials”; and
+          * “code_challenge_methods_supported” with support for “S256” and shall
+            not include support for “plain”
+
+          Additionally, the following “capabilities” must be supported if using
+          US Core 5.0.1:
+          * "context-ehr-encounter"
+        TLV: |
+          [Both] The tester verifies the ability of the
+          “.well-known/smart-configuration.json” path to support at least the
+          following as detailed in the implementation specification adopted in §
+          170.215(a)(3):
+          * “authorization_endpoint”;
+          * “token_endpoint”;
+          * “capabilities” including support for “launch-ehr",
+            “launch-standalone”, “client-public”,
+            “client-confidential-symmetric", “sso-openid-connect",
+            “context-banner”, “context-style”, “context-ehr-patient",
+            “context-standalone-patient", “permission-offline”,
+            “permission-patient”, “permission-user”, “authorize-post”,
+            “permission-v2”;
+          * “grant_types_supported” with support for “authorization_code” and
+            “client_credentials”; and
+          * “code_challenge_methods_supported” with support for “S256” and shall
+            not include support for “plain”
+
+          Additionally, the following “capabilities” must be supported if using
+          US Core 5.0.1:
+          * "context-ehr-encounter"
+        inferno_supported: 'yes'
+        inferno_tests:
+      - id: AUT-PAT-7
+        SUT: |
+          [Both] The health IT developer demonstrates the ability of the FHIR®
+          “CapabilityStatement” to support at least the following components as
+          detailed in the implementation specification adopted in §
+          170.215(a)(3) and standard adopted in § 170.215(a)(1), including:
           * “authorize”; and
           * “token”.
         TLV: |
-          [Both] The tester verifies the ability of the FHIR
-          “CapabilityStatement” to support at least the following
-          components as detailed in the implementation specification
-          adopted in § 170.215(a)(3) and standard adopted in §
-          170.215(a)(1), including:
+          [Both] The tester verifies the ability of the FHIR®
+          “CapabilityStatement” to support at least the following components as
+          detailed in the implementation specification adopted in §
+          170.215(a)(3) and standard adopted in § 170.215(a)(1), including:
           * “authorize”; and
           * “token”.
         inferno_supported: 'yes'
@@ -223,12 +282,12 @@ procedure:
           Inferno additionally checks that the "authorization endpoint" and the
           "token endpoint" are consistent between the Capability Statement and
           the well-known endpoint.
-      - id: AUTH-PATIENT-8
+      - id: AUT-PAT-8
         SUT: |
-          [Both] The health IT developer demonstrates the ability of the
-          Health IT Module to receive an authorization request according to
-          the implementation specification adopted in § 170.215(a)(3),
-          including support for the following parameters:
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to receive an authorization request according to the
+          implementation specification adopted in § 170.215(a)(3), including
+          support for the following parameters:
           * “response_type”;
           * “client_id”;
           * “redirect_uri”;
@@ -249,38 +308,100 @@ procedure:
           * “state”; and
           * “aud”.
         inferno_supported: 'yes'
-        inferno_tests: 
+        inferno_tests:
             - 1.2.02 - 1.2.03
             - 3.2.04 - 3.2.05
-      - id: AUTH-PATIENT-9
+      # TODO: check position, add tests
+      - id: AUT-PAT-26
+        SUT: |
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to receive an authorization request according to the
+          implementation specification adopted in § 170.215(a)(3), including
+          support for the following parameters:
+          * “response_type”;
+          * “client_id”;
+          * “redirect_uri”;
+          * “launch” (for EHR-Launch mode only);
+          * “scope”;
+          * “state”;
+          * “aud”;
+          * “code_challenge”; and
+          * “code_challenge_method”
+        TLV: |
+          [Both] The tester verifies the ability of the Health IT Module to
+          receive an authorization request according to the implementation
+          specification adopted in § 170.215(a)(3), including support for the
+          following parameters:
+          * “response_type”;
+          * “client_id”;
+          * “redirect_uri”;
+          * “launch” (for EHR-Launch mode only);
+          * “scope”;
+          * “state”;
+          * “aud”;
+          * “code_challenge”; and
+          * “code_challenge_method”
+        inferno_supported: 'yes'
+        inferno_tests:
+      # TODO: check position, add tests
+      - id: AUT-PAT-27
+        SUT: |
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module’s Authorization Server to support the use of the HTTP GET
+          and POST methods at the Authorization Endpoint as detailed in the
+          implementation specification adopted in § 170.215(a)(3).
+        TLV: |
+          [Both] The tester verifies the ability of the Health IT Module’s
+          Authorization Server to support the use of the HTTP GET and POST
+          methods at the Authorization Endpoint as detailed in the
+          implementation specification adopted in § 170.215(a)(3).
+        inferno_supported: 'yes'
+        inferno_tests:
+      - id: AUT-PAT-9
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
           IT Module to support the receipt of the following scopes and
           capabilities according to the implementation specification adopted in
           § 170.215(a)(3) and standard adopted in § 170.215(b):
-          * “openid” (to support “sso-openid-connect” “SMART on FHIR Core Capability”);
-          * “fhirUser” (to support “sso-openid-connect” “SMART on FHIR Core Capability”);
-          * “need_patient_banner” (to support “context-banner” “SMART on FHIR Core Capability” for EHR-Launch mode only);
-          * “smart_style_url” (to support “context-style” “SMART on FHIR Core Capability” for EHR-Launch mode only);
-          * “launch/patient” (to support “context-standalone-patient” “SMART on FHIR Core Capability” for Standalone-Launch mode only);
+          * “openid” (to support “sso-openid-connect” “SMART on FHIR® Core
+            Capability”);
+          * “FHIR®User” (to support “sso-openid-connect” “SMART on FHIR® Core
+            Capability”);
+          * “need_patient_banner” (to support “context-banner” “SMART on FHIR®
+            Core Capability” for EHR-Launch mode only);
+          * “smart_style_url” (to support “context-style” “SMART on FHIR® Core
+            Capability” for EHR-Launch mode only);
+          * “launch/patient” (to support “context-standalone-patient” “SMART on
+            FHIR® Core Capability” for Standalone-Launch mode only);
           * “launch” (for EHR-Launch mode only);
-          * “offline_access” (to support “permission-offline” “SMART on FHIR Core Capability”);
-          * Patient-level scopes(to support “permission-patient” “SMART on FHIR Core Capability”); and
-          * User-level scopes (to support “permission-user” “SMART on FHIR Core Capability”).
+          * “offline_access” (to support “permission-offline” “SMART on FHIR®
+            Core Capability”);
+          * Patient-level scopes (to support “permission-patient” “SMART on
+            FHIR® Core Capability”); and
+          * User-level scopes (to support “permission-user” “SMART on FHIR® Core
+            Capability”).
         TLV: |
           [Both] The tester verifies the ability of the Health IT Module to
-          support the receipt of the following scopes and capabilities according
-          to the implementation specification adopted in § 170.215(a)(3) and
-          standard adopted in § 170.215(b):
-          * “openid” (to support “sso-openid-connect” “SMART on FHIR Core Capability”);
-          * “fhirUser” (to support “sso-openid-connect” “SMART on FHIR Core Capability”);
-          * “need_patient_banner” (to support “context-banner” “SMART on FHIR Core Capability” for EHR-Launch mode only);
-          * “smart_style_url” (to support “context-style” “SMART on FHIR Core Capability” for EHR-Launch mode only);
-          * “launch/patient” (to support “context-standalone-patient” “SMART on FHIR Core Capability” for Standalone-Launch mode only);
+          support the receipt of the following scopes according to the
+          implementation specification adopted in § 170.215(a)(3) and standard
+          adopted in § 170.215(b):
+          * “openid” (to support “sso-openid-connect” “SMART on FHIR® Core
+            Capability”);
+          * “FHIR®User” (to support “sso-openid-connect” “SMART on FHIR® Core
+            Capability”);
+          * “need_patient_banner” (to support “context-banner” “SMART on FHIR®
+            Core Capability” for EHR-Launch mode only);
+          * “smart_style_url” (to support “context-style” “SMART on FHIR® Core
+            Capability” for EHR-Launch mode only);
+          * “launch/patient” (to support “context-standalone-patient” “SMART on
+            FHIR® Core Capability” for Standalone-Launch mode only);
           * “launch” (for EHR-Launch mode only);
-          * “offline_access” (to support “permission-offline” “SMART on FHIR Core Capability”);
-          * Patient-level scopes (to support “permission-patient” “SMART on FHIR Core Capability”); and
-          * User-level scopes (to support “permission-user” “SMART on FHIR Core Capability”).
+          * “offline_access” (to support “permission-offline” “SMART on FHIR®
+            Core Capability”);
+          * Patient-level scopes (to support “permission-patient” “SMART on
+            FHIR® Core Capability”); and
+          * User-level scopes (to support “permission-user” “SMART on FHIR® Core
+            Capability”).
         inferno_supported: 'yes'
         inferno_tests:
           - 1.2.02
@@ -289,60 +410,125 @@ procedure:
           This step refers to only the receipt of these scopes, which is covered in
           Inferno in one step in each the EHR and Standalone launch cases.  However,
           it is not possible to tell if these scopes were properly granted until
-          verifying that the client has access to perform the necessary steps.  
+          verifying that the client has access to perform the necessary steps.
           Inferno does this as well, but this mapping only refers to the 'receipt' portion
           of the launch process.
-      - id: AUTH-PATIENT-10
+      # TODO: check position, add tests
+      - id: AUT-PAT-28
         SUT: |
-          [Both] The health IT developer demonstrates the ability of the
-          Health IT Module to evaluate the authorization request and
-          request end-user input, if applicable (required for patient-facing
-          applications), including the ability for the end-user to authorize an
-          application to receive Electronic Health Information (EHI) based
-          on FHIR resource-level scopes for all of the FHIR resources
-          associated with the profiles specified in the standard adopted in
-          § 170.213 and implementation specification adopted in
-          § 170.215(a)(2), including:
-          * "AllergyIntolerance";
-          * "CarePlan";
-          * "CareTeam";
-          * "Condition";
-          * "Device";
-          * "DiagnosticReport";
-          * "DocumentReference";
-          * "Goal";
-          * "Immunization";
-          * "Medication" (if supported);
-          * "MedicationRequest";
-          * "Observation";
-          * "Patient";
-          * "Procedure"; and
-          * "Provenance".
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to support the receipt of the following scopes and
+          capabilities according to the implementation specification adopted in
+          § 170.215(a)(3) and standard adopted in § 170.215(b):
+          * “openid” (to support “sso-openid-connect” “SMART on FHIR®
+            Capability”);
+          * “FHIR®User” (to support “sso-openid-connect” “SMART on FHIR®
+            Capability”);
+          * “need_patient_banner” (to support “context-banner” “SMART on FHIR®
+            Capability” for EHR-Launch mode only);
+          * “smart_style_url” (to support “context-style” “SMART on FHIR®
+            Capability” for EHR-Launch mode only);
+          * “launch/patient” (to support “context-standalone-patient” “SMART on
+            FHIR® Capability” for Standalone-Launch mode only);
+          * “launch” (for EHR-Launch mode only);
+          * “offline_access” (to support “permission-offline” “SMART on FHIR®
+            Capability”);
+          * Patient-level scopes (to support “permission-patient” and “SMART on
+            FHIR® Capability”); and
+          * User-level scopes (to support “permission-user” “SMART on FHIR®
+            Capability”).
+          * SMARTv2 scope syntax for patient-level and user-level scopes (to
+            support “permission-v2” “SMART on FHIR® Capability”)
         TLV: |
-          [Both] The tester verifies the ability of the
-          Health IT Module to evaluate the authorization request and
-          request end-user input, if applicable (required for patient-facing
-          applications), including the ability for the end-user to authorize an
-          application to receive Electronic Health Information (EHI) based
-          on FHIR resource-level scopes for all of the FHIR resources
+          [Both] The tester verifies the ability of the Health IT Module to
+          support the receipt of the following scopes and capabilities according
+          to the implementation specification adopted in § 170.215(a)(3) and
+          standard adopted in § 170.215(b):
+          * “openid” (to support “sso-openid-connect” “SMART on FHIR®
+            Capability”);
+          * “FHIR®User” (to support “sso-openid-connect” “SMART on FHIR®
+            Capability”);
+          * “need_patient_banner” (to support “context-banner” “SMART on FHIR®
+            Capability” for EHR-Launch mode only);
+          * “smart_style_url” (to support “context-style” “SMART on FHIR®
+            Capability” for EHR-Launch mode only);
+          * “launch/patient” (to support “context-standalone-patient” “SMART on
+            FHIR® Capability” for Standalone-Launch mode only);
+          * “launch” (for EHR-Launch mode only);
+          * “offline_access” (to support “permission-offline” “SMART on FHIR®
+            Capability”);
+          * Patient-level scopes (to support “permission-patient” and “SMART on
+            FHIR® Capability”); and
+          * User-level scopes (to support “permission-user” “SMART on FHIR®
+            Capability”).
+          * SMARTv2 scope syntax for patient-level and user-level scopes (to
+            support “permission-v2” “SMART on FHIR® Capability”)
+        inferno_supported: 'yes'
+        inferno_tests:
+      - id: AUT-PAT-10
+        SUT: |
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to evaluate the authorization request and request end-user
+          input, if applicable (required for patient-facing applications),
+          including the ability for the end-user to authorize an application to
+          receive EHI based on FHIR® resource-level scopes for all of the FHIR®
+          resources associated with the profiles specified in the standard
+          adopted in § 170.213 and implementation specification adopted in
+          § 170.215(a)(2).
+
+          If using US Core 3.1.1, 4.0.0, or 5.0.1, these resources include:
+          * “AllergyIntolerance”;
+          * “CarePlan”;
+          * “CareTeam”;
+          * “Condition”;
+          * “Device”;
+          * “DiagnosticReport”;
+          * “DocumentReference”;
+          * “Goal”;
+          * “Immunization”;
+          * “Medication” (if supported);
+          * “MedicationRequest”;
+          * “Observation”;
+          * “Patient”;
+          * “Procedure”; and
+          * “Provenance”.
+
+          Additionally, the following resources must be supported if using US
+          Core 5.0.1:
+          * “Encounter”;
+          * “RelatedPerson”; and
+          * “ServiceRequest”
+        TLV: |
+          [Both] The tester verifies the ability of the Health IT Module to
+          evaluate the authorization request and request end-user input, if
+          applicable (required for patient-facing applications), including the
+          ability for the end-user to authorize an application to receive EHI
+          based on FHIR® resource-level scopes for all of the FHIR® resources
           associated with the profiles specified in the standard adopted in
-          § 170.213 and implementation specification adopted in
-          § 170.215(a)(2), including:
-          * "AllergyIntolerance";
-          * "CarePlan";
-          * "CareTeam";
-          * "Condition";
-          * "Device";
-          * "DiagnosticReport";
-          * "DocumentReference";
-          * "Goal";
-          * "Immunization";
-          * "Medication" (if supported);
-          * "MedicationRequest";
-          * "Observation";
-          * "Patient";
-          * "Procedure"; and
-          * "Provenance".
+          § 170.213 and implementation specification adopted in § 170.215(a)(2).
+
+          If using US Core 3.1.1, 4.0.0, or 5.0.1, these resources include:
+          * “AllergyIntolerance”;
+          * “CarePlan”;
+          * “CareTeam”;
+          * “Condition”;
+          * “Device”;
+          * “DiagnosticReport”;
+          * “DocumentReference”;
+          * “Goal”;
+          * “Immunization”;
+          * “Medication” (if supported);
+          * “MedicationRequest”;
+          * “Observation”;
+          * “Patient”;
+          * “Procedure”; and
+          * “Provenance”.
+
+          Additionally, the following resources must be supported if using US
+          Core 5.0.1:
+          * “Encounter”;
+          * “RelatedPerson”; and
+          * “ServiceRequest”
         inferno_supported: 'yes'
         inferno_tests:
           - 1.2.02
@@ -357,22 +543,21 @@ procedure:
           Inferno verifies that end-user input is requested by requiring one app
           launch have complete access to required resources and having one app
           launch have limited access based on the preferences of the tester.
-      - id: AUTH-PATIENT-11 
+      - id: AUT-PAT-11
         SUT: |
-          [Both] The health IT developer demonstrates the ability of the
-          Health IT Module to evaluate the authorization request and request
-          end-user input, if applicable (required for patient-facing
-          applications), including either the ability for the end-user to
-          explicitly enable / disable the “offline_access” scope or
-          information communicating the application’s request for the
-          “offline_access” scope.
-        TLV: | 
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to evaluate the authorization request and request end-user
+          input, if applicable (required for patient-facing applications),
+          including either the ability for the end-user to explicitly enable /
+          disable the “offline_access” scope or information communicating the
+          application’s request for the “offline_access” scope.
+        TLV: |
           [Both] The tester verifies the ability of the Health IT Module to
           evaluate the authorization request and request end-user input, if
           applicable (required for patient-facing applications), including
-          either the ability for the end-user to explicitly enable / disable
-          the “offline_access” scope or information communicating the
-          application’s request for the “offline_access” scope.
+          either the ability for the end-user to explicitly enable / disable the
+          “offline_access” scope or information communicating the application’s
+          request for the “offline_access” scope.
         inferno_supported: 'yes'
         inferno_tests:
           - 1.2.02
@@ -388,18 +573,19 @@ procedure:
           Inferno requests full resource and 'offline_access' access, and the tester
           is expected to select the correct subset of resources and deny 'offline_access'
           based on previously selected preferences.
-      - id: AUTH-PATIENT-12
+      - id: AUT-PAT-12
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
           IT Module to deny an application’s authorization request according to
-          a patient’s preferences selected in steps 10 and 11 of this section in
-          accordance with the implementation specification adopted in §
-          170.215(a)(3).
+          a patient’s preferences selected in AUT-PAT-10, and AUT-PAT-11, of
+          this section in accordance with the implementation specification
+          adopted in § 170.215(a)(3).
         TLV: |
           [Both] The tester verifies the ability of the Health IT Module to deny
           an application’s authorization request according to a patient’s
-          preferences selected in steps 10 and 11 of this section in accordance
-          with the implementation specification adopted in § 170.215(a)(3).
+          preferences selected in AUT-PAT-10, and AUT-PAT-11, of this section in
+          accordance with the implementation specification adopted in §
+          170.215(a)(3).
         inferno_supported: 'yes'
         inferno_tests:
           - 1.2.02
@@ -415,119 +601,194 @@ procedure:
           Inferno requests full resource and 'offline_access' access, and the tester
           is expected to select the correct subset of resources and deny 'offline_access'
           based on previously selected preferences.
-      - id: AUTH-PATIENT-13
+      # TODO: check position, add tests
+      - id: AUT-PAT-29
+        SUT: |
+          [EHR-Launch] The health IT developer demonstrates the ability of the
+          Health IT Module to establish a patient in context if an application
+          requests a clinical scope which is restricted to a single patient as
+          detailed in the implementation specification adopted in §
+          170.215(a)(3).
+        TLV: |
+          [EHR-Launch] The tester verifies the ability of the Health IT Module
+          to establish a patient in context if an application requests a
+          clinical scope which is restricted to a single patient as detailed in
+          the implementation specification adopted in § 170.215(a)(3).
+        inferno_supported: 'yes'
+        inferno_tests:
+      - id: AUT-PAT-13
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
           IT Module to return an error response if the "aud" parameter provided
-          by an application to the Health IT Module in Step 8, is not a valid
+          by an application to the Health IT Module in AUT-PAT-8, is not a valid
           FHIR® resource server associated with the Health IT Module's
           authorization server.
         TLV: |
           [Both] The tester verifies the ability of the Health IT Module to
           return an error response if the "aud" parameter provided by an
-          application to the Health IT Module in Step 8, is not a valid FHIR®
+          application to the Health IT Module in AUT-PAT-8, is not a valid FHIR®
           resource server associated with the Health IT Module's authorization
           server.
         inferno_supported: 'yes'
         inferno_tests:
           - 6.3.01 - 6.3.02
-      - id: AUTH-PATIENT-14
+      - id: AUT-PAT-14
         SUT: |
-          [Both] The health IT developer demonstrates the ability of the
-          Health IT Module to grant an application access to EHI by
-          returning an authorization code to the application according to
-          the implementation specification adopted in § 170.215(a)(3),
-          including the following parameters:
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to grant an application access to EHI by returning an
+          authorization code to the application according to the implementation
+          specification adopted in § 170.215(a)(3), including the following
+          parameters:
           * “code”; and
           * “state”.
         TLV: |
-          [Both] The tester verifies the ability of the
-          Health IT Module to grant an application access to EHI by
-          returning an authorization code to the application according to
-          the implementation specification adopted in § 170.215(a)(3),
-          including the following parameters:
+          [Both] The tester verifies the ability of the Health IT Module to
+          grant an application access to EHI by returning an authorization code
+          to the application according to the implementation specification
+          adopted in § 170.215(a)(3), including the following parameters:
           * “code”; and
           * “state”.
         inferno_supported: 'yes'
-        inferno_tests: 
+        inferno_tests:
           - 1.2.03
           - 3.2.05
-      - id: AUTH-PATIENT-15
+      - id: AUT-PAT-15
         SUT: |
-          [Both] The health IT developer demonstrates the ability of the
-          Health IT Module to receive the following parameters from an
-          application according to the implementation specification adopted
-          in § 170.215(a)(3):
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to receive the following parameters from an application
+          according to the implementation specification adopted in §
+          170.215(a)(3):
           * “grant_type”;
           * “code”;
           * “redirect_uri”;
           * “client_id”; and
-          * Authorization header including “client_id” and "client_secret"
+          * Authorization header including “client_id” and “client_secret”.
         TLV: |
-          [Both] The tester verifies the ability of the
-          Health IT Module to receive the following parameters from an
-          application according to the implementation specification adopted
-          in § 170.215(a)(3):
+          [Both] The tester verifies the ability of the Health IT Module to
+          receive the following parameters from an application according to the
+          implementation specification adopted in § 170.215(a)(3):
           * “grant_type”;
           * “code”;
           * “redirect_uri”;
           * “client_id”; and
-          * Authorization header including “client_id” and "client_secret"
+          * Authorization header including “client_id” and “client_secret”.
         inferno_supported: 'yes'
         inferno_tests:
           - 1.2.05
           - 3.2.07
         inferno_notes: |
           "client_secret" is only provided in the case of confidential clients.
-      - id: AUTH-PATIENT-16
+      # TODO: check position, add tests
+      - id: AUT-PAT-30
         SUT: |
-          [Both] The health IT developer demonstrates the ability of the
-          Health IT Module to return a JSON object to applications according
-          to the implementation specification adopted in § 170.215(a)(3)
-          and standard adopted in § 170.215(b), including the following:
-          * “access_token”;
-          * “token_type”;
-          * “scope”;
-          * “id_token”;
-          * “refresh_token” (valid for a period of no shorter than three months);
-          * HTTP “Cache-Control” response header field with a value of “no-store”;
-          * HTTP “Pragma” response header field with a value of “nocache”;
-          * “patient” (to support “context-ehr-patient” and “contextstandalone-patient” “SMART on FHIR Core Capabilities”);
-          * “need_patient_banner” (to support “context-banner” “SMART on FHIR Core Capability” for EHR-Launch mode only); and
-          * “smart_style_url” (to support “context-style” “SMART on FHIR Core Capability” for EHR-Launch mode only).
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to receive the following access token request parameters
+          from an application according to the implementation specification
+          adopted in § 170.215(a)(3):
+          * “grant_type”;
+          * “code”;
+          * “redirect_uri”;
+          * “code_verifier”;
+          * “client_id”; and
+          * Authorization header including “client_id” and “client_secret”.
         TLV: |
-          [Both] The tester verifies the ability of the
-          Health IT Module to return a JSON object to applications according
-          to the implementation specification adopted in § 170.215(a)(3)
-          and standard adopted in § 170.215(b), including the following:
+          [Both] The tester verifies the ability of the Health IT Module to
+          receive the following access token request parameters from an
+          application according to the implementation specification adopted in §
+          170.215(a)(3):
+          * “grant_type”;
+          * “code”;
+          * “redirect_uri”;
+          * “code_verifier”;
+          * “client_id”; and
+          * Authorization header including “client_id” and “client_secret”.
+        inferno_supported: 'yes'
+        inferno_tests:
+      # TODO: check position, add tests
+      - id: AUT-PAT-31
+        SUT: |
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to return an error response if an invalid “code_verifier”
+          value is supplied with an access token request according to the
+          implementation specification adopted in § 170.215(a)(3).
+        TLV: |
+          [Both] The tester verifies the ability of the Health IT Module to
+          return an error response if an invalid “code_verifier” value is
+          supplied with an access token request according to the implementation
+          specification adopted in § 170.215(a)(3).
+        inferno_supported: 'yes'
+        inferno_tests:
+      - id: AUT-PAT-16
+        SUT: |
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to return a JSON object to applications according to the
+          implementation specification adopted in § 170.215(a)(3) and standard
+          adopted in § 170.215(b), including the following:
           * “access_token”;
           * “token_type”;
           * “scope”;
           * “id_token”;
-          * “refresh_token” (valid for a period of no shorter than three months);
-          * HTTP “Cache-Control” response header field with a value of “no-store”;
-          * HTTP “Pragma” response header field with a value of “nocache”;
-          * “patient” (to support “context-ehr-patient” and “contextstandalone-patient” “SMART on FHIR Core Capabilities”);
-          * “need_patient_banner” (to support “context-banner” “SMART on FHIR Core Capability” for EHR-Launch mode only); and
-          * “smart_style_url” (to support “context-style” “SMART on FHIR Core Capability” for EHR-Launch mode only).
+          * “refresh_token” (valid for a period of no shorter than three
+            months);
+          * HTTP “Cache-Control” response header field with a value of
+            “no-store”;
+          * HTTP “Pragma” response header field with a value of “no-cache”;
+          * “patient” (to support “context-ehr-patient” and
+            “context-standalone-patient” “SMART on FHIR® Core Capabilities”);
+          * “need_patient_banner” (to support “context-banner” “SMART on FHIR®
+            Core Capability” for EHR-Launch mode only); and
+          * “smart_style_url” (to support “context-style” “SMART on FHIR® Core
+            Capability” for EHR-Launch mode only).
+
+          Additionally, the following must be supported if using US Core 5.0.1:
+          * “encounter” (to support"context-ehr-encounter" “SMART on FHIR®
+            Capability”)
+        TLV: |
+          [Both] The tester verifies the ability of the Health IT Module to
+          return a JSON object to applications according to the implementation
+          specification adopted in § 170.215(a)(3) and standard adopted in §
+          170.215(b), including the following:
+          * “access_token”;
+          * “token_type”;
+          * “scope”;
+          * “id_token”;
+          * “refresh_token” (valid for a period of no shorter than three
+            months);
+          * HTTP “Cache-Control” response header field with a value of
+            “no-store”;
+          * HTTP “Pragma” response header field with a value of “no-cache”;
+          * “patient” (to support “context-ehr-patient” and
+            “context-standalone-patient” “SMART on FHIR® Core Capabilities”);
+          * “need_patient_banner” (to support “context-banner” “SMART on FHIR®
+            Core Capability” for EHR-Launch mode only); and
+          * “smart_style_url” (to support “context-style” “SMART on FHIR® Core
+            Capability” for EHR-Launch mode only).
+
+          Additionally, the following must be supported if using US Core 5.0.1:
+          * “encounter” (to support"context-ehr-encounter" “SMART on FHIR®
+            Capability”)
         inferno_supported: 'yes'
-        inferno_tests: 
+        inferno_tests:
           - 1.2.06 - 1.2.07
           - 3.2.08 - 3.2.09
-      - id: AUTH-PATIENT-17
+      - id: AUT-PAT-17
         SUT: |
-          [Both] The health IT developer demonstrates the ability of the
-          Health IT Module to provide an OpenID Connect well-known URI in
-          accordance with the implementation specification adopted in §
-          170.215(b), including:
-          * All required fields populated according to implementation specification adopted in § 170.215(b)
-          * Valid JWKS populated according to implementation specification can be retrieved via JWKS URI
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to provide an OpenID Connect well-known URI in accordance
+          with the implementation specification adopted in § 170.215(b),
+          including:
+          * All required fields populated according to implementation
+            specification adopted in § 170.215(b); and
+          * Valid JWKS populated according to implementation specification can
+            be retrieved via JWKS URI.
         TLV: |
-          [Both] The tester verfies the ability of the Health IT Module to
+          [Both] The tester verifies the ability of the Health IT Module to
           provide an OpenID Connect well-known URI in accordance with the
           implementation specification adopted in § 170.215(b), including:
-          * All required fields populated according to implementation specification adopted in § 170.215(b)
-          * Valid JWKS populated according to implementation specification can be retrieved via JWKS URI
+          * All required fields populated according to implementation
+            specification adopted in § 170.215(b); and
+          * Valid JWKS populated according to implementation specification can
+            be retrieved via JWKS URI.
         inferno_supported: 'yes'
         inferno_tests:
           - 1.3.01 - 1.3.07
@@ -537,17 +798,15 @@ procedure:
           verifies that it contains the correct claims, has a valid signature,
           and the fhirUser claim contains a reference to the current user that
           can be retreived using the bearer token provided during the application launch.
-      - id: AUTH-PATIENT-18
+      - id: AUT-PAT-18
         SUT: |
-          [Both] The health IT developer demonstrates the ability of the
-          Health IT Module to deny an application’s authorization request in
-          accordance with the implementation specification adopted in §
-          170.215(a)(3).
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to deny an application’s authorization request in accordance
+          with the implementation specification adopted in § 170.215(a)(3).
         TLV: |
-          [Both] The tester demonstrates the ability of the
-          Health IT Module to deny an application’s authorization request in
-          accordance with the implementation specification adopted in §
-          170.215(a)(3).
+          [Both] The tester verifies the ability of the Health IT Module to deny
+          an application’s authorization request in accordance with the
+          implementation specification adopted in § 170.215(a)(3).
         inferno_supported: 'yes'
         inferno_notes: |
           Inferno verifies that the user has the ability to explicitly authorize
@@ -558,65 +817,79 @@ procedure:
           - 2.1.02 - 2.1.09
           - 2.2.01 - 2.2.13
           - 6.4.01 - 6.4.04
-      - id: AUTH-PATIENT-19
+      - id: AUT-PAT-19
         SUT: |
-          [Standalone-Launch] The health IT developer the ability of the Health IT
-          Module to return a “Patient” FHIR resource that matches the
-          patient context provided in step 9 of this section according to the
-          implementation specification adopted in § 170.215(a)(2).
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to return a “Patient” FHIR® resource that matches the
+          patient context provided in step AUT-PAT-9 of this section according
+          to the implementation specification adopted in § 170.215(a)(2).
         TLV: |
-          [Standalone-Launch] The tester verifies the ability of the Health IT
-          Module to return a “Patient” FHIR resource that matches the
-          patient context provided in step 9 of this section according to the
+          [Both] The tester verifies the ability of the Health IT Module to
+          return a “Patient” FHIR® resource that matches the patient context
+          provided in step AUT-PAT-9 of this section according to the
           implementation specification adopted in § 170.215(a)(2).
         inferno_supported: 'yes'
         inferno_tests:
           - 1.2.08
           - 3.2.12
-      - id: AUTH-PATIENT-20
+      - id: AUT-PAT-32
         SUT: |
-          [Both] The health IT developer demonstrates the ability of the
-          Health IT Module to grant an access token when a refresh token is
-          supplied according to the implementation specification adopted in
-          § 170.215(a)(2).
+          [EHR-Launch] The following must be supported if using US Core 5.0.1:
+          The health IT developer demonstrates the ability of the Health IT
+          Module to return an “Encounter” FHIR® resource that matches the
+          encounter context provided in step AUT-PAT-9 of this section according
+          to the implementation specification adopted in § 170.215(a)(2).
         TLV: |
-          [Both] The health IT developer demonstrates the ability of the
-          Health IT Module to grant an access token when a refresh token is
-          supplied according to the implementation specification adopted in
-          § 170.215(a)(2).
+          [EHR-Launch] The following must be supported if using US Core 5.0.1:
+          The tester verifies the ability of the Health IT Module to return an
+          “Encounter” FHIR® resource that matches the encounter context provided
+          in step AUT-PAT-9 of this section according to the implementation
+          specification adopted in § 170.215(a)(2).
+        inferno_supported: 'yes'
+        inferno_tests:
+          # TODO
+      - id: AUT-PAT-20
+        SUT: |
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to grant an access token when a refresh token is supplied
+          according to the implementation specification adopted in §
+          170.215(a)(2).
+        TLV: |
+          [Both] The tester verifies the ability of the Health IT Module to
+          grant an access token when a refresh token is supplied according to
+          the implementation specification adopted in § 170.215(a)(2).
         inferno_supported: 'yes'
         inferno_tests:
           - 1.4.03 - 1.4.05
           - 3.4.05 - 3.4.05
-      - id: AUTH-PATIENT-21
+      - id: AUT-PAT-21
         SUT: |
-          [Both] The health IT developer demonstrates the ability of the
-          Health IT Module to grant a refresh token valid for a period of no
-          less than three months to native applications capable of storing a
-          refresh token.
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to grant a refresh token valid for a period of no less than
+          three months to native applications capable of securing a refresh
+          token.
         TLV: |
           [Both] The tester verifies the ability of the Health IT Module to
-          grant a refresh token valid for a period of no less than three
-          months to native applications capable of storing a refresh token.
+          grant a refresh token valid for a period of no less than three months
+          to native applications capable of securing a refresh token.
         inferno_supported: 'yes'
         inferno_tests:
           - 6.5.13
       - group: 'Subsequent Connections: Authentication and Authorization for Patient and User Scopes'
-        id: AUTH-PATIENT-22
-        SUT: | 
+        id: AUT-PAT-22
+        SUT: |
           The health IT developer demonstrates the ability of the Health IT
-          Module to issue a new refresh token valid for a new period of no
-          shorter than three months without requiring re-authentication
-          and re-authorization when a valid refresh token is supplied by the
-          application according to the implementation specification adopted
-          in § 170.215(a)(3).
-        TLV: | 
-          The tester verifies the ability of the Health IT
-          Module to issue a new refresh token valid for a new period of no
-          shorter than three months without requiring re-authentication
-          and re-authorization when a valid refresh token is supplied by the
-          application according to the implementation specification adopted
-          in § 170.215(a)(3).
+          Module to issue a refresh token valid for a new period of no shorter
+          than three months without requiring re-authentication and
+          re-authorization when a valid refresh token is supplied by the
+          application according to the implementation specification adopted in §
+          170.215(a)(3).
+        TLV: |
+          The tester verifies the ability of the Health IT Module to issue a
+          refresh token valid for a new period of no shorter than three months
+          without requiring re-authentication and re-authorization when a valid
+          refresh token is supplied by the application according to the
+          implementation specification adopted in § 170.215(a)(3).
         inferno_supported: 'yes'
         inferno_tests:
           - 6.5.05
@@ -624,17 +897,16 @@ procedure:
           Inferno cannot verify the three month token expiration requirement
           automatically during the token refresh tests, but the tester can
           register an attestation that this requirement is met.
-      - id: AUTH-PATIENT-23
+      - id: AUT-PAT-23
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
-          Module to return an error response when supplied an invalid
-          refresh token as specified in the implementation specification
-          adopted in § 170.215(a)(3).
+          Module to return an error response when supplied an invalid refresh
+          token as specified in the implementation specification adopted in §
+          170.215(a)(3).
         TLV: |
-          The tester verifies the ability of the Health IT
-          Module to return an error response when supplied an invalid
-          refresh token as specified in the implementation specification
-          adopted in § 170.215(a)(3).
+          The tester verifies the ability of the Health IT Module to return an
+          error response when supplied an invalid refresh token as specified in
+          the implementation specification adopted in § 170.215(a)(3).
         inferno_supported: 'yes'
         inferno_tests:
           - 1.4.01 - 1.4.02
@@ -642,12 +914,12 @@ procedure:
   - section: Paragraph (g)(10)(vi) – Patient authorization revocation
     steps:
       - group: Patient Authorization Revocation
-        id: REVOCATION-1
+        id: PAR-1
         SUT: |
-          The health IT developer demonstrates the ability of the Health IT Module to revoke
-          access to an authorized application at a patient’s direction,
-          including a demonstration of the inability of the application with
-          revoked access to receive patient EHI.
+          The health IT developer demonstrates the ability of the Health IT
+          Module to revoke access to an authorized application at a patient’s
+          direction, including a demonstration of the inability of the
+          application with revoked access to receive patient EHI.
         TLV: |
           The tester verifies the ability of the Health IT Module to revoke
           access to an authorized application at a patient’s direction,
@@ -656,24 +928,23 @@ procedure:
         inferno_supported: 'yes'
         inferno_tests:
           - 6.2.01 - 6.2.03
-  - section: Authentication and authorization for system scopes
+  - section: Paragraph (g)(10)(v)(B) Authentication and authorization for system scopes
     steps:
       - group: Authentication and Authorization for System Scopes
-        id: AUTH-SYSTEM-1
+        id: AUT-SYS-1
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
           Module to support OAuth 2.0 client credentials grant flow in
           accordance with the implementation specification adopted in §
           170.215(a)(4).
         TLV: |
-          The tester verfies the ability of the Health IT
-          Module to support OAuth 2.0 client credentials grant flow in
-          accordance with the implementation specification adopted in §
-          170.215(a)(4).
+          The tester verifies the ability of the Health IT Module to support
+          OAuth 2.0 client credentials grant flow in accordance with the
+          implementation specification adopted in § 170.215(a)(4).
         inferno_supported: 'yes'
         inferno_tests:
           - 5.1.02 - 5.1.06
-      - id: AUTH-SYSTEM-2
+      - id: AUT-SYS-2
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
           Module to support the following parameters according to the
@@ -681,24 +952,24 @@ procedure:
           * “scope”;
           * “grant_type”;
           * “client_assertion_type”; and
-          * “client_assertion”
+          * “client_assertion”.
         TLV: |
-          The tester verifies the ability of the Health IT
-          Module to support the following parameters according to the
-          implementation specification adopted in § 170.215(a)(4):
+          The tester verifies the ability of the Health IT Module to support the
+          following parameters according to the implementation specification
+          adopted in § 170.215(a)(4):
           * “scope”;
           * “grant_type”;
           * “client_assertion_type”; and
-          * “client_assertion”
+          * “client_assertion”.
         inferno_supported: 'yes'
         inferno_tests:
           - 5.1.05
-      - id: AUTH-SYSTEM-3
+      - id: AUT-SYS-3
         SUT: |
-          The tester verifies the ability of the Health IT
-          Module to support the following JSON Web Token (JWT) Headers
-          and Claims according to the implementation specification adopted
-          in § 170.215(a)(4):
+          The health IT developer demonstrates the ability of the Health IT
+          Module to support the following JSON Web Token (JWT) Headers and
+          Claims according to the implementation specification adopted in §
+          170.215(a)(4):
           * “alg” header;
           * “kid” header;
           * “typ” header;
@@ -708,10 +979,9 @@ procedure:
           * “exp” claim; and
           * “jti” claim.
         TLV: |
-          The tester verifies the ability of the Health IT
-          Module to support the following JSON Web Token (JWT) Headers
-          and Claims according to the implementation specification adopted
-          in § 170.215(a)(4):
+          The tester verifies the ability of the Health IT Module to support the
+          following JSON Web Token (JWT) Headers and Claims according to the
+          implementation specification adopted in § 170.215(a)(4):
           * “alg” header;
           * “kid” header;
           * “typ” header;
@@ -723,78 +993,73 @@ procedure:
         inferno_supported: 'yes'
         inferno_tests:
           - 5.1.05
-      - id: AUTH-SYSTEM-4
+      - id: AUT-SYS-4
         SUT: |
-          The tester verifies the ability of the Health IT
+          The health IT developer demonstrates the ability of the Health IT
           Module to receive and process the JSON Web Key (JWK) Set via a
           TLS-protected URL to support authorization for system scopes in §
           170.315(g)(10)(v)(B).
         TLV: |
-          The tester verifies the ability of the Health IT
-          Module to receive and process the JSON Web Key (JWK) Set via a
-          TLS-protected URL to support authorization for system scopes in §
-          170.315(g)(10)(v)(B).
+          The tester verifies the ability of the Health IT Module to receive and
+          process the JWK structure via a TLS-protected URL to support
+          authorization for system scopes in § 170.315(g)(10)(v)(B).
         inferno_supported: 'yes'
         inferno_tests:
           - 5.1.05
-      - id: AUTH-SYSTEM-5
+      - id: AUT-SYS-5
         SUT: |
-          The health IT developer demonstrates that the Health IT Module
-          does not cache a JWK Set received via a TLS-protected URL for
-          longer than the “cache-control” header received by an application
-          indicates.
+          The health IT developer demonstrates that the Health IT Module does
+          not cache a JWK Set received via a TLS-protected URL for longer than
+          the “cache-control” header sent by an application indicates.
         TLV: |
-          The tester verifies the Health IT Module
-          does not cache a JWK Set received via a TLS-protected URL for
-          longer than the “cache-control” header received by an application
-          indicates.
+          The tester verifies that the Health IT Module does not cache a JWK Set
+          received via a TLS-protected URL for longer than the “cache-control”
+          header sent by an application indicates.
         inferno_supported: 'yes'
         inferno_notes: |
           This test requires the tester to register an attestation from the
           Health IT Module that the "cache-control" header is obeyed.
         inferno_tests:
           - 6.5.10
-      - id: AUTH-SYSTEM-6
+      - id: AUT-SYS-6
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
           Module to validate an application’s JWT, including its JSON Web
-          Signatures, according to the implementation specification adopted
-          in § 170.215(a)(4).
+          Signatures, according to the implementation specification adopted in §
+          170.215(a)(4).
         TLV: |
-          The tester verifies the ability of the Health IT
-          Module to validate an application’s JWT, including its JSON Web
-          Signatures, according to the implementation specification adopted
-          in § 170.215(a)(4).
+          The tester verifies the ability of the Health IT Module to validate an
+          application’s JWT, including its JSON Web Signatures, according to the
+          implementation specification adopted in § 170.215(a)(4).
         inferno_supported: 'yes'
         inferno_tests:
           - 5.1.05
-      - id: AUTH-SYSTEM-7
+      - id: AUT-SYS-7
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
           Module to respond with an “invalid_client” error for errors
           encountered during the authentication process according to the
           implementation specification adopted in § 170.215(a)(4).
         TLV: |
-          The tester verifies the ability of the Health IT
-          Module to respond with an “invalid_client” error for errors
-          encountered during the authentication process according to the
-          implementation specification adopted in § 170.215(a)(4).
+          The tester verifies the ability of the Health IT Module to respond
+          with an “invalid_client” error for errors encountered during the
+          authentication process according to the implementation specification
+          adopted in § 170.215(a)(4).
         inferno_supported: 'yes'
         inferno_tests:
           - 5.1.02 - 5.1.04
-      - id: AUTH-SYSTEM-8
+      - id: AUT-SYS-8
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
-          Module to assure the scope requested by an application is no
-          greater than the pre-authorized scope for multiple patients
-          according to the implementation specification adopted in §
+          Module to assure the scope granted based on the scope requested by an
+          application is no greater than the pre-authorized scope for multiple
+          patients according to the implementation specification adopted in §
           170.215(a)(4).
         TLV: |
-          The tester verifies the ability of the Health IT
-          Module to assure the scope requested by an application is no
-          greater than the pre-authorized scope for multiple patients
-          according to the implementation specification adopted in §
-          170.215(a)(4).
+          The tester verifies the ability of the Health IT Module to assure the
+          scope granted based on the scope requested by an application is no
+          greater than the pre-authorized scope for multiple patients according
+          to the implementation specification adopted in § 170.215(a)(4).
         inferno_supported: 'yes'
         inferno_notes: |
           There is no requirement for support of a subset of the resources
@@ -803,39 +1068,38 @@ procedure:
           demonstrate this and register its attestation within Inferno.
         inferno_tests:
           - 6.5.08
-      - id: AUTH-SYSTEM-9
+      - id: AUT-SYS-9
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
-          Module to issue an access token to an application as a JSON object
-          in accordance with the implementation specification adopted in §
+          Module to issue an access token to an application as a JSON object in
+          accordance with the implementation specification adopted in §
           170.215(a)(4), including the following property names:
           * “access_token”;
           * “token_type”;
           * “expires_in”; and
-          * “scope”
+          * “scope”.
         TLV: |
-          The tester verifies the ability of the Health IT
-          Module to issue an access token to an application as a JSON object
-          in accordance with the implementation specification adopted in §
-          170.215(a)(4), including the following property names:
+          The tester verifies the ability of the Health IT Module to issue an
+          access token to an application as a JSON object in accordance with the
+          implementation specification adopted in § 170.215(a)(4), including the
+          following property names:
           * “access_token”;
           * “token_type”;
           * “expires_in”; and
-          * “scope”
+          * “scope”.
         inferno_supported: 'yes'
         inferno_tests:
           - 5.1.06
-      - id: AUTH-SYSTEM-10
+      - id: AUT-SYS-10
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
-          Module to respond to errors using the appropriate error messages
-          as specified in the implementation specification adopted in §
+          Module to respond to errors using the appropriate error messages as
+          specified in the implementation specification adopted in §
           170.215(a)(4).
         TLV: |
-          The tester verifies the ability of the Health IT
-          Module to respond to errors using the appropriate error messages
-          as specified in the implementation specification adopted in §
-          170.215(a)(4).
+          The tester verifies the ability of the Health IT Module to respond to
+          errors using the appropriate error messages as specified in the
+          implementation specification adopted in § 170.215(a)(4).
         inferno_supported: 'yes'
         inferno_tests:
           - 5.1.02 - 5.1.04
@@ -843,13 +1107,13 @@ procedure:
   - section: Paragraph (g)(10)(vii) – Token introspection
     steps:
       - group: Token Introspection
-        id: INTROSPECTION-1
+        id: TOK-INTRO-1
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
           Module to receive and validate a token it has issued.
         TLV: |
-          The tester verifies the ability of the Health IT
-          Module to receive and validate a token it has issued.
+          The tester verifies the ability of the Health IT Module to receive and
+          validate a token it has issued.
         inferno_supported: 'yes'
         inferno_notes: |
           No standard is required and therefore Inferno cannot do this in
@@ -860,7 +1124,7 @@ procedure:
   - section: Paragraph (g)(10)(ii) – Supported search operations
     steps:
       - group: Supported Search Operations for a Single Patient’s Data
-        id: SEARCH-1
+        id: SH-PAT-1
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
           Module to support the “capabilities” interaction as specified in the
@@ -869,32 +1133,31 @@ procedure:
           170.215(a)(1) and implementation specification adopted in §
           170.215(a)(2).
         TLV: |
-          The tester verfies the ability of the Health IT
-          Module to support the “capabilities” interaction as specified in the
-          standard adopted in § 170.215(a)(1), including support for a
-          “CapabilityStatement” as specified in the standard adopted in §
-          170.215(a)(1) and implementation specification adopted in §
-          170.215(a)(2).
+          The tester verifies the ability of the Health IT Module to support the
+          “capabilities” interaction as specified in the standard adopted in §
+          170.215(a)(1), including support for a “CapabilityStatement” as
+          specified in the standard adopted in § 170.215(a)(1) and
+          implementation specification adopted in § 170.215(a)(2).
         inferno_supported: 'yes'
         inferno_tests:
           - 4.1.02 - 4.1.05
-      - id: SEARCH-2
+      - id: SH-PAT-2
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
-          Module to respond to requests for a single patient’s data
-          consistent with the search criteria detailed in the “US Core Server
+          Module to respond to requests for a single patient’s data consistent
+          with the search criteria detailed in the “US Core Server
           CapabilityStatement” section of the implementation specification
-          adopted in § 170.215(a)(2), including demonstrating search
-          support for “SHALL” operations and parameters for all the data
-          included in the standard adopted in § 170.213.
+          adopted in § 170.215(a)(2), including demonstrating search support for
+          “SHALL” operations and parameters for all the data included in the
+          standard adopted in § 170.213.
         TLV: |
           The tester verifies the ability of the Health IT Module to respond to
           requests for a single patient’s data consistent with the search
-          criteria detailed in the “US Core Server CapabilityStatement”
-          section of the implementation specification adopted in §
-          170.215(a)(2), including demonstrating search support for “SHALL”
-          operations and parameters for all the data included in the standard
-          adopted in § 170.213.
+          criteria detailed in the “US Core Server CapabilityStatement” section
+          of the implementation specification adopted in § 170.215(a)(2),
+          including demonstrating search support for “SHALL” operations and
+          parameters for all the data included in the standard adopted in §
+          170.213.
         inferno_supported: 'yes'
         inferno_tests:
           - 4.2.01
@@ -925,23 +1188,23 @@ procedure:
           - 4.31.01
           - 4.28.01
           - 4.30.01
-      - id: SEARCH-3
+      - id: SH-PAT-3
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
           Module to support a resource search for the provenance target
-          “(_revIncludes: Provenance:target)” for all the FHIR resources 
+          “(_revIncludes: Provenance:target)” for all the FHIR® resources
           included in the standard adopted in § 170.213 and implementation
           specification adopted in § 170.215(a)(2) according to the “Basic
           Provenance Guidance” section of the implementation specification
           adopted in § 170.215(a)(2).
         TLV: |
-          The tester verifies the ability of the Health IT
-          Module to support a resource search for the provenance target
-          “(_revIncludes: Provenance:target)” for all the FHIR resources 
-          included in the standard adopted in § 170.213 and implementation
-          specification adopted in § 170.215(a)(2) according to the “Basic
-          Provenance Guidance” section of the implementation specification
-          adopted in § 170.215(a)(2).
+          The tester verifies the ability of the Health IT Module to support a
+          resource search for the provenance target “(_revIncludes:
+          Provenance:target)” for all the FHIR® resources included in the
+          standard adopted in § 170.213 and implementation specification adopted
+          in § 170.215(a)(2) according to the “Basic Provenance Guidance”
+          section of the implementation specification adopted in §
+          170.215(a)(2).
         inferno_supported: 'yes'
         inferno_tests:
           - 4.2.07
@@ -970,7 +1233,7 @@ procedure:
           - 4.25.05
           - 4.26.04
       - group: Supported Search Operations for Multiple Patients’ Data
-        id: SEARCH-4
+        id: SH-PAT-4
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
           Module to support the “capabilities” interaction as specified in the
@@ -979,37 +1242,43 @@ procedure:
           170.215(a)(1) and implementation specification adopted in §
           170.215(a)(4).
         TLV: |
-          The tester verifies the ability of the Health IT
-          Module to support the “capabilities” interaction as specified in the
-          standard adopted in § 170.215(a)(1), including support for a
-          “CapabilityStatement” as specified in the standard adopted in §
-          170.215(a)(1) and implementation specification adopted in §
-          170.215(a)(4).
+          The tester verifies the ability of the Health IT Module to support the
+          “capabilities” interaction as specified in the standard adopted in §
+          170.215(a)(1), including support for a “CapabilityStatement” as
+          specified in the standard adopted in § 170.215(a)(1) and
+          implementation specification adopted in § 170.215(a)(4).
         inferno_supported: 'yes'
         inferno_tests:
           - 5.2.02
-      - id: SEARCH-5
+      - id: SH-PAT-5
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
           Module to support requests for multiple patients’ data as a group
-          using the “group-export” operation as detailed in the
-          implementation specification adopted in § 170.215(a)(4).
+          using the “group-export” operation as detailed in the implementation
+          specification adopted in § 170.215(a)(4).
         TLV: |
           The tester verifies the ability of the Health IT Module to support
-          requests for multiple patients’ data as a group using the “group
-          export” operation as detailed in the implementation specification
-          adopted in § 170.215(a)(4).
+          requests for multiple patients’ data as a group using the
+          “group-export” operation as detailed in the implementation
+          specification adopted in § 170.215(a)(4).
         inferno_supported: 'yes'
         inferno_tests:
           - 5.2.07
   - section: Paragraph (g)(10)(i) – Data response
     steps:
       - group: Data Response Checks for Single and Multiple Patients
-        id: RESPONSE-1
+        id: DAT-PAT-1
         SUT: |
-          For responses to data for single and multiple patients as described
-          in steps 7 and 8 of this section respectively, the health IT developer
-          demonstrates the ability of the Health IT Module to respond to
+          For responses to data for single and multiple patients as described in
+          steps DAT-PAT-7, and DAT-PAT-8, of this section respectively, the
+          health IT developer demonstrates the ability of the Health IT Module
+          to respond to requests for data according to the implementation
+          specification adopted in § 170.215(a)(2), including the following
+          steps.
+        TLV: |
+          For responses to data for single and multiple patients as described in
+          steps DAT-PAT-7, and DAT-PAT-8, of this section respectively, the
+          tester verifies the ability of the Health IT Module to respond to
           requests for data according to the implementation specification
           adopted in § 170.215(a)(2), including the following steps.
         inferno_supported: 'yes'
@@ -1042,25 +1311,33 @@ procedure:
           - 4.28.02
           - 4.30.01
           - 5.3.06 - 5.3.23
-      - id: RESPONSE-2
+      - id: DAT-PAT-2
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
           Module to respond with data that meet the following conditions:
-          * All data elements indicated with a cardinality of one or greater and / or “must support” are included;
+          * All data elements indicated with a cardinality of one or greater and
+            / or “must support” are included;
           * Content is structurally correct;
           * All invariant rules are met;
-          * All data elements with required “ValueSet” bindings contain codes within the bound “ValueSet”;
+          * All data elements with required “ValueSet” bindings contain codes
+            within the bound “ValueSet”;
           * All information is accurate and without omission; and
-          * All references within the resources can be resolved and validated, as applicable, according to steps 2-6 of this section
+          * All references within the resources can be resolved and validated,
+            as applicable, according to steps DAT-PAT-2, DAT-PAT-3, DAT-PAT-4,
+            DAT-PAT-5, and DAT-PAT-6, of this section.
         TLV: |
-          The tester verfies the ability of the Health IT
-          Module to respond with data that meet the following conditions:
-          * All data elements indicated with a cardinality of one or greater and / or “must support” are included;
+          The tester verifies the ability of the Health IT Module to respond
+          with data that meet the following conditions:
+          * All data elements indicated with a cardinality of one or greater and
+            / or “must support” are included;
           * Content is structurally correct;
           * All invariant rules are met;
-          * All data elements with required “ValueSet” bindings contain codes within the bound “ValueSet”;
+          * All data elements with required “ValueSet” bindings contain codes
+            within the bound “ValueSet”;
           * All information is accurate and without omission; and
-          * All references within the resources can be resolved and validated, as applicable, according to steps 2-6 of this section
+          * All references within the resources can be resolved and validated,
+            as applicable, according to steps DAT-PAT-2, DAT-PAT-3, DAT-PAT-4,
+            DAT-PAT-5, and DAT-PAT-6, of this section.
         inferno_supported: 'yes'
         inferno_tests:
           - 6.5.07
@@ -1106,21 +1383,21 @@ procedure:
           not include three required USCDI v1 data elements for Patient Demographics
           and Allergy and Intolerances, and this requires visual inspection
           by the tester.
-      - id: RESPONSE-3
+      - id: DAT-PAT-3
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
-          Module to support a “Provenance” FHIR resource for all the FHIR
+          Module to support a “Provenance” FHIR® resource for all the FHIR®
           resources included in the standard adopted in § 170.213 and
-          implementation specification adopted in § 170.215(a)(2) according
-          to the “Basic Provenance Guidance” section of the implementation
+          implementation specification adopted in § 170.215(a)(2) according to
+          the “Basic Provenance Guidance” section of the implementation
           specification adopted in § 170.215(a)(2).
         TLV: |
-          The tester verfies the ability of the Health IT
-          Module to support a “Provenance” FHIR resource for all the FHIR
-          resources included in the standard adopted in § 170.213 and
-          implementation specification adopted in § 170.215(a)(2) according
-          to the “Basic Provenance Guidance” section of the implementation
-          specification adopted in § 170.215(a)(2).
+          The tester verifies the ability of the Health IT Module to support a
+          “Provenance” FHIR® resource for all the FHIR® resources included in
+          the standard adopted in § 170.213 and implementation specification
+          adopted in § 170.215(a)(2) according to the “Basic Provenance
+          Guidance” section of the implementation specification adopted in §
+          170.215(a)(2).
         inferno_supported: 'yes'
         inferno_tests:
           - 4.2.07
@@ -1150,72 +1427,71 @@ procedure:
           - 4.26.04
           - 4.30.01 - 4.30.04
           - 5.3.01
-      - id: RESPONSE-4
+      - id: DAT-PAT-4
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
-          Module to support a “DocumentReference” and/or “DiagnosticReport” FHIR
-          resource for each of the “Clinical Notes” and “Diagnostic Reports”
-          included in and according to the “Clinical Notes Guidance” section of
-          the implementation specification adopted in § 170.215(a)(2)..
+          Module to support a “DocumentReference” and/or “DiagnosticReport”
+          FHIR® resource for each of the “Clinical Notes” and “Diagnostic
+          Reports” included in and according to the “Clinical Notes Guidance”
+          section of the implementation specification adopted in §
+          170.215(a)(2).
         TLV: |
-          The tester verifies the ability of the Health IT Module to support
-          a “DocumentReference” and/or “DiagnosticReport” FHIR resource for each
+          The tester verifies the ability of the Health IT Module to support a
+          “DocumentReference” and/or “DiagnosticReport” FHIR® resource for each
           of the “Clinical Notes” and “Diagnostic Reports” included in and
           according to the “Clinical Notes Guidance” section of the
           implementation specification adopted in § 170.215(a)(2).
         inferno_supported: 'yes'
         inferno_tests:
           - 4.31.01 - 4.31.02
-      - id: RESPONSE-5
+      - id: DAT-PAT-5
         SUT: |
           If supported, and for responses to data for a single patient only, the
-          health IT developer demonstrates the ability of the Health IT
-          Module to support a “Medication” FHIR resource according to the
-          “Medication List Guidance” section of the implementation
-          specification adopted in § 170.215(a)(2).
+          health IT developer demonstrates the ability of the Health IT Module
+          to support a “Medication” FHIR® resource according to the “Medication
+          List Guidance” section of the implementation specification adopted in
+          § 170.215(a)(2).
         TLV: |
           If supported, and for responses to data for a single patient only, the
-          tester verfies the ability of the Health IT
-          Module to support a “Medication” FHIR resource according to the
-          “Medication List Guidance” section of the implementation
-          specification adopted in § 170.215(a)(2).
+          tester verifies the ability of the Health IT Module to support a
+          “Medication” FHIR® resource according to the “Medication List
+          Guidance” section of the implementation specification adopted in §
+          170.215(a)(2).
         inferno_supported: 'yes'
         inferno_tests:
           - 4.13.06
-      - id: RESPONSE-6
+      - id: DAT-PAT-6
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
-          Module to support “DataAbsentReason” as specified in the
-          implementation specification adopted in § 170. 215(a)(2),
-          including:
-          * “DataAbsentReason” Extension; and
-          * “DataAbsentReason” Code System.
+          Module to support “Missing Data” according to the implementation
+          specification adopted in § 170. 215(a)(2), including:
+          * For non-coded data elements; and
+          * For coded data elements, including support for the
+            “DataAbsentReason” Code System.
         TLV: |
-          The tester verfies the ability of the Health IT
-          Module to support “DataAbsentReason” as specified in the
-          implementation specification adopted in § 170. 215(a)(2),
-          including:
-          * “DataAbsentReason” Extension; and
-          * “DataAbsentReason” Code System.
+          The tester verifies the ability of the Health IT Module to support
+          “Missing Data” according to the implementation specification adopted
+          in § 170. 215(a)(2), including:
+          * For non-coded data elements; and
+          * For coded data elements, including support for the
+            “DataAbsentReason” Code System.
         inferno_supported: 'yes'
         inferno_tests: 
           - 4.32.01 - 4.32.02
       - group: Response to Requests for a Single Patient’s Data
-        id: RESPONSE-7
+        id: DAT-PAT-7
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
-          Module to return all of the data associated with requests for a
-          single patient’s data according to the “US Core Server
-          CapabilityStatement” section of the implementation specification
-          adopted in § 170.215(a)(2) for all the data included in the standard
-          adopted in § 170.213.
+          Module to return all of the data associated with requests for a single
+          patient’s data according to the “US Core Server CapabilityStatement”
+          section of the implementation specification adopted in § 170.215(a)(2)
+          for all the data included in the standard adopted in § 170.213.
         TLV: |
-          The tester verifies the ability of the Health IT
-          Module to return all of the data associated with requests for a
-          single patient’s data according to the “US Core Server
-          CapabilityStatement” section of the implementation specification
-          adopted in § 170.215(a)(2) for all the data included in the standard
-          adopted in § 170.213.
+          The tester verifies the ability of the Health IT Module to return all
+          of the data associated with requests for a single patient’s data
+          according to the “US Core Server CapabilityStatement” section of the
+          implementation specification adopted in § 170.215(a)(2) for all the
+          data included in the standard adopted in § 170.213.
         inferno_supported: 'yes'
         inferno_tests:
           - 4.2.01
@@ -1247,15 +1523,14 @@ procedure:
           - 4.28.01
           - 4.30.01
       - group: Response to Requests for Multiple Patients’ Data
-        id: RESPONSE-8
+        id: DAT-PAT-8
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
-          Module to respond to requests for multiple patients’ data
-          according to the implementation specification adopted in §
-          170.215(a)(4) for all of the FHIR resources associated with the
-          profiles and Data Elements specified in and according to the 
-          standard adopted in § 170.213 and implementation specification
-          adopted in § 170.215(a)(2), including the following FHIR resources:
+          Module to respond to requests for multiple patients’ data according to
+          the implementation specification adopted in § 170.215(a)(4) for all of
+          the FHIR® resources associated with the profiles and Data Elements
+          specified in and according to the standard adopted in § 170.213 and
+          implementation specification adopted in § 170.215(a)(2).:
           * “AllergyIntolerance”;
           * “CarePlan”;
           * “CareTeam”;
@@ -1266,23 +1541,22 @@ procedure:
           * “Encounter”;
           * “Goal”;
           * “Immunization”;
-          * “Location”;
+          * “Location” (if supported);
           * “Medication” (if supported);
           * “MedicationRequest”;
           * “Observation”;
           * “Organization”;
           * “Patient”;
-          * “Practitioner”;
+          * “Practitioner”
           * “Procedure”; and
-          * “Provenance”;
+          * “Provenance”.
         TLV: |
-          The tester verifies the ability of the Health IT
-          Module to respond to requests for multiple patients’ data
-          according to the implementation specification adopted in §
-          170.215(a)(4) for all of the FHIR resources associated with the
-          profiles and Data Elements specified in and according to the 
-          standard adopted in § 170.213 and implementation specification
-          adopted in § 170.215(a)(2), including the following FHIR resources:
+          The tester verifies the ability of the Health IT Module to respond to
+          requests for multiple patients’ data according to the implementation
+          specification adopted in § 170.215(a)(4) for all of the FHIR®
+          resources associated with the profiles and Data Elements specified in
+          and according to the standard adopted in § 170.213 and implementation
+          specification adopted in § 170.215(a)(2).
           * “AllergyIntolerance”;
           * “CarePlan”;
           * “CareTeam”;
@@ -1293,117 +1567,181 @@ procedure:
           * “Encounter”;
           * “Goal”;
           * “Immunization”;
-          * “Location”;
+          * “Location” (if supported);
           * “Medication” (if supported);
           * “MedicationRequest”;
           * “Observation”;
           * “Organization”;
           * “Patient”;
-          * “Practitioner”;
+          * “Practitioner”
           * “Procedure”; and
-          * “Provenance”;
+          * “Provenance”.
         inferno_supported: 'yes'
         inferno_tests:
           - 5.3.03
           - 5.3.06 - 5.3.21
-      - id: RESPONSE-9
+      # TODO
+      - id: DAT-PAT-16
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
-          Module to limit the data returned to only those FHIR resources for
+          Module to respond to requests for multiple patients’ data according to
+          the implementation specification adopted in § 170.215(a)(4) for all of
+          the FHIR® resources associated with the profiles and Data Elements
+          specified in and according to the standard adopted in § 170.213 and
+          implementation specification adopted in § 170.215(a)(2).
+          * “AllergyIntolerance”;
+          * “CarePlan”;
+          * “CareTeam”;
+          * “Condition”;
+          * “Device”;
+          * “DiagnosticReport”;
+          * “DocumentReference”;
+          * “Encounter”;
+          * “Goal”;
+          * “Immunization”;
+          * “Location” (if supported);
+          * “Medication” (if supported);
+          * “MedicationRequest”;
+          * “Observation”;
+          * “Organization”;
+          * “Patient”;
+          * “Practitioner”
+          * “Procedure”; and
+          * “Provenance”.
+          * “PractitionerRole” (if supported);
+          * “QuestionnaireReponse” (if supported);
+          * “RelatedPerson”; and
+          * “ServiceRequest”
+        TLV: |
+          The health IT developer verifies the ability of the Health IT Module
+          to respond to requests for multiple patients’ data according to the
+          implementation specification adopted in § 170.215(a)(4) for all of the
+          FHIR® resources associated with the profiles and Data Elements
+          specified in and according to the standard adopted in § 170.213 and
+          implementation specification adopted in § 170.215(a)(2).
+          * “AllergyIntolerance”;
+          * “CarePlan”;
+          * “CareTeam”;
+          * “Condition”;
+          * “Device”;
+          * “DiagnosticReport”;
+          * “DocumentReference”;
+          * “Encounter”;
+          * “Goal”;
+          * “Immunization”;
+          * “Location” (if supported);
+          * “Medication” (if supported);
+          * “MedicationRequest”;
+          * “Observation”;
+          * “Organization”;
+          * “Patient”;
+          * “Practitioner”
+          * “Procedure”; and
+          * “Provenance”.
+          * “PractitionerRole” (if supported);
+          * “QuestionnaireReponse” (if supported);
+          * “RelatedPerson”; and
+          * “ServiceRequest”
+        inferno_supported: 'yes'
+        inferno_tests:
+      - id: DAT-PAT-9
+        SUT: |
+          The health IT developer demonstrates the ability of the Health IT
+          Module to limit the data returned to only those FHIR® resources for
           which the client is authorized according to the implementation
           specification adopted in § 170.215(a)(4).
         TLV: |
-          The tester verifies the ability of the Health IT
-          Module to limit the data returned to only those FHIR resources for
-          which the client is authorized according to the implementation
-          specification adopted in § 170.215(a)(4).
+          The tester verifies the ability of the Health IT Module to limit the
+          data returned to only those FHIR® resources for which the client is
+          authorized according to the implementation specification adopted in §
+          170.215(a)(4).
         inferno_supported: 'yes'
         inferno_tests:
           - 2.2.01 - 2.2.13
         inferno_notes: |
           Inferno does not do this because there is no requirement to only
           supported a subset of the scopes.
-      - id: RESPONSE-10
+      - id: DAT-PAT-10
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
           Module to support a successful data response according to the
           implementation adopted in § 170.215(a)(4).
         TLV: |
-          The tester verifies the ability of the Health IT
-          Module to support a successful data response according to the
-          implementation adopted in § 170.215(a)(4).
+          The tester verifies the ability of the Health IT Module to support a
+          successful data response according to the implementation adopted in §
+          170.215(a)(4).
         inferno_supported: 'yes'
         inferno_tests:
           - 5.2.04 - 5.2.05
-      - id: RESPONSE-11
+      - id: DAT-PAT-11
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
           Module to support a data response error according to the
           implementation adopted in § 170.215(a)(4).
         TLV: |
-          The tester verifies the ability of the Health IT
-          Module to support a data response error according to the
-          implementation adopted in § 170.215(a)(4).
+          The tester verifies the ability of the Health IT Module to support a
+          data response error according to the implementation adopted in §
+          170.215(a)(4).
         inferno_supported: 'yes'
         inferno_tests:
           - 5.2.03
-      - id: RESPONSE-12
+      - id: DAT-PAT-12
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
           Module to support a bulk data delete request according to the
           implementation specification adopted in § 170.215(a)(4).
         TLV: |
-          The tester verifies the ability of the Health IT
-          Module to support a bulk data delete request according to the
-          implementation specification adopted in § 170.215(a)(4).
+          The tester verifies the ability of the Health IT Module to support a
+          bulk data delete request according to the implementation specification
+          adopted in § 170.215(a)(4).
         inferno_supported: 'yes'
         inferno_tests:
           - 5.2.07
-      - id: RESPONSE-13
+      - id: DAT-PAT-13
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
           Module to support a bulk data status request according to the
           implementation specification adopted in § 170.215(a)(4).
         TLV: |
-          The tester verifies the ability of the Health IT
-          Module to support a bulk data status request according to the
-          implementation specification adopted in § 170.215(a)(4).
+          The tester verifies the ability of the Health IT Module to support a
+          bulk data status request according to the implementation specification
+          adopted in § 170.215(a)(4).
         inferno_supported: 'yes'
         inferno_tests:
           - 5.2.05 - 5.2.06
-      - id: RESPONSE-14
+      - id: DAT-PAT-14
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
           Module to support a file request according to the implementation
           specification adopted in § 170.215(a)(4), including support for the
           “ndjson” format for files provided.
         TLV: |
-          The tester verifies the ability of the Health IT
-          Module to support a file request according to the implementation
-          specification adopted in § 170.215(a)(4), including support for the
-          “ndjson” format for files provided.
+          The tester verifies the ability of the Health IT Module to support a
+          file request according to the implementation specification adopted in
+          § 170.215(a)(4), including support for the “ndjson” format for files
+          provided.
         inferno_supported: 'yes'
         inferno_tests:
           - 5.3.01 - 5.3.21
-      - id: RESPONSE-15
+      - id: DAT-PAT-15
         SUT: |
-          The health IT developer demonstrates that the information
-          provided as part of this data response includes data for patients in
-          the group identifier provided during the “group-export” request.
+          The health IT developer demonstrates that the information provided as
+          part of this data response includes data for patients in the group
+          identifier provided during the “group-export” request.
         TLV: |
-          The tester verifies the information
-          provided as part of this data response includes data for patients in
-          the group identifier provided during the “group-export” request.
+          The tester verifies the information provided as part of this data
+          response includes data for patients in the group identifier provided
+          during the “group-export” request.
         inferno_supported: 'yes'
         inferno_tests:
           - 5.3.05
   - section: Paragraph (g)(10)(viii) – Documentation
     steps:
       - group: Supported Search Operations for a Single Patient’s Data
-        id: DOCUMENTATION-1
+        id: API-DOC-1
         SUT: |
-          The health IT developer supplies documentation describing the
-          API(s) of the Health IT Module and includes at a minimum:
+          The health IT developer supplies documentation describing the API(s)
+          of the Health IT Module and includes at a minimum:
           * API syntax;
           * Function names;
           * Required and optional parameters supported and their data types;
@@ -1411,10 +1749,12 @@ procedure:
           * Exceptions and exception handling methods and their returns;
           * Mandatory software components;
           * Mandatory software configurations; and
-          * All technical requirements and attributes necessary for registration.
+          * All technical requirements and attributes necessary for
+            registration.
         TLV: |
-          The tester verifies the
-          API(s) of the Health IT Module and includes at a minimum:
+          The tester verifies that the documentation supplied by the health IT
+          developer describing the API(s) of the Health IT Module includes at a
+          minimum:
           * API syntax;
           * Function names;
           * Required and optional parameters supported and their data types;
@@ -1422,21 +1762,32 @@ procedure:
           * Exceptions and exception handling methods and their returns;
           * Mandatory software components;
           * Mandatory software configurations; and
-          * All technical requirements and attributes necessary for registration.
+          * All technical requirements and attributes necessary for
+            registration.
         inferno_supported: 'yes'
         inferno_tests:
           - 6.5.09
-      - id: DOCUMENTATION-2
+      - id: API-DOC-2
         SUT: |
-          The health IT developer demonstrates that the documentation
-          described in step 1 of this section is available via a publicly
-          accessible hyperlink that does not require preconditions or
-          additional steps to access.
+          The health IT developer demonstrates that the documentation described
+          in step 1, of this section is available via a publicly accessible
+          hyperlink that does not require preconditions or additional steps to
+          access.
         TLV: |
-          The tester verifies the documentation
-          described in step 1 of this section is available via a publicly
-          accessible hyperlink that does not require preconditions or
-          additional steps to access.
+          The tester verifies the documentation described in step 1, of this
+          section is available via a publicly accessible hyperlink that does not
+          require preconditions or additional steps to access.
         inferno_supported: 'yes'
         inferno_tests:
           - 6.5.09
+      # TODO: New step. Investigate
+      - id: API-DOC-3
+        SUT: |
+          To fulfill the API Maintenance of Certification requirement at §
+          170.404(b)(2), the health IT developer demonstrates the public
+          location of its certified API technology service base URLs.
+        TLV: |
+          To fulfill the API Maintenance of Certification requirement at §
+          170.404(b)(2), the tester verifies the public location of the health
+          IT developer's certified API technology service base URLs.
+        inferno_tests:
