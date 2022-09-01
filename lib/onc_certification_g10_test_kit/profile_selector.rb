@@ -64,7 +64,9 @@ module ONCCertificationG10TestKit
           end
         end
 
-        return extract_profile('HeadCircumference') if observation_contains_code(resource, '9843-4')
+        if observation_contains_code(resource, '9843-4') && suite_options[:us_core_version] != 'us_core_3'
+          return extract_profile('HeadCircumference')
+        end
 
         # FHIR Vital Signs profiles: https://www.hl7.org/fhir/observation-vitalsigns.html
         # Vital Signs Panel, Oxygen Saturation are not required by USCDI
