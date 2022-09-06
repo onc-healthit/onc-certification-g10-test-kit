@@ -22,7 +22,7 @@ module ONCCertificationG10TestKit
       required_capabilities = config.options[:required_capabilities] || []
 
       if suite_options[:us_core_version] == 'us_core_5' && required_capabilities.include?('launch-ehr')
-        required_capabilities << 'context-ehr-encounter'
+        required_capabilities += ['context-ehr-encounter']
       end
 
       missing_capabilities = required_capabilities - capabilities
