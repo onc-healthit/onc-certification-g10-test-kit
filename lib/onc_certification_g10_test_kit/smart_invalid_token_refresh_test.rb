@@ -12,7 +12,7 @@ module ONCCertificationG10TestKit
     input :client_secret, optional: true
 
     run do
-      skip_if refresh_token.blank?
+      skip_if refresh_token.blank?, 'No refresh token was received'
 
       oauth2_params = {
         'grant_type' => 'refresh_token',
