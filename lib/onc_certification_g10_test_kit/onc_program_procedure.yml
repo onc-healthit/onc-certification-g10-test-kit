@@ -974,10 +974,10 @@ procedure:
           The tester verifies the ability of the Health IT Module to return an
           error response when supplied an invalid refresh token as specified in
           the implementation specification adopted in § 170.215(a)(3).
-        inferno_supported: 'no'
+        inferno_supported: 'yes'
         inferno_tests:
-          # TODO: These tests were not ported over to the g10 test kit. Need to
-          # add.
+          - 1.6.05
+          - 3.6.05
   - section: Paragraph (g)(10)(vi) – Patient authorization revocation
     steps:
       - group: Patient Authorization Revocation
