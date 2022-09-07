@@ -1,3 +1,5 @@
+require_relative 'smart_invalid_token_refresh_test'
+
 module ONCCertificationG10TestKit
   class BaseTokenRefreshGroup < Inferno::TestGroup
     title 'Token Refresh'
@@ -45,5 +47,6 @@ module ONCCertificationG10TestKit
          }
     test from: :smart_token_refresh_body,
          id: :g10_token_refresh_body_with_scopes
+    test from: :g10_invalid_token_refresh
   end
 end
