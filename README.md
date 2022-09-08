@@ -83,14 +83,7 @@ Prerequisites:
   files
 * Run `setup.sh` to initialize Inferno's database
 
-You can prebuild the terminology docker container by running the following
-command:
-
-```shell
-docker-compose -f terminology_compose.yml build
-```
-
-Once the container is built, you will have to add your UMLS API key to a file
+Once you have a UMLS account, you will have to add your UMLS API key to a file
 named `.env` at the root of the inferno project. This API key is used to
 authenticate the user to download the UMLS zip files. To find your UMLS API key,
 sign into [the UTS homepage](https://uts.nlm.nih.gov/uts/), click on `My
@@ -117,7 +110,7 @@ Once that file exists, you can run the terminology creation task by using the
 following command:
 
 ```shell
-docker-compose -f terminology_compose.yml up
+docker-compose -f terminology_compose.yml up --build
 ```
 
 This will run the terminology creation steps in order. These tasks may take
