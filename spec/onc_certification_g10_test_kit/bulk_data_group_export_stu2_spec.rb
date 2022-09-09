@@ -34,11 +34,11 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU2 do
   describe '[Bulk Data Server supports "_outputFormat" query parameter] test' do
     let(:runnable) { group.tests.last }
     let(:long_format_req) do
-      stub_request(:get, "#{export_url}?_outputFormat=application/fhir+ndjson")
+      stub_request(:get, "#{export_url}?_outputFormat=application%2Ffhir%2Bndjson")
         .to_return(status: 202, headers: { 'Content-Location' => polling_url })
     end
     let(:medium_format_req) do
-      stub_request(:get, "#{export_url}?_outputFormat=application/ndjson")
+      stub_request(:get, "#{export_url}?_outputFormat=application%2Fndjson")
         .to_return(status: 202, headers: { 'Content-Location' => polling_url })
     end
     let(:short_format_req) do
@@ -51,7 +51,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU2 do
     end
 
     it 'fails when server does not support any ndjson content types' do
-      stub_request(:get, "#{export_url}?_outputFormat=application/fhir+ndjson")
+      stub_request(:get, "#{export_url}?_outputFormat=application%2Ffhir%2Bndjson")
         .to_return(status: 400)
 
       result = run(runnable, input)
@@ -72,7 +72,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU2 do
     end
 
     it 'fails when server does not support application/ndjson or ndjson content type' do
-      stub_request(:get, "#{export_url}?_outputFormat=application/ndjson")
+      stub_request(:get, "#{export_url}?_outputFormat=application%2Fndjson")
         .to_return(status: 400)
 
       long_format_req

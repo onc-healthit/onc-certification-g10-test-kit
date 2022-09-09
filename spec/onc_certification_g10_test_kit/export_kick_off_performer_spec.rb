@@ -12,12 +12,12 @@ end
 RSpec.describe ONCCertificationG10TestKit::ExportKickOffPerformer do
   let(:token) { 'some_token' }
   let(:group_id) { 'some_group_id' }
-  let(:param) { '_outputFormat=ndjson' }
   let(:bulk_server_url) { 'https://www.example.com' }
   let(:polling_url) { 'https://www.some_polling_url.com' }
   let(:performer) { ExportKickOffPerformerTesterClass.new }
   let(:request) { Inferno::Entities::Request.new({ headers: [header] }) }
   let(:bulk_export_url) { "#{bulk_server_url}/Group/#{group_id}/$export" }
+  let(:params) { { _outputFormat: 'application/fhir+ndjson', _sort: 'sample+value' } }
   let(:header) do
     Inferno::Entities::Header.new({
                                     name: 'content-location', type: 'response', value: polling_url
@@ -65,12 +65,22 @@ RSpec.describe ONCCertificationG10TestKit::ExportKickOffPerformer do
       expect(token_header_req).to have_been_made.once
     end
 
-    it 'includes params in request url if params' do
-      params_url_req = stub_request(:get, "#{bulk_export_url}?#{param}")
+    it 'includes single param in request url if param' do
+      params_url_req = stub_request(:get, "#{bulk_export_url}?_outputFormat=application%2Ffhir%2Bndjson")
         .with(headers: { 'authorization' => "Bearer #{token}" })
         .to_return(status: 200)
 
-      performer.perform_export_kick_off_request(params: param)
+      performer.perform_export_kick_off_request(params: { _outputFormat: 'application/fhir+ndjson' })
+      expect(params_url_req).to have_been_made.once
+    end
+
+    it 'includes multiple params in request url if params' do
+      params_url_req = stub_request(:get,
+                                    "#{bulk_export_url}?_outputFormat=application%2Ffhir%2Bndjson&_sort=sample%2Bvalue")
+        .with(headers: { 'authorization' => "Bearer #{token}" })
+        .to_return(status: 200)
+
+      performer.perform_export_kick_off_request(params: params)
       expect(params_url_req).to have_been_made.once
     end
 
