@@ -2271,7 +2271,6 @@ procedure:
         inferno_supported: 'yes'
         inferno_tests:
           - 9.10.09
-      # TODO: New step. Will need a new attestation.
       - id: API-DOC-3
         SUT: |
           To fulfill the API Maintenance of Certification requirement at §
@@ -2281,5 +2280,6 @@ procedure:
           To fulfill the API Maintenance of Certification requirement at §
           170.404(b)(2), the tester verifies the public location of the health
           IT developer's certified API technology service base URLs.
-        inferno_supported: 'no'
+        inferno_supported: 'yes'
         inferno_tests:
+          - 9.10.14

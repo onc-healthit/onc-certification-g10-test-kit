@@ -486,5 +486,41 @@ module ONCCertificationG10TestKit
         pass native_refresh_notes if native_refresh_notes.present?
       end
     end
+
+    test do
+      title 'Health IT developer demonstrates the public location of its base URLs'
+      description %(
+        To fulfill the API Maintenance of Certification requirement at §
+        170.404(b)(2), the health IT developer demonstrates the public location
+        of its certified API technology service base URLs.
+      )
+      id :g10_public_url_attestation
+      input :public_url_attestation,
+            title: 'Health IT developer demonstrates the public location of its certified API technology service base URLs', # rubocop:disable Layout/LineLength
+            type: 'radio',
+            default: 'false',
+            options: {
+              list_options: [
+                {
+                  label: 'Yes',
+                  value: 'true'
+                },
+                {
+                  label: 'No',
+                  value: 'false'
+                }
+              ]
+            }
+      input :public_url_attestation_notes,
+            title: 'Notes, if applicable:',
+            type: 'textarea',
+            optional: true
+
+      run do
+        assert public_url_attestation == 'true',
+               'Health IT developer did not demonstrate the public location of its certified API technology service base URLs.'
+        pass public_url_attestation_notes if public_url_attestation_notes.present?
+      end
+    end
   end
 end
