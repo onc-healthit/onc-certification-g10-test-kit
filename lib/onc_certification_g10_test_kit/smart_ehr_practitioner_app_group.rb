@@ -1,4 +1,5 @@
 require_relative 'base_token_refresh_group'
+require_relative 'smart_invalid_token_refresh_test'
 require_relative 'smart_scopes_test'
 require_relative 'unauthorized_access_test'
 require_relative 'well_known_capabilities_test'
@@ -399,6 +400,8 @@ module ONCCertificationG10TestKit
         )
         uses_request :token_refresh
       end
+
+      test from: :g10_invalid_token_refresh
     end
 
     test do
