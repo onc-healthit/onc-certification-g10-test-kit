@@ -79,6 +79,9 @@ module ONCCertificationG10TestKit
 
     USCoreTestKit::USCoreV311::USCoreTestSuite.groups.each do |group|
       test_group = group.ancestors[1]
+
+      next if test_group.optional?
+
       id = test_group.id
 
       group_config = {}
