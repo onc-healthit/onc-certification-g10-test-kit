@@ -976,8 +976,8 @@ procedure:
           the implementation specification adopted in § 170.215(a)(3).
         inferno_supported: 'yes'
         inferno_tests:
-          - 1.6.05
-          - 3.6.05
+          - 1.6.06
+          - 3.6.06
   - section: Paragraph (g)(10)(vi) – Patient authorization revocation
     steps:
       - group: Patient Authorization Revocation
