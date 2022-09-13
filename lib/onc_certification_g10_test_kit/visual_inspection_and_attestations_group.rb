@@ -518,7 +518,7 @@ module ONCCertificationG10TestKit
 
       run do
         assert public_url_attestation == 'true',
-               'Health IT developer did not demonstrate the public location of its certified API technology service base URLs.'
+               'Health IT developer did not demonstrate the public location of its certified API technology service base URLs.' # rubocop:disable Layout/LineLength
         pass public_url_attestation_notes if public_url_attestation_notes.present?
       end
     end

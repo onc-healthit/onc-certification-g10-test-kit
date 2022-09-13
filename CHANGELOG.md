@@ -1,3 +1,27 @@
+# 3.1.0
+
+* Fix a bug which could cause the SMART `context-ehr-encounter` capability to be
+  required when testing against USCDI v1.
+* Fix a bug which caused head circumference resources to be validated in the
+  bulk data tests when using US Core 3.
+* Fix a typo in the US Core 5 Single Patient API group description.
+* Fix a bug which caused the `_outputFormat` param to not be url encoded.
+* Fix an unhandled exception in the SMART discovery group when `rest.security`
+  is not present.
+* Fix a bug which could cause inconsistent validation results between the single
+  patient and multi patient tests.
+* Fix a typo when no resources are found.
+* Prevent validation errors from appearing on reference resolution tests.
+* Fix a nil-safety issue in reference resolution tests.
+* Remove QuestionnaireResponse from the list of Must Support target profiles for
+  US Core Observation Survey and US Core SDOH Assessment (US Core 5).
+* Fix a bug which incorrectly marked SmokingStatus searches by patient +
+  category + date as optional (US Core 4 & 5).
+* Add tests to verify that servers correctly reject token refresh requests with
+  invalid refresh tokens.
+* Add an attestation test for demonstrating the public location of base urls.
+* Minor UI updates.
+
 # 3.0.1
 
 * Use new version of Inferno Core which fixes performance issue when running the
