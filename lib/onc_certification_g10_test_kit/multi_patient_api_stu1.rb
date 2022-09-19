@@ -62,7 +62,14 @@ module ONCCertificationG10TestKit
             This test returns an access token.
           DESCRIPTION
 
+    test from :tls_warning_messages_setup
+
     group from: :bulk_data_group_export
+
+    test from :tls_warning_messages_setup
+
     group from: :bulk_data_group_export_validation
+
+    test from :tls_warning_messages_setup
   end
 end

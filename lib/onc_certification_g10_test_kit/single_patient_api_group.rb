@@ -1,3 +1,5 @@
+require_relative 'tls_warning_messages_setup_test'
+
 module ONCCertificationG10TestKit
   class SinglePatientAPIGroup < Inferno::TestGroup
     id :g10_single_patient_api
@@ -92,5 +94,7 @@ module ONCCertificationG10TestKit
 
       group(from: id, exclude_optional: true, config: group_config)
     end
+
+    test from :tls_warning_messages_setup
   end
 end

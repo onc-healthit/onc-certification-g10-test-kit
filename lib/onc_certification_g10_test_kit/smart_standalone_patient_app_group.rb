@@ -179,6 +179,22 @@ module ONCCertificationG10TestKit
                smart_credentials: { name: :standalone_smart_credentials }
              }
            }
+
+      tests[0].config(
+        inputs: {
+          tls_warning_messages: {
+            name: :auth_tls_warning_messages
+          }
+        }
+      )
+
+      tests[3].config(
+        inputs: {
+          tls_warning_messages: {
+            name: :token_tls_warning_messages
+          }
+        }
+      )
     end
 
     group from: :smart_standalone_launch_stu2,
@@ -279,6 +295,22 @@ module ONCCertificationG10TestKit
                smart_credentials: { name: :standalone_smart_credentials }
              }
            }
+
+      tests[0].config(
+        inputs: {
+          tls_warning_messages: {
+            name: :auth_tls_warning_messages
+          }
+        }
+      )
+
+      tests[3].config(
+        inputs: {
+          tls_warning_messages: {
+            name: :token_tls_warning_messages
+          }
+        }
+      )
     end
 
     group from: :smart_openid_connect,
@@ -349,5 +381,23 @@ module ONCCertificationG10TestKit
                patient_id: standalone_patient_id
       end
     end
+
+    test from :tls_warning_messages_setup,
+              config: {
+                inputs: {
+                  tls_warning_messages: {
+                    name: :auth_tls_warning_messages
+                  }
+                }
+              }
+
+    test from :tls_warning_messages_setup,
+              config: {
+                inputs: {
+                  tls_warning_messages: {
+                    name: :token_tls_warning_messages
+                  }
+                }
+              }
   end
 end
