@@ -1,4 +1,10 @@
 PATH
+  remote: ../tls-test-kit
+  specs:
+    tls_test_kit (0.1.1)
+      inferno_core (> 0.1.3)
+
+PATH
   remote: .
   specs:
     onc_certification_g10_test_kit (3.1.0.dev)
@@ -10,7 +16,6 @@ PATH
       ndjson (~> 1.0.0)
       rubyzip (~> 2.3.2)
       smart_app_launch_test_kit (= 0.1.7)
-      tls_test_kit (= 0.1.1)
       us_core_test_kit (= 0.3.1)
 
 GEM
@@ -284,8 +289,6 @@ GEM
     sqlite3 (1.5.0-x86_64-linux)
     thor (1.1.0)
     tilt (2.0.11)
-    tls_test_kit (0.1.1)
-      inferno_core (> 0.1.3)
     transproc (1.1.1)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
@@ -317,6 +320,7 @@ DEPENDENCIES
   rubocop (~> 1.9)
   rubocop-rspec
   rubyXL
+  tls_test_kit!
   webmock (~> 3.11)
 
 BUNDLED WITH
