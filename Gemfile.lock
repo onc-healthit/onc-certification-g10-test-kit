@@ -1,5 +1,7 @@
-PATH
-  remote: ../tls-test-kit
+GIT
+  remote: https://github.com/inferno-framework/tls-test-kit.git
+  revision: 1d887bccd56298565dfadecf4589244db81d7190
+  branch: fi-1684-tls-warnings
   specs:
     tls_test_kit (0.1.1)
       inferno_core (> 0.1.3)
