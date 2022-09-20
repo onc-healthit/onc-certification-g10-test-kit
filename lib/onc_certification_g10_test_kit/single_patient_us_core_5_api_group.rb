@@ -1,4 +1,4 @@
-require_relative 'tls_warning_messages_setup_test'
+require_relative 'incorrectly_permitted_tls_versions_messages_setup_test'
 
 module ONCCertificationG10TestKit
   class SinglePatientUSCore5APIGroup < Inferno::TestGroup
@@ -95,6 +95,6 @@ module ONCCertificationG10TestKit
       group(from: id, exclude_optional: true, config: group_config)
     end
 
-    test from :tls_warning_messages_setup
+    test from: :g10_incorrectly_permitted_tls_versions_messages_setup
   end
 end

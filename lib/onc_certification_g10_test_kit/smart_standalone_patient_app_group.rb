@@ -5,6 +5,7 @@ require_relative 'smart_scopes_test'
 require_relative 'unauthorized_access_test'
 require_relative 'unrestricted_resource_type_access_group'
 require_relative 'well_known_capabilities_test'
+require_relative 'incorrectly_permitted_tls_versions_messages_setup_test'
 
 module ONCCertificationG10TestKit
   class SmartStandalonePatientAppGroup < Inferno::TestGroup
@@ -142,6 +143,9 @@ module ONCCertificationG10TestKit
               patient/Provenance.read patient/PractitionerRole.read
             ).gsub(/\s{2,}/, ' ').strip
           }
+        },
+        options: {
+          incorrectly_permitted_tls_version_message_type: 'warning'
         }
       )
 
@@ -181,17 +185,17 @@ module ONCCertificationG10TestKit
            }
 
       tests[0].config(
-        inputs: {
-          tls_warning_messages: {
-            name: :auth_tls_warning_messages
+        outputs: {
+          incorrectly_permitted_tls_versions_messages: {
+            name: :auth_incorrectly_permitted_tls_versions_messages
           }
         }
       )
 
       tests[3].config(
-        inputs: {
-          tls_warning_messages: {
-            name: :token_tls_warning_messages
+        outputs: {
+          incorrectly_permitted_tls_versions_messages: {
+            name: :token_incorrectly_permitted_tls_versions_messages
           }
         }
       )
@@ -258,6 +262,9 @@ module ONCCertificationG10TestKit
               patient/Provenance.rs patient/PractitionerRole.rs
             ).gsub(/\s{2,}/, ' ').strip
           }
+        },
+        options: {
+          incorrectly_permitted_tls_version_message_type: 'warning'
         }
       )
 
@@ -297,17 +304,17 @@ module ONCCertificationG10TestKit
            }
 
       tests[0].config(
-        inputs: {
-          tls_warning_messages: {
-            name: :auth_tls_warning_messages
+        outputs: {
+          incorrectly_permitted_tls_versions_messages: {
+            name: :auth_incorrectly_permitted_tls_versions_messages
           }
         }
       )
 
       tests[3].config(
-        inputs: {
-          tls_warning_messages: {
-            name: :token_tls_warning_messages
+        outputs: {
+          incorrectly_permitted_tls_versions_messages: {
+            name: :token_incorrectly_permitted_tls_versions_messages
           }
         }
       )
@@ -382,22 +389,24 @@ module ONCCertificationG10TestKit
       end
     end
 
-    test from :tls_warning_messages_setup,
-              config: {
-                inputs: {
-                  tls_warning_messages: {
-                    name: :auth_tls_warning_messages
-                  }
-                }
-              }
+    test from: :g10_incorrectly_permitted_tls_versions_messages_setup,
+         id: :g10_auth_incorrectly_permitted_tls_versions_messages_setup,
+         config: {
+           inputs: {
+             incorrectly_permitted_tls_versions_messages: {
+               name: :auth_incorrectly_permitted_tls_versions_messages
+             }
+           }
+         }
 
-    test from :tls_warning_messages_setup,
-              config: {
-                inputs: {
-                  tls_warning_messages: {
-                    name: :token_tls_warning_messages
-                  }
-                }
-              }
+    test from: :g10_incorrectly_permitted_tls_versions_messages_setup,
+         id: :g10_token_incorrectly_permitted_tls_versions_messages_setup,
+         config: {
+           inputs: {
+             incorrectly_permitted_tls_versions_messages: {
+               name: :token_incorrectly_permitted_tls_versions_messages
+             }
+           }
+         }
   end
 end

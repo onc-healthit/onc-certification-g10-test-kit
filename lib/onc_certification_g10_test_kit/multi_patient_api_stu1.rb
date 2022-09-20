@@ -1,6 +1,7 @@
 require_relative 'bulk_data_authorization'
 require_relative 'bulk_data_group_export_stu1'
 require_relative 'bulk_data_group_export_validation'
+require_relative 'incorrectly_permitted_tls_versions_messages_setup_test'
 
 module ONCCertificationG10TestKit
   class MultiPatientAPIGroupSTU1 < Inferno::TestGroup
@@ -62,14 +63,14 @@ module ONCCertificationG10TestKit
             This test returns an access token.
           DESCRIPTION
 
-    test from :tls_warning_messages_setup
+    test from: :g10_incorrectly_permitted_tls_versions_messages_setup
 
     group from: :bulk_data_group_export
 
-    test from :tls_warning_messages_setup
+    test from: :g10_incorrectly_permitted_tls_versions_messages_setup
 
     group from: :bulk_data_group_export_validation
 
-    test from :tls_warning_messages_setup
+    test from: :g10_incorrectly_permitted_tls_versions_messages_setup
   end
 end

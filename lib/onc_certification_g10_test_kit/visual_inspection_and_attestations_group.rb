@@ -531,7 +531,7 @@ module ONCCertificationG10TestKit
         TLS attestation
       )
       id :g10_tls_version_attestation
-      input :unique_tls_warning_messages,
+      input :unique_incorrectly_permitted_tls_versions_messages,
             title: 'TLS Issues',
             type: 'textarea',
             locked: true,
@@ -558,13 +558,13 @@ module ONCCertificationG10TestKit
             optional: true
 
       run do
-        if unique_tls_warning_messages.blank?
-          pass public_url_attestation_notes if public_url_attestation_notes.present?
+        if unique_incorrectly_permitted_tls_versions_messages.blank?
+          pass tls_version_attestation_notes if tls_version_attestation_notes.present?
         end
 
         assert tls_version_attestation == 'true',
                'Health IT developer did not document how the system under test enforces TLS version 1.2 or above'
-        pass public_url_attestation_notes if public_url_attestation_notes.present?
+        pass tls_version_attestation_notes if tls_version_attestation_notes.present?
       end
     end
   end
