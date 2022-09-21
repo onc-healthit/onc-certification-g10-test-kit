@@ -4,10 +4,11 @@ module ONCCertificationG10TestKit
     title 'Handle TLS Warning Messages'
 
     input :incorrectly_permitted_tls_versions_messages
-    output :unique_incorrectly_permitted_tls_versions_messages
+    output :unique_incorrectly_permitted_tls_versions_messages,
+           :tls_documentation_required
 
     run do
-      pass if incorrectly_permitted_tls_versions_messages.blank?
+      pass_if incorrectly_permitted_tls_versions_messages.blank?
 
       warning do
         Inferno::Application['logger'].info(self.class.id)
@@ -16,7 +17,7 @@ module ONCCertificationG10TestKit
         Inferno::Application['logger'].info('222222222222222222222222222222222222222222222')
         Inferno::Application['logger'].info(new_warning_messages.to_s)
 
-        pass if new_warning_messages.blank?
+        pass_if new_warning_messages.blank?
 
         Inferno::Application['logger'].info('333333333333333333333333333333333333333333333')
         raw_previous_warning_messages =
@@ -33,7 +34,8 @@ module ONCCertificationG10TestKit
 
         Inferno::Application['logger'].info('4444444444444444444444444444444444444444444')
         Inferno::Application['logger'].info(warning_messages.to_s)
-        output unique_incorrectly_permitted_tls_versions_messages: warning_messages.join("\n")
+        output unique_incorrectly_permitted_tls_versions_messages: warning_messages.join("\n"),
+               tls_documentation_required: 'true'
       end
     end
   end
