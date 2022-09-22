@@ -74,10 +74,9 @@ module ONCCertificationG10TestKit
             body of the response.
           )
           begin
+            assert_valid_json(response[:body])
             parsed_body = JSON.parse(response[:body])
             assert parsed_body['resourceType'] == 'OperationOutcome', error_message
-          rescue JSON::ParserError
-            assert false, error_message
           end
           fhir_search(
             resource_type,

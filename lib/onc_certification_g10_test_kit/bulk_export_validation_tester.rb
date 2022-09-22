@@ -197,6 +197,7 @@ module ONCCertificationG10TestKit
       skip_if (requires_access_token == 'true' && bearer_token.blank?),
               'Could not verify this functionality when Bearer Token is required and not provided'
 
+      assert_valid_json(status_output)
       file_list = JSON.parse(status_output).select { |file| file['type'] == resource_type }
       if file_list.empty?
         message = "No #{resource_type} resource file item returned by server."
