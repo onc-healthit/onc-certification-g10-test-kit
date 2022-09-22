@@ -578,7 +578,7 @@ module ONCCertificationG10TestKit
         for missing data elements and value set verification.
       DESCRIPTION
 
-      required_suite_options us_core_version: 'us_core_5'
+      required_suite_options G10Options::US_CORE_5_REQUIREMENT
 
       include BulkExportValidationTester
 
@@ -598,7 +598,8 @@ module ONCCertificationG10TestKit
         conform to the US Core RelatedPerson profile. This includes checking
         for missing data elements and value set verification.
       DESCRIPTION
-      required_suite_options us_core_version: 'us_core_5'
+
+      required_suite_options G10Options::US_CORE_5_REQUIREMENT
 
       include BulkExportValidationTester
 
@@ -620,7 +621,8 @@ module ONCCertificationG10TestKit
         data elements and value set verification. This test is omitted if bulk
         data export does not return any QuestionnaireResponse resources.
       DESCRIPTION
-      required_suite_options us_core_version: 'us_core_5'
+
+      required_suite_options G10Options::US_CORE_5_REQUIREMENT
 
       include BulkExportValidationTester
 
@@ -642,7 +644,8 @@ module ONCCertificationG10TestKit
         data elements and value set verification. This test is omitted if bulk
         data export does not return any  resources.
       DESCRIPTION
-      required_suite_options us_core_version: 'us_core_5'
+
+      required_suite_options G10Options::US_CORE_5_REQUIREMENT
 
       include BulkExportValidationTester
 

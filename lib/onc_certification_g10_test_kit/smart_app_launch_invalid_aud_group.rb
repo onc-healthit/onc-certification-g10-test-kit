@@ -91,7 +91,7 @@ module ONCCertificationG10TestKit
                 :smart_authorization_url
 
     test from: :smart_app_redirect do
-      required_suite_options smart_app_launch_version: 'smart_app_launch_1'
+      required_suite_options G10Options::SMART_1_REQUIREMENT
 
       input :client_secret,
             name: :standalone_client_secret,
@@ -118,7 +118,7 @@ module ONCCertificationG10TestKit
     end
 
     test from: :smart_app_redirect_stu2 do
-      required_suite_options smart_app_launch_version: 'smart_app_launch_2'
+      required_suite_options G10Options::SMART_2_REQUIREMENT
 
       config(
         inputs: {

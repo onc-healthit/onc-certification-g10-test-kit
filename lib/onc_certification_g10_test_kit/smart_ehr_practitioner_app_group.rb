@@ -60,7 +60,7 @@ module ONCCertificationG10TestKit
     input_order :url, :ehr_client_id, :ehr_client_secret
 
     group from: :smart_discovery do
-      required_suite_options(smart_app_launch_version: 'smart_app_launch_1')
+      required_suite_options(G10Options::SMART_1_REQUIREMENT)
 
       test from: 'g10_smart_well_known_capabilities',
            config: {
@@ -80,7 +80,7 @@ module ONCCertificationG10TestKit
     end
 
     group from: :smart_discovery_stu2 do
-      required_suite_options(smart_app_launch_version: 'smart_app_launch_2')
+      required_suite_options(G10Options::SMART_2_REQUIREMENT)
 
       test from: 'g10_smart_well_known_capabilities',
            config: {
@@ -103,7 +103,7 @@ module ONCCertificationG10TestKit
     end
 
     group from: :smart_ehr_launch do
-      required_suite_options(smart_app_launch_version: 'smart_app_launch_1')
+      required_suite_options(G10Options::SMART_1_REQUIREMENT)
 
       title 'EHR Launch With Practitioner Scope'
       input :client_secret,
@@ -173,7 +173,7 @@ module ONCCertificationG10TestKit
                access_token: { name: :ehr_access_token }
              }
            },
-           required_suite_options: { us_core_version: 'us_core_5' }
+           required_suite_options: G10Options::US_CORE_5_REQUIREMENT
 
       test do
         title 'Launch context contains smart_style_url which links to valid JSON'
@@ -240,7 +240,7 @@ module ONCCertificationG10TestKit
               }
             }
           } do
-      required_suite_options(smart_app_launch_version: 'smart_app_launch_2')
+      required_suite_options(G10Options::SMART_2_REQUIREMENT)
 
       title 'EHR Launch With Practitioner Scope'
       input :client_secret,
@@ -309,7 +309,7 @@ module ONCCertificationG10TestKit
                access_token: { name: :ehr_access_token }
              }
            },
-           required_suite_options: { us_core_version: 'us_core_5' }
+           required_suite_options: G10Options::US_CORE_5_REQUIREMENT
 
       test do
         title 'Launch context contains smart_style_url which links to valid JSON'

@@ -335,7 +335,7 @@ module ONCCertificationG10TestKit
       )
       id :g10_encounter_unrestricted_access
 
-      required_suite_options us_core_version: 'us_core_5'
+      required_suite_options G10Options::US_CORE_5_REQUIREMENT
 
       def resource_group
         USCoreTestKit::USCoreV501::EncounterGroup
@@ -349,7 +349,7 @@ module ONCCertificationG10TestKit
       )
       id :g10_service_request_unrestricted_access
 
-      required_suite_options us_core_version: 'us_core_5'
+      required_suite_options G10Options::US_CORE_5_REQUIREMENT
 
       def resource_group
         USCoreTestKit::USCoreV501::ServiceRequestGroup
