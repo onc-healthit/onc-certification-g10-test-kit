@@ -4,6 +4,7 @@ module ONCCertificationG10TestKit
   module BulkExportValidationTester
     include USCoreTestKit::MustSupportTest
     include ProfileSelector
+    include G10Options
 
     attr_reader :metadata
 
@@ -12,10 +13,10 @@ module ONCCertificationG10TestKit
     OMIT_KLASS = ['Medication', 'Location', 'QuestionnaireResponse', 'PractitionerRole'].freeze
 
     def versioned_us_core_module
-      case suite_options[:us_core_version]
-      when 'us_core_5'
+      case us_core_version
+      when US_CORE_5
         USCoreTestKit::USCoreV501
-      when 'us_core_4'
+      when US_CORE_4
         USCoreTestKit::USCoreV400
       else
         USCoreTestKit::USCoreV311

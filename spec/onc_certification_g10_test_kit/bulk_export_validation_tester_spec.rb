@@ -11,9 +11,7 @@ class BulkExportValidationTesterClass < Inferno::Test
   end
 
   def suite_options
-    {
-      us_core_version: 'us_core_3'
-    }
+    ONCCertificationG10TestKit::G10Options::US_CORE_3_REQUIREMENT
   end
 end
 

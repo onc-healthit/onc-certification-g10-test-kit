@@ -19,5 +19,17 @@ module ONCCertificationG10TestKit
 
     SMART_1_REQUIREMENT = { smart_app_launch_version: SMART_1 }.freeze
     SMART_2_REQUIREMENT = { smart_app_launch_version: SMART_2 }.freeze
+
+    def us_core_version
+      suite_options[:us_core_version]
+    end
+
+    def using_us_core_3?
+      us_core_version == US_CORE_3
+    end
+
+    def using_us_core_5?
+      us_core_version == US_CORE_5
+    end
   end
 end

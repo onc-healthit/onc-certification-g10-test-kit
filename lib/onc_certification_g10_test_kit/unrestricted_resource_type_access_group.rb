@@ -2,6 +2,8 @@ require_relative 'resource_access_test'
 
 module ONCCertificationG10TestKit
   class UnrestrictedResourceTypeAccessGroup < Inferno::TestGroup
+    include G10Options
+
     title 'Unrestricted Resource Type Access'
     description %(
       This test ensures that apps have full access to USCDI resources if granted
@@ -118,13 +120,13 @@ module ONCCertificationG10TestKit
       )
 
       def all_resources
-        return V5_ALL_RESOURCES if suite_options[:us_core_version] == 'us_core_5'
+        return V5_ALL_RESOURCES if using_us_core_5?
 
         ALL_RESOURCES
       end
 
       def non_patient_compartment_resources
-        return V5_NON_PATIENT_COMPARTMENT_RESOURCES if suite_options[:us_core_version] == 'us_core_5'
+        return V5_NON_PATIENT_COMPARTMENT_RESOURCES if using_us_core_5?
 
         NON_PATIENT_COMPARTMENT_RESOURCES
       end
