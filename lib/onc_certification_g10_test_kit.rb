@@ -286,3 +286,5 @@ module ONCCertificationG10TestKit
     end
   end
 end
+
+ONCCertificationG10TestKit::ShortIDManager.assign_short_ids
