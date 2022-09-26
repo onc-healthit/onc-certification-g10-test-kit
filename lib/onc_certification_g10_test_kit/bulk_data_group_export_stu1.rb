@@ -221,6 +221,7 @@ module ONCCertificationG10TestKit
         assert request.response_header('content-type')&.value&.include?('application/json'),
                'Content-Type not application/json'
 
+        assert_valid_json(response[:body])
         response_body = JSON.parse(response[:body])
 
         ['transactionTime', 'request', 'requiresAccessToken', 'output', 'error'].each do |key|
@@ -255,6 +256,7 @@ module ONCCertificationG10TestKit
       run do
         assert status_response.present?, 'Bulk Data Server status response not found'
 
+        assert_valid_json(status_response)
         status_output = JSON.parse(status_response)['output']
         assert status_output, 'Bulk Data Server status response does not contain output'
 
