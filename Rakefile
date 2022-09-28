@@ -29,22 +29,24 @@ Inferno.logger.formatter = proc do |_severity, _datetime, _progname, message|
   "#{message}\n"
 end
 
+default_version = '2022'
+
 namespace :terminology do |_argv|
   desc 'download and execute UMLS terminology data'
   task :download_umls, [:apikey, :version] do |_t, args|
-    args.with_defaults(version: '2019')
+    args.with_defaults(version: default_version)
     Inferno::Terminology::Tasks::DownloadUMLS.new(args.to_hash).run
   end
 
   desc 'unzip umls zip'
   task :unzip_umls, [:version] do |_t, args|
-    args.with_defaults(version: '2019')
+    args.with_defaults(version: default_version)
     Inferno::Terminology::Tasks::UnzipUMLS.new(args.to_hash).run
   end
 
   desc 'run umls jar'
   task :run_umls, [:version] do |_t, args|
-    args.with_defaults(version: '2019')
+    args.with_defaults(version: default_version)
     Inferno::Terminology::Tasks::RunUMLSJar.new(args.to_hash).run
   end
 
@@ -55,13 +57,13 @@ namespace :terminology do |_argv|
 
   desc 'cleanup terminology files except umls.db'
   task :cleanup_precursors, [:version] do |_t, args|
-    args.with_defaults(version: '2019')
+    args.with_defaults(version: default_version)
     Inferno::Terminology::Tasks::CleanupPrecursors.new(args.to_hash).run
   end
 
   desc 'post-process UMLS terminology file'
   task :process_umls, [:version] do |_t, args|
-    args.with_defaults(version: '2019')
+    args.with_defaults(version: default_version)
     Inferno::Terminology::Tasks::ProcessUMLS.new(args.to_hash).run
   end
 
@@ -88,7 +90,7 @@ namespace :terminology do |_argv|
     args.with_defaults(
       minimum_binding_strength: 'example',
       delete_existing: true,
-      version: '2019',
+      version: default_version,
       type: 'bloom'
     )
     Inferno::Terminology::Tasks::CreateValueSetValidators.new(args.to_hash).run
