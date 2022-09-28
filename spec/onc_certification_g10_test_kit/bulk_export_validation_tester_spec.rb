@@ -394,8 +394,22 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
       end
     end
 
-    context 'when using US Core 3.1.1' do
-      context 'with Observation resource' do
+    context 'with Observation resource' do
+      context 'when using US Core 5.0.1' do
+        it 'returns the SmokingStatus profile if resource has SmokingStatus criterion specified' do
+          allow(tester).to receive(:suite_options).and_return({ us_core_version: 'us_core_5' })
+
+          coding = FHIR::Coding.new({ code: 'imaging',
+                                      system: 'http://terminology.hl7.org/CodeSystem/observation-category' })
+          category = FHIR::CodeableConcept.new({ coding: [coding] })
+          observation = FHIR::Observation.new({ category: [category] })
+
+          result = tester.determine_profile(observation)
+          expect(result).to eq('http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-imaging')
+        end
+      end
+
+      context 'when using US Core 3.1.1' do
         let(:observation) do
           coding = FHIR::Coding.new({ code: '72166-2' })
           code = FHIR::CodeableConcept.new({ coding: [coding] })

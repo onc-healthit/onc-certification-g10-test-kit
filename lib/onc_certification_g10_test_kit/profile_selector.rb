@@ -148,6 +148,12 @@ module ONCCertificationG10TestKit
           return extract_profile('ObservationSocialHistory')
         end
 
+        if suite_options[:us_core_version] == 'us_core_5' &&
+           resource_contains_category(resource, 'imaging',
+                                      'http://terminology.hl7.org/CodeSystem/observation-category')
+          return extract_profile('ObservationImaging')
+        end
+
         # We will simply match all Observations of category "survey" to SDOH,
         # and do not look at the category "sdoh".  US Core spec team says that
         # support for the "sdoh" category is limited, and the validation rules
