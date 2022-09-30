@@ -57,7 +57,6 @@ module Inferno
             code_systems << 'urn:oid:2.16.840.1.113883.6.13'
           end
           code_systems << 'urn:oid:2.16.840.1.113883.6.101' if code_systems.include? 'http://nucc.org/provider-taxonomy'
-          code_systems << 'urn:oid:2.16.840.1.113883.6.101' if code_systems.include? 'http://hl7.org/fhir/questionnaire-answers-status'
           code_systems.uniq!
         end
 
@@ -184,11 +183,26 @@ module Inferno
           File.write(metadata_path, metadata.to_yaml)
         end
 
+        def value_sets_to_load
+          @value_sets_to_load ||=
+            YAML.load_file(File.join('resources', 'value_sets.yml'))
+
+          # all_metadata =
+          #   USCoreTestKit::USCoreV311::USCoreTestSuite.metadata +
+          #   USCoreTestKit::USCoreV400::USCoreTestSuite.metadata +
+          #   USCoreTestKit::USCoreV501::USCoreTestSuite.metadata
+
+          # all_metadata
+          #   .flat_map { |metadata| metadata.bindings.map { |binding_metadata| binding_metadata.merge(profile_url: metadata.profile_url) } }
+          #   .select { |metadata| metadata[:strength] == 'required' }
+          #   .uniq
+        end
+
         # NOTE: resources/value_sets.yml controls which value sets get loaded.
         # It is currently manually generated from the US Core metadata.
         def get_value_sets(strengths)
           expected_vs_urls =
-            YAML.load_file(File.join('resources', 'value_sets.yml'))
+            value_sets_to_load
               .select { |vs| strengths.include? vs[:strength] }
               .map! { |vs| vs[:system] }
               .compact
