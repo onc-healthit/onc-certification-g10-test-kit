@@ -1,9 +1,8 @@
+require_relative 'g10_options'
 require_relative 'resource_access_test'
 
 module ONCCertificationG10TestKit
   class UnrestrictedResourceTypeAccessGroup < Inferno::TestGroup
-    include G10Options
-
     title 'Unrestricted Resource Type Access'
     description %(
       This test ensures that apps have full access to USCDI resources if granted
@@ -113,6 +112,8 @@ module ONCCertificationG10TestKit
       (NON_PATIENT_COMPARTMENT_RESOURCES - ['Encounter'] + ['ServiceRequest']).freeze
 
     test do
+      include G10Options
+
       title 'Scope granted enables access to all US Core resource types.'
       description %(
         This test confirms that the scopes granted during authorization are
