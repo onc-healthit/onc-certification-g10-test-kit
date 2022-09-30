@@ -31,5 +31,16 @@ module ONCCertificationG10TestKit
     def using_us_core_5?
       us_core_version == US_CORE_5
     end
+
+    def versioned_us_core_module
+      case us_core_version
+      when US_CORE_5
+        USCoreTestKit::USCoreV501
+      when US_CORE_4
+        USCoreTestKit::USCoreV400
+      else
+        USCoreTestKit::USCoreV311
+      end
+    end
   end
 end

@@ -12,17 +12,6 @@ module ONCCertificationG10TestKit
     MIN_RESOURCE_COUNT = 2
     OMIT_KLASS = ['Medication', 'Location', 'QuestionnaireResponse', 'PractitionerRole'].freeze
 
-    def versioned_us_core_module
-      case us_core_version
-      when US_CORE_5
-        USCoreTestKit::USCoreV501
-      when US_CORE_4
-        USCoreTestKit::USCoreV400
-      else
-        USCoreTestKit::USCoreV311
-      end
-    end
-
     def metadata_list
       @metadata_list ||=
         versioned_us_core_module::USCoreTestSuite
