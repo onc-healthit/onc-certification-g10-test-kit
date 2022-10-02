@@ -239,7 +239,7 @@ module ONCCertificationG10TestKit
               patient/MedicationRequest.rs patient/Observation.rs
               patient/Organization.rs patient/Patient.rs
               patient/Practitioner.rs patient/Procedure.rs
-              patient/Provenance.rs patient/PractitionerRole.rs
+              patient/Provenance.rs patient/PractitionerRole.rs patient/ServiceRequest.rs
             ).gsub(/\s{2,}/, ' ').strip
           }
         }
