@@ -42,6 +42,19 @@ module ONCCertificationG10TestKit
       }]
     end
 
+    def code_system_version_messages
+      path = File.join(__dir__, '..', '..', 'resources', 'terminology', 'validators', 'bloom', 'metadata.yml')
+      return '' unless File.exist? path
+
+      cs_metadata = YAML.load_file(path)
+      message = "Terminology was generated based on the following code system versions:\n"
+      cs_metadata.each do |_url, metadata|
+        message += "* #{metadata[:name]}: version #{metadata[:versions].join(', ')}\n"
+      end
+
+      message
+    end
+
     def terminology_messages # rubocop:disable Metrics/CyclomaticComplexity
       success_messages = []
       warning_messages = []
@@ -62,6 +75,15 @@ module ONCCertificationG10TestKit
           error_messages <<
             "* `#{url}`: Expected codes: #{expected_value_set[:count]} Actual codes: #{actual_value_set[:count]}"
         end
+      end
+
+      code_system_messages = code_system_version_messages
+
+      if code_system_version_messages.present?
+        messages << {
+          type: 'info',
+          message: code_system_messages
+        }
       end
 
       if success_messages.present?
