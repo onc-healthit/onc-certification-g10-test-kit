@@ -186,16 +186,24 @@ module Inferno
         def value_sets_to_load
           @value_sets_to_load ||=
             YAML.load_file(File.join('resources', 'value_sets.yml'))
+        end
 
-          # all_metadata =
-          #   USCoreTestKit::USCoreV311::USCoreTestSuite.metadata +
-          #   USCoreTestKit::USCoreV400::USCoreTestSuite.metadata +
-          #   USCoreTestKit::USCoreV501::USCoreTestSuite.metadata
+        # Run this method in an inferno console to update the list of value set
+        # bindings. This is not done automatically during the build because
+        # Inferno isn't loaded during the build process.
+        def save_new_value_set_list
+          all_metadata =
+            USCoreTestKit::USCoreV311::USCoreTestSuite.metadata +
+            USCoreTestKit::USCoreV400::USCoreTestSuite.metadata +
+            USCoreTestKit::USCoreV501::USCoreTestSuite.metadata
 
-          # all_metadata
-          #   .flat_map { |metadata| metadata.bindings.map { |binding_metadata| binding_metadata.merge(profile_url: metadata.profile_url) } }
-          #   .select { |metadata| metadata[:strength] == 'required' }
-          #   .uniq
+          all_metadata =
+            all_metadata
+              .flat_map { |metadata| metadata.bindings.map { |bind| bind.merge(profile_url: metadata.profile_url) } }
+              .select { |metadata| metadata[:strength] == 'required' }
+              .uniq
+
+          File.write(File.join('resources', 'value_sets.yml'), all_metadata.to_yaml)
         end
 
         # NOTE: resources/value_sets.yml controls which value sets get loaded.
