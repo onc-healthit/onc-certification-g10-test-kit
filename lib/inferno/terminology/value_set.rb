@@ -32,10 +32,10 @@ module Inferno
 
       # UMLS Vocabulary: https://www.nlm.nih.gov/research/umls/sourcereleasedocs/index.html
       SAB = {
-        # 'http://www.nlm.nih.gov/research/umls/rxnorm' => {
-        #   abbreviation: 'RXNORM',
-        #   name: 'RxNorm Vocabulary'
-        # }.freeze,
+        'http://unitsofmeasure.org' => {
+          abbreviation: 'NCI_UCUM',
+          name: 'Unified Code for Units of Measure (UCUM)'
+        }.freeze,
         'http://loinc.org' => {
           abbreviation: 'LNC',
           name: 'Logical Observation Identifiers Names and Codes terminology (LOINC)'
@@ -43,7 +43,13 @@ module Inferno
         'http://snomed.info/sct' => {
           abbreviation: 'SNOMEDCT_US',
           name: 'Systematized Nomenclature of Medicine-Clinical Terms (SNOMED CT), US Edition'
-        }.freeze,
+        }.freeze
+        # The systems below are needed if building all terminology rather than
+        # only the required bindings.
+        # 'http://www.nlm.nih.gov/research/umls/rxnorm' => {
+        #   abbreviation: 'RXNORM',
+        #   name: 'RxNorm Vocabulary'
+        # }.freeze,
         # 'http://www.cms.gov/Medicare/Coding/ICD10' => {
         #   abbreviation: 'ICD10PCS',
         #   name: 'ICD-10 Procedure Coding System (ICD-10-PCS)'
@@ -60,10 +66,6 @@ module Inferno
         #   abbreviation: 'ICD9CM',
         #   name: 'International Classification of Diseases, Ninth Revision, Clinical Modification (ICD-9-CM)'
         # }.freeze,
-        'http://unitsofmeasure.org' => {
-          abbreviation: 'NCI_UCUM',
-          name: 'Unified Code for Units of Measure (UCUM)'
-        }.freeze,
         # 'urn:oid:2.16.840.1.113883.6.101' => {
         #   abbreviation: 'NUCCHCPT',
         #   name: 'National Uniform Claim Committee - Health Care Provider Taxonomy (NUCCHCPT)'

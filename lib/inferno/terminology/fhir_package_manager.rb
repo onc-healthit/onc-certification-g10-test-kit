@@ -11,28 +11,30 @@ module Inferno
       class << self
         REGISTRY_SERVER_URL = 'https://packages.fhir.org'.freeze
         REQUIRED_VSAC_VALUE_SET_URLS = [
-          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1186.8',
-          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1099.30',
-          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1010.6',
-          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1010.4',
-          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.11.20.9.38',
-          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.114222.4.11.1066',
-          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.1.11.10267',
-          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1099.27',
-          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.88.12.80.17',
-          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1010.5',
-          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1021.32',
           'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.114222.4.11.836',
           'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.1.11.14914',
           'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.114222.4.11.837',
           'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.114222.4.11.877',
           'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1',
-          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1186.1',
-          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.88.12.80.17',
           'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1021.102',
           'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1021.103',
-          'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1186.2',
           'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.2074.1.1.3'
+          # The ValueSets below are needed when building all of the terminology
+          # rather than only the terminology for required bindings.
+          # 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1186.8',
+          # 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1099.30',
+          # 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1010.6',
+          # 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1010.4',
+          # 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.11.20.9.38',
+          # 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.114222.4.11.1066',
+          # 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.1.11.10267',
+          # 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1099.27',
+          # 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.88.12.80.17',
+          # 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1010.5',
+          # 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1021.32',
+          # 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1186.1',
+          # 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.88.12.80.17',
+          # 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1186.2'
         ].freeze
 
         # Get the FHIR Package from the registry.
