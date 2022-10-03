@@ -1,5 +1,9 @@
+require_relative 'g10_options'
+
 module ONCCertificationG10TestKit
   module ProfileSelector
+    include G10Options
+
     def extract_profile(profile)
       case profile
       when 'Medication'
@@ -28,8 +32,8 @@ module ONCCertificationG10TestKit
     def select_profile(resource) # rubocop:disable Metrics/CyclomaticComplexity
       case resource.resourceType
       when 'Condition'
-        case suite_options[:us_core_version]
-        when 'us_core_5'
+        case us_core_version
+        when US_CORE_5
           if resource_contains_category(resource, 'encounter-diagnosis', 'http://terminology.hl7.org/CodeSystem/condition-category')
             extract_profile('ConditionEncounterDiagnosis')
           elsif resource_contains_category(resource, 'problem-list-item',
@@ -56,15 +60,15 @@ module ONCCertificationG10TestKit
         return extract_profile('PulseOximetry') if observation_contains_code(resource, '59408-5')
 
         if observation_contains_code(resource, '8289-1')
-          case suite_options[:us_core_version]
-          when 'us_core_3'
+          case us_core_version
+          when US_CORE_3
             return extract_profile('HeadCircumference')
           else
             return extract_profile('HeadCircumferencePercentile')
           end
         end
 
-        if observation_contains_code(resource, '9843-4') && suite_options[:us_core_version] != 'us_core_3'
+        if observation_contains_code(resource, '9843-4') && !using_us_core_3?
           return extract_profile('HeadCircumference')
         end
 
@@ -73,13 +77,11 @@ module ONCCertificationG10TestKit
         # Body Mass Index is replaced by :pediatric_bmi_age Profile
         # Systolic Blood Pressure, Diastolic Blood Pressure are covered by :blood_pressure Profile
         # Head Circumference is replaced by US Core Head Occipital-frontal Circumference Percentile Profile
-        if observation_contains_code(resource, '39156-5') && suite_options[:us_core_version] != 'us_core_3'
-          return extract_profile('Bmi')
-        end
+        return extract_profile('Bmi') if observation_contains_code(resource, '39156-5') && !using_us_core_3?
 
         if observation_contains_code(resource, '85354-9')
-          case suite_options[:us_core_version]
-          when 'us_core_3'
+          case us_core_version
+          when US_CORE_3
             return extract_profile('Bp')
           else
             return extract_profile('BloodPressure')
@@ -87,8 +89,8 @@ module ONCCertificationG10TestKit
         end
 
         if observation_contains_code(resource, '8302-2')
-          case suite_options[:us_core_version]
-          when 'us_core_3'
+          case us_core_version
+          when US_CORE_3
             return extract_profile('Bodyheight')
           else
             return extract_profile('BodyHeight')
@@ -96,8 +98,8 @@ module ONCCertificationG10TestKit
         end
 
         if observation_contains_code(resource, '8310-5')
-          case suite_options[:us_core_version]
-          when 'us_core_3'
+          case us_core_version
+          when US_CORE_3
             return extract_profile('Bodytemp')
           else
             return extract_profile('BodyTemperature')
@@ -105,8 +107,8 @@ module ONCCertificationG10TestKit
         end
 
         if observation_contains_code(resource, '29463-7')
-          case suite_options[:us_core_version]
-          when 'us_core_3'
+          case us_core_version
+          when US_CORE_3
             return extract_profile('Bodyweight')
           else
             return extract_profile('BodyWeight')
@@ -114,8 +116,8 @@ module ONCCertificationG10TestKit
         end
 
         if observation_contains_code(resource, '8867-4')
-          case suite_options[:us_core_version]
-          when 'us_core_3'
+          case us_core_version
+          when US_CORE_3
             return extract_profile('Heartrate')
           else
             return extract_profile('HeartRate')
@@ -123,32 +125,32 @@ module ONCCertificationG10TestKit
         end
 
         if observation_contains_code(resource, '9279-1')
-          case suite_options[:us_core_version]
-          when 'us_core_3'
+          case us_core_version
+          when US_CORE_3
             return extract_profile('Resprate')
           else
             return extract_profile('RespiratoryRate')
           end
         end
 
-        if suite_options[:us_core_version] == 'us_core_5' &&
+        if using_us_core_5? &&
            resource_contains_category(
              resource, 'clinical-test', 'http://terminology.hl7.org/CodeSystem/observation-category'
            )
           return extract_profile('ObservationClinicalTest')
         end
 
-        if suite_options[:us_core_version] == 'us_core_5' && observation_contains_code(resource, '76690-7')
+        if using_us_core_5? && observation_contains_code(resource, '76690-7')
           return extract_profile('ObservationSexualOrientation')
         end
 
-        if suite_options[:us_core_version] == 'us_core_5' &&
+        if using_us_core_5? &&
            resource_contains_category(resource, 'social-history',
                                       'http://terminology.hl7.org/CodeSystem/observation-category')
           return extract_profile('ObservationSocialHistory')
         end
 
-        if suite_options[:us_core_version] == 'us_core_5' &&
+        if using_us_core_5? &&
            resource_contains_category(resource, 'imaging',
                                       'http://terminology.hl7.org/CodeSystem/observation-category')
           return extract_profile('ObservationImaging')
@@ -165,7 +167,7 @@ module ONCCertificationG10TestKit
         # `resource_contains_category(resource, 'sdoh',
         #                                       'http://terminology.hl7.org/CodeSystem/observation-category') &&`
         # along with a specific extract_profile('ObservationSurvey') to catch non-sdoh.
-        if suite_options[:us_core_version] == 'us_core_5' &&
+        if using_us_core_5? &&
            resource_contains_category(resource, 'survey',
                                       'http://terminology.hl7.org/CodeSystem/observation-category')
 

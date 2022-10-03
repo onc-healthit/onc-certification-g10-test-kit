@@ -1,3 +1,4 @@
+require_relative 'g10_options'
 require_relative 'resource_access_test'
 
 module ONCCertificationG10TestKit
@@ -111,6 +112,8 @@ module ONCCertificationG10TestKit
       (NON_PATIENT_COMPARTMENT_RESOURCES - ['Encounter'] + ['ServiceRequest']).freeze
 
     test do
+      include G10Options
+
       title 'Scope granted enables access to all US Core resource types.'
       description %(
         This test confirms that the scopes granted during authorization are
@@ -118,13 +121,13 @@ module ONCCertificationG10TestKit
       )
 
       def all_resources
-        return V5_ALL_RESOURCES if suite_options[:us_core_version] == 'us_core_5'
+        return V5_ALL_RESOURCES if using_us_core_5?
 
         ALL_RESOURCES
       end
 
       def non_patient_compartment_resources
-        return V5_NON_PATIENT_COMPARTMENT_RESOURCES if suite_options[:us_core_version] == 'us_core_5'
+        return V5_NON_PATIENT_COMPARTMENT_RESOURCES if using_us_core_5?
 
         NON_PATIENT_COMPARTMENT_RESOURCES
       end
@@ -335,7 +338,7 @@ module ONCCertificationG10TestKit
       )
       id :g10_encounter_unrestricted_access
 
-      required_suite_options us_core_version: 'us_core_5'
+      required_suite_options G10Options::US_CORE_5_REQUIREMENT
 
       def resource_group
         USCoreTestKit::USCoreV501::EncounterGroup
@@ -349,7 +352,7 @@ module ONCCertificationG10TestKit
       )
       id :g10_service_request_unrestricted_access
 
-      required_suite_options us_core_version: 'us_core_5'
+      required_suite_options G10Options::US_CORE_5_REQUIREMENT
 
       def resource_group
         USCoreTestKit::USCoreV501::ServiceRequestGroup

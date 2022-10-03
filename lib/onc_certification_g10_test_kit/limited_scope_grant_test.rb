@@ -1,5 +1,7 @@
 module ONCCertificationG10TestKit
   class LimitedScopeGrantTest < Inferno::Test
+    include G10Options
+
     title 'OAuth token exchange response grants scope that is limited to those selected by user'
     description %(
       The ONC certification criteria requires that patients are capable of
@@ -33,7 +35,7 @@ module ONCCertificationG10TestKit
       (POSSIBLE_RESOURCES + ['Encounter', 'ServiceRequest']).freeze
 
     def possible_resources
-      return V5_POSSIBLE_RESOURCES if suite_options[:us_core_version] == 'us_core_5'
+      return V5_POSSIBLE_RESOURCES if using_us_core_5?
 
       POSSIBLE_RESOURCES
     end

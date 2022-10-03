@@ -4,23 +4,13 @@ module ONCCertificationG10TestKit
   module BulkExportValidationTester
     include USCoreTestKit::MustSupportTest
     include ProfileSelector
+    include G10Options
 
     attr_reader :metadata
 
     MAX_NUM_COLLECTED_LINES = 100
     MIN_RESOURCE_COUNT = 2
     OMIT_KLASS = ['Medication', 'Location', 'QuestionnaireResponse', 'PractitionerRole'].freeze
-
-    def versioned_us_core_module
-      case suite_options[:us_core_version]
-      when 'us_core_5'
-        USCoreTestKit::USCoreV501
-      when 'us_core_4'
-        USCoreTestKit::USCoreV400
-      else
-        USCoreTestKit::USCoreV311
-      end
-    end
 
     def metadata_list
       @metadata_list ||=

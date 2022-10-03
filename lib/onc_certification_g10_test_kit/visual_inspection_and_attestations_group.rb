@@ -1,3 +1,5 @@
+require_relative 'g10_options'
+
 module ONCCertificationG10TestKit
   class VisualInspectionAndAttestationsGroup < Inferno::TestGroup
     title 'Visual Inspection and Attestation'
@@ -374,7 +376,7 @@ module ONCCertificationG10TestKit
       )
       id 'Test11'
 
-      required_suite_options us_core_version: 'us_core_3'
+      required_suite_options G10Options::US_CORE_3_REQUIREMENT
 
       input :patient_suffix_attestation,
             title: 'Health IT developer demonstrates support for the Patient Demographics Suffix USCDI v1 element.',
@@ -416,7 +418,7 @@ module ONCCertificationG10TestKit
       )
       id 'Test12'
 
-      required_suite_options us_core_version: 'us_core_3'
+      required_suite_options G10Options::US_CORE_3_REQUIREMENT
 
       input :patient_previous_name_attestation,
             title: 'Health IT developer demonstrates support for the Patient Demographics Previous Name USCDI v1 element.', # rubocop:disable Layout/LineLength

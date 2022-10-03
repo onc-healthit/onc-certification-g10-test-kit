@@ -1,5 +1,7 @@
 module ONCCertificationG10TestKit
   class SMARTScopesTest < Inferno::Test
+    include G10Options
+
     title 'Patient-level access with OpenID Connect and Refresh Token scopes used.'
     description %(
       The scopes being input must follow the guidelines specified in the
@@ -62,13 +64,13 @@ module ONCCertificationG10TestKit
       (PATIENT_COMPARTMENT_RESOURCE_TYPES + ['ServiceRequest']).freeze
 
     def patient_compartment_resource_types
-      return PATIENT_COMPARTMENT_RESOURCE_TYPES unless suite_options[:us_core_version] == 'us_core_5'
+      return PATIENT_COMPARTMENT_RESOURCE_TYPES unless using_us_core_5?
 
       V5_PATIENT_COMPARTMENT_RESOURCE_TYPES
     end
 
     def valid_resource_types
-      return VALID_RESOURCE_TYPES unless suite_options[:us_core_version] == 'us_core_5'
+      return VALID_RESOURCE_TYPES unless using_us_core_5?
 
       V5_VALID_RESOURCE_TYPES
     end

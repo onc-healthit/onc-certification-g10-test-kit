@@ -56,7 +56,7 @@ module ONCCertificationG10TestKit
     input_order :url, :standalone_client_id, :standalone_client_secret
 
     group from: :smart_discovery do
-      required_suite_options(smart_app_launch_version: 'smart_app_launch_1')
+      required_suite_options(G10Options::SMART_1_REQUIREMENT)
 
       test from: 'g10_smart_well_known_capabilities',
            config: {
@@ -75,7 +75,7 @@ module ONCCertificationG10TestKit
     end
 
     group from: :smart_discovery_stu2 do
-      required_suite_options(smart_app_launch_version: 'smart_app_launch_2')
+      required_suite_options(G10Options::SMART_2_REQUIREMENT)
 
       test from: 'g10_smart_well_known_capabilities',
            config: {
@@ -98,7 +98,7 @@ module ONCCertificationG10TestKit
     end
 
     group from: :smart_standalone_launch do
-      required_suite_options(smart_app_launch_version: 'smart_app_launch_1')
+      required_suite_options(G10Options::SMART_1_REQUIREMENT)
 
       title 'Standalone Launch With Patient Scope'
       description %(
@@ -198,7 +198,7 @@ module ONCCertificationG10TestKit
               }
             }
           } do
-      required_suite_options(smart_app_launch_version: 'smart_app_launch_2')
+      required_suite_options(G10Options::SMART_2_REQUIREMENT)
 
       title 'Standalone Launch With Patient Scope'
       description %(

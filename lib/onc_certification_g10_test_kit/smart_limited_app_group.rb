@@ -1,3 +1,4 @@
+require_relative 'g10_options'
 require_relative 'patient_context_test'
 require_relative 'limited_scope_grant_test'
 require_relative 'restricted_resource_type_access_group'
@@ -80,7 +81,7 @@ module ONCCertificationG10TestKit
           Sequence](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#standalone-launch-sequence)
       )
 
-      required_suite_options smart_app_launch_version: 'smart_app_launch_1'
+      required_suite_options G10Options::SMART_1_REQUIREMENT
 
       config(
         inputs: {
@@ -203,7 +204,7 @@ module ONCCertificationG10TestKit
           Sequence](http://hl7.org/fhir/smart-app-launch/STU2/app-launch.html#launch-app-standalone-launch)
       )
 
-      required_suite_options smart_app_launch_version: 'smart_app_launch_2'
+      required_suite_options G10Options::SMART_2_REQUIREMENT
 
       config(
         inputs: {

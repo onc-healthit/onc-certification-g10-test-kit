@@ -6,6 +6,7 @@ require_relative 'onc_certification_g10_test_kit/configuration_checker'
 require_relative 'onc_certification_g10_test_kit/version'
 
 require_relative 'onc_certification_g10_test_kit/feature'
+require_relative 'onc_certification_g10_test_kit/g10_options'
 require_relative 'onc_certification_g10_test_kit/single_patient_api_group'
 require_relative 'onc_certification_g10_test_kit/single_patient_us_core_4_api_group'
 require_relative 'onc_certification_g10_test_kit/single_patient_us_core_5_api_group'
@@ -123,15 +124,15 @@ module ONCCertificationG10TestKit
                  list_options: [
                    {
                      label: 'US Core 3.1.1 / USCDI v1',
-                     value: 'us_core_3'
+                     value: G10Options::US_CORE_3
                    },
                    {
                      label: 'US Core 4.0.0 / USCDI v1',
-                     value: 'us_core_4'
+                     value: G10Options::US_CORE_4
                    },
                    {
                      label: 'US Core 5.0.1 / USCDI v2',
-                     value: 'us_core_5'
+                     value: G10Options::US_CORE_5
                    }
                  ]
 
@@ -140,11 +141,11 @@ module ONCCertificationG10TestKit
                  list_options: [
                    {
                      label: 'SMART App Launch 1.0.0',
-                     value: 'smart_app_launch_1'
+                     value: G10Options::SMART_1
                    },
                    {
                      label: 'SMART App Launch 2.0.0',
-                     value: 'smart_app_launch_2'
+                     value: G10Options::SMART_2
                    }
                  ]
 
@@ -153,11 +154,11 @@ module ONCCertificationG10TestKit
                  list_options: [
                    {
                      label: 'Bulk Data 1.0.1',
-                     value: 'multi_patient_api_stu1'
+                     value: G10Options::BULK_DATA_1
                    },
                    {
                      label: 'Bulk Data 2.0.0',
-                     value: 'multi_patient_api_stu2'
+                     value: G10Options::BULK_DATA_2
                    }
                  ]
 
@@ -220,16 +221,16 @@ module ONCCertificationG10TestKit
     group from: 'g10_smart_ehr_practitioner_app'
 
     group from: 'g10_single_patient_api',
-          required_suite_options: { us_core_version: 'us_core_3' }
+          required_suite_options: G10Options::US_CORE_3_REQUIREMENT
     group from: 'g10_single_patient_us_core_4_api',
-          required_suite_options: { us_core_version: 'us_core_4' }
+          required_suite_options: G10Options::US_CORE_4_REQUIREMENT
     group from: 'g10_single_patient_us_core_5_api',
-          required_suite_options: { us_core_version: 'us_core_5' }
+          required_suite_options: G10Options::US_CORE_5_REQUIREMENT
 
     group from: 'multi_patient_api',
-          required_suite_options: { multi_patient_version: 'multi_patient_api_stu1' }
+          required_suite_options: G10Options::BULK_DATA_1_REQUIREMENT
     group from: 'multi_patient_api_stu2',
-          required_suite_options: { multi_patient_version: 'multi_patient_api_stu2' }
+          required_suite_options: G10Options::BULK_DATA_2_REQUIREMENT
 
     group do
       title 'Additional Tests'
@@ -254,10 +255,10 @@ module ONCCertificationG10TestKit
       end
 
       group from: :g10_public_standalone_launch,
-            required_suite_options: { smart_app_launch_version: 'smart_app_launch_1' },
+            required_suite_options: G10Options::SMART_1_REQUIREMENT,
             config: { options: { redirect_message_proc: default_redirect_message_proc } }
       group from: :g10_public_standalone_launch_stu2,
-            required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' },
+            required_suite_options: G10Options::SMART_2_REQUIREMENT,
             config: { options: { redirect_message_proc: default_redirect_message_proc } }
 
       group from: :g10_token_revocation
@@ -266,19 +267,19 @@ module ONCCertificationG10TestKit
             config: { options: { redirect_message_proc: default_redirect_message_proc } }
 
       group from: :g10_smart_invalid_token_request,
-            required_suite_options: { smart_app_launch_version: 'smart_app_launch_1' },
+            required_suite_options: G10Options::SMART_1_REQUIREMENT,
             config: { options: { redirect_message_proc: default_redirect_message_proc } }
       group from: :g10_smart_invalid_token_request_stu2,
-            required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' },
+            required_suite_options: G10Options::SMART_2_REQUIREMENT,
             config: { options: { redirect_message_proc: default_redirect_message_proc } }
 
       group from: :g10_smart_invalid_pkce_code_verifier_group,
-            required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' }
+            required_suite_options: G10Options::SMART_2_REQUIREMENT
 
       group from: :g10_ehr_patient_launch,
-            required_suite_options: { smart_app_launch_version: 'smart_app_launch_1' }
+            required_suite_options: G10Options::SMART_1_REQUIREMENT
       group from: :g10_ehr_patient_launch_stu2,
-            required_suite_options: { smart_app_launch_version: 'smart_app_launch_2' }
+            required_suite_options: G10Options::SMART_2_REQUIREMENT
 
       group from: :g10_visual_inspection_and_attestations
     end

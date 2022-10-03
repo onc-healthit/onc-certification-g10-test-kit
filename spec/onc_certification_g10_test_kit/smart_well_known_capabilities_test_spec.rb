@@ -41,7 +41,7 @@ RSpec.describe ONCCertificationG10TestKit::SMARTWellKnownCapabilitiesTest do
     context 'when using US Core 3' do
       before do
         allow_any_instance_of(test).to(
-          receive(:suite_options).and_return({ us_core_version: 'us_core_3' })
+          receive(:suite_options).and_return(ONCCertificationG10TestKit::G10Options::US_CORE_3_REQUIREMENT)
         )
         allow_any_instance_of(test).to(receive(:config).and_return(test_config))
       end
@@ -58,7 +58,7 @@ RSpec.describe ONCCertificationG10TestKit::SMARTWellKnownCapabilitiesTest do
     context 'when using US Core 5' do
       before do
         allow_any_instance_of(test).to(
-          receive(:suite_options).and_return({ us_core_version: 'us_core_5' })
+          receive(:suite_options).and_return(ONCCertificationG10TestKit::G10Options::US_CORE_5_REQUIREMENT)
         )
         allow_any_instance_of(test).to(receive(:config).and_return(test_config))
       end

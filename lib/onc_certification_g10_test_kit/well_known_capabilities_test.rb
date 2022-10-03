@@ -1,5 +1,7 @@
 module ONCCertificationG10TestKit
   class SMARTWellKnownCapabilitiesTest < Inferno::Test
+    include G10Options
+
     title 'Well-known configuration declares support for required capabilities'
     description %(
       A SMART on FHIR server SHALL convey its capabilities to app developers
@@ -21,7 +23,7 @@ module ONCCertificationG10TestKit
 
       required_capabilities = config.options[:required_capabilities] || []
 
-      if suite_options[:us_core_version] == 'us_core_5' && required_capabilities.include?('launch-ehr')
+      if using_us_core_5? && required_capabilities.include?('launch-ehr')
         required_capabilities += ['context-ehr-encounter']
       end
 
