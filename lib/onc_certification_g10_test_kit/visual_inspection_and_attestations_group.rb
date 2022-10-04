@@ -564,12 +564,11 @@ module ONCCertificationG10TestKit
             optional: true
 
       run do
-        if unique_incorrectly_permitted_tls_versions_messages.blank?
-          pass tls_version_attestation_notes if tls_version_attestation_notes.present?
+        if tls_documentation_required == 'true'
+          assert tls_version_attestation_notes.present?,
+                 'Health IT developer did not document how the system under test enforces TLS version 1.2 or above'
         end
 
-        assert tls_version_attestation == 'true',
-               'Health IT developer did not document how the system under test enforces TLS version 1.2 or above'
         pass tls_version_attestation_notes if tls_version_attestation_notes.present?
       end
     end
