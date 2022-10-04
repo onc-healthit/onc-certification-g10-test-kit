@@ -6,7 +6,7 @@ gemspec
 
 gem 'tls_test_kit',
     git: 'https://github.com/inferno-framework/tls-test-kit.git',
-    branch: 'fi-1684-tls-warnings'
+    branch: 'main'
 
 group :development, :test do
   gem 'rubocop', '~> 1.9'
