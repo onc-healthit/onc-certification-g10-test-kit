@@ -5,12 +5,6 @@ for Health IT systems seeking to meet the requirements of the Standardized API
 for Patient and Population Services criterion § 170.315(g)(10) in the 2015
 Edition Cures Update.
 
-The ONC Certification (g)(10) Standardized API Test Kit is the successor to [Inferno Program
-Edition](/onc-healthit/inferno-program).  Currently, systems can use either
-Inferno Program Edition v1.9 or the ONC Certification (g)(10) Standardized API
-Test Kit v2.0+ to certify to the ONC (g)(10) criteria.  Users should expect Inferno
-Program Edition to be sunsetted over the coming months.
-
 The (g)(10) Standardized API Test Kit behaves like an API consumer, making a
 series of HTTP requests that mimic a real world client to ensure that the API
 supports all required standards, including:
@@ -203,7 +197,7 @@ original sources, all of which are hereby incorporated by reference.
       Bodenreider O. The Unified Medical Language System (UMLS): integrating biomedical terminology.
       Nucleic Acids Res. 2004 Jan 1;32(Database issue):D267-70. doi: 10.1093/nar/gkh061.
       PubMed PMID: 14681409; PubMed Central PMCID: PMC308795.
-      
+
 ## License
 Copyright 2022 The MITRE Corporation
 
