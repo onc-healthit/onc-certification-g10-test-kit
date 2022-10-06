@@ -68,6 +68,8 @@ g10_certification-g10_smart_standalone_patient_app-g10_unrestricted_resource_typ
 g10_certification-g10_smart_standalone_patient_app-g10_unrestricted_resource_type_access-g10_encounter_unrestricted_access: 1.7.15
 g10_certification-g10_smart_standalone_patient_app-g10_unrestricted_resource_type_access-g10_service_request_unrestricted_access: 1.7.16
 g10_certification-g10_smart_standalone_patient_app-g10_standalone_credentials_export: '1.01'
+g10_certification-g10_smart_standalone_patient_app-g10_auth_incorrectly_permitted_tls_versions_messages_setup: '1.02'
+g10_certification-g10_smart_standalone_patient_app-g10_token_incorrectly_permitted_tls_versions_messages_setup: '1.03'
 g10_certification-g10_smart_limited_app: '2'
 g10_certification-g10_smart_limited_app-smart_standalone_launch: '2.1'
 g10_certification-g10_smart_limited_app-smart_standalone_launch-standalone_auth_tls: 2.1.01
@@ -164,6 +166,8 @@ g10_certification-g10_smart_ehr_practitioner_app-g10_smart_ehr_token_refresh-g10
 g10_certification-g10_smart_ehr_practitioner_app-g10_smart_ehr_token_refresh-g10_patient_context: 3.6.05
 g10_certification-g10_smart_ehr_practitioner_app-g10_smart_ehr_token_refresh-g10_invalid_token_refresh: 3.6.06
 g10_certification-g10_smart_ehr_practitioner_app-g10_ehr_credentials_export: '3.01'
+g10_certification-g10_smart_ehr_practitioner_app-g10_auth_incorrectly_permitted_tls_versions_messages_setup: '3.02'
+g10_certification-g10_smart_ehr_practitioner_app-g10_token_incorrectly_permitted_tls_versions_messages_setup: '3.03'
 g10_certification-g10_single_patient_api: '4'
 g10_certification-g10_single_patient_api-g10_patient_id_setup: '4.01'
 g10_certification-g10_single_patient_api-us_core_v311_capability_statement: '4.1'
@@ -455,6 +459,7 @@ g10_certification-g10_single_patient_api-us_core_v311_clinical_notes_guidance-us
 g10_certification-g10_single_patient_api-us_core_311_data_absent_reason: '4.32'
 g10_certification-g10_single_patient_api-us_core_311_data_absent_reason-us_core_311_data_absent_reason_extension: 4.32.01
 g10_certification-g10_single_patient_api-us_core_311_data_absent_reason-us_core_311_data_absent_reason_code_system: 4.32.02
+g10_certification-g10_single_patient_api-g10_incorrectly_permitted_tls_versions_messages_setup: '4.02'
 g10_certification-g10_single_patient_us_core_4_api: '5'
 g10_certification-g10_single_patient_us_core_4_api-g10_patient_id_setup: '5.01'
 g10_certification-g10_single_patient_us_core_4_api-us_core_v400_capability_statement: '5.1'
@@ -836,6 +841,7 @@ g10_certification-g10_single_patient_us_core_4_api-us_core_v400_clinical_notes_g
 g10_certification-g10_single_patient_us_core_4_api-us_core_311_data_absent_reason: '5.34'
 g10_certification-g10_single_patient_us_core_4_api-us_core_311_data_absent_reason-us_core_311_data_absent_reason_extension: 5.34.01
 g10_certification-g10_single_patient_us_core_4_api-us_core_311_data_absent_reason-us_core_311_data_absent_reason_code_system: 5.34.02
+g10_certification-g10_single_patient_us_core_4_api-g10_incorrectly_permitted_tls_versions_messages_setup: '5.02'
 g10_certification-g10_single_patient_us_core_5_api: '6'
 g10_certification-g10_single_patient_us_core_5_api-g10_patient_id_setup: '6.01'
 g10_certification-g10_single_patient_us_core_5_api-us_core_v501_capability_statement: '6.1'
@@ -1342,6 +1348,7 @@ g10_certification-g10_single_patient_us_core_5_api-us_core_v400_clinical_notes_g
 g10_certification-g10_single_patient_us_core_5_api-us_core_311_data_absent_reason: '6.42'
 g10_certification-g10_single_patient_us_core_5_api-us_core_311_data_absent_reason-us_core_311_data_absent_reason_extension: 6.42.01
 g10_certification-g10_single_patient_us_core_5_api-us_core_311_data_absent_reason-us_core_311_data_absent_reason_code_system: 6.42.02
+g10_certification-g10_single_patient_us_core_5_api-g10_incorrectly_permitted_tls_versions_messages_setup: '6.02'
 g10_certification-multi_patient_api: '7'
 g10_certification-multi_patient_api-bulk_data_authorization: '7.1'
 g10_certification-multi_patient_api-bulk_data_authorization-g10_bulk_token_tls_version: 7.1.01
@@ -1350,6 +1357,7 @@ g10_certification-multi_patient_api-bulk_data_authorization-Test03: 7.1.03
 g10_certification-multi_patient_api-bulk_data_authorization-Test04: 7.1.04
 g10_certification-multi_patient_api-bulk_data_authorization-Test05: 7.1.05
 g10_certification-multi_patient_api-bulk_data_authorization-Test06: 7.1.06
+g10_certification-multi_patient_api-g10_bulk_auth_tls_messages_setup: '7.01'
 g10_certification-multi_patient_api-bulk_data_group_export: '7.2'
 g10_certification-multi_patient_api-bulk_data_group_export-g10_bulk_data_server_tls_version: 7.2.01
 g10_certification-multi_patient_api-bulk_data_group_export-Test02: 7.2.02
@@ -1358,6 +1366,7 @@ g10_certification-multi_patient_api-bulk_data_group_export-Test04: 7.2.04
 g10_certification-multi_patient_api-bulk_data_group_export-Test05: 7.2.05
 g10_certification-multi_patient_api-bulk_data_group_export-Test06: 7.2.06
 g10_certification-multi_patient_api-bulk_data_group_export-Test07: 7.2.07
+g10_certification-multi_patient_api-g10_bulk_group_export_tls_messages_setup: '7.02'
 g10_certification-multi_patient_api-bulk_data_group_export_validation: '7.3'
 g10_certification-multi_patient_api-bulk_data_group_export_validation-g10_bulk_file_server_tls_version: 7.3.01
 g10_certification-multi_patient_api-bulk_data_group_export_validation-Test02: 7.3.02
@@ -1386,6 +1395,7 @@ g10_certification-multi_patient_api-bulk_data_group_export_validation-Test24: 7.
 g10_certification-multi_patient_api-bulk_data_group_export_validation-Test25: 7.3.25
 g10_certification-multi_patient_api-bulk_data_group_export_validation-Test26: 7.3.26
 g10_certification-multi_patient_api-bulk_data_group_export_validation-Test27: 7.3.27
+g10_certification-multi_patient_api-g10_bulk_group_export_validation_messages_setup: '7.03'
 g10_certification-multi_patient_api_stu2: '8'
 g10_certification-multi_patient_api_stu2-bulk_data_authorization: '8.1'
 g10_certification-multi_patient_api_stu2-bulk_data_authorization-g10_bulk_token_tls_version: 8.1.01
@@ -1394,6 +1404,7 @@ g10_certification-multi_patient_api_stu2-bulk_data_authorization-Test03: 8.1.03
 g10_certification-multi_patient_api_stu2-bulk_data_authorization-Test04: 8.1.04
 g10_certification-multi_patient_api_stu2-bulk_data_authorization-Test05: 8.1.05
 g10_certification-multi_patient_api_stu2-bulk_data_authorization-Test06: 8.1.06
+g10_certification-multi_patient_api_stu2-g10_bulk_auth_tls_messages_setup: '8.01'
 g10_certification-multi_patient_api_stu2-bulk_data_group_export_stu2: '8.2'
 g10_certification-multi_patient_api_stu2-bulk_data_group_export_stu2-g10_bulk_data_server_tls_version: 8.2.01
 g10_certification-multi_patient_api_stu2-bulk_data_group_export_stu2-Test02: 8.2.02
@@ -1403,6 +1414,7 @@ g10_certification-multi_patient_api_stu2-bulk_data_group_export_stu2-Test05: 8.2
 g10_certification-multi_patient_api_stu2-bulk_data_group_export_stu2-Test06: 8.2.06
 g10_certification-multi_patient_api_stu2-bulk_data_group_export_stu2-Test07: 8.2.07
 g10_certification-multi_patient_api_stu2-bulk_data_group_export_stu2-output_format_in_export_response: 8.2.08
+g10_certification-multi_patient_api_stu2-g10_bulk_group_export_tls_messages_setup: '8.02'
 g10_certification-multi_patient_api_stu2-bulk_data_group_export_validation: '8.3'
 g10_certification-multi_patient_api_stu2-bulk_data_group_export_validation-g10_bulk_file_server_tls_version: 8.3.01
 g10_certification-multi_patient_api_stu2-bulk_data_group_export_validation-Test02: 8.3.02
@@ -1431,6 +1443,7 @@ g10_certification-multi_patient_api_stu2-bulk_data_group_export_validation-Test2
 g10_certification-multi_patient_api_stu2-bulk_data_group_export_validation-Test25: 8.3.25
 g10_certification-multi_patient_api_stu2-bulk_data_group_export_validation-Test26: 8.3.26
 g10_certification-multi_patient_api_stu2-bulk_data_group_export_validation-Test27: 8.3.27
+g10_certification-multi_patient_api_stu2-g10_bulk_group_export_validation_messages_setup: '8.03'
 g10_certification-Group06: '9'
 g10_certification-Group06-g10_public_standalone_launch: '9.1'
 g10_certification-Group06-g10_public_standalone_launch-standalone_auth_tls: 9.1.01
@@ -1520,3 +1533,4 @@ g10_certification-Group06-g10_visual_inspection_and_attestations-Test11: 9.10.11
 g10_certification-Group06-g10_visual_inspection_and_attestations-Test12: 9.10.12
 g10_certification-Group06-g10_visual_inspection_and_attestations-Test13: 9.10.13
 g10_certification-Group06-g10_visual_inspection_and_attestations-g10_public_url_attestation: 9.10.14
+g10_certification-Group06-g10_visual_inspection_and_attestations-g10_tls_version_attestation: 9.10.15
