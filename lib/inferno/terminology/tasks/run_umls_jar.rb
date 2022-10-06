@@ -11,7 +11,8 @@ module Inferno
         VERSIONED_PROPS = {
           '2019' => 'inferno_2019.prop',
           '2020' => 'inferno_2020.prop',
-          '2021' => 'inferno_2021.prop'
+          '2021' => 'inferno_2021.prop',
+          '2022' => 'inferno_2022.prop'
         }.freeze
 
         attr_reader :version

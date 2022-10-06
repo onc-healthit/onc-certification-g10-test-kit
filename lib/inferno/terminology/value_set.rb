@@ -32,9 +32,9 @@ module Inferno
 
       # UMLS Vocabulary: https://www.nlm.nih.gov/research/umls/sourcereleasedocs/index.html
       SAB = {
-        'http://www.nlm.nih.gov/research/umls/rxnorm' => {
-          abbreviation: 'RXNORM',
-          name: 'RxNorm Vocabulary'
+        'http://unitsofmeasure.org' => {
+          abbreviation: 'NCI_UCUM',
+          name: 'Unified Code for Units of Measure (UCUM)'
         }.freeze,
         'http://loinc.org' => {
           abbreviation: 'LNC',
@@ -43,59 +43,61 @@ module Inferno
         'http://snomed.info/sct' => {
           abbreviation: 'SNOMEDCT_US',
           name: 'Systematized Nomenclature of Medicine-Clinical Terms (SNOMED CT), US Edition'
-        }.freeze,
-        'http://www.cms.gov/Medicare/Coding/ICD10' => {
-          abbreviation: 'ICD10PCS',
-          name: 'ICD-10 Procedure Coding System (ICD-10-PCS)'
-        }.freeze,
-        'http://hl7.org/fhir/sid/cvx' => {
-          abbreviation: 'CVX',
-          name: 'Vaccines Administered (CVX)'
-        }.freeze,
-        'http://hl7.org/fhir/sid/icd-10-cm' => {
-          abbreviation: 'ICD10CM',
-          name: 'International Classification of Diseases, Tenth Revision, Clinical Modification (ICD-10-CM)'
-        }.freeze,
-        'http://hl7.org/fhir/sid/icd-9-cm' => {
-          abbreviation: 'ICD9CM',
-          name: 'International Classification of Diseases, Ninth Revision, Clinical Modification (ICD-9-CM)'
-        }.freeze,
-        'http://unitsofmeasure.org' => {
-          abbreviation: 'NCI_UCUM',
-          name: 'Unified Code for Units of Measure (UCUM)'
-        }.freeze,
-        'urn:oid:2.16.840.1.113883.6.101' => {
-          abbreviation: 'NUCCHCPT',
-          name: 'National Uniform Claim Committee - Health Care Provider Taxonomy (NUCCHCPT)'
-        },
-        'http://nucc.org/provider-taxonomy' => {
-          abbreviation: 'NUCCHCPT',
-          name: 'National Uniform Claim Committee - Health Care Provider Taxonomy (NUCCHCPT)'
-        }.freeze,
-        'http://www.ama-assn.org/go/cpt' => {
-          abbreviation: 'CPT',
-          name: 'Current Procedural Terminology (CPT)'
-        }.freeze,
-        'http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets' => {
-          abbreviation: 'HCPCS',
-          name: 'Healthcare Common Procedure Coding System (HCPCS)'
-        }.freeze,
-        'urn:oid:2.16.840.1.113883.6.285' => {
-          abbreviation: 'HCPCS',
-          name: 'Healthcare Common Procedure Coding System (HCPCS)'
-        }.freeze,
-        'urn:oid:2.16.840.1.113883.6.13' => {
-          abbreviation: 'CDT',
-          name: 'Code on Dental Procedures and Nomenclature (CDT)'
-        }.freeze,
-        'http://ada.org/cdt' => {
-          abbreviation: 'CDT',
-          name: 'Code on Dental Procedures and Nomenclature (CDT)'
-        },
-        'http://www.ada.org/cdt' => {
-          abbreviation: 'CDT',
-          name: 'Code on Dental Procedures and Nomenclature (CDT)'
-        }
+        }.freeze
+        # The systems below are needed if building all terminology rather than
+        # only the required bindings.
+        # 'http://www.nlm.nih.gov/research/umls/rxnorm' => {
+        #   abbreviation: 'RXNORM',
+        #   name: 'RxNorm Vocabulary'
+        # }.freeze,
+        # 'http://www.cms.gov/Medicare/Coding/ICD10' => {
+        #   abbreviation: 'ICD10PCS',
+        #   name: 'ICD-10 Procedure Coding System (ICD-10-PCS)'
+        # }.freeze,
+        # 'http://hl7.org/fhir/sid/cvx' => {
+        #   abbreviation: 'CVX',
+        #   name: 'Vaccines Administered (CVX)'
+        # }.freeze,
+        # 'http://hl7.org/fhir/sid/icd-10-cm' => {
+        #   abbreviation: 'ICD10CM',
+        #   name: 'International Classification of Diseases, Tenth Revision, Clinical Modification (ICD-10-CM)'
+        # }.freeze,
+        # 'http://hl7.org/fhir/sid/icd-9-cm' => {
+        #   abbreviation: 'ICD9CM',
+        #   name: 'International Classification of Diseases, Ninth Revision, Clinical Modification (ICD-9-CM)'
+        # }.freeze,
+        # 'urn:oid:2.16.840.1.113883.6.101' => {
+        #   abbreviation: 'NUCCHCPT',
+        #   name: 'National Uniform Claim Committee - Health Care Provider Taxonomy (NUCCHCPT)'
+        # },
+        # 'http://nucc.org/provider-taxonomy' => {
+        #   abbreviation: 'NUCCHCPT',
+        #   name: 'National Uniform Claim Committee - Health Care Provider Taxonomy (NUCCHCPT)'
+        # }.freeze,
+        # 'http://www.ama-assn.org/go/cpt' => {
+        #   abbreviation: 'CPT',
+        #   name: 'Current Procedural Terminology (CPT)'
+        # }.freeze,
+        # 'http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets' => {
+        #   abbreviation: 'HCPCS',
+        #   name: 'Healthcare Common Procedure Coding System (HCPCS)'
+        # }.freeze,
+        # 'urn:oid:2.16.840.1.113883.6.285' => {
+        #   abbreviation: 'HCPCS',
+        #   name: 'Healthcare Common Procedure Coding System (HCPCS)'
+        # }.freeze,
+        # 'urn:oid:2.16.840.1.113883.6.13' => {
+        #   abbreviation: 'CDT',
+        #   name: 'Code on Dental Procedures and Nomenclature (CDT)'
+        # }.freeze,
+        # 'http://ada.org/cdt' => {
+        #   abbreviation: 'CDT',
+        #   name: 'Code on Dental Procedures and Nomenclature (CDT)'
+        # },
+        # 'http://www.ada.org/cdt' => {
+        #   abbreviation: 'CDT',
+        #   name: 'Code on Dental Procedures and Nomenclature (CDT)'
+        # }
       }.freeze
 
       CODE_SYS = {
