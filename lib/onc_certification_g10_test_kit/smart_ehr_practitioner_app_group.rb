@@ -373,6 +373,22 @@ module ONCCertificationG10TestKit
                  'Token response did not contain `need_patient_banner`'
         end
       end
+
+      tests[2].config(
+        outputs: {
+          incorrectly_permitted_tls_versions_messages: {
+            name: :auth_incorrectly_permitted_tls_versions_messages
+          }
+        }
+      )
+
+      tests[5].config(
+        outputs: {
+          incorrectly_permitted_tls_versions_messages: {
+            name: :token_incorrectly_permitted_tls_versions_messages
+          }
+        }
+      )
     end
 
     group from: :smart_openid_connect,
