@@ -43,7 +43,7 @@ module ONCCertificationG10TestKit
     end
 
     def code_system_version_messages
-      path = File.join(__dir__, '..', '..', 'resources', 'terminology', 'validators', 'bloom', 'metadata.yml')
+      path = File.join('resources', 'terminology', 'validators', 'bloom', 'metadata.yml')
       return '' unless File.exist? path
 
       cs_metadata = YAML.load_file(path)
