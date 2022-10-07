@@ -5,6 +5,7 @@ require_relative 'smart_scopes_test'
 require_relative 'unauthorized_access_test'
 require_relative 'unrestricted_resource_type_access_group'
 require_relative 'well_known_capabilities_test'
+require_relative 'incorrectly_permitted_tls_versions_messages_setup_test'
 
 module ONCCertificationG10TestKit
   class SmartStandalonePatientAppGroup < Inferno::TestGroup
@@ -179,6 +180,22 @@ module ONCCertificationG10TestKit
                smart_credentials: { name: :standalone_smart_credentials }
              }
            }
+
+      tests[0].config(
+        outputs: {
+          incorrectly_permitted_tls_versions_messages: {
+            name: :auth_incorrectly_permitted_tls_versions_messages
+          }
+        }
+      )
+
+      tests[3].config(
+        outputs: {
+          incorrectly_permitted_tls_versions_messages: {
+            name: :token_incorrectly_permitted_tls_versions_messages
+          }
+        }
+      )
     end
 
     group from: :smart_standalone_launch_stu2,
@@ -279,6 +296,22 @@ module ONCCertificationG10TestKit
                smart_credentials: { name: :standalone_smart_credentials }
              }
            }
+
+      tests[0].config(
+        outputs: {
+          incorrectly_permitted_tls_versions_messages: {
+            name: :auth_incorrectly_permitted_tls_versions_messages
+          }
+        }
+      )
+
+      tests[3].config(
+        outputs: {
+          incorrectly_permitted_tls_versions_messages: {
+            name: :token_incorrectly_permitted_tls_versions_messages
+          }
+        }
+      )
     end
 
     group from: :smart_openid_connect,
@@ -349,5 +382,25 @@ module ONCCertificationG10TestKit
                patient_id: standalone_patient_id
       end
     end
+
+    test from: :g10_incorrectly_permitted_tls_versions_messages_setup,
+         id: :g10_auth_incorrectly_permitted_tls_versions_messages_setup,
+         config: {
+           inputs: {
+             incorrectly_permitted_tls_versions_messages: {
+               name: :auth_incorrectly_permitted_tls_versions_messages
+             }
+           }
+         }
+
+    test from: :g10_incorrectly_permitted_tls_versions_messages_setup,
+         id: :g10_token_incorrectly_permitted_tls_versions_messages_setup,
+         config: {
+           inputs: {
+             incorrectly_permitted_tls_versions_messages: {
+               name: :token_incorrectly_permitted_tls_versions_messages
+             }
+           }
+         }
   end
 end

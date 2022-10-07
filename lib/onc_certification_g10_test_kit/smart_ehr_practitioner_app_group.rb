@@ -221,6 +221,22 @@ module ONCCertificationG10TestKit
                  'Token response did not contain `need_patient_banner`'
         end
       end
+
+      tests[2].config(
+        outputs: {
+          incorrectly_permitted_tls_versions_messages: {
+            name: :auth_incorrectly_permitted_tls_versions_messages
+          }
+        }
+      )
+
+      tests[5].config(
+        outputs: {
+          incorrectly_permitted_tls_versions_messages: {
+            name: :token_incorrectly_permitted_tls_versions_messages
+          }
+        }
+      )
     end
 
     group from: :smart_ehr_launch_stu2,
@@ -357,6 +373,22 @@ module ONCCertificationG10TestKit
                  'Token response did not contain `need_patient_banner`'
         end
       end
+
+      tests[2].config(
+        outputs: {
+          incorrectly_permitted_tls_versions_messages: {
+            name: :auth_incorrectly_permitted_tls_versions_messages
+          }
+        }
+      )
+
+      tests[5].config(
+        outputs: {
+          incorrectly_permitted_tls_versions_messages: {
+            name: :token_incorrectly_permitted_tls_versions_messages
+          }
+        }
+      )
     end
 
     group from: :smart_openid_connect,
@@ -417,5 +449,25 @@ module ONCCertificationG10TestKit
                patient_id: ehr_patient_id
       end
     end
+
+    test from: :g10_incorrectly_permitted_tls_versions_messages_setup,
+         id: :g10_auth_incorrectly_permitted_tls_versions_messages_setup,
+         config: {
+           inputs: {
+             incorrectly_permitted_tls_versions_messages: {
+               name: :auth_incorrectly_permitted_tls_versions_messages
+             }
+           }
+         }
+
+    test from: :g10_incorrectly_permitted_tls_versions_messages_setup,
+         id: :g10_token_incorrectly_permitted_tls_versions_messages_setup,
+         config: {
+           inputs: {
+             incorrectly_permitted_tls_versions_messages: {
+               name: :token_incorrectly_permitted_tls_versions_messages
+             }
+           }
+         }
   end
 end

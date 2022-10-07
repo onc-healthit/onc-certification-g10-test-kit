@@ -165,7 +165,8 @@ module ONCCertificationG10TestKit
 
     config(
       options: {
-        post_authorization_uri: "#{Inferno::Application['base_url']}/custom/smart_stu2/post_auth"
+        post_authorization_uri: "#{Inferno::Application['base_url']}/custom/smart_stu2/post_auth",
+        incorrectly_permitted_tls_version_message_type: 'warning'
       }
     )
 

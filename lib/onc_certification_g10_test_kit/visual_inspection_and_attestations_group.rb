@@ -524,5 +524,53 @@ module ONCCertificationG10TestKit
         pass public_url_attestation_notes if public_url_attestation_notes.present?
       end
     end
+
+    test do
+      title 'TLS version 1.2 or above must be enforced'
+      description %(
+        If TLS connections below version 1.2 have been allowed in any previous
+        tests, Health IT developers must document how the Health IT Module
+        enforces TLS version 1.2 or above.
+
+        If no TLS connections below version 1.2 have been allowed, no
+        documentation is necessary and this test will automatically pass.
+      )
+      id :g10_tls_version_attestation
+      input :unique_incorrectly_permitted_tls_versions_messages,
+            title: 'TLS Issues',
+            type: 'textarea',
+            locked: true,
+            optional: true
+      input :tls_documentation_required,
+            title: 'Health IT developers must document how the Health IT Module enforces TLs version 1.2 or above',
+            type: 'radio',
+            default: 'false',
+            locked: true,
+            options: {
+              list_options: [
+                {
+                  label: 'Yes',
+                  value: 'true'
+                },
+                {
+                  label: 'No',
+                  value: 'false'
+                }
+              ]
+            }
+      input :tls_version_attestation_notes,
+            title: 'Document how TLS version 1.2 or above is enforced, if required:',
+            type: 'textarea',
+            optional: true
+
+      run do
+        if tls_documentation_required == 'true'
+          assert tls_version_attestation_notes.present?,
+                 'Health IT developer did not document how the system under test enforces TLS version 1.2 or above'
+        end
+
+        pass tls_version_attestation_notes if tls_version_attestation_notes.present?
+      end
+    end
   end
 end
