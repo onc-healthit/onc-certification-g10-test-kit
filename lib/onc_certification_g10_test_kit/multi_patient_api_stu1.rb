@@ -63,14 +63,17 @@ module ONCCertificationG10TestKit
             This test returns an access token.
           DESCRIPTION
 
-    test from: :g10_incorrectly_permitted_tls_versions_messages_setup
+    test from: :g10_incorrectly_permitted_tls_versions_messages_setup,
+         id: :g10_bulk_auth_tls_messages_setup
 
     group from: :bulk_data_group_export
 
-    test from: :g10_incorrectly_permitted_tls_versions_messages_setup
+    test from: :g10_incorrectly_permitted_tls_versions_messages_setup,
+         id: :g10_bulk_group_export_tls_messages_setup
 
     group from: :bulk_data_group_export_validation
 
-    test from: :g10_incorrectly_permitted_tls_versions_messages_setup
+    test from: :g10_incorrectly_permitted_tls_versions_messages_setup,
+         id: :g10_bulk_group_export_validation_messages_setup
   end
 end

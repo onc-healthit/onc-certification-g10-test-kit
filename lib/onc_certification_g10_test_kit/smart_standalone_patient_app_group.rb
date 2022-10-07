@@ -143,9 +143,6 @@ module ONCCertificationG10TestKit
               patient/Provenance.read patient/PractitionerRole.read
             ).gsub(/\s{2,}/, ' ').strip
           }
-        },
-        options: {
-          incorrectly_permitted_tls_version_message_type: 'warning'
         }
       )
 
@@ -262,9 +259,6 @@ module ONCCertificationG10TestKit
               patient/Provenance.rs patient/PractitionerRole.rs
             ).gsub(/\s{2,}/, ' ').strip
           }
-        },
-        options: {
-          incorrectly_permitted_tls_version_message_type: 'warning'
         }
       )
 

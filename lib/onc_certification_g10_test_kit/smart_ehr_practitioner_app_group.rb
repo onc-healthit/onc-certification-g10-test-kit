@@ -127,9 +127,6 @@ module ONCCertificationG10TestKit
               user/PractitionerRole.read
             ).gsub(/\s{2,}/, ' ').strip
           }
-        },
-        options: {
-          incorrectly_permitted_tls_version_message_type: 'warning'
         }
       )
 
@@ -282,9 +279,6 @@ module ONCCertificationG10TestKit
               user/PractitionerRole.rs
             ).gsub(/\s{2,}/, ' ').strip
           }
-        },
-        options: {
-          incorrectly_permitted_tls_version_message_type: 'warning'
         }
       )
 
