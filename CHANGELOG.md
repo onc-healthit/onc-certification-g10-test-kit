@@ -1,3 +1,17 @@
+# 3.2.0
+
+* Fix a bug which could cause unhandled exceptions when invalid JSON is
+  received.
+* Fix a bug which prevented handing the Imaging Result profile in the Bulk Data
+  tests when using US Core 5.
+* Update the terminology process to only use the most recent version of UMLS.
+* Update the TLS tests to allow systems which deny prohibited TLS versions at
+  the application level to pass.
+* Fix MustSupport requirements for representing a Patient's previous name in US
+  Core 4 & 5.
+* Fix date comparator searches to account for server time zones.
+* Update the SMART App Launch tests to handle relative urls.
+
 # 3.1.0
 
 * Fix a bug which could cause the SMART `context-ehr-encounter` capability to be
