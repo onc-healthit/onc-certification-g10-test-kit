@@ -5,13 +5,13 @@ module Inferno
     class Validator
       attr_reader :url, :concept_count, :type, :code_systems, :file_name, :bloom_filter
 
-      def initialize(**params)
-        @url = params[:url]
-        @concept_count = params[:count]
-        @type = params[:type]
-        @code_systems = params[:code_systems]
-        @file_name = params[:file]
-        @bloom_filter = params[:bloom_filter]
+      def initialize(metadata)
+        @url = metadata[:url]
+        @concept_count = metadata[:count]
+        @type = metadata[:type]
+        @code_systems = metadata[:code_systems]
+        @file_name = metadata[:file]
+        @bloom_filter = metadata[:bloom_filter]
       end
 
       def validate(code:, system: nil)
