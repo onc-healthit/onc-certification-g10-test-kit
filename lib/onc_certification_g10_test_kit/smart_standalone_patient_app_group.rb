@@ -90,9 +90,7 @@ module ONCCertificationG10TestKit
                  'permission-offline',
                  'permission-patient',
                  'authorize-post',
-                 'permission-v1',
                  'permission-v2'
-
                ]
              }
            }
