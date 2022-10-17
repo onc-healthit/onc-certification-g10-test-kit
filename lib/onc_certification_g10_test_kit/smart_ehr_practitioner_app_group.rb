@@ -95,7 +95,6 @@ module ONCCertificationG10TestKit
                  'permission-offline',
                  'permission-user',
                  'authorize-post',
-                 'permission-v1',
                  'permission-v2'
                ]
              }
