@@ -1,37 +1,57 @@
 # ONC Certification (g)(10) Standardized API Test Kit
 
 The **ONC Certification (g)(10) Standardized API Test Kit** is a testing tool
-for Health IT systems seeking to meet the requirements of the Standardized API
-for Patient and Population Services criterion § 170.315(g)(10) in the 2015
-Edition Cures Update.
+for Health IT systems seeking to meet the requirements of the ONC [Standardized API for Patient and
+Population Services criterion § 170.315(g)(10)](https://www.healthit.gov/test-method/standardized-api-patient-and-population-services) in the 2015 Edition Cures Update.
 
-The (g)(10) Standardized API Test Kit behaves like an API consumer, making a
+The **(g)(10) Standardized API Test Kit** behaves like an API consumer, making a
 series of HTTP requests that mimic a real world client to ensure that the API
-supports all required standards, including:
+supports an approved version of each of the required standards:
 
 * Health Level 7 (HL7®) Fast Healthcare Interoperability Resources (FHIR®) Release 4.0.1
-* FHIR US Core Implementation Guide (IG) STU 3.1.1
-* SMART Application Launch Framework Implementation Guide Release 1.0.0
-* HL7 FHIR Bulk Data Access (Flat FHIR) (v1.0.1: STU 1)
+* FHIR US Core Implementation Guide (v3.1.1, v4.0.0, or v5.0.1)
+* SMART Application Launch Framework Implementation Guide Release (v1.0.0, or v2.0.0)
+* HL7 FHIR Bulk Data Access (Flat FHIR) (v1.0.1, or v2.0.0)
 
-This test kit is [open
-source](https://github.com/onc-healthit/onc-certification-g10-test-kit) and
-freely available for use or adoption by the health IT community including EHR
-vendors, health app developers, and testing labs. It can be used as a testing
-tool for the EHR Certification program supported by the Office of the National
-Coordinator for Health IT (ONC).
+This test kit is [open source](#license) and freely available for use or
+adoption by the health IT community including EHR vendors, health app
+developers, and testing labs. It is an approved test method for the §
+170.315(g)(10) certification criterion in the EHR Certification
+program by the Office of the National Coordinator for Health IT (ONC).
 
 The (g)(10) Standarized API Test Kit is built using the [Inferno
-Framework](https://inferno-framework.github.io/inferno-core).  The Inferno
+Framework](https://inferno-framework.github.io/).  The Inferno
 Framework is designed for reuse and aims to make it easier to build test kits
-for any FHIR-based data exchanges.
+for any FHIR-based data exchange.
+
+## Getting Started
+
+ONC hosts a [public
+instance](https://inferno.healthit.gov/suites/g10_certification) of this test
+kit that developers and testers are welcome to use.  However, users are
+encouraged to download and run this tool locally to allow testing within private
+networks and to avoid being affected by downtime of this shared resource.
+Please see the [Local Installation
+Instructions](#local-installation-instructions) section below for more
+information.
+
+ONC hosts a [(g)(10) reference
+server](https://inferno.healthit.gov/reference-server/) that can be used to
+orient new users on these tests.  The [(g)(10) Standardized API Test Kit
+Walkthrough](https://github.com/onc-healthit/onc-certification-g10-test-kit/wiki/Walkthrough)
+provides step-by-step instructions for running these tests against the reference
+server.  This reference server is not a complete implementation and cannot be
+used for production use.
+
+## Reporting Issues
 
 Please report any issues with this set of tests in the [GitHub
-Issues](/onc-healthit/onc-certification-g10-test-kit) section of this
-repository.
+Issues](https://github.com/onc-healthit/onc-certification-g10-test-kit/issues) section of this
+repository.  Common questions and answers are documented in the [(g)(10) Test
+Kit Frequently Asked
+Questions](https://github.com/onc-healthit/onc-certification-g10-test-kit/wiki/FAQ).
 
-
-## Local Installation Instruction
+## Local Installation Instructions
 
 - [Download an official
   release](https://github.com/onc-healthit/onc-certification-g10-test-kit/releases)
