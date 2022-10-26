@@ -1,28 +1,30 @@
 # ONC Certification (g)(10) Standardized API Test Kit
 
 The **ONC Certification (g)(10) Standardized API Test Kit** is a testing tool
-for Health IT systems seeking to meet the requirements of the ONC [Standardized API for Patient and
-Population Services criterion § 170.315(g)(10)](https://www.healthit.gov/test-method/standardized-api-patient-and-population-services) in the 2015 Edition Cures Update.
+for Health IT systems seeking to meet the requirements of the ONC [Standardized
+API for Patient and Population Services criterion §
+170.315(g)(10)](https://www.healthit.gov/test-method/standardized-api-patient-and-population-services)
+in the 2015 Edition Cures Update.
 
 The **(g)(10) Standardized API Test Kit** behaves like an API consumer, making a
 series of HTTP requests that mimic a real world client to ensure that the API
 supports an approved version of each of the required standards:
 
-* Health Level 7 (HL7®) Fast Healthcare Interoperability Resources (FHIR®) Release 4.0.1
-* FHIR US Core Implementation Guide (v3.1.1, v4.0.0, or v5.0.1)
-* SMART Application Launch Framework Implementation Guide Release (v1.0.0, or v2.0.0)
-* HL7 FHIR Bulk Data Access (Flat FHIR) (v1.0.1, or v2.0.0)
+* Health Level 7 (HL7®) Fast Healthcare Interoperability Resources (FHIR®)
+* Release 4.0.1 FHIR US Core Implementation Guide (v3.1.1, v4.0.0, or v5.0.1)
+* SMART Application Launch Framework Implementation Guide Release (v1.0.0, or
+  v2.0.0) HL7 FHIR Bulk Data Access (Flat FHIR) (v1.0.1, or v2.0.0)
 
 This test kit is [open source](#license) and freely available for use or
 adoption by the health IT community including EHR vendors, health app
 developers, and testing labs. It is an approved test method for the §
-170.315(g)(10) certification criterion in the EHR Certification
-program by the Office of the National Coordinator for Health IT (ONC).
+170.315(g)(10) certification criterion in the EHR Certification program by the
+Office of the National Coordinator for Health IT (ONC).
 
 The (g)(10) Standarized API Test Kit is built using the [Inferno
-Framework](https://inferno-framework.github.io/).  The Inferno
-Framework is designed for reuse and aims to make it easier to build test kits
-for any FHIR-based data exchange.
+Framework](https://inferno-framework.github.io/).  The Inferno Framework is
+designed for reuse and aims to make it easier to build test kits for any
+FHIR-based data exchange.
 
 ## Getting Started
 
@@ -46,9 +48,9 @@ used for production use.
 ## Reporting Issues
 
 Please report any issues with this set of tests in the [GitHub
-Issues](https://github.com/onc-healthit/onc-certification-g10-test-kit/issues) section of this
-repository.  Common questions and answers are documented in the [(g)(10) Test
-Kit Frequently Asked
+Issues](https://github.com/onc-healthit/onc-certification-g10-test-kit/issues)
+section of this repository.  Common questions and answers are documented in the
+[(g)(10) Test Kit Frequently Asked
 Questions](https://github.com/onc-healthit/onc-certification-g10-test-kit/wiki/FAQ).
 
 ## Local Installation Instructions
