@@ -99,7 +99,7 @@ module Inferno
             RestClient::Request.execute(
               method: :get,
               url: "#{location}?ticket=#{ticket}",
-              headers: { cookie: cookie },
+              headers: { cookie: },
               block_response: block
             )
           end

@@ -116,7 +116,7 @@ module Inferno
               'WA', 'WV', 'WI', 'WY', 'AE', 'AP', 'AA'
             ]
             codes.each_with_object(Set.new) do |code, set|
-              set.add(system: 'https://www.usps.com/', code: code)
+              set.add(system: 'https://www.usps.com/', code:)
             end
           end
       }.freeze
@@ -423,11 +423,11 @@ module Inferno
           @db.execute(
             "SELECT code FROM mrconso WHERE SAB = '#{umls_abbreviation(system)}' AND TTY IN('PT', 'OP')"
           ) do |row|
-            filtered_set.add(system: system, code: row[0])
+            filtered_set.add(system:, code: row[0])
           end
         elsif filter.nil?
           @db.execute("SELECT code FROM mrconso WHERE SAB = '#{umls_abbreviation(system)}'") do |row|
-            filtered_set.add(system: system, code: row[0])
+            filtered_set.add(system:, code: row[0])
           end
         elsif ['=', 'in', nil].include? filter&.op
           if FILTER_PROP[filter.property]
@@ -435,13 +435,13 @@ module Inferno
               "SELECT code FROM mrsat WHERE SAB = '#{umls_abbreviation(system)}' " \
               "AND ATN = '#{fp_self(filter.property)}' AND ATV = '#{fp_self(filter.value)}'"
             ) do |row|
-              filtered_set.add(system: system, code: row[0])
+              filtered_set.add(system:, code: row[0])
             end
           else
             @db.execute(
               "SELECT code FROM mrconso WHERE SAB = '#{umls_abbreviation(system)}' AND #{filter_clause.call(filter)}"
             ) do |row|
-              filtered_set.add(system: system, code: row[0])
+              filtered_set.add(system:, code: row[0])
             end
           end
         elsif filter&.op == 'is-a'
@@ -486,9 +486,9 @@ module Inferno
         desired_children = Set.new
         subsume = lambda do |parent|
           # Only execute if we haven't processed this parent yet
-          par = { system: system, code: parent }
+          par = { system:, code: parent }
           unless desired_children.include? par
-            desired_children.add(system: system, code: parent)
+            desired_children.add(system:, code: parent)
             children[parent]&.each do |child|
               subsume.call(child)
             end

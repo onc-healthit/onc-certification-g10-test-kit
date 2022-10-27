@@ -53,7 +53,7 @@ module ONCCertificationG10TestKit
               second_prefix, _, ending = second.rpartition('.')
               raise "'#{prefix}' != '#{second_prefix}' in #{@group} #{@id}" unless prefix == second_prefix
 
-              (beginning.to_i..ending.to_i).map { |index| "#{prefix}.#{format('%02<index>d', { index: index })}" }
+              (beginning.to_i..ending.to_i).map { |index| "#{prefix}.#{format('%02<index>d', { index: })}" }
             else
               [test]
             end

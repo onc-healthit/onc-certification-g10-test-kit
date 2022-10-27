@@ -95,9 +95,9 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
 
       bearer_req = stub_request(:get, url)
         .with(headers: { 'authorization' => "Bearer #{bearer_token}" })
-        .to_return(status: 200, headers: headers, body: patient_contents)
+        .to_return(status: 200, headers:, body: patient_contents)
       non_bearer_req = stub_request(:get, url)
-        .to_return(status: 200, headers: headers, body: patient_contents)
+        .to_return(status: 200, headers:, body: patient_contents)
 
       allow(tester).to receive(:resource_is_valid?).and_return(true)
 
@@ -113,9 +113,9 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
 
       bearer_req = stub_request(:get, url)
         .with(headers: { 'authorization' => "Bearer #{bearer_token}" })
-        .to_return(status: 200, headers: headers, body: patient_contents)
+        .to_return(status: 200, headers:, body: patient_contents)
       non_bearer_req = stub_request(:get, url)
-        .to_return(status: 200, headers: headers, body: patient_contents)
+        .to_return(status: 200, headers:, body: patient_contents)
 
       allow(tester).to receive(:resource_is_valid?).and_return(true)
 
@@ -130,7 +130,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
       tester.lines_to_validate = nil
 
       stub_request(:get, url)
-        .to_return(status: 200, headers: headers, body: patient_contents)
+        .to_return(status: 200, headers:, body: patient_contents)
 
       allow(tester).to receive(:resource_is_valid?).and_return(true)
 
@@ -141,7 +141,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
 
     it 'passes when Patient resource items returend prove conformance to profile' do
       stub_request(:get, url)
-        .to_return(status: 200, headers: headers, body: patient_contents)
+        .to_return(status: 200, headers:, body: patient_contents)
 
       allow(tester).to receive(:resource_is_valid?).and_return(true)
 
@@ -159,7 +159,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
         tester.resource_type = 'CarePlan'
 
         stub_request(:get, url)
-          .to_return(status: 200, headers: headers, body: care_plan_contents)
+          .to_return(status: 200, headers:, body: care_plan_contents)
 
         allow(tester).to receive(:resource_is_valid?).and_return(true)
         result = tester.check_file_request(url)
@@ -169,7 +169,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
 
       it 'respects MIN_RESOURCE_COUNT and validates the two given Patient resources' do
         stub_request(:get, url)
-          .to_return(status: 200, headers: headers, body: patient_contents)
+          .to_return(status: 200, headers:, body: patient_contents)
 
         allow(tester).to receive(:resource_is_valid?).and_return(true)
         result = tester.check_file_request(url)
@@ -182,7 +182,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
         it 'respects MIN_RESOURCE_COUNT and validates the two given Patient resources
              but adds only first id to patient_ids_seen)' do
           stub_request(:get, url)
-            .to_return(status: 200, headers: headers, body: patient_contents_one_id)
+            .to_return(status: 200, headers:, body: patient_contents_one_id)
 
           allow(tester).to receive(:resource_is_valid?).and_return(true)
           result = tester.check_file_request(url)
@@ -201,7 +201,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
           tester.resource_type = 'CarePlan'
 
           stub_request(:get, url)
-            .to_return(status: 200, headers: headers, body: care_plan_contents)
+            .to_return(status: 200, headers:, body: care_plan_contents)
 
           allow(tester).to receive(:resource_is_valid?).and_return(true)
           result = tester.check_file_request(url)
@@ -215,7 +215,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
           tester.resource_type = 'Encounter'
 
           stub_request(:get, url)
-            .to_return(status: 200, headers: headers, body: encounter_contents)
+            .to_return(status: 200, headers:, body: encounter_contents)
 
           allow(tester).to receive(:resource_is_valid?).and_return(true)
           result = tester.check_file_request(url)
@@ -231,7 +231,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
         tester.resource_type = 'Encounter'
 
         stub_request(:get, url)
-          .to_return(status: 200, headers: headers, body: encounter_contents)
+          .to_return(status: 200, headers:, body: encounter_contents)
 
         allow(tester).to receive(:resource_is_valid?).and_return(true)
         result = tester.check_file_request(url)
@@ -242,7 +242,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
 
     it 'skips when returned contents is not a FHIR resource' do
       stub_request(:get, url)
-        .to_return(status: 200, headers: headers, body: '')
+        .to_return(status: 200, headers:, body: '')
 
       expect { tester.check_file_request(url) }
         .to raise_exception(Inferno::Exceptions::SkipException)
@@ -251,7 +251,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
 
     it 'fails when returned contents is not of the expected resource type' do
       stub_request(:get, url)
-        .to_return(status: 200, headers: headers, body: encounter_contents)
+        .to_return(status: 200, headers:, body: encounter_contents)
 
       expect { tester.check_file_request(url) }
         .to raise_exception(Inferno::Exceptions::AssertionException)
@@ -260,7 +260,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
 
     it 'logs messages when returned contents is not valid for the expected resource type' do
       stub_request(:get, url)
-        .to_return(status: 200, headers: headers, body: patient_contents)
+        .to_return(status: 200, headers:, body: patient_contents)
 
       allow(tester).to receive(:resource_is_valid?).and_return(false)
       tester.check_file_request(url)
@@ -316,7 +316,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
         tester.resource_type = 'Location'
 
         stub_request(:get, url)
-          .to_return(status: 200, headers: headers, body: location_contents)
+          .to_return(status: 200, headers:, body: location_contents)
 
         allow(tester).to receive(:resource_is_valid?).and_return(true)
         result = tester.check_file_request(url)
@@ -329,7 +329,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
         tester.resource_type = 'Medication'
 
         stub_request(:get, url)
-          .to_return(status: 200, headers: headers, body: medication_contents)
+          .to_return(status: 200, headers:, body: medication_contents)
 
         allow(tester).to receive(:resource_is_valid?).and_return(true)
         result = tester.check_file_request(url)
@@ -411,7 +411,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
         let(:observation) do
           coding = FHIR::Coding.new({ code: '72166-2' })
           code = FHIR::CodeableConcept.new({ coding: [coding] })
-          FHIR::Observation.new({ code: code })
+          FHIR::Observation.new({ code: })
         end
 
         it 'returns the SmokingStatus profile if resource has SmokingStatus criterion specified' do
@@ -565,7 +565,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
 
     it 'applies process_header once, upon reception of a single, one-line chunk' do
       stub_request(:get, url)
-        .to_return(status: 200, body: basic_body, headers: headers)
+        .to_return(status: 200, body: basic_body, headers:)
 
       tester.stream_ndjson(url, {}, generic_block, process_headers_block)
 

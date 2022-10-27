@@ -51,7 +51,7 @@ module ONCCertificationG10TestKit
         end
       }
 
-      stream(process_body, endpoint, headers: headers)
+      stream(process_body, endpoint, headers:)
 
       max_redirect = 5
 
@@ -66,7 +66,7 @@ module ONCCertificationG10TestKit
         # handle relative redirects
         redirect_url = URI.parse(endpoint).merge(redirect_url).to_s unless redirect_url.start_with?('http')
 
-        redirect_headers = headers.reject { |key, _value| key == :authorization }
+        redirect_headers = headers.except(:authorization)
 
         stream(process_body, redirect_url, headers: redirect_headers)
       end
@@ -144,7 +144,7 @@ module ONCCertificationG10TestKit
         scratch[:patient_ids_seen] = patient_ids_seen | [resource.id] if resource_type == 'Patient'
 
         profile_with_version = versioned_profile_url(profile_url)
-        unless resource_is_valid?(resource: resource, profile_url: profile_with_version)
+        unless resource_is_valid?(resource:, profile_url: profile_with_version)
           if first_error.key?(:line_number)
             @invalid_resource_count += 1
           else

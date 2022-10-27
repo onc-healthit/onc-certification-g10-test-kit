@@ -51,7 +51,7 @@ module ONCCertificationG10TestKit
     def add_warning(message)
       validation_messages << {
         type: 'warning',
-        message: message
+        message:
       }
     end
 

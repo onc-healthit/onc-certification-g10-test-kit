@@ -13,7 +13,7 @@ RSpec.describe 'Resource Validation' do # rubocop:disable RSpec/DescribeClass
     stub_request(:post, "#{validator_url}/validate?profile=PROFILE")
       .to_return(status: 200, body: operation_outcome_string1)
 
-    expect(runnable.resource_is_valid?(resource: resource, profile_url: 'PROFILE')).to be(true)
+    expect(runnable.resource_is_valid?(resource:, profile_url: 'PROFILE')).to be(true)
     expect(runnable.messages.length).to be_zero
   end
 
@@ -21,7 +21,7 @@ RSpec.describe 'Resource Validation' do # rubocop:disable RSpec/DescribeClass
     stub_request(:post, "#{validator_url}/validate?profile=PROFILE")
       .to_return(status: 200, body: operation_outcome_string2)
 
-    expect(runnable.resource_is_valid?(resource: resource, profile_url: 'PROFILE')).to be(true)
+    expect(runnable.resource_is_valid?(resource:, profile_url: 'PROFILE')).to be(true)
     expect(runnable.messages.length).to be_zero
   end
 
@@ -46,7 +46,7 @@ RSpec.describe 'Resource Validation' do # rubocop:disable RSpec/DescribeClass
     stub_request(:post, "#{validator_url}/validate?profile=PROFILE")
       .to_return(status: 200, body: oo.to_json)
 
-    expect(runnable.resource_is_valid?(resource: resource, profile_url: 'PROFILE')).to be(true)
+    expect(runnable.resource_is_valid?(resource:, profile_url: 'PROFILE')).to be(true)
     expect(runnable.messages.length).to be_zero
   end
 end

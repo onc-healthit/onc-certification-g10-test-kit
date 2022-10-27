@@ -5,12 +5,12 @@ RSpec.describe ONCCertificationG10TestKit::SMARTWellKnownCapabilitiesTest do
     inputs.each do |name, value|
       session_data_repo.save(
         test_session_id: test_session.id,
-        name: name,
-        value: value,
+        name:,
+        value:,
         type: runnable.config.input_type(name)
       )
     end
-    Inferno::TestRunner.new(test_session: test_session, test_run: test_run).run(runnable)
+    Inferno::TestRunner.new(test_session:, test_run:).run(runnable)
   end
 
   let(:test) { described_class }
@@ -34,7 +34,7 @@ RSpec.describe ONCCertificationG10TestKit::SMARTWellKnownCapabilitiesTest do
     ]
   end
   let(:test_config) do
-    Inferno::DSL::Configurable::Configuration.new(options: { required_capabilities: required_capabilities })
+    Inferno::DSL::Configurable::Configuration.new(options: { required_capabilities: })
   end
 
   context 'when `launch-ehr` capability is present' do

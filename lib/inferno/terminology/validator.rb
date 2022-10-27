@@ -18,7 +18,7 @@ module Inferno
         if system
           raise ProhibitedSystemException, system if TerminologyConfiguration.system_prohibited?(system)
 
-          coding_in_filter?(code: code, system: system)
+          coding_in_filter?(code:, system:)
         elsif contains_prohibited_systems?
           raise ProhibitedSystemException, prohibited_systems.join(', ') unless code_in_allowed_system?(code)
 
@@ -52,7 +52,7 @@ module Inferno
 
       def code_in_systems?(code, possible_systems)
         possible_systems.any? do |possible_system|
-          coding_in_filter?(code: code, system: possible_system)
+          coding_in_filter?(code:, system: possible_system)
         end
       end
 

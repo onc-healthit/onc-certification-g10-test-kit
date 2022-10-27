@@ -7,12 +7,12 @@ RSpec.describe ONCCertificationG10TestKit::ResourceAccessTest do
     inputs.each do |name, value|
       session_data_repo.save(
         test_session_id: test_session.id,
-        name: name,
-        value: value,
+        name:,
+        value:,
         type: runnable.config.input_type(name).presence || 'text'
       )
     end
-    Inferno::TestRunner.new(test_session: test_session, test_run: test_run).run(runnable)
+    Inferno::TestRunner.new(test_session:, test_run:).run(runnable)
   end
 
   let(:test) do
@@ -46,9 +46,9 @@ RSpec.describe ONCCertificationG10TestKit::ResourceAccessTest do
   end
   let(:base_inputs) do
     {
-      url: url,
-      patient_id: patient_id,
-      smart_credentials: smart_credentials
+      url:,
+      patient_id:,
+      smart_credentials:
     }
   end
 

@@ -19,8 +19,8 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
   let(:input) do
     {
       requires_access_token: 'true',
-      status_output: status_output,
-      bearer_token: bearer_token
+      status_output:,
+      bearer_token:
     }
   end
 
@@ -30,13 +30,13 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     inputs.each do |name, value|
       session_data_repo.save(
         test_session_id: test_session.id,
-        name: name,
-        value: value,
+        name:,
+        value:,
         type: runnable.config.input_type(name)
       )
     end
 
-    Inferno::TestRunner.new(test_session: test_session, test_run: test_run).run(runnable, scratch)
+    Inferno::TestRunner.new(test_session:, test_run:).run(runnable, scratch)
   end
 
   describe '[NDJSON download requires access token] test' do
@@ -137,7 +137,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'skips when returned resources are missing a must support element' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_element, headers: headers)
+        .to_return(status: 200, body: contents_missing_element, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, patient_input)
@@ -151,7 +151,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'passes when returned resources are fully conformant to the patient profile' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents, headers: headers)
+        .to_return(status: 200, body: contents, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, patient_input)
@@ -162,10 +162,10 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'passes when returned multiple files and are fully conformant to the patient profile' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_element, headers: headers)
+        .to_return(status: 200, body: contents_missing_element, headers:)
       stub_request(:get, "#{endpoint}/2")
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents, headers: headers)
+        .to_return(status: 200, body: contents, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, patient_input_two_files)
@@ -176,7 +176,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'validates all lines and saves errors for the first failed line' do
       stub_request(:get, endpoint.to_s)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents, headers: headers)
+        .to_return(status: 200, body: contents, headers:)
 
       validation_request = stub_request(:post, "#{validator_url}/validate?profile=http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient|3.1.1")
         .to_return(status: 200, body: operation_outcome_no_name.to_json)
@@ -282,7 +282,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'skips when returned resources are missing a must support element' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_element, headers: headers)
+        .to_return(status: 200, body: contents_missing_element, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, allergy_input)
@@ -295,7 +295,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'passes when returned resources are fully conformant to the allergy profile' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents, headers: headers)
+        .to_return(status: 200, body: contents, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, allergy_input)
@@ -332,7 +332,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'skips when returned resources are missing a must support element' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_element, headers: headers)
+        .to_return(status: 200, body: contents_missing_element, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, careplan_input)
@@ -344,7 +344,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'skips when returned resources are missing a must support slice' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_slice, headers: headers)
+        .to_return(status: 200, body: contents_missing_slice, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, careplan_input)
@@ -357,7 +357,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'passes when returned resources are fully conformant to the patient profile' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents, headers: headers)
+        .to_return(status: 200, body: contents, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, careplan_input)
@@ -403,7 +403,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'skips without DiagnosticReport Lab resources' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_lab, headers: headers)
+        .to_return(status: 200, body: contents_missing_lab, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, diagnostic_input)
@@ -415,7 +415,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'skips without DiagnosticReport Note resources' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_note, headers: headers)
+        .to_return(status: 200, body: contents_missing_note, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, diagnostic_input)
@@ -427,7 +427,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'passes with both DiagnosticReport Lab and Note metadata' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents, headers: headers)
+        .to_return(status: 200, body: contents, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, diagnostic_input)
@@ -438,10 +438,10 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'pass with both DiagnosticReport Lab and Note metadata in separated files' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_lab, headers: headers)
+        .to_return(status: 200, body: contents_missing_lab, headers:)
       stub_request(:get, "#{endpoint}/2")
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_note, headers: headers)
+        .to_return(status: 200, body: contents_missing_note, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, diagnostic_input_two_files)
@@ -486,7 +486,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'skips without PediatricBmiForAgeGroup resources' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_pediatricbmi, headers: headers)
+        .to_return(status: 200, body: contents_missing_pediatricbmi, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, observation_input)
@@ -498,7 +498,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'skips without SmokingStatusGroup resources' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_smokingstatus, headers: headers)
+        .to_return(status: 200, body: contents_missing_smokingstatus, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, observation_input)
@@ -510,7 +510,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'skips without Bodyheight resources' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_bodyheight, headers: headers)
+        .to_return(status: 200, body: contents_missing_bodyheight, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, observation_input)
@@ -522,7 +522,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'skips without Resprate resources' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_resprate, headers: headers)
+        .to_return(status: 200, body: contents_missing_resprate, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, observation_input)
@@ -534,7 +534,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'skips if lines_to_validate does not include enough resources to verify profile conformance' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents, headers: headers)
+        .to_return(status: 200, body: contents, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
 
@@ -547,7 +547,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'passes when the profile for every streamed resource needs to be selected' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_profile, headers: headers)
+        .to_return(status: 200, body: contents_missing_profile, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, observation_input)
@@ -558,7 +558,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'passes with all possible resources included in the Observation Profile' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents, headers: headers)
+        .to_return(status: 200, body: contents, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, observation_input)
@@ -593,7 +593,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'fails when non Location resources are returned' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: not_location_contents, headers: headers)
+        .to_return(status: 200, body: not_location_contents, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, location_input)
@@ -606,7 +606,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'passes when the returned resources are fully conformant' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents, headers: headers)
+        .to_return(status: 200, body: contents, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, location_input)
@@ -645,7 +645,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'fails when the returned resources are not of the expected profile' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: not_medication_contents, headers: headers)
+        .to_return(status: 200, body: not_medication_contents, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, medication_input)
@@ -658,7 +658,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'skips when returned resources are missing a must support slice' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents_missing_element, headers: headers)
+        .to_return(status: 200, body: contents_missing_element, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, medication_input)
@@ -671,7 +671,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'passes when the returned resources are fully conformant' do
       stub_request(:get, endpoint)
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
-        .to_return(status: 200, body: contents, headers: headers)
+        .to_return(status: 200, body: contents, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, medication_input)

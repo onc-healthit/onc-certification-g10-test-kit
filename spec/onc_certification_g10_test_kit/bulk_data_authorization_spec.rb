@@ -16,10 +16,10 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
   let(:body) { request_builder.authorization_request_query_values }
   let(:input) do
     {
-      bulk_token_endpoint: bulk_token_endpoint,
-      bulk_encryption_method: bulk_encryption_method,
-      bulk_scope: bulk_scope,
-      bulk_client_id: bulk_client_id
+      bulk_token_endpoint:,
+      bulk_encryption_method:,
+      bulk_scope:,
+      bulk_client_id:
     }
   end
   let(:builder_input) do
@@ -29,8 +29,8 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
       iss: bulk_client_id,
       sub: bulk_client_id,
       aud: bulk_token_endpoint,
-      exp: exp,
-      jti: jti
+      exp:,
+      jti:
     }
   end
 
@@ -40,12 +40,12 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
     inputs.each do |name, value|
       session_data_repo.save(
         test_session_id: test_session.id,
-        name: name,
-        value: value,
+        name:,
+        value:,
         type: runnable.config.input_type(name)
       )
     end
-    Inferno::TestRunner.new(test_session: test_session, test_run: test_run).run(runnable)
+    Inferno::TestRunner.new(test_session:, test_run:).run(runnable)
   end
 
   describe '[Invalid grant_type] test' do
