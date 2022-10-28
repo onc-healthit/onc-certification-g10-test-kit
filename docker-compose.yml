@@ -3,6 +3,8 @@ services:
   inferno:
     build:
       context: ./
+    environment:
+      INFERNO_HOST: "${INFERNO_HOST}"
     volumes:
       - ./data:/opt/inferno/data
     depends_on:
@@ -38,6 +40,8 @@ services:
   worker:
     build:
       context: ./
+    environment:
+      INFERNO_HOST: "${INFERNO_HOST}"
     volumes:
       - ./data:/opt/inferno/data
     command: bundle exec sidekiq -r ./worker.rb
