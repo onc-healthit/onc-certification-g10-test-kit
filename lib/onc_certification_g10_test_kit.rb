@@ -90,6 +90,9 @@ module ONCCertificationG10TestKit
                           when '5.0.1'
                             '501'
                           else
+                            # This open-ended else is primarily for Vital Signs profiles in v3.1.1, which are tagged 
+                            # with the base FHIR version (4.0.1).  The profiles were migrated to US Core in later
+                            # versions.
                             '311'
                           end
 
