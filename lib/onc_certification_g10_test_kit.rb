@@ -83,10 +83,20 @@ module ONCCertificationG10TestKit
       end
 
       perform_additional_validation do |resource, profile_url|
-        metadata = USCoreTestKit::USCoreV311::USCoreTestSuite.metadata.find do |metadata_candidate|
-          metadata_candidate.profile_url == profile_url
-        end
+        versionless_profile_url, profile_version = profile_url.split('|')
+        profile_version = case profile_version
+                          when '4.0.0'
+                            '400'
+                          when '5.0.1'
+                            '501'
+                          else
+                            '311'
+                          end
 
+        us_core_suite = USCoreTestKit.const_get("USCoreV#{profile_version}")::USCoreTestSuite
+        metadata = us_core_suite.metadata.find do |metadata_candidate|
+          metadata_candidate.profile_url == versionless_profile_url
+        end
         next if metadata.nil?
 
         metadata.bindings
