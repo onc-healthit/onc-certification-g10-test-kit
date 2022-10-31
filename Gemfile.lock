@@ -1,22 +1,3 @@
-GIT
-  remote: https://github.com/inferno-framework/smart-app-launch-test-kit.git
-  revision: 18d79749410fc87aa23d056736a2c4d4b932546d
-  ref: ruby-3-update
-  specs:
-    smart_app_launch_test_kit (0.2.0)
-      inferno_core (>= 0.4.2)
-      jwt (~> 2.2)
-      tls_test_kit (~> 0.2.0)
-
-GIT
-  remote: https://github.com/inferno-framework/us-core-test-kit.git
-  revision: 9f2f1d940ef22941ce23748b66307ea51718683e
-  ref: ruby-3-update
-  specs:
-    us_core_test_kit (0.3.2)
-      inferno_core (>= 0.4.2)
-      tls_test_kit (~> 0.2.0)
-
 PATH
   remote: .
   specs:
@@ -28,7 +9,9 @@ PATH
       mime-types (~> 3.4.0)
       ndjson (~> 1.0.0)
       rubyzip (~> 2.3.2)
+      smart_app_launch_test_kit (= 0.2.0)
       tls_test_kit (= 0.2.0)
+      us_core_test_kit (= 0.4.0)
 
 GEM
   remote: https://rubygems.org/
@@ -297,6 +280,10 @@ GEM
       connection_pool (>= 2.2.5)
       rack (~> 2.0)
       redis (>= 4.5.0, < 5)
+    smart_app_launch_test_kit (0.2.0)
+      inferno_core (>= 0.4.2)
+      jwt (~> 2.2)
+      tls_test_kit (~> 0.2.0)
     sqlite3 (1.5.3)
       mini_portile2 (~> 2.8.0)
     sqlite3 (1.5.3-x86_64-darwin)
@@ -311,11 +298,14 @@ GEM
       unf_ext
     unf_ext (0.0.8.2)
     unicode-display_width (2.2.0)
+    us_core_test_kit (0.4.0)
+      inferno_core (>= 0.4.2)
+      tls_test_kit (~> 0.2.0)
     webmock (3.17.0)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    zeitwerk (2.6.1)
+    zeitwerk (2.6.2)
 
 PLATFORMS
   ruby
@@ -330,8 +320,6 @@ DEPENDENCIES
   rubocop (~> 1.9)
   rubocop-rspec
   rubyXL
-  smart_app_launch_test_kit!
-  us_core_test_kit!
   webmock (~> 3.11)
 
 BUNDLED WITH
