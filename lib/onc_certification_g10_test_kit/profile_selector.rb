@@ -135,7 +135,7 @@ module ONCCertificationG10TestKit
 
         if using_us_core_5? &&
            resource_contains_category(
-             resource, 'clinical-test', 'http://terminology.hl7.org/CodeSystem/observation-category'
+             resource, 'clinical-test', 'http://hl7.org/fhir/us/core/CodeSystem/us-core-observation-category'
            )
           return extract_profile('ObservationClinicalTest')
         end
