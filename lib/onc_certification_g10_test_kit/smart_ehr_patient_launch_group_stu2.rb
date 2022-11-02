@@ -1,17 +1,29 @@
+require_relative 'patient_scope_test'
+
 module ONCCertificationG10TestKit
   class SMARTEHRPatientLaunchGroupSTU2 < SMARTAppLaunch::EHRLaunchGroupSTU2
     title 'EHR Launch with Patient Scopes'
     description %(
       # Background
+      Systems are required to support the `permission-patient` capability as
+      part of the [Clinician Access for EHR Launch Capability
+      Set.](http://hl7.org/fhir/smart-app-launch/STU2/conformance.html#clinician-access-for-ehr-launch)
 
-      If an application launched from an EHR requests and is granted a clinical
-      scope restricted to a single patient, the EHR SHALL establish a patient in
-      context.
+      Additionally, if an application launched from an EHR requests and is
+      granted a clinical scope restricted to a single patient, the EHR SHALL
+      establish a patient in context.
+
+      Register Inferno as an EHR-launched application using patient-level scopes
+      and the following URIs:
+
+      * Launch URI: `#{SMARTAppLaunch::AppLaunchTest.config.options[:launch_uri]}`
+      * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
 
       # Test Methodology
 
       Inferno will attempt an EHR Launch with a clinical scope restricted to a
-      single patient and verify that a patient id is received.
+      single patient and verify that a patient-level scope is granted and a
+      patient id is received.
 
       For more information on the #{title}
 
@@ -43,6 +55,9 @@ module ONCCertificationG10TestKit
         launch: {
           name: :ehr_patient_launch
         },
+        received_scopes: {
+          name: :ehr_patient_received_scopes
+        },
         smart_credentials: {
           name: :ehr_patient_smart_credentials
         },
@@ -67,6 +82,7 @@ module ONCCertificationG10TestKit
         patient_id: { name: :ehr_patient_patient_id },
         encounter_id: { name: :ehr_patient_encounter_id },
         received_scopes: { name: :ehr_patient_received_scopes },
+        requested_scopes: { name: :ehr_patient_requested_scopes },
         intent: { name: :ehr_patient_intent },
         smart_credentials: { name: :ehr_patient_smart_credentials }
       },
@@ -88,6 +104,13 @@ module ONCCertificationG10TestKit
            inputs: {
              patient_id: { name: :ehr_patient_patient_id },
              smart_credentials: { name: :ehr_patient_smart_credentials }
+           }
+         }
+
+    test from: :g10_patient_scope,
+         config: {
+           options: {
+             scope_version: :v2
            }
          }
   end
