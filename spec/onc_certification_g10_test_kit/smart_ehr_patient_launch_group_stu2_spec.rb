@@ -5,12 +5,12 @@ RSpec.describe ONCCertificationG10TestKit::SMARTEHRPatientLaunchGroupSTU2 do # r
     inputs.each do |name, value|
       session_data_repo.save(
         test_session_id: test_session.id,
-        name: name,
-        value: value,
+        name:,
+        value:,
         type: runnable.config.input_type(name) || 'text'
       )
     end
-    Inferno::TestRunner.new(test_session: test_session, test_run: test_run).run(runnable)
+    Inferno::TestRunner.new(test_session:, test_run:).run(runnable)
   end
 
   let(:test_session) { repo_create(:test_session, test_suite_id: 'g10_certification') }
