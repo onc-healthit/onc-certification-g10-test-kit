@@ -19,7 +19,7 @@ module Inferno
         def run
           Inferno::Terminology::Loader.load_validators
           code_display = self.system ? "#{self.system}|#{code}" : code.to_s
-          if validate_code(code: code, system: self.system, value_set_url: value_set_url)
+          if validate_code(code:, system: self.system, value_set_url:)
             in_system = 'is in'
             symbol = "\u2713".encode('utf-8').to_s.green
           else

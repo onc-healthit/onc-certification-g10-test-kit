@@ -17,7 +17,7 @@ module ONCCertificationG10TestKit
 
         raw_previous_warning_messages =
           Inferno::Repositories::SessionData.new.load(
-            test_session_id: test_session_id,
+            test_session_id:,
             name: 'unique_incorrectly_permitted_tls_versions_messages'
           )
 

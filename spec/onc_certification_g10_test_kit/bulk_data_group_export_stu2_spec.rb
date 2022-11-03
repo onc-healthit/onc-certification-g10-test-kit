@@ -11,9 +11,9 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU2 do
   let(:group_id) { '1219' }
   let(:input) do
     {
-      bulk_server_url: bulk_server_url,
-      bearer_token: bearer_token,
-      group_id: group_id
+      bulk_server_url:,
+      bearer_token:,
+      group_id:
     }
   end
 
@@ -23,12 +23,12 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU2 do
     inputs.each do |name, value|
       session_data_repo.save(
         test_session_id: test_session.id,
-        name: name,
-        value: value,
+        name:,
+        value:,
         type: runnable.config.input_type(name)
       )
     end
-    Inferno::TestRunner.new(test_session: test_session, test_run: test_run).run(runnable)
+    Inferno::TestRunner.new(test_session:, test_run:).run(runnable)
   end
 
   describe '[Bulk Data Server supports "_outputFormat" query parameter] test' do

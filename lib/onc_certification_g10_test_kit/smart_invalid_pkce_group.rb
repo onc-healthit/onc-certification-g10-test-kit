@@ -19,7 +19,7 @@ module ONCCertificationG10TestKit
 
       oauth2_params = {
         grant_type: 'authorization_code',
-        code: code,
+        code:,
         redirect_uri: config.options[:redirect_uri]
       }
 

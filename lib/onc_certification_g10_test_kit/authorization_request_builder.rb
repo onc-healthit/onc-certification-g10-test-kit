@@ -46,7 +46,7 @@ module ONCCertificationG10TestKit
     end
 
     def jwt_token
-      @jwt_token ||= JSON::JWT.new(iss: iss, sub: sub, aud: aud, exp: exp, jti: jti).compact
+      @jwt_token ||= JSON::JWT.new(iss:, sub:, aud:, exp:, jti:).compact
     end
 
     def jwk
@@ -55,7 +55,7 @@ module ONCCertificationG10TestKit
 
     def authorization_request_headers
       {
-        content_type: content_type,
+        content_type:,
         accept: 'application/json'
       }.compact
     end

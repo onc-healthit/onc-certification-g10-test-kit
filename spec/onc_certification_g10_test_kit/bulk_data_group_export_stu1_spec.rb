@@ -10,9 +10,9 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU1 do
   let(:polling_url) { 'https://redirect.com' }
   let(:base_input) do
     {
-      bulk_server_url: bulk_server_url,
-      bearer_token: bearer_token,
-      group_id: group_id
+      bulk_server_url:,
+      bearer_token:,
+      group_id:
     }
   end
   let(:capability_statement) { FHIR.from_contents(File.read('spec/fixtures/CapabilityStatement.json')) }
@@ -35,12 +35,12 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU1 do
     inputs.each do |name, value|
       session_data_repo.save(
         test_session_id: test_session.id,
-        name: name,
-        value: value,
+        name:,
+        value:,
         type: runnable.config.input_type(name)
       )
     end
-    Inferno::TestRunner.new(test_session: test_session, test_run: test_run).run(runnable)
+    Inferno::TestRunner.new(test_session:, test_run:).run(runnable)
   end
 
   describe '[Bulk Data Server declares support for Group export operation in CapabilityStatement] test' do
@@ -213,7 +213,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU1 do
   end
 
   describe '[Bulk Data Server returns "202 Accepted" or "200 OK" for status check] test' do
-    let(:input) { base_input.merge(polling_url: polling_url) }
+    let(:input) { base_input.merge(polling_url:) }
     let(:runnable) { group.tests[4] }
     let(:headers) { { 'content-type' => 'application/json' } }
     let(:incomplete_status_response) do
@@ -266,7 +266,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU1 do
     it 'fails when server returns "200 OK" and response body does not contain required attributes' do
       stub_request(:get, polling_url.to_s)
         .with(headers: { 'Authorization' => "Bearer #{bearer_token}" })
-        .to_return(status: 200, body: incomplete_status_response, headers: headers)
+        .to_return(status: 200, body: incomplete_status_response, headers:)
 
       result = run(runnable, input)
 
@@ -277,7 +277,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU1 do
     it 'passes when server returns "202 Accepted" and response body contains required attributes' do
       stub_request(:get, polling_url.to_s)
         .with(headers: { 'Authorization' => "Bearer #{bearer_token}" })
-        .to_return(status: 200, body: status_response, headers: headers)
+        .to_return(status: 200, body: status_response, headers:)
 
       result = run(runnable, input)
 

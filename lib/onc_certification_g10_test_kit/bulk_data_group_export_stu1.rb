@@ -165,7 +165,7 @@ module ONCCertificationG10TestKit
         polling_url = request.response_header('content-location')&.value
         assert polling_url.present?, 'Export response headers did not include "Content-Location"'
 
-        output polling_url: polling_url
+        output polling_url:
       end
     end
 

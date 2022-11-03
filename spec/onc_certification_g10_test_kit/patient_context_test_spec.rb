@@ -5,12 +5,12 @@ RSpec.describe ONCCertificationG10TestKit::PatientContextTest do
     inputs.each do |name, value|
       session_data_repo.save(
         test_session_id: test_session.id,
-        name: name,
-        value: value,
+        name:,
+        value:,
         type: runnable.config.input_type(name)
       )
     end
-    Inferno::TestRunner.new(test_session: test_session, test_run: test_run).run(runnable)
+    Inferno::TestRunner.new(test_session:, test_run:).run(runnable)
   end
 
   let(:test) { described_class }
@@ -30,7 +30,7 @@ RSpec.describe ONCCertificationG10TestKit::PatientContextTest do
     {
       url: 'http://example.com/fhir',
       patient_id: '123',
-      smart_credentials: smart_credentials
+      smart_credentials:
     }
   end
 

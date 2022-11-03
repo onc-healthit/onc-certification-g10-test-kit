@@ -35,7 +35,7 @@ module Inferno
             validators_repo.find(system) || raise(UnknownCodeSystemException, system)
           end
 
-        validator.validate(code: code, system: system)
+        validator.validate(code:, system:)
       end
     end
   end

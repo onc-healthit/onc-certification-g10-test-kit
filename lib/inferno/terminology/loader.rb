@@ -107,7 +107,7 @@ module Inferno
                 file: name_by_type(File.basename(filename), type),
                 count: new_count,
                 type: type.to_s,
-                code_systems: code_systems
+                code_systems:
               }
             rescue UnknownCodeSystemException,
                    FilterOperationException,

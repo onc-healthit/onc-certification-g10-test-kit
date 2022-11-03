@@ -9,7 +9,7 @@ module ONCCertificationG10TestKit
       url = "Group/#{group_id}/$export"
       param_str = params.map { |k, v| URI.encode_www_form(k => v) }.join('&')
       url.concat("?#{param_str}") unless param_str.empty?
-      get(url, client: :bulk_server, name: :export, headers: headers)
+      get(url, client: :bulk_server, name: :export, headers:)
     end
 
     def delete_export_kick_off_request
@@ -18,7 +18,7 @@ module ONCCertificationG10TestKit
 
       headers = { accept: 'application/json', authorization: "Bearer #{bearer_token}" }
 
-      delete(polling_url, headers: headers)
+      delete(polling_url, headers:)
       assert_response_status(202)
     end
   end

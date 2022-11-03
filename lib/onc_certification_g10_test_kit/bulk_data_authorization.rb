@@ -87,7 +87,7 @@ module ONCCertificationG10TestKit
                                                                  aud: bulk_token_endpoint,
                                                                  grant_type: 'not_a_grant_type')
 
-        post({ client: :token_endpoint }.merge(post_request_content))
+        post(**{ client: :token_endpoint }.merge(post_request_content))
 
         assert_response_status(400)
       end
@@ -118,7 +118,7 @@ module ONCCertificationG10TestKit
                                                                  aud: bulk_token_endpoint,
                                                                  client_assertion_type: 'not_an_assertion_type')
 
-        post({ client: :token_endpoint }.merge(post_request_content))
+        post(**{ client: :token_endpoint }.merge(post_request_content))
 
         assert_response_status(400)
       end
@@ -157,7 +157,7 @@ module ONCCertificationG10TestKit
                                                                  sub: bulk_client_id,
                                                                  aud: bulk_token_endpoint)
 
-        post({ client: :token_endpoint }.merge(post_request_content))
+        post(**{ client: :token_endpoint }.merge(post_request_content))
 
         assert_response_status([400, 401])
       end
@@ -179,7 +179,7 @@ module ONCCertificationG10TestKit
                                                                  sub: bulk_client_id,
                                                                  aud: bulk_token_endpoint)
 
-        authentication_response = post({ client: :token_endpoint }.merge(post_request_content))
+        authentication_response = post(**{ client: :token_endpoint }.merge(post_request_content))
 
         assert_response_status([200, 201])
 
