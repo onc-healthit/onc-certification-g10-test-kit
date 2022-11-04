@@ -1,3 +1,18 @@
+# 3.3.0
+
+* Update the version of the FHIR Validator.
+* Fix a bug where the EHR Launch with Patient Scopes tests were not verifying
+  that patient-level scopes were received.
+* Fix a bug which prevented Clinical Test Observations from beind identified in
+  bulk data tests for US Core 5.
+* Fix a bug which prevented terminology from being validated.
+* Fix a bug which related to search parameter values which contain commas.
+* Fix a bug which prevented MustSupport slices based on a required binding from
+  being recognized in Must Support tests for US Core 5.
+* Remove DocumentReference.custodian from MustSupport tests for US Core 3.1.1.
+* Remove permission-v1 from the list of required capabilities for SMART App
+  Launch V2.
+  
 # 3.2.0
 
 * Fix a bug which could cause unhandled exceptions when invalid JSON is
