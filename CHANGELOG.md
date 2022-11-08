@@ -1,6 +1,6 @@
 # 3.3.0
 
-* Update the version of the FHIR Validator.
+* Update the version of the FHIR Validator from 5.6.21 to 5.6.71.
 * Fix a bug where the EHR Launch with Patient Scopes tests were not verifying
   that patient-level scopes were received.
 * Fix a bug which prevented Clinical Test Observations from beind identified in
