@@ -12,6 +12,8 @@
 * Remove DocumentReference.custodian from MustSupport tests for US Core 3.1.1.
 * Remove permission-v1 from the list of required capabilities for SMART App
   Launch V2.
+* Fix a bug which could cause the screen to rapidly flicker on the suite
+  selection page at certain screen sizes.
   
 # 3.2.0
 
