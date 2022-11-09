@@ -44,8 +44,8 @@ module ONCCertificationG10TestKit
 
       error_message = %(
         #{resource_type}/#{resource.id} does not contain a `category` from the
-        #`http://hl7.org/fhir/us/core/ValueSet/us-core-problem-or-health-concern`
-        #ValueSet.
+        `http://hl7.org/fhir/us/core/ValueSet/us-core-problem-or-health-concern`
+        ValueSet.
       )
 
       validation_messages << {
