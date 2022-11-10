@@ -1,3 +1,9 @@
+# 3.3.1
+
+* Fix a bug related to validating slices with required bindings which prevented
+  US Core 5 Problems and Health Concerns from being validated (#340).
+* Update terminology build to work with Ruby 3 (#342).
+
 # 3.3.0
 
 * Update the version of the FHIR Validator from 5.6.21 to 5.6.71.
