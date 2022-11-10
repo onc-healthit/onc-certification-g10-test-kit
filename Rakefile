@@ -35,19 +35,19 @@ namespace :terminology do |_argv|
   desc 'download and execute UMLS terminology data'
   task :download_umls, [:apikey, :version] do |_t, args|
     args.with_defaults(version: default_version)
-    Inferno::Terminology::Tasks::DownloadUMLS.new(args.to_hash).run
+    Inferno::Terminology::Tasks::DownloadUMLS.new(**args.to_hash).run
   end
 
   desc 'unzip umls zip'
   task :unzip_umls, [:version] do |_t, args|
     args.with_defaults(version: default_version)
-    Inferno::Terminology::Tasks::UnzipUMLS.new(args.to_hash).run
+    Inferno::Terminology::Tasks::UnzipUMLS.new(**args.to_hash).run
   end
 
   desc 'run umls jar'
   task :run_umls, [:version] do |_t, args|
     args.with_defaults(version: default_version)
-    Inferno::Terminology::Tasks::RunUMLSJar.new(args.to_hash).run
+    Inferno::Terminology::Tasks::RunUMLSJar.new(**args.to_hash).run
   end
 
   desc 'cleanup all terminology files'
@@ -58,13 +58,13 @@ namespace :terminology do |_argv|
   desc 'cleanup terminology files except umls.db'
   task :cleanup_precursors, [:version] do |_t, args|
     args.with_defaults(version: default_version)
-    Inferno::Terminology::Tasks::CleanupPrecursors.new(args.to_hash).run
+    Inferno::Terminology::Tasks::CleanupPrecursors.new(**args.to_hash).run
   end
 
   desc 'post-process UMLS terminology file'
   task :process_umls, [:version] do |_t, args|
     args.with_defaults(version: default_version)
-    Inferno::Terminology::Tasks::ProcessUMLS.new(args.to_hash).run
+    Inferno::Terminology::Tasks::ProcessUMLS.new(**args.to_hash).run
   end
 
   desc 'post-process UMLS terminology file for translations'
@@ -93,17 +93,17 @@ namespace :terminology do |_argv|
       version: default_version,
       type: 'bloom'
     )
-    Inferno::Terminology::Tasks::CreateValueSetValidators.new(args.to_hash).run
+    Inferno::Terminology::Tasks::CreateValueSetValidators.new(**args.to_hash).run
   end
 
   desc 'Number of codes in ValueSet'
   task :codes_in_valueset, [:vs] do |_t, args|
-    Inferno::Terminology::Tasks::CountCodesInValueSet.new(args.to_hash).run
+    Inferno::Terminology::Tasks::CountCodesInValueSet.new(**args.to_hash).run
   end
 
   desc 'Expand and Save ValueSet to a file'
   task :expand_valueset_to_file, [:vs, :filename, :type] do |_t, args|
-    Inferno::Terminology::Tasks::ExpandValueSetToFile.new(args.to_hash).run
+    Inferno::Terminology::Tasks::ExpandValueSetToFile.new(**args.to_hash).run
   end
 
   desc 'Download FHIR Package'
@@ -119,7 +119,7 @@ namespace :terminology do |_argv|
   desc 'Check if the code is in the specified ValueSet.  Omit the ValueSet to check against CodeSystem'
   task :check_code, [:code, :system, :valueset] do |_t, args|
     args.with_defaults(system: nil, valueset: nil)
-    Inferno::Terminology::Tasks::ValidateCode.new(args.to_hash).run
+    Inferno::Terminology::Tasks::ValidateCode.new(**args.to_hash).run
   end
 
   desc 'Check if the terminology filters have been built correctly'
