@@ -18,11 +18,6 @@ module ONCCertificationG10TestKit
       @validation_messages = []
     end
 
-    def us_core_5_condition_category?
-      binding_definition[:path] == 'category' &&
-        binding_definition[:system] == 'http://hl7.org/fhir/us/core/ValueSet/us-core-problem-or-health-concern'
-    end
-
     def validate
       # Handle special case due to required binding on a slice
       if binding_definition[:required_binding_slice]
