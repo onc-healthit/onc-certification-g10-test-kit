@@ -1,5 +1,6 @@
 RSpec.describe ONCCertificationG10TestKit::TerminologyBindingValidator do
   let(:bad_code) { 'abc' }
+  let(:good_code) { 'def' }
   let(:system_url) { 'http://example.com/system' }
 
   describe '.validate' do
@@ -132,7 +133,6 @@ RSpec.describe ONCCertificationG10TestKit::TerminologyBindingValidator do
       end
 
       it 'does not return an error message if any of the Codings are valid' do
-        good_code = 'def'
         allow_any_instance_of(described_class).to(
           receive(:validate_code).with(
             value_set_url: binding_definition[:system],
@@ -210,6 +210,74 @@ RSpec.describe ONCCertificationG10TestKit::TerminologyBindingValidator do
         expect(result.first[:message]).to(
           match(/with code `#{system_url}|#{bad_code}` is not in #{binding_definition[:system]}/)
         )
+      end
+    end
+
+    context 'with required binding slicing' do
+      let(:binding_definition) do
+        {
+          type: 'CodeableConcept',
+          strength: 'required',
+          system: 'http://hl7.org/fhir/us/core/ValueSet/us-core-problem-or-health-concern',
+          path: 'category',
+          required_binding_slice: true
+        }
+      end
+
+      let(:resource) do
+        FHIR::Condition.new(
+          id: '123',
+          category: [
+            {
+              'coding': [
+                {
+                  system: system_url,
+                  code: good_code
+                }
+              ]
+            },
+            {
+              'coding': [
+                {
+                  system: system_url,
+                  code: bad_code
+                }
+              ]
+            }
+          ]
+        )
+      end
+
+      before do
+        allow_any_instance_of(described_class).to(
+          receive(:validate_code).with(
+            value_set_url: binding_definition[:system],
+            code: good_code,
+            system: system_url
+          ).and_return(true)
+        )
+        allow_any_instance_of(described_class).to(
+          receive(:validate_code).with(
+            value_set_url: binding_definition[:system],
+            code: bad_code,
+            system: system_url
+          ).and_return(false)
+        )
+      end
+
+      it 'passes resource with both required binding code and non required binding code' do
+        result = described_class.validate(resource, binding_definition)
+
+        expect(result).to be_an(Array)
+        expect(result.length).to eq(0)
+      end
+
+      it 'fails when required_bidning_slice is not specified' do
+        binding_definition.delete(:required_binding_slice)
+        result = described_class.validate(resource, binding_definition)
+
+        expect(result).to be_an(Array)
+        expect(result.length).to eq(1)
       end
     end
   end
