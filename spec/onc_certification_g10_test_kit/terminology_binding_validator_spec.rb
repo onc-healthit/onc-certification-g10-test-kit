@@ -229,7 +229,7 @@ RSpec.describe ONCCertificationG10TestKit::TerminologyBindingValidator do
           id: '123',
           category: [
             {
-              'coding': [
+              coding: [
                 {
                   system: system_url,
                   code: good_code
@@ -237,7 +237,7 @@ RSpec.describe ONCCertificationG10TestKit::TerminologyBindingValidator do
               ]
             },
             {
-              'coding': [
+              coding: [
                 {
                   system: system_url,
                   code: bad_code
