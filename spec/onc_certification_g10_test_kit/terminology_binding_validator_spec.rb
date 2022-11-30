@@ -279,16 +279,17 @@ RSpec.describe ONCCertificationG10TestKit::TerminologyBindingValidator do
         expect(result).to be_an(Array)
         expect(result.length).to eq(1)
         expect(result.first[:message]).to include("does not contain a valid code from #{binding_definition[:system]}.")
-
       end
 
-      it 'fails resource with both required binding code and non required binding code when required_binding_slice is not specified' do
+      it 'fails resource with both when required_binding_slice is not specified' do
         binding_definition.delete(:required_binding_slice)
         result = described_class.validate(resource, binding_definition)
 
         expect(result).to be_an(Array)
         expect(result.length).to eq(1)
-        expect(result.first[:message]).to include("with code `#{system_url}|#{bad_code}` is not in #{binding_definition[:system]}.")
+        expect(result.first[:message]).to include(
+          "with code `#{system_url}|#{bad_code}` is not in #{binding_definition[:system]}."
+        )
       end
     end
   end
