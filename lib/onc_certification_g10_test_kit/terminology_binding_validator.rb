@@ -37,11 +37,11 @@ module ONCCertificationG10TestKit
 
       return if valid_binding.present?
 
-      system = binding_definition[:system].presence || 'the declared CodeSystem'
+      system = binding_definition[:system].presence || 'the declared Value Set'
 
       error_message = %(
-        #{resource_type}/#{resource.id} at #{resource_type}.#{binding_definition[:path]} does not
-        contain a valid code from #{system} Value Set.
+        #{resource_type}/#{resource.id} at #{resource_type}.#{binding_definition[:path]}
+        does not contain a valid code from #{system}.
       )
 
       validation_messages << {
