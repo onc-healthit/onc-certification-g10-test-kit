@@ -18,15 +18,10 @@ module ONCCertificationG10TestKit
       @validation_messages = []
     end
 
-    def us_core_5_condition_category?
-      binding_definition[:path] == 'category' &&
-        binding_definition[:system] == 'http://hl7.org/fhir/us/core/ValueSet/us-core-problem-or-health-concern'
-    end
-
     def validate
       # Handle special case due to required binding on a slice
-      if us_core_5_condition_category?
-        validate_us_core_5_condition_category
+      if binding_definition[:required_binding_slice]
+        validate_required_binding_slice
       else
         add_error(element_with_invalid_binding) if element_with_invalid_binding.present? # rubocop:disable Style/IfInsideElse
       end
@@ -34,18 +29,19 @@ module ONCCertificationG10TestKit
       validation_messages
     end
 
-    def validate_us_core_5_condition_category
-      valid_category =
+    def validate_required_binding_slice
+      valid_binding =
         find_a_value_at(path_source, binding_definition[:path]) do |element|
           !invalid_binding?(element)
         end
 
-      return if valid_category.present?
+      return if valid_binding.present?
+
+      system = binding_definition[:system].presence || 'the declared Value Set'
 
       error_message = %(
-        #{resource_type}/#{resource.id} does not contain a `category` from the
-        `http://hl7.org/fhir/us/core/ValueSet/us-core-problem-or-health-concern`
-        ValueSet.
+        #{resource_type}/#{resource.id} at #{resource_type}.#{binding_definition[:path]}
+        does not contain a valid code from #{system}.
       )
 
       validation_messages << {
