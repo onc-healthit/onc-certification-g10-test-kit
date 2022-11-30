@@ -272,7 +272,7 @@ RSpec.describe ONCCertificationG10TestKit::TerminologyBindingValidator do
         expect(result.length).to eq(0)
       end
 
-      it 'fails when required_bidning_slice is not specified' do
+      it 'fails when required_binding_slice is not specified' do
         binding_definition.delete(:required_binding_slice)
         result = described_class.validate(resource, binding_definition)
 
