@@ -102,15 +102,18 @@ module ONCCertificationG10TestKit
         end
         next if metadata.nil?
 
-        validation_messages = if resource.class == FHIR::Provenance ?
-          USCoreTestKit::ProvenanceValidator.validate(resource) : []
+        validation_messages = if resource.instance_of?(FHIR::Provenance)
+                                USCoreTestKit::ProvenanceValidator.validate(resource)
+                              else
+                                []
+                              end
 
         validation_messages.concat metadata.bindings
           .select { |binding_definition| binding_definition[:strength] == 'required' }
           .flat_map do |binding_definition|
             TerminologyBindingValidator.validate(resource, binding_definition)
-          rescue Inferno::UnknownValueSetException, Inferno::UnknownCodeSystemException => e
-            { type: 'warning', message: e.message }
+        rescue Inferno::UnknownValueSetException, Inferno::UnknownCodeSystemException => e
+          { type: 'warning', message: e.message }
           end.compact
 
         validation_messages
