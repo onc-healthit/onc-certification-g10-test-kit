@@ -102,7 +102,8 @@ module ONCCertificationG10TestKit
         end
         next if metadata.nil?
 
-        validation_messages = USCoreTestKit::ProvenanceValidator.validate(resource) if resource.class == FHIR::Provenance
+        validation_messages = if resource.class == FHIR::Provenance ?
+          USCoreTestKit::ProvenanceValidator.validate(resource) : []
 
         validation_messages.concat metadata.bindings
           .select { |binding_definition| binding_definition[:strength] == 'required' }
