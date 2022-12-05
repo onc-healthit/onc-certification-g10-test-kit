@@ -108,7 +108,7 @@ module ONCCertificationG10TestKit
                                 []
                               end
 
-        validation_messages.concat metadata.bindings
+        terminology_valiation_messages = metadata.bindings
           .select { |binding_definition| binding_definition[:strength] == 'required' }
           .flat_map do |binding_definition|
             TerminologyBindingValidator.validate(resource, binding_definition)
@@ -116,6 +116,7 @@ module ONCCertificationG10TestKit
           { type: 'warning', message: e.message }
           end.compact
 
+        validation_messages.concat(terminology_valiation_messages)
         validation_messages
       end
     end
