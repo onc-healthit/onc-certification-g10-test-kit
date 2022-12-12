@@ -45,7 +45,7 @@ module ONCCertificationG10TestKit
 
       run do
         assert token_revocation_attestation == 'true',
-               'Health IT Module did not demonstrate support for application registration for single patients.'
+               'Health IT Module did not demonstrate the ability to revoke tokens.'
         pass token_revocation_notes if token_revocation_notes.present?
       end
     end
