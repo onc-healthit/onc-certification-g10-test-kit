@@ -4,7 +4,8 @@ require_relative '../terminology/bcp_13'
 module Inferno
   module Terminology
     module TerminologyValidation
-      # Code systems to "preprocess" prior to validation, and the function to use
+      # CodeSystems/ValueSets to "preprocess" prior to validation, and the
+      # function to use
       PREPROCESS_FUNCS = {
         'urn:ietf:bcp:13' => BCP13.method(:preprocess_code),
         'http://hl7.org/fhir/ValueSet/mimetypes' => BCP13.method(:preprocess_code)
@@ -14,13 +15,13 @@ module Inferno
         @validators_repo ||= Repositories::Validators.new
       end
 
-      # This function accepts a valueset URL, code, and optional system, and returns true
-      # if the code or code/system combination is valid for the valueset
-      # represented by that URL
+      # This function accepts a valueset URL, code, and optional system, and
+      # returns true if the code or code/system combination is valid for the
+      # valueset represented by that URL
       #
       # @param String value_set_url the URL for the valueset to validate against
       # @param String code the code to validate against the valueset
-      # @param String system an optional codesystem to validate against. Defaults to nil
+      # @param String system an optional codesystem to validate against.
       # @return Boolean whether the code or code/system is in the valueset
       def validate_code(code:, value_set_url: nil, system: nil)
         # Before we validate the code, see if there's any preprocessing steps we have to do
