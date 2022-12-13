@@ -9,6 +9,7 @@
   profiles in US Core 5 (#356).
 * Fix a bug which prevents health concern Conditions from being identified in
   Bulk Data responses for US Core 5 (#372).
+* Allow Media scopes to be requested when using US Core 5 (#375).
 * Update the UI to display in-progress icons for running/queued tests.
 * Update the UI to automatically open groups with a skip result.
 * Change the display for ingoing/outgoing requests in the UI.
