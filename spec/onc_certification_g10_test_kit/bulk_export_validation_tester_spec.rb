@@ -376,6 +376,35 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
       expect(result).to eq('http://hl7.org/fhir/us/core/StructureDefinition/us-core-medication')
     end
 
+    context 'with Condition resource' do
+      it 'returns problem-health-concerns profile if resource has health-concern category' do
+        allow(tester).to receive(:suite_options).and_return({ us_core_version: 'us_core_5' })
+        condition = FHIR::Condition.new(
+          category: [
+            {
+              coding: [
+                {
+                  system: 'http://hl7.org/fhir/us/core/CodeSystem/condition-category',
+                  code: 'health-concern'
+                }
+              ]
+            },
+            {
+              coding: [
+                {
+                  system: 'http://hl7.org/fhir/us/core/CodeSystem/us-core-tags',
+                  code: 'sdoh'
+                }
+              ]
+            }
+          ]
+        )
+
+        result = tester.determine_profile(condition)
+        expect(result).to eq('http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-problems-health-concerns')
+      end
+    end
+
     context 'with DiagnosticReport resource' do
       it 'returns lab profile if resource has lab criterion specified' do
         coding = FHIR::Coding.new({ code: 'LAB', system: 'http://terminology.hl7.org/CodeSystem/v2-0074' })
