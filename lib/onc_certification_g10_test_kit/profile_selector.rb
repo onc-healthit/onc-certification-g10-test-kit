@@ -38,7 +38,7 @@ module ONCCertificationG10TestKit
             extract_profile('ConditionEncounterDiagnosis')
           elsif resource_contains_category(resource, 'problem-list-item',
                                            'http://terminology.hl7.org/CodeSystem/condition-category') ||
-                resource_contains_category(resource, 'health-concern', 'http://terminology.hl7.org/CodeSystem/condition-category')
+                resource_contains_category(resource, 'health-concern', 'http://hl7.org/fhir/us/core/CodeSystem/condition-category')
             extract_profile('ConditionProblemsHealthConcerns')
           end
         else
