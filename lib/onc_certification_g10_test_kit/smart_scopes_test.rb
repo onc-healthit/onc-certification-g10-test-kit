@@ -41,7 +41,7 @@ module ONCCertificationG10TestKit
     ].freeze
 
     V5_VALID_RESOURCE_TYPES =
-      (VALID_RESOURCE_TYPES + ['ServiceRequest', 'QuestionnaireResponse']).freeze
+      (VALID_RESOURCE_TYPES + ['ServiceRequest', 'QuestionnaireResponse', 'Media']).freeze
 
     PATIENT_COMPARTMENT_RESOURCE_TYPES = [
       '*',
