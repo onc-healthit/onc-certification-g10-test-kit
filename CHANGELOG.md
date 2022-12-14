@@ -1,3 +1,20 @@
+# 3.3.2
+
+* Fix a bug which causes mime-type codes with a charset to fail terminology
+  validation (#370).
+* Fix an incorrect error message in the token revocation attestation (#367).
+* Fix an issue which prevented Provenance resources from being validated in US
+  Core 5 (#366)
+* Fix an issue where searches could return resources conforming to multiple
+  profiles in US Core 5 (#356).
+* Fix a bug which prevents health concern Conditions from being identified in
+  Bulk Data responses for US Core 5 (#372).
+* Allow Media scopes to be requested when using US Core 5 (#375).
+* Update the UI to display in-progress icons for running/queued tests.
+* Update the UI to automatically open groups with a skip result.
+* Change the display for ingoing/outgoing requests in the UI.
+* Remove the copy button and url truncation from print view.
+
 # 3.3.1
 
 * Fix a bug related to validating slices with required bindings which prevented
