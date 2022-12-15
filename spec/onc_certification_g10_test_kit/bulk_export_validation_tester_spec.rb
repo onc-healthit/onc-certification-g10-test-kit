@@ -423,7 +423,26 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
 
     context 'with Observation resource' do
       context 'when using US Core 5.0.1' do
-        it 'returns the SmokingStatus profile if resource has SmokingStatus criterion specified' do
+        it 'returns the SmokingStatus and Social History profiles for SmokingStatus resources' do
+          allow(tester).to receive(:suite_options).and_return({ us_core_version: 'us_core_5' })
+
+          coding = FHIR::Coding.new({ code: '72166-2' })
+          code = FHIR::CodeableConcept.new({ coding: [coding] })
+          FHIR::Observation.new({ code: })
+
+          category_coding = FHIR::Coding.new({ code: 'social-history',
+                                               system: 'http://terminology.hl7.org/CodeSystem/observation-category' })
+          category = FHIR::CodeableConcept.new({ coding: [category_coding] })
+          observation = FHIR::Observation.new({ category: [category], code: })
+
+          result = tester.determine_profile(observation)
+          expect(result).to match_array([
+                                          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-social-history',
+                                          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-smokingstatus'
+                                        ])
+        end
+
+        it 'returns the Observation Imaging profile when its criterion are specified' do
           allow(tester).to receive(:suite_options).and_return({ us_core_version: 'us_core_5' })
 
           coding = FHIR::Coding.new({ code: 'imaging',
@@ -444,6 +463,10 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
         end
 
         it 'returns the SmokingStatus profile if resource has SmokingStatus criterion specified' do
+          category_coding = FHIR::Coding.new({ code: 'social-history',
+                                               system: 'http://terminology.hl7.org/CodeSystem/observation-category' })
+          observation.category = [FHIR::CodeableConcept.new({ coding: [category_coding] })]
+
           result = tester.determine_profile(observation)
           expect(result).to eq(['http://hl7.org/fhir/us/core/StructureDefinition/us-core-smokingstatus'])
         end
