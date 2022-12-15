@@ -349,7 +349,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
 
     it 'returns the vice profile if given a Device resource that is predefined' do
       result = tester.determine_profile(device_resource)
-      expect(result).to eq('http://hl7.org/fhir/us/core/StructureDefinition/us-core-implantable-device')
+      expect(result).to eq(['http://hl7.org/fhir/us/core/StructureDefinition/us-core-implantable-device'])
     end
 
     it "skips if given resource's type is not defined" do
@@ -363,17 +363,17 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
 
     it "returns AllergyIntolerance's profile when given an AllergyIntolerance resource" do
       result = tester.determine_profile(FHIR::AllergyIntolerance.new)
-      expect(result).to eq('http://hl7.org/fhir/us/core/StructureDefinition/us-core-allergyintolerance')
+      expect(result).to eq(['http://hl7.org/fhir/us/core/StructureDefinition/us-core-allergyintolerance'])
     end
 
     it "returns Location's profile when given a Location resource" do
       result = tester.determine_profile(FHIR::Location.new)
-      expect(result).to eq('http://hl7.org/fhir/StructureDefinition/Location')
+      expect(result).to eq(['http://hl7.org/fhir/StructureDefinition/Location'])
     end
 
     it "returns Medications's profile when given a Medication resource" do
       result = tester.determine_profile(FHIR::Medication.new)
-      expect(result).to eq('http://hl7.org/fhir/us/core/StructureDefinition/us-core-medication')
+      expect(result).to eq(['http://hl7.org/fhir/us/core/StructureDefinition/us-core-medication'])
     end
 
     context 'with Condition resource' do
@@ -401,7 +401,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
         )
 
         result = tester.determine_profile(condition)
-        expect(result).to eq('http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-problems-health-concerns')
+        expect(result).to eq(['http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-problems-health-concerns'])
       end
     end
 
@@ -412,12 +412,12 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
         diagnostic_report = FHIR::DiagnosticReport.new({ category: [category] })
 
         result = tester.determine_profile(diagnostic_report)
-        expect(result).to eq('http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-lab')
+        expect(result).to eq(['http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-lab'])
       end
 
       it 'returns note profile if lab criterion unspecified' do
         result = tester.determine_profile(FHIR::DiagnosticReport.new)
-        expect(result).to eq('http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note')
+        expect(result).to eq(['http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note'])
       end
     end
 
@@ -432,7 +432,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
           observation = FHIR::Observation.new({ category: [category] })
 
           result = tester.determine_profile(observation)
-          expect(result).to eq('http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-imaging')
+          expect(result).to eq(['http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-imaging'])
         end
       end
 
@@ -445,7 +445,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
 
         it 'returns the SmokingStatus profile if resource has SmokingStatus criterion specified' do
           result = tester.determine_profile(observation)
-          expect(result).to eq('http://hl7.org/fhir/us/core/StructureDefinition/us-core-smokingstatus')
+          expect(result).to eq(['http://hl7.org/fhir/us/core/StructureDefinition/us-core-smokingstatus'])
         end
 
         it 'returns the ObservationLab profile if resource has ObservationLab criterion specified' do
@@ -455,91 +455,91 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
           observation = FHIR::Observation.new({ category: [category] })
 
           result = tester.determine_profile(observation)
-          expect(result).to eq('http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab')
+          expect(result).to eq(['http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab'])
         end
 
         it 'returns the PediatricBmiForAge profile if resource has PediatricBmiForAge criterion specified' do
           observation.code.coding[0].code = '59576-9'
 
           result = tester.determine_profile(observation)
-          expect(result).to eq('http://hl7.org/fhir/us/core/StructureDefinition/pediatric-bmi-for-age')
+          expect(result).to eq(['http://hl7.org/fhir/us/core/StructureDefinition/pediatric-bmi-for-age'])
         end
 
         it 'returns the PediatricWeightForHeight profile if resource has PediatricWeightForHeight code' do
           observation.code.coding[0].code = '77606-2'
 
           result = tester.determine_profile(observation)
-          expect(result).to eq('http://hl7.org/fhir/us/core/StructureDefinition/pediatric-weight-for-height')
+          expect(result).to eq(['http://hl7.org/fhir/us/core/StructureDefinition/pediatric-weight-for-height'])
         end
 
         it 'returns the PulseOximetry profile if resource has PulseOximetry criterion specified' do
           observation.code.coding[0].code = '59408-5'
 
           result = tester.determine_profile(observation)
-          expect(result).to eq('http://hl7.org/fhir/us/core/StructureDefinition/us-core-pulse-oximetry')
+          expect(result).to eq(['http://hl7.org/fhir/us/core/StructureDefinition/us-core-pulse-oximetry'])
         end
 
         it 'returns the HeadCircumference profile if resource has HeadCircumference criterion specified' do
           observation.code.coding[0].code = '8289-1'
 
           result = tester.determine_profile(observation)
-          expect(result).to eq('http://hl7.org/fhir/us/core/StructureDefinition/head-occipital-frontal-circumference-percentile')
+          expect(result).to eq(['http://hl7.org/fhir/us/core/StructureDefinition/head-occipital-frontal-circumference-percentile'])
         end
 
         it 'returns the Bp profile if resource has Bp criterion specified' do
           observation.code.coding[0].code = '85354-9'
 
           result = tester.determine_profile(observation)
-          expect(result).to eq('http://hl7.org/fhir/StructureDefinition/bp')
+          expect(result).to eq(['http://hl7.org/fhir/StructureDefinition/bp'])
         end
 
         it 'returns the Bodyheight profile if resource has Bodyheight criterion specified' do
           observation.code.coding[0].code = '8302-2'
 
           result = tester.determine_profile(observation)
-          expect(result).to eq('http://hl7.org/fhir/StructureDefinition/bodyheight')
+          expect(result).to eq(['http://hl7.org/fhir/StructureDefinition/bodyheight'])
         end
 
         it 'returns the Bodytemp profile if resource has Bodytemp criterion specified' do
           observation.code.coding[0].code = '8310-5'
 
           result = tester.determine_profile(observation)
-          expect(result).to eq('http://hl7.org/fhir/StructureDefinition/bodytemp')
+          expect(result).to eq(['http://hl7.org/fhir/StructureDefinition/bodytemp'])
         end
 
         it 'returns the Bodyweight profile if resource has Bodyweight criterion specified' do
           observation.code.coding[0].code = '29463-7'
 
           result = tester.determine_profile(observation)
-          expect(result).to eq('http://hl7.org/fhir/StructureDefinition/bodyweight')
+          expect(result).to eq(['http://hl7.org/fhir/StructureDefinition/bodyweight'])
         end
 
         it 'returns the Heartrate profile if resource has Heartrate criterion specified' do
           observation.code.coding[0].code = '8867-4'
 
           result = tester.determine_profile(observation)
-          expect(result).to eq('http://hl7.org/fhir/StructureDefinition/heartrate')
+          expect(result).to eq(['http://hl7.org/fhir/StructureDefinition/heartrate'])
         end
 
         it 'returns the Resprate profile if resource has Resprate criterion specified' do
           observation.code.coding[0].code = '9279-1'
 
           result = tester.determine_profile(observation)
-          expect(result).to eq('http://hl7.org/fhir/StructureDefinition/resprate')
+          expect(result).to eq(['http://hl7.org/fhir/StructureDefinition/resprate'])
         end
 
-        it 'returns nil when given none of the possible sets of profile criterion' do
+        it 'returns an empty array when given none of the possible sets of profile criterion' do
           observation.code.coding[0].code = 'bad_code'
 
           result = tester.determine_profile(observation)
-          expect(result).to be_nil
+          expect(result).to eq([])
         end
 
-        it 'returns nil when the Observation contains a head circumference code' do
+        it 'returns an empty array when the Observation contains a head circumference code' do
           observation.code.coding[0].code = '9843-4'
 
           result = tester.determine_profile(observation)
-          expect(result).to be_nil
+          expect(result).to eq([])
         end
       end
     end
