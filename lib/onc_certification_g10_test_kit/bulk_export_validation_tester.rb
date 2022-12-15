@@ -107,6 +107,9 @@ module ONCCertificationG10TestKit
           perform_must_support_test(resources[meta.profile_url])
         rescue Inferno::Exceptions::PassException
           next
+        rescue Inferno::Exceptions::SkipException => e
+          e.message.concat " for `#{meta.profile_url}`"
+          raise e
         end
       end
     end
