@@ -107,6 +107,9 @@ module ONCCertificationG10TestKit
           perform_must_support_test(resources[meta.profile_url])
         rescue Inferno::Exceptions::PassException
           next
+        rescue Inferno::Exceptions::SkipException => e
+          e.message.concat " for `#{meta.profile_url}`"
+          raise e
         end
       end
     end
@@ -121,7 +124,7 @@ module ONCCertificationG10TestKit
       line_count = 0
       resources = Hash.new { |h, k| h[k] = [] }
 
-      process_line = proc { |line|
+      process_line = proc do |line|
         next unless lines_to_validate.blank? ||
                     line_count < lines_to_validate.to_i ||
                     (resource_type == 'Patient' && patient_ids_seen.length < MIN_RESOURCE_COUNT)
@@ -139,21 +142,24 @@ module ONCCertificationG10TestKit
                         "defined in output \"#{resource_type}\""
         end
 
-        profile_url = determine_profile(resource)
-        resources[profile_url] << resource
-        scratch[:patient_ids_seen] = patient_ids_seen | [resource.id] if resource_type == 'Patient'
+        profile_urls = determine_profile(resource)
+        profile_urls.each do |profile_url|
+          resources[profile_url] << resource
 
-        profile_with_version = versioned_profile_url(profile_url)
-        unless resource_is_valid?(resource:, profile_url: profile_with_version)
-          if first_error.key?(:line_number)
-            @invalid_resource_count += 1
-          else
-            @invalid_resource_count = 1
-            first_error[:line_number] = line_count
-            first_error[:messages] = messages.dup
+          scratch[:patient_ids_seen] = patient_ids_seen | [resource.id] if resource_type == 'Patient'
+
+          profile_with_version = versioned_profile_url(profile_url)
+          unless resource_is_valid?(resource:, profile_url: profile_with_version)
+            if first_error.key?(:line_number)
+              @invalid_resource_count += 1
+            else
+              @invalid_resource_count = 1
+              first_error[:line_number] = line_count
+              first_error[:messages] = messages.dup
+            end
           end
         end
-      }
+      end
 
       process_headers = proc { |response|
         value = (response[:headers].find { |header| header.name.downcase == 'content-type' })&.value

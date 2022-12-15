@@ -30,46 +30,50 @@ module ONCCertificationG10TestKit
     end
 
     def select_profile(resource) # rubocop:disable Metrics/CyclomaticComplexity
+      profiles = []
+
       case resource.resourceType
       when 'Condition'
         case us_core_version
         when US_CORE_5
           if resource_contains_category(resource, 'encounter-diagnosis', 'http://terminology.hl7.org/CodeSystem/condition-category')
-            extract_profile('ConditionEncounterDiagnosis')
+            profiles << extract_profile('ConditionEncounterDiagnosis')
           elsif resource_contains_category(resource, 'problem-list-item',
                                            'http://terminology.hl7.org/CodeSystem/condition-category') ||
                 resource_contains_category(resource, 'health-concern', 'http://hl7.org/fhir/us/core/CodeSystem/condition-category')
-            extract_profile('ConditionProblemsHealthConcerns')
+            profiles << extract_profile('ConditionProblemsHealthConcerns')
           end
         else
-          extract_profile(resource.resourceType)
+          profiles << extract_profile(resource.resourceType)
         end
       when 'DiagnosticReport'
-        return extract_profile('DiagnosticReportLab') if resource_contains_category(resource, 'LAB', 'http://terminology.hl7.org/CodeSystem/v2-0074')
-
-        extract_profile('DiagnosticReportNote')
+        profiles << if resource_contains_category(resource, 'LAB', 'http://terminology.hl7.org/CodeSystem/v2-0074')
+                      extract_profile('DiagnosticReportLab')
+                    else
+                      extract_profile('DiagnosticReportNote')
+                    end
       when 'Observation'
-        return extract_profile('Smokingstatus') if observation_contains_code(resource, '72166-2')
+        profiles << extract_profile('Smokingstatus') if observation_contains_code(resource, '72166-2')
 
-        return extract_profile('ObservationLab') if resource_contains_category(resource, 'laboratory', 'http://terminology.hl7.org/CodeSystem/observation-category')
+        profiles << extract_profile('ObservationLab') if resource_contains_category(resource, 'laboratory', 'http://terminology.hl7.org/CodeSystem/observation-category')
 
-        return extract_profile('PediatricBmiForAge') if observation_contains_code(resource, '59576-9')
+        profiles << extract_profile('PediatricBmiForAge') if observation_contains_code(resource, '59576-9')
 
-        return extract_profile('PediatricWeightForHeight') if observation_contains_code(resource, '77606-2')
+        profiles << extract_profile('PediatricWeightForHeight') if observation_contains_code(resource, '77606-2')
 
-        return extract_profile('PulseOximetry') if observation_contains_code(resource, '59408-5')
+        profiles << extract_profile('PulseOximetry') if observation_contains_code(resource, '59408-5')
 
         if observation_contains_code(resource, '8289-1')
-          case us_core_version
-          when US_CORE_3
-            return extract_profile('HeadCircumference')
-          else
-            return extract_profile('HeadCircumferencePercentile')
-          end
+          profiles << case us_core_version
+                      when US_CORE_3
+                        extract_profile('HeadCircumference')
+                      else
+                        extract_profile('HeadCircumferencePercentile')
+                      end
         end
 
         if observation_contains_code(resource, '9843-4') && !using_us_core_3?
-          return extract_profile('HeadCircumference')
+          profiles << extract_profile('HeadCircumference')
         end
 
         # FHIR Vital Signs profiles: https://www.hl7.org/fhir/observation-vitalsigns.html
@@ -77,83 +81,83 @@ module ONCCertificationG10TestKit
         # Body Mass Index is replaced by :pediatric_bmi_age Profile
         # Systolic Blood Pressure, Diastolic Blood Pressure are covered by :blood_pressure Profile
         # Head Circumference is replaced by US Core Head Occipital-frontal Circumference Percentile Profile
-        return extract_profile('Bmi') if observation_contains_code(resource, '39156-5') && !using_us_core_3?
+        profiles << extract_profile('Bmi') if observation_contains_code(resource, '39156-5') && !using_us_core_3?
 
         if observation_contains_code(resource, '85354-9')
-          case us_core_version
-          when US_CORE_3
-            return extract_profile('Bp')
-          else
-            return extract_profile('BloodPressure')
-          end
+          profiles << case us_core_version
+                      when US_CORE_3
+                        extract_profile('Bp')
+                      else
+                        extract_profile('BloodPressure')
+                      end
         end
 
         if observation_contains_code(resource, '8302-2')
-          case us_core_version
-          when US_CORE_3
-            return extract_profile('Bodyheight')
-          else
-            return extract_profile('BodyHeight')
-          end
+          profiles << case us_core_version
+                      when US_CORE_3
+                        extract_profile('Bodyheight')
+                      else
+                        extract_profile('BodyHeight')
+                      end
         end
 
         if observation_contains_code(resource, '8310-5')
-          case us_core_version
-          when US_CORE_3
-            return extract_profile('Bodytemp')
-          else
-            return extract_profile('BodyTemperature')
-          end
+          profiles << case us_core_version
+                      when US_CORE_3
+                        extract_profile('Bodytemp')
+                      else
+                        extract_profile('BodyTemperature')
+                      end
         end
 
         if observation_contains_code(resource, '29463-7')
-          case us_core_version
-          when US_CORE_3
-            return extract_profile('Bodyweight')
-          else
-            return extract_profile('BodyWeight')
-          end
+          profiles << case us_core_version
+                      when US_CORE_3
+                        extract_profile('Bodyweight')
+                      else
+                        extract_profile('BodyWeight')
+                      end
         end
 
         if observation_contains_code(resource, '8867-4')
-          case us_core_version
-          when US_CORE_3
-            return extract_profile('Heartrate')
-          else
-            return extract_profile('HeartRate')
-          end
+          profiles << case us_core_version
+                      when US_CORE_3
+                        extract_profile('Heartrate')
+                      else
+                        extract_profile('HeartRate')
+                      end
         end
 
         if observation_contains_code(resource, '9279-1')
-          case us_core_version
-          when US_CORE_3
-            return extract_profile('Resprate')
-          else
-            return extract_profile('RespiratoryRate')
-          end
+          profiles << case us_core_version
+                      when US_CORE_3
+                        extract_profile('Resprate')
+                      else
+                        extract_profile('RespiratoryRate')
+                      end
         end
 
         if using_us_core_5? &&
            resource_contains_category(
              resource, 'clinical-test', 'http://hl7.org/fhir/us/core/CodeSystem/us-core-observation-category'
            )
-          return extract_profile('ObservationClinicalTest')
+          profiles << extract_profile('ObservationClinicalTest')
         end
 
         if using_us_core_5? && observation_contains_code(resource, '76690-7')
-          return extract_profile('ObservationSexualOrientation')
+          profiles << extract_profile('ObservationSexualOrientation')
         end
 
         if using_us_core_5? &&
            resource_contains_category(resource, 'social-history',
                                       'http://terminology.hl7.org/CodeSystem/observation-category')
-          return extract_profile('ObservationSocialHistory')
+          profiles << extract_profile('ObservationSocialHistory')
         end
 
         if using_us_core_5? &&
            resource_contains_category(resource, 'imaging',
                                       'http://terminology.hl7.org/CodeSystem/observation-category')
-          return extract_profile('ObservationImaging')
+          profiles << extract_profile('ObservationImaging')
         end
 
         # We will simply match all Observations of category "survey" to SDOH,
@@ -171,13 +175,15 @@ module ONCCertificationG10TestKit
            resource_contains_category(resource, 'survey',
                                       'http://terminology.hl7.org/CodeSystem/observation-category')
 
-          return extract_profile('ObservationSdohAssessment')
+          profiles << extract_profile('ObservationSdohAssessment')
         end
 
         nil
       else
-        extract_profile(resource.resourceType)
+        profiles << extract_profile(resource.resourceType)
       end
+
+      profiles
     rescue StandardError
       skip "Could not determine profile of \"#{resource.resourceType}\" resource."
     end
