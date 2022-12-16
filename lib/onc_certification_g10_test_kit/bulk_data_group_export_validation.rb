@@ -17,11 +17,12 @@ module ONCCertificationG10TestKit
           optional: true
     input :bulk_patient_ids_in_group,
           title: 'Patient IDs in exported Group',
-          description: <<~DESCRIPTION
+          description: <<~DESCRIPTION,
             Comma separated list of every Patient ID that is in the specified Group. This information is provided by
             the system under test to verify that data returned matches expectations. Leave blank to not verify Group
             inclusion.
           DESCRIPTION
+          optional: true
     input :bulk_device_types_in_group,
           title: 'Implantable Device Type Codes in exported Group',
           description: <<~DESCRIPTION,
