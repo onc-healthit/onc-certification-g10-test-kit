@@ -960,7 +960,7 @@ procedure:
           implementation specification adopted in § 170.215(a)(3).
         inferno_supported: 'yes'
         inferno_tests:
-          - 9.10.15
+          - 9.10.16
         inferno_notes: |
           Inferno cannot verify the three month token expiration requirement
           automatically during the token refresh tests, but the tester can
