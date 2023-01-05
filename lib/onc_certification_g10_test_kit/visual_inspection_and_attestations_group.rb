@@ -331,16 +331,16 @@ module ONCCertificationG10TestKit
     end
 
     test do
-      title 'Health IT developer confirms the Health IT module does not cache the JWK Set received ' \
+      title 'Health IT developer confirms the Health IT Module does not cache the JWK Set received ' \
             'via a TLS-protected URL for longer than the cache-control header received by an application indicates.'
       description %(
-        The Health IT developer confirms the Health IT module does not cache the
+        The Health IT developer confirms the Health IT Module does not cache the
         JWK Set received via a TLS-protected URL for longer than the
         cache-control header indicates.
       )
       id 'Test10'
       input :jwks_cache_attestation,
-            title: 'Health IT developer confirms the Health IT module does not cache the JWK Set received via a TLS-protected URL for longer than the cache-control header indicates.', # rubocop:disable Layout/LineLength
+            title: 'Health IT developer confirms the Health IT Module does not cache the JWK Set received via a TLS-protected URL for longer than the cache-control header indicates.', # rubocop:disable Layout/LineLength
             type: 'radio',
             default: 'false',
             options: {
@@ -577,32 +577,34 @@ module ONCCertificationG10TestKit
     end
 
     test do
-      title 'Health IT developer attested that the Health IT module is capable of issuing refresh tokens ' \
+      title 'Health IT developer attested that the Health IT Module is capable of issuing refresh tokens ' \
             'valid for a new period of no shorter than three months without requiring ' \
             're-authentication and re-authorization when a valid refresh token is supplied ' \
             'by the application.'
       description %(
-        Applications that are capable of protecting a client secret and that
-        have received a refresh token must be able to use this refresh token to
-        either receive a new refresh token valid for a new period of three
-        months, or to extend the duration of the existing refresh token for an
-        additional three months.  This occurs during the refresh token request,
-        when the application uses a refresh token to receive a new access token.
+        Applications that are capable of storing a client secret and that have
+        received a refresh token must be able to use this refresh token to
+        either receive a new refresh token valid for a new period of no less
+        than three months, or to update the duration of the existing refresh
+        token to be valid for a new period of no less than three months.  This
+        occurs during the refresh token request, when the application uses a
+        refresh token to receive a new access token.
 
         This attestation is necessary because automated tests cannot determine
-        if the expiration date of the refresh token is extended when tokens
+        if the expiration date of the refresh token is updated when tokens
         are refreshed.
 
-        This attestation ensures that the Health IT module allows applications
-        to use refresh tokens to extend the length of authorized access beyond
-        three months by issuing a new refresh token or extending the duration of
-        the existing refresh token.  A previous attestation ensures that the
-        Health IT module is capable of issuing an initial refresh token that is
-        valid for at least three months.
+        This attestation ensures that the Health IT Module allows applications
+        to use refresh tokens to update the length of authorized access beyond
+        the initial period of no less than three months by issuing a new refresh
+        token or updating the duration of the existing refresh token.  A
+        separate attestation ensures that the Health IT Module is capable of
+        issuing an initial refresh token that is valid for at least three
+        months.
       )
       id :g10_refresh_token_refresh_attestation
       input :refresh_token_refresh_attestation,
-            title: 'Health IT developer attested that the Health IT module is capable of issuing refresh tokens ' \
+            title: 'Health IT developer attested that the Health IT Module is capable of issuing refresh tokens ' \
                    'valid for a new period of no shorter than three months without requiring ' \
                    're-authentication and re-authorization when a valid refresh token is supplied ' \
                    'by the application.',
@@ -627,7 +629,7 @@ module ONCCertificationG10TestKit
 
       run do
         assert refresh_token_refresh_attestation == 'true',
-               'Health IT developer did not attest that the Health IT module is capable of issuing refresh tokens ' \
+               'Health IT developer did not attest that the Health IT Module is capable of issuing refresh tokens ' \
                'valid for a new period of no shorter than three months without requiring ' \
                're-authentication and re-authorization when a valid refresh token is supplied ' \
                'by the application.'
