@@ -155,6 +155,9 @@ module ONCCertificationG10TestKit
       description %(
         Health IT Module attested that it is capable of issuing refresh tokens
         that are valid for a period of no shorter than three months.
+
+        This attestation is necessary because automated tests cannot determine how long
+        the refresh token remains valid.
       )
       id 'Test05'
       input :refresh_token_period_attestation,
@@ -490,7 +493,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
-      title 'Health IT developer demonstrates the public location of its base URLs'
+      title 'Health IT developer demonstrates the public location of its base URLs.'
       description %(
         To fulfill the API Maintenance of Certification requirement at §
         170.404(b)(2), the health IT developer demonstrates the public location
@@ -542,7 +545,7 @@ module ONCCertificationG10TestKit
             locked: true,
             optional: true
       input :tls_documentation_required,
-            title: 'Health IT developers must document how the Health IT Module enforces TLs version 1.2 or above',
+            title: 'Health IT developers must document how the Health IT Module enforces TLs version 1.2 or above.',
             type: 'radio',
             default: 'false',
             locked: true,
@@ -570,6 +573,66 @@ module ONCCertificationG10TestKit
         end
 
         pass tls_version_attestation_notes if tls_version_attestation_notes.present?
+      end
+    end
+
+    test do
+      title 'Health IT developer attested that the Health IT module is capable of issuing refresh tokens ' \
+            'valid for a new period of no shorter than three months without requiring ' \
+            're-authentication and re-authorization when a valid refresh token is supplied '\
+            'by the application.'
+      description %(
+        Applications that are capable of protecting a client secret and that
+        have received a refresh token must be able to use this refresh token to
+        either receive a new refresh token valid for a new period of three
+        months, or to extend the duration of the existing refresh token for an
+        additional three months.  This occurs during the refresh token request,
+        when the application uses a refresh token to receive a new access token.
+
+        This attestation is necessary because automated tests cannot determine
+        if the expiration date of the refresh token is extended when tokens
+        are refreshed.
+
+        This attestation ensures that the Health IT module allows applications
+        to use refresh tokens to extend the length of authorized access beyond
+        three months by issuing a new refresh token or extending the duration of
+        the existing refresh token.  A previous attestation ensures that the
+        Health IT module is capable of issuing an initial refresh token that is
+        valid for at least three months.
+      )
+      id :g10_refresh_token_refresh_attestation
+      input :refresh_token_refresh_attestation,
+            title: 'Health IT developer attested that the Health IT module is capable of issuing refresh tokens ' \
+              'valid for a new period of no shorter than three months without requiring ' \
+              're-authentication and re-authorization when a valid refresh token is supplied '\
+              'by the application.',
+            type: 'radio',
+            default: 'false',
+            options: {
+              list_options: [
+                {
+                  label: 'Yes',
+                  value: 'true'
+                },
+                {
+                  label: 'No',
+                  value: 'false'
+                }
+              ]
+            }
+      input :refresh_token_refresh_notes,
+            title: 'Notes, if applicable:',
+            type: 'textarea',
+            optional: true
+
+      run do
+        assert refresh_token_refresh_attestation == 'true',
+              'Health IT developer did not attest that the Health IT module is capable of issuing refresh tokens ' \
+              'valid for a new period of no shorter than three months without requiring ' \
+              're-authentication and re-authorization when a valid refresh token is supplied '\
+              'by the application.'
+
+        pass refresh_token_refresh_notes if refresh_token_refresh_notes.present?
       end
     end
   end
