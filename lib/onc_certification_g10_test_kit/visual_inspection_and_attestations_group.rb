@@ -579,7 +579,7 @@ module ONCCertificationG10TestKit
     test do
       title 'Health IT developer attested that the Health IT module is capable of issuing refresh tokens ' \
             'valid for a new period of no shorter than three months without requiring ' \
-            're-authentication and re-authorization when a valid refresh token is supplied '\
+            're-authentication and re-authorization when a valid refresh token is supplied ' \
             'by the application.'
       description %(
         Applications that are capable of protecting a client secret and that
@@ -603,9 +603,9 @@ module ONCCertificationG10TestKit
       id :g10_refresh_token_refresh_attestation
       input :refresh_token_refresh_attestation,
             title: 'Health IT developer attested that the Health IT module is capable of issuing refresh tokens ' \
-              'valid for a new period of no shorter than three months without requiring ' \
-              're-authentication and re-authorization when a valid refresh token is supplied '\
-              'by the application.',
+                   'valid for a new period of no shorter than three months without requiring ' \
+                   're-authentication and re-authorization when a valid refresh token is supplied ' \
+                   'by the application.',
             type: 'radio',
             default: 'false',
             options: {
@@ -627,10 +627,10 @@ module ONCCertificationG10TestKit
 
       run do
         assert refresh_token_refresh_attestation == 'true',
-              'Health IT developer did not attest that the Health IT module is capable of issuing refresh tokens ' \
-              'valid for a new period of no shorter than three months without requiring ' \
-              're-authentication and re-authorization when a valid refresh token is supplied '\
-              'by the application.'
+               'Health IT developer did not attest that the Health IT module is capable of issuing refresh tokens ' \
+               'valid for a new period of no shorter than three months without requiring ' \
+               're-authentication and re-authorization when a valid refresh token is supplied ' \
+               'by the application.'
 
         pass refresh_token_refresh_notes if refresh_token_refresh_notes.present?
       end
