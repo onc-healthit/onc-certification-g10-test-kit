@@ -79,7 +79,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         result = run(runnable, input.merge(bulk_download_url: endpoint))
 
         expect(result.result).to eq('fail')
-        expect(result.result_message).to eq('Bad response status: expected 400, 401, but received 200')
+        expect(result.result_message).to eq('Unexpected response status: expected 400, 401, but received 200')
       end
 
       it 'passes if endpoint can not be accessed without token' do
