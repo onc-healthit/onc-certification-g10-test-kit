@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    onc_certification_g10_test_kit (3.3.2.dev)
+    onc_certification_g10_test_kit (3.4.0.pre)
       bloomer (~> 1.0.0)
       colorize (~> 0.8.1)
       inferno_core (>= 0.4.2)
@@ -191,7 +191,7 @@ GEM
       aes_key_wrap
       bindata
       httpclient
-    jwt (2.5.0)
+    jwt (2.6.0)
     method_source (1.0.0)
     mime-types (3.4.1)
       mime-types-data (~> 3.2015)
@@ -239,7 +239,7 @@ GEM
     puma (5.6.5)
       nio4r (~> 2.0)
     racc (1.6.1)
-    rack (2.2.4)
+    rack (2.2.5)
     rainbow (3.1.1)
     rake (13.0.6)
     redis (4.8.0)
