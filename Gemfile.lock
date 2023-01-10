@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    onc_certification_g10_test_kit (3.4.0.pre)
+    onc_certification_g10_test_kit (3.4.0)
       bloomer (~> 1.0.0)
       colorize (~> 0.8.1)
       inferno_core (>= 0.4.7)
