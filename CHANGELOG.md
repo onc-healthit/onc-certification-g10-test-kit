@@ -1,3 +1,17 @@
+# 3.4.0
+
+* Add an attestation that systems are capable of extending the duration of
+  refresh tokens (#386).
+* Make the patient id list input optional for bulk data. It was previously
+  described as optional, but was actually required (#368).
+* Update bulk data tests to allow resources to match against multiple resources.
+  This is necessary for US Core 5 where a single resource may conform to
+  multiple profiles (#378).
+* Fix a bug which caused access tokens not to be refreshed when a the token
+  refresh response does not contain a new refresh token (#377).
+* Update the title and description for Must Support tests (#384).
+* Improve the UI for mobile devices.
+
 # 3.3.2
 
 * Fix a bug which causes mime-type codes with a charset to fail terminology

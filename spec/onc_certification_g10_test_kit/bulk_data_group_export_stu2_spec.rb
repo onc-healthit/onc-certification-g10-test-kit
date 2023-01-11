@@ -57,7 +57,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU2 do
       result = run(runnable, input)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Bad response status: expected 202, but received 400')
+      expect(result.result_message).to eq('Unexpected response status: expected 202, but received 400')
     end
 
     it 'fails when server does not support deleting previous request' do
@@ -68,7 +68,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU2 do
       result = run(runnable, input)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Bad response status: expected 202, but received 400')
+      expect(result.result_message).to eq('Unexpected response status: expected 202, but received 400')
     end
 
     it 'fails when server does not support application/ndjson or ndjson content type' do
@@ -81,7 +81,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU2 do
       result = run(runnable, input)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Bad response status: expected 202, but received 400')
+      expect(result.result_message).to eq('Unexpected response status: expected 202, but received 400')
       expect(delete_export_req).to have_been_made.once
     end
 
@@ -96,7 +96,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU2 do
       result = run(runnable, input)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Bad response status: expected 202, but received 400')
+      expect(result.result_message).to eq('Unexpected response status: expected 202, but received 400')
       expect(delete_export_req).to have_been_made.twice
     end
 

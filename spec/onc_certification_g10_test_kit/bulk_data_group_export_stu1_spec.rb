@@ -53,7 +53,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU1 do
       result = run(runnable, base_input)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Bad response status: expected 200, 201, but received 400')
+      expect(result.result_message).to eq('Unexpected response status: expected 200, 201, but received 400')
     end
 
     it 'fails when CapabilityStatement returned is not JSON' do
@@ -153,7 +153,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU1 do
       result = run(runnable, base_input)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Bad response status: expected 400, 401, but received 200')
+      expect(result.result_message).to eq('Unexpected response status: expected 400, 401, but received 200')
     end
 
     it 'passes if client can not $export without authorization' do
@@ -176,7 +176,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU1 do
       result = run(runnable, base_input)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Bad response status: expected 202, but received 401')
+      expect(result.result_message).to eq('Unexpected response status: expected 202, but received 401')
     end
 
     it 'fails when server does not return "Content-Location" header' do
@@ -249,7 +249,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU1 do
       result = run(runnable, input)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Bad response status: expected 200, but received 401')
+      expect(result.result_message).to eq('Unexpected response status: expected 200, but received 401')
     end
 
     it 'fails when server returns "200 OK" and impromper headers' do
@@ -351,7 +351,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU1 do
       result = run(runnable, base_input)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Bad response status: expected 202, but received 404')
+      expect(result.result_message).to eq('Unexpected response status: expected 202, but received 404')
     end
 
     it 'fails when content-location header not provided in kick-off response' do
@@ -384,7 +384,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU1 do
       result = run(runnable, base_input)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Bad response status: expected 202, but received 404')
+      expect(result.result_message).to eq('Unexpected response status: expected 202, but received 404')
     end
 
     it 'passes when delete request includes bearer token and response is 202' do

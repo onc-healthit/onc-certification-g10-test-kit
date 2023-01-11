@@ -59,7 +59,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
       result = run(runnable, input)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Bad response status: expected 400, but received 200')
+      expect(result.result_message).to eq('Unexpected response status: expected 400, but received 200')
     end
 
     it 'passes when token endpoint requires valid grant_type' do
@@ -84,7 +84,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
       result = run(runnable, input)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Bad response status: expected 400, but received 200')
+      expect(result.result_message).to eq('Unexpected response status: expected 400, but received 200')
     end
 
     it 'passes when token endpoint requires valid client_assertion_type' do
@@ -108,7 +108,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
       result = run(runnable, input)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Bad response status: expected 400, 401, but received 200')
+      expect(result.result_message).to eq('Unexpected response status: expected 400, 401, but received 200')
     end
 
     it 'passes when token endpoint requires valid JWT token' do
@@ -131,7 +131,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
       result = run(runnable, input)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Bad response status: expected 200, 201, but received 400')
+      expect(result.result_message).to eq('Unexpected response status: expected 200, 201, but received 400')
     end
 
     it 'passes if the access token request is valid and authorized' do

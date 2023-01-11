@@ -137,7 +137,7 @@ RSpec.describe ONCCertificationG10TestKit::ExportKickOffPerformer do
 
       expect { performer.delete_export_kick_off_request }
         .to raise_exception(Inferno::Exceptions::AssertionException)
-        .with_message('Bad response status: expected 202, but received 404')
+        .with_message('Unexpected response status: expected 202, but received 404')
     end
 
     it 'returns nil if delete request successful' do

@@ -87,7 +87,8 @@ module ONCCertificationG10TestKit
         assert_response_status(200)
         pass "Access expected to be granted and request properly returned #{request.status}"
       else
-        message = "Bad response code: expected 403 (Forbidden) or 401 (Unauthorized), but found #{request.status}."
+        message =
+          "Unexpected response code: expected 403 (Forbidden) or 401 (Unauthorized), but found #{request.status}."
         assert [401, 403].include?(request.status), message
       end
     end
