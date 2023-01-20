@@ -152,13 +152,10 @@ module ONCCertificationG10TestKit
           },
           options: {
             scope_version: :v1,
-            required_scope_type: 'patient'
+            required_scope_type: 'patient',
+            required_scopes: ['openid', 'fhirUser', 'launch/patient', 'offline_access']
           }
         )
-
-        def required_scopes
-          ['openid', 'fhirUser', 'launch/patient', 'offline_access']
-        end
       end
 
       test from: :g10_unauthorized_access,
@@ -265,13 +262,10 @@ module ONCCertificationG10TestKit
           },
           options: {
             scope_version: :v2,
-            required_scope_type: 'patient'
+            required_scope_type: 'patient',
+            required_scopes: ['openid', 'fhirUser', 'launch/patient', 'offline_access']
           }
         )
-
-        def required_scopes
-          ['openid', 'fhirUser', 'launch/patient', 'offline_access']
-        end
       end
 
       test from: :g10_unauthorized_access,
