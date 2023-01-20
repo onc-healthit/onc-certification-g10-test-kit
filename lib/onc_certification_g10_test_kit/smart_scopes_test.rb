@@ -75,6 +75,10 @@ module ONCCertificationG10TestKit
       V5_VALID_RESOURCE_TYPES
     end
 
+    def required_scope_type
+      config.options[:required_scope_type]
+    end
+
     def read_format
       @read_format ||=
         begin

@@ -151,16 +151,13 @@ module ONCCertificationG10TestKit
             received_scopes: { name: :standalone_received_scopes }
           },
           options: {
-            scope_version: :v1
+            scope_version: :v1,
+            required_scope_type: 'patient'
           }
         )
 
         def required_scopes
           ['openid', 'fhirUser', 'launch/patient', 'offline_access']
-        end
-
-        def required_scope_type
-          'patient'
         end
       end
 
@@ -267,16 +264,13 @@ module ONCCertificationG10TestKit
             received_scopes: { name: :standalone_received_scopes }
           },
           options: {
-            scope_version: :v2
+            scope_version: :v2,
+            required_scope_type: 'patient'
           }
         )
 
         def required_scopes
           ['openid', 'fhirUser', 'launch/patient', 'offline_access']
-        end
-
-        def required_scope_type
-          'patient'
         end
       end
 
