@@ -3,11 +3,15 @@ module ONCCertificationG10TestKit
     title 'Patient-level scopes were granted'
     description %(
       Systems are required to support the `permission-patient` capability as
-      part of the [Clinician Access for EHR Launch Capability
-      Set.](http://hl7.org/fhir/smart-app-launch/1.0.0/conformance/index.html#clinician-access-for-ehr-launch)
+      part of the Clinician Access for EHR Launch Capability Set.
 
       This test verifies that systems are capable of granting patient-level
       scopes during an EHR Launch.
+
+      * [Clinician Access for EHR Launch Capability Set STU
+        1](http://hl7.org/fhir/smart-app-launch/1.0.0/conformance/index.html#clinician-access-for-ehr-launch)
+      * [Clinician Access for EHR Launch Capability Set STU
+        2](http://hl7.org/fhir/smart-app-launch/STU2/conformance.html#clinician-access-for-ehr-launch)
     )
     id :g10_patient_scope
     input :received_scopes
