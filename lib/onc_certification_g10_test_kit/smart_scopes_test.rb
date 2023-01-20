@@ -187,6 +187,8 @@ module ONCCertificationG10TestKit
         resource_type, access_level = resource_scope_parts
         next unless access_level =~ access_level_regex
 
+        next unless ['patient', 'user', 'system'].include?(scope_type)
+
         assert_correct_scope_type(scope, scope_type, resource_type)
 
         granted_resource_types << resource_type
