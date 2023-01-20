@@ -79,6 +79,10 @@ module ONCCertificationG10TestKit
       config.options[:required_scope_type]
     end
 
+    def required_scopes
+      config.options[:required_scopes]
+    end
+
     def read_format
       @read_format ||=
         begin
