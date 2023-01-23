@@ -1414,6 +1414,7 @@ g10_certification-multi_patient_api_stu2-bulk_data_group_export_stu2-Test05: 8.2
 g10_certification-multi_patient_api_stu2-bulk_data_group_export_stu2-Test06: 8.2.06
 g10_certification-multi_patient_api_stu2-bulk_data_group_export_stu2-Test07: 8.2.07
 g10_certification-multi_patient_api_stu2-bulk_data_group_export_stu2-output_format_in_export_response: 8.2.08
+g10_certification-multi_patient_api_stu2-bulk_data_group_export_stu2-bulk_data_poll_cancelled_export: 8.2.09
 g10_certification-multi_patient_api_stu2-g10_bulk_group_export_tls_messages_setup: '8.02'
 g10_certification-multi_patient_api_stu2-bulk_data_group_export_validation: '8.3'
 g10_certification-multi_patient_api_stu2-bulk_data_group_export_validation-g10_bulk_file_server_tls_version: 8.3.01

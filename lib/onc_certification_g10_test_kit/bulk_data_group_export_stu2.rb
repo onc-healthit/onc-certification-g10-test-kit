@@ -26,10 +26,6 @@ module ONCCertificationG10TestKit
 
       input :bearer_token, :group_id, :bulk_server_url
 
-      http_client :bulk_server do
-        url :bulk_server_url
-      end
-
       run do
         ['application/fhir+ndjson', 'application/ndjson', 'ndjson'].each do |format|
           perform_export_kick_off_request(params: { _outputFormat: format })
@@ -37,6 +33,35 @@ module ONCCertificationG10TestKit
 
           delete_export_kick_off_request
         end
+      end
+    end
+
+    test do
+      title 'Bulk Data Server returns a 404 and OperationOutcome for polling requests to cancelled exports'
+      description <<~DESCRIPTION
+        > Following the delete request, when subsequent requests are made to the
+          polling location, the server SHALL return a 404 Not Found error and an
+          associated FHIR OperationOutcome in JSON format.
+
+        http://hl7.org/fhir/uv/bulkdata/STU2/export.html#bulk-data-delete-request
+      DESCRIPTION
+
+      id :bulk_data_poll_cancelled_export
+
+      input :cancelled_polling_url
+
+      run do
+        skip 'No polling url available' unless cancelled_polling_url.present?
+
+        get(cancelled_polling_url, headers: { authorization: "Bearer #{bearer_token}", accept: 'application/json' })
+
+        assert_response_status(404)
+
+        assert_valid_json(response[:body])
+        response_body = JSON.parse(response[:body])
+
+        assert response_body['resourceType'] == 'OperationOutcome', 'Server did not return an OperationOutcome'
+        assert_valid_resource(resource: FHIR::OperationOutcome.new(response_body))
       end
     end
   end

@@ -2186,6 +2186,7 @@ procedure:
         inferno_tests:
           - 7.2.07
           - 8.2.07
+          - 8.2.09
       - id: DAT-PAT-13
         SUT: |
           The health IT developer demonstrates the ability of the Health IT

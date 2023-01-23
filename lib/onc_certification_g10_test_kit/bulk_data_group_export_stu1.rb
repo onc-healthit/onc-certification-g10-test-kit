@@ -286,9 +286,13 @@ module ONCCertificationG10TestKit
 
       include ExportKickOffPerformer
 
+      output :cancelled_polling_url
+
       run do
         perform_export_kick_off_request
         assert_response_status(202)
+
+        output cancelled_polling_url: request.response_header('content-location')&.value
 
         delete_export_kick_off_request
       end
