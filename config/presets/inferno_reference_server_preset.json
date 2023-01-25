@@ -244,7 +244,27 @@
       "type": "text",
       "title": "Bulk Data Scopes",
       "description": "Bulk Data Scopes provided at registration to the Inferno application.",
-      "value": "system/*.read"
+      "value": "system/*.read",
+      "value_for_options": [
+        {
+          "options": [
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_1"
+            }
+          ],
+          "value": "system/*.read"
+        },
+        {
+          "options": [
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2"
+            }
+          ],
+          "value": "system/*.r"
+        }
+      ]
     },
     {
       "name": "bulk_encryption_method",
