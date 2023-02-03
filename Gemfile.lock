@@ -9,7 +9,7 @@ PATH
       mime-types (~> 3.4.0)
       ndjson (~> 1.0.0)
       rubyzip (~> 2.3.2)
-      smart_app_launch_test_kit (= 0.2.1)
+      smart_app_launch_test_kit (= 0.2.2)
       tls_test_kit (= 0.2.0)
       us_core_test_kit (= 0.4.5)
 
@@ -296,7 +296,7 @@ GEM
       connection_pool (>= 2.2.5, < 3)
       rack (~> 2.0)
       redis (>= 4.5.0, < 5)
-    smart_app_launch_test_kit (0.2.1)
+    smart_app_launch_test_kit (0.2.2)
       inferno_core (>= 0.4.2)
       jwt (~> 2.2)
       tls_test_kit (~> 0.2.0)
