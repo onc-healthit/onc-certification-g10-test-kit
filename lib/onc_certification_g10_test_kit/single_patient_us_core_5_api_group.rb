@@ -53,6 +53,32 @@ module ONCCertificationG10TestKit
 
     input_order :url, :patient_id, :additional_patient_ids, :implantable_device_codes, :smart_credentials
 
+    config(
+      options: {
+        required_resources: [
+          'Patient',
+          'AllergyIntolerance',
+          'CarePlan',
+          'CareTeam',
+          'Condition',
+          'Device',
+          'DiagnosticReport',
+          'DocumentReference',
+          'Encounter',
+          'Goal',
+          'Immunization',
+          'MedicationRequest',
+          'Observation',
+          'Procedure',
+          'ServiceRequest',
+          'Organization',
+          'Practitioner',
+          'Provenance',
+          'RelatedPerson'
+        ]
+      }
+    )
+
     test do
       id :g10_patient_id_setup
       title 'Manage patient id list'
