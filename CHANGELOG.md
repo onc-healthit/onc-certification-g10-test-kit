@@ -1,3 +1,17 @@
+# 3.5.0
+
+* Update SMART App Launch IG links in EHR Launch with Patient Scopes to point to
+  the correct IG versions (#391).
+* Add a new test for Bulk Data v2 which checks that polling for the status of a
+  cancelled export returns a 404 (#387).
+* Suppress missing scope warnings for the Limited App Launch when using SMART
+  App Launch STU 2(#393).
+* Update preset to support all IG versions (#395).
+* Add additional validations that patient/user level scopes are granted for the
+  Standalone Patient App and EHR Practitioner App tests (#390).
+* Add additional validations that the server advertises support for all required
+  resources in its CapabilityStatement (#400).
+
 # 3.4.0
 
 * Add an attestation that systems are capable of extending the duration of
