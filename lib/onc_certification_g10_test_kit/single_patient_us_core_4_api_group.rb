@@ -119,6 +119,34 @@ module ONCCertificationG10TestKit
       group(from: id, exclude_optional: true, config: group_config)
     end
 
+    groups.first.description %(
+      The Capability Statement test verifies a FHIR server's ability support the
+      [capability
+      operation](https://www.hl7.org/fhir/R4/capabilitystatement.html#instance)
+      to formally describe features supported by the API as a [Capability
+      Statement](https://www.hl7.org/fhir/R4/capabilitystatement.html) resource.
+      The capabilities described in the Capability Statement must be consistent with
+      the required capabilities of a US Core server.  This test also expects that
+      APIs state support for all resources types applicable to USCDI v1, as is
+      expected by the ONC (g)(10) Standardized API for Patient and Populations
+      Services certification criterion.
+
+      This test sequence accesses the server endpoint at `/metadata` using a
+      `GET` request. It parses the Capability Statement and verifies that:
+
+      * The endpoint is secured by an appropriate cryptographic protocol
+      * The resource matches the expected FHIR version defined by the tests
+      * The resource is a valid FHIR resource
+      * The server claims support for JSON encoding of resources
+      * The server claims support for all required USCDI resource types
+
+      It collects the following information that is saved in the testing session
+      for use by later tests:
+
+      * List of resource types supported
+      * List of queries parameters supported
+    )
+
     test from: :g10_incorrectly_permitted_tls_versions_messages_setup
   end
 end
