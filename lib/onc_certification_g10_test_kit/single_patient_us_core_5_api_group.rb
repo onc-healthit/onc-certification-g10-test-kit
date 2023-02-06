@@ -123,7 +123,7 @@ module ONCCertificationG10TestKit
 
     groups.first.description %(
       The Capability Statement test verifies a FHIR server's ability support the
-      [capability
+      [capabilities
       operation](https://www.hl7.org/fhir/R4/capabilitystatement.html#instance)
       to formally describe features supported by the API as a [Capability
       Statement](https://www.hl7.org/fhir/R4/capabilitystatement.html) resource.
