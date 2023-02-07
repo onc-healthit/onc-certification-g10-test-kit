@@ -7,8 +7,6 @@
 * Suppress missing scope warnings for the Limited App Launch when using SMART
   App Launch STU 2(#393).
 * Update preset to support all IG versions (#395).
-* Add additional validations that patient/user level scopes are granted for the
-  Standalone Patient App and EHR Practitioner App tests (#390).
 * Add additional validations that the server advertises support for all required
   resources in its CapabilityStatement (#400).
 
