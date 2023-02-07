@@ -139,12 +139,6 @@ module ONCCertificationG10TestKit
       * The resource is a valid FHIR resource
       * The server claims support for JSON encoding of resources
       * The server claims support for all required USCDI resource types
-
-      It collects the following information that is saved in the testing session
-      for use by later tests:
-
-      * List of resource types supported
-      * List of queries parameters supported
     )
 
     test from: :g10_incorrectly_permitted_tls_versions_messages_setup
