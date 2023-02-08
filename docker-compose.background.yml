@@ -1,7 +1,7 @@
 version: '3'
 services:
   validator_service:
-    image: infernocommunity/fhir-validator-service:v2.2.0
+    image: infernocommunity/fhir-validator-service:v2.2.1
     environment:
       - DISABLE_TX= true
     volumes:
