@@ -9,6 +9,9 @@
 * Update preset to support all IG versions (#395).
 * Add additional validations that the server advertises support for all required
   resources in its CapabilityStatement (#400).
+* Update the version of the FHIR Validator from 5.6.71 to 5.6.93.
+* Update the descriptions of the CapabilityStatement group to reflect the
+  (g)(10) requirements rather than the base US Core requirements (#402).
 
 # 3.4.0
 
