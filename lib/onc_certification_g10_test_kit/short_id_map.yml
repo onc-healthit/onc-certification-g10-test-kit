@@ -1365,7 +1365,6 @@ g10_certification-multi_patient_api-bulk_data_group_export-Test03: 7.2.03
 g10_certification-multi_patient_api-bulk_data_group_export-Test04: 7.2.04
 g10_certification-multi_patient_api-bulk_data_group_export-Test05: 7.2.05
 g10_certification-multi_patient_api-bulk_data_group_export-Test06: 7.2.06
-g10_certification-multi_patient_api-bulk_data_group_export-Test07: 7.2.07
 g10_certification-multi_patient_api-g10_bulk_group_export_tls_messages_setup: '7.02'
 g10_certification-multi_patient_api-bulk_data_group_export_validation: '7.3'
 g10_certification-multi_patient_api-bulk_data_group_export_validation-g10_bulk_file_server_tls_version: 7.3.01
@@ -1396,6 +1395,8 @@ g10_certification-multi_patient_api-bulk_data_group_export_validation-Test25: 7.
 g10_certification-multi_patient_api-bulk_data_group_export_validation-Test26: 7.3.26
 g10_certification-multi_patient_api-bulk_data_group_export_validation-Test27: 7.3.27
 g10_certification-multi_patient_api-g10_bulk_group_export_validation_messages_setup: '7.03'
+g10_certification-multi_patient_api-g10_bulk_data_export_cancel_stu1: '7.4'
+g10_certification-multi_patient_api-g10_bulk_data_export_cancel_stu1-g10_bulk_export_cancel: 7.4.01
 g10_certification-multi_patient_api_stu2: '8'
 g10_certification-multi_patient_api_stu2-bulk_data_authorization: '8.1'
 g10_certification-multi_patient_api_stu2-bulk_data_authorization-g10_bulk_token_tls_version: 8.1.01
@@ -1412,9 +1413,7 @@ g10_certification-multi_patient_api_stu2-bulk_data_group_export_stu2-Test03: 8.2
 g10_certification-multi_patient_api_stu2-bulk_data_group_export_stu2-Test04: 8.2.04
 g10_certification-multi_patient_api_stu2-bulk_data_group_export_stu2-Test05: 8.2.05
 g10_certification-multi_patient_api_stu2-bulk_data_group_export_stu2-Test06: 8.2.06
-g10_certification-multi_patient_api_stu2-bulk_data_group_export_stu2-Test07: 8.2.07
 g10_certification-multi_patient_api_stu2-bulk_data_group_export_stu2-output_format_in_export_response: 8.2.08
-g10_certification-multi_patient_api_stu2-bulk_data_group_export_stu2-bulk_data_poll_cancelled_export: 8.2.09
 g10_certification-multi_patient_api_stu2-g10_bulk_group_export_tls_messages_setup: '8.02'
 g10_certification-multi_patient_api_stu2-bulk_data_group_export_validation: '8.3'
 g10_certification-multi_patient_api_stu2-bulk_data_group_export_validation-g10_bulk_file_server_tls_version: 8.3.01
@@ -1445,6 +1444,9 @@ g10_certification-multi_patient_api_stu2-bulk_data_group_export_validation-Test2
 g10_certification-multi_patient_api_stu2-bulk_data_group_export_validation-Test26: 8.3.26
 g10_certification-multi_patient_api_stu2-bulk_data_group_export_validation-Test27: 8.3.27
 g10_certification-multi_patient_api_stu2-g10_bulk_group_export_validation_messages_setup: '8.03'
+g10_certification-multi_patient_api_stu2-g10_bulk_data_export_cancel_stu2: '8.4'
+g10_certification-multi_patient_api_stu2-g10_bulk_data_export_cancel_stu2-g10_bulk_export_cancel: 8.4.01
+g10_certification-multi_patient_api_stu2-g10_bulk_data_export_cancel_stu2-bulk_data_poll_cancelled_export: 8.4.02
 g10_certification-Group06: '9'
 g10_certification-Group06-g10_public_standalone_launch: '9.1'
 g10_certification-Group06-g10_public_standalone_launch-standalone_auth_tls: 9.1.01

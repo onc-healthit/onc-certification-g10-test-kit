@@ -1,4 +1,5 @@
 require_relative 'bulk_data_authorization'
+require_relative 'bulk_data_group_export_cancel_stu2'
 require_relative 'bulk_data_group_export_stu2'
 require_relative 'bulk_data_group_export_validation'
 
@@ -74,5 +75,7 @@ module ONCCertificationG10TestKit
 
     test from: :g10_incorrectly_permitted_tls_versions_messages_setup,
          id: :g10_bulk_group_export_validation_messages_setup
+
+    group from: :g10_bulk_data_export_cancel_stu2
   end
 end
