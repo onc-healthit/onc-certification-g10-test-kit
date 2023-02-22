@@ -1,14 +1,14 @@
-require_relative '../../lib/onc_certification_g10_test_kit/bulk_data_group_export_stu2'
+require_relative '../../lib/onc_certification_g10_test_kit/bulk_data_group_export_parameters'
 
-RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU2 do
-  let(:group) { Inferno::Repositories::TestGroups.new.find('bulk_data_group_export_stu2') }
-  let(:test_session) { repo_create(:test_session, test_suite_id: 'g10_certification') }
+RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportParameters do
+  let(:group) { Inferno::Repositories::TestGroups.new.find('g10_bulk_data_export_parameters') }
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
+  let(:test_session) { repo_create(:test_session, test_suite_id: 'g10_certification') }
   let(:export_url) { "#{bulk_server_url}/Group/#{group_id}/$export" }
   let(:bulk_server_url) { 'https://example.com/fhir' }
-  let(:polling_url) { 'https://wwww.polling_url.com' }
-  let(:bearer_token) { 'some_bearer' }
+  let(:bearer_token) { 'some_bearer_token_alphanumeric' }
   let(:group_id) { '1219' }
+  let(:polling_url) { 'https://redirect.com' }
   let(:input) do
     {
       bulk_server_url:,
