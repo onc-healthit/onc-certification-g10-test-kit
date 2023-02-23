@@ -126,7 +126,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportParameters do
     it 'passes if the server responds with a 202 to the kickoff request' do
       timestamp = Time.now.iso8601
       kickoff_request =
-        stub_request(:get, "#{export_url}?_since=#{timestamp}")
+        stub_request(:get, "#{export_url}?_since=#{ERB::Util.url_encode(timestamp)}")
           .to_return(status: 202, headers: { 'Content-Location' => polling_url })
 
       delete_request =
