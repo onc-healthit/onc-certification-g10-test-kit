@@ -36,8 +36,6 @@ module ONCCertificationG10TestKit
 
       include ExportKickOffPerformer
 
-      input :bearer_token, :group_id, :bulk_server_url
-
       run do
         ['application/fhir+ndjson', 'application/ndjson', 'ndjson'].each do |format|
           perform_export_kick_off_request(params: { _outputFormat: format })
@@ -45,6 +43,43 @@ module ONCCertificationG10TestKit
 
           delete_export_kick_off_request
         end
+      end
+    end
+
+    test do
+      title 'Bulk Data Server supports "_since" query parameter'
+      description <<~DESCRIPTION
+        [_since](http://hl7.org/fhir/uv/bulkdata/STU2/export.html#query-parameters):
+        This test verifies that the server accepts an export request with the
+        `_since` query parameter.
+      DESCRIPTION
+
+      id :g10_since_in_export_response
+
+      include ExportKickOffPerformer
+
+      input :since_timestamp,
+            title: 'Timestamp for _since parameter',
+            description: 'A timestamp formatted as a FHIR instant which will be used to test the ' \
+                         "server's support for the `_since` query parameter",
+            default: 1.week.ago.iso8601
+
+      run do
+        fhir_instant_regex = /
+          ([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)
+          -(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])
+          T([01][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)(\.[0-9]+)
+          ?(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))
+        /x
+
+        assert since_timestamp.match?(fhir_instant_regex),
+               "The provided `_since` timestamp `#{since_timestamp}` is not a valid " \
+               '[FHIR instant](https://www.hl7.org/fhir/datatypes.html#instant).'
+
+        perform_export_kick_off_request(params: { _since: since_timestamp })
+        assert_response_status(202)
+
+        delete_export_kick_off_request
       end
     end
   end

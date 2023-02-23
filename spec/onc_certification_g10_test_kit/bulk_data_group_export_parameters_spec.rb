@@ -112,4 +112,32 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportParameters do
       expect(delete_export_req).to have_been_made.at_least_times(3)
     end
   end
+
+  describe 'Bulk Data Server supports "_since" query parameter test' do
+    let(:runnable) { group.tests.find { |test| test.id.to_s.end_with? 'g10_since_in_export_response' } }
+
+    it 'fails if _since is not a valid FHIR instant' do
+      result = run(runnable, input.merge(since_timestamp: 'abc'))
+
+      expect(result.result).to eq('fail')
+      expect(result.result_message).to include('is not a valid [FHIR instant]')
+    end
+
+    it 'passes if the server responds with a 202 to the kickoff request' do
+      timestamp = Time.now.iso8601
+      kickoff_request =
+        stub_request(:get, "#{export_url}?_since=#{timestamp}")
+          .to_return(status: 202, headers: { 'Content-Location' => polling_url })
+
+      delete_request =
+        stub_request(:delete, polling_url)
+          .to_return(status: 202)
+
+      result = run(runnable, input.merge(since_timestamp: timestamp))
+
+      expect(result.result).to eq('pass')
+      expect(kickoff_request).to have_been_made.once
+      expect(delete_request).to have_been_made.once
+    end
+  end
 end
