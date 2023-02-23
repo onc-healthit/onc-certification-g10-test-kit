@@ -5,7 +5,7 @@ module ONCCertificationG10TestKit
     id :g10_bulk_data_export_cancel_stu1
     title 'Group Compartment Export Cancel Tests'
     description %(
-      TODO
+      Verify that the Bulk Data server supports cancelling requested exports.
     )
 
     input :bearer_token

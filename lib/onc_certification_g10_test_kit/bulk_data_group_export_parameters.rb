@@ -5,7 +5,7 @@ module ONCCertificationG10TestKit
     id :g10_bulk_data_export_parameters
     title 'Group Compartment Export Parameters Tests'
     description %(
-      TODO
+      Verify that the Bulk Data server supports required query parameters.
     )
 
     input :bearer_token
