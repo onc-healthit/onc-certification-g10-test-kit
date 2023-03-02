@@ -684,7 +684,7 @@ module ONCCertificationG10TestKit
                'Health IT developer did not attest that the Health IT Module meets the ' \
                'requirements for supporting the `_since` parameter for bulk data exports.'
 
-        pass bulk_v2_since_attestation_notes if refresh_token_refresh_notes.present?
+        pass bulk_v2_since_attestation_notes if bulk_v2_since_attestation_notes.present?
       end
     end
   end
