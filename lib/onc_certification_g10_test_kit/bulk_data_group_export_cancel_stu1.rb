@@ -6,6 +6,8 @@ module ONCCertificationG10TestKit
     title 'Group Compartment Export Cancel Tests'
     description %(
       Verify that the Bulk Data server supports cancelling requested exports.
+      This group initiates a new export and immediately cancels it to verify
+      correct behavior.
     )
 
     input :bearer_token

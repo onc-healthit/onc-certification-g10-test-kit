@@ -49,9 +49,19 @@ module ONCCertificationG10TestKit
     test do
       title 'Bulk Data Server supports "_since" query parameter'
       description <<~DESCRIPTION
-        [_since](http://hl7.org/fhir/uv/bulkdata/STU2/export.html#query-parameters):
         This test verifies that the server accepts an export request with the
-        `_since` query parameter.
+        `[_since](http://hl7.org/fhir/uv/bulkdata/STU2/export.html#query-parameters)`
+        query parameter.  It initiates a new export using a _since parameter of
+        one week ago, and ensures that the export was initiated succesfully.
+
+        The test does not attempt to verify that resources returned were
+        modified after the _since date that was requested, because the Bulk Data
+        specification provides latitude in determining exactly what data is
+        returned by the server.  The purpose of this test is to ensure that
+        export requests with this parameter are accepted and to highlight that
+        support of this parameter is required.
+
+        After the export was successfully initiated, it is then cancelled.
       DESCRIPTION
 
       id :g10_since_in_export_response
