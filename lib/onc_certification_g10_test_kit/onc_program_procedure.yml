@@ -2160,6 +2160,8 @@ procedure:
         inferno_tests:
           - 7.2.04 - 7.2.05
           - 8.2.04 - 8.2.05
+          - 8.5.01
+          - 8.5.02
       - id: DAT-PAT-11
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
@@ -2184,9 +2186,9 @@ procedure:
           adopted in § 170.215(a)(4).
         inferno_supported: 'yes'
         inferno_tests:
-          - 7.2.07
-          - 8.2.07
-          - 8.2.09
+          - 7.4.01
+          - 8.4.01
+          - 8.4.02
       - id: DAT-PAT-13
         SUT: |
           The health IT developer demonstrates the ability of the Health IT

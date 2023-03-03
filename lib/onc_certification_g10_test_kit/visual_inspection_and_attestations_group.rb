@@ -637,5 +637,55 @@ module ONCCertificationG10TestKit
         pass refresh_token_refresh_notes if refresh_token_refresh_notes.present?
       end
     end
+
+    test do
+      required_suite_options G10Options::BULK_DATA_2_REQUIREMENT
+      title 'Health IT developer attested that the Health IT Module meets the ' \
+            'requirements for supporting the `_since` parameter for bulk data exports.'
+      description %(
+        Resources will be included in the response if their state has changed
+        after the supplied time (e.g., if `Resource.meta.lastUpdated` is later
+        than the supplied `_since` time). In the case of a Group level export, the
+        server MAY return additional resources modified prior to the supplied
+        time if the resources belong to the patient compartment of a patient
+        added to the Group after the supplied time (this behavior SHOULD be
+        clearly documented by the server). For Patient- and Group-level
+        requests, the server MAY return resources that are referenced by the
+        resources being returned regardless of when the referenced resources
+        were last updated. For resources where the server does not maintain a
+        last updated time, the server MAY include these resources in a response
+        irrespective of the _since value supplied by a client.
+      )
+      id :g10_bulk_v2_since_attestation
+      input :bulk_v2_since_attestation,
+            title: 'Health IT developer attested that the Health IT Module meets the ' \
+                   'requirements for supporting the `_since` parameter for bulk data exports.',
+            type: 'radio',
+            default: 'false',
+            options: {
+              list_options: [
+                {
+                  label: 'Yes',
+                  value: 'true'
+                },
+                {
+                  label: 'No',
+                  value: 'false'
+                }
+              ]
+            }
+      input :bulk_v2_since_attestation_notes,
+            title: 'Notes, if applicable:',
+            type: 'textarea',
+            optional: true
+
+      run do
+        assert bulk_v2_since_attestation == 'true',
+               'Health IT developer did not attest that the Health IT Module meets the ' \
+               'requirements for supporting the `_since` parameter for bulk data exports.'
+
+        pass bulk_v2_since_attestation_notes if bulk_v2_since_attestation_notes.present?
+      end
+    end
   end
 end

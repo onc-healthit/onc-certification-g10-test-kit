@@ -1,14 +1,14 @@
-require_relative '../../lib/onc_certification_g10_test_kit/bulk_data_group_export_stu2'
+require_relative '../../lib/onc_certification_g10_test_kit/bulk_data_group_export_parameters'
 
-RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU2 do
-  let(:group) { Inferno::Repositories::TestGroups.new.find('bulk_data_group_export_stu2') }
-  let(:test_session) { repo_create(:test_session, test_suite_id: 'g10_certification') }
+RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportParameters do
+  let(:group) { Inferno::Repositories::TestGroups.new.find('g10_bulk_data_export_parameters') }
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
+  let(:test_session) { repo_create(:test_session, test_suite_id: 'g10_certification') }
   let(:export_url) { "#{bulk_server_url}/Group/#{group_id}/$export" }
   let(:bulk_server_url) { 'https://example.com/fhir' }
-  let(:polling_url) { 'https://wwww.polling_url.com' }
-  let(:bearer_token) { 'some_bearer' }
+  let(:bearer_token) { 'some_bearer_token_alphanumeric' }
   let(:group_id) { '1219' }
+  let(:polling_url) { 'https://redirect.com' }
   let(:input) do
     {
       bulk_server_url:,
@@ -113,38 +113,31 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU2 do
     end
   end
 
-  describe 'Status of cancelled export test' do
-    let(:runnable) { group.tests.find { |test| test.id.to_s.end_with? 'bulk_data_poll_cancelled_export' } }
-    let(:url) { 'http://example.com' }
+  describe 'Bulk Data Server supports "_since" query parameter test' do
+    let(:runnable) { group.tests.find { |test| test.id.to_s.end_with? 'g10_since_in_export_response' } }
 
-    it 'fails if a 404 is not received' do
-      stub_request(:get, url)
-        .to_return(status: 202)
-
-      result = run(runnable, cancelled_polling_url: url)
+    it 'fails if _since is not a valid FHIR instant' do
+      result = run(runnable, input.merge(since_timestamp: 'abc'))
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to match(/404/)
+      expect(result.result_message).to include('is not a valid [FHIR instant]')
     end
 
-    it 'fails if an OperationOutcome is not received' do
-      stub_request(:get, url)
-        .to_return(status: 404, body: '{}')
+    it 'passes if the server responds with a 202 to the kickoff request' do
+      timestamp = Time.now.iso8601
+      kickoff_request =
+        stub_request(:get, "#{export_url}?_since=#{ERB::Util.url_encode(timestamp)}")
+          .to_return(status: 202, headers: { 'Content-Location' => polling_url })
 
-      result = run(runnable, cancelled_polling_url: url)
+      delete_request =
+        stub_request(:delete, polling_url)
+          .to_return(status: 202)
 
-      expect(result.result).to eq('fail')
-      expect(result.result_message).to match(/OperationOutcome/)
-    end
-
-    it 'passes if a 404 and valid OperationOutcome are received' do
-      stub_request(:get, url)
-        .to_return(status: 404, body: FHIR::OperationOutcome.new.to_json)
-      allow_any_instance_of(runnable).to receive(:assert_valid_resource).and_return(true)
-
-      result = run(runnable, cancelled_polling_url: url)
+      result = run(runnable, input.merge(since_timestamp: timestamp))
 
       expect(result.result).to eq('pass')
+      expect(kickoff_request).to have_been_made.once
+      expect(delete_request).to have_been_made.once
     end
   end
 end
