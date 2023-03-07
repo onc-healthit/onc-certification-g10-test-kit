@@ -1,3 +1,17 @@
+# 3.6.0
+
+* Remove tests for Device UDI-PI presence from US Core 4 & 5 (#404).
+* Fix a bug in US Core 4 and 5 which removed
+  `MedicationRequest.reportedReference` from the list of Must Support
+  references (#412).
+* Add tests for the `_since` parameter for Bulk Data v2 (#405).
+* Validate that user/patient level scopes are granted in the Standalone Patient
+  App and EHR Practition App tests (#333).
+* Fix a bug which could prevent the `ServiceRequest.category:us-core` slice from
+  being recognized when present in US Core 5 (#406).
+* Fix a bug which caused an unhandled exception when a non-FHIR json payload is
+  received from a FHIR request (#397).
+
 # 3.5.0
 
 * Update SMART App Launch IG links in EHR Launch with Patient Scopes to point to
