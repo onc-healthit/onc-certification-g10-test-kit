@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    onc_certification_g10_test_kit (3.6.0.rc1)
+    onc_certification_g10_test_kit (3.6.0)
       bloomer (~> 1.0.0)
       colorize (~> 0.8.1)
       inferno_core (>= 0.4.8)
@@ -203,7 +203,7 @@ GEM
     mime-types-data (3.2023.0218.1)
     mini_portile2 (2.8.1)
     minitest (5.18.0)
-    msgpack (1.6.0)
+    msgpack (1.6.1)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.3.0)
