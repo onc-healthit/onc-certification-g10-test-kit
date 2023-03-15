@@ -1,6 +1,6 @@
 {
-  "title": "Inferno Reference Server",
-  "id": "g10-inferno-reference-server",
+  "title": "Local Reference Server",
+  "id": "g10-local-reference-server",
   "test_suite_id": "g10_certification",
   "inputs": [
     {
@@ -8,7 +8,7 @@
       "type": "text",
       "title": "Standalone FHIR Endpoint",
       "description": "URL of the FHIR endpoint used by standalone applications",
-      "value": "https://inferno.healthit.gov/reference-server/r4"
+      "value": "http://localhost:8080/reference-server/r4"
     },
     {
       "name": "standalone_client_id",
@@ -230,7 +230,7 @@
       "type": "text",
       "title": "Backend Services Token Endpoint",
       "description": "The OAuth 2.0 Token Endpoint used by the Backend Services specification\n                        to provide bearer tokens.",
-      "value": "https://inferno.healthit.gov/reference-server/oauth/bulk-token"
+      "value": "http://localhost:8080/reference-server/oauth/bulk-token"
     },
     {
       "name": "bulk_client_id",
@@ -290,7 +290,7 @@
       "type": "text",
       "title": "Bulk Data FHIR URL",
       "description": "The URL of the Bulk FHIR server.",
-      "value": "https://inferno.healthit.gov/reference-server/r4"
+      "value": "http://localhost:8080/reference-server/r4"
     },
     {
       "name": "group_id",
