@@ -70,6 +70,31 @@ simultaniously, please [configure the installation to use
 PostgreSQL](https://inferno-framework.github.io/inferno-core/deployment/database.html#postgresql)
 to ensure stability in this type of environment.
 
+### Running a local reference server
+If you would like to run a local reference server, uncomment the
+`inferno_reference_server` and `db` services in `docker-compose.background.yml`.
+The reference server will be available at
+`http://localhost:8080/reference-server`. It is highly recommended that you
+follow the instructions for [running Inferno with
+Ruby](https://inferno-framework.github.io/inferno-core/getting-started.html#development-with-ruby)
+when using a local reference server. If you are following those instructions,
+that is the only change which needs to be made in order for the reference server
+to be available when running `inferno services start`.
+
+If you want to use the local reference server with Docker only, additional steps
+need to be taken:
+
+* Uncomment the `inferno_reference_server` and `db` services in
+  `docker-compose.yml`.
+* [Update your systems hosts
+  file](https://www.howtogeek.com/27350/beginner-geek-how-to-edit-your-hosts-file/)
+  so that `inferno_reference_server` points to `127.0.0.1`. This is required so
+  that the reference server is available at the same url from within docker
+  (where Inferno is running) and within your browser (where portions of the
+  SMART App Launch workflow take place).
+* In `config/presets/local_reference_server.json`, replace all instances of
+  `localhost` with `inferno_reference_server.`
+
 ### Terminology Support
 #### Terminology prerequisites
 
