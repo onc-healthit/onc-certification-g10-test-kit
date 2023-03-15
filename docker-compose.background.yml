@@ -27,3 +27,20 @@ services:
     volumes:
       - ./data/redis:/data
     command: redis-server --appendonly yes
+  # inferno_reference_server:
+  #   image: infernocommunity/inferno-reference-server:v1.3.1
+  #   ports:
+  #     - "8080:8080"
+  #   environment:
+  #     - CUSTOM_BEARER_TOKEN=SAMPLE_TOKEN
+  #     - READ_ONLY=true
+  #   depends_on:
+  #     - db
+  # db:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.reference_server_database
+  #   environment:
+  #     - POSTGRES_HOST_AUTH_METHOD=trust
+  #   volumes:
+  #     - ./data/reference-server:/var/lib/postgresql/data

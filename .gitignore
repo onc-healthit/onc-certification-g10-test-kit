@@ -3,6 +3,7 @@
 /data/redis/*.rdb
 /data/redis/*.aof
 /data/redis/appendonlydir
+/data/reference-server
 /tmp/*
 !/tmp/.keep
 .env.local
