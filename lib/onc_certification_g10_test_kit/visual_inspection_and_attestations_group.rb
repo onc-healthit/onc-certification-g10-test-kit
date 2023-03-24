@@ -410,48 +410,6 @@ module ONCCertificationG10TestKit
     end
 
     test do
-      title 'Health IT developer demonstrates support for the Patient Demographics Previous Name USCDI v1 element.'
-      description %(
-        ONC certification criteria states that all USCDI v1 data classes and
-        elements need to be supported, including Patient Demographics - Previous
-        Name. However, US Core v3.1.1 does not tag the relevant element
-        (Patient.name.period) as MUST SUPPORT. The Health IT developer must
-        demonstrate support for this USCDI v1 element as described in the US
-        Core Patient Profile implementation guidance.
-      )
-      id 'Test12'
-
-      required_suite_options G10Options::US_CORE_3_REQUIREMENT
-
-      input :patient_previous_name_attestation,
-            title: 'Health IT developer demonstrates support for the Patient Demographics Previous Name USCDI v1 element.', # rubocop:disable Layout/LineLength
-            type: 'radio',
-            default: 'false',
-            options: {
-              list_options: [
-                {
-                  label: 'Yes',
-                  value: 'true'
-                },
-                {
-                  label: 'No',
-                  value: 'false'
-                }
-              ]
-            }
-      input :patient_previous_name_notes,
-            title: 'Notes, if applicable:',
-            type: 'textarea',
-            optional: true
-
-      run do
-        assert patient_previous_name_attestation == 'true',
-               'Health IT developer did not demonstrate that Patient Demographics Previous Name is supported.'
-        pass patient_previous_name_notes if patient_previous_name_notes.present?
-      end
-    end
-
-    test do
       title 'Health IT developer demonstrates support for issuing refresh tokens to native applications.'
       description %(
         The health IT developer demonstrates the ability of the Health IT Module
