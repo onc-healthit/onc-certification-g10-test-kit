@@ -1,3 +1,8 @@
+# 3.7.0
+
+* Relax MustSupport requirements for Patient's previous name and previous
+  address (#416).
+
 # 3.6.0
 
 * Remove tests for Device UDI-PI presence from US Core 4 & 5 (#404).
