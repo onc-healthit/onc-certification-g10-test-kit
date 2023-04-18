@@ -238,7 +238,9 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU1 do
       result = run(runnable, input)
 
       expect(result.result).to eq('skip')
-      expect(result.result_message).to eq('Server took more than 180 seconds to process the request.')
+      expect(result.result_message).to match(
+        /^Server already used \d+(\.\d+)? seconds processing this request, and next poll is \d+ seconds after. The total wait time for next poll is more than \d+ seconds time out setting.$/
+      )
     end
 
     it 'fails when server does not return "202 Accepted" nor "200 OK' do
