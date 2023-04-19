@@ -219,7 +219,9 @@ module ONCCertificationG10TestKit
         end
 
         if response[:status] == 202
-          skip "Server already used #{used_time} seconds processing this request, and next poll is #{wait_time} seconds after. The total wait time for next poll is more than #{timeout} seconds time out setting."
+          skip "Server already used #{used_time} seconds processing this request, " \
+               "and next poll is #{wait_time} seconds after. " \
+               "The total wait time for next poll is more than #{timeout} seconds time out setting."
         end
 
         assert_response_status(200)
