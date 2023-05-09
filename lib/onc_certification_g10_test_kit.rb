@@ -61,63 +61,78 @@ module ONCCertificationG10TestKit
       /Unknown ValueSet/
     ].freeze
 
-    validator do
-      url ENV.fetch('G10_VALIDATOR_URL', 'http://validator_service:4567')
+    [
+      G10Options::US_CORE_3_REQUIREMENT,
+      G10Options::US_CORE_4_REQUIREMENT,
+      G10Options::US_CORE_5_REQUIREMENT
+    ].each do |us_core_version_requirement|
+      validator :default, required_suite_options: us_core_version_requirement do
+        url ENV.fetch('G10_VALIDATOR_URL', 'http://validator_service:4567')
 
-      exclude_message do |message|
-        us_core_message_filters = USCoreTestKit::USCoreV311::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
-        if message.type == 'info' ||
-           (message.type == 'warning' && WARNING_INCLUSION_FILTERS.none? { |filter| filter.match? message.message }) ||
-           us_core_message_filters.any? { |filter| filter.match? message.message } ||
-           (
-             message.type == 'error' && (
-               message.message.match?(/\A\S+: \S+: Unknown Code/) ||
-               message.message.match?(/\A\S+: \S+: None of the codings provided are in the value set/) ||
-               message.message.match?(/\A\S+: \S+: The Coding provided \(\S*\) is not in the value set/)
-             )
-           )
-          true
-        else
-          false
+        us_core_message_filters =
+          case(us_core_version_requirement[:us_core_version])
+          when G10Options::US_CORE_3
+            USCoreTestKit::USCoreV311::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
+          when G10Options::US_CORE_4
+            USCoreTestKit::USCoreV400::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
+          when G10Options::US_CORE_5
+            USCoreTestKit::USCoreV501::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
+          end
+
+        exclude_message do |message|
+          if message.type == 'info' ||
+            (message.type == 'warning' && WARNING_INCLUSION_FILTERS.none? { |filter| filter.match? message.message }) ||
+            us_core_message_filters.any? { |filter| filter.match? message.message } ||
+            (
+              message.type == 'error' && (
+                message.message.match?(/\A\S+: \S+: Unknown Code/) ||
+                message.message.match?(/\A\S+: \S+: None of the codings provided are in the value set/) ||
+                message.message.match?(/\A\S+: \S+: The Coding provided \(\S*\) is not in the value set/)
+              )
+            )
+            true
+          else
+            false
+          end
         end
-      end
 
-      perform_additional_validation do |resource, profile_url|
-        versionless_profile_url, profile_version = profile_url.split('|')
-        profile_version = case profile_version
-                          when '4.0.0'
-                            '400'
-                          when '5.0.1'
-                            '501'
-                          else
-                            # This open-ended else is primarily for Vital Signs profiles in v3.1.1, which are tagged
-                            # with the base FHIR version (4.0.1).  The profiles were migrated to US Core in later
-                            # versions.
-                            '311'
-                          end
+        perform_additional_validation do |resource, profile_url|
+          versionless_profile_url, profile_version = profile_url.split('|')
+          profile_version = case profile_version
+                            when '4.0.0'
+                              '400'
+                            when '5.0.1'
+                              '501'
+                            else
+                              # This open-ended else is primarily for Vital Signs profiles in v3.1.1, which are tagged
+                              # with the base FHIR version (4.0.1).  The profiles were migrated to US Core in later
+                              # versions.
+                              '311'
+                            end
 
-        us_core_suite = USCoreTestKit.const_get("USCoreV#{profile_version}")::USCoreTestSuite
-        metadata = us_core_suite.metadata.find do |metadata_candidate|
-          metadata_candidate.profile_url == versionless_profile_url
+          us_core_suite = USCoreTestKit.const_get("USCoreV#{profile_version}")::USCoreTestSuite
+          metadata = us_core_suite.metadata.find do |metadata_candidate|
+            metadata_candidate.profile_url == versionless_profile_url
+          end
+          next if metadata.nil?
+
+          validation_messages = if resource.instance_of?(FHIR::Provenance)
+                                  USCoreTestKit::ProvenanceValidator.validate(resource)
+                                else
+                                  []
+                                end
+
+          terminology_validation_messages = metadata.bindings
+            .select { |binding_definition| binding_definition[:strength] == 'required' }
+            .flat_map do |binding_definition|
+              TerminologyBindingValidator.validate(resource, binding_definition)
+          rescue Inferno::UnknownValueSetException, Inferno::UnknownCodeSystemException => e
+            { type: 'warning', message: e.message }
+            end.compact
+
+          validation_messages.concat(terminology_validation_messages)
+          validation_messages
         end
-        next if metadata.nil?
-
-        validation_messages = if resource.instance_of?(FHIR::Provenance)
-                                USCoreTestKit::ProvenanceValidator.validate(resource)
-                              else
-                                []
-                              end
-
-        terminology_validation_messages = metadata.bindings
-          .select { |binding_definition| binding_definition[:strength] == 'required' }
-          .flat_map do |binding_definition|
-            TerminologyBindingValidator.validate(resource, binding_definition)
-        rescue Inferno::UnknownValueSetException, Inferno::UnknownCodeSystemException => e
-          { type: 'warning', message: e.message }
-          end.compact
-
-        validation_messages.concat(terminology_validation_messages)
-        validation_messages
       end
     end
 
