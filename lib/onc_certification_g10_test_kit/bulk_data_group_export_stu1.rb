@@ -200,6 +200,7 @@ module ONCCertificationG10TestKit
 
         wait_time = 1
         start = Time.now
+        used_time = 0
 
         loop do
           get(polling_url, headers: { authorization: "Bearer #{bearer_token}", accept: 'application/json' })
@@ -208,14 +209,21 @@ module ONCCertificationG10TestKit
 
           wait_time = retry_after_val.positive? ? retry_after_val : wait_time *= 2
 
-          seconds_used = Time.now - start + wait_time
+          used_time = Time.now - start
 
-          break if response[:status] != 202 || seconds_used > timeout
+          total_time_to_next_poll = Time.now - start + wait_time
+
+          break if response[:status] != 202 || total_time_to_next_poll > timeout
 
           sleep wait_time
         end
 
-        skip "Server took more than #{timeout} seconds to process the request." if response[:status] == 202
+        if response[:status] == 202
+          skip "Server already used #{used_time} seconds processing this request, " \
+               "and next poll is #{wait_time} seconds after. " \
+               "The total wait time for next poll is more than #{timeout} seconds time out setting."
+        end
+
         assert_response_status(200)
 
         assert request.response_header('content-type')&.value&.include?('application/json'),
