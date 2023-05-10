@@ -70,7 +70,7 @@ module ONCCertificationG10TestKit
         url ENV.fetch('G10_VALIDATOR_URL', 'http://validator_service:4567')
 
         us_core_message_filters =
-          case(us_core_version_requirement[:us_core_version])
+          case (us_core_version_requirement[:us_core_version])
           when G10Options::US_CORE_3
             USCoreTestKit::USCoreV311::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
           when G10Options::US_CORE_4
@@ -81,15 +81,17 @@ module ONCCertificationG10TestKit
 
         exclude_message do |message|
           if message.type == 'info' ||
-            (message.type == 'warning' && WARNING_INCLUSION_FILTERS.none? { |filter| filter.match? message.message }) ||
-            us_core_message_filters.any? { |filter| filter.match? message.message } ||
-            (
-              message.type == 'error' && (
-                message.message.match?(/\A\S+: \S+: Unknown Code/) ||
-                message.message.match?(/\A\S+: \S+: None of the codings provided are in the value set/) ||
-                message.message.match?(/\A\S+: \S+: The Coding provided \(\S*\) is not in the value set/)
-              )
-            )
+             (message.type == 'warning' && WARNING_INCLUSION_FILTERS.none? do |filter|
+                filter.match? message.message
+              end) ||
+             us_core_message_filters.any? { |filter| filter.match? message.message } ||
+             (
+               message.type == 'error' && (
+                 message.message.match?(/\A\S+: \S+: Unknown Code/) ||
+                 message.message.match?(/\A\S+: \S+: None of the codings provided are in the value set/) ||
+                 message.message.match?(/\A\S+: \S+: The Coding provided \(\S*\) is not in the value set/)
+               )
+             )
             true
           else
             false
