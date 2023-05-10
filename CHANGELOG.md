@@ -1,3 +1,10 @@
+# 3.7.1
+
+* Fix a misleading skip message in the bulk data tests when the next polling
+  time is past the maximum allowed time for polling (#426). This message now
+  indicates that the next polling time is past the limit, rather than that the
+  limit has already passed.
+
 # 3.7.0
 
 * Relax MustSupport requirements for Patient's previous name and previous
