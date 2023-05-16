@@ -746,31 +746,6 @@
       "value": null
     },
     {
-      "name": "patient_previous_name_attestation",
-      "type": "radio",
-      "title": "Health IT developer demonstrates support for the Patient Demographics Previous Name USCDI v1 element.",
-      "options": {
-        "list_options": [
-          {
-            "label": "Yes",
-            "value": "true"
-          },
-          {
-            "label": "No",
-            "value": "false"
-          }
-        ]
-      },
-      "value": "false"
-    },
-    {
-      "name": "patient_previous_name_notes",
-      "type": "textarea",
-      "title": "Notes, if applicable:",
-      "optional": true,
-      "value": null
-    },
-    {
       "name": "native_refresh_attestation",
       "type": "radio",
       "title": "Health IT developer demonstrates support for issuing refresh tokens to native applications.",
