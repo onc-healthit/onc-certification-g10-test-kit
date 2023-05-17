@@ -116,9 +116,9 @@ module ONCCertificationG10TestKit
         end
     end
 
-    def bad_format_message(scope)
+    def bad_format_message(scope, scope_direction = 'Requested')
       %(
-        Requested scope `#{scope}` does not follow the format:
+        #{scope_direction} scope `#{scope}` does not follow the format:
         `#{required_scope_type}/[ <ResourceType> | * ].[ #{read_format} ]`
       )
     end
@@ -131,12 +131,12 @@ module ONCCertificationG10TestKit
       end
     end
 
-    def assert_correct_scope_type(scope, scope_type, resource_type)
+    def assert_correct_scope_type(scope, scope_type, resource_type, scope_direction)
       if required_scope_type == 'patient' && patient_compartment_resource_types.exclude?(resource_type)
         assert ['user', 'patient'].include?(scope_type),
-               "Requested scope '#{scope}' must begin with either 'user/' or 'patient/'"
+               "#{scope_direction} scope '#{scope}' must begin with either 'user/' or 'patient/'"
       else
-        assert scope_type == required_scope_type, bad_format_message(scope)
+        assert scope_type == required_scope_type, bad_format_message(scope, scope_direction)
       end
     end
 
@@ -157,7 +157,7 @@ module ONCCertificationG10TestKit
         resource_type, access_level = resource_scope_parts
         assert access_level =~ access_level_regex, bad_format_message(scope)
 
-        assert_correct_scope_type(scope, scope_type, resource_type)
+        assert_correct_scope_type(scope, scope_type, resource_type, 'Requested')
 
         assert valid_resource_types.include?(resource_type),
                "'#{resource_type}' must be either a permitted resource type or '*'"
@@ -189,7 +189,7 @@ module ONCCertificationG10TestKit
 
         next unless ['patient', 'user', 'system'].include?(scope_type)
 
-        assert_correct_scope_type(scope, scope_type, resource_type)
+        assert_correct_scope_type(scope, scope_type, resource_type, 'Received')
 
         granted_resource_types << resource_type
       end

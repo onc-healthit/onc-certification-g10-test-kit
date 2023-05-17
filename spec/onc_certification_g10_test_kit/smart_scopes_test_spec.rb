@@ -143,14 +143,14 @@ RSpec.describe ONCCertificationG10TestKit::SMARTScopesTest do
     end
 
     context 'with received scopes' do
-      let(:requested_scopes) { "#{base_scopes} patient/Patient.read" }
+      let(:requested_scopes) { "#{base_scopes} user/Binary.read" }
 
       it 'fails if a patient-level scope is received' do
         bad_scope = 'patient/Patient.read'
-        result = run(test, requested_scopes:, received_scopes: "#{base_scopes} user/Binary.read #{bad_scope}")
+        result = run(test, requested_scopes:, received_scopes: "#{requested_scopes} #{bad_scope}")
 
         expect(result.result).to eq('fail')
-        expect(result.result_message).to match('does not follow the format')
+        expect(result.result_message).to match("Received scope `#{bad_scope}` does not follow the format")
         expect(result.result_message).to include(bad_scope)
       end
     end
