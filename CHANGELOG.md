@@ -1,3 +1,8 @@
+# 3.7.2
+
+* Fix an error message which could state that a requested scope is invalid when
+  it's actually a received scope which is invalid (#434).
+
 # 3.7.1
 
 * Fix a misleading skip message in the bulk data tests when the next polling
