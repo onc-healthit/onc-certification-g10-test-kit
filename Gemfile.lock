@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    onc_certification_g10_test_kit (3.7.2.rc1)
+    onc_certification_g10_test_kit (3.7.2)
       bloomer (~> 1.0.0)
       colorize (~> 0.8.1)
       inferno_core (>= 0.4.8)
@@ -194,7 +194,7 @@ GEM
       aes_key_wrap
       bindata
       httpclient
-    jwt (2.7.0)
+    jwt (2.7.1)
     kramdown (2.4.0)
       rexml
     method_source (1.0.0)
