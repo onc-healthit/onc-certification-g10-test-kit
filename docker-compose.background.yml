@@ -4,6 +4,7 @@ services:
     image: infernocommunity/fhir-validator-service:v2.2.1
     environment:
       - DISABLE_TX= true
+      - DISPLAY_ISSUES_ARE_WARNINGS=true
     volumes:
       - ./lib/onc_certification_g10_test_kit/igs:/home/igs
   # fhir_validator_app:
