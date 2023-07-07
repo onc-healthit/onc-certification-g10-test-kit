@@ -126,7 +126,7 @@ module ONCCertificationG10TestKit
                 .map(&:strip)
                 .map { |resource_type| "* #{resource_type}\n" }
                 .join
-
+            # rubocop:disable Layout/TrailingWhitespace
             <<~MESSAGE
               ### #{self.class.parent.parent.title}
 
@@ -142,6 +142,7 @@ module ONCCertificationG10TestKit
 
               #{expected_resource_string}
             MESSAGE
+            # rubocop:enable Layout/TrailingWhitespace
           end
         }
       )
@@ -251,7 +252,7 @@ module ONCCertificationG10TestKit
                 .map(&:strip)
                 .map { |resource_type| "* #{resource_type}\n" }
                 .join
-
+            # rubocop:disable Layout/TrailingWhitespace
             <<~MESSAGE
               ### #{self.class.parent.parent.title}
 
@@ -267,6 +268,7 @@ module ONCCertificationG10TestKit
 
               #{expected_resource_string}
             MESSAGE
+            # rubocop:enable Layout/TrailingWhitespace
           end
         }
       )

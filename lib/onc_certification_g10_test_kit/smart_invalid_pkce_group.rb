@@ -189,6 +189,7 @@ module ONCCertificationG10TestKit
          config: {
            options: {
              redirect_message_proc: lambda do |auth_url|
+               # rubocop:disable Layout/TrailingWhitespace
                %(
                 ### Invalid PKCE code_verifier 1/4
 
@@ -203,6 +204,7 @@ module ONCCertificationG10TestKit
                   with a state of  
                   #{state}`.
                )
+               # rubocop:enable Layout/TrailingWhitespace
              end
            }
          }
@@ -218,6 +220,7 @@ module ONCCertificationG10TestKit
          config: {
            options: {
              redirect_message_proc: lambda do |auth_url|
+               # rubocop:disable Layout/TrailingWhitespace
                %(
                 ### Invalid PKCE code_verifier 2/4
 
@@ -232,6 +235,7 @@ module ONCCertificationG10TestKit
                   with a state of  
                   `#{state}`.
                )
+               # rubocop:enable Layout/TrailingWhitespace
              end
            }
          }
@@ -251,6 +255,7 @@ module ONCCertificationG10TestKit
          config: {
            options: {
              redirect_message_proc: lambda do |auth_url|
+               # rubocop:disable Layout/TrailingWhitespace
                %(
                 ### Invalid PKCE code_verifier 3/4
 
@@ -265,6 +270,7 @@ module ONCCertificationG10TestKit
                   with a state of  
                   `#{state}`.
                )
+               # rubocop:enable Layout/TrailingWhitespace
              end
            }
          }
@@ -284,6 +290,7 @@ module ONCCertificationG10TestKit
          config: {
            options: {
              redirect_message_proc: lambda do |auth_url|
+               # rubocop:disable Layout/TrailingWhitespace
                %(
                 ### Invalid PKCE code_verifier 4/4
 
@@ -299,6 +306,7 @@ module ONCCertificationG10TestKit
                 with a state of  
                 `#{state}`.
                )
+               # rubocop:enable Layout/TrailingWhitespace
              end
            }
          }

@@ -285,6 +285,7 @@ module ONCCertificationG10TestKit
       )
 
       default_redirect_message_proc = lambda do |auth_url|
+        # rubocop:disable Layout/TrailingWhitespace
         %(
           ### #{self.class.parent.title}
 
@@ -295,6 +296,7 @@ module ONCCertificationG10TestKit
           with a state of  
           `#{state}`.
         )
+        # rubocop:enable Layout/TrailingWhitespace
       end
 
       group from: :g10_public_standalone_launch,
