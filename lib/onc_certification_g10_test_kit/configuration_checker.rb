@@ -41,6 +41,11 @@ module ONCCertificationG10TestKit
           message: "Expected FHIR validator version `#{EXPECTED_VALIDATOR_VERSION}`, but found `#{version}`"
         }]
       end
+    rescue JSON::ParserError => e
+      [{
+        type: 'error',
+        message: "Unable to parse Validator version '`#{response.body}`'. Parser error: `#{e.message}`"
+      }]
     rescue StandardError => e
       [{
         type: 'error',
