@@ -23,9 +23,9 @@ module ONCCertificationG10TestKit
     def validator_version_message
       response = Faraday.get "#{validator_url}/version"
 
-      if response.body.starts_with? "{"
+      if response.body.starts_with? '{'
         version_json = JSON.parse(response.body)
-        version = version_json["inferno-framework/fhir-validator-wrapper"]
+        version = version_json['inferno-framework/fhir-validator-wrapper']
       else
         version = response.body
       end
