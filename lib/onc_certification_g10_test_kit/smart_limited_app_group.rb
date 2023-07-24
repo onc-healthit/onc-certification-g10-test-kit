@@ -126,7 +126,7 @@ module ONCCertificationG10TestKit
                 .map(&:strip)
                 .map { |resource_type| "* #{resource_type}\n" }
                 .join
-            # rubocop:disable Layout/TrailingWhitespace
+
             <<~MESSAGE
               ### #{self.class.parent.parent.title}
 
@@ -134,15 +134,12 @@ module ONCCertificationG10TestKit
               server](#{auth_url}).
 
               Tests will resume once Inferno receives a request at
-              `#{config.options[:redirect_uri]}`  
-              with a state of  
-              `#{state}`.
+              `#{config.options[:redirect_uri]}` with a state of `#{state}`.
 
               Access should only be granted to the following resources:
 
               #{expected_resource_string}
             MESSAGE
-            # rubocop:enable Layout/TrailingWhitespace
           end
         }
       )
@@ -252,7 +249,7 @@ module ONCCertificationG10TestKit
                 .map(&:strip)
                 .map { |resource_type| "* #{resource_type}\n" }
                 .join
-            # rubocop:disable Layout/TrailingWhitespace
+
             <<~MESSAGE
               ### #{self.class.parent.parent.title}
 
@@ -260,15 +257,12 @@ module ONCCertificationG10TestKit
               server](#{auth_url}).
 
               Tests will resume once Inferno receives a request at
-              `#{config.options[:redirect_uri]}`  
-              with a state of  
-              `#{state}`.
+              `#{config.options[:redirect_uri]}` with a state of `#{state}`.
 
               Access should only be granted to the following resources:
 
               #{expected_resource_string}
             MESSAGE
-            # rubocop:enable Layout/TrailingWhitespace
           end
         }
       )

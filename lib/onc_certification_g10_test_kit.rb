@@ -285,18 +285,14 @@ module ONCCertificationG10TestKit
       )
 
       default_redirect_message_proc = lambda do |auth_url|
-        # rubocop:disable Layout/TrailingWhitespace
         %(
           ### #{self.class.parent.title}
 
           [Follow this link to authorize with the SMART server](#{auth_url}).
 
           Tests will resume once Inferno receives a request at
-          `#{config.options[:redirect_uri]}`  
-          with a state of  
-          `#{state}`.
+          `#{config.options[:redirect_uri]}` with a state of `#{state}`.
         )
-        # rubocop:enable Layout/TrailingWhitespace
       end
 
       group from: :g10_public_standalone_launch,
