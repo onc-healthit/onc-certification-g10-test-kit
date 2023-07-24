@@ -199,7 +199,7 @@ module ONCCertificationG10TestKit
                 server](#{auth_url}).
 
                   Tests will resume once Inferno receives a request at
-                  `#{config.options[:redirect_uri]}` with a state of #{state}`.
+                  `#{config.options[:redirect_uri]}` with a state of `#{state}`.
                )
              end
            }
@@ -288,8 +288,8 @@ module ONCCertificationG10TestKit
                 [Follow this link to authorize with the SMART
                 server](#{auth_url}).
 
-                Tests will resume once Inferno receives a request at
-                `#{config.options[:redirect_uri]}` with a state of `#{state}`.
+                  Tests will resume once Inferno receives a request at
+                  `#{config.options[:redirect_uri]}` with a state of `#{state}`.
                )
              end
            }
