@@ -230,7 +230,7 @@
       "type": "text",
       "title": "Backend Services Token Endpoint",
       "description": "The OAuth 2.0 Token Endpoint used by the Backend Services specification\n                        to provide bearer tokens.",
-      "value": "https://inferno.healthit.gov/reference-server/oauth/bulk-token"
+      "value": "https://inferno.healthit.gov/reference-server/oauth/token"
     },
     {
       "name": "bulk_client_id",
