@@ -25,7 +25,7 @@ module ONCCertificationG10TestKit
       to the app based on user input. The tester is expected to grant the
       application access to a subset of desired resource types. The launch is
       performed using the same app configuration as in the Standalone Patient
-      App test, demonstrating that the user is control over what scopes are
+      App test, demonstrating that the user has control over what scopes are
       granted to the app as required in the (g)(10) Standardized API criterion.
 
       * [SMART on FHIR
