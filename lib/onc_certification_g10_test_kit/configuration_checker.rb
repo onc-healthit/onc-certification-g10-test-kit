@@ -2,7 +2,7 @@ require_relative '../inferno/terminology/tasks/check_built_terminology'
 
 module ONCCertificationG10TestKit
   class ConfigurationChecker
-    EXPECTED_VALIDATOR_VERSION = '2.2.1'.freeze
+    EXPECTED_VALIDATOR_VERSION = '2.3.0'.freeze
 
     def configuration_messages
       validator_version_message + terminology_messages + version_message
