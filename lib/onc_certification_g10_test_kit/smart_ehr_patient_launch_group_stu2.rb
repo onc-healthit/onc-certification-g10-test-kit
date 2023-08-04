@@ -68,6 +68,10 @@ module ONCCertificationG10TestKit
         smart_token_url: {
           title: 'OAuth 2.0 Token Endpoint',
           description: 'OAuth 2.0 Token Endpoint provided during the EHR launch'
+        },
+        client_auth_type: {
+          locked: true,
+          default: 'confidential_symmetric'
         }
       },
       outputs: {

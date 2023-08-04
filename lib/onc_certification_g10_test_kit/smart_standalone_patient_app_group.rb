@@ -204,6 +204,10 @@ module ONCCertificationG10TestKit
                 name: :standalone_authorization_method,
                 default: 'get',
                 locked: true
+              },
+              client_auth_type: {
+                locked: true,
+                default: 'confidential_symmetric'
               }
             }
           } do

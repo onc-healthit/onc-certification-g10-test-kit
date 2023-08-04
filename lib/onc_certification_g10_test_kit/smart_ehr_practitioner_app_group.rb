@@ -53,6 +53,10 @@ module ONCCertificationG10TestKit
       inputs: {
         smart_credentials: {
           name: :ehr_smart_credentials
+        },
+        client_auth_type: {
+          locked: true,
+          default: 'confidential_symmetric'
         }
       }
     )

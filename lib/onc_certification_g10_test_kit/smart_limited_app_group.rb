@@ -220,7 +220,11 @@ module ONCCertificationG10TestKit
           smart_authorization_url: { locked: true, title: 'SMART Authorization Url' },
           smart_token_url: { locked: true, title: 'SMART Token Url' },
           received_scopes: { name: :limited_received_scopes },
-          smart_credentials: { name: :limited_smart_credentials }
+          smart_credentials: { name: :limited_smart_credentials },
+          client_auth_type: {
+            locked: true,
+            default: 'confidential_symmetric'
+          }
         },
         outputs: {
           code: { name: :limited_code },

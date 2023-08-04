@@ -70,6 +70,11 @@ module ONCCertificationG10TestKit
         },
         pkce_code_challenge_method: {
           locked: true
+        },
+        client_auth_type: {
+          name: :public_client_auth_type,
+          locked: true,
+          default: 'public'
         }
       },
       outputs: {
