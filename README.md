@@ -10,10 +10,11 @@ The **(g)(10) Standardized API Test Kit** behaves like an API consumer, making a
 series of HTTP requests that mimic a real world client to ensure that the API
 supports an approved version of each of the required standards:
 
-* Health Level 7 (HL7®) Fast Healthcare Interoperability Resources (FHIR®)
-* Release 4.0.1 FHIR US Core Implementation Guide (v3.1.1, v4.0.0, or v5.0.1)
+* Health Level 7 (HL7®) Fast Healthcare Interoperability Resources (FHIR®) (v4.0.1)
+* US Core Implementation Guide (v3.1.1, v4.0.0, or v5.0.1)
 * SMART Application Launch Framework Implementation Guide Release (v1.0.0, or
-  v2.0.0) HL7 FHIR Bulk Data Access (Flat FHIR) (v1.0.1, or v2.0.0)
+  v2.0.0)
+* HL7 FHIR Bulk Data Access (Flat FHIR) (v1.0.1, or v2.0.0)
 
 This test kit is [open source](#license) and freely available for use or
 adoption by the health IT community including EHR vendors, health app
