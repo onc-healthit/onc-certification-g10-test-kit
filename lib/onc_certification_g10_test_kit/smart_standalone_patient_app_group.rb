@@ -54,7 +54,15 @@ module ONCCertificationG10TestKit
       }
     )
 
-    input_order :url, :standalone_client_id, :standalone_client_secret
+    input_order :url,
+                :standalone_client_id,
+                :standalone_client_secret,
+                :standalone_requested_scopes,
+                :use_pkce,
+                :pkce_code_challenge_method,
+                :standalone_authorization_method,
+                :client_auth_type,
+                :client_auth_encryption_method
 
     group from: :smart_discovery do
       required_suite_options(G10Options::SMART_1_REQUIREMENT)

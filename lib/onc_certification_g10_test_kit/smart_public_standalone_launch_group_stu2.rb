@@ -104,7 +104,10 @@ module ONCCertificationG10TestKit
                 :use_pkce,
                 :pkce_code_challenge_method,
                 :smart_authorization_url,
-                :smart_token_url
+                :smart_token_url,
+                :authorization_method,
+                :public_client_auth_type,
+                :client_auth_encryption_method
 
     test from: :g10_patient_context,
          config: {

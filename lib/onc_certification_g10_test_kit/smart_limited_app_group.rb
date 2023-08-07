@@ -43,7 +43,11 @@ module ONCCertificationG10TestKit
                 :standalone_client_id,
                 :standalone_client_secret,
                 :smart_authorization_url,
-                :smart_token_url
+                :smart_token_url,
+                :standalone_requested_scopes,
+                :authorization_method,
+                :client_auth_type,
+                :client_auth_encryption_method
 
     group from: :smart_standalone_launch do
       title 'Standalone Launch With Limited Scope'

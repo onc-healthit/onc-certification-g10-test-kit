@@ -39,7 +39,8 @@ module ONCCertificationG10TestKit
           name: :ehr_patient_client_id
         },
         client_secret: {
-          name: :ehr_patient_client_secret
+          name: :ehr_patient_client_secret,
+          optional: false
         },
         requested_scopes: {
           name: :ehr_patient_requested_scopes,
@@ -101,7 +102,12 @@ module ONCCertificationG10TestKit
                 :ehr_patient_client_secret,
                 :smart_authorization_url,
                 :smart_token_url,
-                :authorization_method
+                :ehr_patient_requested_scopes,
+                :authorization_method,
+                :use_pkce,
+                :pkce_code_challenge_method,
+                :client_auth_type,
+                :client_auth_encryption_method
 
     test from: :g10_patient_context,
          config: {
