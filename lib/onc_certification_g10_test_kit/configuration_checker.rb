@@ -22,7 +22,13 @@ module ONCCertificationG10TestKit
 
     def validator_version_message
       response = Faraday.get "#{validator_url}/version"
-      version = response.body
+
+      if response.body.starts_with? '{'
+        version_json = JSON.parse(response.body)
+        version = version_json['inferno-framework/fhir-validator-wrapper']
+      else
+        version = response.body
+      end
 
       if version == EXPECTED_VALIDATOR_VERSION
         [{
@@ -35,6 +41,11 @@ module ONCCertificationG10TestKit
           message: "Expected FHIR validator version `#{EXPECTED_VALIDATOR_VERSION}`, but found `#{version}`"
         }]
       end
+    rescue JSON::ParserError => e
+      [{
+        type: 'error',
+        message: "Unable to parse Validator version '`#{response.body}`'. Parser error: `#{e.message}`"
+      }]
     rescue StandardError => e
       [{
         type: 'error',
