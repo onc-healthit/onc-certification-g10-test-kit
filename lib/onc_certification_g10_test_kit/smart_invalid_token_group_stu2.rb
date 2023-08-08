@@ -119,6 +119,10 @@ module ONCCertificationG10TestKit
         },
         pkce_code_verifier: {
           name: :invalid_token_pkce_code_verifier
+        },
+        client_auth_type: {
+          locked: true,
+          default: 'confidential_symmetric'
         }
       },
       outputs: {

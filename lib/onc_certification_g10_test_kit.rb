@@ -203,6 +203,12 @@ module ONCCertificationG10TestKit
                  ]
 
     config(
+      inputs: {
+        client_auth_encryption_method: {
+          title: 'Client Authentication Encryption Method',
+          locked: true
+        }
+      },
       options: {
         post_authorization_uri: "#{Inferno::Application['base_url']}/custom/smart_stu2/post_auth",
         incorrectly_permitted_tls_version_message_type: 'warning'

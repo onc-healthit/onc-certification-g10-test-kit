@@ -53,11 +53,23 @@ module ONCCertificationG10TestKit
       inputs: {
         smart_credentials: {
           name: :ehr_smart_credentials
+        },
+        client_auth_type: {
+          locked: true,
+          default: 'confidential_symmetric'
         }
       }
     )
 
-    input_order :url, :ehr_client_id, :ehr_client_secret
+    input_order :url,
+                :ehr_client_id,
+                :ehr_client_secret,
+                :ehr_requested_scopes,
+                :use_pkce,
+                :pkce_code_challenge_method,
+                :ehr_authorization_method,
+                :client_auth_type,
+                :client_auth_encryption_method
 
     group from: :smart_discovery do
       required_suite_options(G10Options::SMART_1_REQUIREMENT)

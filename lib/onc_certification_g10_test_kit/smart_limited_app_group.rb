@@ -43,7 +43,11 @@ module ONCCertificationG10TestKit
                 :standalone_client_id,
                 :standalone_client_secret,
                 :smart_authorization_url,
-                :smart_token_url
+                :smart_token_url,
+                :standalone_requested_scopes,
+                :authorization_method,
+                :client_auth_type,
+                :client_auth_encryption_method
 
     group from: :smart_standalone_launch do
       title 'Standalone Launch With Limited Scope'
@@ -220,7 +224,11 @@ module ONCCertificationG10TestKit
           smart_authorization_url: { locked: true, title: 'SMART Authorization Url' },
           smart_token_url: { locked: true, title: 'SMART Token Url' },
           received_scopes: { name: :limited_received_scopes },
-          smart_credentials: { name: :limited_smart_credentials }
+          smart_credentials: { name: :limited_smart_credentials },
+          client_auth_type: {
+            locked: true,
+            default: 'confidential_symmetric'
+          }
         },
         outputs: {
           code: { name: :limited_code },
