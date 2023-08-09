@@ -1,6 +1,6 @@
 # 3.8.0
 
-* Update the validator service to version 2.3.0 based on version 6.0.21 of the
+* Update the validator service to version 2.3.1 based on version 6.0.21 of the
   FHIR validation code (#449).
 * Minor visual updates.
 * Require a Client Secret input for EHR Launch with Patient Scopes (9.8, 9.9)
