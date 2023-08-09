@@ -3,6 +3,9 @@
 * Update the validator service to version 2.3.0 based on version 6.0.21 of the
   FHIR validation code (#449).
 * Minor visual updates.
+* Require a Client Secret input for EHR Launch with Patient Scopes (9.8, 9.9)
+  tests to be consistent with other SMART App Launch tests (1, 2, 3, 9.4, 9.5,
+  9.6, 9.7, 9.8, 9.9).
 * Update the version of the SMART App Launch Test Kit (#451). This update will
   add some additional inputs for app launch tests when using SMART App Launch
   2.0.0. These inputs are locked, so no change in behavior is needed when
