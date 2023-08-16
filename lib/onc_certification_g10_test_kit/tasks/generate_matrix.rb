@@ -190,13 +190,14 @@ module ONCCertificationG10TestKit
 
       # returns an array of options that apply to this test or group
       def applicable_options(runnable)
-
-          runnable_and_parents = [runnable].tap do |parents|
-            while runnable.respond_to?(:parent) && runnable.respond_to?(:suite_option_requirements) && (runnable = runnable.parent)
-              parents << runnable
-            end
+        runnable_and_parents = [runnable].tap do |parents|
+          while runnable.respond_to?(:parent) &&
+                runnable.respond_to?(:suite_option_requirements) &&
+                (runnable = runnable.parent)
+            parents << runnable
           end
-          runnable_and_parents.map(&:suite_option_requirements).compact.flatten
+        end
+        runnable_and_parents.map(&:suite_option_requirements).compact.flatten
       end
 
       def generate_inferno_test_worksheet # rubocop:disable Metrics/CyclomaticComplexity
