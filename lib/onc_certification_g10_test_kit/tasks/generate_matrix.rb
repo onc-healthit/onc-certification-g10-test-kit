@@ -188,6 +188,14 @@ module ONCCertificationG10TestKit
         end
       end
 
+      # returns an array of options that apply to this test or group
+      def applicable_options(runnable)
+        runnable_and_parents = [runnable].tap do |parents|
+          parents << parents.last.parent while parents.last.parent.present?
+        end
+        runnable_and_parents.map(&:suite_option_requirements).compact.flatten
+      end
+
       def generate_inferno_test_worksheet # rubocop:disable Metrics/CyclomaticComplexity
         workbook.add_worksheet('Inferno Tests')
         inferno_worksheet = workbook.worksheets[2]
@@ -207,7 +215,11 @@ module ONCCertificationG10TestKit
                 .min || 0
             description.lines.map { |l| l[natural_indent..] || "\n" }.join.strip
           end],
-          ['Test Procedure Steps', 30, ->(test) { inferno_to_procedure_map[test.short_id].join(', ') }]
+          ['Test Procedure Steps', 30, ->(test) { inferno_to_procedure_map[test.short_id].join(', ') }],
+          ['Standard Version Filter', 30, lambda do |test|
+            applicable_options(test).map(&:value).uniq.join(', ')
+          end]
+
         ]
 
         columns.each_with_index do |row_name, index|
@@ -218,10 +230,13 @@ module ONCCertificationG10TestKit
 
         test_suite.groups.each do |group|
           row += 1
-          inferno_worksheet.add_cell(row, 0, group.title)
+          inferno_worksheet.add_cell(row, 0, "#{group.short_id}: #{group.title}")
+          inferno_worksheet.add_cell(row, 6, applicable_options(group).map(&:value).uniq.join(', '))
           row += 1
           group.groups.each do |test_case|
             inferno_worksheet.add_cell(row, 1, "#{test_case.short_id}: #{test_case.title}")
+            inferno_worksheet.add_cell(row, 6, applicable_options(test_case).map(&:value).uniq.join(', '))
+
             row += 1
             test_case.tests.each do |test|
               this_row = columns.map do |column|
