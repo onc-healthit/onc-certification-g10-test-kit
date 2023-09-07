@@ -1,6 +1,6 @@
 {
   "title": "Inferno Reference Server",
-  "id": null,
+  "id": "g10-reference-server",
   "test_suite_id": "g10_certification",
   "inputs": [
     {
