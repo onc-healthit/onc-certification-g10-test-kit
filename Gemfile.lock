@@ -4,7 +4,7 @@ PATH
     onc_certification_g10_test_kit (3.8.1)
       bloomer (~> 1.0.0)
       colorize (~> 0.8.1)
-      inferno_core (>= 0.4.18)
+      inferno_core (>= 0.4.19)
       json-jwt (~> 1.15.3)
       mime-types (~> 3.4.0)
       ndjson (~> 1.0.0)
@@ -16,7 +16,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (6.1.7.4)
+    activesupport (6.1.7.6)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
@@ -87,7 +87,7 @@ GEM
       dry-core (~> 0.5, >= 0.5)
       dry-inflector (~> 0.1, >= 0.1.2)
       dry-logic (~> 1.0, >= 1.0.2)
-    factory_bot (6.2.1)
+    factory_bot (6.3.0)
       activesupport (>= 5.0.0)
     faraday (1.10.3)
       faraday-em_http (~> 1.0)
@@ -160,8 +160,8 @@ GEM
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
-    inferno_core (0.4.18)
-      activesupport (~> 6.1)
+    inferno_core (0.4.19)
+      activesupport (~> 6.1.7.5)
       base62-rb (= 0.3.1)
       blueprinter (= 0.25.2)
       dotenv (~> 2.7)
@@ -178,7 +178,7 @@ GEM
       oj (= 3.11.0)
       pry
       pry-byebug
-      puma (~> 5.3)
+      puma (~> 5.6.7)
       rake (~> 13.0)
       sequel (~> 5.42.0)
       sidekiq (~> 6.5.6)
