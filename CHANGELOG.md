@@ -1,3 +1,9 @@
+# 3.8.1
+
+* Add presets for the US Core Test Suites so that they will be available for
+  users who run the tests locally (#456).
+* Update dependencies with security vulnerabilities.
+
 # 3.8.0
 
 * Update the validator service to version 2.3.1 based on version 6.0.21 of the

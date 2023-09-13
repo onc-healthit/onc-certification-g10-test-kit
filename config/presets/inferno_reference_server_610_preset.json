@@ -1,7 +1,7 @@
 {
   "title": "Inferno Reference Server",
   "id": "us-core-6-reference-server",
-  "test_suite_id": "us_core_v600",
+  "test_suite_id": "us_core_v610",
   "inputs": [
     {
       "name": "url",
