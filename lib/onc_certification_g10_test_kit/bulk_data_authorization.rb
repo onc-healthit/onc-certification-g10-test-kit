@@ -41,7 +41,10 @@ module ONCCertificationG10TestKit
           }
     input :bulk_jwks_kid,
           title: 'Bulk Data JWKS kid',
-          description: 'The key ID of the JWKS private key to use for signing the client assertion when fetching an auth token. Defaults to the first JWK in the list if no kid is supplied.',
+          description: <<~DESCRIPTION,
+            The key ID of the JWKS private key to use for signing the client assertion when fetching an auth token.
+            Defaults to the first JWK in the list if no kid is supplied.
+          DESCRIPTION
           optional: true
     output :bearer_token
 
@@ -161,7 +164,8 @@ module ONCCertificationG10TestKit
                                                                  scope: bulk_scope,
                                                                  iss: 'not_a_valid_iss',
                                                                  sub: bulk_client_id,
-                                                                 aud: bulk_token_endpoint)
+                                                                 aud: bulk_token_endpoint,
+                                                                 kid: bulk_jwks_kid)
 
         post(**{ client: :token_endpoint }.merge(post_request_content))
 

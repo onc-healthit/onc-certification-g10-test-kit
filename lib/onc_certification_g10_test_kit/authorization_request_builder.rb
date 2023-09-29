@@ -25,7 +25,7 @@ module ONCCertificationG10TestKit
       client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
       exp: 5.minutes.from_now,
       jti: SecureRandom.hex(32),
-      kid:
+      kid: nil
     )
       @encryption_method = encryption_method
       @scope = scope
