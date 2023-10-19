@@ -4,7 +4,7 @@ PATH
     onc_certification_g10_test_kit (4.0.0.rc1)
       bloomer (~> 1.0.0)
       colorize (~> 0.8.1)
-      inferno_core (= 0.4.18)
+      inferno_core (~> 0.4.20)
       json-jwt (~> 1.15.3)
       mime-types (~> 3.4.0)
       ndjson (~> 1.0.0)
@@ -160,8 +160,8 @@ GEM
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
-    inferno_core (0.4.18)
-      activesupport (~> 6.1)
+    inferno_core (0.4.20)
+      activesupport (~> 6.1.7.5)
       base62-rb (= 0.3.1)
       blueprinter (= 0.25.2)
       dotenv (~> 2.7)
@@ -178,7 +178,7 @@ GEM
       oj (= 3.11.0)
       pry
       pry-byebug
-      puma (~> 5.3)
+      puma (~> 5.6.7)
       rake (~> 13.0)
       sequel (~> 5.42.0)
       sidekiq (~> 6.5.6)
