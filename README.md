@@ -124,7 +124,7 @@ Once that file exists, you can run the terminology creation task by using the
 following command:
 
 ```shell
-docker-compose -f terminology_compose.yml up --build
+docker compose -f terminology_compose.yml up --build
 ```
 
 This will run the terminology creation steps in order. These tasks may take
