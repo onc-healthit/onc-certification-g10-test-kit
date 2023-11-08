@@ -1,15 +1,15 @@
 require_relative 'incorrectly_permitted_tls_versions_messages_setup_test'
 
 module ONCCertificationG10TestKit
-  class SinglePatientUSCore4APIGroup < Inferno::TestGroup
-    id :g10_single_patient_us_core_4_api
-    title 'Single Patient API (US Core 4.0.0)'
+  class SinglePatientUSCore6APIGroup < Inferno::TestGroup
+    id :g10_single_patient_us_core_6_api
+    title 'Single Patient API (US Core 6.1.0)'
     short_title 'Single Patient API'
     description %(
       For each of the relevant USCDI data elements provided in the
       CapabilityStatement, this test executes the [required supported
-      searches](http://hl7.org/fhir/us/core/STU4/CapabilityStatement-us-core-server.html)
-      as defined by the US Core Implementation Guide v4.0.0.
+      searches](http://hl7.org/fhir/us/core/STU6.1/CapabilityStatement-us-core-server.html)
+      as defined by the US Core Implementation Guide v6.1.0.
 
       The test begins by searching by one or more patients, with the expectation
       that the Bearer token provided to the test grants access to all USCDI
@@ -17,15 +17,16 @@ module ONCCertificationG10TestKit
       queries and checks that the results are consistent with the provided
       search parameters. It then performs a read on each Resource returned and
       validates the response against the relevant
-      [profile](http://hl7.org/fhir/us/core/STU4/profiles-and-extensions.html)
+      [profile](http://hl7.org/fhir/us/core/STU6.1/profiles-and-extensions.html)
       as currently defined in the US Core Implementation Guide.
 
       All MUST SUPPORT elements must be seen before the test can pass, as well
       as Data Absent Reason to demonstrate that the server can properly handle
-      missing data. Note that Encounter, Organization and Practitioner resources
-      must be accessible as references in some US Core profiles to satisfy must
-      support requirements, and those references will be validated to their US
-      Core profile. These resources will not be tested for FHIR search support.
+      missing data. Note that Organization, Practitioner, and RelatedPerson
+      resources must be accessible as references in some US Core profiles to
+      satisfy must support requirements, and those references will be validated
+      to their US Core profile. These resources will not be tested for FHIR
+      search support.
     )
     run_as_group
 
@@ -60,7 +61,9 @@ module ONCCertificationG10TestKit
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-allergyintolerance',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-careplan',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-careteam',
-          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition',
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis',
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-problems-health-concerns',
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-coverage',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-implantable-device',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-lab',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note',
@@ -68,6 +71,7 @@ module ONCCertificationG10TestKit
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-goal',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-immunization',
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationdispense',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-medicationrequest',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-blood-pressure',
@@ -83,11 +87,49 @@ module ONCCertificationG10TestKit
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-pulse-oximetry',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-respiratory-rate',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-smokingstatus',
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-clinical-result',
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-occupation',
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-pregnancyintent',
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-pregnancystatus',
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-screening-assessment',
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-sexual-orientation',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure',
-          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-provenance'
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-provenance',
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-relatedperson',
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-servicerequest',
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-specimen'
+        ]
+      }
+    )
+
+    config(
+      options: {
+        required_resources: [
+          'Patient',
+          'AllergyIntolerance',
+          'CarePlan',
+          'CareTeam',
+          'Condition',
+          'Coverage',
+          'Device',
+          'DiagnosticReport',
+          'DocumentReference',
+          'Encounter',
+          'Goal',
+          'Immunization',
+          'MedicationDispense',
+          'MedicationRequest',
+          'Observation',
+          'Procedure',
+          'ServiceRequest',
+          'Specimen',
+          'Organization',
+          'Practitioner',
+          'Provenance',
+          'RelatedPerson'
         ]
       }
     )
@@ -118,7 +160,7 @@ module ONCCertificationG10TestKit
       end
     end
 
-    USCoreTestKit::USCoreV400::USCoreTestSuite.groups.each do |group|
+    USCoreTestKit::USCoreV610::USCoreTestSuite.groups.each do |group|
       test_group = group.ancestors[1]
 
       next if test_group.optional?
@@ -126,7 +168,7 @@ module ONCCertificationG10TestKit
       id = test_group.id
 
       group_config = {}
-      if test_group.respond_to?(:metadata) && test_group.metadata.delayed?
+      if test_group.respond_to?(:metadata) && test_group.metadata.resource != 'Specimen' && test_group.metadata.delayed?
         test_group.children.reject! { |child| child.include? USCoreTestKit::SearchTest }
         group_config[:options] = { read_all_resources: true }
       end
@@ -142,7 +184,7 @@ module ONCCertificationG10TestKit
       Statement](https://www.hl7.org/fhir/R4/capabilitystatement.html) resource.
       The capabilities described in the Capability Statement must be consistent with
       the required capabilities of a US Core server.  This test also expects that
-      APIs state support for all resources types applicable to USCDI v1, as is
+      APIs state support for all resources types applicable to USCDI v3, as is
       expected by the ONC (g)(10) Standardized API for Patient and Populations
       Services certification criterion.
 

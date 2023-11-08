@@ -10,25 +10,28 @@ module ONCCertificationG10TestKit
       resources during the SMART Launch process, and this test ensures they all
       can be accessed:
 
-        * AllergyIntolerance
-        * CarePlan
-        * CareTeam
-        * Condition
-        * Device
-        * DiagnosticReport
-        * DocumentReference
-        * Goal
-        * Immunization
-        * MedicationRequest
-        * Observation
-        * Procedure
-        * Patient
-        * Provenance
-        * Encounter
-        * Practitioner
-        * Organization
+      * AllergyIntolerance
+      * CarePlan
+      * CareTeam
+      * Condition
+      * Device
+      * DiagnosticReport
+      * DocumentReference
+      * Goal
+      * Immunization
+      * MedicationRequest
+      * Observation
+      * Procedure
+      * Patient
+      * Encounter
+      * Practitioner
+      * Organization
 
-      If testing against USCDI v2, ServiceRequest is also checked.
+      If testing against USCDI v2, Encounter and ServiceRequest are also
+      checked.
+
+      If testing against USCDI v3, Encounter, ServiceRequest, Coverage,
+      and MedicationDispense are also checked.
 
       For each of the resource types that can be mapped to USCDI data class or
       elements, this set of tests performs a minimum number of requests to
@@ -43,25 +46,33 @@ module ONCCertificationG10TestKit
       This set of tests does not attempt to access resources that do not
       directly map to USCDI. For USCDI v1 this includes:
 
-        * Encounter
-        * Location
-        * Organization
-        * Practitioner
+      * Encounter
+      * Location
+      * Organization
+      * Practitioner
 
       For USCDI v2 this includes:
 
-        * Location
-        * Organization
-        * Practitioner
+      * Location
+      * Organization
+      * Practitioner
+
+      For USCDI v3 this includes:
+
+      * Location
+      * Organization
+      * Practitioner
+      * RelatedPerson
 
       It also does not test Provenance, as this resource type is accessed by
-      queries through other resource types. These resources types are accessed
-      in the more comprehensive Single Patient Query tests.
+      queries through other resource types, or Specimen in USCDI v3 which only
+      requires support for read and search by id. These resources types are
+      accessed in the more comprehensive Single Patient Query tests.
 
       However, the authorization system must indicate that access is granted to
-      the Encounter, Practitioner and Organization resource types by providing
-      them in the returned scopes because they are required to support the read
-      interaction.
+      the Encounter, Practitioner and Organization (and RelatedPerson and
+      Specimen for USCDI v3) resource types by providing them in the returned
+      scopes because they are required to support the read interaction.
     )
     id :g10_unrestricted_resource_type_access
 
@@ -96,6 +107,8 @@ module ONCCertificationG10TestKit
 
     V5_ALL_RESOURCES = (ALL_RESOURCES + ['ServiceRequest']).freeze
 
+    V6_ALL_RESOURCES = (V5_ALL_RESOURCES + ['Coverage', 'MedicationDispense']).freeze
+
     NON_PATIENT_COMPARTMENT_RESOURCES =
       [
         'Encounter',
@@ -111,6 +124,8 @@ module ONCCertificationG10TestKit
     V5_NON_PATIENT_COMPARTMENT_RESOURCES =
       (NON_PATIENT_COMPARTMENT_RESOURCES - ['Encounter'] + ['ServiceRequest']).freeze
 
+    V6_NON_PATIENT_COMPARTMENT_RESOURCES = V5_NON_PATIENT_COMPARTMENT_RESOURCES
+
     test do
       include G10Options
 
@@ -123,11 +138,15 @@ module ONCCertificationG10TestKit
       def all_resources
         return V5_ALL_RESOURCES if using_us_core_5?
 
+        return V6_ALL_RESOURCES if using_us_core_6?
+
         ALL_RESOURCES
       end
 
       def non_patient_compartment_resources
         return V5_NON_PATIENT_COMPARTMENT_RESOURCES if using_us_core_5?
+
+        return V6_NON_PATIENT_COMPARTMENT_RESOURCES if using_us_core_6?
 
         NON_PATIENT_COMPARTMENT_RESOURCES
       end
@@ -356,6 +375,62 @@ module ONCCertificationG10TestKit
 
       def resource_group
         USCoreTestKit::USCoreV501::ServiceRequestGroup
+      end
+    end
+
+    test from: :g10_resource_access_test do
+      title 'Access to Encounter resources granted'
+      description %(
+        This test ensures that access to the Encounter is granted.
+      )
+      id :g10_us_core_6_encounter_unrestricted_access
+
+      required_suite_options G10Options::US_CORE_6_REQUIREMENT
+
+      def resource_group
+        USCoreTestKit::USCoreV610::EncounterGroup
+      end
+    end
+
+    test from: :g10_resource_access_test do
+      title 'Access to ServiceRequest resources granted'
+      description %(
+        This test ensures that access to the ServiceRequest is granted.
+      )
+      id :g10_us_core_6_service_request_unrestricted_access
+
+      required_suite_options G10Options::US_CORE_6_REQUIREMENT
+
+      def resource_group
+        USCoreTestKit::USCoreV610::ServiceRequestGroup
+      end
+    end
+
+    test from: :g10_resource_access_test do
+      title 'Access to Coverage resources granted'
+      description %(
+        This test ensures that access to the Coverage is granted.
+      )
+      id :g10_us_core_6_coverage_unrestricted_access
+
+      required_suite_options G10Options::US_CORE_6_REQUIREMENT
+
+      def resource_group
+        USCoreTestKit::USCoreV610::CoverageGroup
+      end
+    end
+
+    test from: :g10_resource_access_test do
+      title 'Access to MedicationDispense resources granted'
+      description %(
+        This test ensures that access to the MedicationDispense is granted.
+      )
+      id :g10_us_core_6_medication_dispense_unrestricted_access
+
+      required_suite_options G10Options::US_CORE_6_REQUIREMENT
+
+      def resource_group
+        USCoreTestKit::USCoreV610::MedicationDispenseGroup
       end
     end
   end

@@ -11,12 +11,16 @@ module ONCCertificationG10TestKit
     MAX_NUM_COLLECTED_LINES = 100
     MIN_RESOURCE_COUNT = 2
     OMIT_KLASS = ['Medication', 'Location', 'QuestionnaireResponse', 'PractitionerRole'].freeze
+    PROFILES_TO_SKIP = [
+      'http://hl7.org/fhir/us/core/StructureDefinition/us-core-simple-observation'
+    ].freeze
 
     def metadata_list
       @metadata_list ||=
         versioned_us_core_module::USCoreTestSuite
           .metadata
           .select { |metadata| metadata.resource == resource_type }
+          .reject { |metadata| PROFILES_TO_SKIP.include? metadata.profile_url }
     end
 
     def resources_from_all_files
