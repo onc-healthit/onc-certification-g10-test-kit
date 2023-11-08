@@ -1,3 +1,15 @@
+# 4.0.0
+
+* Add tests for US Core 6.1.0.
+* Update the terminology build process for US Core 6.1.0. It is necessary to
+  rerun the terminology build with this release.
+* CapabilityStatement tests now check that the server lists support for for all
+  required US Core profiles rather than only for all required USCDI resources
+  when using US Core 4, 5, or 6 (tests 5.1.05, 6.1.05, and 10.1.05)(#462).
+* Medication inclusion searches now check that all referenced Medication
+  resources are included in the search Bundle rather than only checking that
+  some Medication resources are included (#463).
+
 # 3.8.1
 
 * Add presets for the US Core Test Suites so that they will be available for
