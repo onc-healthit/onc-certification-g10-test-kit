@@ -159,7 +159,7 @@ GEM
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
-    inferno_core (0.4.23)
+    inferno_core (0.4.24)
       activesupport (~> 6.1.7.5)
       base62-rb (= 0.3.1)
       blueprinter (= 0.25.2)
