@@ -1,3 +1,13 @@
+# 4.1.0
+
+* Restore `component.dataAbsentReason` MustSupport for Blood Pressure profile
+  (#471).
+* Check for MustSupport elements within a slice only within that slice (#475).
+* Enforce reference profile validation check when there is only one reference
+  target type (#470).
+* Check that the `fhirContext` field is correctly formatted when present in the
+  token response (SMART App Launch STU 2 only) (#474).
+
 # 4.0.0
 
 * Add tests for US Core 6.1.0.
