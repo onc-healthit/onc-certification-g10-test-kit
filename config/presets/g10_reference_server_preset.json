@@ -8,7 +8,7 @@
       "type": "text",
       "title": "Standalone FHIR Endpoint",
       "description": "URL of the FHIR endpoint used by standalone applications",
-      "value": "<%= ENV.fetch('INFERNO_HOST', 'https://inferno.healthit.gov') %>/reference-server/r4"
+      "value": "https://inferno.healthit.gov/reference-server/r4"
     },
     {
       "name": "standalone_client_id",
@@ -282,7 +282,7 @@
       "type": "text",
       "title": "Backend Services Token Endpoint",
       "description": "The OAuth 2.0 Token Endpoint used by the Backend Services specification\n                        to provide bearer tokens.",
-      "value": "<%= ENV.fetch('INFERNO_HOST', 'https://inferno.healthit.gov') %>/reference-server/oauth/token"
+      "value": "https://inferno.healthit.gov/reference-server/oauth/token"
     },
     {
       "name": "bulk_client_id",
@@ -342,7 +342,7 @@
       "type": "text",
       "title": "Bulk Data FHIR URL",
       "description": "The URL of the Bulk FHIR server.",
-      "value": "<%= ENV.fetch('INFERNO_HOST', 'https://inferno.healthit.gov') %>/reference-server/r4"
+      "value": "https://inferno.healthit.gov/reference-server/r4"
     },
     {
       "name": "group_id",
