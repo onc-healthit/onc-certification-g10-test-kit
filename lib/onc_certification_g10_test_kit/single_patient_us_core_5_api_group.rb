@@ -58,6 +58,11 @@ module ONCCertificationG10TestKit
       oauth_credentials :smart_credentials
     end
 
+    # These tests can still be run if the user runs the entire suite at once
+    def self.user_runnable?
+      false
+    end
+
     input_order :url, :patient_id, :additional_patient_ids, :implantable_device_codes, :smart_credentials
 
     config(
