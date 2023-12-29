@@ -6,6 +6,11 @@ module ONCCertificationG10TestKit
     title 'Single Patient API (US Core 5.0.1)'
     short_title 'Single Patient API'
     description %(
+      **As of January 1, 2024, systems may no longer certify using US Core
+      5.0.1/USCDI v2. The US Core 5.0.1 tests currently remain so that testers
+      can view their previous results, but will be removed at some point in the
+      future.**
+
       For each of the relevant USCDI data elements provided in the
       CapabilityStatement, this test executes the [required supported
       searches](http://hl7.org/fhir/us/core/STU4/CapabilityStatement-us-core-server.html)
@@ -51,6 +56,11 @@ module ONCCertificationG10TestKit
     fhir_client do
       url :url
       oauth_credentials :smart_credentials
+    end
+
+    # These tests can still be run if the user runs the entire suite at once
+    def self.user_runnable?
+      false
     end
 
     input_order :url, :patient_id, :additional_patient_ids, :implantable_device_codes, :smart_credentials

@@ -179,10 +179,6 @@ module ONCCertificationG10TestKit
                      value: G10Options::US_CORE_4
                    },
                    {
-                     label: 'US Core 5.0.1 / USCDI v2',
-                     value: G10Options::US_CORE_5
-                   },
-                   {
                      label: 'US Core 6.1.0 / USCDI v3',
                      value: G10Options::US_CORE_6
                    }
