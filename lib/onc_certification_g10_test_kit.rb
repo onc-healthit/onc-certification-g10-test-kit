@@ -1,6 +1,7 @@
 require 'smart_app_launch/smart_stu1_suite'
 require 'smart_app_launch/smart_stu2_suite'
 require 'us_core_test_kit'
+require 'bulk_data_test_kit'
 
 require_relative 'onc_certification_g10_test_kit/configuration_checker'
 require_relative 'onc_certification_g10_test_kit/version'
@@ -22,8 +23,6 @@ require_relative 'onc_certification_g10_test_kit/smart_public_standalone_launch_
 require_relative 'onc_certification_g10_test_kit/smart_public_standalone_launch_group_stu2'
 require_relative 'onc_certification_g10_test_kit/smart_ehr_patient_launch_group'
 require_relative 'onc_certification_g10_test_kit/smart_ehr_patient_launch_group_stu2'
-require_relative 'onc_certification_g10_test_kit/multi_patient_api_stu1'
-require_relative 'onc_certification_g10_test_kit/multi_patient_api_stu2'
 require_relative 'onc_certification_g10_test_kit/terminology_binding_validator'
 require_relative 'onc_certification_g10_test_kit/token_revocation_group'
 require_relative 'onc_certification_g10_test_kit/visual_inspection_and_attestations_group'
@@ -199,7 +198,7 @@ module ONCCertificationG10TestKit
                    }
                  ]
 
-    suite_option :multi_patient_version,
+    suite_option :bulk_data_version,
                  title: 'Bulk Data Version',
                  list_options: [
                    {
@@ -286,10 +285,81 @@ module ONCCertificationG10TestKit
     group from: 'g10_single_patient_us_core_6_api',
           required_suite_options: G10Options::US_CORE_6_REQUIREMENT
 
-    group from: 'multi_patient_api',
-          required_suite_options: G10Options::BULK_DATA_1_REQUIREMENT
-    group from: 'multi_patient_api_stu2',
-          required_suite_options: G10Options::BULK_DATA_2_REQUIREMENT
+
+    fhir_client :bulk_server do
+      url :bulk_server_url
+    end
+
+    http_client :bulk_server do
+      url :bulk_server_url
+    end
+
+    group do
+      required_suite_options G10Options::BULK_DATA_1_REQUIREMENT 
+      id :g10_bulk_data_v101
+      title 'Bulk Data Access v1.0.1'
+      run_as_group
+
+      description %(
+        The Bulk Data Access Test Kit is a testing tool that will demonstrate the ability to export clinical data for multiple patients. This test kit is split into
+        two different types of bulk patient export: the export of patients in a specified group and the export of all patients, using [FHIR Bulk Data Access
+        IG](http://hl7.org/fhir/uv/bulkdata/STU1.0.1/). This test kit uses [Backend Services
+        Authorization](http://hl7.org/fhir/uv/bulkdata/STU1.0.1/authorization/index.html)
+        to obtain an access token from the server. After authorization, a group
+        level bulk data export request and a patient level bulk data export request (to request all patients) 
+        are initialized. Finally, the tests readexported NDJSON files from the server and validate the resources in
+        each file. To run these tests successfully, the selected group or patient export is
+        required to have every type of resource mapped to [USCDI data
+        elements](https://www.healthit.gov/isa/us-core-data-interoperability-uscdi).
+        Additionally, it is expected the server will provide Encounter,
+        Location, Organization, and Practitioner resources as they are
+        referenced as must support elements in required resources.
+
+        To get started, please first register Inferno with the following JWK Set
+        Url:
+
+        * `#{Inferno::Application[:base_url]}/custom/g10_certification/.well-known/jwks.json`
+
+        Systems must pass all tests in order to qualify for ONC certification.
+      )
+
+      group from: 'bulk_data_group_export_v101'
+      group from: 'bulk_data_patient_export_v101'
+    end
+
+    group do
+      required_suite_options G10Options::BULK_DATA_2_REQUIREMENT
+      id :g10_bulk_data_v200
+      title 'Bulk Data Access v2.0.0'
+      run_as_group
+
+      description %(
+        The Bulk Data Access Test Kit is a testing tool that will demonstrate the ability to export clinical data for multiple patients. This test kit is split into
+        two different types of bulk patient export: the export of patients in a specified group and the export of all patients, using [FHIR Bulk Data Access
+        IG](http://hl7.org/fhir/uv/bulkdata/STU1.0.1/). This test kit uses [Backend Services
+        Authorization](http://hl7.org/fhir/uv/bulkdata/STU1.0.1/authorization/index.html)
+        to obtain an access token from the server. After authorization, a group
+        level bulk data export request and a patient level bulk data export request (to request all patients) 
+        are initialized. Finally, the tests readexported NDJSON files from the server and validate the resources in
+        each file. To run these tests successfully, the selected group or patient export is
+        required to have every type of resource mapped to [USCDI data
+        elements](https://www.healthit.gov/isa/us-core-data-interoperability-uscdi).
+        Additionally, it is expected the server will provide Encounter,
+        Location, Organization, and Practitioner resources as they are
+        referenced as must support elements in required resources.
+
+        To get started, please first register Inferno with the following JWK Set
+        Url:
+
+        * `#{Inferno::Application[:base_url]}/custom/g10_certification/.well-known/jwks.json`
+
+        Systems must pass all tests in order to qualify for ONC certification.
+      )
+
+      group from: 'bulk_data_group_export_v200'
+      group from: 'bulk_data_patient_export_v200'
+    end
+
 
     group do
       title 'Additional Tests'

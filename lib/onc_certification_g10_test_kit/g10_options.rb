@@ -5,8 +5,8 @@ module ONCCertificationG10TestKit
     US_CORE_5 = 'us_core_5'.freeze
     US_CORE_6 = 'us_core_6'.freeze
 
-    BULK_DATA_1 = 'multi_patient_api_stu1'.freeze
-    BULK_DATA_2 = 'multi_patient_api_stu2'.freeze
+    BULK_DATA_1 = 'bulk_data_1'.freeze
+    BULK_DATA_2 = 'bulk_data_2'.freeze
 
     SMART_1 = 'smart_app_launch_1'.freeze
     SMART_2 = 'smart_app_launch_2'.freeze
@@ -16,8 +16,8 @@ module ONCCertificationG10TestKit
     US_CORE_5_REQUIREMENT = { us_core_version: US_CORE_5 }.freeze
     US_CORE_6_REQUIREMENT = { us_core_version: US_CORE_6 }.freeze
 
-    BULK_DATA_1_REQUIREMENT = { multi_patient_version: BULK_DATA_1 }.freeze
-    BULK_DATA_2_REQUIREMENT = { multi_patient_version: BULK_DATA_2 }.freeze
+    BULK_DATA_1_REQUIREMENT = { bulk_data_version: BULK_DATA_1 }.freeze
+    BULK_DATA_2_REQUIREMENT = { bulk_data_version: BULK_DATA_2 }.freeze
 
     SMART_1_REQUIREMENT = { smart_app_launch_version: SMART_1 }.freeze
     SMART_2_REQUIREMENT = { smart_app_launch_version: SMART_2 }.freeze
