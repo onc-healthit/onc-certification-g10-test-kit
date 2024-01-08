@@ -1,3 +1,7 @@
+# 5.0.0
+
+* Remove US Core 5 tests (#478).
+
 # 4.1.0
 
 * Restore `component.dataAbsentReason` MustSupport for Blood Pressure profile
