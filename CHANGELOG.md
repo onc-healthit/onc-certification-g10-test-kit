@@ -1,6 +1,7 @@
 # 5.0.0
 
 * Remove US Core 5 tests (#478).
+* Add tests for Encounter context during EHR Launch for US Core 6 (#480).
 
 # 4.1.0
 
