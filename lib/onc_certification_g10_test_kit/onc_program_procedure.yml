@@ -77,7 +77,6 @@ procedure:
           - 3.4.06
           - 4.1.01
           - 5.1.01
-          - 6.1.01
           - 10.1.01
           - 7.1.01
           - 7.2.01
@@ -244,6 +243,7 @@ procedure:
           “.well-known/smart-configuration.json” path to support at least the
           following as detailed in the implementation specification adopted in §
           170.215(a)(3):
+
           * “authorization_endpoint”;
           * “token_endpoint”;
           * “capabilities” including support for “launch-ehr",
@@ -259,13 +259,14 @@ procedure:
             not include support for “plain”
 
           Additionally, the following “capabilities” must be supported if using
-          US Core 5.0.1:
+          US Core 5.0.1 or 6.1.0:
           * "context-ehr-encounter"
         TLV: |
           [Both] The tester verifies the ability of the
           “.well-known/smart-configuration.json” path to support at least the
           following as detailed in the implementation specification adopted in §
           170.215(a)(3):
+
           * “authorization_endpoint”;
           * “token_endpoint”;
           * “capabilities” including support for “launch-ehr",
@@ -281,7 +282,7 @@ procedure:
             not include support for “plain”
 
           Additionally, the following “capabilities” must be supported if using
-          US Core 5.0.1:
+          US Core 5.0.1 or 6.1.0:
           * "context-ehr-encounter"
         inferno_supported: 'yes'
         inferno_tests:
@@ -797,6 +798,7 @@ procedure:
           IT Module to return a JSON object to applications according to the
           implementation specification adopted in § 170.215(a)(3) and standard
           adopted in § 170.215(b), including the following:
+
           * “access_token”;
           * “token_type”;
           * “scope”;
@@ -813,14 +815,16 @@ procedure:
           * “smart_style_url” (to support “context-style” “SMART on FHIR® Core
             Capability” for EHR-Launch mode only).
 
-          Additionally, the following must be supported if using US Core 5.0.1:
-          * “encounter” (to support"context-ehr-encounter" “SMART on FHIR®
+          Additionally, the following must be supported if using US Core 5.0.1
+          or 6.1.0:
+          * “encounter” (to support "context-ehr-encounter" “SMART on FHIR®
             Capability”)
         TLV: |
           [Both] The tester verifies the ability of the Health IT Module to
           return a JSON object to applications according to the implementation
           specification adopted in § 170.215(a)(3) and standard adopted in §
           170.215(b), including the following:
+
           * “access_token”;
           * “token_type”;
           * “scope”;
@@ -837,7 +841,8 @@ procedure:
           * “smart_style_url” (to support “context-style” “SMART on FHIR® Core
             Capability” for EHR-Launch mode only).
 
-          Additionally, the following must be supported if using US Core 5.0.1:
+          Additionally, the following must be supported if using US Core 5.0.1
+          or 6.1.0:
           * “encounter” (to support"context-ehr-encounter" “SMART on FHIR®
             Capability”)
         inferno_supported: 'yes'
@@ -895,7 +900,7 @@ procedure:
         inferno_tests:
           - 2.1.02 - 2.1.09
           - 2.2.02 - 2.2.09
-          - 2.3.01 - 2.3.15
+          - 2.3.01 - 2.3.19
           - 9.5.01 - 9.5.04
           - 9.6.01 - 9.6.04
       - id: AUT-PAT-19
@@ -930,10 +935,8 @@ procedure:
           return an “Encounter” FHIR® resource that matches the encounter
           context provided in step AUT-PAT-9 of this section according to the
           implementation specification adopted in § 170.215(a)(2).
-        inferno_supported: 'yes'
+        inferno_supported: 'no'
         inferno_tests:
-          - 3.3.13
-          - 3.4.13
       - id: AUT-PAT-20
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
@@ -1237,7 +1240,6 @@ procedure:
         inferno_tests:
           - 4.1.02 - 4.1.05
           - 5.1.02 - 5.1.06
-          - 6.1.02 - 6.1.06
           - 10.1.02 - 10.1.06
       - id: SH-PAT-2
         SUT: |
@@ -1310,41 +1312,6 @@ procedure:
           - 5.26.01
           - 5.27.01
           - 5.28.01
-          - 6.2.01
-          - 6.3.01
-          - 6.4.01
-          - 6.5.01
-          - 6.6.01
-          - 6.7.01
-          - 6.8.01
-          - 6.9.01
-          - 6.10.01
-          - 6.11.01
-          - 6.12.01
-          - 6.13.01
-          - 6.14.01
-          - 6.15.01
-          - 6.16.01
-          - 6.17.01
-          - 6.18.01
-          - 6.19.01
-          - 6.20.01
-          - 6.21.01
-          - 6.22.01
-          - 6.23.01
-          - 6.24.01
-          - 6.25.01
-          - 6.26.01
-          - 6.27.01
-          - 6.28.01
-          - 6.29.01
-          - 6.30.01
-          - 6.31.01
-          - 6.32.01
-          - 6.33.01
-          - 6.34.01
-          - 6.35.01
-          - 6.36.01
           - 10.2.01
           - 10.3.01
           - 10.4.01
@@ -1452,41 +1419,6 @@ procedure:
           - 5.26.05
           - 5.27.05
           - 5.28.04
-          - 6.2.07
-          - 6.3.03
-          - 6.4.03
-          - 6.5.03
-          - 6.6.03
-          - 6.7.03
-          - 6.8.03
-          - 6.9.06
-          - 6.10.06
-          - 6.11.07
-          - 6.12.05
-          - 6.13.03
-          - 6.14.03
-          - 6.15.04
-          - 6.16.05
-          - 6.17.05
-          - 6.18.05
-          - 6.19.05
-          - 6.20.05
-          - 6.21.05
-          - 6.22.05
-          - 6.23.05
-          - 6.24.05
-          - 6.25.03
-          - 6.26.05
-          - 6.27.05
-          - 6.28.05
-          - 6.29.05
-          - 6.30.05
-          - 6.31.05
-          - 6.32.05
-          - 6.33.05
-          - 6.34.05
-          - 6.35.04
-          - 6.36.07
           - 10.2.01
           - 10.3.01
           - 10.4.01
@@ -1636,49 +1568,10 @@ procedure:
           - 5.30.01
           - 5.31.01
           - 5.32.01
-          - 6.2.06
-          - 6.3.02
-          - 6.4.02
-          - 6.5.02
-          - 6.6.02
-          - 6.7.02
-          - 6.8.02
-          - 6.9.05
-          - 6.10.05
-          - 6.11.06
-          - 6.12.04
-          - 6.13.02
-          - 6.14.02
-          - 6.15.03
-          - 6.16.04
-          - 6.17.04
-          - 6.18.04
-          - 6.19.04
-          - 6.20.04
-          - 6.21.04
-          - 6.22.04
-          - 6.23.04
-          - 6.24.04
-          - 6.25.02
-          - 6.26.04
-          - 6.27.04
-          - 6.28.04
-          - 6.29.04
-          - 6.30.04
-          - 6.31.04
-          - 6.32.04
-          - 6.33.04
-          - 6.34.04
-          - 6.35.03
-          - 6.36.06
-          - 6.37.01
-          - 6.38.01
-          - 6.39.01
-          - 6.40.01
           - 7.3.03
-          - 7.3.06 - 7.3.27
+          - 7.3.06 - 7.3.34
           - 8.3.03
-          - 8.3.06 - 8.3.27
+          - 8.3.06 - 8.3.34
           - 10.2.06
           - 10.3.02
           - 10.4.02
@@ -1813,45 +1706,6 @@ procedure:
           - 5.30.02 - 5.30.03
           - 5.31.02 - 5.31.03
           - 5.32.02 - 5.32.03
-          - 6.2.08 - 6.2.09
-          - 6.3.04 - 6.3.05
-          - 6.4.04 - 6.4.05
-          - 6.5.04 - 6.5.05
-          - 6.6.04 - 6.6.05
-          - 6.7.04 - 6.7.05
-          - 6.8.05 - 6.8.06
-          - 6.9.07 - 6.9.08
-          - 6.10.07 - 6.10.08
-          - 6.11.08 - 6.11.09
-          - 6.12.06 - 6.12.07
-          - 6.13.04 - 6.13.05
-          - 6.14.04 - 6.14.05
-          - 6.15.06 - 6.15.07
-          - 6.16.06 - 6.16.07
-          - 6.17.06 - 6.17.07
-          - 6.18.06 - 6.18.07
-          - 6.19.06 - 6.19.07
-          - 6.20.06 - 6.20.07
-          - 6.21.06 - 6.21.07
-          - 6.22.06 - 6.22.07
-          - 6.23.06 - 6.23.07
-          - 6.24.06 - 6.24.07
-          - 6.25.04 - 6.25.05
-          - 6.26.06 - 6.26.07
-          - 6.27.06 - 6.27.07
-          - 6.28.06 - 6.28.07
-          - 6.29.06 - 6.29.07
-          - 6.30.06 - 6.30.07
-          - 6.31.06 - 6.31.07
-          - 6.32.06 - 6.32.07
-          - 6.33.06 - 6.33.07
-          - 6.34.06 - 6.34.07
-          - 6.35.05 - 6.35.06
-          - 6.36.08 - 6.36.09
-          - 6.37.02 - 6.37.03
-          - 6.38.02 - 6.38.03
-          - 6.39.02 - 6.39.03
-          - 6.40.02 - 6.40.03
           - 10.2.08 - 10.2.09
           - 10.3.04 - 10.3.05
           - 10.4.04 - 10.4.05
@@ -1896,9 +1750,9 @@ procedure:
           - 10.43.02 - 10.43.03
           - 10.44.03 - 10.44.04
           - 7.3.03
-          - 7.3.06 - 7.3.27
+          - 7.3.06 - 7.3.34
           - 8.3.03
-          - 8.3.06 - 8.3.27
+          - 8.3.06 - 8.3.34
         inferno_notes: |
           The requirement "all information is accurate and without omission"
           cannot be verified automatically by Inferno, as Inferno only has
@@ -1981,42 +1835,6 @@ procedure:
           - 5.27.05
           - 5.28.04
           - 5.32.01 - 5.32.04
-          - 6.2.07
-          - 6.3.03
-          - 6.4.03
-          - 6.5.03
-          - 6.6.03
-          - 6.7.03
-          - 6.8.03
-          - 6.9.06
-          - 6.10.06
-          - 6.11.07
-          - 6.12.05
-          - 6.13.03
-          - 6.14.03
-          - 6.15.04
-          - 6.16.05
-          - 6.17.05
-          - 6.18.05
-          - 6.19.05
-          - 6.20.05
-          - 6.21.05
-          - 6.22.05
-          - 6.23.05
-          - 6.24.05
-          - 6.25.03
-          - 6.26.05
-          - 6.27.05
-          - 6.28.05
-          - 6.29.05
-          - 6.30.05
-          - 6.31.05
-          - 6.32.05
-          - 6.33.05
-          - 6.34.05
-          - 6.35.04
-          - 6.36.07
-          - 6.39.01 - 6.39.04
           - 10.2.07
           - 10.3.03
           - 10.4.03
@@ -2076,7 +1894,6 @@ procedure:
         inferno_tests:
           - 4.31.01 - 4.31.02
           - 5.33.01 - 5.33.02
-          - 6.41.01 - 6.41.02
           - 10.45.01 - 10.45.02
       - id: DAT-PAT-5
         SUT: |
@@ -2095,7 +1912,6 @@ procedure:
         inferno_tests:
           - 4.13.06
           - 5.13.06
-          - 6.15.06
           - 10.17.06
       - id: DAT-PAT-6
         SUT: |
@@ -2116,7 +1932,6 @@ procedure:
         inferno_tests: 
           - 4.32.01 - 4.32.02
           - 5.34.01 - 5.34.02
-          - 6.42.01 - 6.42.02
           - 10.46.01 - 10.46.02
       - group: Response to Requests for a Single Patient’s Data
         id: DAT-PAT-7
@@ -2186,41 +2001,6 @@ procedure:
           - 5.26.01
           - 5.27.01
           - 5.28.01
-          - 6.2.01
-          - 6.3.01
-          - 6.4.01
-          - 6.5.01
-          - 6.6.01
-          - 6.7.01
-          - 6.8.01
-          - 6.9.01
-          - 6.10.01
-          - 6.11.01
-          - 6.12.01
-          - 6.13.01
-          - 6.14.01
-          - 6.15.01
-          - 6.16.01
-          - 6.17.01
-          - 6.18.01
-          - 6.19.01
-          - 6.20.01
-          - 6.21.01
-          - 6.22.01
-          - 6.23.01
-          - 6.24.01
-          - 6.25.01
-          - 6.26.01
-          - 6.27.01
-          - 6.28.01
-          - 6.29.01
-          - 6.30.01
-          - 6.31.01
-          - 6.32.01
-          - 6.33.01
-          - 6.34.01
-          - 6.35.01
-          - 6.36.01
           - 10.2.01
           - 10.3.01
           - 10.4.01
@@ -2550,8 +2330,8 @@ procedure:
           provided.
         inferno_supported: 'yes'
         inferno_tests:
-          - 7.3.01 - 7.3.27
-          - 8.3.01 - 8.3.27
+          - 7.3.01 - 7.3.34
+          - 8.3.01 - 8.3.34
       - id: DAT-PAT-15
         SUT: |
           The health IT developer demonstrates that the information provided as
