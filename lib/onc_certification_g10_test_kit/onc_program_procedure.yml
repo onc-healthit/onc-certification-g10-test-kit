@@ -935,8 +935,10 @@ procedure:
           return an “Encounter” FHIR® resource that matches the encounter
           context provided in step AUT-PAT-9 of this section according to the
           implementation specification adopted in § 170.215(a)(2).
-        inferno_supported: 'no'
+        inferno_supported: 'yes'
         inferno_tests:
+          - 3.3.16
+          - 3.4.16
       - id: AUT-PAT-20
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
