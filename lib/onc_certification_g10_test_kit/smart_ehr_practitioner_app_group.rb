@@ -181,7 +181,7 @@ module ONCCertificationG10TestKit
            required_suite_options: G10Options::US_CORE_5_REQUIREMENT
 
       test from: :g10_encounter_context,
-           id: :g10_encounter_context_us_core_6,
+           id: :g10_encounter_context_us_core_6, # rubocop:disable Naming/VariableNumber
            config: {
              inputs: {
                encounter_id: { name: :ehr_encounter_id },
@@ -337,7 +337,7 @@ module ONCCertificationG10TestKit
            required_suite_options: G10Options::US_CORE_5_REQUIREMENT
 
       test from: :g10_encounter_context,
-           id: :g10_encounter_context_us_core_6,
+           id: :g10_encounter_context_us_core_6, # rubocop:disable Naming/VariableNumber
            config: {
              inputs: {
                encounter_id: { name: :ehr_encounter_id },
