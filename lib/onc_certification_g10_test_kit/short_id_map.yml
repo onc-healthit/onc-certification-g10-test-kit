@@ -144,6 +144,7 @@ g10_certification-g10_smart_ehr_practitioner_app-smart_ehr_launch-g10_smart_scop
 g10_certification-g10_smart_ehr_practitioner_app-smart_ehr_launch-g10_unauthorized_access: 3.3.11
 g10_certification-g10_smart_ehr_practitioner_app-smart_ehr_launch-g10_patient_context: 3.3.12
 g10_certification-g10_smart_ehr_practitioner_app-smart_ehr_launch-g10_encounter_context: 3.3.13
+g10_certification-g10_smart_ehr_practitioner_app-smart_ehr_launch-g10_encounter_context_us_core_6: 3.3.16
 g10_certification-g10_smart_ehr_practitioner_app-smart_ehr_launch-Test13: 3.3.14
 g10_certification-g10_smart_ehr_practitioner_app-smart_ehr_launch-Test14: 3.3.15
 g10_certification-g10_smart_ehr_practitioner_app-smart_ehr_launch_stu2: '3.4'
@@ -160,6 +161,7 @@ g10_certification-g10_smart_ehr_practitioner_app-smart_ehr_launch_stu2-g10_smart
 g10_certification-g10_smart_ehr_practitioner_app-smart_ehr_launch_stu2-g10_unauthorized_access: 3.4.11
 g10_certification-g10_smart_ehr_practitioner_app-smart_ehr_launch_stu2-g10_patient_context: 3.4.12
 g10_certification-g10_smart_ehr_practitioner_app-smart_ehr_launch_stu2-g10_encounter_context: 3.4.13
+g10_certification-g10_smart_ehr_practitioner_app-smart_ehr_launch_stu2-g10_encounter_context_us_core_6: 3.4.16
 g10_certification-g10_smart_ehr_practitioner_app-smart_ehr_launch_stu2-g10_smart_style_url: 3.4.14
 g10_certification-g10_smart_ehr_practitioner_app-smart_ehr_launch_stu2-g10_smart_need_patient_banner: 3.4.15
 g10_certification-g10_smart_ehr_practitioner_app-smart_openid_connect: '3.5'
