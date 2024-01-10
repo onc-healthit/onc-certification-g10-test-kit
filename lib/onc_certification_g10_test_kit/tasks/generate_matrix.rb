@@ -61,6 +61,8 @@ module ONCCertificationG10TestKit
         column_borders = []
 
         test_suite.groups.each do |group|
+          next if group.short_id == '6' # Skip US Core 5
+
           matrix_worksheet.add_cell(1, col, group.title).change_text_wrap(true)
           matrix_worksheet.merge_cells(1, col, 1, col + group.groups.length - 1)
           matrix_worksheet.change_column_border(col, :left, 'medium')
