@@ -62,6 +62,15 @@ module ONCCertificationG10TestKit
       /Unknown ValueSet/
     ].freeze
 
+    ERROR_FILTERS = [
+      /\A\S+: \S+: Unknown Code/,
+      /\A\S+: \S+: None of the codings provided are in the value set/,
+      /\A\S+: \S+: The code provided \(\S*\) is not in the value set/,
+      /\A\S+: \S+: The Coding provided \(\S*\) is not in the value set/,
+      /\A\S+: \S+: The Coding provided \(\S*\) was not found in the value set/,
+      /\A\S+: \S+: A definition for CodeSystem '.*' could not be found, so the code cannot be validated/
+    ].freeze
+
     [
       G10Options::US_CORE_3_REQUIREMENT,
       G10Options::US_CORE_4_REQUIREMENT,
@@ -90,14 +99,7 @@ module ONCCertificationG10TestKit
                 filter.match? message.message
               end) ||
              us_core_message_filters.any? { |filter| filter.match? message.message } ||
-             (
-               message.type == 'error' && (
-                 message.message.match?(/\A\S+: \S+: Unknown Code/) ||
-                 message.message.match?(/\A\S+: \S+: None of the codings provided are in the value set/) ||
-                 message.message.match?(/\A\S+: \S+: The code provided \(\S*\) is not in the value set/) ||
-                 message.message.match?(/\A\S+: \S+: The Coding provided \(\S*\) is not in the value set/)
-               )
-             )
+             (message.type == 'error' && ERROR_FILTERS.any? { |filter| message.message.match? filter })
             true
           else
             false
