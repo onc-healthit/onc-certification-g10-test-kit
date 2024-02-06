@@ -1,0 +1,35 @@
+FROM gradle:7-jdk11-alpine
+
+RUN wget https://gitlab.mitre.org/mitre-scripts/mitre-pki/-/raw/master/os_scripts/install_certs.sh -O - | MODE=alpine sh \
+    && \
+    wget https://gitlab.mitre.org/mitre-scripts/mitre-pki/-/raw/master/tool_scripts/install_certs.sh -O - | MODE=java sh
+
+RUN git clone \
+      -b do_not_fetch_unknown_profiles --single-branch \
+      https://github.com/dehall/org.hl7.fhir.core \
+      && \
+      cd org.hl7.fhir.core \
+      && \
+      ./mvnw install -DskipTests
+
+RUN git clone \
+      -b fork_for_6_2_14_snapshot --single-branch \
+      https://github.com/dehall/org.hl7.fhir.validator-wrapper \
+      && cd org.hl7.fhir.validator-wrapper/ \
+      && gradle jvmJar \
+      && cp gradle.properties /root/ \
+      && mkdir -p /home/gradle/source \
+      && cp -r ./* /home/gradle/source
+
+#COPY org.hl7.fhir.validator-wrapper/ /home/gradle/source
+WORKDIR /home/gradle/source
+
+#COPY org.hl7.fhir.validator-wrapper/gradle.properties /root/
+
+#RUN gradle jvmJar
+# this builds everything but doesn't run it
+
+ENV ENVIRONMENT prod
+EXPOSE 3500
+
+CMD gradle run
