@@ -68,7 +68,8 @@ module ONCCertificationG10TestKit
       /\A\S+: \S+: The code provided \(\S*\) is not in the value set/,
       /\A\S+: \S+: The Coding provided \(\S*\) is not in the value set/,
       /\A\S+: \S+: The Coding provided \(\S*\) was not found in the value set/,
-      /\A\S+: \S+: A definition for CodeSystem '.*' could not be found, so the code cannot be validated/
+      /\A\S+: \S+: A definition for CodeSystem '.*' could not be found, so the code cannot be validated/,
+      /\A\S+: \S+: URL value '.*' does not resolve/
     ].freeze
 
     [
@@ -78,20 +79,23 @@ module ONCCertificationG10TestKit
       G10Options::US_CORE_6_REQUIREMENT
 
     ].each do |us_core_version_requirement|
-      validator :default, required_suite_options: us_core_version_requirement do
+      fhir_resource_validator :default, required_suite_options: us_core_version_requirement do
         url ENV.fetch('G10_VALIDATOR_URL', 'http://validator_service:4567')
 
-        us_core_message_filters =
-          case (us_core_version_requirement[:us_core_version])
-          when G10Options::US_CORE_3
-            USCoreTestKit::USCoreV311::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
-          when G10Options::US_CORE_4
-            USCoreTestKit::USCoreV400::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
-          when G10Options::US_CORE_5
-            USCoreTestKit::USCoreV501::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
-          when G10Options::US_CORE_6
-            USCoreTestKit::USCoreV610::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
-          end
+        case (us_core_version_requirement[:us_core_version])
+        when G10Options::US_CORE_3
+          igs('hl7.fhir.us.core#3.1.1')
+          us_core_message_filters = USCoreTestKit::USCoreV311::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
+        when G10Options::US_CORE_4
+          igs('hl7.fhir.us.core#4.0.0')
+          us_core_message_filters = USCoreTestKit::USCoreV400::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
+        when G10Options::US_CORE_5
+          igs('hl7.fhir.us.core#5.0.1')
+          us_core_message_filters = USCoreTestKit::USCoreV501::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
+        when G10Options::US_CORE_6
+          igs('hl7.fhir.us.core#6.1.0')
+          us_core_message_filters = USCoreTestKit::USCoreV610::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
+        end
 
         exclude_message do |message|
           if message.type == 'info' ||
