@@ -1,17 +1,7 @@
-GIT
-  remote: https://github.com/inferno-framework/us-core-test-kit.git
-  revision: e0fb8ce9897a170707e9061300dea475911882d5
-  branch: fi-2371-add-fine-grained-scopes-tests
-  specs:
-    us_core_test_kit (0.6.2.CONNECTATHON)
-      inferno_core (>= 0.4.2)
-      smart_app_launch_test_kit (>= 0.4.0)
-      tls_test_kit (~> 0.2.0)
-
 PATH
   remote: .
   specs:
-    onc_certification_g10_test_kit (5.0.0.CONNECTATHON)
+    onc_certification_g10_test_kit (5.0.0)
       bloomer (~> 1.0.0)
       colorize (~> 0.8.1)
       inferno_core (~> 0.4.20)
@@ -365,7 +355,6 @@ DEPENDENCIES
   rubocop (~> 1.9)
   rubocop-rspec
   rubyXL
-  us_core_test_kit!
   webmock (~> 3.11)
 
 BUNDLED WITH
