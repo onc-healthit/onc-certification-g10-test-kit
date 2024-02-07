@@ -145,7 +145,9 @@ module ONCCertificationG10TestKit
       id = test_group.id
 
       group_config = {}
-      if test_group.respond_to?(:metadata) && test_group.metadata.delayed? && !test_group.metadata.searchable_delayed_resource?
+      if test_group.respond_to?(:metadata) &&
+         test_group.metadata.delayed? &&
+         !test_group.metadata.searchable_delayed_resource?
         test_group.children.reject! { |child| child.include? USCoreTestKit::SearchTest }
         group_config[:options] = { read_all_resources: true }
       end
