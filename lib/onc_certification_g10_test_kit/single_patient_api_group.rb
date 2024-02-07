@@ -1,3 +1,5 @@
+# TODO: remove this require with the next US Core test kit release
+require 'us_core_test_kit/generator/special_cases'
 require_relative 'incorrectly_permitted_tls_versions_messages_setup_test'
 
 module ONCCertificationG10TestKit
