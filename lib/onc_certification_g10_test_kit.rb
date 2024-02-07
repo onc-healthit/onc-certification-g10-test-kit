@@ -82,6 +82,12 @@ module ONCCertificationG10TestKit
       fhir_resource_validator :default, required_suite_options: us_core_version_requirement do
         url ENV.fetch('G10_VALIDATOR_URL', 'http://validator_service:4567')
 
+        cli_context do
+          txServer nil
+          displayWarnings true
+          disableDefaultResourceFetcher true
+        end
+
         case (us_core_version_requirement[:us_core_version])
         when G10Options::US_CORE_3
           igs('hl7.fhir.us.core#3.1.1')
