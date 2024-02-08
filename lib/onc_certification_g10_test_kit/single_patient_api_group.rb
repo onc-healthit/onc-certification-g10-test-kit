@@ -1,3 +1,5 @@
+# TODO: remove this require with the next US Core test kit release
+require 'us_core_test_kit/generator/special_cases'
 require_relative 'incorrectly_permitted_tls_versions_messages_setup_test'
 
 module ONCCertificationG10TestKit
@@ -104,7 +106,7 @@ module ONCCertificationG10TestKit
       end
     end
 
-    USCoreTestKit::USCoreV311::USCoreTestSuite.groups.each do |group|
+    USCoreTestKit::USCoreV311::USCoreTestSuite.groups[1].groups.each do |group|
       test_group = group.ancestors[1]
 
       next if test_group.optional?
