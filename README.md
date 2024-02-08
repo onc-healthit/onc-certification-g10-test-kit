@@ -4,7 +4,7 @@ The **ONC Certification (g)(10) Standardized API Test Kit** is a testing tool
 for Health IT systems seeking to meet the requirements of the ONC [Standardized
 API for Patient and Population Services criterion §
 170.315(g)(10)](https://www.healthit.gov/test-method/standardized-api-patient-and-population-services)
-in the 2015 Edition Cures Update.
+in the ONC Certification Program.
 
 The **(g)(10) Standardized API Test Kit** behaves like an API consumer, making a
 series of HTTP requests that mimic a real world client to ensure that the API
