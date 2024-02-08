@@ -229,7 +229,7 @@ module ONCCertificationG10TestKit
       The ONC Certification (g)(10) Standardized API Test Kit is a testing tool for
       Health Level 7 (HL7®) Fast Healthcare Interoperability Resources (FHIR®)
       services seeking to meet the requirements of the Standardized API for
-      Patient and Population Services criterion § 170.315(g)(10) in the ONC Certification Update.
+      Patient and Population Services criterion § 170.315(g)(10) in the ONC Certification Program.
 
       To get started, please first register the Inferno client as a SMART App
       with the following information:
@@ -249,7 +249,7 @@ module ONCCertificationG10TestKit
       The ONC Certification (g)(10) Standardized API Test Kit is a testing tool
       for Health Level 7 (HL7®) Fast Healthcare Interoperability Resources
       (FHIR®) services seeking to meet the requirements of the Standardized API
-      for Patient and Population Services criterion § 170.315(g)(10) in the ONC Certification Update rule.
+      for Patient and Population Services criterion § 170.315(g)(10) in the ONC Certification Program.
 
       Systems may adopt later versions of standards than those named in the rule
       as approved by the ONC Standards Version Advancement Process (SVAP).
