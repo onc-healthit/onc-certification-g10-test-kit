@@ -148,8 +148,9 @@ module ONCCertificationG10TestKit
       )
       uses_request :redirect
 
-      input :use_pkce, :pkce_code_verifier, :client_id, :client_secret, :smart_token_url
-
+      input :use_pkce, :client_id, :client_secret, :smart_token_url
+      input :pkce_code_verifier,
+            optional: true
       run do
         skip_if request.query_parameters['error'].present?, 'Error during authorization request'
 
@@ -183,7 +184,9 @@ module ONCCertificationG10TestKit
       )
       uses_request :redirect
 
-      input :use_pkce, :pkce_code_verifier, :code, :smart_token_url, :client_secret
+      input :use_pkce, :code, :smart_token_url, :client_secret
+      input :pkce_code_verifier,
+            optional: true
 
       run do
         skip_if request.query_parameters['error'].present?, 'Error during authorization request'
