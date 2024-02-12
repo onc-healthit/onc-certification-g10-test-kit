@@ -1,6 +1,6 @@
-FROM gradle:7-jdk11-alpine
+FROM gradle:7-jdk11-jammy
 
-RUN wget https://gitlab.mitre.org/mitre-scripts/mitre-pki/-/raw/master/os_scripts/install_certs.sh -O - | MODE=alpine sh \
+RUN wget https://gitlab.mitre.org/mitre-scripts/mitre-pki/-/raw/master/os_scripts/install_certs.sh -O - | MODE=ubuntu sh \
     && \
     wget https://gitlab.mitre.org/mitre-scripts/mitre-pki/-/raw/master/tool_scripts/install_certs.sh -O - | MODE=java sh
 
