@@ -90,7 +90,7 @@ text](https://www.federalregister.gov/d/2023-28857/p-1245)
   * `Condition.rs?category=http://hl7.org/fhir/us/core/CodeSystem/condition-category|health-concern`
   * `DiagnosticReport.rs?category=http://loinc.org|LP29684-5`
   * `DiagnosticReport.rs?category=http://loinc.org|LP29708-2`
-  * `DocumentReference.rs?category=http://hl7.org/fhir/us/core/CodeSystem/us-core-documentreference-category|clini  * cal-note`
+  * `DocumentReference.rs?category=http://hl7.org/fhir/us/core/CodeSystem/us-core-documentreference-category|clinical-note`
   * `Observation.rs?category=http://terminology.hl7.org/CodeSystem/observation-category|laboratory`
   * `Observation.rs?category=http://terminology.hl7.org/CodeSystem/observation-category|social-history`
   * `Observation.rs?category=http://terminology.hl7.org/CodeSystem/observation-category|imaging`
