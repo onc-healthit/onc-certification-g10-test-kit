@@ -1,3 +1,8 @@
+# 5.1.0
+
+* Add Practitioner search tests for US Core 6 (#484).
+* Update the FHIR validator (#483).
+
 # 5.0.0
 
 * Remove US Core 5 tests (#478).
