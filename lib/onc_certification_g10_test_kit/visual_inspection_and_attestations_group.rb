@@ -506,6 +506,7 @@ module ONCCertificationG10TestKit
             title: 'Health IT developers must document how the Health IT Module enforces TLs version 1.2 or above.',
             type: 'radio',
             default: 'false',
+            optional: true,
             locked: true,
             options: {
               list_options: [

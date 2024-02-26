@@ -3,7 +3,8 @@ module ONCCertificationG10TestKit
     id :g10_incorrectly_permitted_tls_versions_messages_setup
     title 'Handle TLS Warning Messages'
 
-    input :incorrectly_permitted_tls_versions_messages
+    input :incorrectly_permitted_tls_versions_messages,
+          optional: true
     output :unique_incorrectly_permitted_tls_versions_messages,
            :tls_documentation_required
 
