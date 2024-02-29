@@ -1,10 +1,10 @@
 RSpec.describe 'Resource Validation' do # rubocop:disable RSpec/DescribeClass
   let(:resource) { FHIR.from_contents('{"resourceType": "Immunization", "id": "123"}') }
 
-  def reset_g10_validators(use_new_resource_validator)
+  def reset_g10_validators(use_hl7_resource_validator)
     ONCCertificationG10TestKit::G10CertificationSuite.fhir_validators[:default].clear
 
-    ENV['USE_NEW_RESOURCE_VALIDATOR'] = use_new_resource_validator.to_s
+    ENV['USE_HL7_RESOURCE_VALIDATOR'] = use_hl7_resource_validator.to_s
 
     [
       ONCCertificationG10TestKit::G10Options::US_CORE_3_REQUIREMENT,

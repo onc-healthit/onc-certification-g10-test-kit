@@ -73,14 +73,14 @@ module ONCCertificationG10TestKit
     ].freeze
 
     def self.setup_validator(us_core_version_requirement) # rubocop:disable Metrics/CyclomaticComplexity
-      validator_method = if Feature.use_new_resource_validator?
+      validator_method = if Feature.use_hl7_resource_validator?
                            method(:fhir_resource_validator)
                          else
                            method(:validator)
                          end
 
       validator_method.call :default, required_suite_options: us_core_version_requirement do
-        if Feature.use_new_resource_validator?
+        if Feature.use_hl7_resource_validator?
           url ENV.fetch('G10_FHIR_RESOURCE_VALIDATOR_URL', 'http://hl7_validator_service:3500')
 
           cli_context do

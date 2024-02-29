@@ -22,7 +22,7 @@ module ONCCertificationG10TestKit
     end
 
     def validator_version_message
-      if Feature.use_new_resource_validator?
+      if Feature.use_hl7_resource_validator?
         expected_validator_version = EXPECTED_HL7_VALIDATOR_VERSION
         validator_version_url = "#{validator_url}/validator/version"
       else

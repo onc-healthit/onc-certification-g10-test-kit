@@ -182,7 +182,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         .to_return(status: 200, body: contents, headers:)
 
       # Ideally this would run twice, once with each validator setting
-      if ONCCertificationG10TestKit::Feature.use_new_resource_validator?
+      if ONCCertificationG10TestKit::Feature.use_hl7_resource_validator?
         validation_stub_url = "#{validator_url}/validate"
         validation_stub_body = validation_response_no_name
       else
