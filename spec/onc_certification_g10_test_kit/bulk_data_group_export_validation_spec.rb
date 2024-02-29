@@ -124,6 +124,9 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         ]
       )
     end
+    let(:validation_response_no_name) do
+      File.read(File.join(__dir__, '..', 'fixtures', 'ValidationResponse-no-name.json'))
+    end
     let(:validator_url) { runnable.find_validator(:default).url }
 
     before do
@@ -178,8 +181,17 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         .with(headers: { 'Accept' => 'application/fhir+ndjson' })
         .to_return(status: 200, body: contents, headers:)
 
-      validation_request = stub_request(:post, "#{validator_url}/validate?profile=http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient|3.1.1")
-        .to_return(status: 200, body: operation_outcome_no_name.to_json)
+      # Ideally this would run twice, once with each validator setting
+      if ONCCertificationG10TestKit::Feature.use_new_resource_validator?
+        validation_stub_url = "#{validator_url}/validate"
+        validation_stub_body = validation_response_no_name
+      else
+        validation_stub_url = "#{validator_url}/validate?profile=http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient|3.1.1"
+        validation_stub_body = operation_outcome_no_name.to_json
+      end
+
+      validation_request = stub_request(:post, validation_stub_url)
+        .to_return(status: 200, body: validation_stub_body)
 
       result = run(runnable, patient_input)
 

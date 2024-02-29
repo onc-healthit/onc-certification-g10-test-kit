@@ -1,0 +1,40 @@
+{
+  "outcomes" : [ {
+    "fileInfo" : {
+      "fileName" : "manually_entered_file.json",
+      "fileContent" : "{\n  \"resourceType\": \"AllergyIntolerance\",\n  \"clinicalStatus\": {\n    \"coding\": [\n      {\n        \"system\": \"http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical\",\n        \"code\": \"actives\",\n        \"display\": \"Active\"\n      }\n    ]\n  }\n}",
+      "fileType" : "json"
+    },
+    "issues" : [ 
+    {
+      "source" : "TerminologyEngine",
+      "server" : null,
+      "line" : 3,
+      "col" : 4,
+      "location" : "AllergyIntolerance.clinicalStatus",
+      "message" : "None of the codings provided are in the value set 'AllergyIntolerance Clinical Status Codes' (http://hl7.org/fhir/ValueSet/allergyintolerance-clinical|4.0.1), and a coding from this value set is required) (codes = http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical#actives)",
+      "messageId" : "Terminology_TX_NoValid_1_CC",
+      "type" : "CODEINVALID",
+      "level" : "ERROR",
+      "html" : "None of the codings provided are in the value set 'AllergyIntolerance Clinical Status Codes' (http://hl7.org/fhir/ValueSet/allergyintolerance-clinical|4.0.1), and a coding from this value set is required) (codes = http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical#actives)",
+      "locationLink" : null,
+      "txLink" : null,
+      "sliceHtml" : null,
+      "sliceText" : null,
+      "slicingHint" : false,
+      "signpost" : false,
+      "criticalSignpost" : false,
+      "ruleDate" : null,
+      "matched" : false,
+      "ignorableError" : false,
+      "invId" : null,
+      "comment" : null,
+      "sliceInfo" : null,
+      "display" : "ERROR: AllergyIntolerance.clinicalStatus: None of the codings provided are in the value set 'AllergyIntolerance Clinical Status Codes' (http://hl7.org/fhir/ValueSet/allergyintolerance-clinical|4.0.1), and a coding from this value set is required) (codes = http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical#actives)",
+      "error" : true
+    }
+  ]
+  } ],
+  "sessionId" : "7c0cb248-4dd9-4063-9ed9-03623bbe221a",
+  "validationTimes" : { }
+}
