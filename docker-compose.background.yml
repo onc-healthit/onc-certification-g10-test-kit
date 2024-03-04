@@ -1,12 +1,12 @@
 version: '3'
 services:
-  # validator_service:
-  #   image: infernocommunity/fhir-validator-service:v2.3.2
-  #   environment:
-  #     - DISABLE_TX= true
-  #     - DISPLAY_ISSUES_ARE_WARNINGS=true
-  #   volumes:
-  #     - ./lib/onc_certification_g10_test_kit/igs:/home/igs
+  validator_service:
+    image: infernocommunity/fhir-validator-service:v2.3.2
+    environment:
+      - DISABLE_TX= true
+      - DISPLAY_ISSUES_ARE_WARNINGS=true
+    volumes:
+      - ./lib/onc_certification_g10_test_kit/igs:/home/igs
   # fhir_validator_app:
   #   image: infernocommunity/fhir-validator-app
   #   depends_on:
@@ -28,15 +28,15 @@ services:
     volumes:
       - ./data/redis:/data
     command: redis-server --appendonly yes
-  hl7_validator_service:
-    # image: markiantorno/validator-wrapper
-    # If running on the MITRE network, comment out the "image" line above
-    # and uncomment the "build" section below
-    build:
-      context: .
-      dockerfile: Dockerfile.fhir_resource_validator
-    volumes:
-      - ./lib/onc_certification_g10_test_kit/igs:/home/igs
-      # To let the service share your local FHIR package cache,
-      # uncomment the below line
-      # - ~/.fhir:/home/ktor/.fhir
+  # hl7_validator_service:
+  #   image: markiantorno/validator-wrapper
+  #   # If running on the MITRE network, comment out the "image" line above
+  #   # and uncomment the "build" section below
+  #   # build:
+  #   #   context: .
+  #   #   dockerfile: Dockerfile.fhir_resource_validator
+  #   volumes:
+  #     - ./lib/onc_certification_g10_test_kit/igs:/home/igs
+  #     # To let the service share your local FHIR package cache,
+  #     # uncomment the below line
+  #     # - ~/.fhir:/home/ktor/.fhir
