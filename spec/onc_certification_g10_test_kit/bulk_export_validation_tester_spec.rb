@@ -340,11 +340,11 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
   end
 
   describe '#determine_profile' do
-    it 'returns nil if given a Device resource that is not predefined' do
+    it 'returns empty if given a Device resource that is not predefined' do
       tester.bulk_device_types_in_group = 'not_it'
 
       result = tester.determine_profile(device_resource)
-      expect(result).to be_nil
+      expect(result).to be_empty
     end
 
     it 'returns the vice profile if given a Device resource that is predefined' do
