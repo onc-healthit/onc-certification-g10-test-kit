@@ -92,7 +92,7 @@ module ONCCertificationG10TestKit
     end
 
     def determine_profile(resource)
-      return if resource.resourceType == 'Device' && !predefined_device_type?(resource)
+      return [] if resource.resourceType == 'Device' && !predefined_device_type?(resource)
 
       select_profile(resource)
     end
