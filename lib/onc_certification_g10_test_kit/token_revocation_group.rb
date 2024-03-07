@@ -16,14 +16,15 @@ module ONCCertificationG10TestKit
                 :standalone_client_secret
 
     test do
-      title 'Health IT developer demonstrated the ability of the Health IT Module to revoke tokens.'
+      title 'Health IT developer demonstrated the ability of the Health IT Module to revoke tokens within one hour of a patient\'s request.' # rubocop:disable Layout/LineLength
       description %(
         Health IT developer demonstrated the ability of the Health IT Module /
-        authorization server to revoke tokens.
+        authorization server to revoke tokens at a patient's direction within one
+        hour of the request.
       )
 
       input :token_revocation_attestation,
-            title: 'Prior to executing test, Health IT developer demonstrated revoking tokens provided during patient standalone launch.', # rubocop:disable Layout/LineLength
+            title: 'Within one hour of executing test, Health IT developer demonstrated revoking tokens provided during patient standalone launch.', # rubocop:disable Layout/LineLength
             type: 'radio',
             default: 'false',
             options: {
@@ -45,7 +46,7 @@ module ONCCertificationG10TestKit
 
       run do
         assert token_revocation_attestation == 'true',
-               'Health IT Module did not demonstrate the ability to revoke tokens.'
+               'Health IT Module did not demonstrate the ability to revoke tokens within one hour of request.'
         pass token_revocation_notes if token_revocation_notes.present?
       end
     end

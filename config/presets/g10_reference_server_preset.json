@@ -526,7 +526,7 @@
     {
       "name": "token_revocation_attestation",
       "type": "radio",
-      "title": "Prior to executing test, Health IT developer demonstrated revoking tokens provided during patient standalone launch.",
+      "title": "Within one hour of executing test, Health IT developer demonstrated revoking tokens provided during patient standalone launch.",
       "options": {
         "list_options": [
           {
