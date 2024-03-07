@@ -69,7 +69,8 @@ module ONCCertificationG10TestKit
       /\A\S+: \S+: The Coding provided \(\S*\) is not in the value set/,
       /\A\S+: \S+: The Coding provided \(\S*\) was not found in the value set/,
       /\A\S+: \S+: A definition for CodeSystem '.*' could not be found, so the code cannot be validated/,
-      /\A\S+: \S+: URL value '.*' does not resolve/
+      /\A\S+: \S+: URL value '.*' does not resolve/,
+      /\A\S+: \S+: .*\[No server available\]/  # Catch-all for certain errors when TX server is disabled
     ].freeze
 
     def self.setup_validator(us_core_version_requirement) # rubocop:disable Metrics/CyclomaticComplexity

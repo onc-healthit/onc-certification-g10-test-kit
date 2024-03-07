@@ -3,7 +3,7 @@ require_relative '../inferno/terminology/tasks/check_built_terminology'
 module ONCCertificationG10TestKit
   class ConfigurationChecker
     EXPECTED_VALIDATOR_VERSION = '2.3.2'.freeze
-    EXPECTED_HL7_VALIDATOR_VERSION = '"6.2.16-SNAPSHOT"'.freeze
+    EXPECTED_HL7_VALIDATOR_VERSION = '"6.3.0"'.freeze
 
     def configuration_messages
       validator_version_message + terminology_messages + version_message
