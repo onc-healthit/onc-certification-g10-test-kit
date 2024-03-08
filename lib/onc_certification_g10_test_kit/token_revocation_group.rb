@@ -56,7 +56,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
-      title 'Access to Patient resource returns unauthorized within one hour of a patient\'s request to revoke token.'
+      title 'Access to Patient resource returns unauthorized after token revocation.'
       description %(
         This test checks that the Patient resource returns unuathorized after token revocation.
       )
@@ -93,9 +93,9 @@ module ONCCertificationG10TestKit
     end
 
     test do
-      title 'Token refresh fails within one hour of a patient\'s request to revoke token.'
+      title 'Token refresh fails after token revocation.'
       description %(
-        This test checks that refreshing token fails after token revokation.
+        This test checks that refreshing token fails after token revocation.
       )
 
       input :smart_token_url,
