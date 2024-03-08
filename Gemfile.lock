@@ -16,7 +16,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (6.1.7.6)
+    activesupport (6.1.7.7)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
@@ -157,10 +157,10 @@ GEM
     http-cookie (1.0.5)
       domain_name (~> 0.5)
     httpclient (2.8.3)
-    i18n (1.14.1)
+    i18n (1.14.4)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
-    inferno_core (0.4.29)
+    inferno_core (0.4.30)
       activesupport (~> 6.1.7.5)
       base62-rb (= 0.3.1)
       blueprinter (= 0.25.2)
