@@ -24,7 +24,7 @@ module ONCCertificationG10TestKit
       )
 
       input :token_revocation_attestation,
-            title: 'Within one hour of executing test, Health IT developer demonstrated revoking tokens provided during patient standalone launch.', # rubocop:disable Layout/LineLength
+            title: 'The Health IT developer demonstrated a patient\'s request for revoking the tokens provided during the patient standalone launch within the last hour', # rubocop:disable Layout/LineLength
             type: 'radio',
             default: 'false',
             options: {
@@ -46,13 +46,13 @@ module ONCCertificationG10TestKit
 
       run do
         assert token_revocation_attestation == 'true',
-               'Health IT Module did not demonstrate the ability to revoke tokens within one hour of request.'
+               'Health IT Module did not demonstrate a patient\'s request for revoking the tokens within the last hour.'
         pass token_revocation_notes if token_revocation_notes.present?
       end
     end
 
     test do
-      title 'Access to Patient resource returns unauthorized after token revocation.'
+      title 'Access to Patient resource returns unauthorized within one hour of a patient\'s request to revoke token.'
       description %(
         This test checks that the Patient resource returns unuathorized after token revocation.
       )
@@ -89,7 +89,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
-      title 'Token refresh fails after token revocation.'
+      title 'Token refresh fails within one hour of a patient\'s request to revoke token.'
       description %(
         This test checks that refreshing token fails after token revokation.
       )
