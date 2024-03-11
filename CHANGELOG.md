@@ -4,7 +4,7 @@
 * Update token revocation attestation to include one hour time limit (#500).
 * Fix error when no Devices match supplied implantable device code in bulk
   data(#494).
-* Fix error deteriming the profile of PractitionerRole resources during bulk
+* Fix error determining the profile of PractitionerRole resources during bulk
   data tests for US Core 5 and 6 (#477).
 
 # 5.1.0
