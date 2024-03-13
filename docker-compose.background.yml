@@ -29,7 +29,7 @@ services:
       - ./data/redis:/data
     command: redis-server --appendonly yes
   # hl7_validator_service:
-  #   image: infernocommunity/inferno-resource-validator
+  #   image: infernocommunity/inferno-resource-validator:1.0.51
   #   volumes:
   #     - ./lib/onc_certification_g10_test_kit/igs:/home/igs
   #     # To let the service share your local FHIR package cache,
