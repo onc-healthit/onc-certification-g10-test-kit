@@ -3,6 +3,7 @@ require_relative '../inferno/terminology/tasks/check_built_terminology'
 module ONCCertificationG10TestKit
   class ConfigurationChecker
     EXPECTED_VALIDATOR_VERSION = '2.3.2'.freeze
+    EXPECTED_HL7_VALIDATOR_VERSION = '"6.3.0"'.freeze
 
     def configuration_messages
       validator_version_message + terminology_messages + version_message
@@ -21,8 +22,15 @@ module ONCCertificationG10TestKit
     end
 
     def validator_version_message
-      response = Faraday.get "#{validator_url}/version"
+      if Feature.use_hl7_resource_validator?
+        expected_validator_version = EXPECTED_HL7_VALIDATOR_VERSION
+        validator_version_url = "#{validator_url}/validator/version"
+      else
+        expected_validator_version = EXPECTED_VALIDATOR_VERSION
+        validator_version_url = "#{validator_url}/version"
+      end
 
+      response = Faraday.get validator_version_url
       if response.body.starts_with? '{'
         version_json = JSON.parse(response.body)
         version = version_json['inferno-framework/fhir-validator-wrapper']
@@ -30,15 +38,15 @@ module ONCCertificationG10TestKit
         version = response.body
       end
 
-      if version == EXPECTED_VALIDATOR_VERSION
+      if version == expected_validator_version
         [{
           type: 'info',
-          message: "FHIR validator is the expected version `#{EXPECTED_VALIDATOR_VERSION}`"
+          message: "FHIR validator is the expected version `#{expected_validator_version}`"
         }]
       else
         [{
           type: 'error',
-          message: "Expected FHIR validator version `#{EXPECTED_VALIDATOR_VERSION}`, but found `#{version}`"
+          message: "Expected FHIR validator version `#{expected_validator_version}`, but found `#{version}`"
         }]
       end
     rescue JSON::ParserError => e

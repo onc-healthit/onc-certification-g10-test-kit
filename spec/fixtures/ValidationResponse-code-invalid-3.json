@@ -1,0 +1,38 @@
+{
+  "outcomes" : [ {
+    "fileInfo" : {
+      "fileName" : "manually_entered_file.json",
+      "fileContent" : "{\n      \"resourceType\": \"Patient\",\n      \n      \"extension\": [ {\n        \"url\": \"http://hl7.org/fhir/us/core/StructureDefinition/us-core-race\",\n        \"extension\": [ {\n          \"url\": \"ombCategory\",\n          \"valueCoding\": {\n            \"system\": \"urn:oid:2.16.840.1.113883.6.238\",\n            \"code\": \"2299-0\",\n            \"display\": \"Asian\"\n          }\n        }, {\n          \"url\": \"text\",\n          \"valueString\": \"Asian\"\n        } ]\n      }, \n      {\n        \"url\": \"http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity\",\n        \"extension\": [ {\n          \"url\": \"ombCategory\",\n          \"valueCoding\": {\n            \"system\": \"urn:oid:2.16.840.1.113883.6.238\",\n            \"code\": \"2186-5\",\n            \"display\": \"Not Hispanic or Latino\"\n          }\n        }, {\n          \"url\": \"text\",\n          \"valueString\": \"Not Hispanic or Latino\"\n        } ]\n      }\n   ]\n}",
+      "fileType" : "json"
+    },
+    "issues" : [{
+      "source" : "TerminologyEngine",
+      "server" : null,
+      "line" : 8,
+      "col" : 12,
+      "location" : "Patient.extension[0].extension[0].value.ofType(Coding)",
+      "message" : "The Coding provided (urn:oid:2.16.840.1.113883.6.238#2106-3) is not in the value set http://hl7.org/fhir/us/core/ValueSet/omb-race-category, and a code is required from this value set. (error message = Not in value set http://hl7.org/fhir/us/core/ValueSet/omb-race-category)",
+      "messageId" : "Terminology_TX_Confirm_4a",
+      "type" : "CODEINVALID",
+      "level" : "ERROR",
+      "html" : "The Coding provided (urn:oid:2.16.840.1.113883.6.238#2106-3) is not in the value set http://hl7.org/fhir/us/core/ValueSet/omb-race-category, and a code is required from this value set. (error message = Not in value set http://hl7.org/fhir/us/core/ValueSet/omb-race-category)",
+      "locationLink" : null,
+      "txLink" : null,
+      "sliceHtml" : null,
+      "sliceText" : null,
+      "slicingHint" : false,
+      "signpost" : false,
+      "criticalSignpost" : false,
+      "ruleDate" : null,
+      "matched" : false,
+      "ignorableError" : false,
+      "invId" : null,
+      "comment" : null,
+      "sliceInfo" : null,
+      "display" : "ERROR: Patient.extension[0].extension[0].value.ofType(Coding): The Coding provided (urn:oid:2.16.840.1.113883.6.238#2106-3) is not in the value set http://hl7.org/fhir/us/core/ValueSet/omb-race-category, and a code is required from this value set. (error message = Not in value set http://hl7.org/fhir/us/core/ValueSet/omb-race-category)",
+      "error" : true
+    }]
+  } ],
+  "sessionId" : "7c0cb248-4dd9-4063-9ed9-03623bbe221a",
+  "validationTimes" : { }
+}

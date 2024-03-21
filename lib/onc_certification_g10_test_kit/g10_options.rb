@@ -5,6 +5,13 @@ module ONCCertificationG10TestKit
     US_CORE_5 = 'us_core_5'.freeze
     US_CORE_6 = 'us_core_6'.freeze
 
+    US_CORE_VERSION_NUMBERS = {
+      US_CORE_3 => '3.1.1',
+      US_CORE_4 => '4.0.0',
+      US_CORE_5 => '5.0.1',
+      US_CORE_6 => '6.1.0'
+    }.freeze
+
     BULK_DATA_1 = 'multi_patient_api_stu1'.freeze
     BULK_DATA_2 = 'multi_patient_api_stu2'.freeze
 

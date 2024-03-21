@@ -1,10 +1,9 @@
 module ONCCertificationG10TestKit
   module Feature
-    class << self # rubocop:disable Lint/EmptyClass
-      # This is how you can define feature flags to be used in the g10 test kit
-      # def us_core_v4?
-      #   ENV.fetch('US_CORE_4_ENABLED', 'false')&.casecmp?('true')
-      # end
+    class << self
+      def use_hl7_resource_validator?
+        ENV.fetch('USE_HL7_RESOURCE_VALIDATOR', 'false')&.casecmp?('true')
+      end
     end
   end
 end

@@ -1,0 +1,42 @@
+{
+    "outcomes": [
+        {
+            "fileInfo": {
+                "fileName": "manually_entered_file.json",
+                "fileContent": "{\n  \"resourceType\": \"Immunization\",\n  \"subpotentReason\": [{\n    \"coding\": [{\n      \"system\": \"http://terminology.hl7.org/CodeSystem/immunization-subpotent-reason\",\n      \"code\": \"partialdose\"\n    }]\n  }]\n}",
+                "fileType": "json"
+            },
+            "issues": [
+                {
+                    "source": "TerminologyEngine",
+                    "server": null,
+                    "line": 3,
+                    "col": 4,
+                    "location": "Immunization.subpotentReason[0].coding[0].code",
+                    "message": "Unknown code 'partialdose' in the CodeSystem 'http://terminology.hl7.org/CodeSystem/immunization-subpotent-reason' version '1.0.0'",
+                    "messageId": null,
+                    "type": "CODEINVALID",
+                    "level": "ERROR",
+                    "html": "Unknown code 'partialdose' in the CodeSystem 'http://terminology.hl7.org/CodeSystem/immunization-subpotent-reason' version '1.0.0'",
+                    "locationLink": null,
+                    "txLink": null,
+                    "sliceHtml": null,
+                    "sliceText": null,
+                    "slicingHint": false,
+                    "signpost": false,
+                    "criticalSignpost": false,
+                    "ruleDate": null,
+                    "matched": false,
+                    "ignorableError": false,
+                    "invId": null,
+                    "comment": null,
+                    "sliceInfo": null,
+                    "error": true,
+                    "display": "ERROR: Immunization.subpotentReason[0].coding[0].code: Unknown code 'partialdose' in the CodeSystem 'http://terminology.hl7.org/CodeSystem/immunization-subpotent-reason' version '1.0.0'"
+                }
+            ]
+        }
+    ],
+    "sessionId": "f4af8f4f-15d0-44f3-8401-dc9f9014aeaf",
+    "validationTimes": {}
+}

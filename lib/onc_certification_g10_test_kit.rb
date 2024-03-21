@@ -63,23 +63,39 @@ module ONCCertificationG10TestKit
     ].freeze
 
     ERROR_FILTERS = [
-      /\A\S+: \S+: Unknown Code/,
+      /\A\S+: \S+: Unknown [Cc]ode/,
       /\A\S+: \S+: None of the codings provided are in the value set/,
       /\A\S+: \S+: The code provided \(\S*\) is not in the value set/,
       /\A\S+: \S+: The Coding provided \(\S*\) is not in the value set/,
       /\A\S+: \S+: The Coding provided \(\S*\) was not found in the value set/,
-      /\A\S+: \S+: A definition for CodeSystem '.*' could not be found, so the code cannot be validated/
+      /\A\S+: \S+: A definition for CodeSystem '.*' could not be found, so the code cannot be validated/,
+      /\A\S+: \S+: URL value '.*' does not resolve/,
+      /\A\S+: \S+: .*\[No server available\]/  # Catch-all for certain errors when TX server is disabled
     ].freeze
 
-    [
-      G10Options::US_CORE_3_REQUIREMENT,
-      G10Options::US_CORE_4_REQUIREMENT,
-      G10Options::US_CORE_5_REQUIREMENT,
-      G10Options::US_CORE_6_REQUIREMENT
+    def self.setup_validator(us_core_version_requirement) # rubocop:disable Metrics/CyclomaticComplexity
+      validator_method = if Feature.use_hl7_resource_validator?
+                           method(:fhir_resource_validator)
+                         else
+                           method(:validator)
+                         end
 
-    ].each do |us_core_version_requirement|
-      validator :default, required_suite_options: us_core_version_requirement do
-        url ENV.fetch('G10_VALIDATOR_URL', 'http://validator_service:4567')
+      validator_method.call :default, required_suite_options: us_core_version_requirement do
+        if Feature.use_hl7_resource_validator?
+          url ENV.fetch('G10_FHIR_RESOURCE_VALIDATOR_URL', 'http://hl7_validator_service:3500')
+
+          cli_context do
+            txServer nil
+            displayWarnings true
+            disableDefaultResourceFetcher true
+          end
+
+          us_core_version_num = G10Options::US_CORE_VERSION_NUMBERS[us_core_version_requirement[:us_core_version]]
+
+          igs("hl7.fhir.us.core##{us_core_version_num}")
+        else
+          url ENV.fetch('G10_VALIDATOR_URL', 'http://validator_service:4567')
+        end
 
         us_core_message_filters =
           case (us_core_version_requirement[:us_core_version])
@@ -146,6 +162,16 @@ module ONCCertificationG10TestKit
           validation_messages
         end
       end
+    end
+
+    [
+      G10Options::US_CORE_3_REQUIREMENT,
+      G10Options::US_CORE_4_REQUIREMENT,
+      G10Options::US_CORE_5_REQUIREMENT,
+      G10Options::US_CORE_6_REQUIREMENT
+
+    ].each do |us_core_version_requirement|
+      setup_validator(us_core_version_requirement)
     end
 
     def self.jwks_json
