@@ -137,8 +137,6 @@ module ONCCertificationG10TestKit
       include ExportKickOffPerformer
 
       run do
-        skip_if bearer_token.blank?, 'Could not verify this functionality when bearer token is not set'
-
         perform_export_kick_off_request(use_token: false)
         assert_response_status([400, 401])
       end
@@ -188,8 +186,6 @@ module ONCCertificationG10TestKit
       output :status_response, :requires_access_token
 
       run do
-        skip 'Server response did not have Content-Location in header' unless polling_url.present?
-
         timeout = bulk_timeout.to_i
 
         if !timeout.positive?
@@ -262,8 +258,6 @@ module ONCCertificationG10TestKit
       output :status_output, :bulk_download_url
 
       run do
-        assert status_response.present?, 'Bulk Data Server status response not found'
-
         assert_valid_json(status_response)
         status_output = JSON.parse(status_response)['output']
         assert status_output, 'Bulk Data Server status response does not contain output'

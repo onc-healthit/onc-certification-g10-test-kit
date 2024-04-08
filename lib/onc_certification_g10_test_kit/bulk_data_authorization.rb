@@ -205,8 +205,6 @@ module ONCCertificationG10TestKit
       output :bearer_token
 
       run do
-        skip_if authentication_response.blank?, 'No authentication response received.'
-
         assert_valid_json(authentication_response)
         response_body = JSON.parse(authentication_response)
 
