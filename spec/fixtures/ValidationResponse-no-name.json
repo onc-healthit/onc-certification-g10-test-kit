@@ -1,0 +1,38 @@
+{
+        "outcomes" : [ {
+          "fileInfo" : {
+            "fileName" : "manually_entered_file.json",
+            "fileContent" : "{ \"resourceType\": \"Patient\" }",
+            "fileType" : "json"
+          },
+          "issues" : [{
+            "source" : "InstanceValidator",
+            "server" : null,
+            "line" : 1,
+            "col" : 30,
+            "location" : "Patient",
+            "message" : "Patient.name: minimum required = 1, but only found 0 (from http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient|3.1.1)",
+            "messageId" : "Validation_VAL_Profile_Minimum",
+            "type" : "STRUCTURE",
+            "level" : "ERROR",
+            "html" : "Patient.name: minimum required = 1, but only found 0 (from http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient|3.1.1)",
+            "locationLink" : null,
+            "txLink" : null,
+            "sliceHtml" : null,
+            "sliceText" : null,
+            "slicingHint" : false,
+            "signpost" : false,
+            "criticalSignpost" : false,
+            "ruleDate" : null,
+            "matched" : false,
+            "ignorableError" : false,
+            "invId" : null,
+            "comment" : null,
+            "sliceInfo" : null,
+            "display" : "ERROR: Patient: Patient.name: minimum required = 1, but only found 0 (from http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient|3.1.1)",
+            "error" : true
+          } ]
+        } ],
+        "sessionId" : "4d9d2dc3-5df1-461f-a4d6-bfc2788a1933",
+        "validationTimes" : { }
+      }
