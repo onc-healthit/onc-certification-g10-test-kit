@@ -207,7 +207,7 @@ module ONCCertificationG10TestKit
         * http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition
 
 
-        For US Core v5.0.1, evidence of support for the following two profiles must be demonstrated:
+        For US Core v6.1.0, evidence of support for the following two profiles must be demonstrated:
 
         * http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-encounter-diagnosis
         * http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition-problems-health-concerns
@@ -377,28 +377,6 @@ module ONCCertificationG10TestKit
 
         For US Core v4.0.0, this test expects evidence of the following US Core profiles
 
-        * http://hl7.org/fhir/us/core/StructureDefinition/pediatric-bmi-for-age
-        * http://hl7.org/fhir/us/core/StructureDefinition/pediatric-weight-for-height
-        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab
-        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-pulse-oximetry
-        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-smokingstatus
-        * http://hl7.org/fhir/us/core/StructureDefinition/head-occipital-frontal-circumference-percentile
-        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-blood-pressure
-        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-bmi
-        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-head-circumference
-        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-body-height
-        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-body-weight
-        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-body-temperature
-        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-heart-rate
-        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-respiratory-rate
-
-        For US Core v5.0.1, this test expects evidence of the following US Core profiles
-
-        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-clinical-test
-        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-imaging
-        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-sexual-orientation
-        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-social-history
-        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-sdoh-assessment
         * http://hl7.org/fhir/us/core/StructureDefinition/pediatric-bmi-for-age
         * http://hl7.org/fhir/us/core/StructureDefinition/pediatric-weight-for-height
         * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab
