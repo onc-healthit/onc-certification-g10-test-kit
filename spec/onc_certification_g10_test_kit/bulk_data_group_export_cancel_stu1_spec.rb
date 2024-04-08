@@ -35,7 +35,8 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportCancelSTU1 do
     let(:bulk_export_url) { "#{bulk_server_url}/Group/1219/$export" }
 
     it 'skips when no Bearer Token is given' do
-      result = run(runnable, { bearer_token: nil })
+      base_input.delete(:bearer_token)
+      result = run(runnable, base_input)
 
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('Could not verify this functionality when bearer token is not set')

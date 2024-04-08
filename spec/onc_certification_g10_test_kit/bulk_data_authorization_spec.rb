@@ -156,21 +156,21 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
     end
 
     it 'skips when no authentication response received' do
-      result = run(runnable)
+      result = run(runnable, input)
 
       expect(result.result).to eq('skip')
-      expect(result.result_message).to eq('No authentication response received.')
+      expect(result.result_message).to match(/authentication_response/)
     end
 
     it 'fails when authentication response is invalid JSON' do
-      result = run(runnable, { authentication_response: '{/}' })
+      result = run(runnable, input.merge(authentication_response: '{/}'))
 
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Invalid JSON. ')
     end
 
     it 'fails when authentication response does not contain access_token' do
-      result = run(runnable, { authentication_response: '{"response_body":"post"}' })
+      result = run(runnable, input.merge(authentication_response: '{"response_body":"post"}'))
 
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Token response did not contain access_token as required')
@@ -178,14 +178,14 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
 
     it 'fails when access_token is present but does not contain required keys' do
       missing_key_auth_response = { 'access_token' => 'its_the_token' }
-      result = run(runnable, { authentication_response: missing_key_auth_response.to_json })
+      result = run(runnable, input.merge(authentication_response: missing_key_auth_response.to_json))
 
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Token response did not contain token_type as required')
     end
 
     it 'passes when access_token is present and contains the required keys' do
-      result = run(runnable, { authentication_response: response_body.to_json })
+      result = run(runnable, input.merge(authentication_response: response_body.to_json))
 
       expect(result.result).to eq('pass')
     end

@@ -27,7 +27,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportCancelSTU2 do
       stub_request(:get, url)
         .to_return(status: 202)
 
-      result = run(runnable, cancelled_polling_url: url)
+      result = run(runnable, cancelled_polling_url: url, bulk_server_url: 'foo', group_id: 'bar')
 
       expect(result.result).to eq('fail')
       expect(result.result_message).to match(/404/)
@@ -37,7 +37,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportCancelSTU2 do
       stub_request(:get, url)
         .to_return(status: 404, body: '{}')
 
-      result = run(runnable, cancelled_polling_url: url)
+      result = run(runnable, cancelled_polling_url: url, bulk_server_url: 'foo', group_id: 'bar')
 
       expect(result.result).to eq('fail')
       expect(result.result_message).to match(/OperationOutcome/)
@@ -48,7 +48,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportCancelSTU2 do
         .to_return(status: 404, body: FHIR::OperationOutcome.new.to_json)
       allow_any_instance_of(runnable).to receive(:assert_valid_resource).and_return(true)
 
-      result = run(runnable, cancelled_polling_url: url)
+      result = run(runnable, cancelled_polling_url: url, bulk_server_url: 'foo', group_id: 'bar')
 
       expect(result.result).to eq('pass')
     end

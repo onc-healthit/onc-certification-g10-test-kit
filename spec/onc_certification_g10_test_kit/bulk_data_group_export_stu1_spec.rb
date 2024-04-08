@@ -12,7 +12,8 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU1 do
     {
       bulk_server_url:,
       bearer_token:,
-      group_id:
+      group_id:,
+      bulk_timeout: '180'
     }
   end
   let(:capability_statement) { FHIR.from_contents(File.read('spec/fixtures/CapabilityStatement.json')) }
@@ -143,7 +144,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU1 do
       result = run(runnable, bad_token_input)
 
       expect(result.result).to eq('skip')
-      expect(result.result_message).to eq('Could not verify this functionality when bearer token is not set')
+      expect(result.result_message).to match(/bearer_token/)
     end
 
     it 'fails if client can $export without authorization' do
@@ -223,10 +224,10 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU1 do
     end
 
     it 'skips when polling_url is not provided' do
-      result = run(runnable)
+      result = run(runnable, base_input)
 
       expect(result.result).to eq('skip')
-      expect(result.result_message).to eq('Server response did not have Content-Location in header')
+      expect(result.result_message).to match(/polling_url/)
     end
 
     it 'skips when server only returns "202 Accepted", and not "200 OK" in the allowed timeframe' do
@@ -309,29 +310,29 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU1 do
       status_output_json.to_json
     end
 
-    it 'fails when response not found' do
-      result = run(runnable)
+    it 'skips when response not found' do
+      result = run(runnable, base_input)
 
-      expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Bulk Data Server status response not found')
+      expect(result.result).to eq('skip')
+      expect(result.result_message).to match(/status_response/)
     end
 
     it 'fails when response does not contain output' do
-      result = run(runnable, { status_response: '{"no_output":"!"}' })
+      result = run(runnable, base_input.merge(status_response: '{"no_output":"!"}'))
 
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Bulk Data Server status response does not contain output')
     end
 
     it 'fails when output does not contain required attributes' do
-      result = run(runnable, { status_response: bad_status_output })
+      result = run(runnable, base_input.merge(status_response: bad_status_output))
 
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Output file did not contain "type" as required')
     end
 
     it 'passes when response contains output with required attributes' do
-      result = run(runnable, { status_response: status_output })
+      result = run(runnable, base_input.merge(status_response: status_output))
 
       expect(result.result).to eq('pass')
     end
