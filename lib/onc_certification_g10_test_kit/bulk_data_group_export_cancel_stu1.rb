@@ -10,7 +10,8 @@ module ONCCertificationG10TestKit
       correct behavior.
     )
 
-    input :bearer_token
+    input :bearer_token,
+          optional: true
     input :bulk_server_url,
           title: 'Bulk Data FHIR URL',
           description: 'The URL of the Bulk FHIR server.'

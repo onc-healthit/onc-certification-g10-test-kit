@@ -34,7 +34,7 @@ services:
     extends:
       file: docker-compose.background.yml
       service: redis
-  # hl7_validator_service:
-  #   extends:
-  #     file: docker-compose.background.yml
-  #     service: hl7_validator_service
+  hl7_validator_service:
+    extends:
+      file: docker-compose.background.yml
+      service: hl7_validator_service

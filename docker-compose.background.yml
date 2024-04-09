@@ -28,14 +28,14 @@ services:
     volumes:
       - ./data/redis:/data
     command: redis-server --appendonly yes
-  # hl7_validator_service:
-  #   image: infernocommunity/inferno-resource-validator:1.0.51
-  #   environment:
-  #     # Defines how long validator sessions last if unused, in minutes:
-  #     # Negative values mean sessions never expire, 0 means sessions immediately expire
-  #     SESSION_CACHE_DURATION: -1
-  #   volumes:
-  #     - ./lib/onc_certification_g10_test_kit/igs:/home/igs
-  #     # To let the service share your local FHIR package cache,
-  #     # uncomment the below line
-  #     # - ~/.fhir:/home/ktor/.fhir
+  hl7_validator_service:
+    image: infernocommunity/inferno-resource-validator:1.0.51
+    environment:
+      # Defines how long validator sessions last if unused, in minutes:
+      # Negative values mean sessions never expire, 0 means sessions immediately expire
+      SESSION_CACHE_DURATION: -1
+    volumes:
+      - ./lib/onc_certification_g10_test_kit/igs:/home/igs
+      # To let the service share your local FHIR package cache,
+      # uncomment the below line
+      # - ~/.fhir:/home/ktor/.fhir

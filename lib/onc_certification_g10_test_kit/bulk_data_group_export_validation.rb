@@ -62,15 +62,11 @@ module ONCCertificationG10TestKit
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/STU1.0.1/export/index.html#file-request'
 
-      input :bulk_download_url
+      input :bulk_download_url, :requires_access_token, :requires_access_token, :bearer_token
 
       run do
-        skip_if bulk_download_url.blank?, 'Could not verify this functionality when no download link was provided'
-        skip_if requires_access_token.blank?,
-                'Could not verify this functionality when requiresAccessToken is not provided'
         omit_if requires_access_token == 'false',
                 'Could not verify this functionality when requiresAccessToken is false'
-        skip_if bearer_token.blank?, 'Could not verify this functionality when Bearer Token is not provided'
 
         get(bulk_download_url, headers: { accept: 'application/fhir+ndjson' })
         assert_response_status([400, 401])

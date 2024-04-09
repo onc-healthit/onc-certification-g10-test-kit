@@ -32,7 +32,7 @@ RSpec.describe ONCCertificationG10TestKit::SMARTInvalidTokenRefreshTest do
     result = run(test, default_inputs)
 
     expect(result.result).to eq('skip')
-    expect(result.result_message).to match(/No refresh token/)
+    expect(result.result_message).to match(/refresh_token/)
   end
 
   it 'fails if the token request succeeds' do

@@ -20,7 +20,8 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     {
       requires_access_token: 'true',
       status_output:,
-      bearer_token:
+      bearer_token:,
+      bulk_download_url: endpoint
     }
   end
 
@@ -43,32 +44,35 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     let(:runnable) { group.tests[1] }
 
     it 'skips when bulk_download_url is not provided' do
-      result = run(runnable)
+      input.delete(:bulk_download_url)
+      result = run(runnable, input)
 
       expect(result.result).to eq('skip')
-      expect(result.result_message).to eq('Could not verify this functionality when no download link was provided')
+      expect(result.result_message).to match(/bulk_download_url/)
     end
 
     it 'skips when requires_access_token is not provided' do
-      result = run(runnable, { bulk_download_url: endpoint })
+      input.delete(:requires_access_token)
+      result = run(runnable, input)
 
       expect(result.result).to eq('skip')
-      expect(result.result_message)
-        .to eq('Could not verify this functionality when requiresAccessToken is not provided')
+      expect(result.result_message).to match(/requires_access_token/)
     end
 
     it 'omits when requiresAccessToken is false' do
-      result = run(runnable, { requires_access_token: 'false', bulk_download_url: endpoint })
+      input[:requires_access_token] = 'false'
+      result = run(runnable, input)
 
       expect(result.result).to eq('omit')
       expect(result.result_message).to eq('Could not verify this functionality when requiresAccessToken is false')
     end
 
     it 'skips when bearer_token is not provided' do
-      result = run(runnable, { requires_access_token: 'true', bulk_download_url: endpoint })
+      input.delete(:bearer_token)
+      result = run(runnable, input)
 
       expect(result.result).to eq('skip')
-      expect(result.result_message).to eq('Could not verify this functionality when Bearer Token is not provided')
+      expect(result.result_message).to match(/bearer_token/)
     end
 
     context 'when bulk_download_url and bearer_token are given and requiresAccessToken is true' do
@@ -208,7 +212,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     let(:runnable) { group.tests[3] }
 
     it 'skips when no patient ids have been stored' do
-      result = run(runnable)
+      result = run(runnable, input)
 
       expect(result.result).to eq('skip')
       expect(result.result_message).to eq('No Patient resources processed from bulk data export.')
@@ -216,7 +220,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
 
     it 'fails when less than two patient ids are stored' do
       scratch[:patient_ids_seen] = ['one_id']
-      result = run(runnable)
+      result = run(runnable, input)
 
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Bulk data export did not have multiple Patient resources.')
@@ -224,7 +228,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
 
     it 'passes when two or more patient ids are stored' do
       scratch[:patient_ids_seen] = ['one_id', 'two_id']
-      result = run(runnable)
+      result = run(runnable, input)
 
       expect(result.result).to eq('pass')
     end
@@ -232,10 +236,10 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
 
   describe '[Patient IDs match those expected in Group]' do
     let(:runnable) { group.tests[4] }
-    let(:input) { { bulk_patient_ids_in_group: 'one_id, two_id, three_id' } }
+    let(:patient_input) { input.merge(bulk_patient_ids_in_group: 'one_id, two_id, three_id') }
 
     it 'omits when no patient ids have been stored' do
-      result = run(runnable)
+      result = run(runnable, input)
 
       expect(result.result).to eq('omit')
       expect(result.result_message).to eq('No patient ids were given.')
@@ -243,7 +247,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
 
     it 'fails when the input patient ids do not match those stored' do
       scratch[:patient_ids_seen] = ['one_id', 'one_id', 'one_id']
-      result = run(runnable, input)
+      result = run(runnable, patient_input)
 
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Mismatch between patient ids seen (one_id, one_id, one_id) and patient ' \
@@ -252,7 +256,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
 
     it 'fails when more input patient ids than ids stored' do
       scratch[:patient_ids_seen] = ['one_id', 'two_id']
-      result = run(runnable, input)
+      result = run(runnable, patient_input)
 
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Mismatch between patient ids seen (one_id, two_id) and patient ' \
@@ -261,7 +265,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
 
     it 'fails when less input patient ids than ids stored' do
       scratch[:patient_ids_seen] = ['one_id', 'two_id', 'three_id', 'four_id']
-      result = run(runnable, input)
+      result = run(runnable, patient_input)
 
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Mismatch between patient ids seen (one_id, two_id, three_id, four_id) ' \
@@ -270,7 +274,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
 
     it 'passes when the input patient ids do not match those stored' do
       scratch[:patient_ids_seen] = ['one_id', 'two_id', 'three_id']
-      result = run(runnable, input)
+      result = run(runnable, patient_input)
 
       expect(result.result).to eq('pass')
     end
