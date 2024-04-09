@@ -1,3 +1,10 @@
+# 5.3.0
+
+* Use HL7 validator wrapper (#488).
+* Fix an issue identifying Coverage.identifier:membershipid.type Must Support
+  slice when it is not the first identifier (#504).
+* Remove remaining US Core 5 references from descriptions (#506).
+
 # 5.2.0
 
 * Fix Must Support for Patient's previous name and address (#496).
