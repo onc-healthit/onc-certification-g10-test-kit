@@ -1,12 +1,4 @@
 PATH
-  remote: ../us-core-test-kit
-  specs:
-    us_core_test_kit (0.7.0)
-      inferno_core (>= 0.4.2)
-      smart_app_launch_test_kit (>= 0.4.0)
-      tls_test_kit (~> 0.2.0)
-
-PATH
   remote: .
   specs:
     onc_certification_g10_test_kit (5.4.0.rc1)
@@ -19,6 +11,7 @@ PATH
       rubyzip (~> 2.3.2)
       smart_app_launch_test_kit (= 0.4.2)
       tls_test_kit (= 0.2.1)
+      us_core_test_kit (= 0.7.0)
 
 GEM
   remote: https://rubygems.org/
@@ -342,6 +335,10 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
     unicode_utils (1.4.0)
+    us_core_test_kit (0.7.0)
+      inferno_core (>= 0.4.2)
+      smart_app_launch_test_kit (>= 0.4.0)
+      tls_test_kit (~> 0.2.0)
     webmock (3.18.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -363,7 +360,6 @@ DEPENDENCIES
   rubocop (~> 1.9)
   rubocop-rspec
   rubyXL
-  us_core_test_kit!
   webmock (~> 3.11)
 
 BUNDLED WITH
