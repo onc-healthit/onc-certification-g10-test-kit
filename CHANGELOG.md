@@ -1,3 +1,8 @@
+# 5.4.0
+* Increase validator version (#509).
+* Remove Practitioner search tests (#510).
+* Fix Must Support primitive extensions not being recognized (#411).
+
 # 5.3.0
 
 * Use HL7 validator wrapper (#488).
