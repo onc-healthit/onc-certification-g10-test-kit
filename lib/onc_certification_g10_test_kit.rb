@@ -82,8 +82,6 @@ module ONCCertificationG10TestKit
 
       validator_method.call :default, required_suite_options: us_core_version_requirement do
         if Feature.use_hl7_resource_validator?
-          url ENV.fetch('G10_FHIR_RESOURCE_VALIDATOR_URL', 'http://hl7_validator_service:3500')
-
           cli_context do
             txServer nil
             displayWarnings true
