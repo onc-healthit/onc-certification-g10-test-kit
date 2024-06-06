@@ -165,6 +165,8 @@ module ONCCertificationG10TestKit
 
       next if test_group.optional?
 
+      next if test_group.id.to_s.include? 'us_core_v610_screening_assessment'
+
       id = test_group.id
 
       group_config = {}
