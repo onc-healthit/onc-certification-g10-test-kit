@@ -165,6 +165,7 @@ module ONCCertificationG10TestKit
 
       next if test_group.optional?
 
+      #TODO: Remove this line after ONC CCG release (FI-2804)
       next if test_group.id.to_s.include? 'us_core_v610_screening_assessment'
 
       id = test_group.id
