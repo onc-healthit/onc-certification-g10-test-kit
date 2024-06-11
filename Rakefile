@@ -131,6 +131,9 @@ end
 namespace :g10_test_kit do
   desc 'Generate ONC Certification (g)(10) Test Kit Matrix'
   task :generate_matrix do
+    require 'inferno'
+    Inferno::Application.start(:suites)
+
     require_relative 'lib/onc_certification_g10_test_kit/tasks/generate_matrix'
     ONCCertificationG10TestKit::Tasks::GenerateMatrix.new.run
   end
