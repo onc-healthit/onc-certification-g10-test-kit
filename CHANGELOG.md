@@ -1,3 +1,9 @@
+# 5.4.1
+* Fix an issue in the resource validation tests wnen Provenance resource does
+  not have `agent.who.reference` (#514).
+* Fix an issue which prevented Must Support elements from being recognized when
+  the element contains both a primitive value and an extension (#411).
+
 # 5.4.0
 * Increase validator version (#509).
 * Remove Practitioner search tests (#510).
