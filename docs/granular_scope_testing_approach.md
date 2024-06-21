@@ -23,7 +23,6 @@ text](https://www.federalregister.gov/d/2023-28857/p-1245)
     `Condition.rs?category=http://hl7.org/fhir/us/core/CodeSystem/condition-category|health-concern`
 * Observation
   * Clinical Test
-    `Observation.rs?category=http://terminology.hl7.org/CodeSystem/observation-category|procedure`
   * Laboratory
     `Observation.rs?category=http://terminology.hl7.org/CodeSystem/observation-category|laboratory`
   * Social History
@@ -73,11 +72,10 @@ text](https://www.federalregister.gov/d/2023-28857/p-1245)
 
 * Group 1
   * `Condition.rs?category=http://terminology.hl7.org/CodeSystem/condition-category|encounter-diagnosis`
+  * `Condition.rs?category=http://hl7.org/fhir/us/core/CodeSystem/condition-category|health-concern`
   * `Observation.rs?category=http://terminology.hl7.org/CodeSystem/observation-category|laboratory`
   * `Observation.rs?category=http://terminology.hl7.org/CodeSystem/observation-category|social-history`
-  * `Observation.rs?category=http://terminology.hl7.org/CodeSystem/observation-category|procedure`
 * Group 2
-  * `Condition.rs?category=http://hl7.org/fhir/us/core/CodeSystem/condition-category|health-concern`
   * `Condition.rs?category=http://terminology.hl7.org/CodeSystem/condition-category|problem-list-item`
   * `Observation.rs?category=http://terminology.hl7.org/CodeSystem/observation-category|vital-signs`
   * `Observation.rs?category=http://terminology.hl7.org/CodeSystem/observation-category|survey`
@@ -129,3 +127,6 @@ text](https://www.federalregister.gov/d/2023-28857/p-1245)
         request
   * **TODO:** Perform FHIR reads for resources which do and do not match the
     granted scopes, and verify that only resources which match are returned
+* For Clinical Tests, there isn't a clear scope requirement, so an attestation
+  will be added for systems to confirm that they support fine-grained scopes for
+  clinical tests.
