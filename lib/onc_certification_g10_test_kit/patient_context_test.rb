@@ -1,9 +1,10 @@
 module ONCCertificationG10TestKit
   class PatientContextTest < Inferno::Test
-    title 'OAuth token exchange response body contains patient context and patient resource can be retrieved'
+    title 'Patient from launch context can be retrieved'
     description %(
       The `patient` field is a String value with a patient id, indicating that
-      the app was launched in the context of this FHIR Patient.
+      the app was launched in the context of this FHIR Patient. This test
+      verifies that the Patient resource with that id can be retrieved.
     )
     id :g10_patient_context
     input :patient_id, :url
