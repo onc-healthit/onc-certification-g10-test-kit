@@ -70,7 +70,8 @@ module ONCCertificationG10TestKit
       /\A\S+: \S+: The Coding provided \(\S*\) was not found in the value set/,
       /\A\S+: \S+: A definition for CodeSystem '.*' could not be found, so the code cannot be validated/,
       /\A\S+: \S+: URL value '.*' does not resolve/,
-      /\A\S+: \S+: .*\[No server available\]/  # Catch-all for certain errors when TX server is disabled
+      /\A\S+: \S+: .*\[No server available\]/,  # Catch-all for certain errors when TX server is disabled
+      %r{\A\S+: \S+: .*\[Error from http://tx.fhir.org/r4:} # Catch-all for TX server errors that slip through
     ].freeze
 
     def self.setup_validator(us_core_version_requirement) # rubocop:disable Metrics/CyclomaticComplexity
