@@ -93,12 +93,14 @@ module ONCCertificationG10TestKit
                  'launch-standalone',
                  'client-public',
                  'client-confidential-symmetric',
+                 'client-confidential-asymmetric',
                  'sso-openid-connect',
                  'context-standalone-patient',
                  'permission-offline',
                  'permission-patient',
                  'authorize-post',
-                 'permission-v2'
+                 'permission-v2',
+                 'permission-v1'
                ]
              }
            }
