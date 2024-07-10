@@ -3,7 +3,7 @@
   CapabilityStatements (#525).
 * Update the title/description of patient context test to be more accurate
   (#522).
-* Filter out tx.fhir.org validation errors (#524, #524).
+* Filter out tx.fhir.org validation errors (#523, #524).
 
 # 5.4.1
 * Fix an issue in the resource validation tests wnen Provenance resource does
