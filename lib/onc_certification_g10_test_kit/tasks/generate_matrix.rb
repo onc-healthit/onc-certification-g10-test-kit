@@ -85,6 +85,12 @@ module ONCCertificationG10TestKit
               # full_test_id = "#{test_case.prefix}#{test.id}"
               column_map[test.short_id] = col
             end
+
+            test_case.groups.each do |nested_group|
+              nested_group.tests.each do |test|
+                column_map[test.short_id] = col
+              end
+            end
             col += 1
           end
         end
@@ -231,6 +237,8 @@ module ONCCertificationG10TestKit
         row = 1
 
         test_suite.groups.each do |group|
+          next if group.short_id == '6' # Skip US Core 5
+
           row += 1
           inferno_worksheet.add_cell(row, 0, "#{group.short_id}: #{group.title}")
           inferno_worksheet.add_cell(row, 6, applicable_options(group).map(&:value).uniq.join(', '))
