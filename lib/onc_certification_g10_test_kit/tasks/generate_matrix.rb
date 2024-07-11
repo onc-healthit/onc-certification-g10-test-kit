@@ -274,7 +274,8 @@ module ONCCertificationG10TestKit
                 this_row.each_with_index do |value, index|
                   inferno_worksheet.add_cell(row, index, value).change_text_wrap(true)
                 end
-                inferno_worksheet.change_row_height(row, [26, ((test.description || '').strip.lines.count * 10) + 10].max)
+                inferno_worksheet
+                  .change_row_height(row, [26, ((test.description || '').strip.lines.count * 10) + 10].max)
                 inferno_worksheet.change_row_vertical_alignment(row, 'top')
                 row += 1
               end
