@@ -85,6 +85,12 @@ module ONCCertificationG10TestKit
               # full_test_id = "#{test_case.prefix}#{test.id}"
               column_map[test.short_id] = col
             end
+
+            test_case.groups.each do |nested_group|
+              nested_group.tests.each do |test|
+                column_map[test.short_id] = col
+              end
+            end
             col += 1
           end
         end
@@ -231,6 +237,8 @@ module ONCCertificationG10TestKit
         row = 1
 
         test_suite.groups.each do |group|
+          next if group.short_id == '6' # Skip US Core 5
+
           row += 1
           inferno_worksheet.add_cell(row, 0, "#{group.short_id}: #{group.title}")
           inferno_worksheet.add_cell(row, 6, applicable_options(group).map(&:value).uniq.join(', '))
@@ -251,6 +259,26 @@ module ONCCertificationG10TestKit
               inferno_worksheet.change_row_height(row, [26, ((test.description || '').strip.lines.count * 10) + 10].max)
               inferno_worksheet.change_row_vertical_alignment(row, 'top')
               row += 1
+            end
+
+            test_case.groups.each do |nested_group|
+              inferno_worksheet.add_cell(row, 1, "#{nested_group.short_id}: #{nested_group.title}")
+              inferno_worksheet.add_cell(row, 6, applicable_options(nested_group).map(&:value).uniq.join(', '))
+
+              row += 1
+              nested_group.tests.each do |test|
+                this_row = columns.map do |column|
+                  column[2].call(test)
+                end
+
+                this_row.each_with_index do |value, index|
+                  inferno_worksheet.add_cell(row, index, value).change_text_wrap(true)
+                end
+                inferno_worksheet
+                  .change_row_height(row, [26, ((test.description || '').strip.lines.count * 10) + 10].max)
+                inferno_worksheet.change_row_vertical_alignment(row, 'top')
+                row += 1
+              end
             end
           end
         end
