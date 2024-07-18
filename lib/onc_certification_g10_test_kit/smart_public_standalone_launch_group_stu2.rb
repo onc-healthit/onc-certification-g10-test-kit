@@ -106,8 +106,7 @@ module ONCCertificationG10TestKit
                 :smart_authorization_url,
                 :smart_token_url,
                 :authorization_method,
-                :public_client_auth_type,
-                :client_auth_encryption_method
+                :public_client_auth_type
 
     test from: :g10_patient_context,
          config: {
@@ -133,6 +132,10 @@ module ONCCertificationG10TestKit
       run do
         assert id_token.present?, 'Token response did not provide an id_token as required.'
       end
+    end
+
+    children.each do |child|
+      child.inputs.delete(:client_auth_encryption_method)
     end
   end
 end

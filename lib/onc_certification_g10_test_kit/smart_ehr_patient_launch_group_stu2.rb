@@ -106,8 +106,7 @@ module ONCCertificationG10TestKit
                 :authorization_method,
                 :use_pkce,
                 :pkce_code_challenge_method,
-                :client_auth_type,
-                :client_auth_encryption_method
+                :client_auth_type
 
     test from: :g10_patient_context,
          config: {
@@ -123,5 +122,9 @@ module ONCCertificationG10TestKit
              scope_version: :v2
            }
          }
+
+    children.each do |child|
+      child.inputs.delete(:client_auth_encryption_method)
+    end
   end
 end
