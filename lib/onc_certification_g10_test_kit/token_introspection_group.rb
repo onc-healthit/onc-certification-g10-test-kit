@@ -82,8 +82,16 @@ module ONCCertificationG10TestKit
                 :use_pkce,
                 :pkce_code_challenge_method,
                 :standalone_requested_scopes,
-                :client_auth_encryption_method,
-                :client_auth_type
+                :token_introspection_auth_type,
+                :client_auth_encryption_method
+
+    config(
+      inputs: {
+        client_auth_type: {
+          name: :token_introspection_auth_type
+        }
+      }
+    )
 
     groups.first.description <<~DESCRIPTION
       These tests are perform discovery and a standalone launch in order to

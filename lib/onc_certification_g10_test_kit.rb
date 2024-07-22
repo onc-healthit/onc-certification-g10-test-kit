@@ -12,6 +12,7 @@ require_relative 'onc_certification_g10_test_kit/single_patient_us_core_4_api_gr
 require_relative 'onc_certification_g10_test_kit/single_patient_us_core_5_api_group'
 require_relative 'onc_certification_g10_test_kit/single_patient_us_core_6_api_group'
 require_relative 'onc_certification_g10_test_kit/smart_app_launch_invalid_aud_group'
+require_relative 'onc_certification_g10_test_kit/smart_asymmetric_launch_group'
 require_relative 'onc_certification_g10_test_kit/smart_invalid_token_group'
 require_relative 'onc_certification_g10_test_kit/smart_invalid_token_group_stu2'
 require_relative 'onc_certification_g10_test_kit/smart_invalid_pkce_group'
@@ -337,6 +338,14 @@ module ONCCertificationG10TestKit
         )
       end
 
+      config(
+        inputs: {
+          client_auth_encryption_method: {
+            locked: false
+          }
+        }
+      )
+
       group from: :g10_public_standalone_launch,
             required_suite_options: G10Options::SMART_1_REQUIREMENT,
             config: { options: { redirect_message_proc: default_redirect_message_proc } }
@@ -365,6 +374,9 @@ module ONCCertificationG10TestKit
             required_suite_options: G10Options::SMART_2_REQUIREMENT
 
       group from: :g10_token_introspection
+
+      group from: :g10_asymmetric_launch,
+            required_suite_options: G10Options::SMART_2_REQUIREMENT
 
       group from: :g10_visual_inspection_and_attestations
     end
