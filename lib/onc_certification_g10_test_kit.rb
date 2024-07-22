@@ -375,7 +375,8 @@ module ONCCertificationG10TestKit
 
       group from: :g10_token_introspection
 
-      group from: :g10_asymmetric_launch
+      group from: :g10_asymmetric_launch,
+            required_suite_options: G10Options::SMART_2_REQUIREMENT
 
       group from: :g10_visual_inspection_and_attestations
     end
