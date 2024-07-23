@@ -69,6 +69,8 @@ module ONCCertificationG10TestKit
     V6_PATIENT_COMPARTMENT_RESOURCE_TYPES =
       (V5_PATIENT_COMPARTMENT_RESOURCE_TYPES + ['Coverage', 'MedicationDispense', 'Specimen']).freeze
 
+    attr_accessor :received_or_requested
+
     def patient_compartment_resource_types
       return V5_PATIENT_COMPARTMENT_RESOURCE_TYPES if using_us_core_5?
 
@@ -94,36 +96,45 @@ module ONCCertificationG10TestKit
     end
 
     def scope_version
-      config.options[:scope_version]
+      case received_or_requested
+      when 'received'
+        config.options[:received_scope_version] || config.options[:scope_version]
+      when 'requested'
+        config.options[:requested_scope_version] || config.options[:scope_version]
+      else
+        config.options[:scope_version]
+      end
+    end
+
+    def requested_scope_version
+      config.options[:requested_scope_version]
     end
 
     def read_format
-      @read_format ||=
-        begin
-          v1_read_format = 'read'
-          v2_read_format = 'c?ru?d?s?'
+      begin
+        v1_read_format = 'read'
+        v2_read_format = 'c?ru?d?s?'
 
-          case scope_version
-          when :v1
-            "#{v1_read_format} | *"
-          when :v2
-            "#{v2_read_format} | *"
-          else
-            [v1_read_format, v2_read_format, '*'].join(' | ')
-          end
+        case scope_version
+        when :v1
+          "#{v1_read_format} | *"
+        when :v2
+          "#{v2_read_format} | *"
+        else
+          [v1_read_format, v2_read_format, '*'].join(' | ')
         end
+      end
     end
 
     def access_level_regex
-      @access_level_regex ||=
-        case scope_version
-        when :v1
-          /\A(\*|read)\b/
-        when :v2
-          /\A(\*|c?ru?d?s?)\b/
-        else
-          /\A(\*|read|c?ru?d?s?)\b/
-        end
+      case scope_version
+      when :v1
+        /\A(\*|read)\b/
+      when :v2
+        /\A(\*|c?ru?d?s?)\b/
+      else
+        /\A(\*|read|c?ru?d?s?)\b/
+      end
     end
 
     def bad_format_message(scope, scope_direction = 'Requested')
@@ -229,7 +240,7 @@ module ONCCertificationG10TestKit
         }
       ].each do |metadata|
         scopes = metadata[:scopes].split
-        received_or_requested = metadata[:received_or_requested]
+        self.received_or_requested = metadata[:received_or_requested]
 
         missing_scopes = required_scopes - scopes
         assert missing_scopes.empty?,
