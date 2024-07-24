@@ -247,12 +247,12 @@ procedure:
           * “authorization_endpoint”;
           * “token_endpoint”;
           * “capabilities” including support for “launch-ehr",
-            “launch-standalone”, “client-public”,
-            “client-confidential-symmetric", “sso-openid-connect",
-            “context-banner”, “context-style”, “context-ehr-patient",
-            “context-standalone-patient", “permission-offline”,
-            “permission-patient”, “permission-user”, “authorize-post”,
-            “permission-v2”;
+            “launch-standalone”, “authorize-post”, “client-public”,
+            “client-confidential-symmetric", “client-confidential-asymmetric”,
+            “sso-openid-connect", “context-banner”, “context-style”,
+            “context-ehr-patient", “context-standalone-patient",
+            “permission-offline”, “permission-patient”, “permission-user”,
+            “authorize-post”, “permission-v1”, “permission-v2”;
           * “grant_types_supported” with support for “authorization_code” and
             “client_credentials”; and
           * “code_challenge_methods_supported” with support for “S256” and shall
@@ -270,12 +270,12 @@ procedure:
           * “authorization_endpoint”;
           * “token_endpoint”;
           * “capabilities” including support for “launch-ehr",
-            “launch-standalone”, “client-public”,
-            “client-confidential-symmetric", “sso-openid-connect",
-            “context-banner”, “context-style”, “context-ehr-patient",
-            “context-standalone-patient", “permission-offline”,
-            “permission-patient”, “permission-user”, “authorize-post”,
-            “permission-v2”;
+            “launch-standalone”, “authorize-post”, “client-public”,
+            “client-confidential-symmetric", “client-confidential-asymmetric”,
+            “sso-openid-connect", “context-banner”, “context-style”,
+            “context-ehr-patient", “context-standalone-patient",
+            “permission-offline”, “permission-patient”, “permission-user”,
+            “authorize-post”, “permission-v1”, “permission-v2”;
           * “grant_types_supported” with support for “authorization_code” and
             “client_credentials”; and
           * “code_challenge_methods_supported” with support for “S256” and shall
@@ -467,6 +467,8 @@ procedure:
             FHIR® Capability”); and
           * User-level scopes (to support “permission-user” “SMART on FHIR®
             Capability”).
+          * SMART v1 scope syntax for patient-level and user-level scopes to
+            support the “permission-v1” “SMART on FHIR® Capability”
           * SMARTv2 scope syntax for patient-level and user-level scopes (to
             support “permission-v2” “SMART on FHIR® Capability”)
         TLV: |
@@ -491,12 +493,15 @@ procedure:
             FHIR® Capability”); and
           * User-level scopes (to support “permission-user” “SMART on FHIR®
             Capability”).
+          * SMART v1 scope syntax for patient-level and user-level scopes to
+            support the “permission-v1” “SMART on FHIR® Capability”
           * SMARTv2 scope syntax for patient-level and user-level scopes (to
             support “permission-v2” “SMART on FHIR® Capability”)
         inferno_supported: 'yes'
         inferno_tests:
           - 1.4.02
           - 3.4.04
+          - 9.13.2.02
         inferno_notes: |
           This step refers to only the receipt of these scopes, which is covered in
           Inferno in one step in each the EHR and Standalone launch cases.  However,
