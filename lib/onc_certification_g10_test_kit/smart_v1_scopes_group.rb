@@ -35,9 +35,9 @@ module ONCCertificationG10TestKit
           granted, and SHOULD process v1 scopes with the following semantics in
           v2:
 
-          * v1 .read ⇒ v2 .rs
+        > * v1 .read ⇒ v2 .rs
 
-        * [SMART on FHIR Scopes for requesting FHIR Resources
+        [SMART on FHIR Scopes for requesting FHIR Resources
           (STU2)](http://hl7.org/fhir/smart-app-launch/scopes-and-launch-context.html#scopes-for-requesting-fhir-resources)
       )
     id :g10_smart_v1_scopes
@@ -52,14 +52,35 @@ module ONCCertificationG10TestKit
         client_secret: {
           optional: false,
           name: :standalone_client_secret
-        }
+        },
+        requested_scopes: {
+          name: :v1_requested_scopes,
+          default: %(
+            launch/patient openid fhirUser offline_access
+            patient/Medication.read patient/AllergyIntolerance.read
+            patient/CarePlan.read patient/CareTeam.read patient/Condition.read
+            patient/Device.read patient/DiagnosticReport.read
+            patient/DocumentReference.read patient/Encounter.read
+            patient/Goal.read patient/Immunization.read patient/Location.read
+            patient/MedicationRequest.read patient/Observation.read
+            patient/Organization.read patient/Patient.read
+            patient/Practitioner.read patient/Procedure.read
+            patient/Provenance.read patient/PractitionerRole.read
+          ).gsub(/\s{2,}/, ' ').strip
+        },
+        received_scopes: { name: :v1_received_scopes },
+        smart_credentials: { name: :v1_smart_credentials }
+      },
+      outputs: {
+        received_scopes: { name: :v1_received_scopes },
+        patient_id: { name: :v1_patient_id }
       }
     )
 
     input_order :url,
                 :standalone_client_id,
                 :standalone_client_secret,
-                :standalone_requested_scopes,
+                :v1_requested_scopes,
                 :use_pkce,
                 :pkce_code_challenge_method,
                 :standalone_authorization_method,
@@ -106,6 +127,9 @@ module ONCCertificationG10TestKit
                 locked: true,
                 default: 'confidential_symmetric'
               }
+            },
+            outputs: {
+              smart_credentials: { name: :v1_smart_credentials }
             }
           } do
       title 'Standalone Launch With Patient Scope'
@@ -134,33 +158,11 @@ module ONCCertificationG10TestKit
           Sequence](http://hl7.org/fhir/smart-app-launch/STU2/app-launch.html#launch-app-standalone-launch)
       )
 
-      config(
-        inputs: {
-          requested_scopes: {
-            default: %(
-              launch/patient openid fhirUser offline_access
-              patient/Medication.read patient/AllergyIntolerance.read
-              patient/CarePlan.read patient/CareTeam.read patient/Condition.read
-              patient/Device.read patient/DiagnosticReport.read
-              patient/DocumentReference.read patient/Encounter.read
-              patient/Goal.read patient/Immunization.read patient/Location.read
-              patient/MedicationRequest.read patient/Observation.read
-              patient/Organization.read patient/Patient.read
-              patient/Practitioner.read patient/Procedure.read
-              patient/Provenance.read patient/PractitionerRole.read
-            ).gsub(/\s{2,}/, ' ').strip
-          }
-        }
-      )
-
       test from: :g10_smart_scopes do
         config(
-          inputs: {
-            requested_scopes: { name: :standalone_requested_scopes },
-            received_scopes: { name: :standalone_received_scopes }
-          },
           options: {
-            scope_version: :v1,
+            requested_scope_version: :v1,
+            received_scope_version: :any,
             required_scope_type: 'patient',
             required_scopes: ['openid', 'fhirUser', 'launch/patient', 'offline_access']
           }
@@ -170,15 +172,15 @@ module ONCCertificationG10TestKit
       test from: :g10_unauthorized_access,
            config: {
              inputs: {
-               patient_id: { name: :standalone_patient_id }
+               patient_id: { name: :v1_patient_id }
              }
            }
 
       test from: :g10_patient_context,
            config: {
              inputs: {
-               patient_id: { name: :standalone_patient_id },
-               smart_credentials: { name: :standalone_smart_credentials }
+               patient_id: { name: :v1_patient_id },
+               smart_credentials: { name: :v1_smart_credentials }
              }
            }
 
@@ -202,25 +204,11 @@ module ONCCertificationG10TestKit
     group from: :g10_unrestricted_resource_type_access,
           config: {
             inputs: {
-              received_scopes: { name: :standalone_received_scopes },
-              patient_id: { name: :standalone_patient_id },
-              smart_credentials: { name: :standalone_smart_credentials }
+              received_scopes: { name: :v1_received_scopes },
+              patient_id: { name: :v1_patient_id },
+              smart_credentials: { name: :v1_smart_credentials }
             }
           }
-
-    test do
-      id :g10_standalone_credentials_export
-      title 'Set SMART Credentials to Standalone Launch Credentials'
-
-      input :standalone_smart_credentials, type: :oauth_credentials
-      input :standalone_patient_id
-      output :smart_credentials, :patient_id
-
-      run do
-        output smart_credentials: standalone_smart_credentials.to_s,
-               patient_id: standalone_patient_id
-      end
-    end
 
     test from: :g10_incorrectly_permitted_tls_versions_messages_setup,
          id: :g10_auth_incorrectly_permitted_tls_versions_messages_setup,

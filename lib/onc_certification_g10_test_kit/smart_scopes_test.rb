@@ -111,18 +111,16 @@ module ONCCertificationG10TestKit
     end
 
     def read_format
-      begin
-        v1_read_format = 'read'
-        v2_read_format = 'c?ru?d?s?'
+      v1_read_format = 'read'
+      v2_read_format = 'c?ru?d?s?'
 
-        case scope_version
-        when :v1
-          "#{v1_read_format} | *"
-        when :v2
-          "#{v2_read_format} | *"
-        else
-          [v1_read_format, v2_read_format, '*'].join(' | ')
-        end
+      case scope_version
+      when :v1
+        "#{v1_read_format} | *"
+      when :v2
+        "#{v2_read_format} | *"
+      else
+        [v1_read_format, v2_read_format, '*'].join(' | ')
       end
     end
 
