@@ -43,10 +43,6 @@ module ONCCertificationG10TestKit
     id :g10_smart_v1_scopes
     run_as_group
 
-    def self.short_id
-      '9.13'
-    end
-
     config(
       inputs: {
         client_secret: {
