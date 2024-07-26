@@ -98,6 +98,21 @@ RSpec.describe ONCCertificationG10TestKit::SMARTScopesTest do
       end
     end
 
+    context 'with a specific request scope version' do
+      it 'overrides a general version' do
+        allow_any_instance_of(test).to(
+          receive(:config).and_return(OpenStruct.new(options: { scope_version: :v1, requested_scope_version: :v2 }))
+        )
+
+        bad_scope = 'patient/Patient.read'
+        result = run(test, requested_scopes: "#{base_scopes} user/Binary.rs #{bad_scope}", received_scopes: 'foo')
+
+        expect(result.result).to eq('fail')
+        expect(result.result_message).to match('does not follow the format')
+        expect(result.result_message).to include(bad_scope)
+      end
+    end
+
     context 'with received scopes' do
       let(:requested_scopes) { "#{base_scopes} patient/Patient.read" }
 
@@ -115,6 +130,21 @@ RSpec.describe ONCCertificationG10TestKit::SMARTScopesTest do
 
         expect(result.result).to eq('fail')
         expect(result.result_message).to match('were not granted by authorization server')
+      end
+
+      context 'with a specific received scope version' do
+        it 'overrides a general version' do
+          allow_any_instance_of(test).to(
+            receive(:config).and_return(OpenStruct.new(options: { scope_version: :v1, received_scope_version: :v2 }))
+          )
+          bad_scope = 'patient/Patient.read'
+          result = run(test, requested_scopes:, received_scopes: "#{base_scopes} patient/Goal.rs #{bad_scope}")
+
+          expect(result.result).to eq('fail')
+          expect(result.result_message).to match('were not granted')
+          expect(result.result_message).to_not include('Goal')
+          expect(result.result_message).to include('Patient')
+        end
       end
     end
   end

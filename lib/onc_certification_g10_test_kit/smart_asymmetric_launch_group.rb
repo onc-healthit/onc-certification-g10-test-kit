@@ -47,10 +47,6 @@ module ONCCertificationG10TestKit
     id :g10_asymmetric_launch
     run_as_group
 
-    def self.short_id
-      '9.12'
-    end
-
     config(
       inputs: {
         client_id: {
