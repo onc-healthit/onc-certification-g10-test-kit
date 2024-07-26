@@ -101,7 +101,8 @@ module ONCCertificationG10TestKit
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-relatedperson',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-servicerequest',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-specimen'
-        ]
+        ],
+        tag_requests: true
       }
     )
 
