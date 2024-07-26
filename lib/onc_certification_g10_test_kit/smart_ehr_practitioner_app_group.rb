@@ -100,6 +100,7 @@ module ONCCertificationG10TestKit
                required_capabilities: [
                  'launch-ehr',
                  'client-confidential-symmetric',
+                 'client-confidential-asymmetric',
                  'sso-openid-connect',
                  'context-banner',
                  'context-style',
@@ -107,7 +108,8 @@ module ONCCertificationG10TestKit
                  'permission-offline',
                  'permission-user',
                  'authorize-post',
-                 'permission-v2'
+                 'permission-v2',
+                 'permission-v1'
                ]
              }
            }
