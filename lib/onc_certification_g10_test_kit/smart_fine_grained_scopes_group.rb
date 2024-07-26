@@ -32,7 +32,6 @@ module ONCCertificationG10TestKit
     #       (STU2)](http://hl7.org/fhir/smart-app-launch/scopes-and-launch-context.html#scopes-for-requesting-fhir-resources)
     #   )
     id :g10_smart_fine_grained_scopes
-    run_as_group
 
     def self.short_id
       '9.14'
@@ -40,11 +39,19 @@ module ONCCertificationG10TestKit
 
     input :url
 
+    children.each { |child| child.run_as_group }
+
     children.first.children[0] = children.first.children.first.children.first
-    children.first.children.last.children.each { |group| group.children.select! { |child| child.required? } }
+    children.first.children[0].required
+    api_group = children.first.children.pop
+    api_group.children.each { |group| group.children.select! { |child| child.required? } }
+    api_group.children.each { |child| children.first.children << child }
 
     children.last.children[0] = children.last.children.first.children.first
-    children.last.children.last.children.each { |group| group.children.select! { |child| child.required? } }
+    children.last.children[0].required
+    api_group = children.last.children.pop
+    api_group.children.each { |group| group.children.select! { |child| child.required? } }
+    api_group.children.each { |child| children.last.children << child }
 
     # config(
     #   inputs: {
