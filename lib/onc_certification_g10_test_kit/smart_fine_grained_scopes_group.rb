@@ -83,13 +83,13 @@ module ONCCertificationG10TestKit
     # Move the granular scope API groups to the top level
     api_group1 = granular_scopes_group1.children.pop
     api_group1.children.each do |group|
-      group.children.select! { |child| child.required? }
+      group.children.select!(&:required?)
       granular_scopes_group1.children << group
     end
 
     api_group2 = granular_scopes_group2.children.pop
     api_group2.children.each do |group|
-      group.children.select! { |child| child.required? }
+      group.children.select!(&:required?)
       granular_scopes_group2.children << group
     end
 
@@ -158,6 +158,5 @@ module ONCCertificationG10TestKit
                 :use_pkce,
                 :pkce_code_challenge_method,
                 :patient_ids
-
   end
 end
