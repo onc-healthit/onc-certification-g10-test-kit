@@ -39,19 +39,30 @@ module ONCCertificationG10TestKit
 
     input :url
 
-    children.each { |child| child.run_as_group }
+    children.each(&:run_as_group)
 
-    children.first.children[0] = children.first.children.first.children.first
-    children.first.children[0].required
-    api_group = children.first.children.pop
-    api_group.children.each { |group| group.children.select! { |child| child.required? } }
-    api_group.children.each { |child| children.first.children << child }
+    # Replace generic granular scope auth group with which allows standalone or
+    # ehr launch with just the standalone launch group
+    granular_scopes_group1 = children.first
+    granular_scopes_group1.children[0] = granular_scopes_group1.children.first.children.first
+    granular_scopes_group1.children[0].required
 
-    children.last.children[0] = children.last.children.first.children.first
-    children.last.children[0].required
-    api_group = children.last.children.pop
-    api_group.children.each { |group| group.children.select! { |child| child.required? } }
-    api_group.children.each { |child| children.last.children << child }
+    granular_scopes_group2 = children.last
+    granular_scopes_group2.children[0] = granular_scopes_group2.children.first.children.first
+    granular_scopes_group2.children[0].required
+
+    # Move the granular scope API groups to the top level
+    api_group1 = granular_scopes_group1.children.pop
+    api_group1.children.each do |group|
+      group.children.select! { |child| child.required? }
+      granular_scopes_group1.children << group
+    end
+
+    api_group2 = granular_scopes_group2.children.pop
+    api_group2.children.each do |group|
+      group.children.select! { |child| child.required? }
+      granular_scopes_group2.children << group
+    end
 
     # config(
     #   inputs: {
