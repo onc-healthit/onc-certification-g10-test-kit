@@ -64,10 +64,6 @@ module ONCCertificationG10TestKit
 
     id :g10_smart_fine_grained_scopes
 
-    def self.short_id
-      '9.14'
-    end
-
     input :url
 
     children.each(&:run_as_group)
