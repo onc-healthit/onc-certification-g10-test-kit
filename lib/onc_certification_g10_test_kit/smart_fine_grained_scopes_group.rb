@@ -3,34 +3,26 @@ module ONCCertificationG10TestKit
     title 'SMART App Launch with fine-grained scopes'
     short_title 'SMART Launch with Fine-Grained Scopes'
 
-    # input_instructions %(
-    #   Register Inferno as a standalone application using the following information:
+    input_instructions %(
+      Register Inferno as a standalone application using the following information:
 
-    #   * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
+      * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
 
-    #   Enter in the appropriate v1 scopes to enable patient-level access to all
-    #   relevant resources. In addition, support for the OpenID Connect (openid
-    #   fhirUser), refresh tokens (offline_access), and patient context
-    #   (launch/patient) are required.
-    # )
+      Each group requires a separate set of granular scopes to be granted:
 
-    # description %(
-    #     This scenario demonstrates the ability of a system to perform a
-    #     Standalone Launch with v1 scopes, and then performs simple queries te
-    #     ensure that access is granted to all resources.
+      Group 1:
+      * `Condition.rs?category=http://terminology.hl7.org/CodeSystem/condition-category|encounter-diagnosis`
+      * `Condition.rs?category=http://hl7.org/fhir/us/core/CodeSystem/condition-category|health-concern`
+      * `Observation.rs?category=http://terminology.hl7.org/CodeSystem/observation-category|laboratory`
+      * `Observation.rs?category=http://terminology.hl7.org/CodeSystem/observation-category|social-history`
 
-    #     > For backwards compatibility with scopes defined in the SMART App
-    #       Launch 1.0 specification, servers SHOULD advertise the permission-v1
-    #       capability in their .well-known/smart-configuration discovery
-    #       document, SHOULD return v1 scopes when v1 scopes are requested and
-    #       granted, and SHOULD process v1 scopes with the following semantics in
-    #       v2:
+      Group 2:
+      * `Condition.rs?category=http://terminology.hl7.org/CodeSystem/condition-category|problem-list-item`
+      * `Observation.rs?category=http://terminology.hl7.org/CodeSystem/observation-category|vital-signs`
+      * `Observation.rs?category=http://terminology.hl7.org/CodeSystem/observation-category|survey`
+      * `Observation.rs?category=http://hl7.org/fhir/us/core/CodeSystem/us-core-category|sdoh`
+    )
 
-    #     > * v1 .read ⇒ v2 .rs
-
-    #     [SMART on FHIR Scopes for requesting FHIR Resources
-    #       (STU2)](http://hl7.org/fhir/smart-app-launch/scopes-and-launch-context.html#scopes-for-requesting-fhir-resources)
-    #   )
     id :g10_smart_fine_grained_scopes
 
     def self.short_id
