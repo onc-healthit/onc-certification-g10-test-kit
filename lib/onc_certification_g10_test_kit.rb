@@ -15,17 +15,18 @@ require_relative 'onc_certification_g10_test_kit/single_patient_us_core_5_api_gr
 require_relative 'onc_certification_g10_test_kit/single_patient_us_core_6_api_group'
 require_relative 'onc_certification_g10_test_kit/smart_app_launch_invalid_aud_group'
 require_relative 'onc_certification_g10_test_kit/smart_asymmetric_launch_group'
+require_relative 'onc_certification_g10_test_kit/smart_granular_scope_selection_group'
+require_relative 'onc_certification_g10_test_kit/smart_invalid_token_group'
+require_relative 'onc_certification_g10_test_kit/smart_invalid_token_group_stu2'
+require_relative 'onc_certification_g10_test_kit/smart_invalid_pkce_group'
+require_relative 'onc_certification_g10_test_kit/smart_limited_app_group'
+require_relative 'onc_certification_g10_test_kit/smart_standalone_patient_app_group'
+require_relative 'onc_certification_g10_test_kit/smart_public_standalone_launch_group'
+require_relative 'onc_certification_g10_test_kit/smart_public_standalone_launch_group_stu2'
 require_relative 'onc_certification_g10_test_kit/smart_ehr_patient_launch_group'
 require_relative 'onc_certification_g10_test_kit/smart_ehr_patient_launch_group_stu2'
 require_relative 'onc_certification_g10_test_kit/smart_ehr_practitioner_app_group'
 require_relative 'onc_certification_g10_test_kit/smart_fine_grained_scopes_group'
-require_relative 'onc_certification_g10_test_kit/smart_invalid_pkce_group'
-require_relative 'onc_certification_g10_test_kit/smart_invalid_token_group'
-require_relative 'onc_certification_g10_test_kit/smart_invalid_token_group_stu2'
-require_relative 'onc_certification_g10_test_kit/smart_limited_app_group'
-require_relative 'onc_certification_g10_test_kit/smart_public_standalone_launch_group'
-require_relative 'onc_certification_g10_test_kit/smart_public_standalone_launch_group_stu2'
-require_relative 'onc_certification_g10_test_kit/smart_standalone_patient_app_group'
 require_relative 'onc_certification_g10_test_kit/smart_v1_scopes_group'
 require_relative 'onc_certification_g10_test_kit/terminology_binding_validator'
 require_relative 'onc_certification_g10_test_kit/token_introspection_group'
@@ -387,6 +388,11 @@ module ONCCertificationG10TestKit
       group from: :g10_smart_fine_grained_scopes,
             required_suite_options: G10Options::SMART_2_REQUIREMENT.merge(G10Options::US_CORE_6_REQUIREMENT),
             exclude_optional: true
+
+      group from: :g10_smart_granular_scope_selection,
+            required_suite_options: G10Options::SMART_2_REQUIREMENT.merge(G10Options::US_CORE_6_REQUIREMENT)
+
+      group from: :g10_visual_inspection_and_attestations
     end
 
     group from: :g10_visual_inspection_and_attestations
