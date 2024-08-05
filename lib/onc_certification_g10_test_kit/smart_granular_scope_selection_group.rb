@@ -46,15 +46,14 @@ module ONCCertificationG10TestKit
         pkce_code_challenge_method: {
           locked: true
         },
-        authorization_method: {
-          name: :standalone_authorization_method,
-          default: 'get',
-          locked: true
+        granular_scope_selection_authorization_method: {
+          name: :granular_scope_selection_authorization_method,
+          default: 'get'
         },
         client_auth_type: {
-          locked: true,
-          default: 'confidential_symmetric'
-        }
+          name: :granular_scope_selection_client_auth_type,
+          default: 'confidential_asymmetric'
+        },
       }
     )
 
@@ -72,8 +71,19 @@ module ONCCertificationG10TestKit
 
       config(
         inputs: {
+          client_id: {
+            name: :granular_scope_selection_v1_client_id,
+            title: 'Granular Scope Selection w/v1 Scopes Client ID'
+          },
+          client_secret: {
+            name: :granular_scope_selection_v1_client_secret,
+            title: 'Granular Scope Selection w/v1 Scopes Secret',
+            default: nil,
+            optional: true
+          },
           requested_scopes: {
             name: :granular_scope_selection_v1_requested_scopes,
+            title: 'Granular Scope Selection v1 Scopes',
             default: %(
               launch/patient openid fhirUser offline_access
               patient/Condition.read patient/Observation.read
@@ -125,8 +135,19 @@ module ONCCertificationG10TestKit
 
       config(
         inputs: {
+          client_id: {
+            name: :granular_scope_selection_v2_client_id,
+            title: 'Granular Scope Selection w/v2 Scopes Client ID'
+          },
+          client_secret: {
+            name: :granular_scope_selection_v2_client_secret,
+            title: 'Granular Scope Selection w/v2 Scopes Client Secret',
+            default: nil,
+            optional: true
+          },
           requested_scopes: {
             name: :granular_scope_selection_v2_requested_scopes,
+            title: 'Granular Scope Selection v2 Scopes',
             default: %(
               launch/patient openid fhirUser offline_access patient/Condition.rs
               patient/Observation.rs patient/Patient.rs
