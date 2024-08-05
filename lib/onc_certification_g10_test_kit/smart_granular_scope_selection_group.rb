@@ -7,6 +7,34 @@ module ONCCertificationG10TestKit
     short_title 'SMART Granular Scope Selection'
     id :g10_smart_granular_scope_selection
 
+    description <<~DESCRIPTION
+      These tests verify that when resource-level scopes are requested for
+      Condition and Observation resources, the user is prevented with the option
+      of approving sub-resource scopes rather than the resource-level scope.
+
+      The first group requests v1 resource-level Condition and Observation
+      scopes, and the second group requests v2 resource-level Condition and
+      Observation socpes. In each instance, the user must unselect the
+      resource-level scopes and instead approve sub-resource scopes for
+      Condition and Observation. It is also required that a resource-level
+      Patient scope be granted.
+
+      > As part of supporting the SMART App Launch “permission-v2” capability
+        for the purposes of certification, if an app requests authorization for
+        a resource level scope for the “Condition” or “Observation” resources,
+        then for patient authorization purposes a Health IT Module must support
+        presentation of the required sub-resource scopes to the patient for
+        authorization. Specifically, sub-resource scopes must be presented for
+        patient authorization as follows:
+
+      > * “Condition” sub-resource scopes “Encounter Diagnosis”, “Problem List”,
+          and “Health Concern” if a “Condition” resource level scope is
+          requested
+      > * “Observation” sub-resource scopes “Clinical Test”, “Laboratory”,
+          “Social History”, “SDOH”, “Survey”, and “Vital Signs” if an
+          “Observation” resource level scope is requested
+    DESCRIPTION
+
     run_as_group
 
     config(
