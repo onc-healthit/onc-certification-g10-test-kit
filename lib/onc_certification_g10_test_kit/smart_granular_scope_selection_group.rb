@@ -1,4 +1,5 @@
 require_relative 'smart_scopes_test'
+require_relative 'smart_granular_scope_selection_test'
 
 module ONCCertificationG10TestKit
   class SmartGranularScopeSelectionGroup < Inferno::TestGroup
@@ -84,6 +85,8 @@ module ONCCertificationG10TestKit
           ['Patient', 'Condition', 'Observation']
         end
       end
+
+      test from: :g10_smart_granular_scope_selection
     end
 
     group from: :smart_standalone_launch_stu2 do
@@ -134,6 +137,8 @@ module ONCCertificationG10TestKit
           ['Patient', 'Condition', 'Observation']
         end
       end
+
+      test from: :g10_smart_granular_scope_selection
     end
   end
 end
