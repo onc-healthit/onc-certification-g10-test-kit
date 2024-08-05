@@ -46,7 +46,7 @@ RSpec.describe ONCCertificationG10TestKit::SMARTGranularScopeSelectionTest do
 
   it 'fails if a granular scope is requested' do
     scopes_with_granular = "#{requested_scopes} patient/Observation.rs?category=" \
-                           "http://terminology.hl7.org/CodeSystem/observation-category|survey"
+                           'http://terminology.hl7.org/CodeSystem/observation-category|survey'
 
     result = run(test, requested_scopes: scopes_with_granular, received_scopes:)
 
@@ -55,7 +55,7 @@ RSpec.describe ONCCertificationG10TestKit::SMARTGranularScopeSelectionTest do
   end
 
   it 'fails if a resource-level Condition/Observation scope is received' do
-    scopes_with_resource= "#{received_scopes} patient/Condition.rs"
+    scopes_with_resource = "#{received_scopes} patient/Condition.rs"
 
     result = run(test, requested_scopes:, received_scopes: scopes_with_resource)
 
@@ -64,7 +64,7 @@ RSpec.describe ONCCertificationG10TestKit::SMARTGranularScopeSelectionTest do
   end
 
   it 'fails if no granular Condition/Observation scope is received' do
-    scopes_without_granular = "launch openid fhirUser patient/Patient.rs"
+    scopes_without_granular = 'launch openid fhirUser patient/Patient.rs'
 
     result = run(test, requested_scopes:, received_scopes: scopes_without_granular)
 
