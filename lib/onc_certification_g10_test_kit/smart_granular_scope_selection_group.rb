@@ -53,7 +53,7 @@ module ONCCertificationG10TestKit
         client_auth_type: {
           name: :granular_scope_selection_client_auth_type,
           default: 'confidential_asymmetric'
-        },
+        }
       }
     )
 
