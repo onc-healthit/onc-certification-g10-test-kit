@@ -387,8 +387,12 @@ module ONCCertificationG10TestKit
       group from: :g10_smart_fine_grained_scopes,
             required_suite_options: G10Options::SMART_2_REQUIREMENT.merge(G10Options::US_CORE_6_REQUIREMENT),
             exclude_optional: true
+    end
 
-      group from: :g10_visual_inspection_and_attestations
+    group from: :g10_visual_inspection_and_attestations do
+      def self.short_id
+        '11'
+      end
     end
   end
 end
