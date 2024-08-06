@@ -516,8 +516,8 @@ procedure:
           - 1.4.02
           - 3.4.04
           - 9.13.2.02
-          # - 9.14.1.1.2.08
-          # - 9.14.2.1.2.08
+          - 9.14.1.1.2.08
+          - 9.14.2.1.2.08
         inferno_notes: |
           This step refers to only the receipt of these scopes, which is covered in
           Inferno in one step in each the EHR and Standalone launch cases.  However,
