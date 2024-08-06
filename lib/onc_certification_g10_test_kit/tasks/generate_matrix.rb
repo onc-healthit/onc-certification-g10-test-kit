@@ -50,6 +50,10 @@ module ONCCertificationG10TestKit
         workbook.write(FILE_NAME)
       end
 
+      def all_descendant_tests(runnable)
+        runnable.tests + runnable.groups.flat_map { |group| all_descendant_tests(group) }
+      end
+
       def generate_matrix_worksheet # rubocop:disable Metrics/CyclomaticComplexity
         matrix_worksheet = workbook.worksheets[0]
         matrix_worksheet.sheet_name = 'Matrix'
@@ -86,17 +90,8 @@ module ONCCertificationG10TestKit
             matrix_worksheet.change_column_border(col, :right, 'thin')
             matrix_worksheet.change_column_border_color(col, :right, '666666')
 
-            test_case.tests.each do |test|
-              # tests << { test_case: test_case, test: test }
-              # full_test_id = "#{test_case.prefix}#{test.id}"
-              column_map[test.short_id] = col
-            end
+            all_descendant_tests(test_case).each { |test| column_map[test.short_id] = col }
 
-            test_case.groups.each do |nested_group|
-              nested_group.tests.each do |test|
-                column_map[test.short_id] = col
-              end
-            end
             col += 1
           end
         end
