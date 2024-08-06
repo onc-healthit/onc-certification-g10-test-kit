@@ -1,7 +1,7 @@
 module ONCCertificationG10TestKit
   class SMARTInvalidTokenGroupSTU2 < Inferno::TestGroup
-    title 'SMART App Launch Error: Invalid Access Token Request'
-    short_title 'SMART Invalid Token Request'
+    title 'Invalid Access Token Request'
+    short_title 'Invalid Token Request'
     input_instructions %(
       Register Inferno as a standalone application using the following information:
 

@@ -3,8 +3,8 @@ require_relative 'patient_context_test'
 
 module ONCCertificationG10TestKit
   class SMARTAsymmetricLaunchGroup < Inferno::TestGroup
-    title 'SMART Asymmetric Client Standalone Launch'
-    short_title 'SMART Asymmetric Client Launch'
+    title 'Asymmetric Client Standalone Launch'
+    short_title 'Asymmetric Client Launch'
     description %(
       # Background
 

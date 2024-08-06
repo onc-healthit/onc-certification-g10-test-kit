@@ -41,8 +41,8 @@ module ONCCertificationG10TestKit
   end
 
   class SMARTInvalidPKCEGroup < Inferno::TestGroup
-    title 'SMART App Launch Error: Invalid PKCE Code Verifier'
-    short_title 'SMART Invalid PKCE Code Verifier'
+    title 'Invalid PKCE Code Verifier'
+    short_title 'Invalid PKCE Code Verifier'
     input_instructions %(
       Register Inferno as a standalone application using the following information:
 

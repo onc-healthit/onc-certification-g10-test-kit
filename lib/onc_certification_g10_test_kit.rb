@@ -320,7 +320,7 @@ module ONCCertificationG10TestKit
           required_suite_options: G10Options::BULK_DATA_2_REQUIREMENT
 
     group do
-      title 'Additional Tests'
+      title 'Additional Authorization Tests'
       id 'Group06'
       description %(
         Not all requirements that need to be tested fit within the previous

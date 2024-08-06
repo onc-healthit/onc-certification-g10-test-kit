@@ -9,8 +9,8 @@ require_relative 'incorrectly_permitted_tls_versions_messages_setup_test'
 
 module ONCCertificationG10TestKit
   class SmartV1ScopesGroup < Inferno::TestGroup
-    title 'SMART App Launch with SMART v1 scopes'
-    short_title 'SMART Launch with v1 Scopes'
+    title 'App Launch with SMART v1 scopes'
+    short_title 'Launch with v1 Scopes'
 
     input_instructions %(
       Register Inferno as a standalone application using the following information:
