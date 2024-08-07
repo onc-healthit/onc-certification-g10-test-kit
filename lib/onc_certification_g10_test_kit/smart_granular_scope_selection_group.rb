@@ -9,7 +9,7 @@ module ONCCertificationG10TestKit
 
     description <<~DESCRIPTION
       These tests verify that when resource-level scopes are requested for
-      Condition and Observation resources, the user is prevented with the option
+      Condition and Observation resources, the user is presented with the option
       of approving sub-resource scopes rather than the resource-level scope.
 
       The first group requests v1 resource-level Condition and Observation
