@@ -9,6 +9,8 @@ module ONCCertificationG10TestKit
     class GenerateMatrix
       include ONCCertificationG10TestKit
 
+      attr_accessor :row
+
       FILE_NAME = 'onc_certification_g10_matrix.xlsx'.freeze
 
       def inferno_to_procedure_map
@@ -35,6 +37,10 @@ module ONCCertificationG10TestKit
         @workbook ||= RubyXL::Workbook.new
       end
 
+      def next_row
+        self.row += 1
+      end
+
       def run
         generate_matrix_worksheet
         generate_test_procedure_worksheet
@@ -42,6 +48,10 @@ module ONCCertificationG10TestKit
 
         Inferno.logger.info "Writing to #{FILE_NAME}"
         workbook.write(FILE_NAME)
+      end
+
+      def all_descendant_tests(runnable)
+        runnable.tests + runnable.groups.flat_map { |group| all_descendant_tests(group) }
       end
 
       def generate_matrix_worksheet # rubocop:disable Metrics/CyclomaticComplexity
@@ -80,17 +90,8 @@ module ONCCertificationG10TestKit
             matrix_worksheet.change_column_border(col, :right, 'thin')
             matrix_worksheet.change_column_border_color(col, :right, '666666')
 
-            test_case.tests.each do |test|
-              # tests << { test_case: test_case, test: test }
-              # full_test_id = "#{test_case.prefix}#{test.id}"
-              column_map[test.short_id] = col
-            end
+            all_descendant_tests(test_case).each { |test| column_map[test.short_id] = col }
 
-            test_case.groups.each do |nested_group|
-              nested_group.tests.each do |test|
-                column_map[test.short_id] = col
-              end
-            end
             col += 1
           end
         end
@@ -100,7 +101,7 @@ module ONCCertificationG10TestKit
         matrix_worksheet.change_row_horizontal_alignment(0, 'center')
 
         matrix_worksheet.add_cell(2, total_width + 2, 'Supported?')
-        row = 3
+        self.row = 3
 
         test_procedure.sections.each do |section|
           section.steps.each do |step|
@@ -126,7 +127,7 @@ module ONCCertificationG10TestKit
 
             matrix_worksheet.add_cell(row, total_width + 2, step.inferno_supported.upcase)
 
-            row += 1
+            next_row
           end
         end
         matrix_worksheet.change_column_horizontal_alignment(1, 'right')
@@ -167,14 +168,14 @@ module ONCCertificationG10TestKit
          'Inferno Notes',
          'Alternate Test Methodology'].each_with_index { |text, index| tp_worksheet.add_cell(0, index, text) }
 
-        row = 2
+        self.row = 2
 
         test_procedure.sections.each do |section|
           tp_worksheet.add_cell(row, 0, section.name)
-          row += 1
+          next_row
           section.steps.group_by(&:group).each do |group_name, steps|
             tp_worksheet.add_cell(row, 1, group_name)
-            row += 1
+            next_row
             steps.each do |step|
               longest_line = [step.s_u_t, step.t_l_v, step.inferno_notes, step.alternate_test].map do |text|
                 text&.lines&.count || 0
@@ -189,10 +190,10 @@ module ONCCertificationG10TestKit
               tp_worksheet.add_cell(row, 7, step.inferno_tests.join(', ')).change_text_wrap(true)
               tp_worksheet.add_cell(row, 8, step.inferno_notes).change_text_wrap(true)
               tp_worksheet.add_cell(row, 9, step.alternate_test).change_text_wrap(true)
-              row += 1
+              next_row
             end
           end
-          row += 1
+          next_row
         end
       end
 
@@ -204,83 +205,75 @@ module ONCCertificationG10TestKit
         runnable_and_parents.map(&:suite_option_requirements).compact.flatten
       end
 
-      def generate_inferno_test_worksheet # rubocop:disable Metrics/CyclomaticComplexity
-        workbook.add_worksheet('Inferno Tests')
-        inferno_worksheet = workbook.worksheets[2]
+      def inferno_worksheet
+        workbook.worksheets[2]
+      end
 
-        columns = [
+      def columns # rubocop:disable Metrics/CyclomaticComplexity
+        @columns ||= [
           ['', 3, ->(_test) { '' }],
           ['', 3, ->(_test) { '' }],
           ['Inferno Test ID', 22, ->(test) { test.short_id.to_s }],
           ['Inferno Test Name', 65, ->(test) { test.title }],
           ['Inferno Test Description', 65, lambda do |test|
-            description = test.description || ''
-            natural_indent =
-              description
-                .lines
-                .collect { |l| l.index(/[^ ]/) }
-                .select { |l| !l.nil? && l.positive? }
-                .min || 0
-            description.lines.map { |l| l[natural_indent..] || "\n" }.join.strip
-          end],
+                                             description = test.description || ''
+                                             natural_indent =
+                                               description
+                                                 .lines
+                                                 .collect { |l| l.index(/[^ ]/) }
+                                                 .select { |l| !l.nil? && l.positive? }
+                                                 .min || 0
+                                             description.lines.map { |l| l[natural_indent..] || "\n" }.join.strip
+                                           end],
           ['Test Procedure Steps', 30, ->(test) { inferno_to_procedure_map[test.short_id].join(', ') }],
           ['Standard Version Filter', 30, lambda do |test|
-            applicable_options(test).map(&:value).uniq.join(', ')
-          end]
-
+                                            applicable_options(test).map(&:value).uniq.join(', ')
+                                          end]
         ]
+      end
+
+      def add_test(test)
+        this_row = columns.map do |column|
+          column[2].call(test)
+        end
+
+        this_row.each_with_index do |value, index|
+          inferno_worksheet.add_cell(row, index, value).change_text_wrap(true)
+        end
+        inferno_worksheet
+          .change_row_height(row, [26, ((test.description || '').strip.lines.count * 10) + 10].max)
+        inferno_worksheet.change_row_vertical_alignment(row, 'top')
+        next_row
+      end
+
+      def add_group_title(group, column: 1)
+        inferno_worksheet.add_cell(row, column, "#{group.short_id}: #{group.title}")
+        inferno_worksheet.add_cell(row, 6, applicable_options(group).map(&:value).uniq.join(', '))
+        next_row
+      end
+
+      def add_group(group)
+        add_group_title(group)
+
+        group.tests.each { |test| add_test(test) }
+
+        group.groups.each { |nested_group| add_group(nested_group) }
+      end
+
+      def generate_inferno_test_worksheet
+        workbook.add_worksheet('Inferno Tests')
 
         columns.each_with_index do |row_name, index|
           inferno_worksheet.add_cell(0, index, row_name.first)
         end
 
-        row = 1
+        self.row = 1
 
         test_suite.groups.each do |group|
           next if group.short_id == '6' # Skip US Core 5
 
-          row += 1
-          inferno_worksheet.add_cell(row, 0, "#{group.short_id}: #{group.title}")
-          inferno_worksheet.add_cell(row, 6, applicable_options(group).map(&:value).uniq.join(', '))
-          row += 1
-          group.groups.each do |test_case|
-            inferno_worksheet.add_cell(row, 1, "#{test_case.short_id}: #{test_case.title}")
-            inferno_worksheet.add_cell(row, 6, applicable_options(test_case).map(&:value).uniq.join(', '))
-
-            row += 1
-            test_case.tests.each do |test|
-              this_row = columns.map do |column|
-                column[2].call(test)
-              end
-
-              this_row.each_with_index do |value, index|
-                inferno_worksheet.add_cell(row, index, value).change_text_wrap(true)
-              end
-              inferno_worksheet.change_row_height(row, [26, ((test.description || '').strip.lines.count * 10) + 10].max)
-              inferno_worksheet.change_row_vertical_alignment(row, 'top')
-              row += 1
-            end
-
-            test_case.groups.each do |nested_group|
-              inferno_worksheet.add_cell(row, 1, "#{nested_group.short_id}: #{nested_group.title}")
-              inferno_worksheet.add_cell(row, 6, applicable_options(nested_group).map(&:value).uniq.join(', '))
-
-              row += 1
-              nested_group.tests.each do |test|
-                this_row = columns.map do |column|
-                  column[2].call(test)
-                end
-
-                this_row.each_with_index do |value, index|
-                  inferno_worksheet.add_cell(row, index, value).change_text_wrap(true)
-                end
-                inferno_worksheet
-                  .change_row_height(row, [26, ((test.description || '').strip.lines.count * 10) + 10].max)
-                inferno_worksheet.change_row_vertical_alignment(row, 'top')
-                row += 1
-              end
-            end
-          end
+          next_row
+          add_group(group)
         end
 
         columns.each_with_index do |column, index|
