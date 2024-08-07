@@ -469,8 +469,15 @@ procedure:
             Capability”).
           * SMART v1 scope syntax for patient-level and user-level scopes to
             support the “permission-v1” “SMART on FHIR® Capability”
-          * SMARTv2 scope syntax for patient-level and user-level scopes (to
-            support “permission-v2” “SMART on FHIR® Capability”)
+          * SMART v2 scope syntax for patient-level and user-level scopes to
+            support the “permission-v2” “SMART on FHIR® Capability”, including
+            support for finer-grained resource constraints using search
+            parameters according to section 3.0.2.3 of the implementation
+            specification at § 170.215(c)(2) for the “category” parameter for
+            the following resources: (1) Condition resource with Condition
+            sub-resources Encounter Diagnosis, Problem List, and Health Concern;
+            and (2) Observation resource with Observation sub-resources Clinical
+            Test, Laboratory, Social History, SDOH, Survey, and Vital Signs
         TLV: |
           [Both] The tester verifies the ability of the Health IT Module to
           support the receipt of the following scopes and capabilities according
@@ -495,13 +502,22 @@ procedure:
             Capability”).
           * SMART v1 scope syntax for patient-level and user-level scopes to
             support the “permission-v1” “SMART on FHIR® Capability”
-          * SMARTv2 scope syntax for patient-level and user-level scopes (to
-            support “permission-v2” “SMART on FHIR® Capability”)
+          * SMART v2 scope syntax for patient-level and user-level scopes to
+            support the “permission-v2” “SMART on FHIR® Capability”, including
+            support for finer-grained resource constraints using search
+            parameters according to section 3.0.2.3 of the implementation
+            specification at § 170.215(c)(2) for the “category” parameter for
+            the following resources: (1) Condition resource with Condition
+            sub-resources Encounter Diagnosis, Problem List, and Health Concern;
+            and (2) Observation resource with Observation sub-resources Clinical
+            Test, Laboratory, Social History, SDOH, Survey, and Vital Signs
         inferno_supported: 'yes'
         inferno_tests:
           - 1.4.02
           - 3.4.04
           - 9.13.2.02
+          # - 9.14.1.1.2.08
+          # - 9.14.2.1.2.08
         inferno_notes: |
           This step refers to only the receipt of these scopes, which is covered in
           Inferno in one step in each the EHR and Standalone launch cases.  However,

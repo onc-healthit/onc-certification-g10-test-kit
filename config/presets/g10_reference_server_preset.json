@@ -549,6 +549,97 @@
       "value": null
     },
     {
+      "name": "asymmetric_client_id",
+      "value": "SAMPLE_ASYMMETRIC_CLIENT_ID",
+      "_title": "Asymmetric Launch Client ID",
+      "_description": "Client ID provided during registration of Inferno as a standalone application",
+      "_type": "text"
+    },
+    {
+      "name": "granular_scopes1_client_id",
+      "value": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+      "_title": "Granular Scopes Group 1 Client ID",
+      "_description": "Client ID provided during registration of Inferno as a standalone application",
+      "_type": "text"
+    },
+    {
+      "name": "requested_scopes_group1",
+      "value": "launch/patient openid fhirUser offline_access patient/Condition.rs?category=http://terminology.hl7.org/CodeSystem/condition-category|encounter-diagnosis patient/Condition.rs?category=http://hl7.org/fhir/us/core/CodeSystem/condition-category|health-concern patient/Observation.rs?category=http://terminology.hl7.org/CodeSystem/observation-category|laboratory patient/Observation.rs?category=http://terminology.hl7.org/CodeSystem/observation-category|social-history",
+      "_title": "Granular Scopes Group 1 Scopes",
+      "_description": "OAuth 2.0 scope provided by system to enable all required functionality",
+      "_type": "textarea"
+    },
+    {
+      "name": "granular_scopes_authorization_method",
+      "value": "get",
+      "_title": "Granular Scopes Authorization Request Method",
+      "_type": "radio",
+      "_options": {
+        "list_options": [
+          {
+            "label": "GET",
+            "value": "get"
+          },
+          {
+            "label": "POST",
+            "value": "post"
+          }
+        ]
+      }
+    },
+    {
+      "name": "granular_scopes_client_auth_type",
+      "value": "confidential_symmetric",
+      "_title": "Granular Scopes Client Authentication Type",
+      "_type": "radio",
+      "_options": {
+        "list_options": [
+          {
+            "label": "Public",
+            "value": "public"
+          },
+          {
+            "label": "Confidential Symmetric",
+            "value": "confidential_symmetric"
+          },
+          {
+            "label": "Confidential Asymmetric",
+            "value": "confidential_asymmetric"
+          }
+        ]
+      }
+    },
+    {
+      "name": "granular_scopes1_client_secret",
+      "value": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+      "_title": "Granular Scopes Group 1 Client Secret",
+      "_description": "Client Secret provided during registration of Inferno as a standalone application. Only for clients using confidential symmetric authentication.",
+      "_type": "text",
+      "_optional": true
+    },
+    {
+      "name": "granular_scopes2_client_id",
+      "value": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+      "_title": "Granular Scopes Group 2 Client ID",
+      "_description": "Client ID provided during registration of Inferno as a standalone application",
+      "_type": "text"
+    },
+    {
+      "name": "requested_scopes_group2",
+      "value": "launch/patient openid fhirUser offline_access patient/Condition.rs?category=http://terminology.hl7.org/CodeSystem/condition-category|problem-list-item patient/Observation.rs?category=http://terminology.hl7.org/CodeSystem/observation-category|vital-signs patient/Observation.rs?category=http://terminology.hl7.org/CodeSystem/observation-category|survey patient/Observation.rs?category=http://hl7.org/fhir/us/core/CodeSystem/us-core-category|sdoh",
+      "_title": "Granular Scopes Group 2 Scopes",
+      "_description": "OAuth 2.0 scope provided by system to enable all required functionality",
+      "_type": "textarea"
+    },
+    {
+      "name": "granular_scopes2_client_secret",
+      "value": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+      "_title": "Granular Scopes Group 2 Client Secret",
+      "_description": "Client Secret provided during registration of Inferno as a standalone application. Only for clients using confidential symmetric authentication.",
+      "_type": "text",
+      "_optional": true
+    },
+    {
       "name": "single_patient_registration_supported",
       "type": "radio",
       "title": "Health IT Module demonstrated support for application registration for single patients.",
