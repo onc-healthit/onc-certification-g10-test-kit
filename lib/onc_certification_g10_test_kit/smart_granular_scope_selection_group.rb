@@ -14,7 +14,7 @@ module ONCCertificationG10TestKit
 
       The first group requests v1 resource-level Condition and Observation
       scopes, and the second group requests v2 resource-level Condition and
-      Observation socpes. In each instance, the user must unselect the
+      Observation scopes. In each instance, the user must unselect the
       resource-level scopes and instead approve sub-resource scopes for
       Condition and Observation. It is also required that a resource-level
       Patient scope be granted.
