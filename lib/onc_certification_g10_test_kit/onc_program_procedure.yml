@@ -651,6 +651,27 @@ procedure:
           verifies that it contains the correct claims, has a valid signature,
           and the fhirUser claim contains a reference to the current user that
           can be retreived using the bearer token provided during the application launch.
+      - id: AUT-PAT-18
+        SUT: |
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to deny an application’s authorization request in accordance
+          with the implementation specification adopted in § 170.215(c)(1).
+        TLV: |
+          [Both] The tester verifies the ability of the Health IT Module to deny
+          an application’s authorization request in accordance with the
+          implementation specification adopted in § 170.215(c)(1).
+        inferno_supported: 'yes'
+        inferno_notes: |
+          Inferno verifies that the user has the ability to explicitly authorize
+          apps to appropriate resources and capabilities.  Inferno also verifies
+          that apps that send invalid information during the authorization process
+          are denied.
+        inferno_tests:
+          - 2.1.02 - 2.1.09
+          - 2.2.02 - 2.2.09
+          - 2.3.01 - 2.3.19
+          - 9.5.01 - 9.5.04
+          - 9.6.01 - 9.6.04
       - id: AUT-PAT-24
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
@@ -918,27 +939,6 @@ procedure:
         inferno_tests:
           - 1.4.05
           - 3.4.07
-      - id: AUT-PAT-18
-        SUT: |
-          [Both] The health IT developer demonstrates the ability of the Health
-          IT Module to deny an application’s authorization request in accordance
-          with the implementation specification adopted in § 170.215(a)(3).
-        TLV: |
-          [Both] The tester verifies the ability of the Health IT Module to deny
-          an application’s authorization request in accordance with the
-          implementation specification adopted in § 170.215(a)(3).
-        inferno_supported: 'yes'
-        inferno_notes: |
-          Inferno verifies that the user has the ability to explicitly authorize
-          apps to appropriate resources and capabilities.  Inferno also verifies
-          that apps that send invalid information during the authorization process
-          are denied.
-        inferno_tests:
-          - 2.1.02 - 2.1.09
-          - 2.2.02 - 2.2.09
-          - 2.3.01 - 2.3.19
-          - 9.5.01 - 9.5.04
-          - 9.6.01 - 9.6.04
       - id: AUT-PAT-19
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
