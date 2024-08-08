@@ -50,7 +50,7 @@ procedure:
           For all transmissions between the Health IT Module and the
           application, the health IT developer demonstrates the use of a secure
           and trusted connection in accordance with the implementation
-          specifications adopted in § 170.215(a)(2) and § 170.215(a)(3),
+          specifications adopted in § 170.215(b)(1) and § 170.215(c),
           including:
           * Using TLS version 1.2 or higher; and
           * Conformance to FHIR® Communications Security requirements.
@@ -58,7 +58,7 @@ procedure:
           For all transmissions between the Health IT Module and the
           application, the tester verifies the use of a secure and trusted
           connection in accordance with the implementation specifications
-          adopted in § 170.215(a)(2) and § 170.215(a)(3), including:
+          adopted in § 170.215(b)(1) and § 170.215(c), including:
           * Using TLS version 1.2 or higher; and
           * Conformance to FHIR® Communications Security requirements.
         inferno_supported: 'yes'
@@ -93,6 +93,18 @@ procedure:
           - 9.9.03
           - 9.9.06
           - 9.10.15
+          - 9.11.1.2.01
+          - 9.11.1.2.04
+          - 9.12.2.01
+          - 9.12.2.04
+          - 9.13.2.01
+          - 9.13.2.04
+          - 9.14.1.1.2.01
+          - 9.14.1.1.2.04
+          - 9.14.2.1.2.01
+          - 9.14.2.1.2.04
+          - 9.15.2.01
+          - 9.15.2.04
         inferno_notes: |
           Inferno tests that all endpoints provided support at least TLS
           version 1.2, and rejects all requests for TLS version 1.1 or below.
