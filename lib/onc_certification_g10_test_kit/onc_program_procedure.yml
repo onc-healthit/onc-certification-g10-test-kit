@@ -713,6 +713,21 @@ procedure:
         inferno_tests:
           - 3.3.16
           - 3.4.16
+      - id: AUT-PAT-20
+        SUT: |
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to grant an access token when a refresh token is supplied
+          according to an implementation specification adopted in §
+          170.215(b)(1).
+        TLV: |
+          [Both] The tester verifies the ability of the Health IT Module to
+          grant an access token when a refresh token is supplied according to an
+          implementation specification adopted in § 170.215(b)(1).
+        inferno_supported: 'yes'
+        inferno_tests:
+          - 1.6.01 - 1.6.04
+          - 3.6.01 - 3.6.04
+          - 9.12.3.01 - 9.12.3.04
       - id: AUT-PAT-24
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
@@ -980,22 +995,6 @@ procedure:
         inferno_tests:
           - 1.4.05
           - 3.4.07
-      - id: AUT-PAT-20
-        SUT: |
-          [Both] The health IT developer demonstrates the ability of the Health
-          IT Module to grant an access token when a refresh token is supplied
-          according to the implementation specification adopted in §
-          170.215(a)(2).
-        TLV: |
-          [Both] The tester verifies the ability of the Health IT Module to
-          grant an access token when a refresh token is supplied according to
-          the implementation specification adopted in § 170.215(a)(2).
-        inferno_supported: 'yes'
-        inferno_tests:
-          - 1.6.03 - 1.6.05
-          - 3.6.05 - 3.6.05
-          - 9.12.3.01
-          - 9.12.3.03
       - id: AUT-PAT-21
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
