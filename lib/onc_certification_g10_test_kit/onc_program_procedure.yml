@@ -143,14 +143,14 @@ procedure:
           Health IT Module to initiate a “launch sequence” using the
           “launch-ehr" “SMART on FHIR® Core Capability” SMART EHR Launch mode
           detailed in the implementation specification adopted in §
-          170.215(a)(3), including:
+          170.215(c)(1), including:
           * Launching the registered launch URL of the application; and
           * Passing the parameters: “iss” and “launch”.
         TLV: |
           [EHR-Launch] The tester verifies the ability of the Health IT Module
           to initiate a “launch sequence” using the “launch-ehr" “SMART on FHIR®
           Core Capability” SMART EHR Launch mode detailed in the implementation
-          specification adopted in § 170.215(a)(3), including:
+          specification adopted in § 170.215(c)(1), including:
           * Launching the registered launch URL of the application; and
           * Passing the parameters: “iss” and “launch”.
         inferno_supported: 'yes'
