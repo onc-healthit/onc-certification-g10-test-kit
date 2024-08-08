@@ -563,6 +563,67 @@ procedure:
           - 9.1.05
         inferno_notes: |
           "client_secret" is only provided in the case of confidential clients.
+      - id: AUT-PAT-16
+        SUT: |
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to return a JSON object to applications according to the
+          implementation specification adopted in § 170.215(c)(1) and standard
+          adopted in § 170.215(e)(1), including the following:
+          * “access_token”;
+          * “token_type”;
+          * “scope”;
+          * “id_token”;
+          * “refresh_token” (valid for a period of no shorter than three
+            months);
+          * HTTP “Cache-Control” response header field with a value of
+            “no-store”;
+          * HTTP “Pragma” response header field with a value of “no-cache”;
+          * “patient” (to support “context-ehr-patient” and
+            “context-standalone-patient” “SMART on FHIR® Core Capabilities”);
+          * “need_patient_banner” (to support “context-banner” “SMART on FHIR®
+            Core Capability” for EHR-Launch mode only); and
+          * “smart_style_url” (to support “context-style” “SMART on FHIR® Core
+            Capability” for EHR-Launch mode only).
+
+          Additionally, the following must be supported if using US Core 6.1.0:
+          * “encounter” (to support "context-ehr-encounter" “SMART on FHIR®
+            Capability”)
+        TLV: |
+          [Both] The tester verifies the ability of the Health IT Module to
+          return a JSON object to applications according to the implementation
+          specification adopted in § 170.215(c)(1) and standard adopted in §
+          170.215(e)(1), including the following:
+          * “access_token”;
+          * “token_type”;
+          * “scope”;
+          * “id_token”;
+          * “refresh_token” (valid for a period of no shorter than three
+            months);
+          * HTTP “Cache-Control” response header field with a value of
+            “no-store”;
+          * HTTP “Pragma” response header field with a value of “no-cache”;
+          * “patient” (to support “context-ehr-patient” and
+            “context-standalone-patient” “SMART on FHIR® Core Capabilities”);
+          * “need_patient_banner” (to support “context-banner” “SMART on FHIR®
+            Core Capability” for EHR-Launch mode only); and
+          * “smart_style_url” (to support “context-style” “SMART on FHIR® Core
+            Capability” for EHR-Launch mode only).
+
+          Additionally, the following must be supported if using US Core 6.1.0:
+          * “encounter” (to support"context-ehr-encounter" “SMART on FHIR®
+            Capability”)
+        inferno_supported: 'yes'
+        inferno_tests:
+          - 1.3.06 - 1.3.08
+          - 1.4.06 - 1.4.08
+          - 3.3.08 - 3.3.10
+          - 3.3.16
+          - 3.4.08 - 3.4.10
+          - 3.4.16
+          - 9.8.08 - 9.8.10
+          - 9.9.08 - 9.9.10
+          - 9.12.2.06 - 9.12.2.07
+          - 9.12.2.09
       - id: AUT-PAT-24
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
@@ -830,68 +891,6 @@ procedure:
         inferno_tests:
           - 1.4.05
           - 3.4.07
-      - id: AUT-PAT-16
-        SUT: |
-          [Both] The health IT developer demonstrates the ability of the Health
-          IT Module to return a JSON object to applications according to the
-          implementation specification adopted in § 170.215(a)(3) and standard
-          adopted in § 170.215(b), including the following:
-
-          * “access_token”;
-          * “token_type”;
-          * “scope”;
-          * “id_token”;
-          * “refresh_token” (valid for a period of no shorter than three
-            months);
-          * HTTP “Cache-Control” response header field with a value of
-            “no-store”;
-          * HTTP “Pragma” response header field with a value of “no-cache”;
-          * “patient” (to support “context-ehr-patient” and
-            “context-standalone-patient” “SMART on FHIR® Core Capabilities”);
-          * “need_patient_banner” (to support “context-banner” “SMART on FHIR®
-            Core Capability” for EHR-Launch mode only); and
-          * “smart_style_url” (to support “context-style” “SMART on FHIR® Core
-            Capability” for EHR-Launch mode only).
-
-          Additionally, the following must be supported if using US Core 6.1.0:
-          * “encounter” (to support "context-ehr-encounter" “SMART on FHIR®
-            Capability”)
-        TLV: |
-          [Both] The tester verifies the ability of the Health IT Module to
-          return a JSON object to applications according to the implementation
-          specification adopted in § 170.215(a)(3) and standard adopted in §
-          170.215(b), including the following:
-
-          * “access_token”;
-          * “token_type”;
-          * “scope”;
-          * “id_token”;
-          * “refresh_token” (valid for a period of no shorter than three
-            months);
-          * HTTP “Cache-Control” response header field with a value of
-            “no-store”;
-          * HTTP “Pragma” response header field with a value of “no-cache”;
-          * “patient” (to support “context-ehr-patient” and
-            “context-standalone-patient” “SMART on FHIR® Core Capabilities”);
-          * “need_patient_banner” (to support “context-banner” “SMART on FHIR®
-            Core Capability” for EHR-Launch mode only); and
-          * “smart_style_url” (to support “context-style” “SMART on FHIR® Core
-            Capability” for EHR-Launch mode only).
-
-          Additionally, the following must be supported if using US Core 6.1.0:
-          * “encounter” (to support"context-ehr-encounter" “SMART on FHIR®
-            Capability”)
-        inferno_supported: 'yes'
-        inferno_tests:
-          - 1.3.06 - 1.3.07
-          - 1.4.06 - 1.4.07
-          - 3.3.08 - 3.3.09
-          - 3.3.13
-          - 3.4.08 - 3.4.09
-          - 3.4.13
-          - 9.8.08 - 9.8.09
-          - 9.9.08 - 9.9.09
-          - 9.12.2.06 - 9.12.2.07
       - id: AUT-PAT-17
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
