@@ -1016,13 +1016,13 @@ procedure:
           than three months without requiring re-authentication and
           re-authorization when a valid refresh token is supplied by the
           application according to the implementation specification adopted in §
-          170.215(a)(3).
+          170.215(c)(1).
         TLV: |
           The tester verifies the ability of the Health IT Module to issue a
           refresh token valid for a new period of no shorter than three months
           without requiring re-authentication and re-authorization when a valid
           refresh token is supplied by the application according to the
-          implementation specification adopted in § 170.215(a)(3).
+          implementation specification adopted in § 170.215(c)(1).
         inferno_supported: 'yes'
         inferno_tests:
           - 9.10.16
@@ -1035,11 +1035,11 @@ procedure:
           The health IT developer demonstrates the ability of the Health IT
           Module to return an error response when supplied an invalid refresh
           token as specified in the implementation specification adopted in §
-          170.215(a)(3).
+          170.215(c)(1).
         TLV: |
           The tester verifies the ability of the Health IT Module to return an
           error response when supplied an invalid refresh token as specified in
-          the implementation specification adopted in § 170.215(a)(3).
+          the implementation specification adopted in § 170.215(c)(1).
         inferno_supported: 'yes'
         inferno_tests:
           - 1.6.06
