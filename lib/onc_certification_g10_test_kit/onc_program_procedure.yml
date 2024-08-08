@@ -205,6 +205,35 @@ procedure:
         inferno_tests:
           - 1.1.01 - 1.1.03
           - 3.1.01 - 3.1.03
+      - id: AUT-PAT-6
+        SUT: |
+          [Both] The health IT developer demonstrates the ability of the
+          “.well-known/smart-configuration” path to support at least the
+          following as detailed in the implementation specification adopted in §
+          170.215(c)(1):
+          * “authorization_endpoint”;
+          * “token_endpoint”; and
+          * “capabilities” (including support for all the “SMART on FHIR® Core
+            Capabilities”).
+        TLV: |
+          [Both] The tester verifies the ability of the
+          “.well-known/smart-configuration” path to support at least the
+          following as detailed in the implementation specification adopted in §
+          170.215(c)(1):
+          * “authorization_endpoint”;
+          * “token_endpoint”; and
+          * “capabilities” (including support for all the “SMART on FHIR® Core
+            Capabilities”).
+        inferno_supported: 'yes'
+        inferno_tests:
+          - 1.1.02
+          - 1.1.04 - 1.1.05
+          - 3.1.02
+          - 3.1.04 - 3.1.05
+        inferno_notes: |
+          Inferno additionally checks that the "authorization endpoint" and the
+          "token endpoint" are consistent between the Capability Statement and
+          the well-known endpoint.
       - id: AUT-PAT-24
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
@@ -220,35 +249,6 @@ procedure:
         inferno_tests:
           - 1.2.01 - 1.2.03
           - 3.2.01 - 3.2.03
-      - id: AUT-PAT-6
-        SUT: |
-          [Both] The health IT developer demonstrates the ability of the
-          “.well-known/smart-configuration.json” path to support at least the
-          following as detailed in the implementation specification adopted in §
-          170.215(a)(3):
-          * “authorization_endpoint”;
-          * “token_endpoint”; and
-          * “capabilities” (including support for all the “SMART on FHIR® Core
-            Capabilities”).
-        TLV: |
-          [Both] The tester verifies the ability of the
-          “.well-known/smart-configuration.json” path to support at least the
-          following as detailed in the implementation specification adopted in §
-          170.215(a)(3):
-          * “authorization_endpoint”;
-          * “token_endpoint”; and
-          * “capabilities” (including support for all the “SMART on FHIR® Core
-            Capabilities”).
-        inferno_supported: 'yes'
-        inferno_tests:
-          - 1.1.02
-          - 1.1.04 - 1.1.05
-          - 3.1.02
-          - 3.1.04 - 3.1.05
-        inferno_notes: |
-          Inferno additionally checks that the "authorization endpoint" and the
-          "token endpoint" are consistent between the Capability Statement and
-          the well-known endpoint.
       - id: AUT-PAT-25
         SUT: |
           [Both] The health IT developer demonstrates the ability of the
