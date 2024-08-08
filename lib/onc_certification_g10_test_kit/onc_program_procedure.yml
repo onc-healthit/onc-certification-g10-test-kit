@@ -234,6 +234,29 @@ procedure:
           Inferno additionally checks that the "authorization endpoint" and the
           "token endpoint" are consistent between the Capability Statement and
           the well-known endpoint.
+      - id: AUT-PAT-7
+        SUT: |
+          [Both] The health IT developer demonstrates the ability of the FHIR®
+          “CapabilityStatement” to support at least the following components as
+          detailed in the implementation specification adopted in §
+          170.215(c)(1) and standard adopted in § 170.215(a)(1), including:
+          * “authorize”; and
+          * “token”.
+        TLV: |
+          [Both] The tester verifies the ability of the FHIR®
+          “CapabilityStatement” to support at least the following components as
+          detailed in the implementation specification adopted in §
+          170.215(c)(1) and standard adopted in § 170.215(a)(1), including:
+          * “authorize”; and
+          * “token”.
+        inferno_supported: 'yes'
+        inferno_tests:
+          - 1.1.03 - 1.1.04
+          - 3.1.03 - 3.1.04
+        inferno_notes: |
+          Inferno additionally checks that the "authorization endpoint" and the
+          "token endpoint" are consistent between the Capability Statement and
+          the well-known endpoint.
       - id: AUT-PAT-24
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
@@ -300,29 +323,6 @@ procedure:
         inferno_tests:
           - 1.2.01 - 1.2.03
           - 3.2.01 - 3.2.03
-      - id: AUT-PAT-7
-        SUT: |
-          [Both] The health IT developer demonstrates the ability of the FHIR®
-          “CapabilityStatement” to support at least the following components as
-          detailed in the implementation specification adopted in §
-          170.215(a)(3) and standard adopted in § 170.215(a)(1), including:
-          * “authorize”; and
-          * “token”.
-        TLV: |
-          [Both] The tester verifies the ability of the FHIR®
-          “CapabilityStatement” to support at least the following components as
-          detailed in the implementation specification adopted in §
-          170.215(a)(3) and standard adopted in § 170.215(a)(1), including:
-          * “authorize”; and
-          * “token”.
-        inferno_supported: 'yes'
-        inferno_tests:
-          - 1.1.03 - 1.1.04
-          - 3.1.03 - 3.1.04
-        inferno_notes: |
-          Inferno additionally checks that the "authorization endpoint" and the
-          "token endpoint" are consistent between the Capability Statement and
-          the well-known endpoint.
       - id: AUT-PAT-8
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
