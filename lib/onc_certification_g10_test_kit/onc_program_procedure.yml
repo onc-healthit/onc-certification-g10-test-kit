@@ -191,15 +191,15 @@ procedure:
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
           IT Module to support the following as detailed in the implementation
-          specification adopted in § 170.215(a)(3) and standard adopted in §
+          specification adopted in § 170.215(c)(1) and standard adopted in §
           170.215(a)(1):
-          * The “.well-known/smart-configuration.json” path; and
+          * The “.well-known/smart-configuration” path; and
           * A FHIR® “CapabilityStatement”.
         TLV: |
           [Both] The tester verifies the ability of the Health IT Module to
           support the following as detailed in the implementation specification
-          adopted in § 170.215(a)(3) and standard adopted in § 170.215(a)(1):
-          * The “.well-known/smart-configuration.json” path; and
+          adopted in § 170.215(c)(1) and standard adopted in § 170.215(a)(1):
+          * The “.well-known/smart-configuration” path; and
           * A FHIR® “CapabilityStatement”.
         inferno_supported: 'yes'
         inferno_tests:
