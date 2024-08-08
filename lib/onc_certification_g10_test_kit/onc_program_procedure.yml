@@ -657,6 +657,58 @@ procedure:
           - 1.4.03
           - 3.3.05
           - 3.4.05
+      - id: AUT-PAT-30
+        SUT: |
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to receive the following access token request parameters
+          from an application according to the implementation specification
+          adopted in § 170.215(c)(2):
+          * “grant_type”;
+          * “code”;
+          * “redirect_uri”;
+          * “code_verifier”;
+          * “client_id” (to support “client-public” “SMART on FHIR®
+            Capability”);
+          * Authorization header including “client_id” and “client_secret” (to
+            support “client-confidential-symmetric” “SMART on FHIR®
+            Capability”); and
+          * Authentication JSON Web Token (to support
+            “client-confidential-asymmetric” “SMART on FHIR® Capability”)
+        TLV: |
+          [Both] The tester verifies the ability of the Health IT Module to
+          receive the following access token request parameters from an
+          application according to the implementation specification adopted in §
+          170.215(c)(2):
+          * “grant_type”;
+          * “code”;
+          * “redirect_uri”;
+          * “code_verifier”;
+          * “client_id” (to support “client-public” “SMART on FHIR®
+            Capability”);
+          * Authorization header including “client_id” and “client_secret” (to
+            support “client-confidential-symmetric” “SMART on FHIR®
+            Capability”); and
+          * Authentication JSON Web Token (to support
+            “client-confidential-asymmetric” “SMART on FHIR® Capability”)
+        inferno_supported: 'yes'
+        inferno_tests:
+          - 1.4.05
+          - 3.4.07
+          - 9.12.2.05
+      - id: AUT-PAT-31
+        SUT: |
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to return an error response if an invalid “code_verifier”
+          value is supplied with an access token request according to the
+          implementation specification adopted in § 170.215(c)(2).
+        TLV: |
+          [Both] The tester verifies the ability of the Health IT Module to
+          return an error response if an invalid “code_verifier” value is
+          supplied with an access token request according to the implementation
+          specification adopted in § 170.215(c)(2).
+        inferno_supported: 'yes'
+        inferno_tests:
+          9.7.01 - 9.7.12
       - id: AUT-PAT-15
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
@@ -951,61 +1003,6 @@ procedure:
           verifying that the client has access to perform the necessary steps.
           Inferno does this as well, but this mapping only refers to the 'receipt' portion
           of the launch process.
-      - id: AUT-PAT-30
-        SUT: |
-          [Both] The health IT developer demonstrates the ability of the Health
-          IT Module to receive the following access token request parameters
-          from an application according to the implementation specification
-          adopted in § 170.215(c)(2):
-
-          * “grant_type”;
-          * “code”;
-          * “redirect_uri”;
-          * “code_verifier”;
-          * “client_id” (to support “client-public” “SMART on FHIR®
-            Capability”);
-          * Authorization header including “client_id” and “client_secret” (to
-            support “client-confidential-symmetric” “SMART on FHIR®
-            Capability”); and
-          * Authentication JSON Web Token (to support
-            “client-confidential-asymmetric” “SMART on FHIR® Capability”)
-        TLV: |
-          [Both] The tester verifies the ability of the Health IT Module to
-          receive the following access token request parameters from an
-          application according to the implementation specification adopted in §
-          170.215(c)(2):
-
-          * “grant_type”;
-          * “code”;
-          * “redirect_uri”;
-          * “code_verifier”;
-          * “client_id” (to support “client-public” “SMART on FHIR®
-            Capability”);
-          * Authorization header including “client_id” and “client_secret” (to
-            support “client-confidential-symmetric” “SMART on FHIR®
-            Capability”); and
-          * Authentication JSON Web Token (to support
-            “client-confidential-asymmetric” “SMART on FHIR® Capability”)
-        inferno_supported: 'yes'
-        inferno_tests:
-          - 1.4.05
-          - 3.4.07
-          - 9.12.2.05
-      - id: AUT-PAT-31
-        SUT: |
-          [Both] The health IT developer demonstrates the ability of the Health
-          IT Module to return an error response if an invalid “code_verifier”
-          value is supplied with an access token request according to the
-          implementation specification adopted in § 170.215(a)(3).
-        TLV: |
-          [Both] The tester verifies the ability of the Health IT Module to
-          return an error response if an invalid “code_verifier” value is
-          supplied with an access token request according to the implementation
-          specification adopted in § 170.215(a)(3).
-        inferno_supported: 'yes'
-        inferno_tests:
-          - 1.4.05
-          - 3.4.07
       - group: 'Subsequent Connections: Authentication and Authorization for Patient and User Scopes'
         id: AUT-PAT-22
         SUT: |
