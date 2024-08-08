@@ -284,6 +284,21 @@ procedure:
         inferno_tests:
             - 1.4.02 - 1.4.03
             - 3.4.04 - 3.4.05
+      - id: AUT-PAT-27
+        SUT: |
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module’s Authorization Server to support the use of the HTTP GET
+          and POST methods at the Authorization Endpoint as detailed in the
+          implementation specification adopted in § 170.215(c)(2).
+        TLV: |
+          [Both] The tester verifies the ability of the Health IT Module’s
+          Authorization Server to support the use of the HTTP GET and POST
+          methods at the Authorization Endpoint as detailed in the
+          implementation specification adopted in § 170.215(c)(2).
+        inferno_supported: 'yes'
+        inferno_tests:
+            - 1.4.05 - 1.4.07
+            - 3.4.07 - 3.4.09
       - id: AUT-PAT-5
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
@@ -838,21 +853,6 @@ procedure:
         inferno_supported: 'yes'
         inferno_tests:
           - 9.10.13
-      - id: AUT-PAT-27
-        SUT: |
-          [Both] The health IT developer demonstrates the ability of the Health
-          IT Module’s Authorization Server to support the use of the HTTP GET
-          and POST methods at the Authorization Endpoint as detailed in the
-          implementation specification adopted in § 170.215(a)(3).
-        TLV: |
-          [Both] The tester verifies the ability of the Health IT Module’s
-          Authorization Server to support the use of the HTTP GET and POST
-          methods at the Authorization Endpoint as detailed in the
-          implementation specification adopted in § 170.215(a)(3).
-        inferno_supported: 'yes'
-        inferno_tests:
-            - 1.4.05 - 1.4.07
-            - 3.4.07 - 3.4.09
       - id: AUT-PAT-28
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
