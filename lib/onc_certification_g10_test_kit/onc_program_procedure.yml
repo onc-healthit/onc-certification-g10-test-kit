@@ -286,6 +286,62 @@ procedure:
         inferno_tests:
             - 1.3.02 - 1.3.03
             - 3.3.04 - 3.3.05
+      - id: AUT-PAT-9
+        SUT: |
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to support the receipt of the following scopes and
+          capabilities according to the implementation specification adopted in
+          § 170.215(c)(1) and standard adopted in § 170.215(e)(1):
+          * “openid” (to support “sso-openid-connect” “SMART on FHIR® Core
+            Capability”);
+          * “fhirUser” (to support “sso-openid-connect” “SMART on FHIR® Core
+            Capability”);
+          * “need_patient_banner” (to support “context-banner” “SMART on FHIR®
+            Core Capability” for EHR-Launch mode only);
+          * “smart_style_url” (to support “context-style” “SMART on FHIR® Core
+            Capability” for EHR-Launch mode only);
+          * “launch/patient” (to support “context-standalone-patient” “SMART on
+            FHIR® Core Capability” for Standalone-Launch mode only);
+          * “launch” (for EHR-Launch mode only);
+          * “offline_access” (to support “permission-offline” “SMART on FHIR®
+            Core Capability”);
+          * Patient-level scopes (to support “permission-patient” “SMART on
+            FHIR® Core Capability”); and
+          * User-level scopes (to support “permission-user” “SMART on FHIR® Core
+            Capability”).
+        TLV: |
+          [Both] The tester verifies the ability of the Health IT Module to
+          support the receipt of the following scopes according to the
+          implementation specification adopted in § 170.215(c)(1) and standard
+          adopted in § 170.215(e)(1):
+          * “openid” (to support “sso-openid-connect” “SMART on FHIR® Core
+            Capability”);
+          * “fhirUser” (to support “sso-openid-connect” “SMART on FHIR® Core
+            Capability”);
+          * “need_patient_banner” (to support “context-banner” “SMART on FHIR®
+            Core Capability” for EHR-Launch mode only);
+          * “smart_style_url” (to support “context-style” “SMART on FHIR® Core
+            Capability” for EHR-Launch mode only);
+          * “launch/patient” (to support “context-standalone-patient” “SMART on
+            FHIR® Core Capability” for Standalone-Launch mode only);
+          * “launch” (for EHR-Launch mode only);
+          * “offline_access” (to support “permission-offline” “SMART on FHIR®
+            Core Capability”);
+          * Patient-level scopes (to support “permission-patient” “SMART on
+            FHIR® Core Capability”); and
+          * User-level scopes (to support “permission-user” “SMART on FHIR® Core
+            Capability”).
+        inferno_supported: 'yes'
+        inferno_tests:
+          - 1.3.02
+          - 3.3.04
+        inferno_notes: |
+          This step refers to only the receipt of these scopes, which is covered in
+          Inferno in one step in each the EHR and Standalone launch cases.  However,
+          it is not possible to tell if these scopes were properly granted until
+          verifying that the client has access to perform the necessary steps.
+          Inferno does this as well, but this mapping only refers to the 'receipt' portion
+          of the launch process.
       - id: AUT-PAT-24
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
@@ -400,62 +456,6 @@ procedure:
         inferno_tests:
             - 1.4.05 - 1.4.07
             - 3.4.07 - 3.4.09
-      - id: AUT-PAT-9
-        SUT: |
-          [Both] The health IT developer demonstrates the ability of the Health
-          IT Module to support the receipt of the following scopes and
-          capabilities according to the implementation specification adopted in
-          § 170.215(a)(3) and standard adopted in § 170.215(b):
-          * “openid” (to support “sso-openid-connect” “SMART on FHIR® Core
-            Capability”);
-          * “FHIR®User” (to support “sso-openid-connect” “SMART on FHIR® Core
-            Capability”);
-          * “need_patient_banner” (to support “context-banner” “SMART on FHIR®
-            Core Capability” for EHR-Launch mode only);
-          * “smart_style_url” (to support “context-style” “SMART on FHIR® Core
-            Capability” for EHR-Launch mode only);
-          * “launch/patient” (to support “context-standalone-patient” “SMART on
-            FHIR® Core Capability” for Standalone-Launch mode only);
-          * “launch” (for EHR-Launch mode only);
-          * “offline_access” (to support “permission-offline” “SMART on FHIR®
-            Core Capability”);
-          * Patient-level scopes (to support “permission-patient” “SMART on
-            FHIR® Core Capability”); and
-          * User-level scopes (to support “permission-user” “SMART on FHIR® Core
-            Capability”).
-        TLV: |
-          [Both] The tester verifies the ability of the Health IT Module to
-          support the receipt of the following scopes according to the
-          implementation specification adopted in § 170.215(a)(3) and standard
-          adopted in § 170.215(b):
-          * “openid” (to support “sso-openid-connect” “SMART on FHIR® Core
-            Capability”);
-          * “FHIR®User” (to support “sso-openid-connect” “SMART on FHIR® Core
-            Capability”);
-          * “need_patient_banner” (to support “context-banner” “SMART on FHIR®
-            Core Capability” for EHR-Launch mode only);
-          * “smart_style_url” (to support “context-style” “SMART on FHIR® Core
-            Capability” for EHR-Launch mode only);
-          * “launch/patient” (to support “context-standalone-patient” “SMART on
-            FHIR® Core Capability” for Standalone-Launch mode only);
-          * “launch” (for EHR-Launch mode only);
-          * “offline_access” (to support “permission-offline” “SMART on FHIR®
-            Core Capability”);
-          * Patient-level scopes (to support “permission-patient” “SMART on
-            FHIR® Core Capability”); and
-          * User-level scopes (to support “permission-user” “SMART on FHIR® Core
-            Capability”).
-        inferno_supported: 'yes'
-        inferno_tests:
-          - 1.3.02
-          - 3.3.04
-        inferno_notes: |
-          This step refers to only the receipt of these scopes, which is covered in
-          Inferno in one step in each the EHR and Standalone launch cases.  However,
-          it is not possible to tell if these scopes were properly granted until
-          verifying that the client has access to perform the necessary steps.
-          Inferno does this as well, but this mapping only refers to the 'receipt' portion
-          of the launch process.
       - id: AUT-PAT-28
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
