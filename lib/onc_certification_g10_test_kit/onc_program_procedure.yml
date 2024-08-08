@@ -604,6 +604,21 @@ procedure:
           Inferno requests full resource and 'offline_access' access, and the tester
           is expected to select the correct subset of resources and deny 'offline_access'
           based on previously selected preferences.
+      - id: AUT-PAT-29
+        SUT: |
+          [EHR-Launch] The health IT developer demonstrates the ability of the
+          Health IT Module to establish a patient in context if an application
+          requests a clinical scope which is restricted to a single patient as
+          detailed in the implementation specification adopted in §
+          170.215(c)(2).
+        TLV: |
+          [EHR-Launch] The tester verifies the ability of the Health IT Module
+          to establish a patient in context if an application requests a
+          clinical scope which is restricted to a single patient as detailed in
+          the implementation specification adopted in § 170.215(c)(2).
+        inferno_supported: 'yes'
+        inferno_tests:
+          - 9.9.01 - 9.9.10
       - id: AUT-PAT-13
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
@@ -858,10 +873,10 @@ procedure:
           [Both] The health IT developer demonstrates the ability of the Health
           IT Module to support the receipt of the following scopes and
           capabilities according to the implementation specification adopted in
-          § 170.215(a)(3) and standard adopted in § 170.215(b):
+          § 170.215(c)(2) and standard adopted in § 170.215(e)(1):
           * “openid” (to support “sso-openid-connect” “SMART on FHIR®
             Capability”);
-          * “FHIR®User” (to support “sso-openid-connect” “SMART on FHIR®
+          * “fhirUser” (to support “sso-openid-connect” “SMART on FHIR®
             Capability”);
           * “need_patient_banner” (to support “context-banner” “SMART on FHIR®
             Capability” for EHR-Launch mode only);
@@ -873,9 +888,9 @@ procedure:
           * “offline_access” (to support “permission-offline” “SMART on FHIR®
             Capability”);
           * Patient-level scopes (to support “permission-patient” and “SMART on
-            FHIR® Capability”); and
+            FHIR® Capability”);
           * User-level scopes (to support “permission-user” “SMART on FHIR®
-            Capability”).
+            Capability”); and
           * SMART v1 scope syntax for patient-level and user-level scopes to
             support the “permission-v1” “SMART on FHIR® Capability”
           * SMART v2 scope syntax for patient-level and user-level scopes to
@@ -890,11 +905,11 @@ procedure:
         TLV: |
           [Both] The tester verifies the ability of the Health IT Module to
           support the receipt of the following scopes and capabilities according
-          to the implementation specification adopted in § 170.215(a)(3) and
-          standard adopted in § 170.215(b):
+          to the implementation specification adopted in § 170.215(c)(2) and
+          standard adopted in § 170.215(e)(1):
           * “openid” (to support “sso-openid-connect” “SMART on FHIR®
             Capability”);
-          * “FHIR®User” (to support “sso-openid-connect” “SMART on FHIR®
+          * “fhirUser” (to support “sso-openid-connect” “SMART on FHIR®
             Capability”);
           * “need_patient_banner” (to support “context-banner” “SMART on FHIR®
             Capability” for EHR-Launch mode only);
@@ -906,9 +921,9 @@ procedure:
           * “offline_access” (to support “permission-offline” “SMART on FHIR®
             Capability”);
           * Patient-level scopes (to support “permission-patient” and “SMART on
-            FHIR® Capability”); and
+            FHIR® Capability”);
           * User-level scopes (to support “permission-user” “SMART on FHIR®
-            Capability”).
+            Capability”); and
           * SMART v1 scope syntax for patient-level and user-level scopes to
             support the “permission-v1” “SMART on FHIR® Capability”
           * SMART v2 scope syntax for patient-level and user-level scopes to
@@ -925,8 +940,8 @@ procedure:
           - 1.4.02
           - 3.4.04
           - 9.13.2.02
-          - 9.14.1.1.2.08
-          - 9.14.2.1.2.08
+          - 9.14.1.1.2.02
+          - 9.14.2.1.2.02
           - 9.10.18
           - 9.15.2.05
         inferno_notes: |
@@ -936,21 +951,6 @@ procedure:
           verifying that the client has access to perform the necessary steps.
           Inferno does this as well, but this mapping only refers to the 'receipt' portion
           of the launch process.
-      - id: AUT-PAT-29
-        SUT: |
-          [EHR-Launch] The health IT developer demonstrates the ability of the
-          Health IT Module to establish a patient in context if an application
-          requests a clinical scope which is restricted to a single patient as
-          detailed in the implementation specification adopted in §
-          170.215(a)(3).
-        TLV: |
-          [EHR-Launch] The tester verifies the ability of the Health IT Module
-          to establish a patient in context if an application requests a
-          clinical scope which is restricted to a single patient as detailed in
-          the implementation specification adopted in § 170.215(a)(3).
-        inferno_supported: 'yes'
-        inferno_tests:
-          - 9.9.01 - 9.9.10
       - id: AUT-PAT-30
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
