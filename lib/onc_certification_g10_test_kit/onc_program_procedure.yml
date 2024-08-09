@@ -1540,14 +1540,14 @@ procedure:
           steps DAT-PAT-7, and DAT-PAT-8, of this section respectively, the
           health IT developer demonstrates the ability of the Health IT Module
           to respond to requests for data according to the implementation
-          specification adopted in § 170.215(a)(2), including the following
+          specification adopted in § 170.215(b)(1)(i), including the following
           steps.
         TLV: |
           For responses to data for single and multiple patients as described in
           steps DAT-PAT-7, and DAT-PAT-8, of this section respectively, the
           tester verifies the ability of the Health IT Module to respond to
           requests for data according to the implementation specification
-          adopted in § 170.215(a)(2), including the following steps.
+          adopted in § 170.215(b)(1)(i), including the following steps.
         inferno_supported: 'yes'
         inferno_tests:
           - 4.2.06
