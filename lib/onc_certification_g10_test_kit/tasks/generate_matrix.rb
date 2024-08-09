@@ -79,6 +79,10 @@ module ONCCertificationG10TestKit
           matrix_worksheet.change_column_border_color(col, :left, '000000')
           column_borders << col
 
+          group.tests.each do |test|
+            column_map[test.short_id] = col
+          end
+
           group.groups.each do |test_case|
             matrix_worksheet.change_column_width(col, 4.2)
 
@@ -91,7 +95,6 @@ module ONCCertificationG10TestKit
             matrix_worksheet.change_column_border_color(col, :right, '666666')
 
             all_descendant_tests(test_case).each { |test| column_map[test.short_id] = col }
-
             col += 1
           end
         end
