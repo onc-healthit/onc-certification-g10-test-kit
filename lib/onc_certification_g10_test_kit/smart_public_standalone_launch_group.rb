@@ -1,7 +1,7 @@
 module ONCCertificationG10TestKit
   class SMARTPublicStandaloneLaunchGroup < SMARTAppLaunch::StandaloneLaunchGroup
-    title 'SMART Public Client Standalone Launch with OpenID Connect'
-    short_title 'SMART Public Client Launch'
+    title 'Public Client Standalone Launch with OpenID Connect'
+    short_title 'Public Client Launch'
     input_instructions %(
       Register Inferno as a standalone application using the following information:
 

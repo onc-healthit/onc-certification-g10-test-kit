@@ -320,7 +320,7 @@ module ONCCertificationG10TestKit
           required_suite_options: G10Options::BULK_DATA_2_REQUIREMENT
 
     group do
-      title 'Additional Tests'
+      title 'Additional Authorization Tests'
       id 'Group06'
       description %(
         Not all requirements that need to be tested fit within the previous
@@ -387,9 +387,9 @@ module ONCCertificationG10TestKit
       group from: :g10_smart_fine_grained_scopes,
             required_suite_options: G10Options::SMART_2_REQUIREMENT.merge(G10Options::US_CORE_6_REQUIREMENT),
             exclude_optional: true
-
-      group from: :g10_visual_inspection_and_attestations
     end
+
+    group from: :g10_visual_inspection_and_attestations
   end
 end
 
