@@ -2288,19 +2288,16 @@ procedure:
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
           Module to limit the data returned to only those FHIR® resources for
-          which the client is authorized according to the implementation
-          specification adopted in § 170.215(a)(4).
+          which the client is authorized according to an implementation
+          specification adopted in § 170.215(d).
         TLV: |
           The tester verifies the ability of the Health IT Module to limit the
           data returned to only those FHIR® resources for which the client is
-          authorized according to the implementation specification adopted in §
-          170.215(a)(4).
+          authorized according to an implementation specification adopted in §
+          170.215(d).
         inferno_supported: 'yes'
         inferno_tests:
-          - 2.3.01 - 2.3.15
-        inferno_notes: |
-          Inferno does not do this because there is no requirement to only
-          supported a subset of the scopes.
+          - 2.3.01 - 2.3.19
       - id: DAT-PAT-10
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
