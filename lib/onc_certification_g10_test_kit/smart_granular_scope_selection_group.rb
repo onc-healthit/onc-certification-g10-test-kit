@@ -12,12 +12,10 @@ module ONCCertificationG10TestKit
       Condition and Observation resources, the user is presented with the option
       of approving sub-resource scopes rather than the resource-level scope.
 
-      The first group requests v1 resource-level Condition and Observation
-      scopes, and the second group requests v2 resource-level Condition and
-      Observation scopes. In each instance, the user must unselect the
-      resource-level scopes and instead approve sub-resource scopes for
-      Condition and Observation. It is also required that a resource-level
-      Patient scope be granted.
+      The tests request v2 resource-level Condition and Observation scopes. In
+      each instance, the user must unselect the resource-level scopes and
+      instead approve sub-resource scopes for Condition and Observation. It is
+      also required that a resource-level Patient scope be granted.
 
       > As part of supporting the SMART App Launch “permission-v2” capability
         for the purposes of certification, if an app requests authorization for
@@ -64,74 +62,8 @@ module ONCCertificationG10TestKit
     group from: :smart_discovery_stu2
 
     group from: :smart_standalone_launch_stu2 do
-      id :g10_granular_scope_selection_v1_scopes
-      title 'Granular Scope Selection with v1 Scopes'
-      # description %(
-      # )
-
-      config(
-        inputs: {
-          client_id: {
-            name: :granular_scope_selection_v1_client_id,
-            title: 'Granular Scope Selection w/v1 Scopes Client ID'
-          },
-          client_secret: {
-            name: :granular_scope_selection_v1_client_secret,
-            title: 'Granular Scope Selection w/v1 Scopes Secret',
-            default: nil,
-            optional: true
-          },
-          requested_scopes: {
-            name: :granular_scope_selection_v1_requested_scopes,
-            title: 'Granular Scope Selection v1 Scopes',
-            default: %(
-              launch/patient openid fhirUser offline_access
-              patient/Condition.read patient/Observation.read
-              patient/Patient.read
-            ).gsub(/\s{2,}/, ' ').strip
-          },
-          received_scopes: { name: :granular_scope_selection_v1_received_scopes }
-        },
-        outputs: {
-          requested_scopes: { name: :granular_scope_selection_v1_requested_scopes },
-          received_scopes: { name: :granular_scope_selection_v1_received_scopes }
-        },
-        options: {
-          redirect_message_proc: proc do |auth_url|
-            %(
-              ### #{self.class.parent&.parent&.title}
-
-              [Follow this link to authorize with the SMART server](#{auth_url}).
-
-              Tests will resume once Inferno receives a request at
-              `#{config.options[:redirect_uri]}` with a state of `#{state}`.
-            )
-          end
-        }
-      )
-
-      test from: :g10_smart_scopes do
-        config(
-          options: {
-            requested_scope_version: :v1,
-            required_scope_type: 'patient',
-            required_scopes: ['openid', 'fhirUser', 'launch/patient', 'offline_access']
-          }
-        )
-
-        def patient_compartment_resource_types
-          ['Patient', 'Condition', 'Observation']
-        end
-      end
-
-      test from: :g10_smart_granular_scope_selection
-    end
-
-    group from: :smart_standalone_launch_stu2 do
       id :g10_granular_scope_selection_v2_scopes
       title 'Granular Scope Selection with v2 Scopes'
-      # description %(
-      # )
 
       config(
         inputs: {
