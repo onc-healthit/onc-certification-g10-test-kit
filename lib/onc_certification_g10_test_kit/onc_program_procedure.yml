@@ -1944,13 +1944,13 @@ procedure:
           health IT developer demonstrates the ability of the Health IT Module
           to support a “Medication” FHIR® resource according to the “Medication
           List Guidance” section of the implementation specification adopted in
-          § 170.215(a)(2).
+          § 170.215(b)(1)(i).
         TLV: |
           If supported, and for responses to data for a single patient only, the
           tester verifies the ability of the Health IT Module to support a
           “Medication” FHIR® resource according to the “Medication List
           Guidance” section of the implementation specification adopted in §
-          170.215(a)(2).
+          170.215(b)(1)(i).
         inferno_supported: 'yes'
         inferno_tests:
           - 4.13.06
