@@ -1158,12 +1158,12 @@ procedure:
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
           Module to validate an application’s JWT, including its JSON Web
-          Signatures, according to the implementation specification adopted in §
-          170.215(a)(4).
+          Signatures, according to an implementation specification adopted in §
+          170.215(d).
         TLV: |
           The tester verifies the ability of the Health IT Module to validate an
-          application’s JWT, including its JSON Web Signatures, according to the
-          implementation specification adopted in § 170.215(a)(4).
+          application’s JWT, including its JSON Web Signatures, according to an
+          implementation specification adopted in § 170.215(d).
         inferno_supported: 'yes'
         inferno_tests:
           - 7.1.05
@@ -1172,13 +1172,13 @@ procedure:
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
           Module to respond with an “invalid_client” error for errors
-          encountered during the authentication process according to the
-          implementation specification adopted in § 170.215(a)(4).
+          encountered during the authentication process according to an
+          implementation specification adopted in § 170.215(d).
         TLV: |
           The tester verifies the ability of the Health IT Module to respond
           with an “invalid_client” error for errors encountered during the
-          authentication process according to the implementation specification
-          adopted in § 170.215(a)(4).
+          authentication process according to an implementation specification
+          adopted in § 170.215(d).
         inferno_supported: 'yes'
         inferno_tests:
           - 7.1.02 - 7.1.04
