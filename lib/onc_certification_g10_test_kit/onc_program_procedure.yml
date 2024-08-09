@@ -528,7 +528,7 @@
           - 9.13.2.02
           - 9.14.1.1.2.02
           - 9.14.2.1.2.02
-          - '11.18'
+          - '11.16'
           - 9.15.2.05
         inferno_notes: |
           This step refers to only the receipt of these scopes, which is covered in
