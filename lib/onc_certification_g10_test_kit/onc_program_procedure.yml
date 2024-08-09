@@ -2343,12 +2343,12 @@ procedure:
       - id: DAT-PAT-13
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
-          Module to support a bulk data status request according to the
-          implementation specification adopted in § 170.215(a)(4).
+          Module to support a bulk data status request according to an
+          implementation specification adopted in § 170.215(d).
         TLV: |
           The tester verifies the ability of the Health IT Module to support a
-          bulk data status request according to the implementation specification
-          adopted in § 170.215(a)(4).
+          bulk data status request according to an implementation specification
+          adopted in § 170.215(d).
         inferno_supported: 'yes'
         inferno_tests:
           - 7.2.05 - 7.2.06
