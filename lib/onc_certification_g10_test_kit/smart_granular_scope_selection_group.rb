@@ -55,10 +55,6 @@ module ONCCertificationG10TestKit
       }
     )
 
-    def self.short_id
-      '9.15'
-    end
-
     group from: :smart_discovery_stu2
 
     group from: :smart_standalone_launch_stu2 do
