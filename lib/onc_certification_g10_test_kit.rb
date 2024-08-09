@@ -389,11 +389,7 @@ module ONCCertificationG10TestKit
             exclude_optional: true
     end
 
-    group from: :g10_visual_inspection_and_attestations do
-      def self.short_id
-        '11'
-      end
-    end
+    group from: :g10_visual_inspection_and_attestations
   end
 end
 
