@@ -2214,11 +2214,10 @@ procedure:
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
           Module to respond to requests for multiple patients’ data according to
-          the implementation specification adopted in § 170.215(a)(4) for all of
-          the FHIR® resources associated with the profiles and Data Elements
-          specified in and according to the standard adopted in § 170.213 and
-          implementation specification adopted in § 170.215(a)(2).
-
+          an implementation specification adopted in § 170.215(d) for all of the
+          FHIR® resources associated with the profiles and Data Elements
+          specified in and according to the standard adopted in § 170.213(b) and
+          implementation specification adopted in § 170.215(b)(1)(ii).
           * “AllergyIntolerance”;
           * “CarePlan”;
           * “CareTeam”;
@@ -2247,11 +2246,11 @@ procedure:
           * “ServiceRequest”
         TLV: |
           The health IT developer verifies the ability of the Health IT Module
-          to respond to requests for multiple patients’ data according to the
-          implementation specification adopted in § 170.215(a)(4) for all of the
+          to respond to requests for multiple patients’ data according to an
+          implementation specification adopted in § 170.215(d) for all of the
           FHIR® resources associated with the profiles and Data Elements
-          specified in and according to the standard adopted in § 170.213 and
-          implementation specification adopted in § 170.215(a)(2).
+          specified in and according to the standard adopted in § 170.213(b) and
+          implementation specification adopted in § 170.215(b)(1)(ii).
           * “AllergyIntolerance”;
           * “CarePlan”;
           * “CareTeam”;
