@@ -2362,11 +2362,13 @@ procedure:
         SUT: |
           To fulfill the API Maintenance of Certification requirement at §
           170.404(b)(2), the health IT developer demonstrates the public
-          location of its certified API technology service base URLs.
+          location of its certified API technology service base URLs and related
+          organization details.
         TLV: |
           To fulfill the API Maintenance of Certification requirement at §
           170.404(b)(2), the tester verifies the public location of the health
-          IT developer's certified API technology service base URLs.
+          IT developer’s certified API technology service base URLs and related
+          organization details.
         inferno_supported: 'yes'
         inferno_tests:
           - 11.14
