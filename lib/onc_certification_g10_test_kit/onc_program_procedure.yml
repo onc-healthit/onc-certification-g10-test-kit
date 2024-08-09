@@ -1504,14 +1504,14 @@ procedure:
           Module to support the “capabilities” interaction as specified in the
           standard adopted in § 170.215(a)(1), including support for a
           “CapabilityStatement” as specified in the standard adopted in §
-          170.215(a)(1) and implementation specification adopted in §
-          170.215(a)(4).
+          170.215(a)(1) and an implementation specification adopted in §
+          170.215(d).
         TLV: |
           The tester verifies the ability of the Health IT Module to support the
           “capabilities” interaction as specified in the standard adopted in §
           170.215(a)(1), including support for a “CapabilityStatement” as
-          specified in the standard adopted in § 170.215(a)(1) and
-          implementation specification adopted in § 170.215(a)(4).
+          specified in the standard adopted in § 170.215(a)(1) and an
+          implementation specification adopted in § 170.215(d).
         inferno_supported: 'yes'
         inferno_tests:
           - 7.2.02
