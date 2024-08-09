@@ -1960,14 +1960,14 @@ procedure:
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
           Module to support “Missing Data” according to the implementation
-          specification adopted in § 170. 215(a)(2), including:
+          specification adopted in § 170. 215(b)(1)(i), including:
           * For non-coded data elements; and
           * For coded data elements, including support for the
             “DataAbsentReason” Code System.
         TLV: |
           The tester verifies the ability of the Health IT Module to support
           “Missing Data” according to the implementation specification adopted
-          in § 170. 215(a)(2), including:
+          in § 170. 215(b)(1)(i), including:
           * For non-coded data elements; and
           * For coded data elements, including support for the
             “DataAbsentReason” Code System.
