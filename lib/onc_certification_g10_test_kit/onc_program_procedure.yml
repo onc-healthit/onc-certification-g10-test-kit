@@ -1926,13 +1926,13 @@ procedure:
           FHIR® resource for each of the “Clinical Notes” and “Diagnostic
           Reports” included in and according to the “Clinical Notes Guidance”
           section of the implementation specification adopted in §
-          170.215(a)(2).
+          170.215(b)(1)(i).
         TLV: |
           The tester verifies the ability of the Health IT Module to support a
           “DocumentReference” and/or “DiagnosticReport” FHIR® resource for each
           of the “Clinical Notes” and “Diagnostic Reports” included in and
           according to the “Clinical Notes Guidance” section of the
-          implementation specification adopted in § 170.215(a)(2).
+          implementation specification adopted in § 170.215(b)(1)(i).
         inferno_supported: 'yes'
         inferno_tests:
           - 4.31.01 - 4.31.02
