@@ -1284,108 +1284,110 @@ procedure:
           The health IT developer demonstrates the ability of the Health IT
           Module to respond to requests for a single patient’s data consistent
           with the search criteria detailed in the “US Core Server
-          CapabilityStatement” section of the implementation specification
-          adopted in § 170.215(a)(2), including demonstrating search support for
+          CapabilityStatement” section of an implementation specification
+          adopted in § 170.215(b)(1), including demonstrating search support for
           “SHALL” operations and parameters for all the data included in the
-          standard adopted in § 170.213.
+          corresponding standard adopted in § 170.213.
         TLV: |
           The tester verifies the ability of the Health IT Module to respond to
           requests for a single patient’s data consistent with the search
           criteria detailed in the “US Core Server CapabilityStatement” section
-          of the implementation specification adopted in § 170.215(a)(2),
+          of an implementation specification adopted in § 170.215(b)(1),
           including demonstrating search support for “SHALL” operations and
-          parameters for all the data included in the standard adopted in §
-          170.213.
+          parameters for all the data included in the corresponding standard
+          adopted in § 170.213.
         inferno_supported: 'yes'
         inferno_tests:
-          - 4.2.01
+          - 4.2.01 - 4.2.03
           - 4.3.01
           - 4.4.01
           - 4.5.01
           - 4.6.01
           - 4.7.01
-          - 4.8.01
-          - 4.9.01
-          - 4.10.01
+          - 4.8.01 - 4.8.04
+          - 4.9.01 - 4.9.04
+          - 4.10.01 - 4.10.05
           - 4.11.01
           - 4.12.01
-          - 4.13.01
+          - 4.13.01 - 4.13.02
           - 4.14.01
-          - 4.15.01
-          - 4.16.01
-          - 4.17.01
-          - 4.18.01
-          - 4.19.01
-          - 4.20.01
-          - 4.21.01
-          - 4.22.01
-          - 4.23.01
-          - 4.24.01
-          - 4.25.01
-          - 4.26.01
-          - 5.2.01
+          - 4.15.01 - 4.15.03
+          - 4.16.01 - 4.16.03
+          - 4.17.01 - 4.17.03
+          - 4.18.01 - 4.18.03
+          - 4.19.01 - 4.19.03
+          - 4.20.01 - 4.20.03
+          - 4.21.01 - 4.21.03
+          - 4.22.01 - 4.22.03
+          - 4.23.01 - 4.23.03
+          - 4.24.01 - 4.24.03
+          - 4.25.01 - 4.25.03
+          - 4.26.01 - 4.26.02
+          - 5.2.01 - 5.2.05
           - 5.3.01
           - 5.4.01
           - 5.5.01
           - 5.6.01
           - 5.7.01
-          - 5.8.01
-          - 5.9.01
-          - 5.10.01
+          - 5.8.01 - 5.8.04
+          - 5.9.01 - 5.9.04
+          - 5.10.01 - 5.10.05
           - 5.11.01
           - 5.12.01
-          - 5.13.01
-          - 5.14.01
-          - 5.15.01
-          - 5.16.01
-          - 5.17.01
-          - 5.18.01
-          - 5.19.01
-          - 5.20.01
-          - 5.21.01
-          - 5.22.01
-          - 5.23.01
-          - 5.24.01
-          - 5.25.01
-          - 5.26.01
-          - 5.27.01
-          - 5.28.01
-          - 10.2.01
+          - 5.13.01 - 5.13.02
+          - 5.14.01 - 5.14.03
+          - 5.15.01 - 5.15.03
+          - 5.16.01 - 5.16.03
+          - 5.17.01 - 5.17.03
+          - 5.18.01 - 5.18.03
+          - 5.19.01 - 5.19.03
+          - 5.20.01 - 5.20.03
+          - 5.21.01 - 5.21.03
+          - 5.22.01 - 5.22.03
+          - 5.23.01 - 5.23.03
+          - 5.24.01 - 5.24.03
+          - 5.25.01 - 5.25.03
+          - 5.26.01 - 5.26.03
+          - 5.27.01 - 5.27.03
+          - 5.28.01 - 5.28.02
+          - 10.2.01 - 10.2.05
           - 10.3.01
           - 10.4.01
           - 10.5.01
-          - 10.6.01
-          - 10.7.01
+          - 10.6.01 - 10.6.02
+          - 10.7.01 - 10.7.02
           - 10.8.01
           - 10.9.01
-          - 10.10.01
-          - 10.11.01
-          - 10.12.01
-          - 10.13.01
+          - 10.10.01 - 10.10.04
+          - 10.11.01 - 10.11.04
+          - 10.12.01 - 10.12.05
+          - 10.13.01 - 10.13.03
           - 10.14.01
           - 10.15.01
           - 10.16.01
-          - 10.17.01
-          - 10.18.01
-          - 10.19.01
-          - 10.20.01
-          - 10.21.01
-          - 10.22.01
-          - 10.23.01
-          - 10.24.01
-          - 10.25.01
-          - 10.26.01
-          - 10.27.01
+          - 10.17.01 - 10.17.02
+          - 10.18.01 - 10.18.03
+          - 10.19.01 - 10.19.03
+          - 10.20.01 - 10.20.03
+          - 10.21.01 - 10.21.03
+          - 10.22.01 - 10.22.03
+          - 10.23.01 - 10.23.03
+          - 10.24.01 - 10.24.03
+          - 10.25.01 - 10.25.03
+          - 10.26.01 - 10.26.03
+          - 10.27.01 - 10.27.03
           - 10.28.01
-          - 10.29.01
-          - 10.30.01
-          - 10.31.01
-          - 10.32.01
-          - 10.33.01
-          - 10.34.01
-          - 10.35.01
-          - 10.36.01
-          - 10.37.01
+          - 10.29.01 - 10.29.03
+          - 10.30.01 - 10.30.03
+          - 10.31.01 - 10.31.03
+          - 10.32.01 - 10.32.03
+          - 10.33.01 - 10.33.03
+          - 10.34.01 - 10.34.03
+          - 10.35.01 - 10.35.03
+          - 10.36.01 - 10.36.03
+          - 10.37.01 - 10.37.03
+          - 10.38.01 - 10.38.02
+          - 10.39.01 - 10.39.05
       - id: SH-PAT-3
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
