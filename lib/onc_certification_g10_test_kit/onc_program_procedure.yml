@@ -2329,12 +2329,12 @@ procedure:
       - id: DAT-PAT-12
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
-          Module to support a bulk data delete request according to the
-          implementation specification adopted in § 170.215(a)(4).
+          Module to support a bulk data delete request according to an
+          implementation specification adopted in § 170.215(d).
         TLV: |
           The tester verifies the ability of the Health IT Module to support a
-          bulk data delete request according to the implementation specification
-          adopted in § 170.215(a)(4).
+          bulk data delete request according to an implementation specification
+          adopted in § 170.215(d).
         inferno_supported: 'yes'
         inferno_tests:
           - 7.4.01
