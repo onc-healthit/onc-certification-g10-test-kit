@@ -1982,14 +1982,15 @@ procedure:
           The health IT developer demonstrates the ability of the Health IT
           Module to return all of the data associated with requests for a single
           patient’s data according to the “US Core Server CapabilityStatement”
-          section of the implementation specification adopted in § 170.215(a)(2)
-          for all the data included in the standard adopted in § 170.213.
+          section of the implementation specification adopted in §
+          170.215(b)(1)(i) for all the data included in the standard adopted in
+          § 170.213(a).
         TLV: |
           The tester verifies the ability of the Health IT Module to return all
           of the data associated with requests for a single patient’s data
           according to the “US Core Server CapabilityStatement” section of the
-          implementation specification adopted in § 170.215(a)(2) for all the
-          data included in the standard adopted in § 170.213.
+          implementation specification adopted in § 170.215(b)(1)(i) for all the
+          data included in the standard adopted in § 170.213(a).
         inferno_supported: 'yes'
         inferno_tests:
           - 4.2.01
@@ -2082,11 +2083,6 @@ procedure:
           - 10.37.01
           - 10.38.01
           - 10.39.01
-          - 10.40.01
-          - 10.41.01
-          - 10.42.01
-          - 10.43.01
-          - 10.44.01
       - group: Response to Requests for Multiple Patients’ Data
         id: DAT-PAT-8
         SUT: |
