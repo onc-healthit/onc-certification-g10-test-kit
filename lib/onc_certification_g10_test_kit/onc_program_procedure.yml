@@ -1,4 +1,4 @@
-procedure:
+ procedure:
   - section: Paragraph (g)(10)(iii) - Application registration
     steps:
       - group: Application Registration
@@ -16,7 +16,7 @@ procedure:
           registration functions to enable authentication and authorization in §
           170.315(g)(10)(v).
         inferno_tests:
-          - 11.01
+          - '11.01'
         inferno_supported: 'yes'
         inferno_notes: |
           This requires a visual inspection and attestation because it is not
@@ -36,7 +36,7 @@ procedure:
           registration functions to enable authentication and authorization in §
           170.315(g)(10)(v).
         inferno_tests:
-          - 11.02
+          - '11.02'
         inferno_supported: 'yes'
         inferno_notes: |
           This requires a visual inspection and attestation because it is not
@@ -92,7 +92,7 @@ procedure:
           - 9.8.06
           - 9.9.03
           - 9.9.06
-          - 11.15
+          - '11.15'
           - 9.11.1.2.01
           - 9.11.1.2.04
           - 9.12.2.01
@@ -528,7 +528,7 @@ procedure:
           - 9.13.2.02
           - 9.14.1.1.2.02
           - 9.14.2.1.2.02
-          - 11.18
+          - '11.18'
           - 9.15.2.05
         inferno_notes: |
           This step refers to only the receipt of these scopes, which is covered in
@@ -654,7 +654,7 @@ procedure:
           - 2.1.05
           - 2.2.02
           - 2.2.05
-          - 11.04
+          - '11.04'
       - id: AUT-PAT-12
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
@@ -824,7 +824,7 @@ procedure:
           specification adopted in § 170.215(c)(2).
         inferno_supported: 'yes'
         inferno_tests:
-          9.7.01 - 9.7.12
+          - 9.7.01 - 9.7.12
       - id: AUT-PAT-16
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
@@ -1002,7 +1002,7 @@ procedure:
           to native applications capable of securing a refresh token.
         inferno_supported: 'yes'
         inferno_tests:
-          - 11.13
+          - '11.13'
       - group: 'Subsequent Connections: Authentication and Authorization for Patient and User Scopes'
         id: AUT-PAT-22
         SUT: |
@@ -1020,7 +1020,7 @@ procedure:
           implementation specification adopted in § 170.215(c)(1).
         inferno_supported: 'yes'
         inferno_tests:
-          - 11.16
+          - '11.16'
         inferno_notes: |
           Inferno cannot verify the three month token expiration requirement
           automatically during the token refresh tests, but the tester can
@@ -1153,7 +1153,7 @@ procedure:
           This test requires the tester to register an attestation from the
           Health IT Module that the "cache-control" header is obeyed.
         inferno_tests:
-          - 11.10
+          - '11.10'
       - id: AUT-SYS-6
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
@@ -1202,7 +1202,7 @@ procedure:
           more than what was pre-authorized.  The Health IT module must
           demonstrate this and register its attestation within Inferno.
         inferno_tests:
-          - 11.08
+          - '11.08'
       - id: AUT-SYS-9
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
@@ -1687,8 +1687,8 @@ procedure:
             DAT-PAT-5, and DAT-PAT-6, of this section.
         inferno_supported: 'yes'
         inferno_tests:
-          - 11.07
-          - 11.11
+          - '11.07'
+          - '11.11'
           - 4.2.08 - 4.2.09
           - 4.3.04 - 4.3.05
           - 4.4.04 - 4.4.05
@@ -2344,7 +2344,7 @@ procedure:
             registration.
         inferno_supported: 'yes'
         inferno_tests:
-          - 11.09
+          - '11.09'
       - id: API-DOC-2
         SUT: |
           The health IT developer demonstrates that the documentation described
@@ -2357,7 +2357,7 @@ procedure:
           does not require preconditions or additional steps to access.
         inferno_supported: 'yes'
         inferno_tests:
-          - 11.09
+          - '11.09'
       - id: API-DOC-3
         SUT: |
           To fulfill the API Maintenance of Certification requirement at §
@@ -2371,4 +2371,4 @@ procedure:
           organization details.
         inferno_supported: 'yes'
         inferno_tests:
-          - 11.14
+          - '11.14'
