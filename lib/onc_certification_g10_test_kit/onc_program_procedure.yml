@@ -1230,12 +1230,11 @@ procedure:
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
           Module to respond to errors using the appropriate error messages as
-          specified in the implementation specification adopted in §
-          170.215(a)(4).
+          specified in an implementation specification adopted in § 170.215(d).
         TLV: |
           The tester verifies the ability of the Health IT Module to respond to
-          errors using the appropriate error messages as specified in the
-          implementation specification adopted in § 170.215(a)(4).
+          errors using the appropriate error messages as specified in an
+          implementation specification adopted in § 170.215(d).
         inferno_supported: 'yes'
         inferno_tests:
           - 7.1.02 - 7.1.04
