@@ -2316,12 +2316,12 @@ procedure:
       - id: DAT-PAT-11
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
-          Module to support a data response error according to the
-          implementation adopted in § 170.215(a)(4).
+          Module to support a data response error according to an implementation
+          adopted in § 170.215(d).
         TLV: |
           The tester verifies the ability of the Health IT Module to support a
-          data response error according to the implementation adopted in §
-          170.215(a)(4).
+          data response error according to an implementation adopted in §
+          170.215(d).
         inferno_supported: 'yes'
         inferno_tests:
           - 7.2.03
