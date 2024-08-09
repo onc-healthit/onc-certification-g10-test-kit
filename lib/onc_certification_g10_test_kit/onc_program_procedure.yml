@@ -2348,13 +2348,13 @@ procedure:
       - id: API-DOC-2
         SUT: |
           The health IT developer demonstrates that the documentation described
-          in step 1, of this section is available via a publicly accessible
-          hyperlink that does not require preconditions or additional steps to
-          access.
+          in step API-DOC-1, of this section is available via a publicly
+          accessible hyperlink that does not require preconditions or additional
+          steps to access.
         TLV: |
-          The tester verifies the documentation described in step 1, of this
-          section is available via a publicly accessible hyperlink that does not
-          require preconditions or additional steps to access.
+          The tester verifies the documentation described in step API-DOC-1, of
+          this section is available via a publicly accessible hyperlink that
+          does not require preconditions or additional steps to access.
         inferno_supported: 'yes'
         inferno_tests:
           - 11.09
