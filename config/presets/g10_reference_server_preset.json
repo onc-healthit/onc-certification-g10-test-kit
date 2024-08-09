@@ -524,28 +524,6 @@
       "value": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET"
     },
     {
-      "name": "granular_scope_selection_v1_client_id",
-      "value": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
-      "_title": "Granular Scope Selection w/v1 Scopes Client ID",
-      "_description": "Client ID provided during registration of Inferno as a standalone application",
-      "_type": "text"
-    },
-    {
-      "name": "granular_scope_selection_v1_requested_scopes",
-      "value": "launch/patient openid fhirUser offline_access patient/Condition.read patient/Observation.read patient/Patient.read",
-      "_title": "Granular Scope Selection v1 Scopes",
-      "_description": "OAuth 2.0 scope provided by system to enable all required functionality",
-      "_type": "textarea"
-    },
-    {
-      "name": "granular_scope_selection_v1_client_secret",
-      "value": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
-      "_title": "Granular Scope Selection w/v1 Scopes Secret",
-      "_description": "Client Secret provided during registration of Inferno as a standalone application. Only for clients using confidential symmetric authentication.",
-      "_type": "text",
-      "_optional": true
-    },
-    {
       "name": "granular_scope_selection_client_auth_type",
       "value": "confidential_symmetric",
       "_title": "Client Authentication Method",
