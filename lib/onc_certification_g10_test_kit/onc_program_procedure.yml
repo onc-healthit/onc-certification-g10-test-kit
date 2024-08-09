@@ -1393,18 +1393,18 @@ procedure:
           The health IT developer demonstrates the ability of the Health IT
           Module to support a resource search for the provenance target
           “(_revIncludes: Provenance:target)” for all the FHIR® resources
-          included in the standard adopted in § 170.213 and implementation
-          specification adopted in § 170.215(a)(2) according to the “Basic
-          Provenance Guidance” section of the implementation specification
-          adopted in § 170.215(a)(2).
+          included in a standard adopted in § 170.213 and the corresponding
+          implementation specification adopted in § 170.215(b)(1) according to
+          the “Basic Provenance Guidance” section of an implementation
+          specification adopted in § 170.215(b)(1).
         TLV: |
           The tester verifies the ability of the Health IT Module to support a
           resource search for the provenance target “(_revIncludes:
-          Provenance:target)” for all the FHIR® resources included in the
-          standard adopted in § 170.213 and implementation specification adopted
-          in § 170.215(a)(2) according to the “Basic Provenance Guidance”
-          section of the implementation specification adopted in §
-          170.215(a)(2).
+          Provenance:target)” for all the FHIR® resources included in a standard
+          adopted in § 170.213 and the corresponding implementation
+          specification adopted in § 170.215(b)(1) according to the “Basic
+          Provenance Guidance” section of an implementation specification
+          adopted in § 170.215(b)(1).
         inferno_supported: 'yes'
         inferno_tests:
           - 4.2.07
@@ -1459,42 +1459,44 @@ procedure:
           - 5.26.05
           - 5.27.05
           - 5.28.04
-          - 10.2.01
-          - 10.3.01
-          - 10.4.01
-          - 10.5.01
-          - 10.6.01
-          - 10.7.01
-          - 10.8.01
-          - 10.9.01
-          - 10.10.01
-          - 10.11.01
-          - 10.12.01
-          - 10.13.01
-          - 10.14.01
-          - 10.15.01
-          - 10.16.01
-          - 10.17.01
-          - 10.18.01
-          - 10.19.01
-          - 10.20.01
-          - 10.21.01
-          - 10.22.01
-          - 10.23.01
-          - 10.24.01
-          - 10.25.01
-          - 10.26.01
-          - 10.27.01
-          - 10.28.01
-          - 10.29.01
-          - 10.30.01
-          - 10.31.01
-          - 10.32.01
-          - 10.33.01
-          - 10.34.01
-          - 10.35.01
-          - 10.36.01
-          - 10.37.01
+          - 10.2.07
+          - 10.3.03
+          - 10.4.03
+          - 10.5.03
+          - 10.6.04
+          - 10.7.04
+          - 10.8.03
+          - 10.9.03
+          - 10.10.06
+          - 10.11.06
+          - 10.12.07
+          - 10.13.05
+          - 10.14.03
+          - 10.15.03
+          - 10.16.03
+          - 10.17.04
+          - 10.18.05
+          - 10.19.05
+          - 10.20.05
+          - 10.21.05
+          - 10.22.05
+          - 10.23.05
+          - 10.24.05
+          - 10.25.05
+          - 10.26.05
+          - 10.27.05
+          - 10.28.03
+          - 10.29.05
+          - 10.30.05
+          - 10.31.05
+          - 10.32.05
+          - 10.33.05
+          - 10.34.05
+          - 10.35.05
+          - 10.36.05
+          - 10.37.05
+          - 10.38.04
+          - 10.39.07
       - group: Supported Search Operations for Multiple Patients’ Data
         id: SH-PAT-4
         SUT: |
