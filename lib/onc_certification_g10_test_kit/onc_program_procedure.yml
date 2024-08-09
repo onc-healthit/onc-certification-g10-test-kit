@@ -1811,17 +1811,17 @@ procedure:
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
           Module to support a “Provenance” FHIR® resource for all the FHIR®
-          resources included in the standard adopted in § 170.213 and
-          implementation specification adopted in § 170.215(a)(2) according to
-          the “Basic Provenance Guidance” section of the implementation
-          specification adopted in § 170.215(a)(2).
+          resources included in the standard adopted in § 170.213(a) and
+          implementation specification adopted in § 170.215(b)(1)(i) according
+          to the “Basic Provenance Guidance” section of the implementation
+          specification adopted in § 170.215(b)(1)(i).
         TLV: |
           The tester verifies the ability of the Health IT Module to support a
           “Provenance” FHIR® resource for all the FHIR® resources included in
-          the standard adopted in § 170.213 and implementation specification
-          adopted in § 170.215(a)(2) according to the “Basic Provenance
+          the standard adopted in § 170.213(a) and implementation specification
+          adopted in § 170.215(b)(1)(i) according to the “Basic Provenance
           Guidance” section of the implementation specification adopted in §
-          170.215(a)(2).
+          170.215(b)(1)(i).
         inferno_supported: 'yes'
         inferno_tests:
           - 4.2.07
