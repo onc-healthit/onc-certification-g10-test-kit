@@ -1,3 +1,20 @@
+# 6.0.0
+* Add Token Introspection tests (#531).
+* Add Asymmetric Client Auth tests (#533).
+* Add checks for additional SMART capabilities (#534).
+* Add SMART App Launch v1 scopes tests (#535).
+* Add SMART Granular Scopes tests (#537).
+* Add US Core 6 Screening and Assessment test group (#542).
+* Add an attestation for supporting the Observation Clinical Test granular
+  scope (#543).
+* Move the Visual Inspection and Attestation tests to their own top-level group
+  (#540).
+* Add tests for the selection of granular scopes when resource-level scopes are
+  requested (#539).
+* Fix an issue which only used the code value and ignored the system when
+  checking for the presence of Must Support slices based on bound Value Sets
+  (#536).
+
 # 5.4.2
 * Allow canonicals with versions when checking IG/profile support in
   CapabilityStatements (#525).
