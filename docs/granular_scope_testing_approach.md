@@ -125,8 +125,8 @@ text](https://www.federalregister.gov/d/2023-28857/p-1245)
         granted scopes
       * Do not include any resources which were not present in the original
         request
-  * **TODO:** Perform FHIR reads for resources which do and do not match the
-    granted scopes, and verify that only resources which match are returned
+  * Perform FHIR reads for resources which do and do not match the granted
+    scopes, and verify that only resources which match are returned
 * For Clinical Tests, there isn't a clear scope requirement, so an attestation
   will be added for systems to confirm that they support fine-grained scopes for
   clinical tests.
