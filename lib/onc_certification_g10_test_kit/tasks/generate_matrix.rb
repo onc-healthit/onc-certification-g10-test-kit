@@ -74,10 +74,14 @@ module ONCCertificationG10TestKit
           next if group.short_id == '6' # Skip US Core 5
 
           matrix_worksheet.add_cell(1, col, group.title).change_text_wrap(true)
-          matrix_worksheet.merge_cells(1, col, 1, col + group.groups.length - 1)
+          matrix_worksheet.merge_cells(1, col, 1, col + group.groups.length - 1) if group.groups.length.positive?
           matrix_worksheet.change_column_border(col, :left, 'medium')
           matrix_worksheet.change_column_border_color(col, :left, '000000')
           column_borders << col
+
+          group.tests.each do |test|
+            column_map[test.short_id] = col
+          end
 
           group.groups.each do |test_case|
             matrix_worksheet.change_column_width(col, 4.2)
@@ -91,7 +95,6 @@ module ONCCertificationG10TestKit
             matrix_worksheet.change_column_border_color(col, :right, '666666')
 
             all_descendant_tests(test_case).each { |test| column_map[test.short_id] = col }
-
             col += 1
           end
         end
