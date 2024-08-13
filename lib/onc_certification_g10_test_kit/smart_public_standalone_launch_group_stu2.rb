@@ -12,6 +12,27 @@ module ONCCertificationG10TestKit
       fhirUser), refresh tokens (offline_access), and patient context
       (launch/patient) are required.
     )
+    description %(
+
+      This scenario verifies the ability of systems to support public clients
+      as described in the SMART App Launch implementation specification.  Previous
+      scenarios have not required the system under test to demonstrate this
+      specific type of SMART App Launch client.
+
+      Prior to executing this test, register Inferno as a public standalone
+      application using the following information:
+
+      * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
+
+      Inferno will act as a public client redirect the tester to the the
+      authorization endpoint so that they may provide any required credentials
+      and authorize the application. Upon successful authorization, Inferno will
+      exchange the authorization code provided for an access token.
+
+      For more information on the #{title}:
+
+      * [Standalone Launch Sequence](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#standalone-launch-sequence)
+    )
     id :g10_public_standalone_launch_stu2
     run_as_group
 

@@ -9,8 +9,8 @@ module ONCCertificationG10TestKit
     short_title 'Limited Access App'
 
     input_instructions %(
-      The purpose of this test is to demonstrate that app users can restrict
-      access granted to apps to a limited number of resources. Enter which
+      The purpose of this test is to verify that patient app users can restrict
+      access granted to apps to a limited number of resources Enter which
       resources the user will grant access to below, and during the launch
       process only grant access to those resources. Inferno will verify that
       access granted matches these expectations.
@@ -20,13 +20,15 @@ module ONCCertificationG10TestKit
     )
 
     description %(
-      This scenario demonstrates the ability to perform a Patient Standalone
+      This scenario verifies the ability of a system to perform a Patient Standalone
       Launch to a SMART on FHIR confidential client with limited access granted
       to the app based on user input. The tester is expected to grant the
       application access to a subset of desired resource types. The launch is
       performed using the same app configuration as in the Standalone Patient
       App test, demonstrating that the user has control over what scopes are
       granted to the app as required in the (g)(10) Standardized API criterion.
+
+      The following implementation specifications are relevant to this scenario:
 
       * [SMART on FHIR
         (STU1)](http://www.hl7.org/fhir/smart-app-launch/1.0.0/)

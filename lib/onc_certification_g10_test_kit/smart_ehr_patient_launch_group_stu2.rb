@@ -4,10 +4,10 @@ module ONCCertificationG10TestKit
   class SMARTEHRPatientLaunchGroupSTU2 < SMARTAppLaunch::EHRLaunchGroupSTU2
     title 'EHR Launch with Patient Scopes'
     description %(
-      # Background
       Systems are required to support the `permission-patient` capability as
       part of the [Clinician Access for EHR Launch Capability
       Set.](http://hl7.org/fhir/smart-app-launch/STU2/conformance.html#clinician-access-for-ehr-launch)
+      Previous scenarios do not verify this specific combination of capabilies.
 
       Additionally, if an application launched from an EHR requests and is
       granted a clinical scope restricted to a single patient, the EHR SHALL
@@ -19,9 +19,7 @@ module ONCCertificationG10TestKit
       * Launch URI: `#{SMARTAppLaunch::AppLaunchTest.config.options[:launch_uri]}`
       * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
 
-      # Test Methodology
-
-      Inferno will attempt an EHR Launch with a clinical scope restricted to a
+      In this scenario, Inferno will attempt an EHR Launch with a clinical scope restricted to a
       single patient and verify that a patient-level scope is granted and a
       patient id is received.
 

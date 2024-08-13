@@ -8,18 +8,16 @@ module ONCCertificationG10TestKit
       * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
     )
     description %(
-      # Background
-
-      The Invalid Access Token Request Sequence verifies that a SMART Launch
+      This scenario verifies that a SMART Launch
       Sequence, specifically the [Standalone
-      Launch](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#standalone-launch-sequence)
-      Sequence, does not work in the case where the client sends an invalid
+      Launch](http://hl7.org/fhir/smart-app-launch/STU2/app-launch.html#launch-app-standalone-launch)
+      Sequence, does not succeed in the case where the client sends an invalid
       Authorization code or client ID during the code exchange step. This must
       not result in a successful launch.
 
-      This test is not included as part of a regular SMART Launch Sequence
-      because some servers may not accept an authorization code after it has
-      been used unsuccessfully in this manner.
+      This test is not included as part of earlier scenarios because some
+      servers may not accept an authorization code after it has been used
+      unsuccessfully in this manner.
     )
     id :g10_smart_invalid_token_request
     run_as_group

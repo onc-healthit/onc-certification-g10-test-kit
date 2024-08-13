@@ -2,7 +2,7 @@ module ONCCertificationG10TestKit
   class TokenRevocationGroup < Inferno::TestGroup
     title 'Token Revocation'
     description %(
-      Demonstrate the Health IT module is capable of revoking access granted to
+      This scenario verifies the ability of the system to revoke access granted to
       an application at the direction of a patient.  Access to the application
       must be revoked within one hour of the patient's request.
     )

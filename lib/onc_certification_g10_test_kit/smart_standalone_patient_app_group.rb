@@ -24,16 +24,25 @@ module ONCCertificationG10TestKit
     )
 
     description %(
-        This scenario demonstrates the ability of a system to perform a Patient
+        This scenario verifies the ability of a system to perform a single
+        SMART App Launch.  Specifically, this scenario performs a Patient
         Standalone Launch to a SMART on FHIR confidential client with a patient
         context, refresh token, OpenID Connect (OIDC) identity token, and use
-        the GET HTTP method for code exchange. After launch, a simple Patient
-        resource read is performed on the patient in context. The access token
-        is then refreshed, and the Patient resource is read using the new access
-        token to ensure that the refresh was successful. The authentication
-        information provided by OpenID Connect is decoded and validated, and
-        simple queries are performed to ensure that access is granted to all
-        USCDI data elements.
+        the GET HTTP method for code exchange.
+
+        After launch, a simple Patient resource read is performed on the patient
+        in context. The access token is then refreshed, and the Patient resource
+        is read using the new access token to ensure that the refresh was
+        successful. The authentication information provided by OpenID Connect is
+        decoded and validated, and simple queries are performed to ensure that
+        access is granted to all USCDI data elements.
+
+        Prior to running the scenario, register Inferno as a confidential client
+        with the following information:
+
+        * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
+
+        The following implementation specifications are relevant to this scenario:
 
         * [SMART on FHIR
           (STU1)](http://www.hl7.org/fhir/smart-app-launch/1.0.0/)

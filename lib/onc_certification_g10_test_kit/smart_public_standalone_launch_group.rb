@@ -13,23 +13,21 @@ module ONCCertificationG10TestKit
       (offline_access), and patient context (launch/patient) are required.
     )
     description %(
-      # Background
 
-      The [Standalone
-      Launch](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#standalone-launch-sequence)
-      Sequence allows an app, like Inferno, to be launched independent of an
-      existing EHR session. It is one of the two launch methods described in
-      the SMART App Launch Framework alongside EHR Launch. The app will
-      request authorization for the provided scope from the authorization
-      endpoint, ultimately receiving an authorization token which can be
-      used to gain access to resources on the FHIR server.
+      This scenario verifies the ability of systems to support public clients
+      as described in the SMART App Launch implementation specification.  Previous
+      scenarios have not required the system under test to demonstrate this
+      specific type of SMART App Launch client.
 
-      # Test Methodology
+      Prior to executing this test, register Inferno as a public standalone
+      application using the following information:
 
-      Inferno will redirect the user to the the authorization endpoint so
-      that they may provide any required credentials and authorize the
-      application. Upon successful authorization, Inferno will exchange the
-      authorization code provided for an access token.
+      * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
+
+      Inferno will act as a public client redirect the tester to the the
+      authorization endpoint so that they may provide any required credentials
+      and authorize the application. Upon successful authorization, Inferno will
+      exchange the authorization code provided for an access token.
 
       For more information on the #{title}:
 

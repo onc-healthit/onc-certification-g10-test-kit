@@ -24,22 +24,32 @@ module ONCCertificationG10TestKit
     )
 
     description %(
-        This scenario demonstrates the ability of a system to perform a
-        Standalone Launch with v1 scopes, and then performs simple queries te
-        ensure that access is granted to all resources.
+        This scenario verifies the ability of a system to support a
+        Standalone Launch when v1 scopes are requested by the client.
+        It verifies that systems implement the `permission-v1` capability as required.
+        Previous scenarios focus on the use of the `permission-v2` capability,
+        and thus a dedicated launch is required to verify that systems
+        can support a client that requests `permission-v1` style scopes.
 
-        > For backwards compatibility with scopes defined in the SMART App
-          Launch 1.0 specification, servers SHOULD advertise the permission-v1
-          capability in their .well-known/smart-configuration discovery
-          document, SHOULD return v1 scopes when v1 scopes are requested and
-          granted, and SHOULD process v1 scopes with the following semantics in
-          v2:
+        This scenario does not place any constraints on the form of scopes
+        granted.  Systems are free to grant v1-style scopes in response to the
+        request for v1-style scopes, as recommended in the [SMART App Launch Guide STU2](http://hl7.org/fhir/smart-app-launch/scopes-and-launch-context.html#scopes-for-requesting-fhir-resources).
+        Or they can upgrade them to v2-style scopes.  The scenario only ensures
+        that systems can grant access to clients that request v1-style scopes
+        and that the client has access to resources as expected.
 
-        > * v1 .read ⇒ v2 .rs
+        All relevant resource types must be granted, in a similar manner to the
+        'Standalone Patient App' scenario.
 
-        [SMART on FHIR Scopes for requesting FHIR Resources
-          (STU2)](http://hl7.org/fhir/smart-app-launch/scopes-and-launch-context.html#scopes-for-requesting-fhir-resources)
+        This scenario expects Inferno to be registered as a 'Confidential
+        Symmetric' client.  Systems may either reuse a `client_id` associated
+        with Inferno used in a previous scenario, or register Inferno with a new
+        `client_id` as a standalone client with the following information:
+
+        * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
+
       )
+
     id :g10_smart_v1_scopes
     run_as_group
 

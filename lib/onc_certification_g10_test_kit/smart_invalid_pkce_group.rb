@@ -49,13 +49,12 @@ module ONCCertificationG10TestKit
       * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
     )
     description %(
-      # Background
-
-      The #{title} Group verifies that a SMART Launch Sequence, specifically the
+      This scenario verifies that a SMART Launch Sequence, specifically the
       [Standalone
       Launch](http://hl7.org/fhir/smart-app-launch/STU2/app-launch.html#launch-app-standalone-launch)
-      Sequence, verifies that servers properly support PKCE.  It does this by ensuring the launch fails
-      in the case where the client sends an invalid PKCE `code_verifier`.
+      Sequence, verifies that servers properly support PKCE.  It does this by
+      ensuring the launch fails in the case where the client sends an invalid
+      PKCE `code_verifier`.
 
       This group performs four launches with various forms of an invalid `code_verifier`
       (e.g. incorrect `code_verifier`, blank `code_identifier`) and verifies that these do

@@ -6,8 +6,6 @@ module ONCCertificationG10TestKit
     title 'Asymmetric Client Standalone Launch'
     short_title 'Asymmetric Client Launch'
     description %(
-      # Background
-
       The [Standalone
       Launch Sequence](http://hl7.org/fhir/smart-app-launch/STU2/app-launch.html#launch-app-standalone-launch)
       allows an app, like Inferno, to be launched independent of an
@@ -19,11 +17,10 @@ module ONCCertificationG10TestKit
 
       These tests specifically verify a system's support for [confidential
       asymmetric client
-      authentication](https://hl7.org/fhir/smart-app-launch/STU2/client-confidential-asymmetric.html).
+      authentication](https://hl7.org/fhir/smart-app-launch/STU2/client-confidential-asymmetric.html),
+      which is not verified in earlier scenarios.
 
-      # Test Methodology
-
-      Inferno will redirect the user to the the authorization endpoint so that
+      In this scenario, Inferno will redirect the user to the the authorization endpoint so that
       they may provide any required credentials and authorize the application.
       Upon successful authorization, Inferno will exchange the authorization
       code provided for an access token.

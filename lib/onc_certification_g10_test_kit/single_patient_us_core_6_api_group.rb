@@ -6,8 +6,13 @@ module ONCCertificationG10TestKit
     title 'Single Patient API (US Core 6.1.0)'
     short_title 'Single Patient API'
     description %(
+      This scenario verifies the ability of a system to provide a 'Single Patient API'
+      as described in the (g)(10) Standardized API certification criterion.
+      Prior to running this scenario, systems must recieve a verified access token
+      from one of the previous SMART App Launch scenarios.
+
       For each of the relevant USCDI data elements provided in the
-      CapabilityStatement, this test executes the [required supported
+      CapabilityStatement, this scenario executes the [required supported
       searches](http://hl7.org/fhir/us/core/STU6.1/CapabilityStatement-us-core-server.html)
       as defined by the US Core Implementation Guide v6.1.0.
 
