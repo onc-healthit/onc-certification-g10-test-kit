@@ -9,46 +9,33 @@ module ONCCertificationG10TestKit
     id :g10_token_introspection
 
     description <<~DESCRIPTION
-      # Background
 
-      OAuth 2.0 Token introspection, as described in
-      [RFC-7662](https://datatracker.ietf.org/doc/html/rfc7662), allows an
-      authorized resource server to query an OAuth 2.0 authorization server for
-      metadata on a token. The [SMART App Launch STU2 Implementation Guide
-      Section on Token
-      Introspection](https://hl7.org/fhir/smart-app-launch/STU2/token-introspection.html)
-      states that
-      > SMART on FHIR EHRs SHOULD support token introspection, which allows a
-      > broader ecosystem of resource servers to leverage authorization
-      > decisions managed by a single authorization server.
+      This scenario demonstratates the ability of an authorization server to
+      perform token introspection in accordance with the [SMART App Launch STU2
+      Implementation Guide Section on Token
+      Introspection](https://hl7.org/fhir/smart-app-launch/STU2/token-introspection.html).
+      Inferno first acts as a registered SMART App Launch client to request and
+      receive a valid access token, and then as an authorized resource server that
+      queries the authorization server for information about this access token.
 
-      # Test Methodology
+      The system under test must perform the following in order to pass this
+      scenario:
+      * Issue a new bearer token to Inferno acting as a registered SMART App
+        Launch client.  The tester has flexibility in deciding what type of SMART
+        App Launch client is used (e.g. public or confidential).  This is
+        redundant to tests earlier in this test suite, but is performed to ensure
+        an active token can be introspected.
+      * Respond to a token introspection request from Inferno acting as a
+        resource server for both valid and invalid tokens.  Systems have flexibility
+        in how access control for this service is implemented.  To account for
+        this flexibility, the tester has the ability to add an Authorization
+        Header to the request (provided out-of-band of these tests), as well as
+        additional Introspect parameters, as allowed by the specification.
 
-      In these tests, Inferno acts as an authorized resource server that queries
-      the authorization server about an access token, rather than a client to a
-      FHIR resource server as in the previous SMART App Launch tests. Ideally,
-      Inferno should be registered with the authorization server as an
-      authorized resource server capable of accessing the token introspection
-      endpoint through client credentials, per the SMART IG recommendations.
-      However, the SMART IG only formally REQUIRES "some form of authorization"
-      to access the token introspection endpoint and does not specifiy any one
-      specific approach. As such, the token introspection tests are broken up
-      into three groups that each complete a discrete step in the token
-      introspection process:
-
-      1. **Request Access Token Group** - repeats a subset of Standalone Launch
-        tests in order to receive a new access token with an authorization code
-        grant.
-      2. **Issue Token Introspection Request Group** - completes the
-        introspection requests.
-      3. **Validate Token Introspection Response Group** - validates the
-        contents of the introspection responses.
-
-      See the individual test groups for more details and guidance.
     DESCRIPTION
 
     input_instructions <<~INSTRUCTIONS
-      If the introspection endpoint is protected, testers must enter their own
+      If the introspection endpoint is access controlled, testers must enter their own
       HTTP Authorization header for the introspection request. See [RFC 7616 The
       'Basic' HTTP Authentication
       Scheme](https://datatracker.ietf.org/doc/html/rfc7617) for the most common
