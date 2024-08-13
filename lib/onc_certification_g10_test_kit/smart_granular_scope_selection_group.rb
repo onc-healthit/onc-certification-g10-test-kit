@@ -7,15 +7,34 @@ module ONCCertificationG10TestKit
     short_title 'SMART Granular Scope Selection'
     id :g10_smart_granular_scope_selection
 
-    description <<~DESCRIPTION
-      These tests verify that when resource-level scopes are requested for
-      Condition and Observation resources, the user is presented with the option
-      of approving sub-resource scopes rather than the resource-level scope.
+    input_instructions %(
+      If necessary, register Inferno as a standalone application using the following information:
 
-      The tests request v2 resource-level Condition and Observation scopes. In
-      each instance, the user must unselect the resource-level scopes and
-      instead approve sub-resource scopes for Condition and Observation. It is
-      also required that a resource-level Patient scope be granted.
+      * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
+
+      Once the test is running, Inferno will perform a launch.  The tester must grant
+      a sub-resource scope for each Conditoin and Observation, instead of granting
+      access to all Condition and Observation resources:
+
+      * “Condition” sub-resource scopes “Encounter Diagnosis”, “Problem List”,
+          and “Health Concern”
+      * “Observation” sub-resource scopes “Clinical Test”, “Laboratory”,
+          “Social History”, “SDOH”, “Survey”, and “Vital Signs”
+
+      Additionally, please grant access to the Patient scope.
+
+    )
+
+
+    description <<~DESCRIPTION
+      This scenario verifies that when resource-level scopes are requested for
+      Condition and Observation resources, the user is presented with the option
+      of granting sub-resource scopes instead of the requested resource-level scope if desired.
+
+      This scenario verifies that system behavior is consistent with the
+      following clarification provided in the §170.315(g)(10) Standardized API
+      for patient and population services [Certification Companion
+      Guide](https://www.healthit.gov/test-method/standardized-api-patient-and-population-services#ccg):
 
       > As part of supporting the SMART App Launch “permission-v2” capability
         for the purposes of certification, if an app requests authorization for
@@ -31,6 +50,17 @@ module ONCCertificationG10TestKit
       > * “Observation” sub-resource scopes “Clinical Test”, “Laboratory”,
           “Social History”, “SDOH”, “Survey”, and “Vital Signs” if an
           “Observation” resource level scope is requested
+
+      The tests request SMART App Launch v2 resource-level Condition and
+      Observation scopes. In each instance, the user must not grant the
+      resource-level scopes and instead grant any valid sub-resource scope for
+      Condition and Observation listed above. This scenario also requires that a
+      resource-level Patient scope be granted.
+
+      This scenario only verifies that sub-resource scopes are granted as returned by the
+      authorization system during the SMART App Launch process, and does not
+      attempt to access resources to verify accuracy of the granted scopes.
+
     DESCRIPTION
 
     run_as_group
