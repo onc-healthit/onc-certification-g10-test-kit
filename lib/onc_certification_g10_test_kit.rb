@@ -257,13 +257,37 @@ module ONCCertificationG10TestKit
     )
 
     description %(
-      The ONC Certification (g)(10) Standardized API Test Kit is a testing tool for
-      Health Level 7 (HL7®) Fast Healthcare Interoperability Resources (FHIR®)
-      services seeking to meet the requirements of the Standardized API for
-      Patient and Population Services criterion § 170.315(g)(10) in the ONC Certification Program.
+      The ONC Certification (g)(10) Standardized API Test Suite is a testing
+      tool for Health Level 7 (HL7®) Fast Healthcare Interoperability Resources
+      (FHIR®) services seeking to meet the requirements of the Standardized API
+      for Patient and Population Services criterion § 170.315(g)(10) in the ONC
+      Certification Program.
 
-      To get started, please first register the Inferno client as a SMART App
-      with the following information:
+      This test suite is organized into testing scenarios that in sum cover all
+      requirements within the § 170.315(g)(10) certification criterion.  The
+      scenarios are intended to be run in order during certification, but can
+      be run out of order to support testing during development or certification
+      preparation.  Some scenarios depend on data collected during previous
+      scenarios to function.  In these cases, the scenario description describes
+      these dependendies.
+
+      The best way to learn about how to use these tests is the
+      [(g)(10) Standadrized API Test Kit walkthrough](https://github.com/onc-healthit/onc-certification-g10-test-kit/wiki/Walkthrough),
+      which demonstrates the tests running against a simulated system.
+
+      The first three scenarios require the system under test to demonstrate
+      basic SMART App Launch functionality.  The fourth uses a valid token
+      provided during earlier tests to verify support for the Single Patient API
+      as described in the criterion.  The fifth verifies support for the Multi
+      Patient API, including Backend Services for authorization.  Not all
+      authorization-related requirements are verified in the first three
+      scenarios, and the 'Additional Authorization Tests' verify these
+      additional requirements.  The last scenario contains a list of
+      'attestations' and 'visual inspections' for requirements that could not
+      be verified through automated testing.
+
+      To get started with the first group of scenarios, please first register the
+      Inferno client as a SMART App with the following information:
 
       * SMART Launch URI: `#{SMARTAppLaunch::AppLaunchTest.config.options[:launch_uri]}`
       * OAuth Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
