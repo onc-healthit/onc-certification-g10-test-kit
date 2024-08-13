@@ -269,10 +269,10 @@ module ONCCertificationG10TestKit
       be run out of order to support testing during development or certification
       preparation.  Some scenarios depend on data collected during previous
       scenarios to function.  In these cases, the scenario description describes
-      these dependendies.
+      these dependencies.
 
       The best way to learn about how to use these tests is the
-      [(g)(10) Standadrized API Test Kit walkthrough](https://github.com/onc-healthit/onc-certification-g10-test-kit/wiki/Walkthrough),
+      [(g)(10) Standardized API Test Kit walkthrough](https://github.com/onc-healthit/onc-certification-g10-test-kit/wiki/Walkthrough),
       which demonstrates the tests running against a simulated system.
 
       The first three scenarios require the system under test to demonstrate
@@ -297,7 +297,7 @@ module ONCCertificationG10TestKit
 
       * `#{Inferno::Application[:base_url]}/custom/g10_certification/.well-known/jwks.json`
 
-      Systems must pass all tests in order to qualify for ONC certification.
+      Systems must pass all tests to qualify for ONC certification.
     )
 
     suite_summary %(
