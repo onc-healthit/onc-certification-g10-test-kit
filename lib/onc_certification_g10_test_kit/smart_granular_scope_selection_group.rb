@@ -25,7 +25,6 @@ module ONCCertificationG10TestKit
 
     )
 
-
     description <<~DESCRIPTION
       This scenario verifies that when resource-level scopes are requested for
       Condition and Observation resources, the user is presented with the option
