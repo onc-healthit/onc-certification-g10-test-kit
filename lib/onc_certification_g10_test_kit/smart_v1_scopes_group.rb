@@ -24,7 +24,7 @@ module ONCCertificationG10TestKit
     )
 
     description %(
-        This scenario demonstrates the ability of a system to perform a
+        This scenario verifies the ability of a system to perform a
         Standalone Launch with v1 scopes, and then performs simple queries te
         ensure that access is granted to all resources.
 

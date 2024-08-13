@@ -8,25 +8,24 @@ module ONCCertificationG10TestKit
       * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
     )
     description %(
-      # Background
+      This scenario verifies that a SMART Launch Sequence, specifically the
+      Standalone Launch Sequence, does not succeed in the case where the client
+      sends an invalid FHIR server as the `aud` parameter during launch. This
+      must fail to ensure that a genuine bearer token is not leaked to a
+      counterfit resource server.
 
-      The Invalid AUD Sequence verifies that a SMART Launch Sequence,
-      specifically the Standalone Launch Sequence, does not work in the case
-      where the client sends an invalid FHIR server as the `aud` parameter
-      during launch. This must fail to ensure that a genuine bearer token is not
-      leaked to a counterfit resource server.
-
-      This test is not included as part of a regular SMART Launch Sequence
-      because it requires the browser of the user to be redirected to the
-      authorization service, and there is no expectation that the authorization
-      service redirects the user back to Inferno with an error message. The only
-      requirement is that Inferno is not granted a code to exchange for a valid
-      access token. Since this is a special case, it is tested independently in
-      a separate sequence.
+      This test is not included in earlier scenarios because it requires the
+      browser of the user to be redirected to the authorization service, and
+      there is no expectation that the authorization service redirects the user
+      back to Inferno with an error message. The only requirement is that
+      Inferno is not granted a code to exchange for a valid access token. Since
+      this is a special case, it is tested independently in a separate sequence.
 
       Note that this test will launch a new browser window. The user is required
       to 'Attest' in the Inferno user interface after the launch does not
       succeed, if the server does not return an error code.
+
+      The following implementation specifications are relevant to this scenario:
 
       * [Standalone Launch Sequence
         (STU1)](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#standalone-launch-sequence)

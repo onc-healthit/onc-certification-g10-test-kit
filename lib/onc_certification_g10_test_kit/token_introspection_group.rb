@@ -10,7 +10,7 @@ module ONCCertificationG10TestKit
 
     description <<~DESCRIPTION
 
-      This scenario demonstratates the ability of an authorization server to
+      This scenario verifies the ability of an authorization server to
       perform token introspection in accordance with the [SMART App Launch STU2
       Implementation Guide Section on Token
       Introspection](https://hl7.org/fhir/smart-app-launch/STU2/token-introspection.html).

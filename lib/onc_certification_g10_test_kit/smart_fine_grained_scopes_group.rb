@@ -24,7 +24,7 @@ module ONCCertificationG10TestKit
     )
 
     description <<~DESCRIPTION
-      These tests verify that the system under test supports:
+      This scenario verifies that the system under test supports:
 
       > SMART v2 scope syntax for patient-level and user-level scopes to support
         the “permission-v2” “SMART on FHIR® Capability”, including support for
