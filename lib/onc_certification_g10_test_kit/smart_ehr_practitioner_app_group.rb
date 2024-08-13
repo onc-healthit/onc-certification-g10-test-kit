@@ -26,18 +26,32 @@ module ONCCertificationG10TestKit
     )
 
     description %(
-      Demonstrate the ability to perform an EHR launch to a SMART on FHIR
+      This scenario verifies the ability of a system to perform a single EHR
+      Launch.  Specifically, this scenario performs an EHR launch to a SMART on FHIR
       confidential client with patient context, refresh token, OpenID Connect
       (OIDC) identity token, and (SMART v2 only) use the POST HTTP method for
-      code exchange. After launch, a simple Patient resource read is performed
-      on the patient in context. The access token is then refreshed, and the
-      Patient resource is read using the new access token to ensure that the
-      refresh was successful. Finally, the authentication information provided
-      by OpenID Connect is decoded and validated.
+      code exchange.
+
+      After launch, a simple Patient resource read is performed on the patient
+      in context. The access token is then refreshed, and the Patient resource
+      is read using the new access token to ensure that the refresh was
+      successful. Finally, the authentication information provided by OpenID
+      Connect is decoded and validated.
+
+      Prior to running this scenario, register Inferno as an EHR-launched confidential
+      client with the following information:
+
+      Prior to running this test, register Inferno as an EHR-launched
+      application using the following information:
+
+      * Launch URI: `#{SMARTAppLaunch::AppLaunchTest.config.options[:launch_uri]}`
+      * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
 
       For EHRs that use Internet Explorer 11 to display embedded apps,
       please review [instructions on how to complete the EHR Practitioner App
       test](https://github.com/onc-healthit/onc-certification-g10-test-kit/wiki/Completing-EHR-Practitioner-App-test-in-Internet-Explorer/).
+
+      The following implementation specifications are relevant to this scenario:
 
       * [SMART on FHIR
         (STU1)](http://www.hl7.org/fhir/smart-app-launch/1.0.0/)
