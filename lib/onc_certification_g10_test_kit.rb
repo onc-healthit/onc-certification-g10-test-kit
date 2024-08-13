@@ -415,7 +415,12 @@ module ONCCertificationG10TestKit
             required_suite_options: G10Options::SMART_2_REQUIREMENT
 
       group from: :g10_smart_v1_scopes,
-            required_suite_options: G10Options::SMART_2_REQUIREMENT
+            required_suite_options: G10Options::SMART_2_REQUIREMENT,
+            config: {
+              inputs: {
+                client_auth_encryption_method: { locked: true }
+              }
+            }
 
       group from: :g10_smart_fine_grained_scopes,
             required_suite_options: G10Options::SMART_2_REQUIREMENT.merge(G10Options::US_CORE_6_REQUIREMENT),
