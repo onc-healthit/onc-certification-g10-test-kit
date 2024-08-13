@@ -348,11 +348,19 @@ module ONCCertificationG10TestKit
       title 'Additional Authorization Tests'
       id 'Group06'
       description %(
-        Not all requirements that need to be tested fit within the previous
-        scenarios. The tests contained in this section addresses remaining
-        testing requirements. Each of these tests need to be run independently.
-        Please read the instructions for each in the 'About' section, as they
-        may require special setup on the part of the tester.
+        The (g)(10) Standardized Test Suite attempts to minimize effort required
+        by testers by creating scenarios that validate as many requirements as
+        possible with just a handful of SMART App Launches.  However, not all
+        SMART App Launch and (g)(10) Standardized API criterion requirements
+        that need to be verified fit within the first few test scenarios in this
+        suite.
+
+        The scenarios contained in this section verify remaining testing
+        requirements for the (g)(10) Standardized API criterion relevant to
+        the SMART App Launch implementation specification. Each of these scenarios
+        need to be run independently.  Please read the instructions for each in
+        the 'About' section, as they may require special setup on the part of
+        the tester.
       )
 
       default_redirect_message_proc = lambda do |auth_url|

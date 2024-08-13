@@ -21,20 +21,25 @@ module ONCCertificationG10TestKit
     )
 
     description %(
-      Demonstrate the ability to export clinical data for multiple patients in a
-      group using [FHIR Bulk Data Access
-      IG](http://hl7.org/fhir/uv/bulkdata/STU1.0.1/). This test uses [Backend
-      Services
+      This scenario verifies the ability of the system to export clinical data
+      for multiple patients in a group using [FHIR Bulk Data Access
+      IG](http://hl7.org/fhir/uv/bulkdata/STU1.0.1/). This scenario uses
+      [Backend Services
       Authorization](http://hl7.org/fhir/uv/bulkdata/STU1.0.1/authorization/index.html)
       to obtain an access token from the server. After authorization, a group
-      level bulk data export request is initialized. Finally, this test reads
-      exported NDJSON files from the server and validates the resources in each
-      file. To run the test successfully, the selected group export is required
-      to have resources conforming to every profile mapped to [USCDI data
+      level bulk data export request is initialized. Finally, this scenario
+      reads exported NDJSON files from the server and validates the resources in
+      each file. To run the test successfully, the selected group export is
+      required to have resources conforming to every profile mapped to [USCDI
+      data
       elements](https://www.healthit.gov/isa/us-core-data-interoperability-uscdi).
       Additionally, it is expected the server will provide Encounter, Location,
       Organization, and Practitioner resources as they are referenced as must
       support elements in required resources.
+
+      Prior to executing this scenario, register Inferno with the following JWK Set Url:
+
+      * `#{Inferno::Application[:base_url]}/custom/g10_certification/.well-known/jwks.json`
     )
     id :multi_patient_api
     run_as_group
