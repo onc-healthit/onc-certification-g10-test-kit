@@ -37,7 +37,7 @@ module ONCCertificationG10TestKit
          }
     test from: :smart_token_refresh_body,
          id: :g10_token_refresh_body_without_scopes
-    test from: :smart_token_refresh,
+    test from: :smart_token_refresh_stu2,
          title: 'Server successfully refreshes the access token when optional scope parameter provided',
          id: :g10_token_refresh_with_scopes,
          config: {
