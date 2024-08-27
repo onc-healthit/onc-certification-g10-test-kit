@@ -1,3 +1,11 @@
+# 6.0.1
+* Fix a bug which caused the Token Refresh with Scopes (`9.12.13.03`) test in
+  the Asymmetric Client Launch group to not use asymmetric authentication
+  (#548).
+* When using SMART App Launch STU 1, remove the automated Token Introspection
+  (`9.11`) tests and restore the token introspection attestation (`11.06`)
+  (#553).
+
 # 6.0.0
 * Add Token Introspection tests (#531).
 * Add Asymmetric Client Auth tests (#533).
