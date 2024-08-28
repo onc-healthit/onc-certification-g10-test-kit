@@ -1255,6 +1255,7 @@
           specification in § 170.215(c).
         inferno_supported: 'yes'
         inferno_tests:
+          - 11.06
           - 9.11.2.01 - 9.11.2.02
           - 9.11.3.01 - 9.11.3.02
   - section: Paragraph (g)(10)(ii) – Supported search operations

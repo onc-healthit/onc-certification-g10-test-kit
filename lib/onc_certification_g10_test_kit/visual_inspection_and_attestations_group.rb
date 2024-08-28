@@ -190,6 +190,48 @@ module ONCCertificationG10TestKit
     end
 
     test do
+      required_suite_options G10Options::SMART_1_REQUIREMENT
+      title 'Health IT developer demonstrated the ability of the Health IT Module / ' \
+            'authorization server to validate token it has issued.'
+      description %(
+        Health IT developer demonstrated the ability of the Health IT Module /
+        authorization server to validate token it has issued.
+
+        This is a functional requirement that requires manual inspection because
+        SMART App Launch STU1 does not require a standard approach to token
+        introspection.
+      )
+      id 'Test06'
+      input :token_validation_support,
+            title: 'Health IT developer demonstrated the ability of the Health IT Module / authorization server to validate token it has issued.', # rubocop:disable Layout/LineLength
+            type: 'radio',
+            default: 'false',
+            options: {
+              list_options: [
+                {
+                  label: 'Yes',
+                  value: 'true'
+                },
+                {
+                  label: 'No',
+                  value: 'false'
+                }
+              ]
+            }
+      input :token_validation_notes,
+            title: 'Notes, if applicable:',
+            type: 'textarea',
+            optional: true
+
+      run do
+        assert token_validation_support == 'true',
+               'Health IT Module did not demonstrate the ability of the Health IT Module / ' \
+               'authorization server to validate token it has issued'
+        pass token_validation_notes if token_validation_notes.present?
+      end
+    end
+
+    test do
       title 'Tester verifies that all information is accurate and without omission.'
       description %(
         Tester verifies that all information is accurate and without omission.
