@@ -190,6 +190,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
+      required_suite_options G10Options::SMART_1_REQUIREMENT
       title 'Health IT developer demonstrated the ability of the Health IT Module / ' \
             'authorization server to validate token it has issued.'
       description %(
