@@ -409,7 +409,8 @@ module ONCCertificationG10TestKit
       group from: :g10_ehr_patient_launch_stu2,
             required_suite_options: G10Options::SMART_2_REQUIREMENT
 
-      group from: :g10_token_introspection
+      group from: :g10_token_introspection,
+            required_suite_options: G10Options::SMART_2_REQUIREMENT
 
       group from: :g10_asymmetric_launch,
             required_suite_options: G10Options::SMART_2_REQUIREMENT
