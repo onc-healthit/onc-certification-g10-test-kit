@@ -190,6 +190,43 @@ module ONCCertificationG10TestKit
     end
 
     test do
+      title 'Health IT developer demonstrated the ability of the Health IT Module / ' \
+            'authorization server to validate token it has issued.'
+      description %(
+        Health IT developer demonstrated the ability of the Health IT Module /
+        authorization server to validate token it has issued
+      )
+      id 'Test06'
+      input :token_validation_support,
+            title: 'Health IT developer demonstrated the ability of the Health IT Module / authorization server to validate token it has issued.', # rubocop:disable Layout/LineLength
+            type: 'radio',
+            default: 'false',
+            options: {
+              list_options: [
+                {
+                  label: 'Yes',
+                  value: 'true'
+                },
+                {
+                  label: 'No',
+                  value: 'false'
+                }
+              ]
+            }
+      input :token_validation_notes,
+            title: 'Notes, if applicable:',
+            type: 'textarea',
+            optional: true
+
+      run do
+        assert token_validation_support == 'true',
+               'Health IT Module did not demonstrate the ability of the Health IT Module / ' \
+               'authorization server to validate token it has issued'
+        pass token_validation_notes if token_validation_notes.present?
+      end
+    end
+
+    test do
       title 'Tester verifies that all information is accurate and without omission.'
       description %(
         Tester verifies that all information is accurate and without omission.
