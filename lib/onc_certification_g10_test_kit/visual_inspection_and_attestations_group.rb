@@ -195,7 +195,11 @@ module ONCCertificationG10TestKit
             'authorization server to validate token it has issued.'
       description %(
         Health IT developer demonstrated the ability of the Health IT Module /
-        authorization server to validate token it has issued
+        authorization server to validate token it has issued.
+
+        This is a functional requirement that requires manual inspection because
+        SMART App Launch STU1 does not require a standard approach to token
+        introspection.
       )
       id 'Test06'
       input :token_validation_support,
