@@ -48,6 +48,15 @@ RSpec.describe ONCCertificationG10TestKit::PatientScopeTest do
       expect(result.result).to eq('pass')
     end
 
+    it 'passes when patient read and search scopes are received separately' do
+      received_scopes.gsub!('.rs', '.r')
+      received_scopes.concat(' patient/Patient.s')
+
+      result = run(test, received_scopes:)
+
+      expect(result.result).to eq('pass')
+    end
+
     it 'fails when a patient read and search scopes are not received' do
       received_scopes.gsub!('patient/', 'user/')
       result = run(test, received_scopes:)
