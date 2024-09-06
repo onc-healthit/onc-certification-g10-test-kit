@@ -16,8 +16,12 @@ module ONCCertificationG10TestKit
     id :g10_patient_scope
     input :received_scopes
 
+    def scope_version
+      config.options[:scope_version]
+    end
+
     run do
-      expected_scope = if config.options[:scope_version] == :v2
+      expected_scope = if scope_version == :v2
                          'patient/Patient.rs'
                        else
                          'patient/Patient.read'
