@@ -1,3 +1,14 @@
+# 6.0.2
+* Fix a bug which prevented fields with both a primitive value and an extension
+  from being recognized as matching search parameters (#557).
+* Fix a bug which prevented fine-grained scopes tests (`9.14`)from passing if
+  OperationOutcomes are included in the search results (#552).
+* Fix a bug which prevented granular scope tests (`9.14.1.1.2.08` and
+  `9.14.2.1.2.08`)from passing when read and search scopes are granted
+  separately (#551).
+* Fix a bug which prevented EHR Launch with Patient Scopes tests (`9.9.11`)from
+  passing when read and search scopes are granted separately (#551).
+
 # 6.0.1
 * Fix a bug which caused the Token Refresh with Scopes (`9.12.13.03`) test in
   the Asymmetric Client Launch group to not use asymmetric authentication
