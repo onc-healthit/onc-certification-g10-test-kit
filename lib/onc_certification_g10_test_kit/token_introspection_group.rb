@@ -61,7 +61,7 @@ module ONCCertificationG10TestKit
 
     input_order :url,
                 :well_known_introspection_url,
-                :custom_authorization_header,
+                :custom_token_introspection_request_headers,
                 :optional_introspection_request_params,
                 :standalone_client_id,
                 :standalone_client_secret,
