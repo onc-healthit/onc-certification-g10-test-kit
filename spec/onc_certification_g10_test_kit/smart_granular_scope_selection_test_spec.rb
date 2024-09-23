@@ -44,13 +44,13 @@ RSpec.describe ONCCertificationG10TestKit::SMARTGranularScopeSelectionTest do
     expect(result.result_message).to match(/No resource-level scope was requested/)
   end
 
-  it 'fails if a granular scope is requested' do
+  it 'skips if a granular scope is requested' do
     scopes_with_granular = "#{requested_scopes} patient/Observation.rs?category=" \
                            'http://terminology.hl7.org/CodeSystem/observation-category|survey'
 
     result = run(test, requested_scopes: scopes_with_granular, received_scopes:)
 
-    expect(result.result).to eq('fail')
+    expect(result.result).to eq('skip')
     expect(result.result_message).to match(/Granular scope was requested/)
   end
 

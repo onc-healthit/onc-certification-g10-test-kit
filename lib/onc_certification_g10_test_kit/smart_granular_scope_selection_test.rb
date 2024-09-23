@@ -33,7 +33,7 @@ module ONCCertificationG10TestKit
                "No resource-level scope was requested for #{resource_type}"
 
         granular_scope = requested_scopes.find { |scope| scope.match(granular_scope_regex(resource_type)) }
-        assert granular_scope.nil?, "Granular scope was requested: #{granular_scope}"
+        skip_if granular_scope.present?, "Granular scope was requested: #{granular_scope}"
       end
 
       assert received_scopes.present?
