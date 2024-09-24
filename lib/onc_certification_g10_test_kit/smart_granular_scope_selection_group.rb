@@ -126,7 +126,8 @@ module ONCCertificationG10TestKit
               Tests will resume once Inferno receives a request at
               `#{config.options[:redirect_uri]}` with a state of `#{state}`.
             )
-          end
+          end,
+          ignore_missing_scopes_check: true
         }
       )
 
