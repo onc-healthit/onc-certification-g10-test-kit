@@ -121,7 +121,7 @@
   - http://hl7.org/fhir/composition-status
 - :url: http://hl7.org/fhir/us/core/ValueSet/us-core-documentreference-type
   :file: hl7_org_fhir_us_core_ValueSet_us-core-documentreference-type.msgpack
-  :count: 11418
+  :count: 12002
   :type: bloom
   :code_systems:
   - http://terminology.hl7.org/CodeSystem/v3-NullFlavor
@@ -134,7 +134,7 @@
   - http://hl7.org/fhir/document-relationship-type
 - :url: http://hl7.org/fhir/ValueSet/mimetypes
   :file: hl7_org_fhir_ValueSet_mimetypes.msgpack
-  :count: 2503
+  :count: 2575
   :type: bloom
   :code_systems:
   - urn:ietf:bcp:13
@@ -504,7 +504,7 @@
   :code_systems: http://terminology.hl7.org/CodeSystem/v3-NullFlavor
 - :url: http://loinc.org
   :file: loinc_org.msgpack
-  :count: 287148
+  :count: 292887
   :type: bloom
   :code_systems: http://loinc.org
 - :url: http://hl7.org/fhir/document-relationship-type
@@ -514,7 +514,7 @@
   :code_systems: http://hl7.org/fhir/document-relationship-type
 - :url: urn:ietf:bcp:13
   :file: urn_ietf_bcp_13.msgpack
-  :count: 2503
+  :count: 2575
   :type: bloom
   :code_systems: urn:ietf:bcp:13
 - :url: http://hl7.org/fhir/identifier-use
@@ -669,7 +669,7 @@
   :code_systems: http://terminology.hl7.org/CodeSystem/observation-category
 - :url: http://snomed.info/sct
   :file: snomed_info_sct.msgpack
-  :count: 508538
+  :count: 517626
   :type: bloom
   :code_systems: http://snomed.info/sct
 - :url: http://terminology.hl7.org/CodeSystem/data-absent-reason

@@ -10,6 +10,7 @@ module Inferno
     module FHIRPackageManager
       class << self
         REGISTRY_SERVER_URL = 'https://packages.fhir.org'.freeze
+        US_CORE_7_PACKAGE_URL = 'https://hl7.org/fhir/us/core/STU7/package.tgz'.freeze
         REQUIRED_VSAC_VALUE_SET_URLS = [
           'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.114222.4.11.836',
           'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.1.11.14914',
@@ -44,10 +45,14 @@ module Inferno
         #
         # @param [String] package The FHIR Package
         def get_package(package, destination, desired_types = [])
-          package_url = package
-            .split('#')
-            .prepend(REGISTRY_SERVER_URL)
-            .join('/')
+          package_url = if package.end_with?('#7.0.0')
+                          US_CORE_7_PACKAGE_URL
+                        else
+                          package
+                            .split('#')
+                            .prepend(REGISTRY_SERVER_URL)
+                            .join('/')
+                        end
 
           tar_file_name = "tmp/#{package.split('#').join('-')}.tgz"
 
