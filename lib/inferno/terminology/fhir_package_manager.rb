@@ -45,7 +45,7 @@ module Inferno
         #
         # @param [String] package The FHIR Package
         def get_package(package, destination, desired_types = [])
-          package_url = if package.end_with?('#7.0.0')
+          package_url = if package == 'hl7.fhir.us.core#7.0.0'
                           US_CORE_7_PACKAGE_URL
                         else
                           package
