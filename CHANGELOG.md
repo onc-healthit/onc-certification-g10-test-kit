@@ -1,3 +1,11 @@
+# 6.0.3
+* Support US Core v6.1.0 Patch MustSupport Choice for Practitioner.address and
+  PractitionerRole (#559)
+* Support US Core v6.1.0 Patch MustSupport Choice for Observation Smoking Status
+  effectiveDateTime and effectivePeriod (#560)
+* Fix a bug which ignored Token Introspection Endpoint provided in Test Configuration
+  (#550)
+
 # 6.0.2
 * Fix a bug which prevented fields with both a primitive value and an extension
   from being recognized as matching search parameters (#557).
@@ -234,7 +242,7 @@
   Launch V2.
 * Fix a bug which could cause the screen to rapidly flicker on the suite
   selection page at certain screen sizes.
-  
+
 # 3.2.0
 
 * Fix a bug which could cause unhandled exceptions when invalid JSON is
@@ -313,12 +321,12 @@
 
 # 2.2.0
 
-* Update Bulk Data Export validation test to continue validating all returned 
-  resources even after encountering an invalid one. It now reports total number 
+* Update Bulk Data Export validation test to continue validating all returned
+  resources even after encountering an invalid one. It now reports total number
   of invalid resources and their line number.
-* Add configuration error message when using a development version, and not an 
-  official release. 
-* Update omit message in Bulk Data Export tests when no Medication/Location 
+* Add configuration error message when using a development version, and not an
+  official release.
+* Update omit message in Bulk Data Export tests when no Medication/Location
   resources are returned to explicitly state that they are not required.
 * Fix EHR Launch capabilities check, which were incorrectly verifying
   against Standalone capabilities.
@@ -326,14 +334,14 @@
 * Validate `sub` field in OpenID Connect tests.
 * Limit Clinical Notes Guidance attachment tests to specific DiagnosticReport
   types.
-* Update to inferno-core v0.3.2, which includes a number of UI and failure 
+* Update to inferno-core v0.3.2, which includes a number of UI and failure
   message improvements.
 
 # 2.1.1
 
 * Fix a bug caused by leaving the 'Additional Patient IDs' input in the
   Single Patient API group empty.
-  
+
 # 2.1.0
 
 * Update patient ID inputs from a single list of patient IDs to the patient ID
