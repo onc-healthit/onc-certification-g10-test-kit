@@ -177,7 +177,10 @@ module ONCCertificationG10TestKit
       if test_group.respond_to?(:metadata) &&
          test_group.metadata.delayed? &&
          !test_group.metadata.searchable_delayed_resource?
-        test_group.children.reject! { |child| child.include? USCoreTestKit::SearchTest }
+        test_group.children.reject! do |child|
+          child.include?(USCoreTestKit::SearchTest) &&
+            !child.include?(USCoreTestKit::PractitionerAddressTest)
+        end
         group_config[:options] = { read_all_resources: true }
       end
 
