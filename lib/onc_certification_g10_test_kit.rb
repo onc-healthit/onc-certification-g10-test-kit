@@ -13,6 +13,7 @@ require_relative 'onc_certification_g10_test_kit/single_patient_api_group'
 require_relative 'onc_certification_g10_test_kit/single_patient_us_core_4_api_group'
 require_relative 'onc_certification_g10_test_kit/single_patient_us_core_5_api_group'
 require_relative 'onc_certification_g10_test_kit/single_patient_us_core_6_api_group'
+require_relative 'onc_certification_g10_test_kit/single_patient_us_core_7_api_group'
 require_relative 'onc_certification_g10_test_kit/smart_app_launch_invalid_aud_group'
 require_relative 'onc_certification_g10_test_kit/smart_asymmetric_launch_group'
 require_relative 'onc_certification_g10_test_kit/smart_granular_scope_selection_group'
@@ -27,6 +28,7 @@ require_relative 'onc_certification_g10_test_kit/smart_ehr_patient_launch_group'
 require_relative 'onc_certification_g10_test_kit/smart_ehr_patient_launch_group_stu2'
 require_relative 'onc_certification_g10_test_kit/smart_ehr_practitioner_app_group'
 require_relative 'onc_certification_g10_test_kit/smart_fine_grained_scopes_group'
+require_relative 'onc_certification_g10_test_kit/smart_fine_grained_scopes_us_core_7_group'
 require_relative 'onc_certification_g10_test_kit/smart_v1_scopes_group'
 require_relative 'onc_certification_g10_test_kit/terminology_binding_validator'
 require_relative 'onc_certification_g10_test_kit/token_introspection_group'
@@ -76,7 +78,7 @@ module ONCCertificationG10TestKit
       /\A\S+: \S+: The Coding provided \(\S*\) was not found in the value set/,
       /\A\S+: \S+: A definition for CodeSystem '.*' could not be found, so the code cannot be validated/,
       /\A\S+: \S+: URL value '.*' does not resolve/,
-      /\A\S+: \S+: .*\[No server available\]/,  # Catch-all for certain errors when TX server is disabled
+      /\A\S+: \S+: .*\[No server available\]/, # Catch-all for certain errors when TX server is disabled
       %r{\A\S+: \S+: .*\[Error from http://tx.fhir.org/r4:} # Catch-all for TX server errors that slip through
     ].freeze
 
@@ -112,6 +114,8 @@ module ONCCertificationG10TestKit
             USCoreTestKit::USCoreV501::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
           when G10Options::US_CORE_6
             USCoreTestKit::USCoreV610::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
+          when G10Options::US_CORE_7
+            USCoreTestKit::USCoreV700::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
           end
 
         exclude_message do |message|
@@ -173,7 +177,8 @@ module ONCCertificationG10TestKit
       G10Options::US_CORE_3_REQUIREMENT,
       G10Options::US_CORE_4_REQUIREMENT,
       G10Options::US_CORE_5_REQUIREMENT,
-      G10Options::US_CORE_6_REQUIREMENT
+      G10Options::US_CORE_6_REQUIREMENT,
+      G10Options::US_CORE_7_REQUIREMENT
 
     ].each do |us_core_version_requirement|
       setup_validator(us_core_version_requirement)
@@ -214,6 +219,10 @@ module ONCCertificationG10TestKit
                    {
                      label: 'US Core 6.1.0 / USCDI v3',
                      value: G10Options::US_CORE_6
+                   },
+                   {
+                     label: 'US Core 7.0.0 / USCDI v4',
+                     value: G10Options::US_CORE_7
                    }
                  ]
 
@@ -338,6 +347,8 @@ module ONCCertificationG10TestKit
           required_suite_options: G10Options::US_CORE_5_REQUIREMENT
     group from: 'g10_single_patient_us_core_6_api',
           required_suite_options: G10Options::US_CORE_6_REQUIREMENT
+    group from: 'g10_single_patient_us_core_7_api',
+          required_suite_options: G10Options::US_CORE_7_REQUIREMENT
 
     group from: 'multi_patient_api',
           required_suite_options: G10Options::BULK_DATA_1_REQUIREMENT
@@ -427,8 +438,16 @@ module ONCCertificationG10TestKit
             required_suite_options: G10Options::SMART_2_REQUIREMENT.merge(G10Options::US_CORE_6_REQUIREMENT),
             exclude_optional: true
 
+      group from: :g10_us_core_7_smart_fine_grained_scopes,
+            required_suite_options: G10Options::SMART_2_REQUIREMENT.merge(G10Options::US_CORE_7_REQUIREMENT),
+            exclude_optional: true
+
       group from: :g10_smart_granular_scope_selection,
             required_suite_options: G10Options::SMART_2_REQUIREMENT.merge(G10Options::US_CORE_6_REQUIREMENT)
+
+      group from: :g10_smart_granular_scope_selection,
+            id: :g10_smart_granular_scope_selection_us_core_7,
+            required_suite_options: G10Options::SMART_2_REQUIREMENT.merge(G10Options::US_CORE_7_REQUIREMENT)
     end
 
     group from: :g10_visual_inspection_and_attestations
