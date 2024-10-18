@@ -30,11 +30,8 @@ module ONCCertificationG10TestKit
       If testing against USCDI v2, Encounter and ServiceRequest are also
       checked.
 
-      If testing against USCDI v3, Encounter, ServiceRequest, Coverage,
+      If testing against USCDI v3 and v4, Encounter, ServiceRequest, Coverage,
       and MedicationDispense are also checked.
-
-      If testing against USCDI v4, Encounter, ServiceRequest, Coverage,
-      MedicationDispense, and Location are also checked.
 
       For each of the resource types that can be mapped to USCDI data class or
       elements, this set of tests performs a minimum number of requests to
@@ -74,9 +71,13 @@ module ONCCertificationG10TestKit
       * RelatedPerson
 
       It also does not test Provenance, as this resource type is accessed by
-      queries through other resource types, or Specimen in USCDI v3 and v4 which only
-      requires support for read and search by id. These resources types are
-      accessed in the more comprehensive Single Patient Query tests.
+      queries through other resource types, or Specimen in USCDI v3 or Location from
+      USCDI v4 which only requires support for read and search by id. These resources
+      types are accessed in the more comprehensive Single Patient Query tests.
+
+      This test is not intended to check every resource type can be granted or not granted,
+      nor does it check resources that can be directly queried via a patient reference to
+      limit the complexity of the tests and effort required to run them.
 
       However, the authorization system must indicate that access is granted to
       the Encounter, Practitioner and Organization (and RelatedPerson and
@@ -137,8 +138,7 @@ module ONCCertificationG10TestKit
 
     V6_NON_PATIENT_COMPARTMENT_RESOURCES = V5_NON_PATIENT_COMPARTMENT_RESOURCES
 
-    V7_NON_PATIENT_COMPARTMENT_RESOURCES =
-      (V6_NON_PATIENT_COMPARTMENT_RESOURCES - ['Location'])
+    V7_NON_PATIENT_COMPARTMENT_RESOURCES = V6_NON_PATIENT_COMPARTMENT_RESOURCES - ['Location']
 
     test do
       include G10Options
@@ -505,20 +505,6 @@ module ONCCertificationG10TestKit
 
       def resource_group
         USCoreTestKit::USCoreV700::MedicationDispenseGroup
-      end
-    end
-
-    test from: :g10_resource_access_test do
-      title 'Access to Location resources granted'
-      description %(
-        This test ensures that access to the Location is granted.
-      )
-      id :g10_us_core_7_location_unrestricted_access
-
-      required_suite_options G10Options::US_CORE_7_REQUIREMENT
-
-      def resource_group
-        USCoreTestKit::USCoreV700::LocationGroup
       end
     end
   end
