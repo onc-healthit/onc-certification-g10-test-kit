@@ -76,7 +76,7 @@ module ONCCertificationG10TestKit
       types are accessed in the more comprehensive Single Patient Query tests.
 
       This test is not intended to check every resource type can be granted or not granted,
-      nor does it check resources that can be directly queried via a patient reference to
+      nor does it check resources that cannot be directly queried via a patient reference to
       limit the complexity of the tests and effort required to run them.
 
       However, the authorization system must indicate that access is granted to
