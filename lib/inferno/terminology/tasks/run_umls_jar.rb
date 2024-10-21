@@ -13,7 +13,8 @@ module Inferno
           '2020' => 'inferno_2020.prop',
           '2021' => 'inferno_2021.prop',
           '2022' => 'inferno_2022.prop',
-          '2023' => 'inferno_2023.prop'
+          '2023' => 'inferno_2023.prop',
+          '2024' => 'inferno_2024.prop'
         }.freeze
 
         attr_reader :version
