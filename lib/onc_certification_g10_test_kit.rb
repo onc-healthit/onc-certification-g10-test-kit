@@ -446,7 +446,7 @@ module ONCCertificationG10TestKit
             required_suite_options: G10Options::SMART_2_REQUIREMENT.merge(G10Options::US_CORE_6_REQUIREMENT)
 
       group from: :g10_smart_granular_scope_selection,
-            id: :g10_smart_granular_scope_selection_us_core_7,
+            id: :g10_us_core_7_smart_granular_scope_selection,
             required_suite_options: G10Options::SMART_2_REQUIREMENT.merge(G10Options::US_CORE_7_REQUIREMENT)
     end
 

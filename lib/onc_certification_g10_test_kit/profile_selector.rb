@@ -9,12 +9,16 @@ module ONCCertificationG10TestKit
         versioned_us_core_module.const_get('USCoreTestSuite').metadata.find do |meta|
           meta.resource == resource_type
         end.profile_url
-      elsif resource_type == 'Location' && (using_us_core_3? || using_us_core_4? || using_us_core_5? ||
-                                            using_us_core_6?)
+      elsif resource_type == 'Location' && location_use_base_fhir?
         'http://hl7.org/fhir/StructureDefinition/Location'
       else
         versioned_us_core_module.const_get("#{resource_type}Group").metadata.profile_url
       end
+    end
+
+    def location_use_base_fhir?
+      using_us_core_3? || using_us_core_4? || using_us_core_5? ||
+        using_us_core_6?
     end
 
     def observation_contains_code?(observation_resource, code)
