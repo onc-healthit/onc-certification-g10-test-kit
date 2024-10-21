@@ -5,15 +5,20 @@ module ONCCertificationG10TestKit
     include G10Options
 
     def extract_profile(resource_type)
-      case resource_type
-      when 'Medication'
-        return versioned_us_core_module.const_get('USCoreTestSuite').metadata.find do |meta|
-                 meta.resource == resource_type
-               end.profile_url
-      when 'Location'
-        return 'http://hl7.org/fhir/StructureDefinition/Location'
+      if resource_type == 'Medication'
+        versioned_us_core_module.const_get('USCoreTestSuite').metadata.find do |meta|
+          meta.resource == resource_type
+        end.profile_url
+      elsif resource_type == 'Location' && location_use_base_fhir?
+        'http://hl7.org/fhir/StructureDefinition/Location'
+      else
+        versioned_us_core_module.const_get("#{resource_type}Group").metadata.profile_url
       end
-      versioned_us_core_module.const_get("#{resource_type}Group").metadata.profile_url
+    end
+
+    def location_use_base_fhir?
+      using_us_core_3? || using_us_core_4? || using_us_core_5? ||
+        using_us_core_6?
     end
 
     def observation_contains_code?(observation_resource, code)
@@ -35,7 +40,7 @@ module ONCCertificationG10TestKit
       case resource.resourceType
       when 'Condition'
         case us_core_version
-        when US_CORE_5, US_CORE_6
+        when US_CORE_5, US_CORE_6, US_CORE_7
           if resource_contains_category?(resource, 'encounter-diagnosis', 'http://terminology.hl7.org/CodeSystem/condition-category')
             profiles << extract_profile('ConditionEncounterDiagnosis')
           elsif resource_contains_category?(resource, 'problem-list-item',
@@ -144,7 +149,7 @@ module ONCCertificationG10TestKit
           profiles << extract_profile('ObservationClinicalTest')
         end
 
-        if (using_us_core_5? || using_us_core_6?) && observation_contains_code?(resource, '76690-7')
+        if (using_us_core_5? || using_us_core_6? || using_us_core_7?) && observation_contains_code?(resource, '76690-7')
           profiles << extract_profile('ObservationSexualOrientation')
         end
 
@@ -175,20 +180,20 @@ module ONCCertificationG10TestKit
             #                                       'http://terminology.hl7.org/CodeSystem/observation-category') &&`
             # along with a specific extract_profile('ObservationSurvey') to catch non-sdoh.
             profiles << extract_profile('ObservationSdohAssessment')
-          elsif using_us_core_6?
+          elsif using_us_core_6? || using_us_core_7?
             profiles << extract_profile('ObservationScreeningAssessment')
           end
         end
 
-        if using_us_core_6? && observation_contains_code?(resource, '11341-5')
+        if (using_us_core_6? || using_us_core_7?) && observation_contains_code?(resource, '11341-5')
           profiles << extract_profile('ObservationOccupation')
         end
 
-        if using_us_core_6? && observation_contains_code?(resource, '86645-9')
+        if (using_us_core_6? || using_us_core_7?) && observation_contains_code?(resource, '86645-9')
           profiles << extract_profile('ObservationPregnancyintent')
         end
 
-        if using_us_core_6? && observation_contains_code?(resource, '82810-3')
+        if (using_us_core_6? || using_us_core_7?) && observation_contains_code?(resource, '82810-3')
           profiles << extract_profile('ObservationPregnancystatus')
         end
 
@@ -196,12 +201,24 @@ module ONCCertificationG10TestKit
           'laboratory', 'exam', 'therpay', 'imaging', 'procedure', 'vital-signs', 'activity'
         ]
 
-        if using_us_core_6? && clinical_result_categories.any? do |category|
+        if (using_us_core_6? || using_us_core_7?) && clinical_result_categories.any? do |category|
              resource_contains_category?(
                resource, category, 'http://terminology.hl7.org/CodeSystem/observation-category'
              )
            end
           profiles << extract_profile('ObservationClinicalResult')
+        end
+
+        if using_us_core_7? && observation_contains_code?(resource, '75773-2')
+          profiles << extract_profile('TreatmentInterventionPreference')
+        end
+
+        if using_us_core_7? && observation_contains_code?(resource, '95541-9')
+          profiles << extract_profile('CareExperiencePreference')
+        end
+
+        if using_us_core_7? && observation_contains_code?(resource, '96607-7')
+          profiles << extract_profile('AverageBloodPressure')
         end
 
         nil
