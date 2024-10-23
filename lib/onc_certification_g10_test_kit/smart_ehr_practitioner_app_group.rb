@@ -206,6 +206,16 @@ module ONCCertificationG10TestKit
            },
            required_suite_options: G10Options::US_CORE_6_REQUIREMENT
 
+      test from: :g10_encounter_context,
+           id: :g10_encounter_context_us_core_7, # rubocop:disable Naming/VariableNumber
+           config: {
+             inputs: {
+               encounter_id: { name: :ehr_encounter_id },
+               access_token: { name: :ehr_access_token }
+             }
+           },
+           required_suite_options: G10Options::US_CORE_7_REQUIREMENT
+
       test do
         title 'Launch context contains smart_style_url which links to valid JSON'
         description %(
@@ -361,6 +371,16 @@ module ONCCertificationG10TestKit
              }
            },
            required_suite_options: G10Options::US_CORE_6_REQUIREMENT
+
+      test from: :g10_encounter_context,
+           id: :g10_encounter_context_us_core_7, # rubocop:disable Naming/VariableNumber
+           config: {
+             inputs: {
+               encounter_id: { name: :ehr_encounter_id },
+               access_token: { name: :ehr_access_token }
+             }
+           },
+           required_suite_options: G10Options::US_CORE_7_REQUIREMENT
 
       test do
         title 'Launch context contains smart_style_url which links to valid JSON'

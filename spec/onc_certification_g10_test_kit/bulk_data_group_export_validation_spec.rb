@@ -13,8 +13,8 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
   let(:status_output) { "[{\"url\":\"#{endpoint}\"}]" }
   let(:bearer_token) { 'token' }
   let(:headers) { { 'Content-Type' => 'application/fhir+ndjson' } }
-  let(:contents) { String.new }
-  let(:contents_missing_element) { String.new }
+  let(:contents) { '' }
+  let(:contents_missing_element) { '' }
   let(:scratch) { {} }
   let(:input) do
     {
@@ -326,7 +326,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     let(:careplan_input) do
       input.merge({ status_output: '[{"url":"https://www.example.com","type":"CarePlan","count":26}]' })
     end
-    let(:contents_missing_slice) { String.new }
+    let(:contents_missing_slice) { '' }
 
     before do
       resources.each do |resource|
@@ -336,10 +336,10 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       end
       contents.lines.each do |resource|
         fhir_resource = FHIR.from_contents(resource)
-        fhir_resource.category = fhir_resource.category.filter_map do |x|
-          x if x.coding.none? do |y|
-                 y.code == 'assess-plan'
-               end
+        fhir_resource.category = fhir_resource.category.select do |x|
+          x.coding.none? do |y|
+            y.code == 'assess-plan'
+          end
         end
         contents_missing_slice << ("#{fhir_resource.to_json.gsub(/[ \n]/, '')}\n")
       end
@@ -396,10 +396,10 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         }
       )
     end
-    let(:contents_missing_lab) { String.new }
-    let(:contents_missing_note) { String.new }
-    let(:contents_lab) { String.new }
-    let(:contents_note) { String.new }
+    let(:contents_missing_lab) { '' }
+    let(:contents_missing_note) { '' }
+    let(:contents_lab) { '' }
+    let(:contents_note) { '' }
 
     before do
       resources.each { |r| contents << ("#{r.to_json}\n") }
@@ -472,11 +472,11 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     let(:observation_input) do
       input.merge({ status_output: '[{"url":"https://www.example.com","type":"Observation","count":174}]' })
     end
-    let(:contents_missing_pediatricbmi) { String.new }
-    let(:contents_missing_smokingstatus) { String.new }
-    let(:contents_missing_bodyheight) { String.new }
-    let(:contents_missing_resprate) { String.new }
-    let(:contents_missing_profile) { String.new }
+    let(:contents_missing_pediatricbmi) { '' }
+    let(:contents_missing_smokingstatus) { '' }
+    let(:contents_missing_bodyheight) { '' }
+    let(:contents_missing_resprate) { '' }
+    let(:contents_missing_profile) { '' }
 
     before do
       resources.each { |r| contents << ("#{r.to_json}\n") }
@@ -625,6 +625,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         .to_return(status: 200, body: contents, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+
       result = run(runnable, location_input)
 
       expect(result.result).to eq('pass')
@@ -632,7 +633,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
   end
 
   describe '[Medication resources returned conform to the US Core Medication Profile] test' do
-    let(:runnable) { group.tests[22] }
+    let(:runnable) { group.tests[25] }
     let(:resources) { NDJSON::Parser.new('spec/fixtures/Medication.ndjson') }
     let(:medication_input) do
       input.merge({ status_output: '[{"url":"https://www.example.com","type":"Medication","count":1}]' })
@@ -652,7 +653,6 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     it 'omits when no resources are returned' do
       bad_status_output = '[{"url":"https://www.example.com","type":"notMeds","count":5}]'
       result = run(runnable, medication_input.merge({ status_output: bad_status_output }))
-
       expect(result.result).to eq('omit')
       expect(result.result_message).to eq('No Medication resource file item returned by server. ' \
                                           'Medication resources are optional.')

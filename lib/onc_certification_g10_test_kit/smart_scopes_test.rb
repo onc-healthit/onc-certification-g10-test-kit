@@ -46,6 +46,8 @@ module ONCCertificationG10TestKit
     V6_VALID_RESOURCE_TYPES =
       (V5_VALID_RESOURCE_TYPES + ['Coverage', 'MedicationDispense', 'RelatedPerson', 'Specimen']).freeze
 
+    V7_VALID_RESOURCE_TYPES = (V6_VALID_RESOURCE_TYPES + ['Location'])
+
     PATIENT_COMPARTMENT_RESOURCE_TYPES = [
       '*',
       'Patient',
@@ -69,12 +71,16 @@ module ONCCertificationG10TestKit
     V6_PATIENT_COMPARTMENT_RESOURCE_TYPES =
       (V5_PATIENT_COMPARTMENT_RESOURCE_TYPES + ['Coverage', 'MedicationDispense', 'Specimen']).freeze
 
+    V7_PATIENT_COMPARTMENT_RESOURCE_TYPES = (V6_PATIENT_COMPARTMENT_RESOURCE_TYPES + ['Location']).freeze
+
     attr_accessor :received_or_requested
 
     def patient_compartment_resource_types
       return V5_PATIENT_COMPARTMENT_RESOURCE_TYPES if using_us_core_5?
 
       return V6_PATIENT_COMPARTMENT_RESOURCE_TYPES if using_us_core_6?
+
+      return V7_PATIENT_COMPARTMENT_RESOURCE_TYPES if using_us_core_7?
 
       PATIENT_COMPARTMENT_RESOURCE_TYPES
     end
@@ -83,6 +89,8 @@ module ONCCertificationG10TestKit
       return V5_VALID_RESOURCE_TYPES if using_us_core_5?
 
       return V6_VALID_RESOURCE_TYPES if using_us_core_6?
+
+      return V7_VALID_RESOURCE_TYPES if using_us_core_7?
 
       VALID_RESOURCE_TYPES
     end

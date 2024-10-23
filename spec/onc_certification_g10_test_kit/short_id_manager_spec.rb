@@ -3,7 +3,6 @@ RSpec.describe ONCCertificationG10TestKit::ShortIDManager do
     it 'contains a short_id for every g10 test and group' do
       runnable_ids = described_class.all_children(ONCCertificationG10TestKit::G10CertificationSuite).map(&:id)
       short_id_map = described_class.short_id_map.dup
-
       missing_ids = runnable_ids.reject { |id| short_id_map.delete(id).present? }
 
       expect(missing_ids).to be_empty, "No short_id found in short_id_map.yaml for #{missing_ids.join(', ')}."

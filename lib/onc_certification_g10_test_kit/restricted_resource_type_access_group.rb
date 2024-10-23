@@ -31,7 +31,7 @@ module ONCCertificationG10TestKit
       If testing against USCDI v2, Encounter and ServiceRequest are also
       checked.
 
-      If testing against USCDI v3, Encounter, ServiceRequest, Coverage,
+      If testing against USCDI v3 and v4, Encounter, ServiceRequest, Coverage,
       and MedicationDispense are also checked.
 
       For each of the resources that can be mapped to USCDI data class or
@@ -66,7 +66,14 @@ module ONCCertificationG10TestKit
       * RelatedPerson
       * Specimen
 
-      It also does not test Provenance, as this resource type is accessed by
+      For USCDI v4 this includes:
+
+      * Organization
+      * Practitioner
+      * RelatedPerson
+      * Specimen
+
+      It also does not test Provenance or Location, as these resource types are accessed by
       queries through other resource types. These resources types are accessed
       in the more comprehensive Single Patient Query tests.
 
@@ -444,6 +451,86 @@ module ONCCertificationG10TestKit
 
       def resource_group
         USCoreTestKit::USCoreV610::MedicationDispenseGroup
+      end
+    end
+
+    test from: :g10_restricted_access_test do
+      title 'Access to Encounter resources are restricted properly based on patient-selected scope'
+      description %(
+        This test ensures that access to the Encounter is granted or
+        denied based on the selection by the tester prior to the execution of
+        the test. If the tester indicated that access will be granted to this
+        resource, this test verifies that a search by patient in this resource
+        does not result in an access denied result. If the tester indicated that
+        access will be denied for this resource, this verifies that search by
+        patient in the resource results in an access denied result.
+      )
+      id :g10_us_core_7_encounter_restricted_access
+
+      required_suite_options G10Options::US_CORE_7_REQUIREMENT
+
+      def resource_group
+        USCoreTestKit::USCoreV700::EncounterGroup
+      end
+    end
+
+    test from: :g10_restricted_access_test do
+      title 'Access to ServiceRequest resources are restricted properly based on patient-selected scope'
+      description %(
+        This test ensures that access to the ServiceRequest is granted or
+        denied based on the selection by the tester prior to the execution of
+        the test. If the tester indicated that access will be granted to this
+        resource, this test verifies that a search by patient in this resource
+        does not result in an access denied result. If the tester indicated that
+        access will be denied for this resource, this verifies that search by
+        patient in the resource results in an access denied result.
+      )
+      id :g10_us_core_7_service_request_restricted_access
+
+      required_suite_options G10Options::US_CORE_7_REQUIREMENT
+
+      def resource_group
+        USCoreTestKit::USCoreV700::ServiceRequestGroup
+      end
+    end
+
+    test from: :g10_restricted_access_test do
+      title 'Access to Coverage resources are restricted properly based on patient-selected scope'
+      description %(
+        This test ensures that access to the Coverage is granted or
+        denied based on the selection by the tester prior to the execution of
+        the test. If the tester indicated that access will be granted to this
+        resource, this test verifies that a search by patient in this resource
+        does not result in an access denied result. If the tester indicated that
+        access will be denied for this resource, this verifies that search by
+        patient in the resource results in an access denied result.
+      )
+      id :g10_us_core_7_coverage_restricted_access
+
+      required_suite_options G10Options::US_CORE_7_REQUIREMENT
+
+      def resource_group
+        USCoreTestKit::USCoreV700::CoverageGroup
+      end
+    end
+
+    test from: :g10_restricted_access_test do
+      title 'Access to MedicationDispense resources are restricted properly based on patient-selected scope'
+      description %(
+        This test ensures that access to the MedicationDispense is granted or
+        denied based on the selection by the tester prior to the execution of
+        the test. If the tester indicated that access will be granted to this
+        resource, this test verifies that a search by patient in this resource
+        does not result in an access denied result. If the tester indicated that
+        access will be denied for this resource, this verifies that search by
+        patient in the resource results in an access denied result.
+      )
+      id :g10_us_core_7_medication_dispense_restricted_access
+
+      required_suite_options G10Options::US_CORE_7_REQUIREMENT
+
+      def resource_group
+        USCoreTestKit::USCoreV700::MedicationDispenseGroup
       end
     end
   end
