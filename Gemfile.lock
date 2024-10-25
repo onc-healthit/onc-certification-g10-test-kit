@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/inferno-framework/tls-test-kit.git
+  revision: 7994aa5ba8d98d8ec726b2cca42242e6c9110dc3
+  branch: FI-3367-disable-TLS-from-env
+  specs:
+    tls_test_kit (0.2.2)
+      inferno_core (>= 0.4.2)
+
 PATH
   remote: .
   specs:
@@ -309,8 +317,6 @@ GEM
     strings-ansi (0.2.0)
     thor (1.2.2)
     tilt (2.4.0)
-    tls_test_kit (0.2.2)
-      inferno_core (>= 0.4.2)
     tty-color (0.6.0)
     tty-markdown (0.7.2)
       kramdown (>= 1.16.2, < 3.0)
@@ -349,6 +355,7 @@ DEPENDENCIES
   rubocop (~> 1.9)
   rubocop-rspec
   rubyXL
+  tls_test_kit!
   webmock (~> 3.11)
 
 BUNDLED WITH
