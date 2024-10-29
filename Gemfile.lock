@@ -10,7 +10,7 @@ PATH
       ndjson (~> 1.0.0)
       rubyzip (~> 2.3.2)
       smart_app_launch_test_kit (= 0.4.5)
-      tls_test_kit (= 0.2.2)
+      tls_test_kit (= 0.2.3)
       us_core_test_kit (= 0.8.2)
 
 GEM
@@ -309,7 +309,7 @@ GEM
     strings-ansi (0.2.0)
     thor (1.2.2)
     tilt (2.4.0)
-    tls_test_kit (0.2.2)
+    tls_test_kit (0.2.3)
       inferno_core (>= 0.4.2)
     tty-color (0.6.0)
     tty-markdown (0.7.2)
