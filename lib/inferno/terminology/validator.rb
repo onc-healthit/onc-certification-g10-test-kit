@@ -4,6 +4,7 @@ module Inferno
   module Terminology
     class Validator
       attr_reader :url, :concept_count, :type, :code_systems, :file_name, :bloom_filter
+      alias id url
 
       def initialize(metadata)
         @url = metadata[:url]

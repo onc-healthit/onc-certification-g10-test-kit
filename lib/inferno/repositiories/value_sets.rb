@@ -3,17 +3,9 @@ require 'inferno/repositories/in_memory_repository'
 module Inferno
   module Repositories
     class ValueSets < InMemoryRepository
-      def insert(entity)
-        raise Exceptions::DuplicateEntityUrlException, entity.url if exists?(entity.url)
-
-        all << entity
-        all_by_id[entity.url.to_s] = entity
-        entity
-      end
-
       # @return [Hash] a Hash where the keys are vs urls and the values are vs
       def select_by_url(urls)
-        self.class.all_by_id.slice(*urls)
+        all_by_id.slice(*urls)
       end
 
       def select_by_binding_strength(strengths)
