@@ -30,7 +30,7 @@ module ONCCertificationG10TestKit
       If testing against USCDI v2, Encounter and ServiceRequest are also
       checked.
 
-      If testing against USCDI v3, Encounter, ServiceRequest, Coverage,
+      If testing against USCDI v3 and v4, Encounter, ServiceRequest, Coverage,
       and MedicationDispense are also checked.
 
       For each of the resource types that can be mapped to USCDI data class or
@@ -64,14 +64,24 @@ module ONCCertificationG10TestKit
       * Practitioner
       * RelatedPerson
 
+      For USCDI v4 this includes:
+
+      * Organization
+      * Practitioner
+      * RelatedPerson
+
       It also does not test Provenance, as this resource type is accessed by
-      queries through other resource types, or Specimen in USCDI v3 which only
-      requires support for read and search by id. These resources types are
-      accessed in the more comprehensive Single Patient Query tests.
+      queries through other resource types, or Specimen in USCDI v3 or Location from
+      USCDI v4 which only requires support for read and search by id. These resources
+      types are accessed in the more comprehensive Single Patient Query tests.
+
+      This test is not intended to check every resource type can be granted or not granted,
+      nor does it check resources that cannot be directly queried via a patient reference to
+      limit the complexity of the tests and effort required to run them.
 
       However, the authorization system must indicate that access is granted to
       the Encounter, Practitioner and Organization (and RelatedPerson and
-      Specimen for USCDI v3) resource types by providing them in the returned
+      Specimen for USCDI v3 and v4) resource types by providing them in the returned
       scopes because they are required to support the read interaction.
     )
     id :g10_unrestricted_resource_type_access
@@ -109,6 +119,8 @@ module ONCCertificationG10TestKit
 
     V6_ALL_RESOURCES = (V5_ALL_RESOURCES + ['Coverage', 'MedicationDispense']).freeze
 
+    V7_ALL_RESOURCES = (V6_ALL_RESOURCES + ['Location']).freeze
+
     NON_PATIENT_COMPARTMENT_RESOURCES =
       [
         'Encounter',
@@ -126,6 +138,8 @@ module ONCCertificationG10TestKit
 
     V6_NON_PATIENT_COMPARTMENT_RESOURCES = V5_NON_PATIENT_COMPARTMENT_RESOURCES
 
+    V7_NON_PATIENT_COMPARTMENT_RESOURCES = V6_NON_PATIENT_COMPARTMENT_RESOURCES - ['Location']
+
     test do
       include G10Options
 
@@ -140,6 +154,8 @@ module ONCCertificationG10TestKit
 
         return V6_ALL_RESOURCES if using_us_core_6?
 
+        return V7_ALL_RESOURCES if using_us_core_7?
+
         ALL_RESOURCES
       end
 
@@ -147,6 +163,8 @@ module ONCCertificationG10TestKit
         return V5_NON_PATIENT_COMPARTMENT_RESOURCES if using_us_core_5?
 
         return V6_NON_PATIENT_COMPARTMENT_RESOURCES if using_us_core_6?
+
+        return V7_NON_PATIENT_COMPARTMENT_RESOURCES if using_us_core_7?
 
         NON_PATIENT_COMPARTMENT_RESOURCES
       end
@@ -431,6 +449,62 @@ module ONCCertificationG10TestKit
 
       def resource_group
         USCoreTestKit::USCoreV610::MedicationDispenseGroup
+      end
+    end
+
+    test from: :g10_resource_access_test do
+      title 'Access to Encounter resources granted'
+      description %(
+        This test ensures that access to the Encounter is granted.
+      )
+      id :g10_us_core_7_encounter_unrestricted_access
+
+      required_suite_options G10Options::US_CORE_7_REQUIREMENT
+
+      def resource_group
+        USCoreTestKit::USCoreV700::EncounterGroup
+      end
+    end
+
+    test from: :g10_resource_access_test do
+      title 'Access to ServiceRequest resources granted'
+      description %(
+        This test ensures that access to the ServiceRequest is granted.
+      )
+      id :g10_us_core_7_service_request_unrestricted_access
+
+      required_suite_options G10Options::US_CORE_7_REQUIREMENT
+
+      def resource_group
+        USCoreTestKit::USCoreV700::ServiceRequestGroup
+      end
+    end
+
+    test from: :g10_resource_access_test do
+      title 'Access to Coverage resources granted'
+      description %(
+        This test ensures that access to the Coverage is granted.
+      )
+      id :g10_us_core_7_coverage_unrestricted_access
+
+      required_suite_options G10Options::US_CORE_7_REQUIREMENT
+
+      def resource_group
+        USCoreTestKit::USCoreV700::CoverageGroup
+      end
+    end
+
+    test from: :g10_resource_access_test do
+      title 'Access to MedicationDispense resources granted'
+      description %(
+        This test ensures that access to the MedicationDispense is granted.
+      )
+      id :g10_us_core_7_medication_dispense_unrestricted_access
+
+      required_suite_options G10Options::US_CORE_7_REQUIREMENT
+
+      def resource_group
+        USCoreTestKit::USCoreV700::MedicationDispenseGroup
       end
     end
   end
