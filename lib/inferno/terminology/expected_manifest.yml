@@ -134,7 +134,7 @@
   - http://hl7.org/fhir/document-relationship-type
 - :url: http://hl7.org/fhir/ValueSet/mimetypes
   :file: hl7_org_fhir_ValueSet_mimetypes.msgpack
-  :count: 2575
+  :count: 2578
   :type: bloom
   :code_systems:
   - urn:ietf:bcp:13
@@ -514,7 +514,7 @@
   :code_systems: http://hl7.org/fhir/document-relationship-type
 - :url: urn:ietf:bcp:13
   :file: urn_ietf_bcp_13.msgpack
-  :count: 2575
+  :count: 2578
   :type: bloom
   :code_systems: urn:ietf:bcp:13
 - :url: http://hl7.org/fhir/identifier-use
