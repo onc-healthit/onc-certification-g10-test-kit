@@ -60,6 +60,14 @@ module ONCCertificationG10TestKit
       when 'Observation'
         profiles << extract_profile('Smokingstatus') if observation_contains_code?(resource, '72166-2')
 
+        if us_core_7_and_above? && (
+              observation_contains_code?(resource, '11367-0') ||
+              observation_contains_code?(resource, '401201003') ||
+              observation_contains_code?(resource, '782516008')
+            )
+          profiles << extract_profile('Smokingstatus')
+        end
+
         profiles << extract_profile('ObservationLab') if resource_contains_category?(resource, 'laboratory', 'http://terminology.hl7.org/CodeSystem/observation-category')
 
         profiles << extract_profile('PediatricBmiForAge') if observation_contains_code?(resource, '59576-9')
