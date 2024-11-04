@@ -130,7 +130,7 @@ module ONCCertificationG10TestKit
           'Encounter',
           'Goal',
           'Immunization',
-          'Loction',
+          'Location',
           'MedicationDispense',
           'MedicationRequest',
           'Observation',
