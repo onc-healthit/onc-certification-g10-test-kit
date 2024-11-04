@@ -1,4 +1,3 @@
-require_relative 'g10_options'
 require_relative 'resource_access_test'
 require_relative 'all_resources'
 
