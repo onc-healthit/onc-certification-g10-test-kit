@@ -193,6 +193,8 @@ module Inferno
         @value_set_model.url
       end
 
+      alias id url
+
       # Return the number of codes in the valueset
       def count
         @value_set.length
