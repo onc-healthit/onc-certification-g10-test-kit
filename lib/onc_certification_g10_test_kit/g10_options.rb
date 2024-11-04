@@ -56,6 +56,10 @@ module ONCCertificationG10TestKit
       us_core_version == US_CORE_7
     end
 
+    def us_core_7_and_above?
+      us_core_version[-1].to_i > 6
+    end
+
     def versioned_us_core_module
       case us_core_version
       when US_CORE_7
