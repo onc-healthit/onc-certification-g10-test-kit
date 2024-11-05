@@ -2,40 +2,38 @@ require_relative 'g10_options'
 
 module ONCCertificationG10TestKit
   module AllResources
-=begin
-      This list a list of all resource types mapped to USCDI data classes or elements,
-      and shall be supported by certified server implementation:
+    # This list a list of all resource types mapped to USCDI data classes or elements,
+    # and shall be supported by certified server implementation:
 
-      * AllergyIntolerance
-      * CarePlan
-      * CareTeam
-      * Condition
-      * Device
-      * DiagnosticReport
-      * DocumentReference
-      * Encounter
-      * Goal
-      * Immunization
-      * MedicationRequest
-      * Observation
-      * Organization
-      * Patient
-      * Practitioner
-      * Procedure
-      * Provenance
+    # * AllergyIntolerance
+    # * CarePlan
+    # * CareTeam
+    # * Condition
+    # * Device
+    # * DiagnosticReport
+    # * DocumentReference
+    # * Encounter
+    # * Goal
+    # * Immunization
+    # * MedicationRequest
+    # * Observation
+    # * Organization
+    # * Patient
+    # * Practitioner
+    # * Procedure
+    # * Provenance
 
-      For USCDI v2 / US Core v5.0.1, these resource types are added:
-      * RelatedPerson
-      * ServiceRequest
+    # For USCDI v2 / US Core v5.0.1, these resource types are added:
+    # * RelatedPerson
+    # * ServiceRequest
 
-      For USCDI v3 / US Core v6.1.0, these resource types are added:
-      * Coverage
-      * MedicationDispense
-      * Specimen
+    # For USCDI v3 / US Core v6.1.0, these resource types are added:
+    # * Coverage
+    # * MedicationDispense
+    # * Specimen
 
-      For USCDI v4 / US Core v7.0.0, these resource types are added:
-      * Location
-=end
+    # For USCDI v4 / US Core v7.0.0, these resource types are added:
+    # * Location
 
     ALL_RESOURCES =
       [
