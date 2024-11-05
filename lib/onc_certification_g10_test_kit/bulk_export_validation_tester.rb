@@ -1,16 +1,17 @@
 require_relative 'profile_selector'
+require_relative 'all_resources'
 
 module ONCCertificationG10TestKit
   module BulkExportValidationTester
     include USCoreTestKit::MustSupportTest
     include ProfileSelector
     include G10Options
+    include AllResources
 
     attr_reader :metadata
 
     MAX_NUM_COLLECTED_LINES = 100
     MIN_RESOURCE_COUNT = 2
-    OMIT_KLASS = ['Medication', 'Location', 'QuestionnaireResponse', 'PractitionerRole'].freeze
     PROFILES_TO_SKIP = [
       'http://hl7.org/fhir/us/core/StructureDefinition/us-core-simple-observation'
     ].freeze
@@ -99,7 +100,7 @@ module ONCCertificationG10TestKit
 
     def validate_conformance(resources)
       metadata_list.each do |meta|
-        next if resource_type == 'Location'
+        next if resource_type == 'Location' && !us_core_7_and_above
 
         skip_if resources[meta.profile_url].blank?,
                 "No #{resource_type} resources found that conform to profile: #{meta.profile_url}."
@@ -201,7 +202,7 @@ module ONCCertificationG10TestKit
       file_list = JSON.parse(status_output).select { |file| file['type'] == resource_type }
       if file_list.empty?
         message = "No #{resource_type} resource file item returned by server."
-        omit_if (OMIT_KLASS.include? resource_type), "#{message} #{resource_type} resources are optional."
+        omit_if (all_required_resources.exclude? resource_type), "#{message} #{resource_type} resources are optional."
         skip message
       end
 
