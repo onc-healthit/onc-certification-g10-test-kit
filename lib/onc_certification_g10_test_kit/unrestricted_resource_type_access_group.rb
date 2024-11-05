@@ -94,7 +94,6 @@ module ONCCertificationG10TestKit
       oauth_credentials :smart_credentials
     end
 
-
     V5_EXCLUDED_RESOURCES = ['RelatedPerson'].freeze
 
     V6_EXCLUDED_RESOURCES = (V5_EXCLUDED_RESOURCES + ['Specimen']).freeze
