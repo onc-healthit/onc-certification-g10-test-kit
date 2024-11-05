@@ -100,7 +100,7 @@ module ONCCertificationG10TestKit
 
     def validate_conformance(resources)
       metadata_list.each do |meta|
-        next if resource_type == 'Location' && !us_core_7_and_above
+        next if resource_type == 'Location' && !us_core_7_and_above?
 
         skip_if resources[meta.profile_url].blank?,
                 "No #{resource_type} resources found that conform to profile: #{meta.profile_url}."
