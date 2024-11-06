@@ -8,7 +8,7 @@ module ONCCertificationG10TestKit
       Verify that Group compartment export from the Bulk Data server follow US Core Implementation Guide
     DESCRIPTION
 
-    id :bulk_data_group_export_validation
+    id :g10_bulk_data_group_export_validation
 
     input :status_output, :requires_access_token, :bearer_token, :bulk_download_url
     input :lines_to_validate,

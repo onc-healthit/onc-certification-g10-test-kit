@@ -78,7 +78,8 @@ module ONCCertificationG10TestKit
     test from: :g10_incorrectly_permitted_tls_versions_messages_setup,
          id: :g10_bulk_group_export_tls_messages_setup
 
-    group from: :bulk_data_group_export_validation
+    group from: :g10_bulk_data_group_export_validation,
+          id: :bulk_data_group_export_validation
 
     test from: :g10_incorrectly_permitted_tls_versions_messages_setup,
          id: :g10_bulk_group_export_validation_messages_setup
