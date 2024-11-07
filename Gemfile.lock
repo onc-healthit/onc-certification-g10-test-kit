@@ -10,7 +10,7 @@ PATH
       ndjson (~> 1.0.0)
       rubyzip (~> 2.3.2)
       smart_app_launch_test_kit (= 0.4.6)
-      tls_test_kit (= 0.2.2)
+      tls_test_kit (= 0.2.3)
       us_core_test_kit (= 0.9.0)
 
 GEM
