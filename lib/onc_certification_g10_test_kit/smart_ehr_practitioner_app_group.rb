@@ -129,9 +129,8 @@ module ONCCertificationG10TestKit
            }
     end
 
-    group from: :smart_discovery_stu2 do
+    group from: :smart_discovery_stu2_2 do # rubocop:disable Naming/VariableNumber
       required_suite_options(G10Options::SMART_2_2_REQUIREMENT)
-      id :smart_discovery_stu2_2 # rubocop:disable Naming/VariableNumber
 
       test from: 'g10_smart_well_known_capabilities',
            config: {
@@ -638,6 +637,30 @@ module ONCCertificationG10TestKit
     end
 
     group from: :smart_openid_connect,
+          required_suite_options: G10Options::SMART_1_REQUIREMENT,
+          config: {
+            inputs: {
+              id_token: { name: :ehr_id_token },
+              client_id: { name: :ehr_client_id },
+              requested_scopes: { name: :ehr_requested_scopes },
+              smart_credentials: { name: :ehr_smart_credentials }
+            }
+          }
+
+    group from: :smart_openid_connect,
+          required_suite_options: G10Options::SMART_2_REQUIREMENT,
+          id: :smart_openid_connect_stu2,
+          config: {
+            inputs: {
+              id_token: { name: :ehr_id_token },
+              client_id: { name: :ehr_client_id },
+              requested_scopes: { name: :ehr_requested_scopes },
+              smart_credentials: { name: :ehr_smart_credentials }
+            }
+          }
+
+    group from: :smart_openid_connect_stu2_2, # rubocop:disable Naming/VariableNumber
+          required_suite_options: G10Options::SMART_2_2_REQUIREMENT,
           config: {
             inputs: {
               id_token: { name: :ehr_id_token },
