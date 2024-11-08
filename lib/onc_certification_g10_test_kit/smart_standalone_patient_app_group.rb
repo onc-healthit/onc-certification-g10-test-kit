@@ -117,11 +117,6 @@ module ONCCertificationG10TestKit
 
     group from: :smart_discovery_stu2_2 do # rubocop:disable Naming/VariableNumber
       required_suite_options(G10Options::SMART_2_2_REQUIREMENT)
-
-      def self.short_id
-        '1.8'
-      end
-
       test from: 'g10_smart_well_known_capabilities',
            config: {
              options: {
@@ -372,11 +367,6 @@ module ONCCertificationG10TestKit
             }
           } do
       required_suite_options(G10Options::SMART_2_2_REQUIREMENT)
-
-      def self.short_id
-        '1.9'
-      end
-
       title 'Standalone Launch With Patient Scope'
       description %(
         # Background
@@ -489,12 +479,7 @@ module ONCCertificationG10TestKit
               requested_scopes: { name: :standalone_requested_scopes },
               smart_credentials: { name: :standalone_smart_credentials }
             }
-          } do
-
-      def self.short_id
-        '1.10'
-      end
-    end
+          }
 
     group from: :smart_openid_connect_stu2_2, # rubocop:disable Naming/VariableNumber
           required_suite_options: G10Options::SMART_2_2_REQUIREMENT,
@@ -505,12 +490,7 @@ module ONCCertificationG10TestKit
               requested_scopes: { name: :standalone_requested_scopes },
               smart_credentials: { name: :standalone_smart_credentials }
             }
-          } do
-
-      def self.short_id
-        '1.11'
-      end
-    end
+          }
 
     group from: :g10_token_refresh do
       id :g10_smart_standalone_token_refresh
