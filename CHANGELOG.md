@@ -1,7 +1,8 @@
 # 7.0.0
-* Update (g)(10) Certfication Test Kit Terminology Package to 2024 Version
-* Integrate US Core v7.0.0 Test Suite into (g)(10) Certification Test Kit
-* Integrate SMART App Launch v2.2.0 into (g)(10) Certification Test Kit
+* Update (g)(10) Certfication Test Kit Terminology Package to 2024 Version (#587)
+* Integrate US Core v7.0.0 Test Suite into (g)(10) Certification Test Kit (#587)
+* Integrate SMART App Launch v2.2.0 into (g)(10) Certification Test Kit (#587)
+* CCG Update with US Core 6.1.0 Patch FHIR-46240. Remove media and media.link from DiagnosticReport Must Support (#588)
 * Fix a bug which caused Token Introspection URL ignored custome authorization header input (#572)
 * Fix a bug which caused validation error on Observation Smoking Status effectivePeriod element (#573)
 * Fix a bug which caused Bulk Data Validation test could not find Observation.value[x]:valueQuantity
