@@ -558,6 +558,8 @@ module ONCCertificationG10TestKit
 
       required_suite_options G10Options::US_CORE_3_REQUIREMENT
 
+      id :g10_us_core_3_bulk_location_validation
+
       include BulkExportValidationTester
 
       def resource_type
@@ -581,6 +583,8 @@ module ONCCertificationG10TestKit
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-location'
 
       required_suite_options G10Options::US_CORE_4_REQUIREMENT
+
+      id :g10_us_core_4_bulk_location_validation
 
       include BulkExportValidationTester
 
@@ -606,6 +610,8 @@ module ONCCertificationG10TestKit
 
       required_suite_options G10Options::US_CORE_5_REQUIREMENT
 
+      id :g10_us_core_5_bulk_location_validation
+
       include BulkExportValidationTester
 
       def resource_type
@@ -629,6 +635,8 @@ module ONCCertificationG10TestKit
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-location'
 
       required_suite_options G10Options::US_CORE_6_REQUIREMENT
+
+      id :g10_us_core_6_bulk_location_validation
 
       include BulkExportValidationTester
 
@@ -673,6 +681,8 @@ module ONCCertificationG10TestKit
 
       required_suite_options G10Options::US_CORE_5_REQUIREMENT
 
+      id :g10_us_core_5_bulk_service_request_validation
+
       include BulkExportValidationTester
 
       def resource_type
@@ -693,6 +703,8 @@ module ONCCertificationG10TestKit
       DESCRIPTION
 
       required_suite_options G10Options::US_CORE_5_REQUIREMENT
+
+      id :g10_us_core_5_bulk_related_person_validation
 
       include BulkExportValidationTester
 
@@ -717,6 +729,8 @@ module ONCCertificationG10TestKit
 
       required_suite_options G10Options::US_CORE_5_REQUIREMENT
 
+      id :g10_us_core_5_bulk_questionnaire_response_validation
+
       include BulkExportValidationTester
 
       def resource_type
@@ -739,6 +753,8 @@ module ONCCertificationG10TestKit
       DESCRIPTION
 
       required_suite_options G10Options::US_CORE_5_REQUIREMENT
+
+      id :g10_us_core_5_bulk_practitioner_role_validation
 
       include BulkExportValidationTester
 
