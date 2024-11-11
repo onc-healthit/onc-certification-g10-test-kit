@@ -11,7 +11,7 @@ PATH
       rubyzip (~> 2.3.2)
       smart_app_launch_test_kit (= 0.4.6)
       tls_test_kit (= 0.2.3)
-      us_core_test_kit (= 0.9.0)
+      us_core_test_kit (= 0.9.1)
 
 GEM
   remote: https://rubygems.org/
@@ -325,7 +325,7 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
     unicode_utils (1.4.0)
-    us_core_test_kit (0.9.0)
+    us_core_test_kit (0.9.1)
       inferno_core (>= 0.4.37)
       smart_app_launch_test_kit (>= 0.4.6)
       tls_test_kit (~> 0.2.0)
