@@ -6,7 +6,6 @@
 * Fix a bug which caused Token Introspection URL ignored custome authorization header input (#572)
 * Fix a bug which caused validation error on Observation Smoking Status effectivePeriod element (#573)
 * Fix a bug which caused Bulk Data Validation test could not find Observation.value[x]:valueQuantity
-* Update (g)(10) Certification Test Kit Bulk Data validation test to skip if export for US Core v7.0.0 does not have valid US Core Location resources
 * Remove duplicated test ID
 * Upgrade Inferno Core to version 0.5.0, and TLS Test Kit to 0.2.3
 
