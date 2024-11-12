@@ -16,6 +16,10 @@ supports an approved version of each of the required standards:
   v2.0.0, or v2.2.0)
 * HL7 FHIR Bulk Data Access (Flat FHIR) (v1.0.1, or v2.0.0)
 
+Please note that US Core Implementation Guide v.7.0.0 should only be used
+with SMART Application Launch Guide v2.0.0 or above due to granular scope
+support requirements.
+
 This test kit is [open source](#license) and freely available for use or
 adoption by the health IT community including EHR vendors, health app
 developers, and testing labs. It is an approved test method for the §
