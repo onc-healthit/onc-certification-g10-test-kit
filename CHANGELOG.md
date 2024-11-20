@@ -1,5 +1,5 @@
 # 7.0.1
-* Fix a bug which casued Inferno testing crash when Reference.reference element is not populated (#589)
+* Fix a bug which caused a system error when the `Reference.reference` element is not populated in certain resources (#589)
 * Update Validation Message filter for US Core v6.1.0 to catch validation error for effectivePeriod.start element in
   Observation Smoking Status profile (#573)
 
