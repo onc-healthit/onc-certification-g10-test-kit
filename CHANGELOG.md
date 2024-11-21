@@ -1,3 +1,8 @@
+# 7.0.1
+* Fix a bug which caused a system error when the `Reference.reference` element is not populated in certain resources (#589)
+* Update Validation Message filter for US Core v6.1.0 to catch validation error for effectivePeriod.start element in
+  Observation Smoking Status profile (#573)
+
 # 7.0.0
 * Update (g)(10) Certfication Test Kit Terminology Package to 2024 Version (#587)
 * Integrate US Core v7.0.0 Test Suite into (g)(10) Certification Test Kit (#587)
