@@ -3,7 +3,9 @@ require_relative '../inferno/terminology/tasks/check_built_terminology'
 module ONCCertificationG10TestKit
   class ConfigurationChecker
     EXPECTED_VALIDATOR_VERSION = '2.3.2'.freeze
-    EXPECTED_HL7_VALIDATOR_VERSION = '"6.3.3"'.freeze
+    INFERNO_VALIDATOR_VERSION_KEY = 'inferno-framework/fhir-validator-wrapper'.freeze
+    EXPECTED_HL7_VALIDATOR_VERSION = '1.0.58'.freeze
+    HL7_VALIDATOR_VERSION_KEY = 'validatorWrapperVersion'.freeze
 
     def configuration_messages
       validator_version_message + terminology_messages + version_message
@@ -24,16 +26,18 @@ module ONCCertificationG10TestKit
     def validator_version_message
       if Feature.use_hl7_resource_validator?
         expected_validator_version = EXPECTED_HL7_VALIDATOR_VERSION
+        validator_version_key = HL7_VALIDATOR_VERSION_KEY
         validator_version_url = "#{validator_url}/validator/version"
       else
         expected_validator_version = EXPECTED_VALIDATOR_VERSION
+        validator_version_key = INFERNO_VALIDATOR_VERSION_KEY
         validator_version_url = "#{validator_url}/version"
       end
 
       response = Faraday.get validator_version_url
       if response.body.starts_with? '{'
         version_json = JSON.parse(response.body)
-        version = version_json['inferno-framework/fhir-validator-wrapper']
+        version = version_json[validator_version_key]
       else
         version = response.body
       end
