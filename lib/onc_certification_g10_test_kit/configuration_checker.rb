@@ -4,7 +4,7 @@ module ONCCertificationG10TestKit
   class ConfigurationChecker
     EXPECTED_VALIDATOR_VERSION = '2.3.2'.freeze
     INFERNO_VALIDATOR_VERSION_KEY = 'inferno-framework/fhir-validator-wrapper'.freeze
-    EXPECTED_HL7_VALIDATOR_VERSION = '1.0.58'.freeze
+    EXPECTED_HL7_VALIDATOR_VERSION = '1.0.59'.freeze
     HL7_VALIDATOR_VERSION_KEY = 'validatorWrapperVersion'.freeze
 
     def configuration_messages
