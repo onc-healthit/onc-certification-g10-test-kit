@@ -1,3 +1,9 @@
+# 7.0.2
+* Update validator to v1.0.59
+* Update inferno_core to v0.5.1
+* Sorted SMART scopes in preset configuration alphabetically
+* Fixed some typos for the granular scopes tests
+
 # 7.0.1
 * Fix a bug which caused a system error when the `Reference.reference` element is not populated in certain resources (#589)
 * Update Validation Message filter for US Core v6.1.0 to catch validation error for effectivePeriod.start element in
