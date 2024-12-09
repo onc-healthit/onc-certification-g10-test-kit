@@ -1,6 +1,6 @@
 # 7.0.2
-* Update validator to v1.0.59
-* Update inferno_core to v0.5.1
+* Updated validator to v1.0.59
+* Updated inferno_core to v0.5.1
 * Sorted SMART scopes in preset configuration alphabetically
 * Fixed some typos for the granular scopes tests
 
