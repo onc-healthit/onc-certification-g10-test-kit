@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   # conflicts when integrating into platforms (e.g.; inferno.healthit.gov).
   spec.add_runtime_dependency 'smart_app_launch_test_kit', '0.4.6'
   spec.add_runtime_dependency 'tls_test_kit', '0.2.3'
-  spec.add_runtime_dependency 'us_core_test_kit', '0.9.2'
+  spec.add_runtime_dependency 'us_core_test_kit', '0.9.3'
 
   spec.add_development_dependency 'database_cleaner-sequel', '~> 1.8'
   spec.add_development_dependency 'factory_bot', '~> 6.1'
