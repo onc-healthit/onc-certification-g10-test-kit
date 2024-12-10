@@ -16,9 +16,15 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'mime-types', '~> 3.4.0'
   spec.add_runtime_dependency 'ndjson', '~> 1.0.0'
   spec.add_runtime_dependency 'rubyzip', '~> 2.3.2'
+
+  # **Please note**: Version constraints for dependant test kits should only be
+  # locked to a single version in certification test kits (such as this one).
+  # All other test kits should use more flexible version constraints to avoid
+  # conflicts when integrating into platforms (e.g.; inferno.healthit.gov).
   spec.add_runtime_dependency 'smart_app_launch_test_kit', '0.4.6'
   spec.add_runtime_dependency 'tls_test_kit', '0.2.3'
   spec.add_runtime_dependency 'us_core_test_kit', '0.9.3'
+
   spec.add_development_dependency 'database_cleaner-sequel', '~> 1.8'
   spec.add_development_dependency 'factory_bot', '~> 6.1'
   spec.add_development_dependency 'rspec', '~> 3.10'
