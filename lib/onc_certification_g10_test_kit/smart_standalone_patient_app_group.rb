@@ -96,6 +96,12 @@ module ONCCertificationG10TestKit
 
         id :g10_us_core_7_smart_version_check
         title 'US Core 7 requires SMART App Launch STU2+'
+        description %(
+          The [US Core 7 SMART on FHIR Obligations and
+          Capabilities](https://hl7.org/fhir/us/core/scopes.html) require SMART
+          App Launch STU2+, so systems can not certify with US Core 7 and SMART
+          App Launch STU1.
+        )
 
         run do
           assert false, 'US Core 7 is not eligible for certification with SMART App Launch STU1.'
