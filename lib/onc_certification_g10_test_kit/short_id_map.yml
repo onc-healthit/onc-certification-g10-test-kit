@@ -6,6 +6,7 @@ g10_certification-g10_smart_standalone_patient_app-smart_discovery-Test02: 1.1.0
 g10_certification-g10_smart_standalone_patient_app-smart_discovery-Test03: 1.1.03
 g10_certification-g10_smart_standalone_patient_app-smart_discovery-Test04: 1.1.04
 g10_certification-g10_smart_standalone_patient_app-smart_discovery-g10_smart_well_known_capabilities: 1.1.05
+g10_certification-g10_smart_standalone_patient_app-smart_discovery-g10_us_core_7_smart_version_check: 1.1.06
 g10_certification-g10_smart_standalone_patient_app-smart_discovery_stu2: '1.2'
 g10_certification-g10_smart_standalone_patient_app-smart_discovery_stu2-well_known_endpoint: 1.2.01
 g10_certification-g10_smart_standalone_patient_app-smart_discovery_stu2-well_known_capabilities_stu2: 1.2.02
