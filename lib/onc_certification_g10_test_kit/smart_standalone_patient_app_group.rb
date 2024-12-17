@@ -101,6 +101,14 @@ module ONCCertificationG10TestKit
           Capabilities](https://hl7.org/fhir/us/core/scopes.html) require SMART
           App Launch STU2+, so systems can not certify with US Core 7 and SMART
           App Launch STU1.
+
+          The [Test
+          Procedure](https://www.healthit.gov/test-method/standardized-api-patient-and-population-services)
+          also states in **Paragraph (g)(10)(v)(A) – Authentication and
+          authorization for patient and user scopes**:
+
+          > Note: US Core 7.0.0 must be tested with SMART App Launch 2.0.0 or
+            above.
         )
 
         run do
