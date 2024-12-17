@@ -90,6 +90,17 @@ module ONCCertificationG10TestKit
                ]
              }
            }
+
+      test do
+        required_suite_options(G10Options::US_CORE_7_REQUIREMENT)
+
+        id :g10_us_core_7_smart_version_check
+        title 'US Core 7 requires SMART App Launch STU2+'
+
+        run do
+          assert false, 'US Core 7 is not eligible for certification with SMART App Launch STU1.'
+        end
+      end
     end
 
     group from: :smart_discovery_stu2 do
