@@ -112,7 +112,8 @@ module ONCCertificationG10TestKit
         )
 
         run do
-          assert false, 'US Core 7 is not eligible for certification with SMART App Launch STU1.'
+          assert false, 'US Core 7 is not eligible for certification with SMART App Launch 1.0.0. ' \
+                        'Start a new session with SMART App Launch 2.0.0 or higher.'
         end
       end
     end
