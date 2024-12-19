@@ -67,17 +67,27 @@
           - 1.3.04
           - 1.4.01
           - 1.4.04
+          - 1.9.01
+          - 1.9.04
+          - 1.9.08
           - 2.1.01
           - 2.1.04
           - 2.2.01
           - 2.2.04
+          - 2.4.01
+          - 2.4.04
+          - 2.4.08
           - 3.3.03
           - 3.3.06
           - 3.4.03
           - 3.4.06
+          - 3.8.03
+          - 3.8.06
+          - 3.8.10
           - 4.1.01
           - 5.1.01
           - 10.1.01
+          - 12.1.01
           - 7.1.01
           - 7.2.01
           - 7.3.01
@@ -88,23 +98,78 @@
           - 9.1.04
           - 9.2.01
           - 9.2.04
+          - 9.16.01
+          - 9.16.04
           - 9.8.03
           - 9.8.06
           - 9.9.03
           - 9.9.06
+          - 9.19.03
+          - 9.19.06
+          - 9.19.10
           - '11.15'
           - 9.11.1.2.01
           - 9.11.1.2.04
+          - 9.20.1.2.01
+          - 9.20.1.2.04
+          - 9.20.1.2.08
           - 9.12.2.01
           - 9.12.2.04
+          - 9.12.5.01
+          - 9.12.5.04
+          - 9.12.5.08
+          - 9.21.3.01
+          - 9.21.3.04
+          - 9.21.4.01
+          - 9.21.4.04
+          - 9.21.4.08
           - 9.13.2.01
           - 9.13.2.04
+          - 9.13.5.01
+          - 9.13.5.04
+          - 9.13.5.08
+          - 9.22.3.01
+          - 9.22.3.04
+          - 9.22.4.01
+          - 9.22.4.04
+          - 9.22.4.08
           - 9.14.1.1.2.01
           - 9.14.1.1.2.04
           - 9.14.2.1.2.01
           - 9.14.2.1.2.04
+          - 9.23.1.1.2.01
+          - 9.23.1.1.2.04
+          - 9.23.1.1.2.08
+          - 9.23.2.1.2.01
+          - 9.23.2.1.2.04
+          - 9.23.2.1.2.08
+          - 9.24.1.1.2.01
+          - 9.24.1.1.2.04
+          - 9.24.2.1.2.01
+          - 9.24.2.1.2.04
+          - 9.25.1.1.2.01
+          - 9.25.1.1.2.04
+          - 9.25.1.1.2.08
+          - 9.25.2.1.2.01
+          - 9.25.2.1.2.04
+          - 9.25.2.1.2.08
           - 9.15.2.01
           - 9.15.2.04
+          - 9.15.5.01
+          - 9.15.5.04
+          - 9.15.5.08
+          - 9.26.3.01
+          - 9.26.3.04
+          - 9.26.4.01
+          - 9.26.4.04
+          - 9.26.4.08
+          - 9.27.3.01
+          - 9.27.3.04
+          - 9.28.3.01
+          - 9.28.3.04
+          - 9.28.4.01
+          - 9.28.4.04
+          - 9.28.4.08
         inferno_notes: |
           Inferno tests that all endpoints provided support at least TLS
           version 1.2, and rejects all requests for TLS version 1.1 or below.
@@ -132,8 +197,10 @@
         inferno_tests:
           - 1.3.01 - 1.3.07
           - 1.4.01 - 1.4.07
+          - 1.9.01 - 1.9.07
           - 3.3.01 - 3.3.09
           - 3.4.01 - 3.4.09
+          - 3.8.01 - 3.8.09
         inferno_notes: |
           Complete demonstration of these capabilities are accomplished
           through subsequent steps in the test procedure.
@@ -159,6 +226,8 @@
           - 3.3.04
           - 3.4.01 - 3.4.02
           - 3.4.04
+          - 3.8.01 - 3.8.02
+          - 3.8.04
       - id: AUT-PAT-3
         SUT: |
           [Standalone-Launch] The health IT developer demonstrates the ability
@@ -174,6 +243,7 @@
         inferno_tests:
           - 1.3.02
           - 1.4.02
+          - 1.9.02
       - id: AUT-PAT-4
         SUT: |
           [Standalone-Launch] The health IT developer demonstrates the ability
@@ -187,6 +257,8 @@
           - 9.1.05 - 9.1.09
           - 9.2.02 - 9.2.03
           - 9.2.05 - 9.2.09
+          - 9.16.01 - 9.16.03
+          - 9.16.05 - 9.16.09
       - id: AUT-PAT-5
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
@@ -219,7 +291,9 @@
         inferno_supported: 'yes'
         inferno_tests:
           - 1.2.01 - 1.2.03
+          - 1.8.01 - 1.8.05
           - 3.2.01 - 3.2.03
+          - 3.7.01 - 3.7.05
       - id: AUT-PAT-6
         SUT: |
           [Both] The health IT developer demonstrates the ability of the
@@ -270,7 +344,7 @@
             not include support for “plain”
 
           Additionally, the following “capabilities” must be supported if using
-          US Core 6.1.0:
+          US Core 6.1.0 or 7.0.0:
           * "context-ehr-encounter"
         TLV: |
           [Both] The tester verifies the ability of the
@@ -297,7 +371,9 @@
         inferno_supported: 'yes'
         inferno_tests:
           - 1.2.01 - 1.2.03
+          - 1.8.01 - 1.8.05
           - 3.2.01 - 3.2.03
+          - 3.7.01 - 3.7.05
       - id: AUT-PAT-7
         SUT: |
           [Both] The health IT developer demonstrates the ability of the FHIR®
@@ -382,7 +458,9 @@
         inferno_supported: 'yes'
         inferno_tests:
             - 1.4.02 - 1.4.03
+            - 1.9.02 - 1.9.03
             - 3.4.04 - 3.4.05
+            - 3.8.04 - 3.8.05
       - id: AUT-PAT-27
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
@@ -397,7 +475,9 @@
         inferno_supported: 'yes'
         inferno_tests:
             - 1.4.05 - 1.4.07
+            - 1.9.05 - 1.9.07
             - 3.4.07 - 3.4.09
+            - 3.8.07 - 3.8.09
       - id: AUT-PAT-9
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
@@ -480,14 +560,15 @@
           * SMART v1 scope syntax for patient-level and user-level scopes to
             support the “permission-v1” “SMART on FHIR® Capability”
           * SMART v2 scope syntax for patient-level and user-level scopes to
-            support the “permission-v2” “SMART on FHIR® Capability”, including
-            support for finer-grained resource constraints using search
-            parameters according to section 3.0.2.3 of the implementation
-            specification at § 170.215(c)(2) for the “category” parameter for
-            the following resources: (1) Condition resource with Condition
-            sub-resources Encounter Diagnosis, Problem List, and Health Concern;
-            and (2) Observation resource with Observation sub-resources Clinical
-            Test, Laboratory, Social History, SDOH, Survey, and Vital Signs
+            support the “permission-v2” “SMART on FHIR® Capability”. If using
+            US Core 6.1.0 or 7.0.0, this includes support for finer-grained
+            resource constraints using search parameters according to section
+            3.0.2.3 of the implementation specification at § 170.215(c)(2) for
+            the “category” parameter for the following resources: (1) Condition
+            resource with Condition sub-resources Encounter Diagnosis, Problem
+            List, and Health Concern; and (2) Observation resource with
+            Observation sub-resources Clinical Test, Laboratory, Social History,
+            SDOH, Survey, and Vital Signs
         TLV: |
           [Both] The tester verifies the ability of the Health IT Module to
           support the receipt of the following scopes and capabilities according
@@ -513,23 +594,45 @@
           * SMART v1 scope syntax for patient-level and user-level scopes to
             support the “permission-v1” “SMART on FHIR® Capability”
           * SMART v2 scope syntax for patient-level and user-level scopes to
-            support the “permission-v2” “SMART on FHIR® Capability”, including
-            support for finer-grained resource constraints using search
-            parameters according to section 3.0.2.3 of the implementation
-            specification at § 170.215(c)(2) for the “category” parameter for
-            the following resources: (1) Condition resource with Condition
-            sub-resources Encounter Diagnosis, Problem List, and Health Concern;
-            and (2) Observation resource with Observation sub-resources Clinical
-            Test, Laboratory, Social History, SDOH, Survey, and Vital Signs
+            support the “permission-v2” “SMART on FHIR® Capability”. If using
+            US Core 6.1.0 or 7.0.0, this includes support for finer-grained
+            resource constraints using search parameters according to section
+            3.0.2.3 of the implementation specification at § 170.215(c)(2) for
+            the “category” parameter for the following resources: (1) Condition
+            resource with Condition sub-resources Encounter Diagnosis, Problem
+            List, and Health Concern; and (2) Observation resource with
+            Observation sub-resources Clinical Test, Laboratory, Social History,
+            SDOH, Survey, and Vital Signs
         inferno_supported: 'yes'
         inferno_tests:
           - 1.4.02
+          - 1.9.02
           - 3.4.04
+          - 3.8.04
           - 9.13.2.02
+          - 9.13.5.02
+          - 9.22.3.02
+          - 9.22.4.02
           - 9.14.1.1.2.02
           - 9.14.2.1.2.02
+          - 9.23.1.1.2.02
+          - 9.23.2.1.2.02
+          - 9.24.1.1.2.02
+          - 9.24.2.1.2.02
+          - 9.25.1.1.2.02
+          - 9.25.2.1.2.02
           - '11.18'
-          - 9.15.2.05
+          - '11.19'
+          - '11.20'
+          - '11.21'
+          - 9.15.2.02
+          - 9.15.5.02
+          - 9.26.3.02
+          - 9.26.4.02
+          - 9.27.3.02
+          - 9.27.4.02
+          - 9.28.3.02
+          - 9.28.4.02
         inferno_notes: |
           This step refers to only the receipt of these scopes, which is covered in
           Inferno in one step in each the EHR and Standalone launch cases.  However,
@@ -573,6 +676,7 @@
           * "MedicationDispense"
           * "RelatedPerson"; and
           * "ServiceRequest"
+
         TLV: |
           [Both] The tester verifies the ability of the Health IT Module to
           evaluate the authorization request and request end-user input, if
@@ -613,18 +717,116 @@
         inferno_tests:
           - 1.3.02
           - 1.3.05
+          - 3.3.04
+          - 3.3.07
+          - 2.1.02
+          - 2.1.05
+          - 1.7.01 - 1.7.20
+          - 2.3.01 - 2.3.19
+        inferno_notes: |
+          Inferno verifies that end-user input is requested by requiring one app
+          launch have complete access to required resources and having one app
+          launch have limited access based on the preferences of the tester.
+      - id: AUT-PAT-33
+        SUT: |
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to evaluate the authorization request and request end-user
+          input, if applicable (required for patient-facing applications),
+          including the ability for the end-user to authorize an application to
+          receive EHI based on FHIR® resource-level scopes for all of the FHIR®
+          resources associated with the profiles specified in a standard adopted
+          in § 170.213 and the corresponding implementation specification
+          adopted in § 170.215(b)(1).
+
+          If using US Core 3.1.1, 4.0.0, 6.1.0, or 7.0.0 these resources include:
+
+          * “AllergyIntolerance”;
+          * “CarePlan”;
+          * “CareTeam”;
+          * “Condition”;
+          * “Device”;
+          * “DiagnosticReport”;
+          * “DocumentReference”;
+          * “Goal”;
+          * “Immunization”;
+          * “Medication” (if supported);
+          * “MedicationRequest”;
+          * “Observation”;
+          * “Patient”;
+          * “Procedure”; and
+          * “Provenance”.
+
+          The following resources must also be supported if using US Core 6.1.0 or 7.0.0:
+          * "Encounter"
+          * "Coverage"
+          * "Specimen"
+          * "MedicationDispense"
+          * "RelatedPerson"; and
+          * "ServiceRequest"
+
+          The following resources must also be supported if using US Core 7.0.0:
+          * "Location"
+        TLV: |
+          [Both] The tester verifies the ability of the Health IT Module to
+          evaluate the authorization request and request end-user input, if
+          applicable (required for patient-facing applications), including the
+          ability for the end-user to authorize an application to receive EHI
+          based on FHIR® resource-level scopes for all of the FHIR® resources
+          associated with the profiles specified in a standard adopted in
+          § 170.213 and the corresponding implementation specification adopted
+          in § 170.215(b)(1).
+
+          If using US Core 3.1.1, 4.0.0, 6.1.0, or 7.0.0 these resources include:
+
+          * “AllergyIntolerance”;
+          * “CarePlan”;
+          * “CareTeam”;
+          * “Condition”;
+          * “Device”;
+          * “DiagnosticReport”;
+          * “DocumentReference”;
+          * “Goal”;
+          * “Immunization”;
+          * “Medication” (if supported);
+          * “MedicationRequest”;
+          * “Observation”;
+          * “Patient”;
+          * “Procedure”; and
+          * “Provenance”.
+
+          The following resources must also be supported if using US Core 6.1.0 or 7.0.0:
+          * "Encounter"
+          * "Coverage"
+          * "Specimen"
+          * "MedicationDispense"
+          * "RelatedPerson"; and
+          * "ServiceRequest"
+
+          The following resources must also be supported if using US Core 7.0.0:
+          * "Location"
+
+        inferno_supported: 'yes'
+        inferno_tests:
+          - 1.3.02
+          - 1.3.05
           - 1.4.02
           - 1.4.05
+          - 1.9.02
+          - 1.9.05
           - 3.3.04
           - 3.3.07
           - 3.4.04
           - 3.4.07
+          - 3.8.04
+          - 3.8.07
           - 2.1.02
           - 2.1.05
           - 2.2.02
           - 2.2.05
-          - 1.7.01 - 1.7.20
-          - 2.3.01 - 2.3.19
+          - 2.4.02
+          - 2.4.05
+          - 1.7.01 - 1.7.24
+          - 2.3.01 - 2.3.23
         inferno_notes: |
           Inferno verifies that end-user input is requested by requiring one app
           launch have complete access to required resources and having one app
@@ -650,10 +852,14 @@
           - 1.3.05
           - 1.4.02
           - 1.4.05
+          - 1.9.02
+          - 1.9.05
           - 2.1.02
           - 2.1.05
           - 2.2.02
           - 2.2.05
+          - 2.4.02
+          - 2.4.05
           - '11.04'
       - id: AUT-PAT-12
         SUT: |
@@ -672,14 +878,46 @@
         inferno_tests:
           - 1.3.02
           - 1.3.05
+          - 2.1.02
+          - 2.1.05
+          - 1.7.01 - 1.7.20
+          - 2.3.01 - 2.3.19
+        inferno_notes: |
+          Inferno verifies that end-user input is requested by requiring one app
+          launch have complete access to required resources and having one app
+          launch have limited access based on the preferences of the tester.
+          Inferno requests full resource and 'offline_access' access, and the tester
+          is expected to select the correct subset of resources and deny 'offline_access'
+          based on previously selected preferences.
+      - id: AUT-PAT-34
+        SUT: |
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to deny an application’s authorization request according to
+          a patient’s preferences selected in AUT-PAT-33, and AUT-PAT-11, of
+          this section in accordance with the implementation specification
+          adopted in § 170.215(c)(1).
+        TLV: |
+          [Both] The tester verifies the ability of the Health IT Module to deny
+          an application’s authorization request according to a patient’s
+          preferences selected in AUT-PAT-33, and AUT-PAT-11, of this section in
+          accordance with the implementation specification adopted in §
+          170.215(c)(1).
+        inferno_supported: 'yes'
+        inferno_tests:
+          - 1.3.02
+          - 1.3.05
           - 1.4.02
           - 1.4.05
+          - 1.9.02
+          - 1.9.05
           - 2.1.02
           - 2.1.05
           - 2.2.02
           - 2.2.05
-          - 1.7.01 - 1.7.20
-          - 2.3.01 - 2.3.19
+          - 2.4.02
+          - 2.4.05
+          - 1.7.01 - 1.7.24
+          - 2.3.01 - 2.3.23
         inferno_notes: |
           Inferno verifies that end-user input is requested by requiring one app
           launch have complete access to required resources and having one app
@@ -702,6 +940,7 @@
         inferno_supported: 'yes'
         inferno_tests:
           - 9.9.01 - 9.9.10
+          - 9.19.01 - 9.19.11
       - id: AUT-PAT-13
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
@@ -713,6 +952,22 @@
           [Both] The tester verifies the ability of the Health IT Module to
           return an error response if the "aud" parameter provided by an
           application to the Health IT Module in AUT-PAT-8, is not a valid FHIR®
+          resource server associated with the Health IT Module's authorization
+          server.
+        inferno_supported: 'yes'
+        inferno_tests:
+          - 9.4.01
+      - id: AUT-PAT-37
+        SUT: |
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to return an error response if the "aud" parameter provided
+          by an application to the Health IT Module in AUT-PAT-26, is not a valid
+          FHIR® resource server associated with the Health IT Module's
+          authorization server.
+        TLV: |
+          [Both] The tester verifies the ability of the Health IT Module to
+          return an error response if the "aud" parameter provided by an
+          application to the Health IT Module in AUT-PAT-26, is not a valid FHIR®
           resource server associated with the Health IT Module's authorization
           server.
         inferno_supported: 'yes'
@@ -738,8 +993,10 @@
         inferno_tests:
           - 1.3.03
           - 1.4.03
+          - 1.9.03
           - 3.3.05
           - 3.4.05
+          - 3.8.05
       - id: AUT-PAT-15
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
@@ -809,8 +1066,13 @@
         inferno_supported: 'yes'
         inferno_tests:
           - 1.4.05
+          - 1.9.05
           - 3.4.07
+          - 3.8.07
           - 9.12.2.05
+          - 9.12.5.05
+          - 9.21.3.05
+          - 9.21.4.05
       - id: AUT-PAT-31
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
@@ -825,6 +1087,7 @@
         inferno_supported: 'yes'
         inferno_tests:
           - 9.7.01 - 9.7.12
+          - 9.18.01 - 9.18.05
       - id: AUT-PAT-16
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
@@ -877,15 +1140,82 @@
         inferno_supported: 'yes'
         inferno_tests:
           - 1.3.06 - 1.3.08
-          - 1.4.06 - 1.4.08
           - 3.3.08 - 3.3.10
-          - 3.3.16
+          - 9.8.08 - 9.8.10
+      - id: AUT-PAT-35
+        SUT: |
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to return a JSON object to applications according to the
+          implementation specification adopted in § 170.215(c)(1) and standard
+          adopted in § 170.215(e)(1), including the following:
+          * “access_token”;
+          * “token_type”;
+          * “scope”;
+          * “id_token”;
+          * “refresh_token” (valid for a period of no shorter than three
+            months);
+          * HTTP “Cache-Control” response header field with a value of
+            “no-store”;
+          * HTTP “Pragma” response header field with a value of “no-cache”;
+          * “patient” (to support “context-ehr-patient” and
+            “context-standalone-patient” “SMART on FHIR® Core Capabilities”);
+          * “need_patient_banner” (to support “context-banner” “SMART on FHIR®
+            Core Capability” for EHR-Launch mode only); and
+          * “smart_style_url” (to support “context-style” “SMART on FHIR® Core
+            Capability” for EHR-Launch mode only).
+
+          Additionally, the following must be supported if using US Core 6.1.0 or
+          7.0.0:
+          * “encounter” (to support "context-ehr-encounter" “SMART on FHIR®
+            Capability”)
+        TLV: |
+          [Both] The tester verifies the ability of the Health IT Module to
+          return a JSON object to applications according to the implementation
+          specification adopted in § 170.215(c)(1) and standard adopted in §
+          170.215(e)(1), including the following:
+          * “access_token”;
+          * “token_type”;
+          * “scope”;
+          * “id_token”;
+          * “refresh_token” (valid for a period of no shorter than three
+            months);
+          * HTTP “Cache-Control” response header field with a value of
+            “no-store”;
+          * HTTP “Pragma” response header field with a value of “no-cache”;
+          * “patient” (to support “context-ehr-patient” and
+            “context-standalone-patient” “SMART on FHIR® Core Capabilities”);
+          * “need_patient_banner” (to support “context-banner” “SMART on FHIR®
+            Core Capability” for EHR-Launch mode only); and
+          * “smart_style_url” (to support “context-style” “SMART on FHIR® Core
+            Capability” for EHR-Launch mode only).
+
+          Additionally, the following must be supported if using US Core 6.1.0 or
+          7.0.0:
+          * “encounter” (to support"context-ehr-encounter" “SMART on FHIR®
+            Capability”)
+        inferno_supported: 'yes'
+        inferno_tests:
+          - 1.3.06 - 1.3.08
+          - 1.4.06 - 1.4.08
+          - 1.9.06 - 1.9.07
+          - 1.9.09
+          - 3.3.08 - 3.3.10
+          - 3.3.16 - 3.3.17
           - 3.4.08 - 3.4.10
-          - 3.4.16
+          - 3.4.16 - 3.4.17
+          - 3.8.08 - 3.8.09
+          - 3.8.11
+          - 3.8.15 - 3.8.16
           - 9.8.08 - 9.8.10
           - 9.9.08 - 9.9.10
-          - 9.12.2.06 - 9.12.2.07
-          - 9.12.2.09
+          - 9.19.08 - 9.19.09
+          - 9.19.11
+          - 9.12.2.06 - 9.12.2.08
+          - 9.12.5.06 - 9.12.5.07
+          - 9.12.5.09
+          - 9.21.3.06 - 9.21.3.08
+          - 9.21.4.06 - 9.21.4.07
+          - 9.21.4.09
       - id: AUT-PAT-17
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
@@ -907,7 +1237,11 @@
         inferno_supported: 'yes'
         inferno_tests:
           - 1.5.01 - 1.5.07
+          - 1.10.01 - 1.10.07
+          - 1.11.01 - 1.11.08
           - 3.5.01 - 3.5.07
+          - 3.9.01 - 3.9.07
+          - 3.10.01 - 3.10.08
         inferno_notes: |
           Inferno decodes the id_token provided during authentication and
           verifies that it contains the correct claims, has a valid signature,
@@ -931,9 +1265,12 @@
         inferno_tests:
           - 2.1.02 - 2.1.09
           - 2.2.02 - 2.2.09
+          - 2.4.01 - 2.4.07
+          - 2.4.09 - 2.4.10
           - 2.3.01 - 2.3.19
           - 9.5.01 - 9.5.04
           - 9.6.01 - 9.6.04
+          - 9.17.01 - 9.17.04
       - id: AUT-PAT-19
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
@@ -948,33 +1285,63 @@
         inferno_supported: 'yes'
         inferno_tests:
           - 1.3.10
+          - 3.3.12
+          - 9.1.08
+          - 9.8.10
+      - id: AUT-PAT-36
+        SUT: |
+          [Both] The health IT developer demonstrates the ability of the Health
+          IT Module to return a “Patient” FHIR® resource that matches the
+          patient context provided in step AUT-PAT-35 of this section according
+          to an implementation specification adopted in § 170.215(b)(1).
+        TLV: |
+          [Both] The tester verifies the ability of the Health IT Module to
+          return a “Patient” FHIR® resource that matches the patient context
+          provided in step AUT-PAT-35 of this section according to the
+          implementation specification adopted in § 170.215(b)(1).
+        inferno_supported: 'yes'
+        inferno_tests:
+          - 1.3.10
           - 1.4.10
+          - 1.9.11
           - 3.3.12
           - 3.4.12
+          - 3.8.13
           - 9.1.08
           - 9.2.08
+          - 9.16.08
           - 9.8.10
           - 9.9.10
+          - 9.19.11
           - 9.12.2.08
+          - 9.12.5.09
+          - 9.21.3.08
+          - 9.21.4.09
           - 9.13.2.10
+          - 9.13.5.11
+          - 9.22.3.10
+          - 9.22.4.11
       - id: AUT-PAT-32
         SUT: |
-          [EHR-Launch] The following must be supported if using US Core 6.1.0:
+          [EHR-Launch] The following must be supported if using US Core 6.1.0 or 7.0.0:
           The health IT developer demonstrates the ability of the Health IT
           Module to return an “Encounter” FHIR® resource that matches the
-          encounter context provided in step AUT-PAT-16 of this section
+          encounter context provided in step AUT-PAT-35 of this section
           according to an implementation specification adopted in §
           170.215(b)(1).
         TLV: |
-          AUT-PAT-32: [EHR-Launch] The following must be supported if using US
-          Core 6.1.0: The tester verifies the ability of the Health IT Module to
+          [EHR-Launch] The following must be supported if using US Core 6.1.0 or 7.0.0:
+          The tester verifies the ability of the Health IT Module to
           return an “Encounter” FHIR® resource that matches the encounter
-          context provided in step AUT-PAT-16 of this section according to an
+          context provided in step AUT-PAT-35 of this section according to an
           implementation specification adopted in § 170.215(b)(1).
         inferno_supported: 'yes'
         inferno_tests:
           - 3.3.16
           - 3.4.16
+          - 3.4.17
+          - 3.8.15
+          - 3.8.16
       - id: AUT-PAT-20
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
@@ -990,6 +1357,7 @@
           - 1.6.01 - 1.6.04
           - 3.6.01 - 3.6.04
           - 9.12.3.01 - 9.12.3.04
+          - 9.21.5.01 - 9.21.5.04
       - id: AUT-PAT-21
         SUT: |
           [Both] The health IT developer demonstrates the ability of the Health
@@ -1040,6 +1408,7 @@
           - 1.6.06
           - 3.6.06
           - 9.12.3.06
+          - 9.21.5.06
   - section: Paragraph (g)(10)(vi) – Patient authorization revocation
     steps:
       - group: Patient Authorization Revocation
@@ -1258,6 +1627,8 @@
           - '11.06'
           - 9.11.2.01 - 9.11.2.02
           - 9.11.3.01 - 9.11.3.02
+          - 9.20.2.01 - 9.20.2.02
+          - 9.20.3.01 - 9.20.3.02
   - section: Paragraph (g)(10)(ii) – Supported search operations
     steps:
       - group: Supported Search Operations for a Single Patient’s Data
@@ -1280,6 +1651,7 @@
           - 4.1.02 - 4.1.05
           - 5.1.02 - 5.1.06
           - 10.1.02 - 10.1.06
+          - 12.1.02 - 12.1.05
       - id: SH-PAT-2
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
@@ -1389,6 +1761,48 @@
           - 10.37.01 - 10.37.03
           - 10.38.01 - 10.38.02
           - 10.39.01 - 10.39.05
+          - 12.2.01 - 12.2.05
+          - 12.3.01
+          - 12.4.01
+          - 12.5.01
+          - 12.6.01 - 12.6.02
+          - 12.7.01 - 12.7.02
+          - 12.8.01
+          - 12.9.01
+          - 12.10.01 - 12.10.04
+          - 12.11.01 - 12.11.04
+          - 12.12.01 - 12.12.05
+          - 12.13.01 - 12.13.03
+          - 12.14.01
+          - 12.15.01
+          - 12.16.01
+          - 12.17.01 - 12.17.02
+          - 12.18.01 - 12.18.03
+          - 12.19.01 - 12.19.03
+          - 12.20.01 - 12.20.03
+          - 12.21.01 - 12.21.03
+          - 12.22.01 - 12.22.03
+          - 12.23.01 - 12.23.03
+          - 12.24.01 - 12.24.03
+          - 12.25.01 - 12.25.03
+          - 12.26.01 - 12.26.03
+          - 12.27.01 - 12.27.03
+          - 12.28.01 - 12.28.03
+          - 12.29.01 - 12.29.03
+          - 12.30.01
+          - 12.31.01 - 12.31.03
+          - 12.32.01 - 12.32.03
+          - 12.33.01 - 12.33.03
+          - 12.34.01 - 12.34.03
+          - 12.35.01 - 12.35.03
+          - 12.36.01 - 12.36.03
+          - 12.37.01 - 12.37.03
+          - 12.38.01 - 12.38.03
+          - 12.39.01 - 12.39.03
+          - 12.40.01 - 12.40.03
+          - 12.41.01 - 12.41.02
+          - 12.42.01 - 12.42.05
+          - 12.43.02 - 12.43.03
       - id: SH-PAT-3
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
@@ -1498,6 +1912,47 @@
           - 10.37.05
           - 10.38.04
           - 10.39.07
+          - 12.2.07
+          - 12.3.03
+          - 12.4.03
+          - 12.5.03
+          - 12.6.04
+          - 12.7.04
+          - 12.8.03
+          - 12.9.03
+          - 12.10.06
+          - 12.11.06
+          - 12.12.07
+          - 12.13.05
+          - 12.14.03
+          - 12.15.03
+          - 12.16.03
+          - 12.17.04
+          - 12.18.05
+          - 12.19.05
+          - 12.20.05
+          - 12.21.05
+          - 12.22.05
+          - 12.23.05
+          - 12.24.05
+          - 12.25.05
+          - 12.26.05
+          - 12.27.05
+          - 12.28.05
+          - 12.29.05
+          - 12.30.03
+          - 12.31.05
+          - 12.32.05
+          - 12.33.05
+          - 12.34.05
+          - 12.35.05
+          - 12.36.05
+          - 12.37.05
+          - 12.38.05
+          - 12.39.05
+          - 12.40.05
+          - 12.41.04
+          - 12.42.07
       - group: Supported Search Operations for Multiple Patients’ Data
         id: SH-PAT-4
         SUT: |
@@ -1659,6 +2114,178 @@
           - 10.43.01
           - 10.44.01
           - 10.47.01
+      - id: DAT-PAT-18
+        SUT: |
+          For responses to data for single and multiple patients as described in
+          steps DAT-PAT-7, and DAT-PAT-17, of this section respectively, the
+          health IT developer demonstrates the ability of the Health IT Module
+          to respond to requests for data according to the implementation
+          specification adopted in § 170.215(b)(1)(i), including the following
+          steps.
+        TLV: |
+          For responses to data for single and multiple patients as described in
+          steps DAT-PAT-7, and DAT-PAT-17, of this section respectively, the
+          tester verifies the ability of the Health IT Module to respond to
+          requests for data according to the implementation specification
+          adopted in § 170.215(b)(1)(i), including the following steps.
+        inferno_supported: 'yes'
+        inferno_tests:
+          - 4.2.06
+          - 4.3.02
+          - 4.4.02
+          - 4.5.02
+          - 4.6.02
+          - 4.7.02
+          - 4.8.05
+          - 4.9.05
+          - 4.10.06
+          - 4.11.02
+          - 4.12.02
+          - 4.13.03
+          - 4.14.02
+          - 4.15.04
+          - 4.16.04
+          - 4.17.04
+          - 4.18.04
+          - 4.19.04
+          - 4.20.04
+          - 4.21.04
+          - 4.22.04
+          - 4.23.04
+          - 4.24.04
+          - 4.25.04
+          - 4.26.03
+          - 4.27.01
+          - 4.28.01
+          - 4.29.01
+          - 4.30.01
+          - 5.2.06
+          - 5.3.02
+          - 5.4.02
+          - 5.5.02
+          - 5.6.02
+          - 5.7.02
+          - 5.8.05
+          - 5.9.05
+          - 5.10.06
+          - 5.11.02
+          - 5.12.02
+          - 5.13.03
+          - 5.14.04
+          - 5.15.04
+          - 5.16.04
+          - 5.17.04
+          - 5.18.04
+          - 5.19.04
+          - 5.20.04
+          - 5.21.04
+          - 5.22.04
+          - 5.23.04
+          - 5.24.04
+          - 5.25.04
+          - 5.26.04
+          - 5.27.04
+          - 5.28.03
+          - 5.29.01
+          - 5.30.01
+          - 5.31.01
+          - 5.32.01
+          - 7.3.03
+          - 7.3.06 - 7.3.34
+          - 8.3.03
+          - 8.3.06 - 8.3.34
+          - 10.2.06
+          - 10.3.02
+          - 10.4.02
+          - 10.5.02
+          - 10.6.03
+          - 10.7.03
+          - 10.8.02
+          - 10.9.02
+          - 10.10.05
+          - 10.11.05
+          - 10.12.06
+          - 10.13.04
+          - 10.14.02
+          - 10.15.02
+          - 10.16.02
+          - 10.17.03
+          - 10.18.04
+          - 10.19.04
+          - 10.20.04
+          - 10.21.04
+          - 10.22.04
+          - 10.23.04
+          - 10.24.04
+          - 10.25.04
+          - 10.26.04
+          - 10.27.04
+          - 10.28.02
+          - 10.29.04
+          - 10.30.04
+          - 10.31.04
+          - 10.32.04
+          - 10.33.04
+          - 10.34.04
+          - 10.35.04
+          - 10.36.04
+          - 10.37.04
+          - 10.38.03
+          - 10.39.06
+          - 10.40.01
+          - 10.41.01
+          - 10.42.01
+          - 10.43.01
+          - 10.44.01
+          - 10.47.01
+          - 12.2.06
+          - 12.3.02
+          - 12.4.02
+          - 12.5.02
+          - 12.6.03
+          - 12.7.03
+          - 12.8.02
+          - 12.9.02
+          - 12.10.05
+          - 12.11.05
+          - 12.12.06
+          - 12.13.04
+          - 12.14.02
+          - 12.15.02
+          - 12.16.02
+          - 12.17.03
+          - 12.18.04
+          - 12.19.04
+          - 12.20.04
+          - 12.21.04
+          - 12.22.04
+          - 12.23.04
+          - 12.24.04
+          - 12.25.04
+          - 12.26.04
+          - 12.27.04
+          - 12.28.04
+          - 12.29.04
+          - 12.30.02
+          - 12.31.04
+          - 12.32.04
+          - 12.33.04
+          - 12.34.04
+          - 12.35.04
+          - 12.36.04
+          - 12.37.04
+          - 12.38.04
+          - 12.39.04
+          - 12.40.04
+          - 12.41.03
+          - 12.42.06
+          - 12.43.01
+          - 12.44.01
+          - 12.45.01
+          - 12.46.01
+          - 12.47.01
+          - 12.48.01
+          - 12.50.01
       - id: DAT-PAT-2
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
@@ -1691,112 +2318,165 @@
           - '11.07'
           - '11.11'
           - 4.2.08 - 4.2.09
-          - 4.3.04 - 4.3.05
-          - 4.4.04 - 4.4.05
-          - 4.5.04 - 4.5.05
-          - 4.6.04 - 4.6.05
-          - 4.7.04 - 4.7.05
-          - 4.8.07 - 4.8.08
-          - 4.9.07 - 4.9.08
-          - 4.10.08 - 4.10.09
-          - 4.11.04 - 4.11.05
-          - 4.12.04 - 4.12.05
-          - 4.13.06 - 4.13.07
-          - 4.14.04 - 4.14.05
-          - 4.15.06 - 4.15.07
-          - 4.16.06 - 4.16.07
-          - 4.17.06 - 4.17.07
-          - 4.18.06 - 4.18.07
-          - 4.19.06 - 4.19.07
-          - 4.20.06 - 4.20.07
-          - 4.21.06 - 4.21.07
-          - 4.22.06 - 4.22.07
-          - 4.23.06 - 4.23.07
-          - 4.24.06 - 4.24.07
-          - 4.25.06 - 4.25.07
-          - 4.26.05 - 4.26.06
-          - 4.27.02 - 4.27.03
+          - 4.3.04 - 4.3.06
+          - 4.4.04 - 4.4.06
+          - 4.5.04 - 4.5.06
+          - 4.6.04 - 4.6.06
+          - 4.7.04 - 4.7.06
+          - 4.8.07 - 4.8.09
+          - 4.9.07 - 4.9.09
+          - 4.10.08 - 4.10.10
+          - 4.11.04 - 4.11.06
+          - 4.12.04 - 4.12.06
+          - 4.13.06 - 4.13.08
+          - 4.14.04 - 4.14.06
+          - 4.15.06 - 4.15.08
+          - 4.16.06 - 4.16.08
+          - 4.17.06 - 4.17.08
+          - 4.18.06 - 4.18.08
+          - 4.19.06 - 4.19.08
+          - 4.20.06 - 4.20.08
+          - 4.21.06 - 4.21.08
+          - 4.22.06 - 4.22.08
+          - 4.23.06 - 4.23.08
+          - 4.24.06 - 4.24.08
+          - 4.25.06 - 4.25.08
+          - 4.26.05 - 4.26.07
+          - 4.27.02 - 4.27.04
           - 4.28.02 - 4.28.03
           - 4.29.02 - 4.29.03
-          - 4.30.02 - 4.30.03
+          - 4.30.02 - 4.30.04
           - 5.2.08 - 5.2.09
-          - 5.3.04 - 5.3.05
-          - 5.4.04 - 5.4.05
-          - 5.5.04 - 5.5.05
-          - 5.6.04 - 5.6.05
-          - 5.7.04 - 5.7.05
-          - 5.8.07 - 5.8.08
-          - 5.9.07 - 5.9.08
-          - 5.10.08 - 5.10.09
-          - 5.11.04 - 5.11.05
-          - 5.12.04 - 5.12.05
-          - 5.13.06 - 5.13.07
-          - 5.14.06 - 5.14.07
-          - 5.15.06 - 5.15.07
-          - 5.16.06 - 5.16.07
-          - 5.17.06 - 5.17.07
-          - 5.18.06 - 5.18.07
-          - 5.19.06 - 5.19.07
-          - 5.20.06 - 5.20.07
-          - 5.21.06 - 5.21.07
-          - 5.22.06 - 5.22.07
-          - 5.23.06 - 5.23.07
-          - 5.24.06 - 5.24.07
-          - 5.25.06 - 5.25.07
-          - 5.26.05 - 5.26.06
-          - 5.27.06 - 5.27.07
-          - 5.28.05 - 5.28.06
-          - 5.29.02 - 5.29.03
+          - 5.3.04 - 5.3.06
+          - 5.4.04 - 5.4.06
+          - 5.5.04 - 5.5.06
+          - 5.6.04 - 5.6.06
+          - 5.7.04 - 5.7.06
+          - 5.8.07 - 5.8.09
+          - 5.9.07 - 5.9.09
+          - 5.10.08 - 5.10.10
+          - 5.11.04 - 5.11.06
+          - 5.12.04 - 5.12.06
+          - 5.13.06 - 5.13.08
+          - 5.14.06 - 5.14.08
+          - 5.15.06 - 5.15.08
+          - 5.16.06 - 5.16.08
+          - 5.17.06 - 5.17.08
+          - 5.18.06 - 5.18.08
+          - 5.19.06 - 5.19.08
+          - 5.20.06 - 5.20.08
+          - 5.21.06 - 5.21.08
+          - 5.22.06 - 5.22.08
+          - 5.23.06 - 5.23.08
+          - 5.24.06 - 5.24.08
+          - 5.25.06 - 5.25.08
+          - 5.26.06 - 5.26.08
+          - 5.27.06 - 5.27.08
+          - 5.28.05 - 5.28.04
+          - 5.29.02 - 5.29.04
           - 5.30.02 - 5.30.03
           - 5.31.02 - 5.31.03
-          - 5.32.02 - 5.32.03
+          - 5.32.02 - 5.32.04
           - 10.2.08 - 10.2.09
-          - 10.3.04 - 10.3.05
-          - 10.4.04 - 10.4.05
-          - 10.5.04 - 10.5.05
-          - 10.6.05 - 10.6.06
-          - 10.7.05 - 10.7.06
-          - 10.8.04 - 10.8.05
-          - 10.9.04 - 10.9.05
-          - 10.10.07 - 10.10.08
-          - 10.11.07 - 10.11.08
-          - 10.12.08 - 10.12.09
-          - 10.13.06 - 10.13.07
-          - 10.14.04 - 10.14.05
-          - 10.15.04 - 10.15.05
-          - 10.16.04 - 10.16.05
-          - 10.17.06 - 10.17.07
-          - 10.18.06 - 10.18.07
-          - 10.19.06 - 10.19.07
-          - 10.20.06 - 10.20.07
-          - 10.21.06 - 10.21.07
-          - 10.22.06 - 10.22.07
-          - 10.23.06 - 10.23.07
-          - 10.24.06 - 10.24.07
-          - 10.25.06 - 10.25.07
-          - 10.26.06 - 10.26.07
-          - 10.27.06 - 10.27.07
-          - 10.28.04 - 10.28.05
-          - 10.29.06 - 10.29.07
-          - 10.30.06 - 10.30.07
-          - 10.31.06 - 10.31.07
-          - 10.32.06 - 10.32.07
-          - 10.33.06 - 10.33.07
-          - 10.34.06 - 10.34.07
-          - 10.35.06 - 10.35.07
-          - 10.36.06 - 10.36.07
-          - 10.37.06 - 10.37.07
-          - 10.38.05 - 10.38.06
-          - 10.39.08 - 10.39.09
+          - 10.3.04 - 10.3.06
+          - 10.4.04 - 10.4.06
+          - 10.5.04 - 10.5.06
+          - 10.6.05 - 10.6.07
+          - 10.7.05 - 10.7.07
+          - 10.8.04 - 10.8.06
+          - 10.9.04 - 10.9.06
+          - 10.10.07 - 10.10.09
+          - 10.11.07 - 10.11.09
+          - 10.12.08 - 10.12.10
+          - 10.13.06 - 10.13.08
+          - 10.14.04 - 10.14.06
+          - 10.15.04 - 10.15.06
+          - 10.16.04 - 10.16.06
+          - 10.17.06 - 10.17.08
+          - 10.18.06 - 10.18.08
+          - 10.19.06 - 10.19.08
+          - 10.20.06 - 10.20.08
+          - 10.21.06 - 10.21.08
+          - 10.22.06 - 10.22.08
+          - 10.23.06 - 10.23.08
+          - 10.24.06 - 10.24.08
+          - 10.25.06 - 10.25.08
+          - 10.26.06 - 10.26.08
+          - 10.27.06 - 10.27.08
+          - 10.28.04 - 10.28.06
+          - 10.29.06 - 10.29.08
+          - 10.30.06 - 10.30.08
+          - 10.31.06 - 10.31.08
+          - 10.32.06 - 10.32.08
+          - 10.33.06 - 10.33.08
+          - 10.34.06 - 10.34.08
+          - 10.35.06 - 10.35.08
+          - 10.36.06 - 10.36.08
+          - 10.37.06 - 10.37.08
+          - 10.38.05 - 10.38.07
+          - 10.39.08 - 10.39.10
           - 10.40.02 - 10.40.03
           - 10.41.02 - 10.41.04
-          - 10.42.02 - 10.42.03
-          - 10.43.02 - 10.43.03
-          - 10.44.03 - 10.44.04
+          - 10.42.02 - 10.42.04
+          - 10.43.02 - 10.43.04
+          - 10.44.03 - 10.44.05
+          - 12.2.08 - 12.2.09
+          - 12.3.04 - 12.3.06
+          - 12.4.04 - 12.4.06
+          - 12.5.04 - 12.5.06
+          - 12.6.05 - 12.6.07
+          - 12.7.05 - 12.7.07
+          - 12.8.04 - 12.8.06
+          - 12.9.04 - 12.9.06
+          - 12.10.07 - 12.10.09
+          - 12.11.07 - 12.11.09
+          - 12.12.08 - 12.12.10
+          - 12.13.06 - 12.13.08
+          - 12.14.04 - 12.14.06
+          - 12.15.04 - 12.15.06
+          - 12.16.04 - 12.16.06
+          - 12.17.06 - 12.17.08
+          - 12.18.06 - 12.18.08
+          - 12.19.06 - 12.19.08
+          - 12.20.06 - 12.20.08
+          - 12.21.06 - 12.21.08
+          - 12.22.06 - 12.22.08
+          - 12.23.06 - 12.23.08
+          - 12.24.06 - 12.24.08
+          - 12.25.06 - 12.25.08
+          - 12.26.06 - 12.26.08
+          - 12.27.06 - 12.27.08
+          - 12.28.06 - 12.28.08
+          - 12.29.06 - 12.29.08
+          - 12.30.04 - 12.30.06
+          - 12.31.06 - 12.31.08
+          - 12.32.06 - 12.32.08
+          - 12.33.06 - 12.33.08
+          - 12.34.06 - 12.34.08
+          - 12.35.06 - 12.35.08
+          - 12.36.06 - 12.36.08
+          - 12.37.06 - 12.37.08
+          - 12.38.06 - 12.38.08
+          - 12.39.06 - 12.39.08
+          - 12.40.06 - 12.40.08
+          - 12.41.05 - 12.41.07
+          - 12.42.08 - 12.42.10
+          - 12.43.04 - 12.43.06
+          - 12.44.02 - 12.44.03
+          - 12.45.02 - 12.45.04
+          - 12.46.02 - 12.46.04
+          - 12.47.02 - 12.47.04
+          - 12.48.02 - 12.48.04
           - 7.3.03
-          - 7.3.06 - 7.3.34
+          - 7.3.06 - 7.3.21
+          - 7.3.25 - 7.3.26
+          - 7.3.28 - 7.3.34
+          - 7.3.38 - 7.3.45
           - 8.3.03
-          - 8.3.06 - 8.3.34
+          - 8.3.06 - 8.3.21
+          - 8.3.25 - 8.3.26
+          - 8.3.28 - 8.3.34
+          - 8.3.38 - 8.3.45
         inferno_notes: |
           The requirement "all information is accurate and without omission"
           cannot be verified automatically by Inferno, as Inferno only has
@@ -1918,6 +2598,48 @@
           - 10.38.04
           - 10.39.07
           - 10.42.01 - 10.42.04
+          - 12.2.07
+          - 12.3.03
+          - 12.4.03
+          - 12.5.03
+          - 12.6.04
+          - 12.7.04
+          - 12.8.03
+          - 12.9.03
+          - 12.10.06
+          - 12.11.06
+          - 12.12.07
+          - 12.13.05
+          - 12.14.03
+          - 12.15.03
+          - 12.16.03
+          - 12.17.04
+          - 12.18.05
+          - 12.19.05
+          - 12.20.05
+          - 12.21.05
+          - 12.22.05
+          - 12.23.05
+          - 12.24.05
+          - 12.25.05
+          - 12.26.05
+          - 12.27.05
+          - 12.28.05
+          - 12.29.05
+          - 12.30.03
+          - 12.31.05
+          - 12.32.05
+          - 12.33.05
+          - 12.34.05
+          - 12.35.05
+          - 12.36.05
+          - 12.37.05
+          - 12.38.05
+          - 12.39.05
+          - 12.40.05
+          - 12.41.04
+          - 12.42.07
+          - 12.46.01 - 12.46.04
           - 7.3.21
           - 8.3.21
       - id: DAT-PAT-4
@@ -1939,6 +2661,7 @@
           - 4.31.01 - 4.31.02
           - 5.33.01 - 5.33.02
           - 10.45.01 - 10.45.02
+          - 12.49.01 - 12.49.02
       - id: DAT-PAT-5
         SUT: |
           If supported, and for responses to data for a single patient only, the
@@ -1957,6 +2680,7 @@
           - 4.13.06
           - 5.13.06
           - 10.17.06
+          - 12.17.06
       - id: DAT-PAT-6
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
@@ -1977,6 +2701,7 @@
           - 4.32.01 - 4.32.02
           - 5.34.01 - 5.34.02
           - 10.46.01 - 10.46.02
+          - 12.51.01 - 12.51.02
       - group: Response to Requests for a Single Patient’s Data
         id: DAT-PAT-7
         SUT: |
@@ -2084,6 +2809,47 @@
           - 10.37.01
           - 10.38.01
           - 10.39.01
+          - 12.2.01
+          - 12.3.01
+          - 12.4.01
+          - 12.5.01
+          - 12.6.01
+          - 12.7.01
+          - 12.8.01
+          - 12.9.01
+          - 12.10.01
+          - 12.11.01
+          - 12.12.01
+          - 12.13.01
+          - 12.14.01
+          - 12.15.01
+          - 12.16.01
+          - 12.17.01
+          - 12.18.01
+          - 12.19.01
+          - 12.20.01
+          - 12.21.01
+          - 12.22.01
+          - 12.23.01
+          - 12.24.01
+          - 12.25.01
+          - 12.26.01
+          - 12.27.01
+          - 12.28.01
+          - 12.29.01
+          - 12.30.01
+          - 12.31.01
+          - 12.32.01
+          - 12.33.01
+          - 12.34.01
+          - 12.35.01
+          - 12.36.01
+          - 12.37.01
+          - 12.38.01
+          - 12.39.01
+          - 12.40.01
+          - 12.41.01
+          - 12.42.01
       - group: Response to Requests for Multiple Patients’ Data
         id: DAT-PAT-8
         SUT: |
@@ -2142,8 +2908,10 @@
         inferno_tests:
           - 7.3.03
           - 7.3.06 - 7.3.23
+          - 7.3.26
           - 8.3.03
           - 8.3.06 - 8.3.23
+          - 8.3.26
       - id: DAT-PAT-17
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
@@ -2163,7 +2931,7 @@
           * “Encounter”;
           * “Goal”;
           * “Immunization”;
-          * “Location” (if supported);
+          * “Location” (if supported or using US Core 7.0.0);
           * “Medication” (if supported);
           * “MedicationDispense”
           * “MedicationRequest”;
@@ -2196,7 +2964,7 @@
           * “Encounter”;
           * “Goal”;
           * “Immunization”;
-          * “Location” (if supported);
+          * “Location” (if supported or using US Core 7.0.0);
           * “Medication” (if supported);
           * “MedicationDispense”
           * “MedicationRequest”;
@@ -2214,9 +2982,15 @@
         inferno_supported: 'yes'
         inferno_tests:
           - 7.3.03
-          - 7.3.06 - 7.3.34
+          - 7.3.06 - 7.3.21
+          - 7.3.25 - 7.3.26
+          - 7.3.28 - 7.3.34
+          - 7.3.38 - 7.3.45
           - 8.3.03
-          - 8.3.06 - 8.3.34
+          - 8.3.06 - 8.3.21
+          - 8.3.25 - 8.3.26
+          - 8.3.28 - 8.3.34
+          - 8.3.38 - 8.3.45
       - id: DAT-PAT-9
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
@@ -2230,7 +3004,7 @@
           170.215(d).
         inferno_supported: 'yes'
         inferno_tests:
-          - 2.3.01 - 2.3.19
+          - 2.3.01 - 2.3.23
       - id: DAT-PAT-10
         SUT: |
           The health IT developer demonstrates the ability of the Health IT
@@ -2299,8 +3073,8 @@
           provided.
         inferno_supported: 'yes'
         inferno_tests:
-          - 7.3.01 - 7.3.34
-          - 8.3.01 - 8.3.34
+          - 7.3.01 - 7.3.45
+          - 8.3.01 - 8.3.45
       - id: DAT-PAT-15
         SUT: |
           The health IT developer demonstrates that the information provided as
