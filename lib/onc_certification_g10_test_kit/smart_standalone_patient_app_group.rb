@@ -98,9 +98,9 @@ module ONCCertificationG10TestKit
         title 'US Core 7 requires SMART App Launch 2.0.0 or above'
         description %(
           The [US Core 7 SMART on FHIR Obligations and
-          Capabilities](https://hl7.org/fhir/us/core/scopes.html) require SMART
-          App Launch 2.0.0 or above, so systems can not certify with US Core 7
-          and SMART App Launch 1.0.0.
+          Capabilities](https://hl7.org/fhir/us/core/STU7/scopes.html) require
+          SMART App Launch 2.0.0 or above, so systems can not certify with US
+          Core 7 and SMART App Launch 1.0.0.
 
           The [Test
           Procedure](https://www.healthit.gov/test-method/standardized-api-patient-and-population-services)
