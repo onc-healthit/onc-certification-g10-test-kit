@@ -90,6 +90,32 @@ module ONCCertificationG10TestKit
                ]
              }
            }
+
+      test do
+        required_suite_options(G10Options::US_CORE_7_REQUIREMENT)
+
+        id :g10_us_core_7_smart_version_check
+        title 'US Core 7 requires SMART App Launch 2.0.0 or above'
+        description %(
+          The [US Core 7 SMART on FHIR Obligations and
+          Capabilities](https://hl7.org/fhir/us/core/STU7/scopes.html) require
+          SMART App Launch 2.0.0 or above, so systems can not certify with US
+          Core 7 and SMART App Launch 1.0.0.
+
+          The [Test
+          Procedure](https://www.healthit.gov/test-method/standardized-api-patient-and-population-services)
+          also states in **Paragraph (g)(10)(v)(A) – Authentication and
+          authorization for patient and user scopes**:
+
+          > Note: US Core 7.0.0 must be tested with SMART App Launch 2.0.0 or
+            above.
+        )
+
+        run do
+          assert false, 'US Core 7 is not eligible for certification with SMART App Launch 1.0.0. ' \
+                        'Start a new session with SMART App Launch 2.0.0 or higher.'
+        end
+      end
     end
 
     group from: :smart_discovery_stu2 do
