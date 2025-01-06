@@ -1,3 +1,9 @@
+# 7.0.3
+* Update validator to v1.0.60
+* Update inferno_core to v0.5.1
+* Fix Reference Server Preset Endpoint Scope
+* Prevent systems from passing with US core v7.0.0 and SMART App Launch v1
+
 # 7.0.2
 * Updated validator to v1.0.59
 * Updated inferno_core to v0.5.1
