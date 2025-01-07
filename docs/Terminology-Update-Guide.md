@@ -1,7 +1,3 @@
-
-
-# Background
-
 The (g)(10) Test Kit provides its own terminology validation instead of relying
 on the HL7 FHIR Validator's integration with an externally hosted terminology
 service.  The test kit does this by instructing the HL7 FHIR Validator to not perform
@@ -18,7 +14,7 @@ possible improvement of this test kit is to reevaluate its approach to
 terminology validation to better leverage the HL7 Validator to reduce the amount
 of code that needs to be maintained.
 
-# Terminology Installation
+## Terminology Installation
 
 Developers should install terminology files into their test kit directory as
 described in the instructions in the [README of this
@@ -36,7 +32,7 @@ terminology files.  For Docker users, you can update Docker Desktop memory by
 opening Docker Desktop and going to Settings -> Resources and increasing the
 memory.
 
-# Updating Terminology
+## Updating Terminology
 
 As described in the README, the terminology files are downloaded from UMLS,
 processed into small files, and saved in each local installation of the
@@ -91,7 +87,7 @@ loaded with data to ensure that 100% of the tests pass.  Additionally, the
 developer can use commands as described in the README to spot check that
 expected codes appear in the value sets.
 
-Notes:
+##Notes from recent updates
 
 * v7.0.0: Ran into some issues with where US Core v7 was not in simplifier
   registry, since US Core 7  builds on VSAC 0.18.0 and that package is huge, so

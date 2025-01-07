@@ -13,8 +13,8 @@ in the ONC Certification Program.
 
 ## Updating this Test Kit
 
-Developers contributing to this Test Kit should be familiar with authoring
-Inferno Framework test suites.  The following guides provide additional
+Developers contributing to this Test Kit should be familiar with [authoring
+Inferno Framework test suites](https://inferno-framework.github.io/docs/writing-tests/).  The following guides provide additional
 information about the design and implementation of this Test Kit to aid
 contributing to these tests:
 
@@ -32,4 +32,4 @@ For questions or issues with this Test Kit, please reach out to the Inferno team
 on the [#Inferno FHIR Zulip
 channel](https://chat.fhir.org/#narrow/stream/179309-inferno).
 
-Report bugs or provide suggestions in [GitHub Issues](/inferno-framework/us-core-test-kit/issues).
+Report bugs or provide suggestions in [GitHub Issues](https://github.com/onc-healthit/onc-certification-g10-test-kit/issues).
