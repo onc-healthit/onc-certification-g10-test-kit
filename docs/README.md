@@ -6,10 +6,10 @@ in the ONC Certification Program.
 
 ## Using this Test Kit
 
-* [Getting Started](https://github.com/onc-healthit/onc-certification-g10-test-kit/?tab=readme-ov-file#getting-started)
+* [Getting Started](https://github.com/onc-healthit/onc-certification-g10-test-kit/?tab=readme-ov-file#getting-started): Installation instructions for this Test Kit.
 * [Test Kit Walkthrough](Walkthrough): A step-by-step guide to using this test kit.
 * [Testing FAQ](FAQ.md): Frequently asked questions about the tests in this test kit.
-* [IE Browser](IE-Browser): Special A guide to using this test kit with Internet Explorer.
+* [IE Browser](IE-Browser): A guide to using this test kit with legacy/unsupported versions of Internet Explorer.
 
 ## Updating this Test Kit
 
