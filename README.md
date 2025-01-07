@@ -202,14 +202,6 @@ configuration file.  If Inferno tests receive a code from an excluded
 CodeSystem, a warning indicating that Inferno cannot validate the code will be
 provided along with the test result.
 
-#### Manual build instructions
-
-**TODO:** Update this section
-
-If this Docker-based method does not work based on your architecture, manual
-setup and creation of the terminology validators is documented [on this wiki
-page](https://github.com/onc-healthit/inferno/wiki/Installing-Terminology-Validators#building-the-validators-without-docker)
-
 #### UMLS Data Sources
 
 Some material in the UMLS Metathesaurus is from copyrighted sources of the
