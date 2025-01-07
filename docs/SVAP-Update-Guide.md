@@ -212,7 +212,8 @@ existing tests remain unchanged. This short id map must be updated when tests
 are added or removed. To update the map, execute the following two commands:
 
 ```bash
-bundle exec inferno console ONCCertificationG10TestKit::ShortIDManager.save_current_short_id_map
+bundle exec inferno console \
+ONCCertificationG10TestKit::ShortIDManager.save_current_short_id_map
 ```
 
 Verify that short ids in the file ‘./lib/onc_certification_g10_test_kit/short_id_map.yml’ are updated.
