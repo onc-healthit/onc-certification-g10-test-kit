@@ -1,5 +1,3 @@
-# Background
-
 This document guides developers through the process of developing and
 incorporating new and updated tests for the yearly Standards Version advancement
 Process (SVAP) updates to the (g)(10) certification criterion.  
@@ -9,7 +7,7 @@ using the US Core Test Kit and building test kits using the Inferno Framework.
 Please review the [Technical Overview](Technical-Overview) document for a
 high-level overview of the test kit's design.
 
-# Overview
+## Overview
 
 The **§170.315(g)(10) Standardized API for patient and population services** certification
 criterion requires systems implement the following implementation specifications:
@@ -46,12 +44,12 @@ The steps involved in updating the test kits are broadly:
 1. Update Component Test Kits
 2. Incorporate US Core Test Updates
 3. Incorporate SMART App Launch Test Updates 
-4. Update Bulk Data Test
+4. Update Bulk Data Tests
 5. Complete (g)(10) Test Kit
 6. Validate Updates against Reference Server
 
 
-# Step 1. Update Component Test Kits
+## Step 1. Update Component Test Kits
 
 The best place to start is to update the Component Test Kits, as necessary.
 These test kits separate tets for different versions of the specifications
@@ -72,7 +70,7 @@ new suites that support testing new versions of that standard.
 Once updated, new versions of the test kit gem can be published and imported
 into the (g)(10) Test Kit.
 
-# Step 2. Incorporate US Core Test Updates
+## Step 2. Incorporate US Core Test Updates
 
 Import a new version of the test kit, which includes new tests for the new
 version of US Core, by updating the `onc_certification_g10_test_kit.gemspec`.
@@ -102,7 +100,7 @@ A handful of things need to be updated in the new file:
 
 **required_resources (deprecated)**: Like the required_profile, this is an array of FHIR resource types that the server must declare in the Capability Statement. This is only applicable to US Core v3.1.1 and has been deprecated since the release of US Core v4.0.0.
 
-# Step 3. Incorporate SMART App Launch Test Updates
+## Step 3. Incorporate SMART App Launch Test Updates
 
 Import a new version of the SMART App Launch test kit, which includes new tests for the new
 version of US Core, by updating the `onc_certification_g10_test_kit.gemspec`.
@@ -116,7 +114,7 @@ patterns that have been used to incorporate v1.0.0, v2.0.0 and v2.2.0 of
 the SMART App Launch specification.
 
 
-# Step 4: Update Bulk Data Tests
+## Step 4: Update Bulk Data Tests
 
 Bulk Data tests are in the following test groups:
 •	multi_patient_api_stu1
@@ -135,7 +133,7 @@ adopted by the (g)(10) procedure
 **resource_selector**: Bulk Data Export is resource type-based, while US Core validation is profile-based. One resource type may have multiple required US Core profiles, such as Observation. This module is used by the bulk data export validation test to select the correct profiles for each exported resource in the NDJSON export file.  It should be updted
 
 
-# Step 5. Complete (g)(10) Test Kit Updates
+## Step 5. Complete (g)(10) Test Kit Updates
 
 Numerous files require updates for the (g)(10) test kit. We'll begin with the test kit file named `onc_certification_g10_test_kit.rb`.
 
@@ -229,7 +227,6 @@ align with the (g)(10) test procedure.
 visually represents the procedure mapping mentioned earlier. After updating the
 'onc_program_procedure', execute the following command to update this xlsx
 file:
-
 ```bash
 bundle exec rake g10_test_kit:generate_matrix
 ```
@@ -244,7 +241,7 @@ be updated so that values are properly filled for any new version-specific optio
 exist.  See the existing file for the general format for the preset, as it contains
 many examples of how this occurs.
 
-# Step 6. Validate Updates against Reference Server
+## Step 6. Validate Updates against Reference Server
 
 Prior to publication, all tests should pass against the Inferno Reference Server
 to verify the correctness of the tests against a known good server.  This may

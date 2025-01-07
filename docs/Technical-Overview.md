@@ -1,5 +1,3 @@
-# Background
-
 This document provides technical information about the design of this test kit
 and is intended to serve multiple purposes:
 * To guide individuals who are interested in contributing to this project.
@@ -18,7 +16,7 @@ Please note that the focus of this document are on features that are specific to
 this Test Kit and does not provide a detailed explanation of common Inferno
 Framework functionality.
 
-# Test Design Principles and features
+## Test Design Principles and features
 
 Prior to making any updates or additions to these tests, developers should
 be aware of the general principles that guided development of the existing tests
@@ -62,7 +60,7 @@ of Ruby development before attempting to alter these tests.  This Test Kit also
 uses RSpec to "unit test" components of these tests, and developers are expected
 to learn the basics of RSpec as well.
 
-# Relationship with Other Test Kits
+## Relationship with Other Test Kits
 
 The ONC (g)(10) Certification Criterion requires the implementation of several
 FHIR Implementation Guides, while providing guidance on how to support these
@@ -86,7 +84,7 @@ The specific Test Kits that are imported into this Test Kit include:
 2. **[SMART App Launch Test Kit](https://github.com/inferno-framework/smart-app-launch-test-kit)**: All
   Single Patient API authorization tests are imported from the SMART App Launch Test Kit.
 
-# Test Kit Code Organization
+## Test Kit Code Organization
 
 The (g)(10) Test Kit follows general Ruby conventions for applications and
 libraries.  It is organized into several main directories:
@@ -108,14 +106,14 @@ any valid combination of approved standards for certification.  This suite
 is defined in `lib/onc_certification_g10_test_kit.rb` and imports all necessary
 tests from both external Test Kits and from within the (g)(10) Test Kit itself.
 
-# Testing Code Changes
+## Testing Code Changes
 
 This test kit includes comprehensive "self testing" functionality to provide
 confidence that the tests perform as expected.  Prior to committing changes to
 this test kit, developers should ensure that both RSpec tests and End-to-End
 tests pass.
 
-## RSpec Tests
+### RSpec Tests
 
 The test kit contains many "unit" tests within the `spec` directory.  These
 tests are written in RSpec, and can be run with the following command:
@@ -128,7 +126,7 @@ that the code base achieves 100% test coverage; instead, the team has followed a
 common sense approach to testing components that 1) are complicated or 2) are
 likely to change.
 
-## End-to-End testing
+### End-to-End testing
 
 Besides the unit tests provided within this Test Kit, after each update
 the tests should be validated against a complete server implementation
@@ -138,7 +136,7 @@ have been made that require data on the Reference Server to change as well,
 that data set needs to be updated.
 
 
-# FHIR and Terminology Validation
+## FHIR and Terminology Validation
 
 One important difference between this test kit and many others is that terminology
 validation is performed within test logic instead of automatically through validating
@@ -160,21 +158,3 @@ of terminology packages are released and as policy changes are made.
 
 Please visit the [Terminology Update Guide](Terminology-Update-Guide) for instructions on
 how to update the terminology.
-
-# Unusual Implementation Details
-
-While code in this Test Kit is intended to be as simple and as easy-to-understand
-as possible, sometimes unanticipated testing requirements are introduced that
-require special handling by the US Core test kit.  The ability for Inferno
-to accommodate these requirements is a key feature of the Inferno framework.  However,
-this does add complexity to maintenance of the tests.
-
-The following is a list of unusual or unorthodox methods used in the US Core
-Test Kit that that maintainers should be aware of.  These are also opportunities
-for improvement of the Inferno Framework if this type of functionality would be
-of broad use beyond US Core.
-
-The following links are to a specific snapshot in time of the repository; this
-list should be maintained as the repository evolves.
-
-
