@@ -1,1 +1,3 @@
-_Documents in this section are committed within the main repository code of this site. Please do not update the wiki directly, as those will be automatically overwritten by the content of the /docs/ directory of this repository each time that the main branch is updated._
+_Test Kit documentation is stored within the `/docs` folder of this git repository
+and is automatically copied to the wiki with each update to the `main` branch.
+Do not change content within the wiki directly as changes will be overwritten._
