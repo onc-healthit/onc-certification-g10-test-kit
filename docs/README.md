@@ -20,7 +20,7 @@ information about the design and implementation of this test kit to aid
 contributing to these tests:
 
 * [Technical Overview](Technical-Overview.md): A guide to the architecture of this test kit.
-* [Standards Update Guide](SVAP-Update-Guide.md): How to update this test kit when new versions of standards are approved.
+* [SVAP Update Guide](SVAP-Update-Guide.md): How to update this test kit when new versions of standards are approved.
 * [Terminology Update Guide](Terminology-Update-Guide.md): How to update terminology used in this test kit.
 * [Unusual Implementation Details](Unusual-Implementation-Details.md): Gotchas and special cases to be aware of when updating this test kit.
 
