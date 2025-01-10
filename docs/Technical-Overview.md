@@ -6,14 +6,14 @@ and is intended to serve multiple purposes:
   effective transfer of this software to new stewards.
 
 This document does not provide detailed instructions on how to use
-an Inferno Test Kit, the contents of the (g)(10) Certification Criteria,
+an Inferno test kit, the contents of the (g)(10) Certification Criteria,
 basics of the Inferno Framework, or details on how to use Ruby, Docker,
 or other tools.  Developers are expected to have at least a basic understanding
 of all these topics.  Please refer to the References section of this document
 for links to more information about these topics.
 
 Please note that the focus of this document are on features that are specific to
-this Test Kit and does not provide a detailed explanation of common Inferno
+this test kit and does not provide a detailed explanation of common Inferno
 Framework functionality.
 
 ## Test Design Principles and features
@@ -30,7 +30,7 @@ Tests for this test kit have been designed with the following principles:
   configuration, and tests should complete in a reasonable amount of time.
 * Limit extraneous constraints: The tests should not place additional constraints
   on the system under test.
-* Reuse existing tests when possible: Reuse tests from Test Kits that target
+* Reuse existing tests when possible: Reuse tests from test kits that target
   implementation guides that are required within this test kit.
 
 The design of the tests within this test kit reflect these principles
@@ -56,7 +56,7 @@ The (g)(10) Test Kit manages this complexity through standard software design
 practices and approaches, leveraging the functionality provided by the Ruby
 programming language.  And while this code is intended to be accessible to
 developers new to the Ruby language, developers are expected to learn the basics
-of Ruby development before attempting to alter these tests.  This Test Kit also
+of Ruby development before attempting to alter these tests.  This test kit also
 uses RSpec to "unit test" components of these tests, and developers are expected
 to learn the basics of RSpec as well.
 
@@ -67,8 +67,8 @@ FHIR Implementation Guides, while providing guidance on how to support these
 test kits to accomplish the specific requirements of the certification
 criterion.  In order to facilitate testing systems independently of the (g)(10)
 Certification requirements, each of these Implementation Guides also has a
-stand-alone Test Kit.  The (g)(10) Test Kit then imports tests defined in these
-Test Kits and integrates them into a single cohesive test procedure, while also
+stand-alone test kit.  The (g)(10) Test Kit then imports tests defined in these
+test kits and integrates them into a single cohesive test procedure, while also
 further constraining their implementation to meet any (g)(10)-specific
 requirements.
 
@@ -76,7 +76,7 @@ requirements.
 the SMART Bulk Data Test Kit.  A future version of this test kit
 may reuse the SMART Bulk Data Test Kit.*
 
-The specific Test Kits that are imported into this Test Kit include:
+The specific test kits that are imported into this test kit include:
 
 1. **[US Core Test Kit](https://github.com/inferno-framework/us-core-test-kit)**:
   Data access within the Single Patient API tests in this Test Kit are
@@ -104,7 +104,7 @@ libraries.  It is organized into several main directories:
 The (g)(10) Test Kit contains a single suite of tests, which is capable of testing
 any valid combination of approved standards for certification.  This suite
 is defined in `lib/onc_certification_g10_test_kit.rb` and imports all necessary
-tests from both external Test Kits and from within the (g)(10) Test Kit itself.
+tests from both external test kits and from within the (g)(10) Test Kit itself.
 
 ## Testing Code Changes
 
@@ -128,7 +128,7 @@ likely to change.
 
 ### End-to-End testing
 
-Besides the unit tests provided within this Test Kit, after each update
+Besides the unit tests provided within this test kit, after each update
 the tests should be validated against a complete server implementation
 that is known to be correct.  The Inferno Reference Server provides this functionality,
 and contains data that passes all of these tests.  Note that if test changes

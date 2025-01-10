@@ -44,7 +44,7 @@ the version of UMLS should be updated approximately yearly to incorporate any
 new valid codes that may have been introduced.  These two updates are typically done together,
 and the following instructions assume this is the case. During this process,
 metadata about the CodeSystems and ValueSets (e.g. number of codes in each) is
-also updated and stored within the Test Kit.  This enables the (g)(10) Test Kit
+also updated and stored within the test kit.  This enables the (g)(10) Test Kit
 to provide a warning to users if they need to rerun the terminology update
 process.
 

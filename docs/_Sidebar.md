@@ -6,7 +6,7 @@
   - [Testing FAQ](FAQ)
   - [IE Browser Notes](IE-Browser)
 
-**Updating this Test Kit**
+**Contributing to this Test Kit**
   - [Technical Overview](Technical-Overview)
   - [Standards Update Guide](SVAP-Update-Guide)
   - [Terminology Update Guide](Terminology-Update-Guide)

@@ -7,7 +7,7 @@ criterion](https://www.healthit.gov/test-method/standardized-api-patient-and-pop
 of the [21st Century Cures Act: Interoperability, Information Blocking, and the
 ONC Health IT Certification
 Program](https://www.govinfo.gov/content/pkg/FR-2019-03-04/pdf/2019-02224.pdf).
-It uses the [ONC-hosted
+It uses the [ASTP-hosted
 instance](https://inferno.healthit.gov/suites/g10_certification) of the (g)(10)
 Standardized API Test Kit to test against a [publicly available reference
 server](https://inferno.healthit.gov/reference-server) that mimics a (g)(10)
@@ -15,9 +15,9 @@ conformant API.
 
 At the end of this walkthrough, you will be able to use the **Inferno ONC
 Certification (g)(10) Standardized API Test Kit** to evaluate APIs for
-conformance to the ONC (g)(10) certification criteria. If you are interested in
+conformance to the ONC (g)(10) certification criterion. If you are interested in
 how to use the Inferno Framework to test other FHIR-based data exchanges that
-fall outside the scope of ONC (g)(10) certification criteria, please visit the
+fall outside the scope of ONC (g)(10) certification criterion, please visit the
 [Inferno Framework](https://inferno-framework.github.io) for more information.
 
 * [Step 1: Create a new (g)(10) Test Session](#step-1-create-a-new-inferno-g10-test-session-and-select-standard-versions)
@@ -40,7 +40,7 @@ fall outside the scope of ONC (g)(10) certification criteria, please visit the
 * Go to <https://inferno.healthit.gov>.
 * Select 'ONC (g)(10) Standardized Test Kit' under 'ONC Health Certification
   Program', which is an instance of Inferno configured to specifically test
-  the requirements of the criteria in the ONC Health IT Certification Program.
+  the requirements of the criterion in the ONC Health IT Certification Program.
 
 ![step-01-landing](images/step-01-landing.png)
 
@@ -83,7 +83,7 @@ pane, or click 'Standalone Patient App' in the menu on the left.
 
 ## Step 3: Perform Standalone Patient App Tests
 
-Inferno's tests for the ONC certification criteria are organized into seven steps.
+Inferno's tests for the ONC certification criterion are organized into seven steps.
 This allows the tester to walk through the requirements in an order similar to
 what would be done in a real-world situation, while limiting redundant testing.
 
