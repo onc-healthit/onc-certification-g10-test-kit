@@ -38,8 +38,62 @@ module ONCCertificationG10TestKit
     id :g10_smart_limited_app
     run_as_group
 
+    input :expected_resources,
+          title: 'expected resource grant for limited access launch',
+          description: 'the user will only grant access to the following resources during authorization.',
+          default: 'patient, condition, observation'
+
     input_order :expected_resources,
                 :url
+
+    config(
+      inputs: {
+        url: { locked: true },
+        code: { name: :limited_code },
+        state: { name: :limited_state },
+        patient_id: { name: :limited_patient_id },
+        received_scopes: { name: :limited_received_scopes },
+      },
+      outputs: {
+        code: { name: :limited_code },
+        state: { name: :limited_state },
+        id_token: { name: :limited_id_token },
+        patient_id: { name: :limited_patient_id },
+        encounter_id: { name: :limited_encounter_id },
+        received_scopes: { name: :limited_received_scopes },
+        intent: { name: :limited_intent },
+        smart_auth_info: { name: :limited_smart_auth_info }
+      },
+      requests: {
+        redirect: { name: :limited_redirect },
+        token: { name: :limited_token }
+      },
+      options: {
+        ignore_missing_scopes_check: true,
+        redirect_message_proc: lambda do |auth_url|
+          expected_resource_string =
+            expected_resources
+              .split(',')
+              .map(&:strip)
+              .map { |resource_type| "* #{resource_type}\n" }
+              .join
+
+          <<~MESSAGE
+            ### #{self.class.parent.parent.title}
+
+            [Follow this link to authorize with the SMART
+            server](#{auth_url}).
+
+            Tests will resume once Inferno receives a request at
+            `#{config.options[:redirect_uri]}` with a state of `#{state}`.
+
+            Access should only be granted to the following resources:
+
+            #{expected_resource_string}
+          MESSAGE
+        end
+      }
+    )
 
     group from: :smart_standalone_launch do
       title 'Standalone Launch With Limited Scope'
@@ -81,61 +135,12 @@ module ONCCertificationG10TestKit
 
       config(
         inputs: {
-          url: { locked: true },
-          code: { name: :limited_code },
-          state: { name: :limited_state },
-          patient_id: { name: :limited_patient_id },
-          received_scopes: { name: :limited_received_scopes },
           smart_auth_info: {
             name: :standalone_smart_auth_info,
             locked: true
           }
-        },
-        outputs: {
-          code: { name: :limited_code },
-          state: { name: :limited_state },
-          id_token: { name: :limited_id_token },
-          patient_id: { name: :limited_patient_id },
-          encounter_id: { name: :limited_encounter_id },
-          received_scopes: { name: :limited_received_scopes },
-          intent: { name: :limited_intent },
-          smart_auth_info: { name: :limited_smart_auth_info }
-        },
-        requests: {
-          redirect: { name: :limited_redirect },
-          token: { name: :limited_token }
-        },
-        options: {
-          ignore_missing_scopes_check: true,
-          redirect_message_proc: lambda do |auth_url|
-            expected_resource_string =
-              expected_resources
-                .split(',')
-                .map(&:strip)
-                .map { |resource_type| "* #{resource_type}\n" }
-                .join
-
-            <<~MESSAGE
-              ### #{self.class.parent.parent.title}
-
-              [Follow this link to authorize with the SMART
-              server](#{auth_url}).
-
-              Tests will resume once Inferno receives a request at
-              `#{config.options[:redirect_uri]}` with a state of `#{state}`.
-
-              Access should only be granted to the following resources:
-
-              #{expected_resource_string}
-            MESSAGE
-          end
         }
       )
-
-      input :expected_resources,
-            title: 'Expected Resource Grant for Limited Access Launch',
-            description: 'The user will only grant access to the following resources during authorization.',
-            default: 'Patient, Condition, Observation'
 
       test from: :g10_patient_context
 
@@ -173,61 +178,12 @@ module ONCCertificationG10TestKit
 
       config(
         inputs: {
-          url: { locked: true },
-          code: { name: :limited_code },
-          state: { name: :limited_state },
-          patient_id: { name: :limited_patient_id },
-          received_scopes: { name: :limited_received_scopes },
           smart_auth_info: {
             name: :standalone_smart_auth_info,
             locked: true
           }
-        },
-        outputs: {
-          code: { name: :limited_code },
-          state: { name: :limited_state },
-          id_token: { name: :limited_id_token },
-          patient_id: { name: :limited_patient_id },
-          encounter_id: { name: :limited_encounter_id },
-          received_scopes: { name: :limited_received_scopes },
-          intent: { name: :limited_intent },
-          smart_auth_info: { name: :limited_smart_auth_info }
-        },
-        requests: {
-          redirect: { name: :limited_redirect },
-          token: { name: :limited_token }
-        },
-        options: {
-          ignore_missing_scopes_check: true,
-          redirect_message_proc: lambda do |auth_url|
-            expected_resource_string =
-              expected_resources
-                .split(',')
-                .map(&:strip)
-                .map { |resource_type| "* #{resource_type}\n" }
-                .join
-
-            <<~MESSAGE
-              ### #{self.class.parent.parent.title}
-
-              [Follow this link to authorize with the SMART
-              server](#{auth_url}).
-
-              Tests will resume once Inferno receives a request at
-              `#{config.options[:redirect_uri]}` with a state of `#{state}`.
-
-              Access should only be granted to the following resources:
-
-              #{expected_resource_string}
-            MESSAGE
-          end
         }
       )
-
-      input :expected_resources,
-            title: 'Expected Resource Grant for Limited Access Launch',
-            description: 'The user will only grant access to the following resources during authorization.',
-            default: 'Patient, Condition, Observation'
 
       test from: :g10_patient_context
 
@@ -265,62 +221,12 @@ module ONCCertificationG10TestKit
 
       config(
         inputs: {
-          url: { locked: true },
-          requested_scopes: { locked: true },
-          code: { name: :limited_code },
-          state: { name: :limited_state },
-          patient_id: { name: :limited_patient_id },
-          received_scopes: { name: :limited_received_scopes },
           smart_auth_info: {
             name: :standalone_smart_auth_info,
             locked: true
           }
-        },
-        outputs: {
-          code: { name: :limited_code },
-          state: { name: :limited_state },
-          id_token: { name: :limited_id_token },
-          patient_id: { name: :limited_patient_id },
-          encounter_id: { name: :limited_encounter_id },
-          received_scopes: { name: :limited_received_scopes },
-          intent: { name: :limited_intent },
-          smart_auth_info: { name: :limited_smart_auth_info }
-        },
-        requests: {
-          redirect: { name: :limited_redirect },
-          token: { name: :limited_token }
-        },
-        options: {
-          ignore_missing_scopes_check: true,
-          redirect_message_proc: lambda do |auth_url|
-            expected_resource_string =
-              expected_resources
-                .split(',')
-                .map(&:strip)
-                .map { |resource_type| "* #{resource_type}\n" }
-                .join
-
-            <<~MESSAGE
-              ### #{self.class.parent.parent.title}
-
-              [Follow this link to authorize with the SMART
-              server](#{auth_url}).
-
-              Tests will resume once Inferno receives a request at
-              `#{config.options[:redirect_uri]}` with a state of `#{state}`.
-
-              Access should only be granted to the following resources:
-
-              #{expected_resource_string}
-            MESSAGE
-          end
         }
       )
-
-      input :expected_resources,
-            title: 'Expected Resource Grant for Limited Access Launch',
-            description: 'The user will only grant access to the following resources during authorization.',
-            default: 'Patient, Condition, Observation'
 
       test from: :g10_patient_context
 
@@ -330,8 +236,6 @@ module ONCCertificationG10TestKit
     group from: :g10_restricted_resource_type_access,
           config: {
             inputs: {
-              patient_id: { name: :limited_patient_id },
-              received_scopes: { name: :limited_received_scopes },
               smart_auth_info: { name: :limited_smart_auth_info }
             }
           }
