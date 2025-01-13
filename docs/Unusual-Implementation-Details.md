@@ -1,5 +1,5 @@
     
-While code in this Test Kit is intended to be as simple and as
+While code in this test kit is intended to be as simple and as
 easy-to-understand as possible, sometimes unanticipated testing requirements are
 introduced that require special handling.  The ability for Inferno to
 accommodate these requirements is a key feature of the Inferno framework.

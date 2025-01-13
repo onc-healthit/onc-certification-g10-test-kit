@@ -1,10 +1,10 @@
 # ONC Certification (g)(10) Standardized API Test Kit
 
 The **ONC Certification (g)(10) Standardized API Test Kit** is a testing tool
-for Health IT systems seeking to meet the requirements of the ONC [Standardized
+for Health IT systems seeking to meet the requirements of the [Standardized
 API for Patient and Population Services criterion §
 170.315(g)(10)](https://www.healthit.gov/test-method/standardized-api-patient-and-population-services)
-in the ONC Certification Program.
+in the ONC Health IT Certification Program.
 
 The **(g)(10) Standardized API Test Kit** behaves like an API consumer, making a
 series of HTTP requests that mimic a real world client to ensure that the API
@@ -16,24 +16,28 @@ supports an approved version of each of the required standards:
   v2.0.0, or v2.2.0)
 * HL7 FHIR Bulk Data Access (Flat FHIR) (v1.0.1, or v2.0.0)
 
-Please note that US Core Implementation Guide v.7.0.0 should only be used
+_Please note that US Core Implementation Guide v.7.0.0 should only be used
 with SMART Application Launch Guide v2.0.0 or above due to granular scope
-support requirements.
+support requirements._
 
 This test kit is [open source](#license) and freely available for use or
 adoption by the health IT community including EHR vendors, health app
 developers, and testing labs. It is an approved test method for the §
-170.315(g)(10) certification criterion in the EHR Certification program by the
-Office of the National Coordinator for Health IT (ONC).
+170.315(g)(10) certification criterion in the ONC Health IT Certification
+program by the Assistant Secretary for Technology Policy (ASTP).
 
-The (g)(10) Standarized API Test Kit is built using the [Inferno
+The (g)(10) Standardized API Test Kit is built using the [Inferno
 Framework](https://inferno-framework.github.io/).  The Inferno Framework is
 designed for reuse and aims to make it easier to build test kits for any
 FHIR-based data exchange.
 
+Visit the [(g)(10) Standardized API Test Kit
+Documentation](http://github.com/onc-healthit/onc-certification-g10-test-kit/wiki)
+for information on using and contributing to this test kit.
+
 ## Getting Started
 
-ONC hosts a [public
+ASTP hosts a [public
 instance](https://inferno.healthit.gov/suites/g10_certification) of this test
 kit that developers and testers are welcome to use.  However, users are
 encouraged to download and run this tool locally to allow testing within private
@@ -42,7 +46,7 @@ Please see the [Local Installation
 Instructions](#local-installation-instructions) section below for more
 information.
 
-ONC hosts a [(g)(10) reference
+ASTP also hosts a [(g)(10) reference
 server](https://inferno.healthit.gov/reference-server/) that can be used to
 orient new users on these tests.  The [(g)(10) Standardized API Test Kit
 Walkthrough](https://github.com/onc-healthit/onc-certification-g10-test-kit/wiki/Walkthrough)
