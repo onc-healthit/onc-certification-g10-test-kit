@@ -336,7 +336,24 @@ module ONCCertificationG10TestKit
 
     group from: 'g10_smart_standalone_patient_app'
 
-    # group from: 'g10_smart_limited_app'
+    group from: 'g10_smart_limited_app' do
+      # This has to be configured here, otherwise the `smart_auth_info` config
+      # will get clobbered and will use `standalone_smart_auth_info` instead of
+      # `limited_smart_auth_info`
+      groups
+        .select { |group| group.id.include? 'smart_standalone_launch' }
+        .flat_map(&:tests)
+        .select { |test| test.id.include? 'g10_patient_context' }
+        .each do |test|
+          test
+            .config(
+              inputs: {
+                patient_id: { name: :limited_patient_id },
+                smart_auth_info: { name: :limited_smart_auth_info }
+              }
+            )
+          end
+    end
 
     group from: 'g10_smart_ehr_practitioner_app'
 
