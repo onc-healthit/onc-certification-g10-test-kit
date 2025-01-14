@@ -357,16 +357,16 @@ module ONCCertificationG10TestKit
 
     group from: 'g10_smart_ehr_practitioner_app'
 
-    # group from: 'g10_single_patient_api',
-    #       required_suite_options: G10Options::US_CORE_3_REQUIREMENT
-    # group from: 'g10_single_patient_us_core_4_api',
-    #       required_suite_options: G10Options::US_CORE_4_REQUIREMENT
-    # group from: 'g10_single_patient_us_core_5_api',
-    #       required_suite_options: G10Options::US_CORE_5_REQUIREMENT
-    # group from: 'g10_single_patient_us_core_6_api',
-    #       required_suite_options: G10Options::US_CORE_6_REQUIREMENT
-    # group from: 'g10_single_patient_us_core_7_api',
-    #       required_suite_options: G10Options::US_CORE_7_REQUIREMENT
+    group from: 'g10_single_patient_api',
+          required_suite_options: G10Options::US_CORE_3_REQUIREMENT
+    group from: 'g10_single_patient_us_core_4_api',
+          required_suite_options: G10Options::US_CORE_4_REQUIREMENT
+    group from: 'g10_single_patient_us_core_5_api',
+          required_suite_options: G10Options::US_CORE_5_REQUIREMENT
+    group from: 'g10_single_patient_us_core_6_api',
+          required_suite_options: G10Options::US_CORE_6_REQUIREMENT
+    group from: 'g10_single_patient_us_core_7_api',
+          required_suite_options: G10Options::US_CORE_7_REQUIREMENT
 
     # group from: 'multi_patient_api',
     #       required_suite_options: G10Options::BULK_DATA_1_REQUIREMENT
