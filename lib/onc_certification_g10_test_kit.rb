@@ -368,8 +368,8 @@ module ONCCertificationG10TestKit
     group from: 'g10_single_patient_us_core_7_api',
           required_suite_options: G10Options::US_CORE_7_REQUIREMENT
 
-    # group from: 'multi_patient_api',
-    #       required_suite_options: G10Options::BULK_DATA_1_REQUIREMENT
+    group from: 'multi_patient_api',
+          required_suite_options: G10Options::BULK_DATA_1_REQUIREMENT
     # group from: 'multi_patient_api_stu2',
     #       required_suite_options: G10Options::BULK_DATA_2_REQUIREMENT
 
