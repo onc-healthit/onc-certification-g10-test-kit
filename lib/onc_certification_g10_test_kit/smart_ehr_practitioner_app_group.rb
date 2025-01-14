@@ -184,11 +184,6 @@ module ONCCertificationG10TestKit
       required_suite_options(G10Options::SMART_1_REQUIREMENT)
 
       title 'EHR Launch With Practitioner Scope'
-      input :client_secret,
-            name: :ehr_client_secret,
-            title: 'EHR Launch Client Secret',
-            description: 'Client Secret provided during registration of Inferno as an EHR launch application',
-            optional: false
 
       config(
         inputs: {
@@ -338,11 +333,6 @@ module ONCCertificationG10TestKit
       required_suite_options(G10Options::SMART_2_REQUIREMENT)
 
       title 'EHR Launch With Practitioner Scope'
-      input :client_secret,
-            name: :ehr_client_secret,
-            title: 'EHR Launch Client Secret',
-            description: 'Client Secret provided during registration of Inferno as an EHR launch application',
-            optional: false
 
       config(
         inputs: {
@@ -492,11 +482,6 @@ module ONCCertificationG10TestKit
       required_suite_options(G10Options::SMART_2_2_REQUIREMENT)
 
       title 'EHR Launch With Practitioner Scope'
-      input :client_secret,
-            name: :ehr_client_secret,
-            title: 'EHR Launch Client Secret',
-            description: 'Client Secret provided during registration of Inferno as an EHR launch application',
-            optional: false
 
       config(
         inputs: {

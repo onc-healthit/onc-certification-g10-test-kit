@@ -235,9 +235,20 @@
       "value": null
     },
     {
-      "name": "ehr_client_id",
-      "type": "text",
-      "value": "SAMPLE_CONFIDENTIAL_CLIENT_ID"
+      "name": "ehr_smart_auth_info",
+      "type": "auth_info",
+      "value": {
+        "pkce_support": "disabled",
+        "pkce_code_challenge_method": "S256",
+        "auth_request_method": "POST",
+        "auth_type": "symmetric",
+        "use_discovery": "true",
+        "auth_url": "https://inferno.healthit.gov/reference-server/oauth/authorization",
+        "token_url": "https://inferno.healthit.gov/reference-server/oauth/token",
+        "requested_scopes": "launch openid fhirUser offline_access user/Patient.read user/AllergyIntolerance.read user/CarePlan.read user/CareTeam.read user/Condition.read user/Device.read user/DiagnosticReport.read user/DocumentReference.read user/Encounter.read user/Goal.read user/Immunization.read user/Location.read user/Medication.read user/MedicationRequest.read user/Observation.read user/Organization.read user/Practitioner.read user/PractitionerRole.read user/Procedure.read user/Provenance.read",
+        "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+        "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET"
+      }
     },
     {
       "name": "ehr_requested_scopes",
