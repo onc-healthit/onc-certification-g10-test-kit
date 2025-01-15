@@ -370,8 +370,8 @@ module ONCCertificationG10TestKit
 
     group from: 'multi_patient_api',
           required_suite_options: G10Options::BULK_DATA_1_REQUIREMENT
-    # group from: 'multi_patient_api_stu2',
-    #       required_suite_options: G10Options::BULK_DATA_2_REQUIREMENT
+    group from: 'multi_patient_api_stu2',
+          required_suite_options: G10Options::BULK_DATA_2_REQUIREMENT
 
     # group do
     #   title 'Additional Authorization Tests'
