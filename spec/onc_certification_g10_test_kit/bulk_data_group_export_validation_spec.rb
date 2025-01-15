@@ -20,7 +20,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     {
       requires_access_token: 'true',
       status_output:,
-      bearer_token:,
+      bulk_smart_auth_info: Inferno::DSL::AuthInfo.new(access_token: bearer_token),
       bulk_download_url: endpoint
     }
   end
@@ -68,11 +68,11 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     end
 
     it 'skips when bearer_token is not provided' do
-      input.delete(:bearer_token)
+      input[:bulk_smart_auth_info].access_token = nil
       result = run(runnable, input)
 
       expect(result.result).to eq('skip')
-      expect(result.result_message).to match(/bearer_token/)
+      expect(result.result_message).to match(/No access token/)
     end
 
     context 'when bulk_download_url and bearer_token are given and requiresAccessToken is true' do

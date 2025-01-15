@@ -52,7 +52,7 @@ module ONCCertificationG10TestKit
         code: { name: :limited_code },
         state: { name: :limited_state },
         patient_id: { name: :limited_patient_id },
-        received_scopes: { name: :limited_received_scopes },
+        received_scopes: { name: :limited_received_scopes }
       },
       outputs: {
         code: { name: :limited_code },
