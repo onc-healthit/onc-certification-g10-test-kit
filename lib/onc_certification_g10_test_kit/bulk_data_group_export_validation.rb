@@ -63,11 +63,14 @@ module ONCCertificationG10TestKit
       DESCRIPTION
       # link 'http://hl7.org/fhir/uv/bulkdata/STU1.0.1/export/index.html#file-request'
 
-      input :bulk_download_url, :requires_access_token, :requires_access_token
+      input :bulk_download_url, :requires_access_token
+      input :bulk_smart_auth_info, type: :auth_info
 
       run do
         omit_if requires_access_token == 'false',
                 'Could not verify this functionality when requiresAccessToken is false'
+
+        skip_if bulk_smart_auth_info.access_token.blank?, 'No access token was received'
 
         get(bulk_download_url, headers: { accept: 'application/fhir+ndjson' })
         assert_response_status([400, 401])

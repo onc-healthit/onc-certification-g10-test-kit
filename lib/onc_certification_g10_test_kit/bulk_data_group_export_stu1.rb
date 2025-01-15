@@ -137,6 +137,8 @@ module ONCCertificationG10TestKit
       include ExportKickOffPerformer
 
       run do
+        skip_if bulk_smart_auth_info.access_token.blank?, 'No access token was received'
+
         perform_export_kick_off_request(use_token: false)
         assert_response_status([400, 401])
       end
