@@ -373,47 +373,47 @@ module ONCCertificationG10TestKit
     group from: 'multi_patient_api_stu2',
           required_suite_options: G10Options::BULK_DATA_2_REQUIREMENT
 
-    # group do
-    #   title 'Additional Authorization Tests'
-    #   id 'Group06'
-    #   description %(
-    #     The (g)(10) Standardized Test Suite attempts to minimize effort required
-    #     by testers by creating scenarios that validate as many requirements as
-    #     possible with just a handful of SMART App Launches.  However, not all
-    #     SMART App Launch and (g)(10) Standardized API criterion requirements
-    #     that need to be verified fit within the first few test scenarios in this
-    #     suite.
+    group do
+      title 'Additional Authorization Tests'
+      id 'Group06'
+      description %(
+        The (g)(10) Standardized Test Suite attempts to minimize effort required
+        by testers by creating scenarios that validate as many requirements as
+        possible with just a handful of SMART App Launches.  However, not all
+        SMART App Launch and (g)(10) Standardized API criterion requirements
+        that need to be verified fit within the first few test scenarios in this
+        suite.
 
-    #     The scenarios contained in this section verify remaining testing
-    #     requirements for the (g)(10) Standardized API criterion relevant to
-    #     the SMART App Launch implementation specification. Each of these scenarios
-    #     need to be run independently.  Please read the instructions for each in
-    #     the 'About' section, as they may require special setup on the part of
-    #     the tester.
-    #   )
+        The scenarios contained in this section verify remaining testing
+        requirements for the (g)(10) Standardized API criterion relevant to
+        the SMART App Launch implementation specification. Each of these scenarios
+        need to be run independently.  Please read the instructions for each in
+        the 'About' section, as they may require special setup on the part of
+        the tester.
+      )
 
-    #   default_redirect_message_proc = lambda do |auth_url|
-    #     %(
-    #       ### #{self.class.parent.title}
+      default_redirect_message_proc = lambda do |auth_url|
+        %(
+          ### #{self.class.parent.title}
 
-    #       [Follow this link to authorize with the SMART server](#{auth_url}).
+          [Follow this link to authorize with the SMART server](#{auth_url}).
 
-    #       Tests will resume once Inferno receives a request at
-    #       `#{config.options[:redirect_uri]}` with a state of `#{state}`.
-    #     )
-    #   end
+          Tests will resume once Inferno receives a request at
+          `#{config.options[:redirect_uri]}` with a state of `#{state}`.
+        )
+      end
 
-    #   config(
-    #     inputs: {
-    #       client_auth_encryption_method: {
-    #         locked: false
-    #       }
-    #     }
-    #   )
+      config(
+        inputs: {
+          client_auth_encryption_method: {
+            locked: false
+          }
+        }
+      )
 
-    #   group from: :g10_public_standalone_launch,
-    #         required_suite_options: G10Options::SMART_1_REQUIREMENT,
-    #         config: { options: { redirect_message_proc: default_redirect_message_proc } }
+      group from: :g10_public_standalone_launch,
+            required_suite_options: G10Options::SMART_1_REQUIREMENT,
+            config: { options: { redirect_message_proc: default_redirect_message_proc } }
     #   group from: :g10_public_standalone_launch_stu2,
     #         required_suite_options: G10Options::SMART_2_REQUIREMENT,
     #         config: { options: { redirect_message_proc: default_redirect_message_proc } }
@@ -502,9 +502,9 @@ module ONCCertificationG10TestKit
     #   group from: :g10_smart_granular_scope_selection,
     #         id: :g10_us_core_7_smart_granular_scope_selection_stu2_2, # rubocop:disable Naming/VariableNumber
     #         required_suite_options: G10Options::SMART_2_2_REQUIREMENT.merge(G10Options::US_CORE_7_REQUIREMENT)
-    # end
+    end
 
-    # group from: :g10_visual_inspection_and_attestations
+    group from: :g10_visual_inspection_and_attestations
   end
 end
 
