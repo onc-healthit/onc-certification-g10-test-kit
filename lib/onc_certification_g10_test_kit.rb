@@ -423,8 +423,8 @@ module ONCCertificationG10TestKit
 
       # TODO: improve the authinfo appearance
       group from: :g10_token_revocation
-    #   group from: :g10_smart_invalid_aud,
-    #         config: { options: { redirect_message_proc: default_redirect_message_proc } }
+      group from: :g10_smart_invalid_aud,
+            config: { options: { redirect_message_proc: default_redirect_message_proc } }
 
     #   group from: :g10_smart_invalid_token_request,
     #         required_suite_options: G10Options::SMART_1_REQUIREMENT,

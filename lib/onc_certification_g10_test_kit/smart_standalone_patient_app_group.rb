@@ -67,10 +67,6 @@ module ONCCertificationG10TestKit
                 locked: true
               },
               {
-                name: :requested_scopes,
-                type: 'textarea'
-              },
-              {
                 name: :auth_request_method,
                 default: 'GET',
                 locked: true
