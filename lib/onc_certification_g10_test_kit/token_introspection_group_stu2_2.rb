@@ -57,27 +57,6 @@ module ONCCertificationG10TestKit
           DESCRIPTION
           optional: true
 
-    input_order :url,
-                :well_known_introspection_url,
-                :custom_authorization_header,
-                :optional_introspection_request_params,
-                :standalone_client_id,
-                :standalone_client_secret,
-                :authorization_method,
-                :use_pkce,
-                :pkce_code_challenge_method,
-                :standalone_requested_scopes,
-                :token_introspection_auth_type,
-                :client_auth_encryption_method
-
-    config(
-      inputs: {
-        client_auth_type: {
-          name: :token_introspection_auth_type
-        }
-      }
-    )
-
     groups.first.description <<~DESCRIPTION
       These tests are perform discovery and a standalone launch in order to
       receive a new, active access token that will be provided for token
