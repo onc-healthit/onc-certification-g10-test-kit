@@ -458,11 +458,11 @@ module ONCCertificationG10TestKit
       group from: :g10_token_introspection_stu2_2, # rubocop:disable Naming/VariableNumber
             required_suite_options: G10Options::SMART_2_2_REQUIREMENT
 
-    #   group from: :g10_asymmetric_launch,
-    #         required_suite_options: G10Options::SMART_2_REQUIREMENT
-    #   group from: :g10_asymmetric_launch,
-    #         id: :g10_asymmetric_launch_stu2_2, # rubocop:disable Naming/VariableNumber
-    #         required_suite_options: G10Options::SMART_2_2_REQUIREMENT
+      group from: :g10_asymmetric_launch,
+            required_suite_options: G10Options::SMART_2_REQUIREMENT
+      group from: :g10_asymmetric_launch,
+            id: :g10_asymmetric_launch_stu2_2, # rubocop:disable Naming/VariableNumber
+            required_suite_options: G10Options::SMART_2_2_REQUIREMENT
 
     #   group from: :g10_smart_v1_scopes,
     #         required_suite_options: G10Options::SMART_2_REQUIREMENT,
