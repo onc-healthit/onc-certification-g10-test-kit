@@ -411,6 +411,7 @@ module ONCCertificationG10TestKit
         }
       )
 
+      # TODO: add discovery
       group from: :g10_public_standalone_launch,
             required_suite_options: G10Options::SMART_1_REQUIREMENT,
             config: { options: { redirect_message_proc: default_redirect_message_proc } }
@@ -426,16 +427,17 @@ module ONCCertificationG10TestKit
       group from: :g10_smart_invalid_aud,
             config: { options: { redirect_message_proc: default_redirect_message_proc } }
 
+      # TODO: add discovery
       group from: :g10_smart_invalid_token_request,
             required_suite_options: G10Options::SMART_1_REQUIREMENT,
             config: { options: { redirect_message_proc: default_redirect_message_proc } }
-    #   group from: :g10_smart_invalid_token_request_stu2,
-    #         required_suite_options: G10Options::SMART_2_REQUIREMENT,
-    #         config: { options: { redirect_message_proc: default_redirect_message_proc } }
-    #   group from: :g10_smart_invalid_token_request_stu2,
-    #         id: :g10_smart_invalid_token_request_stu2_2, # rubocop:disable Naming/VariableNumber
-    #         required_suite_options: G10Options::SMART_2_2_REQUIREMENT,
-    #         config: { options: { redirect_message_proc: default_redirect_message_proc } }
+      group from: :g10_smart_invalid_token_request_stu2,
+            required_suite_options: G10Options::SMART_2_REQUIREMENT,
+            config: { options: { redirect_message_proc: default_redirect_message_proc } }
+      group from: :g10_smart_invalid_token_request_stu2,
+            id: :g10_smart_invalid_token_request_stu2_2, # rubocop:disable Naming/VariableNumber
+            required_suite_options: G10Options::SMART_2_2_REQUIREMENT,
+            config: { options: { redirect_message_proc: default_redirect_message_proc } }
 
     #   group from: :g10_smart_invalid_pkce_code_verifier_group,
     #         required_suite_options: G10Options::SMART_2_REQUIREMENT
