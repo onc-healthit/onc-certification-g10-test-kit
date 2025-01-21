@@ -103,7 +103,7 @@ module ONCCertificationG10TestKit
                 locked: true
               }
             ]
-          },
+          }
         },
         patient_id: { name: :v1_patient_id },
         received_scopes: { name: :v1_received_scopes }

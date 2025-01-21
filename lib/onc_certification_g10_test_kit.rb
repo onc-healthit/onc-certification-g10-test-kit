@@ -477,12 +477,12 @@ module ONCCertificationG10TestKit
             required_suite_options: G10Options::SMART_2_2_REQUIREMENT.merge(G10Options::US_CORE_6_REQUIREMENT),
             exclude_optional: true
 
-    #   group from: :g10_us_core_7_smart_fine_grained_scopes,
-    #         required_suite_options: G10Options::SMART_2_REQUIREMENT.merge(G10Options::US_CORE_7_REQUIREMENT),
-    #         exclude_optional: true
-    #   group from: :g10_us_core_7_smart_fine_grained_scopes_stu2_2, # rubocop:disable Naming/VariableNumber
-    #         required_suite_options: G10Options::SMART_2_2_REQUIREMENT.merge(G10Options::US_CORE_7_REQUIREMENT),
-    #         exclude_optional: true
+      group from: :g10_us_core_7_smart_fine_grained_scopes,
+            required_suite_options: G10Options::SMART_2_REQUIREMENT.merge(G10Options::US_CORE_7_REQUIREMENT),
+            exclude_optional: true
+      group from: :g10_us_core_7_smart_fine_grained_scopes_stu2_2, # rubocop:disable Naming/VariableNumber
+            required_suite_options: G10Options::SMART_2_2_REQUIREMENT.merge(G10Options::US_CORE_7_REQUIREMENT),
+            exclude_optional: true
 
     #   group from: :g10_smart_granular_scope_selection,
     #         required_suite_options: G10Options::SMART_2_REQUIREMENT.merge(G10Options::US_CORE_6_REQUIREMENT)
