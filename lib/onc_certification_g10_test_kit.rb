@@ -415,9 +415,9 @@ module ONCCertificationG10TestKit
       group from: :g10_public_standalone_launch,
             required_suite_options: G10Options::SMART_1_REQUIREMENT,
             config: { options: { redirect_message_proc: default_redirect_message_proc } }
-    #   group from: :g10_public_standalone_launch_stu2,
-    #         required_suite_options: G10Options::SMART_2_REQUIREMENT,
-    #         config: { options: { redirect_message_proc: default_redirect_message_proc } }
+      group from: :g10_public_standalone_launch_stu2,
+            required_suite_options: G10Options::SMART_2_REQUIREMENT,
+            config: { options: { redirect_message_proc: default_redirect_message_proc } }
     #   group from: :g10_public_standalone_launch_stu2_2, # rubocop:disable Naming/VariableNumber
     #         required_suite_options: G10Options::SMART_2_2_REQUIREMENT,
     #         config: { options: { redirect_message_proc: default_redirect_message_proc } }
