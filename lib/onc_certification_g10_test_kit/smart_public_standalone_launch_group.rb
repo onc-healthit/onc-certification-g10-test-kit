@@ -49,6 +49,11 @@ module ONCCertificationG10TestKit
                 locked: true
               },
               {
+                name: :auth_request_method,
+                default: 'GET',
+                locked: true
+              },
+              {
                 name: :requested_scopes,
                 default: %(
                 launch/patient openid fhirUser offline_access
@@ -75,6 +80,9 @@ module ONCCertificationG10TestKit
         },
         state: {
           name: :public_state
+        },
+        patient_id: {
+          name: :public_patient_id
         }
       },
       outputs: {
@@ -93,13 +101,7 @@ module ONCCertificationG10TestKit
       }
     )
 
-    test from: :g10_patient_context,
-         config: {
-           inputs: {
-             patient_id: { name: :public_patient_id },
-             smart_auth_info: { name: :public_smart_auth_info }
-           }
-         }
+    test from: :g10_patient_context
 
     test do
       title 'OAuth token exchange response contains OpenID Connect id_token'
@@ -118,5 +120,10 @@ module ONCCertificationG10TestKit
         assert id_token.present?, 'Token response did not provide an id_token as required.'
       end
     end
+
+    test from: :well_known_endpoint
+
+    # Move the well-known endpoint test to the beginning
+    children.prepend(children.pop)
   end
 end
