@@ -92,6 +92,27 @@ module ONCCertificationG10TestKit
 
     input :url
 
+    config(
+      inputs: {
+        smart_auth_info: {
+          options: {
+            components: [
+              {
+                name: :auth_type,
+                options: {
+                  list_options: [
+                    { label: 'Public', value: 'public' },
+                    { label: 'Confidential Symmetric', value: 'symmetric' },
+                    { label: 'Confidential Asymmetric', value: 'asymmetric' }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      }
+    )
+
     children.each(&:run_as_group)
 
     # Replace generic finer-grained scope auth group with which allows standalone or
