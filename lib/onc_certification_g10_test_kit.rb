@@ -422,8 +422,8 @@ module ONCCertificationG10TestKit
     #         required_suite_options: G10Options::SMART_2_2_REQUIREMENT,
     #         config: { options: { redirect_message_proc: default_redirect_message_proc } }
 
-      # TODO: improve the authinfo appearance
       group from: :g10_token_revocation
+
       group from: :g10_smart_invalid_aud,
             config: { options: { redirect_message_proc: default_redirect_message_proc } }
 
@@ -440,19 +440,21 @@ module ONCCertificationG10TestKit
             config: { options: { redirect_message_proc: default_redirect_message_proc } }
 
       # TODO: add discovery
-    #   group from: :g10_smart_invalid_pkce_code_verifier_group,
-    #         required_suite_options: G10Options::SMART_2_REQUIREMENT
-    #   group from: :g10_smart_invalid_pkce_code_verifier_group,
-    #         id: :g10_smart_invalid_pkce_code_verifier_group_stu2_2, # rubocop:disable Naming/VariableNumber
-    #         required_suite_options: G10Options::SMART_2_2_REQUIREMENT
+      #   group from: :g10_smart_invalid_pkce_code_verifier_group,
+      #         required_suite_options: G10Options::SMART_2_REQUIREMENT
+      #   group from: :g10_smart_invalid_pkce_code_verifier_group,
+      #         id: :g10_smart_invalid_pkce_code_verifier_group_stu2_2, # rubocop:disable Naming/VariableNumber
+      #         required_suite_options: G10Options::SMART_2_2_REQUIREMENT
 
-    #   group from: :g10_ehr_patient_launch,
-    #         required_suite_options: G10Options::SMART_1_REQUIREMENT
-    #   group from: :g10_ehr_patient_launch_stu2,
-    #         required_suite_options: G10Options::SMART_2_REQUIREMENT
-    #   group from: :g10_ehr_patient_launch_stu2_2, # rubocop:disable Naming/VariableNumber
-    #         required_suite_options: G10Options::SMART_2_2_REQUIREMENT
+      #   group from: :g10_ehr_patient_launch,
+      #         required_suite_options: G10Options::SMART_1_REQUIREMENT
+      #   group from: :g10_ehr_patient_launch_stu2,
+      #         required_suite_options: G10Options::SMART_2_REQUIREMENT
+      #   group from: :g10_ehr_patient_launch_stu2_2, # rubocop:disable Naming/VariableNumber
+      #         required_suite_options: G10Options::SMART_2_2_REQUIREMENT
 
+      # TODO: add discovery
+      # TODO: fix authinfo components
       group from: :g10_token_introspection,
             required_suite_options: G10Options::SMART_2_REQUIREMENT
       group from: :g10_token_introspection_stu2_2, # rubocop:disable Naming/VariableNumber

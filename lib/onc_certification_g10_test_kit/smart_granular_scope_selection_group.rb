@@ -74,13 +74,13 @@ module ONCCertificationG10TestKit
             components: [
               {
                 name: :auth_type,
-                default: 'symmetric',
-                locked: true
-              },
-              {
-                name: :auth_request_method,
-                default: 'GET',
-                locked: true
+                options: {
+                  list_options: [
+                    { label: 'Public', value: 'public' },
+                    { label: 'Confidential Symmetric', value: 'symmetric' },
+                    { label: 'Confidential Asymmetric', value: 'asymmetric' }
+                  ]
+                }
               },
               {
                 name: :use_discovery,
