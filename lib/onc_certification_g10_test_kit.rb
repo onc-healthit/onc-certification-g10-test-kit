@@ -426,7 +426,6 @@ module ONCCertificationG10TestKit
       group from: :g10_smart_invalid_aud,
             config: { options: { redirect_message_proc: default_redirect_message_proc } }
 
-      # TODO: add discovery
       group from: :g10_smart_invalid_token_request,
             required_suite_options: G10Options::SMART_1_REQUIREMENT,
             config: { options: { redirect_message_proc: default_redirect_message_proc } }
