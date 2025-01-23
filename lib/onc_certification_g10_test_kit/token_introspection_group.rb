@@ -59,6 +59,12 @@ module ONCCertificationG10TestKit
           DESCRIPTION
           optional: true
 
+    input_order :url,
+                :well_known_introspection_url,
+                :custom_authorization_header,
+                :optional_introspection_request_params,
+                :standalone_smart_auth_info
+
     groups.first.description <<~DESCRIPTION
       These tests are perform discovery and a standalone launch in order to
       receive a new, active access token that will be provided for token
@@ -70,14 +76,5 @@ module ONCCertificationG10TestKit
       the correct HTTP response is returned but does not validate the contents
       of the token introspection response.
     DESCRIPTION
-
-    # The token introspection tests are SMART v2 only, so they use v2 discovery
-    # and launch groups. g10 needs them for SMART v1 and v2, so this sets the
-    # original discovery and launch groups to only appear when using SMART v2,
-    # and adds the v1 groups when using v1.
-
-    groups.first.groups.each do |group|
-      group.required_suite_options(G10Options::SMART_2_REQUIREMENT)
-    end
   end
 end

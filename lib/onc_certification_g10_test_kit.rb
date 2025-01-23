@@ -450,8 +450,6 @@ module ONCCertificationG10TestKit
       group from: :g10_ehr_patient_launch_stu2_2, # rubocop:disable Naming/VariableNumber
             required_suite_options: G10Options::SMART_2_2_REQUIREMENT
 
-      # TODO: add discovery
-      # TODO: fix authinfo components
       group from: :g10_token_introspection,
             required_suite_options: G10Options::SMART_2_REQUIREMENT
       group from: :g10_token_introspection_stu2_2, # rubocop:disable Naming/VariableNumber
