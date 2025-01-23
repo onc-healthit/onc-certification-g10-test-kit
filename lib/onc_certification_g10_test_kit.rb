@@ -345,14 +345,14 @@ module ONCCertificationG10TestKit
         .flat_map(&:tests)
         .select { |test| test.id.include? 'g10_patient_context' }
         .each do |test|
-          test
-            .config(
-              inputs: {
-                patient_id: { name: :limited_patient_id },
-                smart_auth_info: { name: :limited_smart_auth_info }
-              }
-            )
-          end
+        test
+          .config(
+            inputs: {
+              patient_id: { name: :limited_patient_id },
+              smart_auth_info: { name: :limited_smart_auth_info }
+            }
+          )
+      end
     end
 
     group from: 'g10_smart_ehr_practitioner_app'
