@@ -90,13 +90,16 @@ module ONCCertificationG10TestKit
         code: { name: :invalid_token_code },
         state: { name: :invalid_token_state },
         expires_in: { name: :invalid_token_expires_in },
-        pkce_code_verifier: { name: :invalid_token_pkce_code_verifier }
+        pkce_code_verifier: { name: :invalid_token_pkce_code_verifier },
+        smart_auth_info: { name: :standalone_smart_auth_info }
       },
       requests: {
         redirect: { name: :invalid_token_redirect },
         token: { name: :invalid_token_token }
       }
     )
+
+    test from: :well_known_endpoint
 
     test from: :smart_app_redirect_stu2
     test from: :smart_code_received
