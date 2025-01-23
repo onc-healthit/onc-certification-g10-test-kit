@@ -53,11 +53,6 @@ module ONCCertificationG10TestKit
                 type: 'textarea'
               },
               {
-                name: :auth_request_method,
-                default: 'POST',
-                locked: true
-              },
-              {
                 name: :use_discovery,
                 locked: true
               }
@@ -96,13 +91,6 @@ module ONCCertificationG10TestKit
         token: { name: :ehr_patient_token }
       }
     )
-
-    # input_order :url,
-    #             :ehr_patient_client_id,
-    #             :ehr_patient_client_secret,
-    #             :smart_authorization_url,
-    #             :smart_token_url,
-    #             :ehr_patient_requested_scopes
 
     test from: :g10_patient_context
 
