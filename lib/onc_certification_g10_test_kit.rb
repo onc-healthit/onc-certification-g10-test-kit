@@ -443,8 +443,8 @@ module ONCCertificationG10TestKit
               id: :g10_smart_invalid_pkce_code_verifier_group_stu2_2, # rubocop:disable Naming/VariableNumber
               required_suite_options: G10Options::SMART_2_2_REQUIREMENT
 
-      #   group from: :g10_ehr_patient_launch,
-      #         required_suite_options: G10Options::SMART_1_REQUIREMENT
+        group from: :g10_ehr_patient_launch,
+              required_suite_options: G10Options::SMART_1_REQUIREMENT
       #   group from: :g10_ehr_patient_launch_stu2,
       #         required_suite_options: G10Options::SMART_2_REQUIREMENT
       #   group from: :g10_ehr_patient_launch_stu2_2, # rubocop:disable Naming/VariableNumber
