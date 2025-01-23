@@ -92,7 +92,7 @@ module ONCCertificationG10TestKit
         encounter_id: { name: :public_encounter_id },
         received_scopes: { name: :public_received_scopes },
         intent: { name: :public_intent },
-        smart_auth_info: { name: :public_smart_auth_info}
+        smart_auth_info: { name: :public_smart_auth_info }
       },
       requests: {
         redirect: { name: :public_redirect },
