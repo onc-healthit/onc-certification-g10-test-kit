@@ -14,6 +14,36 @@ module ONCCertificationG10TestKit
                 :standalone_patient_id,
                 :url
 
+    config(
+      inputs: {
+        smart_auth_info: {
+          title: 'Revoked Bearer Token',
+          description: 'Prior to the test, please revoke this bearer token from patient standalone launch.',
+          options: {
+            mode: 'access',
+            components: [
+              {
+                name: :client_id,
+                locked: true
+              },
+              {
+                name: :client_secret,
+                locked: true
+              },
+              {
+                name: :refresh_token,
+                optional: false
+              },
+              {
+                name: :token_url,
+                optional: false
+              }
+            ]
+          }
+        }
+      }
+    )
+
     test do
       title 'Health IT developer demonstrated the ability of the Health IT Module to revoke tokens within one hour of a patient\'s request.' # rubocop:disable Layout/LineLength
       description %(
@@ -63,32 +93,7 @@ module ONCCertificationG10TestKit
             name: :standalone_patient_id,
             title: 'Patient ID',
             description: 'Patient ID associated with revoked tokens provided as context in the patient standalone launch. This will be used to verify access is no longer granted using the revoked token.' # rubocop:disable Layout/LineLength
-      input :smart_auth_info,
-            name: :standalone_smart_auth_info,
-            type: :auth_info,
-            title: 'Revoked Bearer Token',
-            description: 'Prior to the test, please revoke this bearer token from patient standalone launch.',
-            options: {
-              mode: 'access',
-              components: [
-                {
-                  name: :client_id,
-                  locked: true
-                },
-                {
-                  name: :client_secret,
-                  locked: true
-                },
-                {
-                  name: :refresh_token,
-                  optional: false
-                },
-                {
-                  name: :token_url,
-                  optional: false
-                }
-              ]
-            }
+      input :smart_auth_info, type: :auth_info
 
       fhir_client :revoked_token do
         url :url
@@ -115,9 +120,7 @@ module ONCCertificationG10TestKit
         This test checks that refreshing token fails after token revocation.
       )
 
-      input :smart_auth_info,
-            name: :standalone_smart_auth_info,
-            type: :auth_info
+      input :smart_auth_info, type: :auth_info
 
       run do
         skip_if smart_auth_info.refresh_token.blank?,
