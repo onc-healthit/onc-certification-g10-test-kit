@@ -9,6 +9,7 @@ module ONCCertificationG10TestKit
 
     input :bulk_smart_auth_info,
           type: :auth_info,
+          title: 'Multi-Patient API Credentials',
           options: {
             mode: :auth,
             components: [

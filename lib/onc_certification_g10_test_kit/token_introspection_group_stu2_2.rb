@@ -63,6 +63,15 @@ module ONCCertificationG10TestKit
                 :optional_introspection_request_params,
                 :standalone_smart_auth_info
 
+    config(
+      inputs: {
+        smart_auth_info: {
+          name: :standalone_smart_auth_info,
+          title: 'Standalone Launch Credentials'
+        }
+      }
+    )
+
     groups.first.description <<~DESCRIPTION
       These tests are perform discovery and a standalone launch in order to
       receive a new, active access token that will be provided for token

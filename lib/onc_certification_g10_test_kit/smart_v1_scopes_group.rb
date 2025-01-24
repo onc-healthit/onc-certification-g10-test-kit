@@ -57,6 +57,7 @@ module ONCCertificationG10TestKit
       inputs: {
         smart_auth_info: {
           name: :v1_smart_auth_info,
+          title: 'Launch with v1 Scopes Credentials',
           options: {
             mode: 'auth',
             components: [

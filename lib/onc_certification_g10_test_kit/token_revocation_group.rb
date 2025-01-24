@@ -78,6 +78,14 @@ module ONCCertificationG10TestKit
                 {
                   name: :client_secret,
                   locked: true
+                },
+                {
+                  name: :refresh_token,
+                  optional: false
+                },
+                {
+                  name: :token_url,
+                  optional: false
                 }
               ]
             }

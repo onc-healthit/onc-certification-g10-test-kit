@@ -48,6 +48,7 @@ module ONCCertificationG10TestKit
       inputs: {
         smart_auth_info: {
           name: :asymmetric_smart_auth_info,
+          title: 'Asymmetric Launch Credentials',
           options: {
             mode: 'auth',
             components: [
