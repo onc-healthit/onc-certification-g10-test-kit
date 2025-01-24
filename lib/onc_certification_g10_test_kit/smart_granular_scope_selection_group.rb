@@ -69,6 +69,7 @@ module ONCCertificationG10TestKit
         received_scopes: { name: :granular_scope_selection_v2_received_scopes },
         smart_auth_info: {
           name: :granular_scopes_selection_smart_auth_info,
+          title: 'Granular Scope Selection Credentials',
           options: {
             mode: 'auth',
             components: [

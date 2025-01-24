@@ -57,13 +57,22 @@ module ONCCertificationG10TestKit
             populated automatically if included in the server's discovery
             endpoint.
           DESCRIPTION
-          optional: true
+    optional: true
 
     input_order :url,
                 :well_known_introspection_url,
                 :custom_authorization_header,
                 :optional_introspection_request_params,
                 :standalone_smart_auth_info
+
+    config(
+      inputs: {
+        smart_auth_info: {
+          name: :standalone_smart_auth_info,
+          title: 'Standalone Launch Credentials'
+        }
+      }
+    )
 
     groups.first.description <<~DESCRIPTION
       These tests are perform discovery and a standalone launch in order to

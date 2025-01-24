@@ -35,6 +35,7 @@ module ONCCertificationG10TestKit
       inputs: {
         smart_auth_info: {
           name: :ehr_patient_smart_auth_info,
+          title: 'EHR Launch with Patient Scopes Credentials',
           options: {
             mode: 'auth',
             components: [

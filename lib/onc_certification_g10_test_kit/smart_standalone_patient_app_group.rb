@@ -58,6 +58,7 @@ module ONCCertificationG10TestKit
       inputs: {
         smart_auth_info: {
           name: :standalone_smart_auth_info,
+          title: 'Standalone Launch Credentials',
           options: {
             mode: 'auth',
             components: [

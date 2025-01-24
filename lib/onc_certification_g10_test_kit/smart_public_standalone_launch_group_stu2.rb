@@ -40,6 +40,7 @@ module ONCCertificationG10TestKit
       inputs: {
         smart_auth_info: {
           name: :public_smart_auth_info,
+          title: 'Public Launch Credentials',
           options: {
             mode: 'auth',
             components: [
