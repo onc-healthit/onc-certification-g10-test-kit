@@ -252,12 +252,6 @@ module ONCCertificationG10TestKit
                  ]
 
     config(
-      inputs: {
-        client_auth_encryption_method: {
-          title: 'Client Authentication Encryption Method',
-          locked: true
-        }
-      },
       options: {
         post_authorization_uri: "#{Inferno::Application['base_url']}/custom/smart_stu2/post_auth",
         incorrectly_permitted_tls_version_message_type: 'warning'
@@ -403,14 +397,6 @@ module ONCCertificationG10TestKit
         )
       end
 
-      config(
-        inputs: {
-          client_auth_encryption_method: {
-            locked: false
-          }
-        }
-      )
-
       group from: :g10_public_standalone_launch,
             required_suite_options: G10Options::SMART_1_REQUIREMENT,
             config: { options: { redirect_message_proc: default_redirect_message_proc } }
@@ -467,19 +453,90 @@ module ONCCertificationG10TestKit
             id: :g10_smart_v1_scopes_stu2_2, # rubocop:disable Naming/VariableNumber
             required_suite_options: G10Options::SMART_2_2_REQUIREMENT
 
-      group from: :g10_smart_fine_grained_scopes,
-            required_suite_options: G10Options::SMART_2_REQUIREMENT.merge(G10Options::US_CORE_6_REQUIREMENT),
-            exclude_optional: true
-      group from: :g10_smart_fine_grained_scopes_stu2_2, # rubocop:disable Naming/VariableNumber
-            required_suite_options: G10Options::SMART_2_2_REQUIREMENT.merge(G10Options::US_CORE_6_REQUIREMENT),
-            exclude_optional: true
+      group from: :g10_smart_fine_grained_scopes, exclude_optional: true do
+        required_suite_options G10Options::SMART_2_REQUIREMENT.merge(G10Options::US_CORE_6_REQUIREMENT)
+        groups.first.config(
+          inputs: {
+            smart_auth_info: { name: :granular_scopes_1_auth_info }
+          },
+          outputs: {
+            smart_auth_info: { name: :granular_scopes_1_auth_info }
+          }
+        )
 
-      group from: :g10_us_core_7_smart_fine_grained_scopes,
-            required_suite_options: G10Options::SMART_2_REQUIREMENT.merge(G10Options::US_CORE_7_REQUIREMENT),
-            exclude_optional: true
-      group from: :g10_us_core_7_smart_fine_grained_scopes_stu2_2, # rubocop:disable Naming/VariableNumber
-            required_suite_options: G10Options::SMART_2_2_REQUIREMENT.merge(G10Options::US_CORE_7_REQUIREMENT),
-            exclude_optional: true
+        groups.last.config(
+          inputs: {
+            smart_auth_info: { name: :granular_scopes_2_auth_info }
+          },
+          outputs: {
+            smart_auth_info: { name: :granular_scopes_2_auth_info }
+          }
+        )
+      end
+
+      group from: :g10_smart_fine_grained_scopes_stu2_2, exclude_optional: true do# rubocop:disable Naming/VariableNumber
+        required_suite_options G10Options::SMART_2_2_REQUIREMENT.merge(G10Options::US_CORE_6_REQUIREMENT)
+        groups.first.config(
+          inputs: {
+            smart_auth_info: { name: :granular_scopes_1_auth_info }
+          },
+          outputs: {
+            smart_auth_info: { name: :granular_scopes_1_auth_info }
+          }
+        )
+
+        groups.last.config(
+          inputs: {
+            smart_auth_info: { name: :granular_scopes_2_auth_info }
+          },
+          outputs: {
+            smart_auth_info: { name: :granular_scopes_2_auth_info }
+          }
+        )
+      end
+
+
+      group from: :g10_us_core_7_smart_fine_grained_scopes, exclude_optional: true do
+        required_suite_options G10Options::SMART_2_REQUIREMENT.merge(G10Options::US_CORE_7_REQUIREMENT)
+        groups.first.config(
+          inputs: {
+            smart_auth_info: { name: :granular_scopes_1_auth_info }
+          },
+          outputs: {
+            smart_auth_info: { name: :granular_scopes_1_auth_info }
+          }
+        )
+
+        groups.last.config(
+          inputs: {
+            smart_auth_info: { name: :granular_scopes_2_auth_info }
+          },
+          outputs: {
+            smart_auth_info: { name: :granular_scopes_2_auth_info }
+          }
+        )
+      end
+
+      group from: :g10_us_core_7_smart_fine_grained_scopes_stu2_2, exclude_optional: true do# rubocop:disable Naming/VariableNumber
+        required_suite_options G10Options::SMART_2_2_REQUIREMENT.merge(G10Options::US_CORE_7_REQUIREMENT)
+        groups.first.config(
+          inputs: {
+            smart_auth_info: { name: :granular_scopes_1_auth_info }
+          },
+          outputs: {
+            smart_auth_info: { name: :granular_scopes_1_auth_info }
+          }
+        )
+
+        groups.last.config(
+          inputs: {
+            smart_auth_info: { name: :granular_scopes_2_auth_info }
+          },
+          outputs: {
+            smart_auth_info: { name: :granular_scopes_2_auth_info }
+          }
+        )
+      end
 
       group from: :g10_smart_granular_scope_selection,
             required_suite_options: G10Options::SMART_2_REQUIREMENT.merge(G10Options::US_CORE_6_REQUIREMENT)
