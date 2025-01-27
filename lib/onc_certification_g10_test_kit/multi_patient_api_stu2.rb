@@ -51,6 +51,14 @@ module ONCCertificationG10TestKit
                 :lines_to_validate,
                 :bulk_timeout
 
+    config(
+      inputs: {
+        url: {
+          name: :bulk_server_url
+        }
+      }
+    )
+
     group from: :bulk_data_authorization,
           description: <<~DESCRIPTION
             Bulk Data servers are required to authorize clients using the [Backend Service
