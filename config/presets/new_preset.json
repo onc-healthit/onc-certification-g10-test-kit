@@ -1,0 +1,1467 @@
+{
+  "title": "New Reference Server Preset",
+  "id": "g10_reference_server_new",
+  "test_suite_id": "g10_certification",
+  "inputs": [
+    {
+      "name": "url",
+      "value": "https://inferno.healthit.gov/reference-server/r4",
+      "_title": "FHIR Endpoint",
+      "_description": "URL of the FHIR endpoint used by SMART applications",
+      "_type": "text"
+    },
+    {
+      "name": "standalone_smart_auth_info",
+      "_title": "Standalone Launch Credentials",
+      "_type": "auth_info",
+      "value_for_options": [
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_3"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_1"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "pkce_support": "disabled",
+            "requested_scopes": "launch/patient openid fhirUser offline_access patient/Patient.read patient/AllergyIntolerance.read patient/CarePlan.read patient/CareTeam.read patient/Condition.read patient/Device.read patient/DiagnosticReport.read patient/DocumentReference.read patient/Encounter.read patient/Goal.read patient/Immunization.read patient/Location.read patient/Medication.read patient/MedicationRequest.read patient/Observation.read patient/Organization.read patient/Practitioner.read patient/PractitionerRole.read patient/Procedure.read patient/Provenance.read"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_4"
+            },
+              {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_1"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "pkce_support": "disabled",
+            "requested_scopes": "launch/patient openid fhirUser offline_access patient/Patient.read patient/AllergyIntolerance.read patient/CarePlan.read patient/CareTeam.read patient/Condition.read patient/Device.read patient/DiagnosticReport.read patient/DocumentReference.read patient/Encounter.read patient/Goal.read patient/Immunization.read patient/Location.read patient/Medication.read patient/MedicationRequest.read patient/Observation.read patient/Organization.read patient/Practitioner.read patient/PractitionerRole.read patient/Procedure.read patient/Provenance.read"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_6"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_1"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "pkce_support": "disabled",
+            "requested_scopes": "launch/patient openid fhirUser offline_access patient/Patient.read patient/AllergyIntolerance.read patient/CarePlan.read patient/CareTeam.read patient/Condition.read patient/Coverage.read patient/Device.read patient/DiagnosticReport.read patient/DocumentReference.read patient/Encounter.read patient/Goal.read patient/Immunization.read patient/Location.read patient/Medication.read patient/MedicationDispense.read patient/MedicationRequest.read patient/Observation.read patient/Organization.read patient/Practitioner.read patient/PractitionerRole.read patient/Procedure.read patient/Provenance.read patient/QuestionnaireResponse.read patient/RelatedPerson.read patient/ServiceRequest.read patient/Specimen.read"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_7"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_1"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "pkce_support": "disabled",
+            "requested_scopes": "launch/patient openid fhirUser offline_access patient/Patient.read patient/AllergyIntolerance.read patient/CarePlan.read patient/CareTeam.read patient/Condition.read patient/Coverage.read patient/Device.read patient/DiagnosticReport.read patient/DocumentReference.read patient/Encounter.read patient/Goal.read patient/Immunization.read patient/Location.read patient/Media.read patient/Medication.read patient/MedicationDispense.read patient/MedicationRequest.read patient/Observation.read patient/Organization.read patient/Practitioner.read patient/PractitionerRole.read patient/Procedure.read patient/Provenance.read patient/QuestionnaireResponse.read patient/RelatedPerson.read patient/ServiceRequest.read patient/Specimen.read"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_3"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "requested_scopes": "launch/patient openid fhirUser offline_access patient/Patient.rs patient/AllergyIntolerance.rs patient/CarePlan.rs patient/CareTeam.rs patient/Condition.rs patient/Device.rs patient/DiagnosticReport.rs patient/DocumentReference.rs patient/Encounter.rs patient/Goal.rs patient/Immunization.rs patient/Location.rs patient/Medication.rs patient/MedicationRequest.rs patient/Observation.rs patient/Organization.rs patient/Practitioner.rs patient/PractitionerRole.rs patient/Procedure.rs patient/Provenance.rs"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_3"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "requested_scopes": "launch/patient openid fhirUser offline_access patient/Patient.rs patient/AllergyIntolerance.rs patient/CarePlan.rs patient/CareTeam.rs patient/Condition.rs patient/Device.rs patient/DiagnosticReport.rs patient/DocumentReference.rs patient/Encounter.rs patient/Goal.rs patient/Immunization.rs patient/Location.rs patient/Medication.rs patient/MedicationRequest.rs patient/Observation.rs patient/Organization.rs patient/Practitioner.rs patient/PractitionerRole.rs patient/Procedure.rs patient/Provenance.rs"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_4"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "requested_scopes": "launch/patient openid fhirUser offline_access patient/Patient.rs patient/AllergyIntolerance.rs patient/CarePlan.rs patient/CareTeam.rs patient/Condition.rs patient/Device.rs patient/DiagnosticReport.rs patient/DocumentReference.rs patient/Encounter.rs patient/Goal.rs patient/Immunization.rs patient/Location.rs patient/Medication.rs patient/MedicationRequest.rs patient/Observation.rs patient/Organization.rs patient/Practitioner.rs patient/PractitionerRole.rs patient/Procedure.rs patient/Provenance.rs"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_4"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "requested_scopes": "launch/patient openid fhirUser offline_access patient/Patient.rs patient/AllergyIntolerance.rs patient/CarePlan.rs patient/CareTeam.rs patient/Condition.rs patient/Device.rs patient/DiagnosticReport.rs patient/DocumentReference.rs patient/Encounter.rs patient/Goal.rs patient/Immunization.rs patient/Location.rs patient/Medication.rs patient/MedicationRequest.rs patient/Observation.rs patient/Organization.rs patient/Practitioner.rs patient/PractitionerRole.rs patient/Procedure.rs patient/Provenance.rs"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_6"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "requested_scopes": "launch/patient openid fhirUser offline_access patient/Patient.rs patient/AllergyIntolerance.rs patient/CarePlan.rs patient/CareTeam.rs patient/Condition.rs patient/Device.rs patient/DiagnosticReport.rs patient/DocumentReference.rs patient/Encounter.rs patient/Goal.rs patient/Immunization.rs patient/Location.rs patient/Media.rs patient/Medication.rs patient/MedicationRequest.rs patient/Observation.rs patient/Organization.rs patient/Practitioner.rs patient/PractitionerRole.rs patient/Procedure.rs patient/Provenance.rs patient/QuestionnaireResponse.rs patient/RelatedPerson.rs patient/ServiceRequest.rs"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_6"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "requested_scopes": "launch/patient openid fhirUser offline_access patient/Patient.rs patient/AllergyIntolerance.rs patient/CarePlan.rs patient/CareTeam.rs patient/Condition.rs patient/Device.rs patient/DiagnosticReport.rs patient/DocumentReference.rs patient/Encounter.rs patient/Goal.rs patient/Immunization.rs patient/Location.rs patient/Media.rs patient/Medication.rs patient/MedicationRequest.rs patient/Observation.rs patient/Organization.rs patient/Practitioner.rs patient/PractitionerRole.rs patient/Procedure.rs patient/Provenance.rs patient/QuestionnaireResponse.rs patient/RelatedPerson.rs patient/ServiceRequest.rs"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_7"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "requested_scopes": "launch/patient openid fhirUser offline_access patient/Patient.rs patient/AllergyIntolerance.rs patient/CarePlan.rs patient/CareTeam.rs patient/Condition.rs patient/Coverage.rs patient/Device.rs patient/DiagnosticReport.rs patient/DocumentReference.rs patient/Encounter.rs patient/Goal.rs patient/Immunization.rs patient/Location.rs patient/Media.rs patient/Medication.rs patient/MedicationDispense.rs patient/MedicationRequest.rs patient/Observation.rs patient/Organization.rs patient/Practitioner.rs patient/PractitionerRole.rs patient/Procedure.rs patient/Provenance.rs patient/QuestionnaireResponse.rs patient/RelatedPerson.rs patient/ServiceRequest.rs patient/Specimen.rs"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_7"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "requested_scopes": "launch/patient openid fhirUser offline_access patient/Patient.rs patient/AllergyIntolerance.rs patient/CarePlan.rs patient/CareTeam.rs patient/Condition.rs patient/Coverage.rs patient/Device.rs patient/DiagnosticReport.rs patient/DocumentReference.rs patient/Encounter.rs patient/Goal.rs patient/Immunization.rs patient/Location.rs patient/Media.rs patient/Medication.rs patient/MedicationDispense.rs patient/MedicationRequest.rs patient/Observation.rs patient/Organization.rs patient/Practitioner.rs patient/PractitionerRole.rs patient/Procedure.rs patient/Provenance.rs patient/QuestionnaireResponse.rs patient/RelatedPerson.rs patient/ServiceRequest.rs patient/Specimen.rs"
+          }
+        }
+      ]
+    },
+    {
+      "name": "expected_resources",
+      "value": "patient, condition, observation",
+      "_title": "expected resource grant for limited access launch",
+      "_description": "the user will only grant access to the following resources during authorization.",
+      "_type": "text"
+    },
+    {
+      "name": "ehr_smart_auth_info",
+      "_title": "EHR Launch Credentials",
+      "_type": "auth_info",
+      "value_for_options": [
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_3"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_1"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "pkce_support": "disabled",
+            "requested_scopes": "launch openid fhirUser offline_access user/Patient.read user/AllergyIntolerance.read user/CarePlan.read user/CareTeam.read user/Condition.read user/Device.read user/DiagnosticReport.read user/DocumentReference.read user/Encounter.read user/Goal.read user/Immunization.read user/Location.read user/Medication.read user/MedicationRequest.read user/Observation.read user/Organization.read user/Practitioner.read user/PractitionerRole.read user/Procedure.read user/Provenance.read"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_4"
+            },
+              {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_1"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "pkce_support": "disabled",
+            "requested_scopes": "launch openid fhirUser offline_access user/Patient.read user/AllergyIntolerance.read user/CarePlan.read user/CareTeam.read user/Condition.read user/Device.read user/DiagnosticReport.read user/DocumentReference.read user/Encounter.read user/Goal.read user/Immunization.read user/Location.read user/Medication.read user/MedicationRequest.read user/Observation.read user/Organization.read user/Practitioner.read user/PractitionerRole.read user/Procedure.read user/Provenance.read"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_6"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_1"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "pkce_support": "disabled",
+            "requested_scopes": "launch openid fhirUser offline_access user/Patient.read user/AllergyIntolerance.read user/CarePlan.read user/CareTeam.read user/Condition.read user/Coverage.read user/Device.read user/DiagnosticReport.read user/DocumentReference.read user/Encounter.read user/Goal.read user/Immunization.read user/Location.read user/Medication.read user/MedicationDispense.read user/MedicationRequest.read user/Observation.read user/Organization.read user/Practitioner.read user/PractitionerRole.read user/Procedure.read user/Provenance.read user/QuestionnaireResponse.read user/RelatedPerson.read user/ServiceRequest.read user/Specimen.read"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_7"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_1"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "pkce_support": "disabled",
+            "requested_scopes": "launch openid fhirUser offline_access user/Patient.read user/AllergyIntolerance.read user/CarePlan.read user/CareTeam.read user/Condition.read user/Coverage.read user/Device.read user/DiagnosticReport.read user/DocumentReference.read user/Encounter.read user/Goal.read user/Immunization.read user/Location.read user/Media.read user/Medication.read user/MedicationDispense.read user/MedicationRequest.read user/Observation.read user/Organization.read user/Practitioner.read user/PractitionerRole.read user/Procedure.read user/Provenance.read user/QuestionnaireResponse.read user/RelatedPerson.read user/ServiceRequest.read user/Specimen.read"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_3"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "requested_scopes": "launch openid fhirUser offline_access user/Patient.rs user/AllergyIntolerance.rs user/CarePlan.rs user/CareTeam.rs user/Condition.rs user/Device.rs user/DiagnosticReport.rs user/DocumentReference.rs user/Encounter.rs user/Goal.rs user/Immunization.rs user/Location.rs user/Medication.rs user/MedicationRequest.rs user/Observation.rs user/Organization.rs user/Practitioner.rs user/PractitionerRole.rs user/Procedure.rs user/Provenance.rs"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_3"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "requested_scopes": "launch openid fhirUser offline_access user/Patient.rs user/AllergyIntolerance.rs user/CarePlan.rs user/CareTeam.rs user/Condition.rs user/Device.rs user/DiagnosticReport.rs user/DocumentReference.rs user/Encounter.rs user/Goal.rs user/Immunization.rs user/Location.rs user/Medication.rs user/MedicationRequest.rs user/Observation.rs user/Organization.rs user/Practitioner.rs user/PractitionerRole.rs user/Procedure.rs user/Provenance.rs"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_4"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "requested_scopes": "launch openid fhirUser offline_access user/Patient.rs user/AllergyIntolerance.rs user/CarePlan.rs user/CareTeam.rs user/Condition.rs user/Device.rs user/DiagnosticReport.rs user/DocumentReference.rs user/Encounter.rs user/Goal.rs user/Immunization.rs user/Location.rs user/Medication.rs user/MedicationRequest.rs user/Observation.rs user/Organization.rs user/Practitioner.rs user/PractitionerRole.rs user/Procedure.rs user/Provenance.rs"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_4"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "requested_scopes": "launch openid fhirUser offline_access user/Patient.rs user/AllergyIntolerance.rs user/CarePlan.rs user/CareTeam.rs user/Condition.rs user/Device.rs user/DiagnosticReport.rs user/DocumentReference.rs user/Encounter.rs user/Goal.rs user/Immunization.rs user/Location.rs user/Medication.rs user/MedicationRequest.rs user/Observation.rs user/Organization.rs user/Practitioner.rs user/PractitionerRole.rs user/Procedure.rs user/Provenance.rs"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_6"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "requested_scopes": "launch openid fhirUser offline_access user/Patient.rs user/AllergyIntolerance.rs user/CarePlan.rs user/CareTeam.rs user/Condition.rs user/Coverage.rs user/Device.rs user/DiagnosticReport.rs user/DocumentReference.rs user/Encounter.rs user/Goal.rs user/Immunization.rs user/Location.rs user/Medication.rs user/MedicationDispense.rs user/MedicationRequest.rs user/Observation.rs user/Organization.rs user/Practitioner.rs user/PractitionerRole.rs user/Procedure.rs user/Provenance.rs user/QuestionnaireResponse.rs user/RelatedPerson.rs user/ServiceRequest.rs user/ServiceRequest.rs user/Specimen.rs"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_6"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "requested_scopes": "launch openid fhirUser offline_access user/Patient.rs user/AllergyIntolerance.rs user/CarePlan.rs user/CareTeam.rs user/Condition.rs user/Coverage.rs user/Device.rs user/DiagnosticReport.rs user/DocumentReference.rs user/Encounter.rs user/Goal.rs user/Immunization.rs user/Location.rs user/Medication.rs user/MedicationDispense.rs user/MedicationRequest.rs user/Observation.rs user/Organization.rs user/Practitioner.rs user/PractitionerRole.rs user/Procedure.rs user/Provenance.rs user/QuestionnaireResponse.rs user/RelatedPerson.rs user/ServiceRequest.rs user/ServiceRequest.rs user/Specimen.rs"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_7"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "requested_scopes": "launch openid fhirUser offline_access user/Patient.rs user/AllergyIntolerance.rs user/CarePlan.rs user/CareTeam.rs user/Condition.rs user/Coverage.rs user/Device.rs user/DiagnosticReport.rs user/DocumentReference.rs user/Encounter.rs user/Goal.rs user/Immunization.rs user/Location.rs user/Media.rs user/Medication.rs user/MedicationDispense.rs user/MedicationRequest.rs user/Observation.rs user/Organization.rs user/Practitioner.rs user/PractitionerRole.rs user/Procedure.rs user/Provenance.rs user/QuestionnaireResponse.rs user/RelatedPerson.rs user/ServiceRequest.rs user/ServiceRequest.rs user/Specimen.rs"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_7"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "requested_scopes": "launch openid fhirUser offline_access user/Patient.rs user/AllergyIntolerance.rs user/CarePlan.rs user/CareTeam.rs user/Condition.rs user/Coverage.rs user/Device.rs user/DiagnosticReport.rs user/DocumentReference.rs user/Encounter.rs user/Goal.rs user/Immunization.rs user/Location.rs user/Media.rs user/Medication.rs user/MedicationDispense.rs user/MedicationRequest.rs user/Observation.rs user/Organization.rs user/Practitioner.rs user/PractitionerRole.rs user/Procedure.rs user/Provenance.rs user/QuestionnaireResponse.rs user/RelatedPerson.rs user/ServiceRequest.rs user/ServiceRequest.rs user/Specimen.rs"
+          }
+        }
+      ]
+    },
+    {
+      "name": "additional_patient_ids",
+      "value": "85,355",
+      "_title": "Additional Patient IDs",
+      "_description": "Comma separated list of Patient IDs that together with the Patient\nID from the SMART App Launch contain all MUST SUPPORT elements.\n",
+      "_type": "text",
+      "_optional": true
+    },
+    {
+      "name": "implantable_device_codes",
+      "value": null,
+      "_title": "Implantable Device Type Code",
+      "_description": "Enter the code for an Implantable Device type, or multiple codes separated by commas. If blank, Inferno will validate all Device resources against the Implantable Device profile",
+      "_type": "text",
+      "_optional": true
+    },
+    {
+      "name": "bulk_server_url",
+      "value": "https://inferno.healthit.gov/reference-server/r4",
+      "_title": "Bulk Data FHIR URL",
+      "_description": "The URL of the Bulk FHIR server.",
+      "_type": "text"
+    },
+    {
+      "name": "group_id",
+      "value": "1a",
+      "_title": "Group ID",
+      "_description": "The Group ID associated with the group of patients to be exported.",
+      "_type": "text"
+    },
+    {
+      "name": "bulk_patient_ids_in_group",
+      "value": "85,355",
+      "_title": "Patient IDs in exported Group",
+      "_description": "Comma separated list of every Patient ID that is in the specified Group. This information is provided by\nthe system under test to verify that data returned matches expectations. Leave blank to not verify Group\ninclusion.\n",
+      "_type": "text",
+      "_optional": true
+    },
+    {
+      "name": "bulk_device_types_in_group",
+      "value": null,
+      "_title": "Implantable Device Type Codes in exported Group",
+      "_description": "Comma separated list of every Implantable Device type that is in the specified Group. This information is\nprovided by the system under test to verify that data returned matches expectations. Leave blank to verify\nall Device resources against the Implantable Device profile.\n",
+      "_type": "text",
+      "_optional": true
+    },
+    {
+      "name": "lines_to_validate",
+      "value": null,
+      "_title": "Limit validation to a maximum resource count",
+      "_description": "To validate all, leave blank.",
+      "_type": "text",
+      "_optional": true
+    },
+    {
+      "name": "bulk_timeout",
+      "value": 180,
+      "_title": "Export Times Out after (1-600)",
+      "_description": "While testing, Inferno waits for the server to complete the exporting task. If the calculated totalTime is\ngreater than the timeout value specified here, Inferno bulk client stops testing. Please enter an integer\nfor the maximum wait time in seconds. If timeout is less than 1, Inferno uses default value 180. If the\n  timeout is greater than 600 (10 minutes), Inferno uses the maximum value 600.\n",
+      "_type": "text"
+    },
+    {
+      "name": "bulk_smart_auth_info",
+      "value": null,
+      "_title": "Multi-Patient API Credentials",
+      "_type": "auth_info",
+      "value_for_options": [
+        {
+          "options": [
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_1"
+            }
+          ],
+          "value": {
+            "requested_scopes": "system/*.read",
+            "token_url": "https://inferno.healthit.gov/reference-server/oauth/token",
+            "client_id": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJlZ2lzdHJhdGlvbi10b2tlbiJ9.eyJqd2tzX3VybCI6Imh0dHA6Ly8xMC4xNS4yNTIuNzMvaW5mZXJuby8ud2VsbC1rbm93bi9qd2tzLmpzb24iLCJhY2Nlc3NUb2tlbnNFeHBpcmVJbiI6MTUsImlhdCI6MTU5NzQxMzE5NX0.q4v4Msc74kN506KTZ0q_minyapJw0gwlT6M_uiL73S4"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2"
+            }
+          ],
+          "value": {
+            "requested_scopes": "system/*.r",
+            "token_url": "https://inferno.healthit.gov/reference-server/oauth/token",
+            "client_id": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJlZ2lzdHJhdGlvbi10b2tlbiJ9.eyJqd2tzX3VybCI6Imh0dHA6Ly8xMC4xNS4yNTIuNzMvaW5mZXJuby8ud2VsbC1rbm93bi9qd2tzLmpzb24iLCJhY2Nlc3NUb2tlbnNFeHBpcmVJbiI6MTUsImlhdCI6MTU5NzQxMzE5NX0.q4v4Msc74kN506KTZ0q_minyapJw0gwlT6M_uiL73S4"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2_2"
+            }
+          ],
+          "value": {
+            "requested_scopes": "system/*.r",
+            "token_url": "https://inferno.healthit.gov/reference-server/oauth/token",
+            "client_id": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJlZ2lzdHJhdGlvbi10b2tlbiJ9.eyJqd2tzX3VybCI6Imh0dHA6Ly8xMC4xNS4yNTIuNzMvaW5mZXJuby8ud2VsbC1rbm93bi9qd2tzLmpzb24iLCJhY2Nlc3NUb2tlbnNFeHBpcmVJbiI6MTUsImlhdCI6MTU5NzQxMzE5NX0.q4v4Msc74kN506KTZ0q_minyapJw0gwlT6M_uiL73S4"
+          }
+        }
+      ]
+    },
+    {
+      "name": "since_timestamp",
+      "value": "2025-01-20T12:40:38-05:00",
+      "_title": "Timestamp for _since parameter",
+      "_description": "A timestamp formatted as a FHIR instant which will be used to test the server's support for the `_since` query parameter",
+      "_type": "text"
+    },
+    {
+      "name": "public_smart_auth_info",
+      "_title": "Public Launch Credentials",
+      "_type": "auth_info",
+      "value_for_options": [
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_3"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_1"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_PUBLIC_CLIENT_ID",
+            "pkce_support": "disabled",
+            "requested_scopes": "launch/patient openid fhirUser offline_access patient/Patient.read patient/AllergyIntolerance.read patient/CarePlan.read patient/CareTeam.read patient/Condition.read patient/Device.read patient/DiagnosticReport.read patient/DocumentReference.read patient/Encounter.read patient/Goal.read patient/Immunization.read patient/Location.read patient/Medication.read patient/MedicationRequest.read patient/Observation.read patient/Organization.read patient/Practitioner.read patient/PractitionerRole.read patient/Procedure.read patient/Provenance.read"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_4"
+            },
+              {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_1"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_PUBLIC_CLIENT_ID",
+            "pkce_support": "disabled",
+            "requested_scopes": "launch/patient openid fhirUser offline_access patient/Patient.read patient/AllergyIntolerance.read patient/CarePlan.read patient/CareTeam.read patient/Condition.read patient/Device.read patient/DiagnosticReport.read patient/DocumentReference.read patient/Encounter.read patient/Goal.read patient/Immunization.read patient/Location.read patient/Medication.read patient/MedicationRequest.read patient/Observation.read patient/Organization.read patient/Practitioner.read patient/PractitionerRole.read patient/Procedure.read patient/Provenance.read"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_6"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_1"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_PUBLIC_CLIENT_ID",
+            "pkce_support": "disabled",
+            "requested_scopes": "launch/patient openid fhirUser offline_access patient/Patient.read patient/AllergyIntolerance.read patient/CarePlan.read patient/CareTeam.read patient/Condition.read patient/Coverage.read patient/Device.read patient/DiagnosticReport.read patient/DocumentReference.read patient/Encounter.read patient/Goal.read patient/Immunization.read patient/Location.read patient/Medication.read patient/MedicationDispense.read patient/MedicationRequest.read patient/Observation.read patient/Organization.read patient/Practitioner.read patient/PractitionerRole.read patient/Procedure.read patient/Provenance.read patient/QuestionnaireResponse.read patient/RelatedPerson.read patient/ServiceRequest.read patient/Specimen.read"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_7"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_1"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_PUBLIC_CLIENT_ID",
+            "pkce_support": "disabled",
+            "requested_scopes": "launch/patient openid fhirUser offline_access patient/Patient.read patient/AllergyIntolerance.read patient/CarePlan.read patient/CareTeam.read patient/Condition.read patient/Coverage.read patient/Device.read patient/DiagnosticReport.read patient/DocumentReference.read patient/Encounter.read patient/Goal.read patient/Immunization.read patient/Location.read patient/Media.read patient/Medication.read patient/MedicationDispense.read patient/MedicationRequest.read patient/Observation.read patient/Organization.read patient/Practitioner.read patient/PractitionerRole.read patient/Procedure.read patient/Provenance.read patient/QuestionnaireResponse.read patient/RelatedPerson.read patient/ServiceRequest.read patient/Specimen.read"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_3"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_PUBLIC_CLIENT_ID",
+            "requested_scopes": "launch/patient openid fhirUser offline_access patient/Patient.rs patient/AllergyIntolerance.rs patient/CarePlan.rs patient/CareTeam.rs patient/Condition.rs patient/Device.rs patient/DiagnosticReport.rs patient/DocumentReference.rs patient/Encounter.rs patient/Goal.rs patient/Immunization.rs patient/Location.rs patient/Medication.rs patient/MedicationRequest.rs patient/Observation.rs patient/Organization.rs patient/Practitioner.rs patient/PractitionerRole.rs patient/Procedure.rs patient/Provenance.rs"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_3"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_PUBLIC_CLIENT_ID",
+            "requested_scopes": "launch/patient openid fhirUser offline_access patient/Patient.rs patient/AllergyIntolerance.rs patient/CarePlan.rs patient/CareTeam.rs patient/Condition.rs patient/Device.rs patient/DiagnosticReport.rs patient/DocumentReference.rs patient/Encounter.rs patient/Goal.rs patient/Immunization.rs patient/Location.rs patient/Medication.rs patient/MedicationRequest.rs patient/Observation.rs patient/Organization.rs patient/Practitioner.rs patient/PractitionerRole.rs patient/Procedure.rs patient/Provenance.rs"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_4"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_PUBLIC_CLIENT_ID",
+            "requested_scopes": "launch/patient openid fhirUser offline_access patient/Patient.rs patient/AllergyIntolerance.rs patient/CarePlan.rs patient/CareTeam.rs patient/Condition.rs patient/Device.rs patient/DiagnosticReport.rs patient/DocumentReference.rs patient/Encounter.rs patient/Goal.rs patient/Immunization.rs patient/Location.rs patient/Medication.rs patient/MedicationRequest.rs patient/Observation.rs patient/Organization.rs patient/Practitioner.rs patient/PractitionerRole.rs patient/Procedure.rs patient/Provenance.rs"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_4"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_PUBLIC_CLIENT_ID",
+            "requested_scopes": "launch/patient openid fhirUser offline_access patient/Patient.rs patient/AllergyIntolerance.rs patient/CarePlan.rs patient/CareTeam.rs patient/Condition.rs patient/Device.rs patient/DiagnosticReport.rs patient/DocumentReference.rs patient/Encounter.rs patient/Goal.rs patient/Immunization.rs patient/Location.rs patient/Medication.rs patient/MedicationRequest.rs patient/Observation.rs patient/Organization.rs patient/Practitioner.rs patient/PractitionerRole.rs patient/Procedure.rs patient/Provenance.rs"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_6"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_PUBLIC_CLIENT_ID",
+            "requested_scopes": "launch/patient openid fhirUser offline_access patient/Patient.rs patient/AllergyIntolerance.rs patient/CarePlan.rs patient/CareTeam.rs patient/Condition.rs patient/Device.rs patient/DiagnosticReport.rs patient/DocumentReference.rs patient/Encounter.rs patient/Goal.rs patient/Immunization.rs patient/Location.rs patient/Media.rs patient/Medication.rs patient/MedicationRequest.rs patient/Observation.rs patient/Organization.rs patient/Practitioner.rs patient/PractitionerRole.rs patient/Procedure.rs patient/Provenance.rs patient/QuestionnaireResponse.rs patient/RelatedPerson.rs patient/ServiceRequest.rs"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_6"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_PUBLIC_CLIENT_ID",
+            "requested_scopes": "launch/patient openid fhirUser offline_access patient/Patient.rs patient/AllergyIntolerance.rs patient/CarePlan.rs patient/CareTeam.rs patient/Condition.rs patient/Device.rs patient/DiagnosticReport.rs patient/DocumentReference.rs patient/Encounter.rs patient/Goal.rs patient/Immunization.rs patient/Location.rs patient/Media.rs patient/Medication.rs patient/MedicationRequest.rs patient/Observation.rs patient/Organization.rs patient/Practitioner.rs patient/PractitionerRole.rs patient/Procedure.rs patient/Provenance.rs patient/QuestionnaireResponse.rs patient/RelatedPerson.rs patient/ServiceRequest.rs"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_7"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_PUBLIC_CLIENT_ID",
+            "requested_scopes": "launch/patient openid fhirUser offline_access patient/Patient.rs patient/AllergyIntolerance.rs patient/CarePlan.rs patient/CareTeam.rs patient/Condition.rs patient/Coverage.rs patient/Device.rs patient/DiagnosticReport.rs patient/DocumentReference.rs patient/Encounter.rs patient/Goal.rs patient/Immunization.rs patient/Location.rs patient/Media.rs patient/Medication.rs patient/MedicationDispense.rs patient/MedicationRequest.rs patient/Observation.rs patient/Organization.rs patient/Practitioner.rs patient/PractitionerRole.rs patient/Procedure.rs patient/Provenance.rs patient/QuestionnaireResponse.rs patient/RelatedPerson.rs patient/ServiceRequest.rs patient/Specimen.rs"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_7"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_PUBLIC_CLIENT_ID",
+            "requested_scopes": "launch/patient openid fhirUser offline_access patient/Patient.rs patient/AllergyIntolerance.rs patient/CarePlan.rs patient/CareTeam.rs patient/Condition.rs patient/Coverage.rs patient/Device.rs patient/DiagnosticReport.rs patient/DocumentReference.rs patient/Encounter.rs patient/Goal.rs patient/Immunization.rs patient/Location.rs patient/Media.rs patient/Medication.rs patient/MedicationDispense.rs patient/MedicationRequest.rs patient/Observation.rs patient/Organization.rs patient/Practitioner.rs patient/PractitionerRole.rs patient/Procedure.rs patient/Provenance.rs patient/QuestionnaireResponse.rs patient/RelatedPerson.rs patient/ServiceRequest.rs patient/Specimen.rs"
+          }
+        }
+      ]
+    },
+    {
+      "name": "token_revocation_attestation",
+      "value": "true",
+      "_title": "The Health IT developer demonstrated a patient's request for revoking the tokens provided during the patient standalone launch within the last hour",
+      "_type": "radio",
+      "_options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      }
+    },
+    {
+      "name": "token_revocation_notes",
+      "value": null,
+      "_title": "Notes, if applicable:",
+      "_type": "textarea",
+      "_optional": true
+    },
+    {
+      "name": "ehr_patient_smart_auth_info",
+      "_title": "EHR Launch with Patient Scopes Credentials",
+      "_type": "auth_info",
+      "value_for_options": [
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_3"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_1"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "pkce_support": "disabled"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_4"
+            },
+              {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_1"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "pkce_support": "disabled"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_6"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_1"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "pkce_support": "disabled"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_7"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_1"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET",
+            "pkce_support": "disabled"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_3"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_3"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_4"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_4"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_6"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_6"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_7"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET"
+          }
+        },
+        {
+          "options": [
+            {
+              "name": "us_core_version",
+              "value": "us_core_7"
+            },
+            {
+              "name": "smart_app_launch_version",
+              "value": "smart_app_launch_2_2"
+            }
+          ],
+          "value": {
+            "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+            "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET"
+          }
+        }
+      ]
+    },
+    {
+      "name": "custom_authorization_header",
+      "value": null,
+      "_title": "Custom HTTP Headers for Introspection Request",
+      "_description": "\n            Add custom headers for the introspection request by adding each header's name and value with a new line\n            between each header.\n            Ex:\n              <Header 1 Name>: <Value 1>\n            ",
+      "_type": "textarea",
+      "_optional": true
+    },
+    {
+      "name": "optional_introspection_request_params",
+      "value": null,
+      "_title": "Additional Introspection Request Parameters",
+      "_description": "\n            Any additional parameters to append to the request body, separated by &. Example: 'param1=abc&param2=def'\n          ",
+      "_type": "textarea",
+      "_optional": true
+    },
+    {
+      "name": "asymmetric_smart_auth_info",
+      "_title": "Asymmetric Launch Credentials",
+      "_type": "auth_info",
+      "value": {
+        "client_id": "SAMPLE_ASYMMETRIC_CLIENT_ID"
+      }
+    },
+    {
+      "name": "v1_smart_auth_info",
+      "_title": "Launch with v1 Scopes Credentials",
+      "_type": "auth_info",
+      "value": {
+        "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+        "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET"
+      }
+    },
+    {
+      "name": "granular_scopes_1_auth_info",
+      "_title": "Granular Scopes 1 Credentials",
+      "_type": "auth_info",
+      "value": {
+        "auth_type": "symmetric",
+        "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+        "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET"
+      }
+    },
+    {
+      "name": "granular_scopes_2_auth_info",
+      "_title": "Granular Scopes 2 Credentials",
+      "_type": "auth_info",
+      "value": {
+        "auth_type": "symmetric",
+        "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+        "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET"
+      }
+    },
+    {
+      "name": "granular_scopes_selection_smart_auth_info",
+      "_title": "Granular Scope Selection Credentials",
+      "_type": "auth_info",
+      "value": {
+        "auth_type": "symmetric",
+        "client_id": "SAMPLE_CONFIDENTIAL_CLIENT_ID",
+        "client_secret": "SAMPLE_CONFIDENTIAL_CLIENT_SECRET"
+      }
+    },
+    {
+      "name": "single_patient_registration_supported",
+      "value": "true",
+      "_title": "Health IT Module demonstrated support for application registration for single patients.",
+      "_type": "radio",
+      "_options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      }
+    },
+    {
+      "name": "single_patient_registration_notes",
+      "value": null,
+      "_title": "Notes, if applicable:",
+      "_type": "textarea",
+      "_optional": true
+    },
+    {
+      "name": "multiple_patient_registration_supported",
+      "value": "true",
+      "_title": "Health IT Module demonstrated support for application registration for multiple patients.",
+      "_type": "radio",
+      "_options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      }
+    },
+    {
+      "name": "multiple_patient_registration_notes",
+      "value": null,
+      "_title": "Notes, if applicable:",
+      "_type": "textarea",
+      "_optional": true
+    },
+    {
+      "name": "resource_authorization_gui_supported",
+      "value": "true",
+      "_title": "Health IT Module demonstrated a graphical user interface for user to authorize FHIR resources.",
+      "_type": "radio",
+      "_options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      }
+    },
+    {
+      "name": "resource_authorization_gui_notes",
+      "value": null,
+      "_title": "Notes, if applicable:",
+      "_type": "textarea",
+      "_optional": true
+    },
+    {
+      "name": "offline_access_notification_supported",
+      "value": "true",
+      "_title": "Health IT Module informed patient when \"offline_access\" scope is being granted during authorization.",
+      "_type": "radio",
+      "_options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      }
+    },
+    {
+      "name": "offline_access_notification_notes",
+      "value": null,
+      "_title": "Notes, if applicable:",
+      "_type": "textarea",
+      "_optional": true
+    },
+    {
+      "name": "refresh_token_period_attestation",
+      "value": "true",
+      "_title": "Health IT Module attested that it is capable of issuing refresh tokens that are valid for a period of no shorter than three months.",
+      "_type": "radio",
+      "_options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      }
+    },
+    {
+      "name": "refresh_token_period_notes",
+      "value": null,
+      "_title": "Notes, if applicable:",
+      "_type": "textarea",
+      "_optional": true
+    },
+    {
+      "name": "token_validation_support",
+      "value": "true",
+      "_title": "Health IT developer demonstrated the ability of the Health IT Module / authorization server to validate token it has issued.",
+      "_type": "radio",
+      "_options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      }
+    },
+    {
+      "name": "token_validation_notes",
+      "value": null,
+      "_title": "Notes, if applicable:",
+      "_type": "textarea",
+      "_optional": true
+    },
+    {
+      "name": "information_accuracy_attestation",
+      "value": "true",
+      "_title": "Tester verifies that all information is accurate and without omission.",
+      "_type": "radio",
+      "_options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      }
+    },
+    {
+      "name": "information_accuracy_notes",
+      "value": null,
+      "_title": "Notes, if applicable:",
+      "_type": "textarea",
+      "_optional": true
+    },
+    {
+      "name": "multi_patient_scopes_attestation",
+      "value": "true",
+      "_title": "Information returned no greater than scopes pre-authorized for multi-patient queries.",
+      "_type": "radio",
+      "_options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      }
+    },
+    {
+      "name": "multi_patient_scopes_notes",
+      "value": null,
+      "_title": "Notes, if applicable:",
+      "_type": "textarea",
+      "_optional": true
+    },
+    {
+      "name": "developer_documentation_attestation",
+      "value": "true",
+      "_title": "Health IT developer demonstrated the documentation is available at a publicly accessible URL.",
+      "_type": "radio",
+      "_options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      }
+    },
+    {
+      "name": "developer_documentation_notes",
+      "value": null,
+      "_title": "Notes, if applicable:",
+      "_type": "textarea",
+      "_optional": true
+    },
+    {
+      "name": "jwks_cache_attestation",
+      "value": "true",
+      "_title": "Health IT developer confirms the Health IT Module does not cache the JWK Set received via a TLS-protected URL for longer than the cache-control header indicates.",
+      "_type": "radio",
+      "_options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      }
+    },
+    {
+      "name": "jwks_cache_notes",
+      "value": null,
+      "_title": "Notes, if applicable:",
+      "_type": "textarea",
+      "_optional": true
+    },
+    {
+      "name": "patient_suffix_attestation",
+      "value": "true",
+      "_title": "Health IT developer demonstrates support for the Patient Demographics Suffix USCDI v1 element.",
+      "_type": "radio",
+      "_options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      }
+    },
+    {
+      "name": "patient_suffix_notes",
+      "value": null,
+      "_title": "Notes, if applicable:",
+      "_type": "textarea",
+      "_optional": true
+    },
+    {
+      "name": "native_refresh_attestation",
+      "value": "true",
+      "_title": "Health IT developer demonstrates support for issuing refresh tokens to native applications.",
+      "_type": "radio",
+      "_options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      }
+    },
+    {
+      "name": "native_refresh_notes",
+      "value": null,
+      "_title": "Notes, if applicable:",
+      "_type": "textarea",
+      "_optional": true
+    },
+    {
+      "name": "public_url_attestation",
+      "value": "true",
+      "_title": "Health IT developer demonstrates the public location of its certified API technology service base URLs",
+      "_type": "radio",
+      "_options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      }
+    },
+    {
+      "name": "public_url_attestation_notes",
+      "value": null,
+      "_title": "Notes, if applicable:",
+      "_type": "textarea",
+      "_optional": true
+    },
+    {
+      "name": "tls_version_attestation_notes",
+      "value": null,
+      "_title": "Document how TLS version 1.2 or above is enforced, if required:",
+      "_type": "textarea",
+      "_optional": true
+    },
+    {
+      "name": "refresh_token_refresh_attestation",
+      "value": "true",
+      "_title": "Health IT developer attested that the Health IT Module is capable of issuing refresh tokens valid for a new period of no shorter than three months without requiring re-authentication and re-authorization when a valid refresh token is supplied by the application.",
+      "_type": "radio",
+      "_options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      }
+    },
+    {
+      "name": "refresh_token_refresh_notes",
+      "value": null,
+      "_title": "Notes, if applicable:",
+      "_type": "textarea",
+      "_optional": true
+    },
+    {
+      "name": "bulk_v2_since_attestation",
+      "value": "true",
+      "_title": "Health IT developer attested that the Health IT Module meets the requirements for supporting the `_since` parameter for bulk data exports.",
+      "_type": "radio",
+      "_options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      }
+    },
+    {
+      "name": "bulk_v2_since_attestation_notes",
+      "value": null,
+      "_title": "Notes, if applicable:",
+      "_type": "textarea",
+      "_optional": true
+    },
+    {
+      "name": "clinical_test_scope_attestation",
+      "value": "true",
+      "_title": "Health IT developer attested that the Health IT Module supports granting a sub resource scope for Clinical Test Observations.",
+      "_type": "radio",
+      "_options": {
+        "list_options": [
+          {
+            "label": "Yes",
+            "value": "true"
+          },
+          {
+            "label": "No",
+            "value": "false"
+          }
+        ]
+      }
+    },
+    {
+      "name": "clinical_test_scope_attestation_notes",
+      "value": null,
+      "_title": "Notes, if applicable:",
+      "_type": "textarea",
+      "_optional": true
+    }
+  ]
+}
