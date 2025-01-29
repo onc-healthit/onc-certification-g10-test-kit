@@ -3,7 +3,7 @@ require:
 
 AllCops:
   NewCops: enable
-  TargetRubyVersion: 3.1
+  TargetRubyVersion: 3.3.6
   Exclude:
     - 'Gemfile'
     - 'vendor/**/*'
@@ -16,7 +16,7 @@ Layout/MultilineMethodCallIndentation:
 
 Style/Documentation:
   Enabled: false
-    
+
 Style/FrozenStringLiteralComment:
   Enabled: false
 
