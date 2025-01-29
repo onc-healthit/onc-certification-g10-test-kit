@@ -8,7 +8,8 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       .groups.find { |group| group.id.include? 'bulk_data_group_export_validation' }
   end
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
-  let(:test_session) { repo_create(:test_session, test_suite_id: 'g10_certification') }
+  let(:suite_id) { 'g10_certification' }
+  let(:test_session) { repo_create(:test_session, test_suite_id: suite_id) }
   let(:endpoint) { 'https://www.example.com' }
   let(:status_output) { "[{\"url\":\"#{endpoint}\"}]" }
   let(:bearer_token) { 'token' }

@@ -13,7 +13,8 @@ RSpec.describe ONCCertificationG10TestKit::SinglePatientAPIGroup do
     Inferno::TestRunner.new(test_session:, test_run:).run(runnable)
   end
 
-  let(:test_session) { repo_create(:test_session, test_suite_id: 'g10_certification') }
+  let(:suite_id) { 'g10_certification' }
+  let(:test_session) { repo_create(:test_session, test_suite_id: suite_id) }
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
 
   describe 'setup test' do

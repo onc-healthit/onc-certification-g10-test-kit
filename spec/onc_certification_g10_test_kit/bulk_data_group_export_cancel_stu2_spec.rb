@@ -3,7 +3,8 @@ require_relative '../../lib/onc_certification_g10_test_kit/bulk_data_group_expor
 RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportCancelSTU2 do
   let(:group) { Inferno::Repositories::TestGroups.new.find('g10_bulk_data_export_cancel_stu2') }
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
-  let(:test_session) { repo_create(:test_session, test_suite_id: 'g10_certification') }
+  let(:suite_id) { 'g10_certification' }
+  let(:test_session) { repo_create(:test_session, test_suite_id: suite_id) }
 
   def run(runnable, inputs = {})
     test_run_params = { test_session_id: test_session.id }.merge(runnable.reference_hash)
