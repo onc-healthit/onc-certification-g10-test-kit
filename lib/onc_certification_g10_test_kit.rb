@@ -474,7 +474,7 @@ module ONCCertificationG10TestKit
         )
       end
 
-      group from: :g10_smart_fine_grained_scopes_stu2_2, exclude_optional: true do# rubocop:disable Naming/VariableNumber
+      group from: :g10_smart_fine_grained_scopes_stu2_2, exclude_optional: true do # rubocop:disable Naming/VariableNumber
         required_suite_options G10Options::SMART_2_2_REQUIREMENT.merge(G10Options::US_CORE_6_REQUIREMENT)
         groups.first.config(
           inputs: {
@@ -494,7 +494,6 @@ module ONCCertificationG10TestKit
           }
         )
       end
-
 
       group from: :g10_us_core_7_smart_fine_grained_scopes, exclude_optional: true do
         required_suite_options G10Options::SMART_2_REQUIREMENT.merge(G10Options::US_CORE_7_REQUIREMENT)
@@ -517,7 +516,7 @@ module ONCCertificationG10TestKit
         )
       end
 
-      group from: :g10_us_core_7_smart_fine_grained_scopes_stu2_2, exclude_optional: true do# rubocop:disable Naming/VariableNumber
+      group from: :g10_us_core_7_smart_fine_grained_scopes_stu2_2, exclude_optional: true do # rubocop:disable Naming/VariableNumber
         required_suite_options G10Options::SMART_2_2_REQUIREMENT.merge(G10Options::US_CORE_7_REQUIREMENT)
         groups.first.config(
           inputs: {

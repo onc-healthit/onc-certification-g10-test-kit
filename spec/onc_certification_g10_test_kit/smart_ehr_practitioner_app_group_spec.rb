@@ -26,8 +26,7 @@ RSpec.describe ONCCertificationG10TestKit::SmartEHRPractitionerAppGroup do
           },
           {
             name: :requested_scopes,
-            type: 'textarea',
-            default: 'launch openid fhirUser offline_access user/Medication.read user/AllergyIntolerance.read user/CarePlan.read user/CareTeam.read user/Condition.read user/Device.read user/DiagnosticReport.read user/DocumentReference.read user/Encounter.read user/Goal.read user/Immunization.read user/Location.read user/MedicationRequest.read user/Observation.read user/Organization.read user/Patient.read user/Practitioner.read user/Procedure.read user/Provenance.read user/PractitionerRole.read'
+            default: ONCCertificationG10TestKit::ScopeConstants::EHR_SMART_1_SCOPES
           },
           { name: :auth_request_method, default: 'POST', locked: true },
           { name: :use_discovery, locked: true }
@@ -64,8 +63,7 @@ RSpec.describe ONCCertificationG10TestKit::SmartEHRPractitionerAppGroup do
           },
           {
             name: :requested_scopes,
-            type: 'textarea',
-            default: 'launch openid fhirUser offline_access user/Medication.rs user/AllergyIntolerance.rs user/CarePlan.rs user/CareTeam.rs user/Condition.rs user/Device.rs user/DiagnosticReport.rs user/DocumentReference.rs user/Encounter.rs user/Goal.rs user/Immunization.rs user/Location.rs user/MedicationRequest.rs user/Observation.rs user/Organization.rs user/Patient.rs user/Practitioner.rs user/Procedure.rs user/Provenance.rs user/PractitionerRole.rs'
+            default: ONCCertificationG10TestKit::ScopeConstants::EHR_SMART_2_SCOPES
           },
           { name: :auth_request_method, default: 'POST', locked: true },
           { name: :use_discovery, locked: true },
@@ -104,8 +102,7 @@ RSpec.describe ONCCertificationG10TestKit::SmartEHRPractitionerAppGroup do
           },
           {
             name: :requested_scopes,
-            type: 'textarea',
-            default: 'launch openid fhirUser offline_access user/Medication.rs user/AllergyIntolerance.rs user/CarePlan.rs user/CareTeam.rs user/Condition.rs user/Device.rs user/DiagnosticReport.rs user/DocumentReference.rs user/Encounter.rs user/Goal.rs user/Immunization.rs user/Location.rs user/MedicationRequest.rs user/Observation.rs user/Organization.rs user/Patient.rs user/Practitioner.rs user/Procedure.rs user/Provenance.rs user/PractitionerRole.rs'
+            default: ONCCertificationG10TestKit::ScopeConstants::EHR_SMART_2_SCOPES
           },
           { name: :auth_request_method, default: 'POST', locked: true },
           { name: :use_discovery, locked: true },

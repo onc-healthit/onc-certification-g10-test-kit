@@ -50,10 +50,6 @@ module ONCCertificationG10TestKit
                 locked: true
               },
               {
-                name: :requested_scopes,
-                type: 'textarea'
-              },
-              {
                 name: :use_discovery,
                 locked: true
               }
