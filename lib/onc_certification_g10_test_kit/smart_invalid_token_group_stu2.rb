@@ -126,14 +126,14 @@ module ONCCertificationG10TestKit
         }
         oauth2_headers = { 'Content-Type' => 'application/x-www-form-urlencoded' }
 
-        if smart_auth_info.client_secret.present?
+        if smart_auth_info.symmetric_auth?
           client_credentials = "#{smart_auth_info.client_id}:#{smart_auth_info.client_secret}"
           oauth2_headers['Authorization'] = "Basic #{Base64.strict_encode64(client_credentials)}"
         else
           oauth2_params[:client_id] = smart_auth_info.client_id
         end
 
-        oauth2_params[:code_verifier] = pkce_code_verifier if smart_auth_info.pkce_support == 'enabled'
+        oauth2_params[:code_verifier] = pkce_code_verifier if smart_auth_info.pkce_enabled?
 
         post(smart_auth_info.token_url, body: oauth2_params, name: :token, headers: oauth2_headers)
 
@@ -166,14 +166,14 @@ module ONCCertificationG10TestKit
         }
         oauth2_headers = { 'Content-Type' => 'application/x-www-form-urlencoded' }
 
-        if smart_auth_info.client_secret.present?
+        if smart_auth_info.symmetric_auth?
           client_credentials = "#{client_id}:#{smart_auth_info.client_secret}"
           oauth2_headers['Authorization'] = "Basic #{Base64.strict_encode64(client_credentials)}"
         else
           oauth2_params[:client_id] = client_id
         end
 
-        oauth2_params[:code_verifier] = pkce_code_verifier if smart_auth_info.pkce_support == 'enabled'
+        oauth2_params[:code_verifier] = pkce_code_verifier if smart_auth_info.pkce_enabled?
 
         post(smart_auth_info.token_url, body: oauth2_params, name: :token, headers: oauth2_headers)
 

@@ -26,7 +26,7 @@ module ONCCertificationG10TestKit
 
       oauth2_headers = { 'Content-Type' => 'application/x-www-form-urlencoded' }
 
-      if smart_auth_info.client_secret.present?
+      if smart_auth_info.symmetric_auth?
         client_credentials = "#{smart_auth_info.client_id}:#{smart_auth_info.client_secret}"
         oauth2_headers['Authorization'] = "Basic #{Base64.strict_encode64(client_credentials)}"
       else
