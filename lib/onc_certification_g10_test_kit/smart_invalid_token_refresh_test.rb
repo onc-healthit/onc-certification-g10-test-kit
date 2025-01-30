@@ -23,7 +23,7 @@ module ONCCertificationG10TestKit
 
       oauth2_params['scope'] = received_scopes if config.options[:include_scopes]
 
-      if smart_auth_info.auth_type == 'symmetric'
+      if smart_auth_info.symmetric_auth?
         credentials = Base64.strict_encode64("#{smart_auth_info.client_id}:#{smart_auth_info.client_secret}")
         oauth2_headers['Authorization'] = "Basic #{credentials}"
       else
