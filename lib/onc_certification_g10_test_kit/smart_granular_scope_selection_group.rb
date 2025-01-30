@@ -73,16 +73,7 @@ module ONCCertificationG10TestKit
           options: {
             mode: 'auth',
             components: [
-              {
-                name: :auth_type,
-                options: {
-                  list_options: [
-                    { label: 'Public', value: 'public' },
-                    { label: 'Confidential Symmetric', value: 'symmetric' },
-                    { label: 'Confidential Asymmetric', value: 'asymmetric' }
-                  ]
-                }
-              },
+              Inferno::DSL::AuthInfo.default_auth_type_component_without_backend_services,
               {
                 name: :use_discovery,
                 locked: true
