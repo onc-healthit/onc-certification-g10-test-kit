@@ -1,5 +1,9 @@
+require_relative 'scope_constants'
+
 module ONCCertificationG10TestKit
   class SMARTAppLaunchInvalidAudGroup < Inferno::TestGroup
+    include ScopeConstants
+
     title 'Invalid AUD Parameter'
     short_title 'Invalid AUD Launch'
     input_instructions %(
@@ -82,19 +86,7 @@ module ONCCertificationG10TestKit
                 },
                 {
                   name: :requested_scopes,
-                  default: %(
-                    launch/patient openid fhirUser offline_access
-                    patient/Medication.read patient/AllergyIntolerance.read
-                    patient/CarePlan.read patient/CareTeam.read
-                    patient/Condition.read patient/Device.read
-                    patient/DiagnosticReport.read patient/DocumentReference.read
-                    patient/Encounter.read patient/Goal.read
-                    patient/Immunization.read patient/Location.read
-                    patient/MedicationRequest.read patient/Observation.read
-                    patient/Organization.read patient/Patient.read
-                    patient/Practitioner.read patient/Procedure.read
-                    patient/Provenance.read patient/PractitionerRole.read
-                  ).gsub(/\s{2,}/, ' ').strip
+                  default: STANDALONE_SMART_1_SCOPES
                 }
               ]
             }
@@ -147,18 +139,7 @@ module ONCCertificationG10TestKit
                 },
                 {
                   name: :requested_scopes,
-                  default: %(
-                    launch/patient openid fhirUser offline_access
-                    patient/Medication.rs patient/AllergyIntolerance.rs
-                    patient/CarePlan.rs patient/CareTeam.rs patient/Condition.rs
-                    patient/Device.rs patient/DiagnosticReport.rs
-                    patient/DocumentReference.rs patient/Encounter.rs
-                    patient/Goal.rs patient/Immunization.rs patient/Location.rs
-                    patient/MedicationRequest.rs patient/Observation.rs
-                    patient/Organization.rs patient/Patient.rs
-                    patient/Practitioner.rs patient/Procedure.rs
-                    patient/Provenance.rs patient/PractitionerRole.rs
-                  ).gsub(/\s{2,}/, ' ').strip
+                  default: STANDALONE_SMART_2_SCOPES
                 },
                 {
                   name: :pkce_support,
@@ -220,18 +201,7 @@ module ONCCertificationG10TestKit
                 },
                 {
                   name: :requested_scopes,
-                  default: %(
-                    launch/patient openid fhirUser offline_access
-                    patient/Medication.rs patient/AllergyIntolerance.rs
-                    patient/CarePlan.rs patient/CareTeam.rs patient/Condition.rs
-                    patient/Device.rs patient/DiagnosticReport.rs
-                    patient/DocumentReference.rs patient/Encounter.rs
-                    patient/Goal.rs patient/Immunization.rs patient/Location.rs
-                    patient/MedicationRequest.rs patient/Observation.rs
-                    patient/Organization.rs patient/Patient.rs
-                    patient/Practitioner.rs patient/Procedure.rs
-                    patient/Provenance.rs patient/PractitionerRole.rs
-                  ).gsub(/\s{2,}/, ' ').strip
+                  default: STANDALONE_SMART_2_SCOPES
                 },
                 {
                   name: :pkce_support,

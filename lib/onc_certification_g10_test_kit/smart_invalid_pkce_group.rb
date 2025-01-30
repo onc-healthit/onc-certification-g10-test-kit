@@ -1,3 +1,5 @@
+require_relative 'scope_constants'
+
 module ONCCertificationG10TestKit
   class InvalidSMARTTokenRequestTest < Inferno::Test
     title 'OAuth token exchange fails when supplied invalid code_verifier'
@@ -42,6 +44,8 @@ module ONCCertificationG10TestKit
   end
 
   class SMARTInvalidPKCEGroup < Inferno::TestGroup
+    include ScopeConstants
+
     title 'Invalid PKCE Code Verifier'
     short_title 'Invalid PKCE Code Verifier'
     input_instructions %(
@@ -83,19 +87,7 @@ module ONCCertificationG10TestKit
             components: [
               {
                 name: :requested_scopes,
-                default: %(
-                  launch/patient openid fhirUser offline_access
-                  patient/Medication.read patient/AllergyIntolerance.read
-                  patient/CarePlan.read patient/CareTeam.read
-                  patient/Condition.read patient/Device.read
-                  patient/DiagnosticReport.read patient/DocumentReference.read
-                  patient/Encounter.read patient/Goal.read
-                  patient/Immunization.read patient/Location.read
-                  patient/MedicationRequest.read patient/Observation.read
-                  patient/Organization.read patient/Patient.read
-                  patient/Practitioner.read patient/Procedure.read
-                  patient/Provenance.read patient/PractitionerRole.read
-                ).gsub(/\s{2,}/, ' ').strip
+                default: STANDALONE_SMART_1_SCOPES
               },
               {
                 name: :auth_type,

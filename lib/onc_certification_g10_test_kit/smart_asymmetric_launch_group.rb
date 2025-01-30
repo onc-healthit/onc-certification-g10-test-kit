@@ -1,8 +1,11 @@
 require_relative 'base_token_refresh_stu2_group'
 require_relative 'patient_context_test'
+require_relative 'scope_constants'
 
 module ONCCertificationG10TestKit
   class SMARTAsymmetricLaunchGroup < Inferno::TestGroup
+    include ScopeConstants
+
     title 'Asymmetric Client Standalone Launch'
     short_title 'Asymmetric Client Launch'
     description %(
@@ -59,18 +62,7 @@ module ONCCertificationG10TestKit
               },
               {
                 name: :requested_scopes,
-                default: %(
-                  launch/patient openid fhirUser offline_access
-                  patient/Medication.rs patient/AllergyIntolerance.rs
-                  patient/CarePlan.rs patient/CareTeam.rs patient/Condition.rs
-                  patient/Device.rs patient/DiagnosticReport.rs
-                  patient/DocumentReference.rs patient/Encounter.rs
-                  patient/Goal.rs patient/Immunization.rs patient/Location.rs
-                  patient/MedicationRequest.rs patient/Observation.rs
-                  patient/Organization.rs patient/Patient.rs
-                  patient/Practitioner.rs patient/Procedure.rs
-                  patient/Provenance.rs patient/PractitionerRole.rs
-                ).gsub(/\s{2,}/, ' ').strip
+                default: STANDALONE_SMART_2_SCOPES
               },
               {
                 name: :pkce_support,

@@ -1,5 +1,9 @@
+require_relative 'scope_constants'
+
 module ONCCertificationG10TestKit
   class SMARTPublicStandaloneLaunchGroup < SMARTAppLaunch::StandaloneLaunchGroup
+    include ScopeConstants
+
     title 'Public Client Standalone Launch with OpenID Connect'
     short_title 'Public Client Launch'
     input_instructions %(
@@ -56,18 +60,7 @@ module ONCCertificationG10TestKit
               },
               {
                 name: :requested_scopes,
-                default: %(
-                launch/patient openid fhirUser offline_access
-                patient/Medication.read patient/AllergyIntolerance.read
-                patient/CarePlan.read patient/CareTeam.read patient/Condition.read
-                patient/Device.read patient/DiagnosticReport.read
-                patient/DocumentReference.read patient/Encounter.read
-                patient/Goal.read patient/Immunization.read patient/Location.read
-                patient/MedicationRequest.read patient/Observation.read
-                patient/Organization.read patient/Patient.read
-                patient/Practitioner.read patient/Procedure.read
-                patient/Provenance.read patient/PractitionerRole.read
-              ).gsub(/\s{2,}/, ' ').strip
+                default: STANDALONE_SMART_1_SCOPES
               }
             ]
           }
