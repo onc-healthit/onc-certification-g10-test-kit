@@ -1,3 +1,24 @@
+GIT
+  remote: https://github.com/inferno-framework/smart-app-launch-test-kit.git
+  revision: d69ae620eb3b0d944f163970244ca979964f922a
+  branch: fi-3093-use-auth-info
+  specs:
+    smart_app_launch_test_kit (0.5.0)
+      inferno_core (>= 0.6.2)
+      json-jwt (~> 1.15.3)
+      jwt (~> 2.6)
+      tls_test_kit (~> 0.3.0)
+
+GIT
+  remote: https://github.com/inferno-framework/us-core-test-kit.git
+  revision: d1e272f94cff1b093868f9a456c6234f6c1ed36d
+  branch: fi-3586-migrate-to-authinfo
+  specs:
+    us_core_test_kit (0.10.0)
+      inferno_core (>= 0.6.1)
+      smart_app_launch_test_kit (>= 0.5.0)
+      tls_test_kit (~> 0.3.0)
+
 PATH
   remote: ../inferno
   specs:
@@ -29,23 +50,6 @@ PATH
       sqlite3 (~> 1.4)
       thor (~> 1.2.1)
       tty-markdown (~> 0.7.1)
-
-PATH
-  remote: ../smart-app-launch-test-kit
-  specs:
-    smart_app_launch_test_kit (0.5.0)
-      inferno_core (>= 0.6.2)
-      json-jwt (~> 1.15.3)
-      jwt (~> 2.6)
-      tls_test_kit (~> 0.3.0)
-
-PATH
-  remote: ../us-core-test-kit
-  specs:
-    us_core_test_kit (0.10.0)
-      inferno_core (>= 0.6.1)
-      smart_app_launch_test_kit (>= 0.5.0)
-      tls_test_kit (~> 0.3.0)
 
 PATH
   remote: .
