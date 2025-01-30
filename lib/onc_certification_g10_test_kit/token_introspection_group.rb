@@ -57,7 +57,7 @@ module ONCCertificationG10TestKit
             populated automatically if included in the server's discovery
             endpoint.
           DESCRIPTION
-    optional: true
+          optional: true
 
     input_order :url,
                 :well_known_introspection_url,
