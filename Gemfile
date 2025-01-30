@@ -7,6 +7,7 @@ gemspec
 # - Update for your local path to inferno_core.
 # - In inferno_core, checkout the `auth-info-fixes` branch
 # - In inferno_core, run `npm run build`
+# - bundle install in this repo
 gem 'inferno_core',
     path: '../inferno'
 gem 'smart_app_launch_test_kit',
