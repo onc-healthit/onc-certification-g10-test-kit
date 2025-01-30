@@ -98,6 +98,7 @@ module ONCCertificationG10TestKit
     test from: :smart_code_received
 
     test do
+      id 'Test03'
       title ' OAuth token exchange fails when supplied invalid code'
       description %(
         If the request failed verification or is invalid, the authorization
@@ -134,6 +135,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
+      id 'Test04'
       title 'OAuth token exchange fails when supplied invalid client ID'
       description %(
         If the request failed verification or is invalid, the authorization
