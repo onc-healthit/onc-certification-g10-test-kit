@@ -4,9 +4,17 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'inferno_core', path: '../inferno'
-gem 'smart_app_launch_test_kit', path: '../smart-app-launch-test-kit'
-gem 'us_core_test_kit', path: '../us-core-test-kit'
+# - Update for your local path to inferno_core.
+# - In inferno_core, checkout the `auth-info-fixes` branch
+# - In inferno_core, run `npm run build`
+gem 'inferno_core',
+    path: '../inferno'
+gem 'smart_app_launch_test_kit',
+    git: 'https://github.com/inferno-framework/smart-app-launch-test-kit.git',
+    branch: 'fi-3093-use-auth-info'
+gem 'us_core_test_kit',
+    git: 'https://github.com/inferno-framework/us-core-test-kit.git',
+    branch: 'fi-3586-migrate-to-authinfo'
 
 group :development, :test do
   gem 'debug'
