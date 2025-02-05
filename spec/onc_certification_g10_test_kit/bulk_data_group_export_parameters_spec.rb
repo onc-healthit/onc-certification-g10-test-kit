@@ -4,7 +4,6 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportParameters do
   let(:group) { Inferno::Repositories::TestGroups.new.find('g10_bulk_data_export_parameters') }
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
   let(:suite_id) { 'g10_certification' }
-  let(:test_session) { repo_create(:test_session, test_suite_id: suite_id) }
   let(:export_url) { "#{bulk_server_url}/Group/#{group_id}/$export" }
   let(:bulk_server_url) { 'https://example.com/fhir' }
   let(:bearer_token) { 'some_bearer_token_alphanumeric' }
