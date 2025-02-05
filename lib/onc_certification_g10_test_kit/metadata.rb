@@ -94,7 +94,7 @@ module ONCCertificationG10TestKit
     DESCRIPTION
     suite_ids [:g10_certification]
     tags ['SMART App Launch', 'US Core', 'Bulk Data']
-    last_updated '2025-01-29'
+    last_updated LAST_UPDATED
     version VERSION
     maturity 'High'
     authors ['Stephen MacVicar']
