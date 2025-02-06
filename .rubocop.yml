@@ -29,6 +29,9 @@ Style/SymbolArray:
 Style/WordArray:
   Enabled: false
 
+Style/SafeNavigationChainLength:
+  Enabled: false
+
 Metrics/CyclomaticComplexity:
   Exclude:
     - 'lib/inferno/terminology/**'
