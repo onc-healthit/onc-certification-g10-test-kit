@@ -71,7 +71,7 @@ module ONCCertificationG10TestKit
 
       cs_metadata = YAML.load_file(path)
       message = "Terminology was generated based on the following code system versions:\n"
-      cs_metadata.each do |_url, metadata|
+      cs_metadata.each_value do |metadata|
         message += "* #{metadata[:name]}: version #{metadata[:versions].join(', ')}\n"
       end
 

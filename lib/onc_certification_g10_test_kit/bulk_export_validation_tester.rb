@@ -43,13 +43,13 @@ module ONCCertificationG10TestKit
     end
 
     def stream_ndjson(endpoint, headers, process_chunk_line, process_response) # rubocop:disable Metrics/CyclomaticComplexity
-      hanging_chunk = String.new
+      hanging_chunk = ''
 
       process_body = proc { |chunk|
         hanging_chunk << chunk
         chunk_by_lines = hanging_chunk.lines
 
-        hanging_chunk = chunk_by_lines.pop || String.new
+        hanging_chunk = chunk_by_lines.pop || ''
 
         chunk_by_lines.each do |elem|
           process_chunk_line.call(elem)
@@ -89,7 +89,7 @@ module ONCCertificationG10TestKit
         coding.code if coding.system.nil? || coding.system == 'http://snomed.info/sct'
       end
 
-      (expected & actual).any?
+      expected.intersect?(actual)
     end
 
     def determine_profile(resource)

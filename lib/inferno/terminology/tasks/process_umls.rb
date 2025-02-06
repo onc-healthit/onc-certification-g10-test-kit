@@ -37,7 +37,7 @@ module Inferno
                 case code_system
                 when 'SNOMEDCT_US'
                   code_system = 'SNOMED'
-                  include_code = (row[4] == 'PF' && ['FN', 'OAF'].include?(row[12]))
+                  include_code = row[4] == 'PF' && ['FN', 'OAF'].include?(row[12])
                 when 'LNC'
                   code_system = 'LOINC'
                   include_code = true

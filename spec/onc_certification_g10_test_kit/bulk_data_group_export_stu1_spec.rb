@@ -235,9 +235,9 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU1 do
         .with(headers: { 'Authorization' => "Bearer #{bearer_token}" })
         .to_return(status: 202)
 
-      regex = /^#{"Server already used \\d+(\\.\\d+)? seconds processing this request, " \
-        "and next poll is \\d+ seconds after. " \
-        "The total wait time for next poll is more than \\d+ seconds time out setting."}$/
+      regex = /^#{'Server already used \\d+(\\.\\d+)? seconds processing this request, ' \
+        'and next poll is \\d+ seconds after. ' \
+        'The total wait time for next poll is more than \\d+ seconds time out setting.'}$/
 
       allow_any_instance_of(runnable).to receive(:sleep)
       result = run(runnable, input)
