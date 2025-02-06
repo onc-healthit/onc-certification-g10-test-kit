@@ -347,7 +347,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  database_cleaner-sequel (~> 1.8)
+  database_cleaner-sequel
   debug
   factory_bot (~> 6.1)
   onc_certification_g10_test_kit!

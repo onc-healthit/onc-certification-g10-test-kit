@@ -25,10 +25,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'tls_test_kit', '0.2.3'
   spec.add_runtime_dependency 'us_core_test_kit', '0.9.3'
 
-  spec.add_development_dependency 'database_cleaner-sequel', '~> 1.8'
-  spec.add_development_dependency 'factory_bot', '~> 6.1'
-  spec.add_development_dependency 'rspec', '~> 3.10'
-  spec.add_development_dependency 'webmock', '~> 3.11'
   spec.required_ruby_version = Gem::Requirement.new('>= 3.3.6')
   spec.metadata['inferno_test_kit'] = 'true'
   spec.metadata['homepage_uri'] = spec.homepage
