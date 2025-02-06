@@ -31,6 +31,8 @@ Style/WordArray:
 
 Style/SafeNavigationChainLength:
   Enabled: false
+Style/ReturnNilInPredicateMethodDefinition:
+  Enabled: false
 
 Metrics/CyclomaticComplexity:
   Exclude:
