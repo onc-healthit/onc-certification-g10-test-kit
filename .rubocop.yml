@@ -73,6 +73,9 @@ RSpec/MultipleMemoizedHelpers:
 RSpec/NestedGroups:
   Enabled: false
 
+RSpec/IndexedLet:
+  Enabled: false
+
 RSpec/NotToNot:
   EnforcedStyle: to_not
 
