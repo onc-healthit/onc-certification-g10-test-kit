@@ -111,23 +111,24 @@ module ONCCertificationG10TestKit
       end
     end
 
-    USCoreTestKit::USCoreV311::USCoreTestSuite.groups[1].groups.each do |group|
-      test_group = group.ancestors[1]
+    USCoreTestKit::USCoreV311::USCoreTestSuite
+      .groups
+      .find { |g| g.title == 'US Core FHIR API' }
+      .groups
+      .each do |group|
+        test_group = group.ancestors[1]
 
-      next if test_group.optional?
+        next if test_group.optional?
 
-      id = test_group.id
+        group(from: test_group.id, exclude_optional: true)
 
-      group_config = {}
-      if test_group.respond_to?(:metadata) &&
-         test_group.metadata.delayed? &&
-         !test_group.metadata.searchable_delayed_resource?
-        test_group.children.reject! { |child| child.include? USCoreTestKit::SearchTest }
-        group_config[:options] = { read_all_resources: true }
+        if test_group.respond_to?(:metadata) && # rubocop:disable Style/Next
+           test_group.metadata.delayed? &&
+           !test_group.metadata.searchable_delayed_resource?
+          groups.last.children.reject! { |child| child.include? USCoreTestKit::SearchTest }
+          groups.last.config(options: { read_all_resources: true })
+        end
       end
-
-      group(from: id, exclude_optional: true, config: group_config)
-    end
 
     groups.first.description %(
       The Capability Statement test verifies a FHIR server's ability support the
