@@ -126,7 +126,7 @@ Inferno::Utils::Migration.new.run
 require 'inferno'
 Inferno::Application.finalize!
 
-require Inferno::SpecSupport::FACTORY_BOT_SUPPORT_PATH
+Inferno::SpecSupport.require_helpers
 
 FactoryBot.definition_file_paths = [
   Inferno::SpecSupport::FACTORY_PATH

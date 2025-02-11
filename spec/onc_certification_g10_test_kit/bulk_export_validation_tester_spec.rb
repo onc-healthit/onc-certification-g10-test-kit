@@ -24,13 +24,13 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
   let(:resource_type) { 'Patient' }
   let(:tester) { BulkExportValidationTesterClass.new }
   let(:headers) { { 'content-type' => 'application/fhir+ndjson' } }
-  let(:patient_contents) { String.new }
-  let(:care_plan_contents) { String.new }
-  let(:encounter_contents) { String.new }
-  let(:device_contents) { String.new }
-  let(:location_contents) { String.new }
-  let(:medication_contents) { String.new }
-  let(:patient_contents_one_id) { String.new }
+  let(:patient_contents) { '' }
+  let(:care_plan_contents) { '' }
+  let(:encounter_contents) { '' }
+  let(:device_contents) { '' }
+  let(:location_contents) { '' }
+  let(:medication_contents) { '' }
+  let(:patient_contents_one_id) { '' }
   let(:one_id) { 'one_id' }
   let(:patient_ids_seen) { ['e91975f5-9445-c11f-cabf-c3c6dae161f2', 'd831ec91-c7a3-4a61-9312-7ff0c4a32134'] }
   let(:device_resource) { FHIR.from_contents(device_contents.lines[0]) }
@@ -436,10 +436,9 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
           observation = FHIR::Observation.new({ category: [category], code: })
 
           result = tester.determine_profile(observation)
-          expect(result).to match_array([
-                                          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-social-history',
-                                          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-smokingstatus'
-                                        ])
+          expect(result).to contain_exactly(
+            'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-social-history', 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-smokingstatus'
+          )
         end
 
         it 'returns the Observation Imaging profile when its criterion are specified' do

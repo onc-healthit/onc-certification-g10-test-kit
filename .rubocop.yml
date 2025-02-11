@@ -3,7 +3,7 @@ require:
 
 AllCops:
   NewCops: enable
-  TargetRubyVersion: 3.1
+  TargetRubyVersion: 3.3.6
   Exclude:
     - 'Gemfile'
     - 'vendor/**/*'
@@ -16,7 +16,7 @@ Layout/MultilineMethodCallIndentation:
 
 Style/Documentation:
   Enabled: false
-    
+
 Style/FrozenStringLiteralComment:
   Enabled: false
 
@@ -27,6 +27,11 @@ Style/SymbolArray:
   Enabled: false
 
 Style/WordArray:
+  Enabled: false
+
+Style/SafeNavigationChainLength:
+  Enabled: false
+Style/ReturnNilInPredicateMethodDefinition:
   Enabled: false
 
 Metrics/CyclomaticComplexity:
@@ -68,6 +73,9 @@ RSpec/MultipleMemoizedHelpers:
   Enabled: false
 
 RSpec/NestedGroups:
+  Enabled: false
+
+RSpec/IndexedLet:
   Enabled: false
 
 RSpec/NotToNot:

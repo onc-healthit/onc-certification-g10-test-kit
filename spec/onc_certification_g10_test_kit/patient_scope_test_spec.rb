@@ -1,20 +1,5 @@
 RSpec.describe ONCCertificationG10TestKit::PatientScopeTest do
-  def run(runnable, inputs = {})
-    test_run_params = { test_session_id: test_session.id }.merge(runnable.reference_hash)
-    test_run = Inferno::Repositories::TestRuns.new.create(test_run_params)
-    inputs.each do |name, value|
-      session_data_repo.save(
-        test_session_id: test_session.id,
-        name:,
-        value:,
-        type: runnable.config.input_type(name)
-      )
-    end
-    Inferno::TestRunner.new(test_session:, test_run:).run(runnable)
-  end
-
-  let(:test_session) { repo_create(:test_session, test_suite_id: 'g10_certification') }
-  let(:session_data_repo) { Inferno::Repositories::SessionData.new }
+  let(:suite_id) { 'g10_certification' }
   let(:test) { described_class }
 
   context 'with v1 scopes' do

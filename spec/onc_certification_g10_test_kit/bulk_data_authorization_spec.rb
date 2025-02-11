@@ -3,8 +3,7 @@ require_relative '../../lib/onc_certification_g10_test_kit/authorization_request
 
 RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
   let(:group) { Inferno::Repositories::TestGroups.new.find('bulk_data_authorization') }
-  let(:session_data_repo) { Inferno::Repositories::SessionData.new }
-  let(:test_session) { repo_create(:test_session, test_suite_id: 'g10_certification') }
+  let(:suite_id) { 'g10_certification' }
   let(:bulk_token_endpoint) { 'http://example.com/fhir' }
   let(:bulk_encryption_method) { 'ES384' }
   let(:bulk_scope) { 'system/Patient.read' }
@@ -32,20 +31,6 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
       exp:,
       jti:
     }
-  end
-
-  def run(runnable, inputs = {})
-    test_run_params = { test_session_id: test_session.id }.merge(runnable.reference_hash)
-    test_run = Inferno::Repositories::TestRuns.new.create(test_run_params)
-    inputs.each do |name, value|
-      session_data_repo.save(
-        test_session_id: test_session.id,
-        name:,
-        value:,
-        type: runnable.config.input_type(name)
-      )
-    end
-    Inferno::TestRunner.new(test_session:, test_run:).run(runnable)
   end
 
   describe '[Invalid grant_type] test' do

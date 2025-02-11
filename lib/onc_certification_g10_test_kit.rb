@@ -3,8 +3,8 @@ require 'smart_app_launch/smart_stu2_suite'
 require 'smart_app_launch/smart_stu2_2_suite'
 require 'us_core_test_kit'
 
+require_relative 'onc_certification_g10_test_kit/metadata'
 require_relative 'onc_certification_g10_test_kit/configuration_checker'
-require_relative 'onc_certification_g10_test_kit/version'
 
 require_relative 'onc_certification_g10_test_kit/feature'
 require_relative 'onc_certification_g10_test_kit/g10_options'
@@ -50,7 +50,6 @@ module ONCCertificationG10TestKit
   class G10CertificationSuite < Inferno::TestSuite
     title 'ONC Certification (g)(10) Standardized API'
     short_title '(g)(10) Standardized API'
-    version VERSION
     id :g10_certification
     links [
       {

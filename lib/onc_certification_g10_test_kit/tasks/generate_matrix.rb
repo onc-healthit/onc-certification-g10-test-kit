@@ -217,7 +217,7 @@ module ONCCertificationG10TestKit
           ['', 3, ->(_test) { '' }],
           ['', 3, ->(_test) { '' }],
           ['Inferno Test ID', 22, ->(test) { test.short_id.to_s }],
-          ['Inferno Test Name', 65, ->(test) { test.title }],
+          ['Inferno Test Name', 65, lambda(&:title)],
           ['Inferno Test Description', 65, lambda do |test|
                                              description = test.description || ''
                                              natural_indent =
