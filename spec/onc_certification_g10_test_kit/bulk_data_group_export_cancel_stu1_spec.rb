@@ -2,7 +2,6 @@ require_relative '../../lib/onc_certification_g10_test_kit/bulk_data_group_expor
 
 RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportCancelSTU1 do
   let(:group) { Inferno::Repositories::TestGroups.new.find('g10_bulk_data_export_cancel_stu1') }
-  let(:session_data_repo) { Inferno::Repositories::SessionData.new }
   let(:suite_id) { 'g10_certification' }
   let(:bulk_server_url) { 'https://example.com/fhir' }
   let(:bearer_token) { 'some_bearer_token_alphanumeric' }
@@ -14,20 +13,6 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportCancelSTU1 do
       bearer_token:,
       group_id:
     }
-  end
-
-  def run(runnable, inputs = {})
-    test_run_params = { test_session_id: test_session.id }.merge(runnable.reference_hash)
-    test_run = Inferno::Repositories::TestRuns.new.create(test_run_params)
-    inputs.each do |name, value|
-      session_data_repo.save(
-        test_session_id: test_session.id,
-        name:,
-        value:,
-        type: runnable.config.input_type(name)
-      )
-    end
-    Inferno::TestRunner.new(test_session:, test_run:).run(runnable)
   end
 
   describe 'delete request tests' do
