@@ -1,6 +1,8 @@
 require_relative '../../lib/onc_certification_g10_test_kit/smart_standalone_patient_app_group'
 
 RSpec.describe ONCCertificationG10TestKit::SmartEHRPractitionerAppGroup do
+  let(:suite_id) { 'g10_certification' }
+
   it 'has a properly configured SMART v1 auth input' do
     inputs =
       described_class.available_inputs(
@@ -55,8 +57,7 @@ RSpec.describe ONCCertificationG10TestKit::SmartEHRPractitionerAppGroup do
               list_options: [
                 { label: 'Public', value: 'public' },
                 { label: 'Confidential Symmetric', value: 'symmetric' },
-                { label: 'Confidential Asymmetric', value: 'asymmetric' },
-                { label: 'Backend Services', value: 'backend_services' }
+                { label: 'Confidential Asymmetric', value: 'asymmetric' }
               ]
             },
             locked: true
@@ -94,8 +95,7 @@ RSpec.describe ONCCertificationG10TestKit::SmartEHRPractitionerAppGroup do
               list_options: [
                 { label: 'Public', value: 'public' },
                 { label: 'Confidential Symmetric', value: 'symmetric' },
-                { label: 'Confidential Asymmetric', value: 'asymmetric' },
-                { label: 'Backend Services', value: 'backend_services' }
+                { label: 'Confidential Asymmetric', value: 'asymmetric' }
               ]
             },
             locked: true
