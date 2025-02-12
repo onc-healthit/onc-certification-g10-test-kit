@@ -182,7 +182,7 @@ module ONCCertificationG10TestKit
             aud: bulk_smart_auth_info.token_url
           )
 
-        post(bulk_smart_auth_info.token_url, **post_request_content.merge(name: :bulk_authentication))
+        post(bulk_smart_auth_info.token_url, **post_request_content, name: :bulk_authentication)
 
         assert_response_status([200, 201])
       end
