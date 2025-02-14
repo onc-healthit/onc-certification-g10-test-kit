@@ -1,55 +1,23 @@
 GIT
   remote: https://github.com/inferno-framework/smart-app-launch-test-kit.git
-  revision: d69ae620eb3b0d944f163970244ca979964f922a
+  revision: 7951cdd61c1189df1e967239707151378d72bf98
   branch: fi-3093-use-auth-info
   specs:
     smart_app_launch_test_kit (0.5.0)
-      inferno_core (>= 0.6.2)
+      inferno_core (>= 0.6.3)
       json-jwt (~> 1.15.3)
       jwt (~> 2.6)
       tls_test_kit (~> 0.3.0)
 
 GIT
   remote: https://github.com/inferno-framework/us-core-test-kit.git
-  revision: d1e272f94cff1b093868f9a456c6234f6c1ed36d
+  revision: 77d486c19add10930833d8e7c95b397baacb8f86
   branch: fi-3586-migrate-to-authinfo
   specs:
     us_core_test_kit (0.10.0)
-      inferno_core (>= 0.6.1)
+      inferno_core (>= 0.6.3)
       smart_app_launch_test_kit (>= 0.5.0)
       tls_test_kit (~> 0.3.0)
-
-PATH
-  remote: ../inferno
-  specs:
-    inferno_core (0.6.2)
-      activesupport (~> 6.1.7.5)
-      base62-rb (= 0.3.1)
-      blueprinter (= 0.25.2)
-      concurrent-ruby (= 1.3.4)
-      dotenv (~> 2.7)
-      dry-configurable (= 1.0.0)
-      dry-container (= 0.10.0)
-      dry-core (= 1.0.0)
-      dry-inflector (= 1.0.0)
-      dry-system (= 1.0.0)
-      faraday (~> 1.2)
-      faraday_middleware (~> 1.2)
-      fhir_client (>= 5.0.3)
-      fhir_models (>= 4.2.2)
-      hanami-controller (= 2.0.0)
-      hanami-router (= 2.0.0)
-      oj (= 3.11.0)
-      pastel (~> 0.8.0)
-      pry
-      pry-byebug
-      puma (~> 5.6.7)
-      rake (~> 13.0)
-      sequel (~> 5.42.0)
-      sidekiq (~> 7.2.4)
-      sqlite3 (~> 1.4)
-      thor (~> 1.2.1)
-      tty-markdown (~> 0.7.1)
 
 PATH
   remote: .
@@ -57,7 +25,7 @@ PATH
     onc_certification_g10_test_kit (7.0.3)
       bloomer (~> 1.0.0)
       colorize (~> 0.8.1)
-      inferno_core (~> 0.6.2)
+      inferno_core (~> 0.6.3)
       json-jwt (~> 1.15.3)
       mime-types (~> 3.4.0)
       ndjson (~> 1.0.0)
@@ -202,6 +170,34 @@ GEM
     httpclient (2.8.3)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
+    inferno_core (0.6.3)
+      activesupport (~> 6.1.7.5)
+      base62-rb (= 0.3.1)
+      blueprinter (= 0.25.2)
+      concurrent-ruby (= 1.3.4)
+      dotenv (~> 2.7)
+      dry-configurable (= 1.0.0)
+      dry-container (= 0.10.0)
+      dry-core (= 1.0.0)
+      dry-inflector (= 1.0.0)
+      dry-system (= 1.0.0)
+      faraday (~> 1.2)
+      faraday_middleware (~> 1.2)
+      fhir_client (>= 5.0.3)
+      fhir_models (>= 4.2.2)
+      hanami-controller (= 2.0.0)
+      hanami-router (= 2.0.0)
+      oj (= 3.11.0)
+      pastel (~> 0.8.0)
+      pry
+      pry-byebug
+      puma (~> 5.6.7)
+      rake (~> 13.0)
+      sequel (~> 5.42.0)
+      sidekiq (~> 7.2.4)
+      sqlite3 (~> 1.4)
+      thor (~> 1.2.1)
+      tty-markdown (~> 0.7.1)
     io-console (0.5.11)
     irb (1.5.1)
       reline (>= 0.3.0)
@@ -219,7 +215,7 @@ GEM
     method_source (1.1.0)
     mime-types (3.4.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2025.0107)
+    mime-types-data (3.2025.0204)
     mini_portile2 (2.8.8)
     minitest (5.25.4)
     msgpack (1.7.5)
@@ -257,17 +253,17 @@ GEM
       racc
     pastel (0.8.0)
       tty-color (~> 0.5)
-    pry (0.15.2)
+    pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    pry-byebug (3.8.0)
+    pry-byebug (3.10.1)
       byebug (~> 11.0)
-      pry (~> 0.10)
+      pry (>= 0.13, < 0.15)
     public_suffix (6.0.1)
     puma (5.6.9)
       nio4r (~> 2.0)
     racc (1.8.1)
-    rack (2.2.10)
+    rack (2.2.11)
     rack-test (2.2.0)
       rack (>= 1.3)
     rainbow (3.1.1)
@@ -366,7 +362,6 @@ DEPENDENCIES
   database_cleaner-sequel
   debug
   factory_bot (~> 6.1)
-  inferno_core!
   onc_certification_g10_test_kit!
   rack-test
   rspec (~> 3.10)
