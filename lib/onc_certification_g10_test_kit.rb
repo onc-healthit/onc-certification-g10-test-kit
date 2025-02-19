@@ -88,26 +88,16 @@ module ONCCertificationG10TestKit
     ].freeze
 
     def self.setup_validator(us_core_version_requirement) # rubocop:disable Metrics/CyclomaticComplexity
-      validator_method = if Feature.use_hl7_resource_validator?
-                           method(:fhir_resource_validator)
-                         else
-                           method(:validator)
-                         end
-
-      validator_method.call :default, required_suite_options: us_core_version_requirement do
-        if Feature.use_hl7_resource_validator?
-          cli_context do
-            txServer nil
-            displayWarnings true
-            disableDefaultResourceFetcher true
-          end
-
-          us_core_version_num = G10Options::US_CORE_VERSION_NUMBERS[us_core_version_requirement[:us_core_version]]
-
-          igs("hl7.fhir.us.core##{us_core_version_num}")
-        else
-          url ENV.fetch('G10_VALIDATOR_URL', 'http://validator_service:4567')
+      fhir_resource_validator :default, required_suite_options: us_core_version_requirement do
+        cli_context do
+          txServer nil
+          displayWarnings true
+          disableDefaultResourceFetcher true
         end
+
+        us_core_version_num = G10Options::US_CORE_VERSION_NUMBERS[us_core_version_requirement[:us_core_version]]
+
+        igs("hl7.fhir.us.core##{us_core_version_num}")
 
         us_core_message_filters =
           case (us_core_version_requirement[:us_core_version])
