@@ -84,6 +84,10 @@ module ONCCertificationG10TestKit
                   launch/patient openid fhirUser offline_access patient/Condition.rs
                   patient/Observation.rs patient/Patient.rs
                 ).gsub(/\s{2,}/, ' ').strip
+              },
+              {
+                name: :jwks,
+                locked: true
               }
             ]
           }

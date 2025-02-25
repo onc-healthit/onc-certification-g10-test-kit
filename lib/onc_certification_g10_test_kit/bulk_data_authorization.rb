@@ -26,6 +26,10 @@ module ONCCertificationG10TestKit
               {
                 name: :token_url,
                 optional: false
+              },
+              {
+                name: :jwks,
+                locked: true
               }
             ]
           }

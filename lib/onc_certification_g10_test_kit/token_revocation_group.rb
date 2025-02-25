@@ -22,6 +22,7 @@ module ONCCertificationG10TestKit
           options: {
             mode: 'access',
             components: [
+              Inferno::DSL::AuthInfo.default_auth_type_component_without_backend_services,
               {
                 name: :client_id,
                 locked: true
@@ -37,6 +38,10 @@ module ONCCertificationG10TestKit
               {
                 name: :token_url,
                 optional: false
+              },
+              {
+                name: :jwks,
+                locked: true
               }
             ]
           }

@@ -97,7 +97,11 @@ module ONCCertificationG10TestKit
         smart_auth_info: {
           options: {
             components: [
-              Inferno::DSL::AuthInfo.default_auth_type_component_without_backend_services
+              Inferno::DSL::AuthInfo.default_auth_type_component_without_backend_services,
+              {
+                name: :jwks,
+                locked: true
+              }
             ]
           }
         }

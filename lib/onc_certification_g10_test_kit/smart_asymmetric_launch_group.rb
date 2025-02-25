@@ -73,6 +73,10 @@ module ONCCertificationG10TestKit
                 name: :pkce_code_challenge_method,
                 default: 'S256',
                 locked: true
+              },
+              {
+                name: :jwks,
+                locked: true
               }
             ]
           }
