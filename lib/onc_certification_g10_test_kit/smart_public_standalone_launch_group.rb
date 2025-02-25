@@ -54,11 +54,6 @@ module ONCCertificationG10TestKit
                 locked: true
               },
               {
-                name: :auth_request_method,
-                default: 'GET',
-                locked: true
-              },
-              {
                 name: :requested_scopes,
                 default: STANDALONE_SMART_1_SCOPES
               }

@@ -80,11 +80,6 @@ module ONCCertificationG10TestKit
                 locked: true
               },
               {
-                name: :auth_request_method,
-                default: 'POST',
-                locked: true
-              },
-              {
                 name: :use_discovery,
                 locked: true
               }
@@ -333,6 +328,11 @@ module ONCCertificationG10TestKit
                 {
                   name: :requested_scopes,
                   default: EHR_SMART_2_SCOPES
+                },
+                {
+                  name: :auth_request_method,
+                  default: 'POST',
+                  locked: true
                 }
               ]
             }
@@ -472,6 +472,11 @@ module ONCCertificationG10TestKit
                 {
                   name: :requested_scopes,
                   default: EHR_SMART_2_SCOPES
+                },
+                {
+                  name: :auth_request_method,
+                  default: 'POST',
+                  locked: true
                 }
               ]
             }
