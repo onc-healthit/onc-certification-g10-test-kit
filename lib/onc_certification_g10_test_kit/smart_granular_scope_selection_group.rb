@@ -13,7 +13,7 @@ module ONCCertificationG10TestKit
       * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
 
       Once the test is running, Inferno will perform a launch.  The tester must grant
-      a sub-resource scope for each Conditoin and Observation, instead of granting
+      a sub-resource scope for each Condition and Observation, instead of granting
       access to all Condition and Observation resources:
 
       * “Condition” sub-resource scopes “Encounter Diagnosis”, “Problem List”,
