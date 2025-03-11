@@ -33,7 +33,7 @@ module ONCCertificationG10TestKit
     input_instructions %(
       Register Inferno as a standalone application using the following information:
 
-      * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
+      * Redirect URI: `#{REDIRECT_URI}`
       * JWKS URI (`jku`): `#{Inferno::Application[:base_url]}/custom/smart_stu2/.well-known/jwks.json`
 
       Enter in the appropriate scopes to enable access to the Patient resource.

@@ -10,7 +10,7 @@ module ONCCertificationG10TestKit
     input_instructions %(
       If necessary, register Inferno as a standalone application using the following information:
 
-      * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
+      * Redirect URI: `#{REDIRECT_URI}`
 
       Once the test is running, Inferno will perform a launch.  The tester must grant
       a sub-resource scope for each Condition and Observation, instead of granting
@@ -128,7 +128,7 @@ module ONCCertificationG10TestKit
               [Follow this link to authorize with the SMART server](#{auth_url}).
 
               Tests will resume once Inferno receives a request at
-              `#{config.options[:redirect_uri]}` with a state of `#{state}`.
+              `#{REDIRECT_URI}` with a state of `#{state}`.
             )
           end,
           ignore_missing_scopes_check: true
@@ -190,7 +190,7 @@ module ONCCertificationG10TestKit
               [Follow this link to authorize with the SMART server](#{auth_url}).
 
               Tests will resume once Inferno receives a request at
-              `#{config.options[:redirect_uri]}` with a state of `#{state}`.
+              `#{REDIRECT_URI}` with a state of `#{state}`.
             )
           end,
           ignore_missing_scopes_check: true
