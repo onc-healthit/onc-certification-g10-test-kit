@@ -15,7 +15,7 @@ module ONCCertificationG10TestKit
     input_instructions %(
       Register Inferno as a standalone application using the following information:
 
-      * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
+      * Redirect URI: `#{REDIRECT_URI}`
 
       Enter in the appropriate v1 scopes to enable patient-level access to all
       relevant resources. In addition, support for the OpenID Connect (openid
@@ -46,7 +46,7 @@ module ONCCertificationG10TestKit
         with Inferno used in a previous scenario, or register Inferno with a new
         `client_id` as a standalone client with the following information:
 
-        * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
+        * Redirect URI: `#{REDIRECT_URI}`
 
       )
 

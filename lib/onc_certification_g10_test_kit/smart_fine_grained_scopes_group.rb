@@ -6,7 +6,7 @@ module ONCCertificationG10TestKit
     input_instructions %(
       If necessary, register Inferno as a standalone application using the following information:
 
-      * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
+      * Redirect URI: `#{REDIRECT_URI}`
 
       Inferno may be registered multiple times with different `client_ids`, or this
       may reuse a single registration of Inferno.`
