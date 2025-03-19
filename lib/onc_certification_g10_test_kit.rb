@@ -5,6 +5,7 @@ require 'us_core_test_kit'
 
 require_relative 'onc_certification_g10_test_kit/metadata'
 require_relative 'onc_certification_g10_test_kit/configuration_checker'
+require_relative 'onc_certification_g10_test_kit/urls'
 
 require_relative 'onc_certification_g10_test_kit/feature'
 require_relative 'onc_certification_g10_test_kit/g10_options'
@@ -291,8 +292,8 @@ module ONCCertificationG10TestKit
       To get started with the first group of scenarios, please first register the
       Inferno client as a SMART App with the following information:
 
-      * SMART Launch URI: `#{SMARTAppLaunch::AppLaunchTest.config.options[:launch_uri]}`
-      * OAuth Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
+      * SMART Launch URI: `#{LAUNCH_URI}`
+      * OAuth Redirect URI: `#{REDIRECT_URI}`
 
       For the multi-patient API, register Inferno with the following JWK Set
       Url:
@@ -319,8 +320,8 @@ module ONCCertificationG10TestKit
     input_instructions %(
         Register Inferno as a SMART app using the following information:
 
-        * Launch URI: `#{SMARTAppLaunch::AppLaunchTest.config.options[:launch_uri]}`
-        * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
+        * Launch URI: `#{LAUNCH_URI}`
+        * Redirect URI: `#{REDIRECT_URI}`
 
         For the multi-patient API, register Inferno with the following JWK Set
         Url:
@@ -393,7 +394,7 @@ module ONCCertificationG10TestKit
           [Follow this link to authorize with the SMART server](#{auth_url}).
 
           Tests will resume once Inferno receives a request at
-          `#{config.options[:redirect_uri]}` with a state of `#{state}`.
+          `#{REDIRECT_URI}` with a state of `#{state}`.
         )
       end
 

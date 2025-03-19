@@ -16,8 +16,8 @@ module ONCCertificationG10TestKit
       Register Inferno as an EHR-launched application using patient-level scopes
       and the following URIs:
 
-      * Launch URI: `#{SMARTAppLaunch::AppLaunchTest.config.options[:launch_uri]}`
-      * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
+      * Launch URI: `#{LAUNCH_URI}`
+      * Redirect URI: `#{REDIRECT_URI}`
 
       In this scenario, Inferno will attempt an EHR Launch with a clinical scope restricted to a
       single patient and verify that a patient-level scope is granted and a

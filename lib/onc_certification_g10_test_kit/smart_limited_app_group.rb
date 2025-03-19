@@ -85,7 +85,7 @@ module ONCCertificationG10TestKit
             server](#{auth_url}).
 
             Tests will resume once Inferno receives a request at
-            `#{config.options[:redirect_uri]}` with a state of `#{state}`.
+            `#{REDIRECT_URI}` with a state of `#{state}`.
 
             Access should only be granted to the following resources:
 

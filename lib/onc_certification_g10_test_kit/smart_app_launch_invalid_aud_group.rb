@@ -9,7 +9,7 @@ module ONCCertificationG10TestKit
     input_instructions %(
       Register Inferno as a standalone application using the following information:
 
-      * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
+      * Redirect URI: `#{REDIRECT_URI}`
     )
     description %(
       This scenario verifies that a SMART Launch Sequence, specifically the

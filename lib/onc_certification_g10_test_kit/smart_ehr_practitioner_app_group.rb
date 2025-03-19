@@ -15,8 +15,8 @@ module ONCCertificationG10TestKit
     input_instructions %(
       Register Inferno as an EHR-launched application using the following information:
 
-      * Launch URI: `#{SMARTAppLaunch::AppLaunchTest.config.options[:launch_uri]}`
-      * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
+      * Launch URI: `#{LAUNCH_URI}`
+      * Redirect URI: `#{REDIRECT_URI}`
 
       Enter in the appropriate scope to enable user-level access to all relevant
       resources. If using SMART v2, v2-style scopes must be used. In addition,
@@ -47,8 +47,8 @@ module ONCCertificationG10TestKit
       Prior to running this test, register Inferno as an EHR-launched
       application using the following information:
 
-      * Launch URI: `#{SMARTAppLaunch::AppLaunchTest.config.options[:launch_uri]}`
-      * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
+      * Launch URI: `#{LAUNCH_URI}`
+      * Redirect URI: `#{REDIRECT_URI}`
 
       For EHRs that use Internet Explorer 11 to display embedded apps,
       please review [instructions on how to complete the EHR Practitioner App

@@ -23,7 +23,7 @@ module ONCCertificationG10TestKit
       oauth2_params = {
         grant_type: 'authorization_code',
         code:,
-        redirect_uri: config.options[:redirect_uri]
+        redirect_uri: REDIRECT_URI
       }
 
       oauth2_headers = { 'Content-Type' => 'application/x-www-form-urlencoded' }
@@ -51,7 +51,7 @@ module ONCCertificationG10TestKit
     input_instructions %(
       Register Inferno as a standalone application using the following information:
 
-      * Redirect URI: `#{SMARTAppLaunch::AppRedirectTest.config.options[:redirect_uri]}`
+      * Redirect URI: `#{REDIRECT_URI}`
     )
     description %(
       This scenario verifies that a SMART Launch Sequence, specifically the
@@ -158,7 +158,7 @@ module ONCCertificationG10TestKit
                 server](#{auth_url}).
 
                   Tests will resume once Inferno receives a request at
-                  `#{config.options[:redirect_uri]}` with a state of `#{state}`.
+                  `#{REDIRECT_URI}` with a state of `#{state}`.
                )
              end
            }
@@ -185,7 +185,7 @@ module ONCCertificationG10TestKit
                 server](#{auth_url}).
 
                   Tests will resume once Inferno receives a request at
-                  `#{config.options[:redirect_uri]}` with a state of `#{state}`.
+                  `#{REDIRECT_URI}` with a state of `#{state}`.
                )
              end
            }
@@ -216,7 +216,7 @@ module ONCCertificationG10TestKit
                 server](#{auth_url}).
 
                   Tests will resume once Inferno receives a request at
-                  `#{config.options[:redirect_uri]}` with a state of `#{state}`.
+                  `#{REDIRECT_URI}` with a state of `#{state}`.
                )
              end
            }
@@ -248,7 +248,7 @@ module ONCCertificationG10TestKit
                 server](#{auth_url}).
 
                   Tests will resume once Inferno receives a request at
-                  `#{config.options[:redirect_uri]}` with a state of `#{state}`.
+                  `#{REDIRECT_URI}` with a state of `#{state}`.
                )
              end
            }

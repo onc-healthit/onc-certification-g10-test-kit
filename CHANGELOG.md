@@ -1,3 +1,10 @@
+# 7.1.0
+* Ruby Version Update: Upgraded Ruby to 3.3.6.
+* Inferno Core Update: Bumped to version 0.6.6.
+* US Core Update: Bumped to version 0.10.1
+  * Fix validation error for US Core Observation BMI resources having dataAbsentReason.
+* Test Kit Metadata: Implemented test kit metadata.
+
 # 7.0.3
 * Update validator to v1.0.60
 * Update inferno_core to v0.5.4
