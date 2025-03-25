@@ -10,13 +10,13 @@ module ONCCertificationG10TestKit
 
     input_instructions %(
       The purpose of this test is to verify that patient app users can restrict
-      access granted to apps to a limited number of resources Enter which
-      resources the user will grant access to below, and during the launch
-      process only grant access to those resources. Inferno will verify that
-      access granted matches these expectations.
+      access granted to apps to a limited number of resources. This test can
+      only be run after the Standalone Patient App test, and all other inputs
+      are locked to ensure the same launch configuration in both tests.
 
-      All other inputs are locked to ensure the same app configuration as in the
-      Standalone Patient App - Full Access test.
+      Enter which resources the user will grant access to below, and during the
+      launch process only grant access to those resources. Inferno will verify
+      that access granted matches these expectations.
     )
 
     description %(
