@@ -218,14 +218,14 @@ module ONCCertificationG10TestKit
 
         lines = text.lines
 
-        # Find the first markdown list item (bullet or numbered)
         first_list_item_index = lines.find_index { |line| line.strip =~ /^[*\-+]|\d+\./ }
 
-        # Use only lines before the first list item (or all lines if no list items)
-        # Include the first list item line though (.. vs ...), in case its the first line
-        lines_to_check = first_list_item_index ? lines[0..first_list_item_index] : lines
+        lines_to_check = if first_list_item_index.nil?
+                           lines
+                         else
+                           lines[0..first_list_item_index] # Include up to and including the first list item
+                         end
 
-        # Find minimum positive indentation
         lines_to_check
           .map { |l| l.index(/\S/) }
           .compact
