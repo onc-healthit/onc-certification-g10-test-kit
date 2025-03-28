@@ -212,22 +212,13 @@ module ONCCertificationG10TestKit
         workbook.worksheets[2]
       end
 
-      def columns # rubocop:disable Metrics/CyclomaticComplexity
+      def columns
         @columns ||= [
           ['', 3, ->(_test) { '' }],
           ['', 3, ->(_test) { '' }],
           ['Inferno Test ID', 22, ->(test) { test.short_id.to_s }],
           ['Inferno Test Name', 65, lambda(&:title)],
-          ['Inferno Test Description', 65, lambda do |test|
-                                             description = test.description || ''
-                                             natural_indent =
-                                               description
-                                                 .lines
-                                                 .collect { |l| l.index(/[^ ]/) }
-                                                 .select { |l| !l.nil? && l.positive? }
-                                                 .min || 0
-                                             description.lines.map { |l| l[natural_indent..] || "\n" }.join.strip
-                                           end],
+          ['Inferno Test Description', 65, ->(test) { test.description&.strip }],
           ['Test Procedure Steps', 30, ->(test) { inferno_to_procedure_map[test.short_id].join(', ') }],
           ['Standard Version Filter', 30, lambda do |test|
                                             applicable_options(test).map(&:value).uniq.join(', ')
