@@ -657,15 +657,15 @@ module ONCCertificationG10TestKit
       title 'Health IT developer attested that the Health IT Module supports ' \
             'granting a sub resource scope for Clinical Test Observations.'
 
-      description <<~DESCRIPTION
+      description %(
         As finalized in the HTI-1 Final Rule (89 FR 1294), Health IT Modules are
         required to support SMART App Launch v2.0.0 "Finer-grained resource
-        constraints using search parameters" for the “category” parameter for
+        constraints using search parameters" for the "category" parameter for
         the Condition resource with Condition sub-resources Encounter Diagnosis,
         Problem List, and Health Concern, and the Observation resource with
         Observation sub-resources Clinical Test, Laboratory, Social History,
         SDOH, Survey, and Vital Signs. We defer to the implementation guides
-        referenced at § 170.215(b)(1) and § 170.215(c) for specific
+        referenced at § 170.215(b)(1) and § 170.215(c) for specific
         implementation guidance for this requirement. In the context of the US
         Core 6.1.0 implementation guide, the Observation sub-resources of
         Clinical Test and SDOH may have scopes supported as follows:
@@ -676,7 +676,7 @@ module ONCCertificationG10TestKit
 
         * support for scopes for the Observation sub-resource SDOH using the
           "sdoh" code from the US Core Category code system .
-      DESCRIPTION
+      )
       id :g10_clinical_test_scope_attestation
       input :clinical_test_scope_attestation,
             title: 'Health IT developer attested that the Health IT Module supports ' \
@@ -714,15 +714,15 @@ module ONCCertificationG10TestKit
       title 'Health IT developer attested that the Health IT Module supports ' \
             'granting a sub resource scope for Clinical Test Observations.'
 
-      description <<~DESCRIPTION
+      description %(
         As finalized in the HTI-1 Final Rule (89 FR 1294), Health IT Modules are
         required to support SMART App Launch v2.0.0 "Finer-grained resource
-        constraints using search parameters" for the “category” parameter for
+        constraints using search parameters" for the "category" parameter for
         the Condition resource with Condition sub-resources Encounter Diagnosis,
         Problem List, and Health Concern, and the Observation resource with
         Observation sub-resources Clinical Test, Laboratory, Social History,
         SDOH, Survey, and Vital Signs. We defer to the implementation guides
-        referenced at § 170.215(b)(1) and § 170.215(c) for specific
+        referenced at § 170.215(b)(1) and § 170.215(c) for specific
         implementation guidance for this requirement. In the context of the US
         Core 6.1.0 implementation guide, the Observation sub-resources of
         Clinical Test and SDOH may have scopes supported as follows:
@@ -733,7 +733,7 @@ module ONCCertificationG10TestKit
 
         * support for scopes for the Observation sub-resource SDOH using the
           "sdoh" code from the US Core Category code system .
-      DESCRIPTION
+      )
       id :g10_clinical_test_scope_attestation_stu2_2 # rubocop:disable Naming/VariableNumber
       input :clinical_test_scope_attestation,
             title: 'Health IT developer attested that the Health IT Module supports ' \
@@ -771,15 +771,15 @@ module ONCCertificationG10TestKit
       title 'Health IT developer attested that the Health IT Module supports ' \
             'granting a sub resource scope for Clinical Test Observations.'
 
-      description <<~DESCRIPTION
+      description %(
         As finalized in the HTI-1 Final Rule (89 FR 1294), Health IT Modules are
         required to support SMART App Launch v2.0.0 "Finer-grained resource
-        constraints using search parameters" for the “category” parameter for
+        constraints using search parameters" for the "category" parameter for
         the Condition resource with Condition sub-resources Encounter Diagnosis,
         Problem List, and Health Concern, and the Observation resource with
         Observation sub-resources Clinical Test, Laboratory, Social History,
         SDOH, Survey, and Vital Signs. We defer to the implementation guides
-        referenced at § 170.215(b)(1) and § 170.215(c) for specific
+        referenced at § 170.215(b)(1) and § 170.215(c) for specific
         implementation guidance for this requirement. In the context of the US
         Core 6.1.0 implementation guide, the Observation sub-resources of
         Clinical Test and SDOH may have scopes supported as follows:
@@ -790,7 +790,7 @@ module ONCCertificationG10TestKit
 
         * support for scopes for the Observation sub-resource SDOH using the
           "sdoh" code from the US Core Category code system .
-      DESCRIPTION
+      )
       id :g10_us_core_7_clinical_test_scope_attestation
       input :clinical_test_scope_attestation,
             title: 'Health IT developer attested that the Health IT Module supports ' \
@@ -828,15 +828,15 @@ module ONCCertificationG10TestKit
       title 'Health IT developer attested that the Health IT Module supports ' \
             'granting a sub resource scope for Clinical Test Observations.'
 
-      description <<~DESCRIPTION
+      description %(
         As finalized in the HTI-1 Final Rule (89 FR 1294), Health IT Modules are
         required to support SMART App Launch v2.0.0 "Finer-grained resource
-        constraints using search parameters" for the “category” parameter for
+        constraints using search parameters" for the "category" parameter for
         the Condition resource with Condition sub-resources Encounter Diagnosis,
         Problem List, and Health Concern, and the Observation resource with
         Observation sub-resources Clinical Test, Laboratory, Social History,
         SDOH, Survey, and Vital Signs. We defer to the implementation guides
-        referenced at § 170.215(b)(1) and § 170.215(c) for specific
+        referenced at § 170.215(b)(1) and § 170.215(c) for specific
         implementation guidance for this requirement. In the context of the US
         Core 6.1.0 implementation guide, the Observation sub-resources of
         Clinical Test and SDOH may have scopes supported as follows:
@@ -847,7 +847,7 @@ module ONCCertificationG10TestKit
 
         * support for scopes for the Observation sub-resource SDOH using the
           "sdoh" code from the US Core Category code system .
-      DESCRIPTION
+      )
       id :g10_us_core_7_clinical_test_scope_attestation_stu2_2 # rubocop:disable Naming/VariableNumber
       input :clinical_test_scope_attestation,
             title: 'Health IT developer attested that the Health IT Module supports ' \
