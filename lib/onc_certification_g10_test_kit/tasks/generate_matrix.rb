@@ -212,7 +212,28 @@ module ONCCertificationG10TestKit
         workbook.worksheets[2]
       end
 
-      def columns # rubocop:disable Metrics/CyclomaticComplexity
+      # Calculate natural indentation, ignoring markdown list items
+      def calculate_natural_indent(text) # rubocop:disable Metrics/CyclomaticComplexity
+        return 0 if text.nil? || text.empty?
+
+        lines = text.lines
+
+        # Find the first markdown list item (bullet or numbered)
+        first_list_item_index = lines.find_index { |line| line.strip =~ /^[*\-+]|\d+\./ }
+
+        # Use only lines before the first list item (or all lines if no list items)
+        # Include the first list item line though (.. vs ...), in case its the first line
+        lines_to_check = first_list_item_index ? lines[0..first_list_item_index] : lines
+
+        # Find minimum positive indentation
+        lines_to_check
+          .map { |l| l.index(/\S/) }
+          .compact
+          .select(&:positive?)
+          .min || 0
+      end
+
+      def columns
         @columns ||= [
           ['', 3, ->(_test) { '' }],
           ['', 3, ->(_test) { '' }],
@@ -220,12 +241,7 @@ module ONCCertificationG10TestKit
           ['Inferno Test Name', 65, lambda(&:title)],
           ['Inferno Test Description', 65, lambda do |test|
                                              description = test.description || ''
-                                             natural_indent =
-                                               description
-                                                 .lines
-                                                 .collect { |l| l.index(/[^ ]/) }
-                                                 .select { |l| !l.nil? && l.positive? }
-                                                 .min || 0
+                                             natural_indent = calculate_natural_indent(description)
                                              description.lines.map { |l| l[natural_indent..] || "\n" }.join.strip
                                            end],
           ['Test Procedure Steps', 30, ->(test) { inferno_to_procedure_map[test.short_id].join(', ') }],

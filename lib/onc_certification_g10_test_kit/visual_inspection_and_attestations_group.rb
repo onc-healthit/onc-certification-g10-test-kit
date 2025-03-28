@@ -676,7 +676,7 @@ module ONCCertificationG10TestKit
 
         * support for scopes for the Observation sub-resource SDOH using the
           "sdoh" code from the US Core Category code system.
-        
+
       )
       id :g10_clinical_test_scope_attestation
       input :clinical_test_scope_attestation,
@@ -734,7 +734,7 @@ module ONCCertificationG10TestKit
 
         * support for scopes for the Observation sub-resource SDOH using the
           "sdoh" code from the US Core Category code system.
-        
+
       )
       id :g10_clinical_test_scope_attestation_stu2_2 # rubocop:disable Naming/VariableNumber
       input :clinical_test_scope_attestation,
@@ -792,7 +792,7 @@ module ONCCertificationG10TestKit
 
         * support for scopes for the Observation sub-resource SDOH using the
           "sdoh" code from the US Core Category code system.
-        
+
       )
       id :g10_us_core_7_clinical_test_scope_attestation
       input :clinical_test_scope_attestation,
@@ -850,7 +850,6 @@ module ONCCertificationG10TestKit
 
         * support for scopes for the Observation sub-resource SDOH using the
           "sdoh" code from the US Core Category code system.
-        
       )
       id :g10_us_core_7_clinical_test_scope_attestation_stu2_2 # rubocop:disable Naming/VariableNumber
       input :clinical_test_scope_attestation,
