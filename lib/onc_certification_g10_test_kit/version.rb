@@ -1,4 +1,4 @@
 module ONCCertificationG10TestKit
-  VERSION = '7.1.0'.freeze
-  LAST_UPDATED = '2025-03-13'.freeze # TODO: update next release
+  VERSION = '7.2.0.dev'.freeze
+  LAST_UPDATED = '2025-03-19'.freeze # TODO: update next release
 end
