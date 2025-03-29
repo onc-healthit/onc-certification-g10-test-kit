@@ -15,7 +15,7 @@
 * Single Patient API Condition tests replaced with Condition Encounter Diagnosis and Condition Problems and Health Concerns Tests.
 * Single Patient API tests for the following Observation profiles were added: Head Circumference, BMI, Clinical Test Result, Sexual Orientation, Social History, Imaging Result, and SDOH Assessment.
 * Test groups for ServiceRequest, RelatedPerson, QuestionnaireResponse, and PractitionerRole were added to Multi-Patient API test group.
-* Multi-Patient API Condition tests now check for the the presence of Encounter Diagnosis, and Problems and Health Concerns resources.
+* Multi-Patient API Condition tests now check for the presence of Encounter Diagnosis, and Problems and Health Concerns resources.
 * Multi-Patient API Observation tests now check for the presence of Head Circumference, BMI, Clinical Test Result, Sexual Orientation, Social History, and SDOH Assessment profiles.
 
 ## SMART App Launch 2.0.0
