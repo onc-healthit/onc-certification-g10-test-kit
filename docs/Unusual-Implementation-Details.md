@@ -1,24 +1,23 @@
-    
 While code in this test kit is intended to be as simple and as
 easy-to-understand as possible, sometimes unanticipated testing requirements are
-introduced that require special handling.  The ability for Inferno to
+introduced that require special handling. The ability for Inferno to
 accommodate these requirements is a key feature of the Inferno framework.
 However, this does add complexity to maintenance of the tests.
 
 The following is a list of unusual or unorthodox methods used in the (g)(10)
-Test Kit that that maintainers should be aware of.  These are also opportunities
+Test Kit that maintainers should be aware of. These are also opportunities
 for improvement of the Inferno Framework if this type of functionality would be
 of broad use beyond US Core.
 
 The following links are to a specific snapshot in time of the repository; this
-list should be maintained as the repository evolves. 
+list should be maintained as the repository evolves.
 
 * Locking short ids: 
    * [/lib/onc_certification_g10_test_kit.rb#L438](https://github.com/onc-healthit/onc-certification-g10-test-kit/blob/fe9ab4a628e3990ee03ce5998f3b7d90692ef0c5/lib/onc_certification_g10_test_kit.rb#L438)
 * Add some magic around option definitions:
-   * [/lib/onc_certification_g10_test_kit/g10_options.rb](/lib/onc_chttps://github.com/onc-healthit/onc-certification-g10-test-kit/blob/fe9ab4a628e3990ee03ce5998f3b7d90692ef0c5/lib/onc_certification_g10_test_kit/g10_options.rb)
+   * [/lib/onc_certification_g10_test_kit/g10_options.rb](https://github.com/onc-healthit/onc-certification-g10-test-kit/blob/fe9ab4a628e3990ee03ce5998f3b7d90692ef0c5/lib/onc_certification_g10_test_kit/g10_options.rb)
 * Combining/deduplicating outputs:
-   * [/lib/onc_certification_g10_test_kit/incorrectly_permitted_tls_versions_messages_setup_test.rb ](https://github.com/onc-healthit/onc-certification-g10-test-kit/blob/fe9ab4a628e3990ee03ce5998f3b7d90692ef0c5/lib/onc_certification_g10_test_kit/incorrectly_permitted_tls_versions_messages_setup_test.rb )
+   * [/lib/onc_certification_g10_test_kit/incorrectly_permitted_tls_versions_messages_setup_test.rb](https://github.com/onc-healthit/onc-certification-g10-test-kit/blob/fe9ab4a628e3990ee03ce5998f3b7d90692ef0c5/lib/onc_certification_g10_test_kit/incorrectly_permitted_tls_versions_messages_setup_test.rb)
 * Reliance on groups containing mixed groups/tests only displaying the groups in the ui:
     * [/lib/onc_certification_g10_test_kit/multi_patient_api_stu1.rb#L73-L86](https://github.com/onc-healthit/onc-certification-g10-test-kit/blob/fe9ab4a628e3990ee03ce5998f3b7d90692ef0c5/lib/onc_certification_g10_test_kit/multi_patient_api_stu1.rb#L73-L86)
     * [/lib/onc_certification_g10_test_kit/single_patient_api_group.rb#L88-L112](https://github.com/onc-healthit/onc-certification-g10-test-kit/blob/fe9ab4a628e3990ee03ce5998f3b7d90692ef0c5/lib/onc_certification_g10_test_kit/single_patient_api_group.rb#L88-L112)

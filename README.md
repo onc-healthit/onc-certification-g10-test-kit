@@ -27,7 +27,7 @@ developers, and testing labs. It is an approved test method for the §
 program by the Assistant Secretary for Technology Policy (ASTP).
 
 The (g)(10) Standardized API Test Kit is built using the [Inferno
-Framework](https://inferno-framework.github.io/).  The Inferno Framework is
+Framework](https://inferno-framework.github.io/). The Inferno Framework is
 designed for reuse and aims to make it easier to build test kits for any
 FHIR-based data exchange.
 
@@ -39,7 +39,7 @@ for information on using and contributing to this test kit.
 
 ASTP hosts a [public
 instance](https://inferno.healthit.gov/suites/g10_certification) of this test
-kit that developers and testers are welcome to use.  However, users are
+kit that developers and testers are welcome to use. However, users are
 encouraged to download and run this tool locally to allow testing within private
 networks and to avoid being affected by downtime of this shared resource.
 Please see the [Local Installation
@@ -48,17 +48,17 @@ information.
 
 ASTP also hosts a [(g)(10) reference
 server](https://inferno.healthit.gov/reference-server/) that can be used to
-orient new users on these tests.  The [(g)(10) Standardized API Test Kit
+orient new users on these tests. The [(g)(10) Standardized API Test Kit
 Walkthrough](https://github.com/onc-healthit/onc-certification-g10-test-kit/wiki/Walkthrough)
 provides step-by-step instructions for running these tests against the reference
-server.  This reference server is not a complete implementation and cannot be
+server. This reference server is not a complete implementation and cannot be
 used for production use.
 
 ## Reporting Issues
 
 Please report any issues with this set of tests in the [GitHub
 Issues](https://github.com/onc-healthit/onc-certification-g10-test-kit/issues)
-section of this repository.  Common questions and answers are documented in the
+section of this repository. Common questions and answers are documented in the
 [(g)(10) Test Kit Frequently Asked
 Questions](https://github.com/onc-healthit/onc-certification-g10-test-kit/wiki/FAQ).
 
@@ -73,9 +73,9 @@ Questions](https://github.com/onc-healthit/onc-certification-g10-test-kit/wiki/F
 ### Multi-user Installations
 
 The default configuration of this test kit uses SQLite for data persistence and
-is optimized for running on a local machine with a single user.  For
+is optimized for running on a local machine with a single user. For
 installations on shared servers that may have multiple tests running
-simultaniously, please [configure the installation to use
+simultaneously, please [configure the installation to use
 PostgreSQL](https://inferno-framework.github.io/inferno-core/deployment/database.html#postgresql)
 to ensure stability in this type of environment.
 
