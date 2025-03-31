@@ -1,23 +1,23 @@
 The following is a list of commonly asked questions from users of the Test Kit.
 
 ### How does Inferno test US Core Encounter resource?
-Inferno Encounter test is only concerned with references to Encounter resources
-that it knows MUST support the US Core Encounter profile. And it turns out that
-not all references to Encounter resources within other US Core profiles need to
-conform to the US Core Encounter profile. For an example of a reference to
-`Reference(US Core Encounter)`, see [US Core DiagnosticReport
+The Inferno Encounter test is only concerned with references to Encounter
+resources that it knows MUST support the US Core Encounter profile.  Not all
+references to Encounter resources within other US Core profiles need to conform
+to the US Core Encounter profile. For an example of a reference to `Reference(US
+Core Encounter)`, see [US Core DiagnosticReport
 Note](http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-diagnosticreport-note.html)'s
 `encounter` element. [US Core
 DocumentReference](http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-documentreference.html)'s
-`context.encounter` is another example. If you place encounter references in one
-of those spots, you should start getting references that are tested in the
+`context.encounter` is another example. If you populate these elements with
+encounter references, you should start getting references that are tested in the
 Encounter test. Note: US Core has two profiles for DiagnosticReport. Only the
 DiagnosticReport Note profile mentioned above has US Core Encounter reference.
-The other profile (US Core DiangosticReport Lab Result) does NOT have US Core
+The other profile (US Core DiagnosticReport Lab Result) does NOT have US Core
 Encounter reference.
 
 ### Q: How does Inferno test US Core Organization resource?
-Similar to the Encounter test, Inferno Organization test is only concerned with
+Similar to the Encounter test, the Inferno Organization test is only concerned with
 references to Organization resources that it knows MUST support the US Core
 Organization profile. Here is a list of elements having reference to
 `Reference(US Core Organization)` in US Core v3.1.1:
@@ -29,7 +29,7 @@ Organization profile. Here is a list of elements having reference to
 * Provenance.agent.onBehalfOf
 
 ### Q: What is the difference between "skipped" test and "omitted" test?
-Inferno has four states for test result:
+Inferno has four states for test results:
 | State | Meaning |
 |---|---|
 | Pass | Server response is valid for this test. |
@@ -55,9 +55,9 @@ extensions when looking for "MustSupport" elements.
 US Core Test Suite depends on [tx.fhir.org](http://tx.fhir.org/r4/) to do the
 terminology validation. This terminology server is not maintained by Inferno. If
 you get a terminology validation error in US Core Test Suite, please check the
-code against corresponding US Core value set. If you are certain the code is
-correct, please report the issue to [Inferno
+code against the corresponding US Core value set. If you are certain the code is
+correct, please report the issue to the [Inferno
 Repository](https://github.com/onc-healthit/onc-certification-g10-test-kit/issues).
-We will investigate root cause of terminology failure. If it is determined that
-the error is on the terminology server, we will report the issue to [terminology
+We will investigate the root cause of the terminology failure. If it is determined that
+the error is on the terminology server, we will report the issue to the [terminology
 stream on Zulip](https://chat.fhir.org/#narrow/stream/179202-terminology).

@@ -1,5 +1,3 @@
-# Inferno (g)(10) Standardized API Test Kit Walkthrough
-
 This walkthrough introduces the **Inferno (g)(10) Standardized API Test Kit** by
 demonstrating its use as an automated testing tool for the [§170.315(g)(10)
 Standardized API for patient and population services
@@ -17,21 +15,16 @@ At the end of this walkthrough, you will be able to use the **Inferno ONC
 Certification (g)(10) Standardized API Test Kit** to evaluate APIs for
 conformance to the ONC (g)(10) certification criterion. If you are interested in
 how to use the Inferno Framework to test other FHIR-based data exchanges that
-fall outside the scope of ONC (g)(10) certification criterion, please visit the
+fall outside the scope of the ONC (g)(10) certification criterion, please visit the
 [Inferno Framework](https://inferno-framework.github.io) for more information.
 
 * [Step 1: Create a new (g)(10) Test Session](#step-1-create-a-new-inferno-g10-test-session-and-select-standard-versions)
 * [Step 2: Preset Inferno Reference Server (optional)](#step-2-preset-inferno-reference-server-optional)
-* [Step 3: Perform Standalone Patient App
-  Tests](#step-3-perform-standalone-patient-app-tests)
-* [Step 4: Perform Limited
-  Access App Tests](#step-4-perform-limited-access-app-tests)
-* [Step 5: Perform
-  EHR Practitioner App Tests](#step-5-perform-ehr-practitioner-app-tests)
-* [Step 6: Perform Single Patient API
-  Tests](#step-6-perform-single-patient-api-tests)
-* [Step 7: Perform Multi-Patient API
-  Tests](#step-7-perform-multi-patient-api-tests)
+* [Step 3: Perform Standalone Patient App Tests](#step-3-perform-standalone-patient-app-tests)
+* [Step 4: Perform Limited Access App Tests](#step-4-perform-limited-access-app-tests)
+* [Step 5: Perform EHR Practitioner App Tests](#step-5-perform-ehr-practitioner-app-tests)
+* [Step 6: Perform Single Patient API Tests](#step-6-perform-single-patient-api-tests)
+* [Step 7: Perform Multi-Patient API Tests](#step-7-perform-multi-patient-api-tests)
 * [Step 8: Perform Additional Tests](#step-8-perform-additional-tests)
 * [Step 9: Review Results](#step-9-review-results)
 
@@ -45,13 +38,13 @@ fall outside the scope of ONC (g)(10) certification criterion, please visit the
 ![step-01-landing](images/step-01-landing.png)
 
 * Select which versions of Standards Version Advancement Process (SVAP) approved
-  standards you would like to test against.  The Inferno (g)(10) tests will only
+  standards you would like to test against. The Inferno (g)(10) tests will only
   test a system against a single set of SVAP approved standards in a single session.
 
 ![step-01-options](images/step-01-options.png)
 
-This will create a new test session.  The URL of this test session is not public
-and is an unguessable unique URL, but may be shared.  Please note there is a
+This will create a new test session. The URL of this test session is not public
+and is an unguessable unique URL, but may be shared. Please note there is a
 data retention policy as described in the banner of <https://inferno.healthit.gov>
 and the session will eventually be purged.
 
@@ -65,9 +58,9 @@ The header states which version of the (g)(10) test kit is currently being used
 
 The Inferno (g)(10) test kit provides an example API that is capable of passing
 all Inferno (g)(10) tests, though by design it is not a fully-featured
-implementation.  To test against this server, select the 'Inferno Reference
-Server' under the 'Preset' dropdown.  This will pre-fill all required inputs
-with the proper information to run tests against this server.  You may view this
+implementation. To test against this server, select the 'Inferno Reference
+Server' under the 'Preset' dropdown. This will pre-fill all required inputs
+with the proper information to run tests against this server. You may view this
 server's general configuration information at
 <https://inferno.healthit.gov/reference-server>, which hosts a FHIR endpoint at
 <https://inferno.healthit.gov/reference-server/r4>.
@@ -75,7 +68,7 @@ server's general configuration information at
 ![step-02-preset](images/step-02-preset.png)
 
 The Inferno (g)(10) Tests can be run all at once, though this walkthrough will
-run them one at a time to provide information about each step.  To view the
+run them one at a time to provide information about each step. To view the
 first step, click 'Standalone Patient App - Full Access' in the center details
 pane, or click 'Standalone Patient App' in the menu on the left.
 
