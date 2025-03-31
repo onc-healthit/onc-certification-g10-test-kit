@@ -73,8 +73,8 @@ further constraining their implementation to meet any (g)(10)-specific
 requirements.
 
 *Please note that the Multi-Patient API tests do not currently reuse
-the SMART Bulk Data Test Kit. A future version of this test kit
-may reuse the SMART Bulk Data Test Kit.*
+the Bulk Data Access Test Kit. A future version of this test kit may reuse the
+Bulk Data Access Test Kit.*
 
 The specific test kits that are imported into this test kit include:
 

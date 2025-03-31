@@ -1,16 +1,16 @@
 The following is a list of commonly asked questions from users of the Test Kit.
 
 ### How does Inferno test US Core Encounter resource?
-The Inferno Encounter test is only concerned with references to Encounter resources
-that it knows MUST support the US Core Encounter profile. It turns out that
-not all references to Encounter resources within other US Core profiles need to
-conform to the US Core Encounter profile. For an example of a reference to
-`Reference(US Core Encounter)`, see [US Core DiagnosticReport
+The Inferno Encounter test is only concerned with references to Encounter
+resources that it knows MUST support the US Core Encounter profile.  Not all
+references to Encounter resources within other US Core profiles need to conform
+to the US Core Encounter profile. For an example of a reference to `Reference(US
+Core Encounter)`, see [US Core DiagnosticReport
 Note](http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-diagnosticreport-note.html)'s
 `encounter` element. [US Core
 DocumentReference](http://hl7.org/fhir/us/core/STU3.1.1/StructureDefinition-us-core-documentreference.html)'s
-`context.encounter` is another example. If you place encounter references in one
-of those spots, you should start getting references that are tested in the
+`context.encounter` is another example. If you populate these elements with
+encounter references, you should start getting references that are tested in the
 Encounter test. Note: US Core has two profiles for DiagnosticReport. Only the
 DiagnosticReport Note profile mentioned above has US Core Encounter reference.
 The other profile (US Core DiagnosticReport Lab Result) does NOT have US Core
