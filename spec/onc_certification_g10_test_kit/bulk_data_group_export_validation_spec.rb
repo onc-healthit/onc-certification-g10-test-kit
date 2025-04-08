@@ -136,7 +136,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       expect(result.result).to eq('skip')
       expect(result.result_message)
         .to start_with('Could not find identifier, identifier.system, identifier.value ' \
-                       'in the 2 provided Patient resource(s)')
+                       'in the 2 provided resource(s)')
     end
 
     it 'passes when returned resources are fully conformant to the patient profile' do
@@ -283,7 +283,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
 
       expect(result.result).to eq('skip')
       expect(result.result_message)
-        .to start_with('Could not find clinicalStatus in the 10 provided AllergyIntolerance resource(s)')
+        .to start_with('Could not find clinicalStatus in the 10 provided resource(s)')
     end
 
     it 'passes when returned resources are fully conformant to the allergy profile' do
@@ -332,7 +332,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       result = run(runnable, careplan_input)
 
       expect(result.result).to eq('skip')
-      expect(result.result_message).to start_with('Could not find text.status in the 26 provided CarePlan resource(s)')
+      expect(result.result_message).to start_with('Could not find text.status in the 26 provided resource(s)')
     end
 
     it 'skips when returned resources are missing a must support slice' do
@@ -342,10 +342,9 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
       result = run(runnable, careplan_input)
-
       expect(result.result).to eq('skip')
       expect(result.result_message)
-        .to start_with('Could not find CarePlan.category:AssessPlan in the 26 provided CarePlan resource(s)')
+        .to start_with('Could not find CarePlan.category:AssessPlan in the 26 provided resource(s)')
     end
 
     it 'passes when returned resources are fully conformant to the patient profile' do
@@ -659,7 +658,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
 
       expect(result.result).to eq('skip')
       expect(result.result_message)
-        .to start_with('Could not find code in the 1 provided Medication resource(s)')
+        .to start_with('Could not find code in the 1 provided resource(s)')
     end
 
     it 'passes when the returned resources are fully conformant' do
