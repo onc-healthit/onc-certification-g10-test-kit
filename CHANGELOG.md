@@ -1,3 +1,10 @@
+# 7.2.0
+* Update the test kit to use AuthInfo rather than OAuthCredentials for storing auth information.
+* Fix Granular Read Test fails when server returns 4xx response without FHIR OperationOutcome
+* Various minor documentation improvements
+* Upgrades Inferno Validator to v1.0.65
+* Fix Test Procedure Matrix generation
+
 # 7.1.0
 * Ruby Version Update: Upgraded Ruby to 3.3.6.
 * Inferno Core Update: Bumped to version 0.6.6.
