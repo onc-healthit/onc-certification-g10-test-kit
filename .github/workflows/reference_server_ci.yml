@@ -1,0 +1,105 @@
+name: Inferno Reference Server CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  SERVER_URL: https://inferno.healthit.gov/reference-server/r4
+  INFERNO_DISABLE_TLS_TEST: true
+
+jobs:
+
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      # Clean this or adapt this for using a specific version of inferno reference server from repo
+      # - name: Start server
+      #   run: |
+      #     docker compose build
+      #     docker compose up -d
+      #     ${{ github.workspace }}/.github/wait-for.sh localhost:8080 -- echo "Server ready"
+
+      - name: Start Inferno services
+        run: |
+          gem install foreman
+          bundle exec inferno migrate
+          bundle exec inferno services start
+          ${{ github.workspace }}/.github/wait-for.sh http://localhost:80/hl7validatorapi/validator/version -- echo "Inferno services ready"
+
+      - name: Run g10 test kit Single Patient API and Multi-Patient API with US Core 3.1.1 and Bulk Data 1.0.1
+        run: |
+          bundle exec inferno execute --suite g10_certification \
+                                      --suite-options us_core_version:us_core_3 \
+                                                      smart_app_launch_version:smart_app_launch_1 \
+                                                      multi_patient_version:multi_patient_api_stu1 \
+                                      --groups 4 7 \
+                                      --inputs "url:$SERVER_URL" \
+                                               patient_id:85 \
+                                               additional_patient_ids:85,355 \
+                                               "smart_auth_info:{\"access_token\":\"SAMPLE_TOKEN\"}" \
+                                               "bulk_smart_auth_info:{ \
+                                                  \"encryption_algorithm\": \"ES384\", \
+                                                  \"auth_type\": \"backend_services\", \
+                                                  \"token_url\": \"http://localhost:8080/reference-server/oauth/token\", \
+                                                  \"requested_scopes\": \"system/*.read\", \
+                                                  \"client_id\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJlZ2lzdHJhdGlvbi10b2tlbiJ9.eyJqd2tzX3VybCI6Imh0dHA6Ly8xMC4xNS4yNTIuNzMvaW5mZXJuby8ud2VsbC1rbm93bi9qd2tzLmpzb24iLCJhY2Nlc3NUb2tlbnNFeHBpcmVJbiI6MTUsImlhdCI6MTU5NzQxMzE5NX0.q4v4Msc74kN506KTZ0q_minyapJw0gwlT6M_uiL73S4\" \
+                                               }" \
+                                               "bulk_server_url:$SERVER_URL" \
+                                               "bulk_token_endpoint:http://localhost:8080/reference-server/oauth/token" \
+                                               "bulk_client_id:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJlZ2lzdHJhdGlvbi10b2tlbiJ9.eyJqd2tzX3VybCI6Imh0dHA6Ly8xMC4xNS4yNTIuNzMvaW5mZXJuby8ud2VsbC1rbm93bi9qd2tzLmpzb24iLCJhY2Nlc3NUb2tlbnNFeHBpcmVJbiI6MTUsImlhdCI6MTU5NzQxMzE5NX0.q4v4Msc74kN506KTZ0q_minyapJw0gwlT6M_uiL73S4" \
+                                               "bulk_scope:system/*.read" \
+                                               bulk_encryption_method:ES384 \
+                                               group_id:1a bulk_timeout:180 \
+                                               bulk_patient_ids_in_group:85,355
+
+      - name: Run g10 test kit Single Patient API and Multi-Patient API with US Core 6.1.0 and Bulk Data 2.0.0
+        working-directory: ${{ github.workspace }}/${{ env.TEST_KIT_NAME }}
+        run: |
+          bundle exec inferno execute --suite g10_certification \
+                                      --suite-options us_core_version:us_core_6 \
+                                                      smart_app_launch_version:smart_app_launch_2 \
+                                                      multi_patient_version:multi_patient_api_stu2 \
+                                      --groups 10 8 \
+                                      --inputs "url:localhost:8080/reference-server/r4" \
+                                               patient_id:85 \
+                                               additional_patient_ids:85,355 \
+                                               "smart_auth_info:{\"access_token\":\"SAMPLE_TOKEN\"}" \
+                                               "bulk_smart_auth_info:{ \
+                                                  \"encryption_algorithm\": \"ES384\", \
+                                                  \"auth_type\": \"backend_services\", \
+                                                  \"token_url\": \"http://localhost:8080/reference-server/oauth/token\", \
+                                                  \"requested_scopes\": \"system/*.read\", \
+                                                  \"client_id\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJlZ2lzdHJhdGlvbi10b2tlbiJ9.eyJqd2tzX3VybCI6Imh0dHA6Ly8xMC4xNS4yNTIuNzMvaW5mZXJuby8ud2VsbC1rbm93bi9qd2tzLmpzb24iLCJhY2Nlc3NUb2tlbnNFeHBpcmVJbiI6MTUsImlhdCI6MTU5NzQxMzE5NX0.q4v4Msc74kN506KTZ0q_minyapJw0gwlT6M_uiL73S4\" \
+                                               }" \
+                                               "bulk_server_url:$SERVER_URL" \
+                                               "bulk_token_endpoint:http://localhost:8080/reference-server/oauth/token" \
+                                                "bulk_client_id:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJlZ2lzdHJhdGlvbi10b2tlbiJ9.eyJqd2tzX3VybCI6Imh0dHA6Ly8xMC4xNS4yNTIuNzMvaW5mZXJuby8ud2VsbC1rbm93bi9qd2tzLmpzb24iLCJhY2Nlc3NUb2tlbnNFeHBpcmVJbiI6MTUsImlhdCI6MTU5NzQxMzE5NX0.q4v4Msc74kN506KTZ0q_minyapJw0gwlT6M_uiL73S4" \
+                                               "bulk_scope:system/*.read" \
+                                               bulk_encryption_method:ES384 \
+                                               group_id:1a \
+                                               bulk_timeout:180 \
+                                               bulk_patient_ids_in_group:85,355 \
+                                               "since_timestamp:2024-10-10T23:52:09+00:00"
+
+      # Likewise
+      # - name: Stop server
+      #   run: docker compose down
+      #   if: ${{ always() }}
+
+      - name: Stop Inferno services
+        run: bundle exec inferno services stop
+        if: ${{ always() }}
