@@ -51,20 +51,23 @@ module ONCCertificationG10TestKit
                 :lines_to_validate,
                 :bulk_timeout
 
-    group from: :bulk_data_authorization,
-          description: <<~DESCRIPTION
-            Bulk Data servers are required to authorize clients using the [Backend Service
-            Authorization](http://hl7.org/fhir/uv/bulkdata/STU1.0.1/authorization/index.html)
-            specification as defined in the [FHIR Bulk Data Access IG
-            v1.0.1](http://hl7.org/fhir/uv/bulkdata/STU1.0.1/).
+    group from: :bulk_data_authorization do
+      description <<~DESCRIPTION
+        Bulk Data servers are required to authorize clients using the [Backend Service
+        Authorization](http://hl7.org/fhir/uv/bulkdata/STU1.0.1/authorization/index.html)
+        specification as defined in the [FHIR Bulk Data Access IG
+        v1.0.1](http://hl7.org/fhir/uv/bulkdata/STU1.0.1/).
 
-            In this set of tests, Inferno serves as a Bulk Data client that requests authorization
-            from the Bulk Data authorization server.  It also performs a number of negative tests
-            to validate that the authorization service does not improperly authorize invalid
-            requests.
+        In this set of tests, Inferno serves as a Bulk Data client that requests authorization
+        from the Bulk Data authorization server.  It also performs a number of negative tests
+        to validate that the authorization service does not improperly authorize invalid
+        requests.
 
-            This test returns an access token.
-          DESCRIPTION
+        This test returns an access token.
+      DESCRIPTION
+
+      config(inputs: { url: { name: :bulk_server_url } })
+    end
 
     test from: :g10_incorrectly_permitted_tls_versions_messages_setup,
          id: :g10_bulk_auth_tls_messages_setup
