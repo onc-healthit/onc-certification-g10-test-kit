@@ -38,7 +38,8 @@ jobs:
           gem install foreman
           bundle exec inferno migrate
           bundle exec inferno services start
-          ${{ github.workspace }}/.github/wait-for.sh http://localhost:80/hl7validatorapi/validator/version -- echo "Inferno services ready"
+          wget -q --retry-connrefused --waitretry=10 --read-timeout=60 --timeout=30 -t 10 http://localhost:80/hl7validatorapi/validator/version
+          echo "Inferno Services are ready"
 
       - name: Run g10 test kit Single Patient API and Multi-Patient API with US Core 3.1.1 and Bulk Data 1.0.1
         run: |
