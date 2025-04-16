@@ -98,7 +98,6 @@ module ONCCertificationG10TestKit
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-pregnancyintent',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-pregnancystatus',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-screening-assessment',
-          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-sexual-orientation',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-treatment-intervention-preference',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-care-experience-preference',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-average-blood-pressure',
