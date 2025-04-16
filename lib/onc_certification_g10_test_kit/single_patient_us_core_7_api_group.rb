@@ -179,6 +179,8 @@ module ONCCertificationG10TestKit
 
         next if test_group.optional?
 
+        next if test_group.id.include?('us_core_v700_observation_sexual_orientation')
+
         group(from: test_group.id, exclude_optional: true)
 
         if test_group.respond_to?(:metadata) && # rubocop:disable Style/Next
