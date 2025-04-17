@@ -1,3 +1,6 @@
+# 7.2.1
+* Prevents extra url input field from Multi-Patient API v1.0.1 configuration popup
+
 # 7.2.0
 * Update the test kit to use AuthInfo rather than OAuthCredentials for storing auth information.
 * Fix Granular Read Test fails when server returns 4xx response without FHIR OperationOutcome
