@@ -52,7 +52,7 @@ module ONCCertificationG10TestKit
 
       For EHRs that use Internet Explorer 11 to display embedded apps,
       please review [instructions on how to complete the EHR Practitioner App
-      test](https://github.com/onc-healthit/onc-certification-g10-test-kit/wiki/Completing-EHR-Practitioner-App-test-in-Internet-Explorer/).
+      test](https://github.com/onc-healthit/onc-certification-g10-test-kit/wiki/IE-Browser).
 
       The following implementation specifications are relevant to this scenario:
 
