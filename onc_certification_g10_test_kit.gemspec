@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   # conflicts when integrating into platforms (e.g.; inferno.healthit.gov).
   spec.add_dependency 'smart_app_launch_test_kit', '0.6.2'
   spec.add_dependency 'tls_test_kit', '0.3.0'
-  spec.add_dependency 'us_core_test_kit', '0.11.1'
+  spec.add_dependency 'us_core_test_kit', '0.11.2'
 
   spec.required_ruby_version = Gem::Requirement.new('>= 3.3.6')
   spec.metadata['inferno_test_kit'] = 'true'
