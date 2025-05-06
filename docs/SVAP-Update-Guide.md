@@ -43,7 +43,7 @@ The steps involved in updating the test kits are broadly:
 
 1. Update Component Test Kits
 2. Incorporate US Core Test Updates
-3. Incorporate SMART App Launch Test Updates 
+3. Incorporate SMART App Launch Test Updates
 4. Update Bulk Data Tests
 5. Complete (g)(10) Test Kit
 6. Validate Updates against Reference Server
@@ -208,8 +208,7 @@ existing tests remain unchanged. This short id map must be updated when tests
 are added or removed. To update the map, execute the following command:
 
 ```bash
-bundle exec inferno console \
-ONCCertificationG10TestKit::ShortIDManager.save_current_short_id_map
+bundle exec inferno suite lock_short_ids 'g10_certification'
 ```
 
 Verify that short ids in the file './lib/onc_certification_g10_test_kit/short_id_map.yml' are updated.
