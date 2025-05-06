@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 gemspec
 
+gem 'inferno_core', git: 'https://github.com/inferno-framework/inferno-core', branch: 'fi-3816-ability-to-lock-short-id'
 group :development, :test do
   gem 'debug'
   gem 'rubocop', '~> 1.9'
