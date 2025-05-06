@@ -43,7 +43,6 @@ require_relative 'onc_certification_g10_test_kit/token_revocation_group'
 require_relative 'onc_certification_g10_test_kit/visual_inspection_and_attestations_group'
 
 require_relative 'inferno/terminology'
-require_relative 'onc_certification_g10_test_kit/short_id_manager'
 
 Inferno::Terminology::Loader.load_validators
 
@@ -553,7 +552,7 @@ module ONCCertificationG10TestKit
     end
 
     group from: :g10_visual_inspection_and_attestations
+
+    assign_short_ids
   end
 end
-
-ONCCertificationG10TestKit::ShortIDManager.assign_short_ids
