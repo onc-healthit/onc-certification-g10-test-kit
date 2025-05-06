@@ -12,7 +12,15 @@ module ONCCertificationG10TestKit
 
     MAX_NUM_COLLECTED_LINES = 100
     MIN_RESOURCE_COUNT = 2
+
+    # Remove us-core-observation-sexual-orientation from bulk data validation as directed by
+    # ASTP/ONC enforcement discretion issued on March 21, 2025:
+    # https://www.healthit.gov/topic/certification-ehrs/enforcement-discretion
+    # The enforcement discretion allies to US Core v6 and v7. US Core v5 also inlcude this profile.
+    # Since (g)(10) certification test kit does not cover US Core v5, adding profile url to this list
+    # for all versions is acceptable for now.
     PROFILES_TO_SKIP = [
+      'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-sexual-orientation',
       'http://hl7.org/fhir/us/core/StructureDefinition/us-core-simple-observation'
     ].freeze
 

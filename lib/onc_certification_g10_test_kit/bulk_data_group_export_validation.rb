@@ -398,7 +398,6 @@ module ONCCertificationG10TestKit
           * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-pregnancyintent
           * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-pregnancystatus
           * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-screening-assessment
-          * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-sexual-orientation
           * http://hl7.org/fhir/us/core/StructureDefinition/us-core-smokingstatus
           * http://hl7.org/fhir/us/core/StructureDefinition/head-occipital-frontal-circumference-percentile
           * http://hl7.org/fhir/us/core/StructureDefinition/pediatric-bmi-for-age
@@ -419,7 +418,6 @@ module ONCCertificationG10TestKit
           * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-pregnancyintent
           * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-pregnancystatus
           * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-screening-assessment
-          * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-sexual-orientation
           * http://hl7.org/fhir/us/core/StructureDefinition/us-core-smokingstatus
           * http://hl7.org/fhir/us/core/StructureDefinition/head-occipital-frontal-circumference-percentile
           * http://hl7.org/fhir/us/core/StructureDefinition/pediatric-bmi-for-age

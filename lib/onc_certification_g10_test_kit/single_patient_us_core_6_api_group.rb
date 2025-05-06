@@ -97,7 +97,6 @@ module ONCCertificationG10TestKit
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-pregnancyintent',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-pregnancystatus',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-screening-assessment',
-          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-sexual-orientation',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner',
@@ -174,6 +173,11 @@ module ONCCertificationG10TestKit
         test_group = group.ancestors[1]
 
         next if test_group.optional?
+
+        # Observation Sexual Orientation is removed as directed by ASTP/ONC enforcement discretion
+        # issued on March 21, 2025:
+        # https://www.healthit.gov/topic/certification-ehrs/enforcement-discretion
+        next if test_group.id.include?('us_core_v610_observation_sexual_orientation')
 
         group(from: test_group.id, exclude_optional: true)
 
