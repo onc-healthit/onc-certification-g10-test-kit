@@ -1,3 +1,7 @@
+# 7.2.2
+* Apply ASTP/ONC Enforcement Discretion [link](https://www.healthit.gov/topic/certification-ehrs/enforcement-discretion)
+* Update SMART App Launch dependency to v0.6.2
+
 # 7.2.1
 * Prevents extra url input field from Multi-Patient API v1.0.1 configuration popup
 
