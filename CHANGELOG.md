@@ -1,3 +1,6 @@
+# 7.2.2
+* Apply [ASTP/ONC Enforcement Discretion](https://www.healthit.gov/topic/certification-ehrs/enforcement-discretion)
+
 # 7.2.1
 * Prevents extra url input field from Multi-Patient API v1.0.1 configuration popup
 
