@@ -1,6 +1,5 @@
 # 7.2.2
 * Apply [ASTP/ONC Enforcement Discretion](https://www.healthit.gov/topic/certification-ehrs/enforcement-discretion)
-* Update SMART App Launch dependency to v0.6.3
 * Remove US Core Observation Sexural Orientation test groups 10.28 (US Core v6.1.0) and 12.30 (US Core v7.0.0) from onc_program_procedure.yml
 
 # 7.2.1
