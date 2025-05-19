@@ -552,7 +552,5 @@ module ONCCertificationG10TestKit
     end
 
     group from: :g10_visual_inspection_and_attestations
-
-    assign_short_ids
   end
 end
