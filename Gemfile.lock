@@ -11,7 +11,7 @@ PATH
       rubyzip (~> 2.3.2)
       smart_app_launch_test_kit (= 0.6.3)
       tls_test_kit (= 0.3.0)
-      us_core_test_kit (= 0.11.2)
+      us_core_test_kit (= 0.11.3)
 
 GEM
   remote: https://rubygems.org/
@@ -330,12 +330,16 @@ GEM
     tty-screen (0.8.2)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    udap_security_test_kit (0.11.5)
+      inferno_core (>= 0.6.1)
+      jwt (~> 2.3)
     unicode-display_width (2.6.0)
     unicode_utils (1.4.0)
-    us_core_test_kit (0.11.2)
+    us_core_test_kit (0.11.3)
       inferno_core (>= 0.6.8)
-      smart_app_launch_test_kit (>= 0.6.1)
+      smart_app_launch_test_kit (>= 0.6.3)
       tls_test_kit (~> 0.3.0)
+      udap_security_test_kit (>= 0.11.4)
     webmock (3.18.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
