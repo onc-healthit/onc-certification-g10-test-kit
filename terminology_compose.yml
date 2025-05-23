@@ -1,12 +1,7 @@
 version: '3.2'
 services:
   terminology_builder:
-    build:
-      context: .
-      dockerfile: Dockerfile.terminology
-    # Uncomment the line below if using an arm mac. For some reason
-    # metamorphosys isn't working in arm docker images.
-    # platform: 'linux/amd64'
+    image: onc-certification-g10-test-kit-terminology_builder:latest
     volumes:
       - ./data:/opt/inferno/data
       - type: bind
