@@ -129,10 +129,11 @@ to `true`, to that same file. This tells the build system to delete the "build
 files"--everything except for the finished databases--after the build.
 
 Once that file exists, you can run the terminology creation task by using the
-following command:
+following commands:
 
 ```shell
-docker compose -f terminology_compose.yml up --build
+docker buildx build --platform linux/amd64 -t onc-certification-g10-test-kit-terminology_builder:latest -f Dockerfile.terminology --load .
+docker compose -f terminology_compose.yml up
 ```
 
 This will run the terminology creation steps in order. These tasks may take
