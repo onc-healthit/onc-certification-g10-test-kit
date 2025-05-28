@@ -73,6 +73,7 @@ module Inferno
             end
 
             puts "Downloading #{package_url}"
+            # TODO: remove verify_ssl: false
             RestClient::Request.execute(method: :get, url: package_url, block_response: block, verify_ssl: false)
           end
 
