@@ -11,7 +11,7 @@ module Inferno
       class << self
         REGISTRY_SERVER_URL = 'https://packages.fhir.org'.freeze
         US_CORE_7_PACKAGE_URL = 'https://hl7.org/fhir/us/core/STU7/package.tgz'.freeze
-        VSAC_18_PACKAGE_URL = 'https://packages2.fhir.org/packages/us.nlm.vsac/0.18.0'.freeze
+        VSAC_18_PACKAGE_URL = 'https://packages2.fhir.org/web//us.nlm.vsac-0.18.0.tgz'.freeze
         REQUIRED_VSAC_VALUE_SET_URLS = [
           'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.114222.4.11.836',
           'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.1.11.14914',
@@ -63,10 +63,16 @@ module Inferno
           File.open(tar_file_name, 'w') do |output_file|
             output_file.binmode
             block = proc do |response|
-              response.read_body do |chunk|
-                output_file.write chunk
+              if ['301', '302', '307'].include? response.code
+                RestClient::Request.execute(method: :get, url: response.header[:location], block_response: block)
+              else
+                response.read_body do |chunk|
+                  output_file.write chunk
+                end
               end
             end
+
+            puts "Downloading #{package_url}"
             RestClient::Request.execute(method: :get, url: package_url, block_response: block)
           end
 
