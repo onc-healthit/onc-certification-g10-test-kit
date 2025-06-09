@@ -1,7 +1,11 @@
 version: '3.2'
 services:
   terminology_builder:
-    image: onc-certification-g10-test-kit-terminology_builder:latest
+    # Note: Docker/Compose will only honor the platform key if BuildKit is enabled.
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: Dockerfile.terminology
     volumes:
       - ./data:/opt/inferno/data
       - type: bind
