@@ -1,3 +1,9 @@
+# 7.2.3
+* Apply US Core patches [FHIR-50283](https://jira.hl7.org/browse/FHIR-50283), [FHIR-50239](https://jira.hl7.org/browse/FHIR-50239), and [FHIR-50288](https://jira.hl7.org/browse/FHIR-50288) for US Core v6.1.0 and US Core v7.0.0
+* Prefers search test using codings from Well-Known code systems
+* Avoid system error from "Server support either Practitioner.address or PractitionerRole" test when server does not provide any practitioner references
+* Fix terminology build
+
 # 7.2.2
 * Apply [ASTP/ONC Enforcement Discretion](https://www.healthit.gov/topic/certification-ehrs/enforcement-discretion)
 
