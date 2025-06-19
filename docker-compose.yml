@@ -21,6 +21,8 @@ services:
       service: nginx
     volumes:
       - ./config/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - inferno
   redis:
     extends:
       file: docker-compose.background.yml
