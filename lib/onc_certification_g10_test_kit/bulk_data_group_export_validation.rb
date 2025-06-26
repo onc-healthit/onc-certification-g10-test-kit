@@ -393,6 +393,7 @@ module ONCCertificationG10TestKit
           * http://hl7.org/fhir/us/core/StructureDefinition/us-core-respiratory-rate
 
           For US Core v6.1.0, this test expects evidence of the following US Core profiles
+          * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-clinical-result
           * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab
           * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-occupation
           * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-pregnancyintent
@@ -413,6 +414,7 @@ module ONCCertificationG10TestKit
           * http://hl7.org/fhir/us/core/StructureDefinition/us-core-respiratory-rate
 
         For US Core v7.0.0, this test expects evidence of the following US Core profiles
+          * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-clinical-result
           * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab
           * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-occupation
           * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-pregnancyintent
