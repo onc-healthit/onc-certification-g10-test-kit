@@ -12,8 +12,6 @@ of broad use beyond US Core.
 The following links are to a specific snapshot in time of the repository; this
 list should be maintained as the repository evolves.
 
-* Locking short ids: 
-   * [/lib/onc_certification_g10_test_kit.rb#L438](https://github.com/onc-healthit/onc-certification-g10-test-kit/blob/fe9ab4a628e3990ee03ce5998f3b7d90692ef0c5/lib/onc_certification_g10_test_kit.rb#L438)
 * Add some magic around option definitions:
    * [/lib/onc_certification_g10_test_kit/g10_options.rb](https://github.com/onc-healthit/onc-certification-g10-test-kit/blob/fe9ab4a628e3990ee03ce5998f3b7d90692ef0c5/lib/onc_certification_g10_test_kit/g10_options.rb)
 * Combining/deduplicating outputs:
@@ -27,8 +25,6 @@ list should be maintained as the repository evolves.
     * [/lib/onc_certification_g10_test_kit/smart_v1_scopes_group.rb#L221-L239](https://github.com/onc-healthit/onc-certification-g10-test-kit/blob/fe9ab4a628e3990ee03ce5998f3b7d90692ef0c5/lib/onc_certification_g10_test_kit/smart_v1_scopes_group.rb#L221-L239)
 * These complicated test imports (one for each us core version):
     * [/lib/onc_certification_g10_test_kit/single_patient_api_group.rb#L114-L130](https://github.com/onc-healthit/onc-certification-g10-test-kit/blob/fe9ab4a628e3990ee03ce5998f3b7d90692ef0c5/lib/onc_certification_g10_test_kit/single_patient_api_group.rb#L114-L130)
-* Deleting inputs
-    * [/lib/onc_certification_g10_test_kit/smart_ehr_patient_launch_group_stu2.rb#L124-L126](https://github.com/onc-healthit/onc-certification-g10-test-kit/blob/fe9ab4a628e3990ee03ce5998f3b7d90692ef0c5/lib/onc_certification_g10_test_kit/smart_ehr_patient_launch_group_stu2.rb#L124-L126)
 * Configuring nested tests/groups
     * [/lib/onc_certification_g10_test_kit/smart_ehr_practitioner_app_group.rb#L256-L270](https://github.com/onc-healthit/onc-certification-g10-test-kit/blob/fe9ab4a628e3990ee03ce5998f3b7d90692ef0c5/lib/onc_certification_g10_test_kit/smart_ehr_practitioner_app_group.rb#L256-L270)
     * [/lib/onc_certification_g10_test_kit/smart_standalone_patient_app_group.rb#L309-L323](https://github.com/onc-healthit/onc-certification-g10-test-kit/blob/fe9ab4a628e3990ee03ce5998f3b7d90692ef0c5/lib/onc_certification_g10_test_kit/smart_standalone_patient_app_group.rb#L309-L323)
