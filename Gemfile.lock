@@ -1,3 +1,13 @@
+GIT
+  remote: git@github.com:inferno-framework/us-core-test-kit.git
+  revision: 2359fe3f6e0493b68fcca327a4ed51b180ca7fe4
+  branch: main
+  specs:
+    us_core_test_kit (0.11.4)
+      inferno_core (>= 0.6.11)
+      smart_app_launch_test_kit (>= 0.6.3)
+      tls_test_kit (~> 0.3.0)
+
 PATH
   remote: .
   specs:
@@ -336,10 +346,6 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.6.0)
     unicode_utils (1.4.0)
-    us_core_test_kit (0.11.4)
-      inferno_core (>= 0.6.11)
-      smart_app_launch_test_kit (>= 0.6.3)
-      tls_test_kit (~> 0.3.0)
     webmock (3.18.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -362,6 +368,7 @@ DEPENDENCIES
   rubocop (~> 1.9)
   rubocop-rspec
   rubyXL
+  us_core_test_kit!
   webmock (~> 3.11)
 
 BUNDLED WITH
