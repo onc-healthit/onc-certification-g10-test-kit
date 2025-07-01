@@ -31,7 +31,8 @@ RSpec.describe ONCCertificationG10TestKit::SmartEHRPractitionerAppGroup do
             default: ONCCertificationG10TestKit::ScopeConstants::EHR_SMART_1_SCOPES
           },
           { name: :auth_request_method, default: 'GET', locked: true },
-          { name: :use_discovery, locked: true }
+          { name: :use_discovery, locked: true },
+          { name: :pkce_support, default: 'disabled' }
         ]
       }
 
