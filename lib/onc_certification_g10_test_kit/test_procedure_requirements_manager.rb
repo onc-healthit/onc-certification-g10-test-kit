@@ -38,7 +38,9 @@ module ONCCertificationG10TestKit
             runnable.verifies_requirements(*updated_requirements)
           end
         rescue KeyError
-          Inferno::Application['logger'].warn("No test procedure map defined for id #{short_id} (from runnable #{runnable.id})")
+          Inferno::Application['logger'].warn(
+            "No test procedure map defined for id #{short_id} (from runnable #{runnable.id})"
+          )
         end
       rescue Errno::ENOENT
         Inferno::Application['logger'].warn('No short id map found')
