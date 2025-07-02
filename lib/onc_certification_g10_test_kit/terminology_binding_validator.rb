@@ -3,7 +3,7 @@ require_relative '../inferno/exceptions'
 
 module ONCCertificationG10TestKit
   class TerminologyBindingValidator
-    include USCoreTestKit::FHIRResourceNavigation
+    include Inferno::DSL::FHIRResourceNavigation
     include Inferno::Terminology::TerminologyValidation
 
     def self.validate(...)
@@ -63,7 +63,7 @@ module ONCCertificationG10TestKit
     def element_with_invalid_binding
       @element_with_invalid_binding ||=
         find_a_value_at(path_source, binding_definition[:path]) do |element|
-          if element.is_a? USCoreTestKit::PrimitiveType
+          if element.is_a? Inferno::DSL::PrimitiveType
             invalid_binding? element.value
           else
             invalid_binding? element
