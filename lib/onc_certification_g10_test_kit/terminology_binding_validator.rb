@@ -3,7 +3,7 @@ require_relative '../inferno/exceptions'
 
 module ONCCertificationG10TestKit
   class TerminologyBindingValidator
-    include USCoreTestKit::FHIRResourceNavigation
+    include Inferno::DSL::FHIRResourceNavigation
     include Inferno::Terminology::TerminologyValidation
 
     def self.validate(...)
