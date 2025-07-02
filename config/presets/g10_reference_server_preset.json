@@ -449,7 +449,7 @@
     },
     {
       "name": "additional_patient_ids",
-      "value": "85,355",
+      "value": "85,355,70",
       "_title": "Additional Patient IDs",
       "_description": "Comma separated list of Patient IDs that together with the Patient\nID from the SMART App Launch contain all MUST SUPPORT elements.\n",
       "_type": "text",
