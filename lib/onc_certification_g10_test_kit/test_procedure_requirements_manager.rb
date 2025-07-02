@@ -70,8 +70,12 @@ module ONCCertificationG10TestKit
       def test_procedure_definition
         @test_procedure_definition ||=
           Tasks::TestProcedure.new(
-            YAML.load_file(File.join('lib', 'onc_certification_g10_test_kit',
-                                     'onc_program_procedure.yml')).deep_symbolize_keys
+            YAML.load_file(
+              File.join(
+                __dir__,
+                'onc_program_procedure.yml'
+              )
+            ).deep_symbolize_keys
           )
       end
     end
