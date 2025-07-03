@@ -449,7 +449,7 @@
     },
     {
       "name": "additional_patient_ids",
-      "value": "85,355",
+      "value": "85,355,907",
       "_title": "Additional Patient IDs",
       "_description": "Comma separated list of Patient IDs that together with the Patient\nID from the SMART App Launch contain all MUST SUPPORT elements.\n",
       "_type": "text",
@@ -479,7 +479,7 @@
     },
     {
       "name": "bulk_patient_ids_in_group",
-      "value": "85,355",
+      "value": "85,355,907",
       "_title": "Patient IDs in exported Group",
       "_description": "Comma separated list of every Patient ID that is in the specified Group. This information is provided by\nthe system under test to verify that data returned matches expectations. Leave blank to not verify Group\ninclusion.\n",
       "_type": "text",
