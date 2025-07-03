@@ -26,7 +26,7 @@ module ONCCertificationG10TestKit
           if test_procedure_requirements.present?
             current_requirements = runnable.verifies_requirements
             new_requirements = test_procedure_requirements.map do |req|
-              "170.315(g)(10)-test-procedure_1.4@#{req}"
+              "170.315(g)(10)-test-procedure@#{req}"
             end
             updated_requirements = current_requirements + new_requirements
             runnable.verifies_requirements(*updated_requirements)
