@@ -70,7 +70,7 @@ module ONCCertificationG10TestKit
 
     requirement_sets(
       {
-        identifier: '170.315(g)(10)-test-procedure_1.4',
+        identifier: '170.315(g)(10)-test-procedure',
         title: '170.315(g)(10) Standardized API for patient and population services test procedure',
         actor: 'Server',
         requirements: 'APP-REG-1,APP-REG-2,SEC-CNN-1,AUT-PAT-1,AUT-PAT-2,AUT-PAT-3,AUT-PAT-4,AUT-PAT-10,AUT-PAT-33,' \
@@ -82,7 +82,7 @@ module ONCCertificationG10TestKit
                       'DAT-PAT-12,DAT-PAT-13,DAT-PAT-14,DAT-PAT-15,API-DOC-1,API-DOC-2,API-DOC-3'
       },
       {
-        identifier: '170.315(g)(10)-test-procedure_1.4',
+        identifier: '170.315(g)(10)-test-procedure',
         title: '170.315(g)(10) Standardized API for patient and population services test procedure',
         actor: 'Server',
         suite_options: {
@@ -91,7 +91,7 @@ module ONCCertificationG10TestKit
         requirements: 'AUT-PAT-5,AUT-PAT-6,AUT-PAT-7,AUT-PAT-8,AUT-PAT-9,AUT-PAT-13,AUT-PAT-15,AUT-PAT-16,AUT-PAT-19'
       },
       {
-        identifier: '170.315(g)(10)-test-procedure_1.4',
+        identifier: '170.315(g)(10)-test-procedure',
         title: '170.315(g)(10) Standardized API for patient and population services test procedure',
         actor: 'Server',
         suite_options: {
@@ -100,7 +100,7 @@ module ONCCertificationG10TestKit
         requirements: 'AUT-PAT-24,AUT-PAT-25,AUT-PAT-26,AUT-PAT-27,AUT-PAT-28,AUT-PAT-29,AUT-PAT-30,AUT-PAT-31'
       },
       {
-        identifier: '170.315(g)(10)-test-procedure_1.4',
+        identifier: '170.315(g)(10)-test-procedure',
         title: '170.315(g)(10) Standardized API for patient and population services test procedure',
         actor: 'Server',
         suite_options: {
@@ -109,7 +109,7 @@ module ONCCertificationG10TestKit
         requirements: 'AUT-PAT-24,AUT-PAT-25,AUT-PAT-26,AUT-PAT-27,AUT-PAT-28,AUT-PAT-29,AUT-PAT-30,AUT-PAT-31'
       },
       {
-        identifier: '170.315(g)(10)-test-procedure_1.4',
+        identifier: '170.315(g)(10)-test-procedure',
         title: '170.315(g)(10) Standardized API for patient and population services test procedure',
         actor: 'Server',
         suite_options: {
@@ -118,7 +118,7 @@ module ONCCertificationG10TestKit
         requirements: 'AUT-PAT-32,AUT-PAT-34'
       },
       {
-        identifier: '170.315(g)(10)-test-procedure_1.4',
+        identifier: '170.315(g)(10)-test-procedure',
         title: '170.315(g)(10) Standardized API for patient and population services test procedure',
         actor: 'Server',
         suite_options: {
