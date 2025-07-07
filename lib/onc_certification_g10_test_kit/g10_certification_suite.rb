@@ -39,7 +39,7 @@ require_relative 'visual_inspection_and_attestations_group'
 
 require_relative '../inferno/terminology'
 
-require_relative 'onc_certification_g10_test_kit/test_procedure_requirements_manager'
+require_relative 'test_procedure_requirements_manager'
 
 Inferno::Terminology::Loader.load_validators
 
