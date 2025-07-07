@@ -133,13 +133,13 @@ adopted by the (g)(10) procedure:
 
 ## Step 5. Complete (g)(10) Test Kit Updates
 
-Numerous files require updates for the (g)(10) test kit. We'll begin with the test kit file named `onc_certification_g10_test_kit.rb`.
+Numerous files require updates for the (g)(10) test kit. We'll begin with the test suite file named `g10_certification_suite.rb`.
 
 
 **Import Test Groups**: The initial step is to import the relevant test group files. This can be accomplished by adding the corresponding test group files in the 'require' section. For instance, to import the 'Single Patient US Core 6' test group, you would add this line:
 
 ```ruby
-require_relative 'onc_certification_g10_test_kit/single_patient_us_core_6_api_group'
+require_relative 'single_patient_us_core_6_api_group'
 ```
 
 **Update Error Filters**: In addition to the ERROR_FILTERs defined in the US
