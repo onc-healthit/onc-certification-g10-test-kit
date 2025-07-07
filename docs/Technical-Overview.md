@@ -101,10 +101,12 @@ libraries. It is organized into several main directories:
 - `spec`: Contains the RSpec test cases for the test kit.
 - `tmp`: Temporary files used by the test kit at runtime.
 
-The (g)(10) Test Kit contains a single suite of tests, which is capable of testing
-any valid combination of approved standards for certification. This suite
-is defined in `lib/onc_certification_g10_test_kit.rb` and imports all necessary
-tests from both external test kits and from within the (g)(10) Test Kit itself.
+The (g)(10) Test Kit contains a single suite of tests, which is capable of
+testing any valid combination of approved standards for certification. This
+suite is defined in
+`lib/onc_certification_g10_test_kit/g10_certification_suite.rb` and imports all
+necessary tests from both external test kits and from within the (g)(10) Test
+Kit itself.
 
 ## Testing Code Changes
 
