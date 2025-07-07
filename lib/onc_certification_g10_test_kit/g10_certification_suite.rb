@@ -39,6 +39,8 @@ require_relative 'visual_inspection_and_attestations_group'
 
 require_relative '../inferno/terminology'
 
+require_relative 'test_procedure_requirements_manager'
+
 Inferno::Terminology::Loader.load_validators
 
 module ONCCertificationG10TestKit
@@ -60,6 +62,66 @@ module ONCCertificationG10TestKit
         url: 'https://github.com/onc-healthit/onc-certification-g10-test-kit/releases'
       }
     ]
+
+    requirement_sets(
+      {
+        identifier: '170.315(g)(10)-test-procedure',
+        title: '170.315(g)(10) Standardized API for patient and population services test procedure',
+        actor: 'Server',
+        requirements: 'APP-REG-1,APP-REG-2,SEC-CNN-1,AUT-PAT-1,AUT-PAT-2,AUT-PAT-3,AUT-PAT-4,AUT-PAT-10,AUT-PAT-33,' \
+                      'AUT-PAT-11,AUT-PAT-12,AUT-PAT-37,AUT-PAT-14,AUT-PAT-35,AUT-PAT-17,AUT-PAT-18,AUT-PAT-36,' \
+                      'AUT-PAT-20,AUT-PAT-21,AUT-PAT-22,AUT-PAT-23,PAR-1,AUT-SYS-1,AUT-SYS-2,AUT-SYS-3,' \
+                      'AUT-SYS-4,AUT-SYS-5,AUT-SYS-6,AUT-SYS-7,AUT-SYS-8,AUT-SYS-9,AUT-SYS-10,TOK-INTRO-1,' \
+                      'SH-PAT-1,SH-PAT-2,SH-PAT-3,SH-PAT-4,SH-PAT-5,DAT-PAT-1,DAT-PAT-18,DAT-PAT-2,DAT-PAT-3,' \
+                      'DAT-PAT-4,DAT-PAT-5,DAT-PAT-6,DAT-PAT-7,DAT-PAT-8,DAT-PAT-17,DAT-PAT-9,DAT-PAT-10,DAT-PAT-11,' \
+                      'DAT-PAT-12,DAT-PAT-13,DAT-PAT-14,DAT-PAT-15,API-DOC-1,API-DOC-2,API-DOC-3'
+      },
+      {
+        identifier: '170.315(g)(10)-test-procedure',
+        title: '170.315(g)(10) Standardized API for patient and population services test procedure',
+        actor: 'Server',
+        suite_options: {
+          smart_app_launch_version: G10Options::SMART_1
+        },
+        requirements: 'AUT-PAT-5,AUT-PAT-6,AUT-PAT-7,AUT-PAT-8,AUT-PAT-9,AUT-PAT-13,AUT-PAT-15,AUT-PAT-16,AUT-PAT-19'
+      },
+      {
+        identifier: '170.315(g)(10)-test-procedure',
+        title: '170.315(g)(10) Standardized API for patient and population services test procedure',
+        actor: 'Server',
+        suite_options: {
+          smart_app_launch_version: G10Options::SMART_2
+        },
+        requirements: 'AUT-PAT-24,AUT-PAT-25,AUT-PAT-26,AUT-PAT-27,AUT-PAT-28,AUT-PAT-29,AUT-PAT-30,AUT-PAT-31'
+      },
+      {
+        identifier: '170.315(g)(10)-test-procedure',
+        title: '170.315(g)(10) Standardized API for patient and population services test procedure',
+        actor: 'Server',
+        suite_options: {
+          smart_app_launch_version: G10Options::SMART_2_2
+        },
+        requirements: 'AUT-PAT-24,AUT-PAT-25,AUT-PAT-26,AUT-PAT-27,AUT-PAT-28,AUT-PAT-29,AUT-PAT-30,AUT-PAT-31'
+      },
+      {
+        identifier: '170.315(g)(10)-test-procedure',
+        title: '170.315(g)(10) Standardized API for patient and population services test procedure',
+        actor: 'Server',
+        suite_options: {
+          us_core_version: G10Options::US_CORE_6
+        },
+        requirements: 'AUT-PAT-32,AUT-PAT-34'
+      },
+      {
+        identifier: '170.315(g)(10)-test-procedure',
+        title: '170.315(g)(10) Standardized API for patient and population services test procedure',
+        actor: 'Server',
+        suite_options: {
+          us_core_version: G10Options::US_CORE_7
+        },
+        requirements: 'AUT-PAT-32,AUT-PAT-34'
+      }
+    )
 
     check_configuration do
       ConfigurationChecker.new.configuration_messages
@@ -95,7 +157,7 @@ module ONCCertificationG10TestKit
         igs("hl7.fhir.us.core##{us_core_version_num}")
 
         us_core_message_filters =
-          case (us_core_version_requirement[:us_core_version])
+          case us_core_version_requirement[:us_core_version]
           when G10Options::US_CORE_3
             USCoreTestKit::USCoreV311::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
           when G10Options::US_CORE_4
@@ -548,3 +610,5 @@ module ONCCertificationG10TestKit
     group from: :g10_visual_inspection_and_attestations
   end
 end
+
+ONCCertificationG10TestKit::TestProcedureRequirementsManager.assign_test_procedure_requirements

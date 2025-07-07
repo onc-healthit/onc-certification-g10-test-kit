@@ -52,3 +52,22 @@ jobs:
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Rubocop
       run: bundle exec rubocop
+
+  requirements:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby-version: ['3.3.6']
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+      - name: Check Export
+        run: bundle exec inferno requirements check
+      - name: Check Coverage
+        run: bundle exec inferno requirements check_coverage
+
