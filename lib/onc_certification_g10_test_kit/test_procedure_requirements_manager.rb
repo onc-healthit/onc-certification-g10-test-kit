@@ -12,7 +12,7 @@ module ONCCertificationG10TestKit
       end
 
       def short_id_file_path
-        File.join(__dir__, 'short_id_map.yml')
+        File.join(__dir__, 'g10_certification_suite_short_id_map.yml')
       end
 
       def short_id_map
