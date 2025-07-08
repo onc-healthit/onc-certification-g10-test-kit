@@ -1,3 +1,10 @@
+# 7.2.4
+Fix Bulk Observation Validation test description of required profiles
+Disable PKCE for SMART v1 test by default
+Add delayed reference resource context for the resource which provides the reference value
+Update to inferno-resource-validator v1.0.66
+Enable Requirement converage and analysis
+
 # 7.2.3
 * Apply US Core patches [FHIR-50283](https://jira.hl7.org/browse/FHIR-50283), [FHIR-50239](https://jira.hl7.org/browse/FHIR-50239), and [FHIR-50288](https://jira.hl7.org/browse/FHIR-50288) for US Core v6.1.0 and US Core v7.0.0
 * Prefers search test using codings from Well-Known code systems
