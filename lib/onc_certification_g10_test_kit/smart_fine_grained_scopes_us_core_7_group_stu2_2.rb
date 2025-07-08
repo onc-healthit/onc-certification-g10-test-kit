@@ -135,6 +135,11 @@ module ONCCertificationG10TestKit
       granular_scopes_group2.children << group
     end
 
+    # Copy the fhir client definitions from the api groups to the new granular
+    # scope groups
+    granular_scopes_group1.instance_variable_set(:@fhir_client_definitions, api_group1.fhir_client_definitions)
+    granular_scopes_group2.instance_variable_set(:@fhir_client_definitions, api_group2.fhir_client_definitions)
+
     # Remove OIDC and refresh token tests
     standalone_launch_group1.children.pop(2)
     standalone_launch_group2.children.pop(2)
