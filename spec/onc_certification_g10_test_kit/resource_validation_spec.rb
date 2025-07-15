@@ -63,8 +63,12 @@ RSpec.describe 'Resource Validation' do # rubocop:disable RSpec/DescribeClass
           {
             issues: [
               {
-                location: "DocumentReference.content[0].attachment.contentType",
-                message: "The System URI could not be determined for the code 'text/plain' in the ValueSet 'http://hl7.org/fhir/ValueSet/mimetypes|4.0.1': include #0 has system urn:ietf:bcp:13 which could not be found, and the server returned error [Error from https://tx.fhir.org/r4: The code System \"urn:ietf:bcp:13\" has a grammar, and cannot be enumerated directly]",
+                location: 'DocumentReference.content[0].attachment.contentType',
+                message: 'The System URI could not be determined for the code \'text/plain\' in the ' \
+                         'ValueSet \'http://hl7.org/fhir/ValueSet/mimetypes|4.0.1\': include #0 has ' \
+                         'system urn:ietf:bcp:13 which could not be found, and the server returned error ' \
+                         '[Error from https://tx.fhir.org/r4: The code System "urn:ietf:bcp:13" has a ' \
+                         'grammar, and cannot be enumerated directly]',
                 type: 'CODEINVALID',
                 level: 'ERROR'
               }
