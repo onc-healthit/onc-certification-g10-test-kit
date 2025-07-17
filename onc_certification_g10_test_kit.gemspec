@@ -4,7 +4,6 @@ Gem::Specification.new do |spec|
   spec.name          = 'onc_certification_g10_test_kit'
   spec.version       = ONCCertificationG10TestKit::VERSION
   spec.authors       = ['Stephen MacVicar']
-  spec.email         = ['inferno@groups.mitre.org']
   spec.summary       = 'ONC Certification (g)(10) Test Kit'
   spec.description   = 'ONC Certification (g)(10) Standardized API for Patient and Population Services Test Kit'
   spec.homepage      = 'https://github.com/onc-healthit/onc-certification-g10-test-kit'
