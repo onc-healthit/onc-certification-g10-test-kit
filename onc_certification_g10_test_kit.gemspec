@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.license       = 'Apache-2.0'
   spec.add_dependency 'bloomer', '~> 1.0.0'
   spec.add_dependency 'colorize', '~> 0.8.1'
-  spec.add_dependency 'inferno_core', '~> 0.6.16'
+  spec.add_dependency 'inferno_core', '~> 1.0', '>= 1.0.2'
   spec.add_dependency 'json-jwt', '~> 1.15.3'
   spec.add_dependency 'mime-types', '~> 3.4.0'
   spec.add_dependency 'ndjson', '~> 1.0.0'
@@ -20,9 +20,9 @@ Gem::Specification.new do |spec|
   # locked to a single version in certification test kits (such as this one).
   # All other test kits should use more flexible version constraints to avoid
   # conflicts when integrating into platforms (e.g.; inferno.healthit.gov).
-  spec.add_dependency 'smart_app_launch_test_kit', '0.6.4'
-  spec.add_dependency 'tls_test_kit', '0.3.0'
-  spec.add_dependency 'us_core_test_kit', '0.11.6'
+  spec.add_dependency 'smart_app_launch_test_kit', '1.0.0'
+  spec.add_dependency 'tls_test_kit', '1.0.0'
+  spec.add_dependency 'us_core_test_kit', '1.0.0'
 
   spec.required_ruby_version = Gem::Requirement.new('>= 3.3.6')
   spec.metadata['inferno_test_kit'] = 'true'
