@@ -141,7 +141,9 @@ module ONCCertificationG10TestKit
       /\A\S+: \S+: A definition for CodeSystem '.*' could not be found, so the code cannot be validated/,
       /\A\S+: \S+: URL value '.*' does not resolve/,
       /\A\S+: \S+: .*\[No server available\]/, # Catch-all for certain errors when TX server is disabled
-      %r{\A\S+: \S+: .*\[Error from https?://tx.fhir.org/r4:} # Catch-all for TX server errors that slip through
+      %r{\A\S+: \S+: .*\[Error from https?://tx.fhir.org/r4:}, # Catch-all for TX server errors that slip through
+      # This is a strange error introduced by FHIR validator core 6.5.28.
+      %r{\A\S+: \S+: The System URI could not be determined for the code '.*' in the ValueSet 'http://hl7.org/fhir/ValueSet/mimetypes|4.0.1'}
     ].freeze
 
     def self.setup_validator(us_core_version_requirement) # rubocop:disable Metrics/CyclomaticComplexity
