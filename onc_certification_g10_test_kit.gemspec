@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.license       = 'Apache-2.0'
   spec.add_dependency 'bloomer', '~> 1.0.0'
   spec.add_dependency 'colorize', '~> 0.8.1'
-  spec.add_runtime_dependency 'inferno_core', '~> 1.0', '>= 1.0.2'
+  spec.add_dependency 'inferno_core', '~> 1.0', '>= 1.0.2'
   spec.add_dependency 'json-jwt', '~> 1.15.3'
   spec.add_dependency 'mime-types', '~> 3.4.0'
   spec.add_dependency 'ndjson', '~> 1.0.0'
