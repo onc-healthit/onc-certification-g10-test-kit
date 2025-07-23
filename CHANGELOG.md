@@ -1,3 +1,8 @@
+# 7.2.5
+* Add filter for https://tx.fhir.org validation error
+* Add filter for mimetypes valueset valdiation error
+* Update dependency of inferno-core to v1.0.3, fhir.validator-wrapper to v1.0.67, and FHIR validator core to 6.5.28
+
 # 7.2.4
 Fix Bulk Observation Validation test description of required profiles
 Disable PKCE for SMART v1 test by default
