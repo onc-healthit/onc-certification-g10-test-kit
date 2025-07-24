@@ -242,9 +242,11 @@ many examples of how this occurs.
 
 ## Step 6. Validate Updates against Reference Server
 
-Prior to publication, all tests should pass against the Inferno Reference Server
-to verify the correctness of the tests against a known good server. This may
-require updating data on the reference server, and in some cases also updating
-behavior of the reference server. While not strictly necessary, this is the
-best way to validate the behavior of the tests, and is also beneficial to users
-of the test kit.
+Prior to publication, all tests should pass against the [Inferno Reference
+Server](https://github.com/inferno-framework/inferno-reference-server) to verify
+the correctness of the tests against a known good server. This may require
+updating [data on the reference
+server](https://github.com/inferno-framework/inferno-reference-server-data/),
+and in some cases also updating behavior of the reference server. While not
+strictly necessary, this is the best way to validate the behavior of the tests,
+and is also beneficial to users of the test kit.
