@@ -138,3 +138,11 @@ namespace :g10_test_kit do
     ONCCertificationG10TestKit::Tasks::GenerateMatrix.new.run
   end
 end
+
+namespace :requirements do
+  desc 'Generate ONC Certification (g)(10) Test Procedure Requirements Spreadsheet'
+  task :generate_procedure_requirements_spreadsheet do
+    require_relative 'lib/onc_certification_g10_test_kit/tasks/generate_requirements_spreadsheet'
+    ONCCertificationG10TestKit::Tasks::GenerateRequirementsSpreadsheet.new.run
+  end
+end

@@ -222,12 +222,40 @@ id. This mapping must be manually updated to ensure that the Inferno tests
 align with the (g)(10) test procedure.
 
 
-**Generate test matrix**: The file './onc_certification_g10_matrix.xlsx'
+**Generate test matrix**: The file `./onc_certification_g10_matrix.xlsx`
 visually represents the procedure mapping mentioned earlier. After updating the
-'onc_program_procedure', execute the following command to update this xlsx
-file:
+`onc_program_procedure.yaml` file, execute the following command to update this
+xlsx file:
 ```bash
 bundle exec rake g10_test_kit:generate_matrix
+```
+
+**Update Test Procedure Requirements Artifacts**: The test kit uses the
+[Inferno requirement tooling](https://inferno-framework.github.io/docs/advanced-test-features/requirements.html)
+to display the mapping of Test Procedure requirements to specific tests within
+the Inferno UI. Two steps are needed to maintain this feature after a SVAP
+update:
+- Update suite [`requirement_sets`](https://inferno-framework.github.io/docs/advanced-test-features/requirements.html#declare-suite-requirements)
+- Regenerate requirement files
+
+The suite's [`requirement_sets`](https://inferno-framework.github.io/docs/advanced-test-features/requirements.html#declare-suite-requirements)
+are defined within the `g10_certification_suite.rb` file and must be updated
+manually. The entries must be updated to list all Test Procedure ids. Some Test
+Procedure ids only apply to certain versions of referenced FHIR IGs, e.g., to a
+specific US Core or SMART App Launch version. Those Test Procedure ids must be
+placed in separate `requirement_sets` entries that indicate the required
+suite_option. See the current `requirement_sets` definition for examples on how
+to tie Test Procedure ids to specific suite options.
+
+The [Inferno requirement tooling](https://inferno-framework.github.io/docs/advanced-test-features/requirements.html)
+needs to have the discrete requirements recorded in a spreadsheet form in file
+`./lib/onc_certification_g10_test_kit/requirements/(g)(10)-test-procedure_requirements.xlsx`.
+After updating the `onc_program_procedure.yaml` file, execute the following
+commands to update this xlsx file and the corresponding requirements files:
+```bash
+bundle exec rake requirements:generate_procedure_requirements_spreadsheet
+bundle exec inferno requirements export_csv
+bundle exec inferno requirements coverage
 ```
 
 **Update Terminology**: The ONC (g)(10) Test Kit maintains its own terminology
