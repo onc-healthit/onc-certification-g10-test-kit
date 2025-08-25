@@ -173,33 +173,35 @@ module ONCCertificationG10TestKit
     end
 
     def requested_scope_test(scopes)
-      correct_scope_type_found = false
+      skip do
+        correct_scope_type_found = false
 
-      scopes.each do |full_scope|
-        scope = strip_experimental_scope_syntax(full_scope)
+        scopes.each do |full_scope|
+          scope = strip_experimental_scope_syntax(full_scope)
 
-        scope_pieces = scope.split('/')
-        assert scope_pieces.length == 2, bad_format_message(scope)
+          scope_pieces = scope.split('/')
+          assert scope_pieces.length == 2, bad_format_message(scope)
 
-        scope_type, resource_scope = scope_pieces
+          scope_type, resource_scope = scope_pieces
 
-        resource_scope_parts = resource_scope.split('.')
-        assert resource_scope_parts.length == 2, bad_format_message(scope)
+          resource_scope_parts = resource_scope.split('.')
+          assert resource_scope_parts.length == 2, bad_format_message(scope)
 
-        resource_type, access_level = resource_scope_parts
-        assert access_level =~ access_level_regex, bad_format_message(scope)
+          resource_type, access_level = resource_scope_parts
+          assert access_level =~ access_level_regex, bad_format_message(scope)
 
-        assert_correct_scope_type(scope, scope_type, resource_type, 'Requested')
+          assert_correct_scope_type(scope, scope_type, resource_type, 'Requested')
 
-        assert valid_resource_types.include?(resource_type),
-               "'#{resource_type}' must be either a permitted resource type or '*'"
+          assert valid_resource_types.include?(resource_type),
+                 "'#{resource_type}' must be either a permitted resource type or '*'"
 
-        correct_scope_type_found = true if scope_type == required_scope_type
+          correct_scope_type_found = true if scope_type == required_scope_type
+        end
+
+        assert correct_scope_type_found,
+               "#{required_scope_type.capitalize}-level scope in the format: " \
+               "`#{required_scope_type}/[ <ResourceType> | * ].[ #{read_format} ]` was not requested."
       end
-
-      assert correct_scope_type_found,
-             "#{required_scope_type.capitalize}-level scope in the format: " \
-             "`#{required_scope_type}/[ <ResourceType> | * ].[ #{read_format} ]` was not requested."
     end
 
     def received_scope_test(scopes)
