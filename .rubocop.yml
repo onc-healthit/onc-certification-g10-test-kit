@@ -8,6 +8,9 @@ AllCops:
     - 'Gemfile'
     - 'vendor/**/*'
 
+Layout/EndOfLine:
+  EnforcedStyle: lf
+
 Layout/LineLength:
   Max: 120
 
