@@ -1,3 +1,6 @@
+# 7.2.6
+* Update Smart Scopes Request Test to Skip on Bad Inputs
+
 # 7.2.5
 * Add filter for https://tx.fhir.org validation error
 * Add filter for mimetypes valueset valdiation error
