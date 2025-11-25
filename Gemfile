@@ -2,6 +2,8 @@
 
 source 'https://rubygems.org'
 
+gem 'us_core_test_kit', git: 'https://github.com/inferno-framework/us-core-test-kit.git', branch: 'ID8-granular-scopes'
+
 gemspec
 
 group :development, :test do
