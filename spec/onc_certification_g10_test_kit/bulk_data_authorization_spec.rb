@@ -70,13 +70,23 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
       result = run(runnable, input)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to eq('Unexpected response status: expected 400, but received 200')
+      expect(result.result_message).to match(/Unexpected response status:/)
     end
 
-    it 'passes when token endpoint requires valid client_assertion_type' do
+    it 'passes when token endpoint requires valid client_assertion_type (400)' do
       stub_request(:post, bulk_token_endpoint)
         .with(body: hash_including(client_assertion_type: 'not_an_assertion_type'))
         .to_return(status: 400)
+
+      result = run(runnable, input)
+
+      expect(result.result).to eq('pass')
+    end
+
+    it 'passes when token endpoint requires valid client_assertion_type (401)' do
+      stub_request(:post, bulk_token_endpoint)
+        .with(body: hash_including(client_assertion_type: 'not_an_assertion_type'))
+        .to_return(status: 401)
 
       result = run(runnable, input)
 

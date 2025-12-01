@@ -121,7 +121,7 @@ module ONCCertificationG10TestKit
 
         post(bulk_smart_auth_info.token_url, **post_request_content)
 
-        assert_response_status(400)
+        assert_response_status([400, 401])
       end
     end
 
