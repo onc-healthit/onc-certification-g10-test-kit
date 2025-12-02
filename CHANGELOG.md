@@ -1,3 +1,7 @@
+# 7.2.7
+* Relax Granular Scope Tests to Allow Pre-filtering of searches
+* Allow 401 HTTP status for invalid client_assertion_type
+
 # 7.2.6
 * Update Smart Scopes Request Test to Skip on Bad Inputs
 
