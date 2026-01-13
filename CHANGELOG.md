@@ -1,4 +1,7 @@
 # 7.2.7
+* Update dependency of inferno-core to v1.0.7, us-core-test-kit to v1.1.1
+
+# 7.2.7
 * Relax Granular Scope Tests to Allow Pre-filtering of searches
 * Allow 401 HTTP status for invalid client_assertion_type
 
