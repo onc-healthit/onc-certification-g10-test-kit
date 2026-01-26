@@ -11,8 +11,8 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
   let(:exp) { 5.minutes.from_now }
   let(:jti) { SecureRandom.hex(32) }
   let(:request_builder) { AuthorizationRequestBuilder.new(builder_input) }
-  let(:client_assertion) { create_client_assertion(client_assertion_input) }
-  let(:body) { request_builder.authorization_request_query_values }
+  # let(:client_assertion) { create_client_assertion(client_assertion_input) }
+  # let(:body) { request_builder.authorization_request_query_values }
   let(:bulk_smart_auth_info) do
     Inferno::DSL::AuthInfo.new(
       token_url: bulk_token_endpoint,
@@ -35,7 +35,8 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
   end
 
   describe '[Invalid grant_type] test' do
-    let(:runnable) { group.tests[1] }
+    # let(:runnable) { group.tests[1] }
+    let(:runnable) { group.tests.find { |t| t.id.to_s.end_with? 'g10_bulk_invalid_grant_type' } }
 
     it 'fails when token endpoint allows invalid grant_type' do
       stub_request(:post, bulk_token_endpoint)
@@ -60,7 +61,8 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
   end
 
   describe '[Invalid client_assertion_type] test' do
-    let(:runnable) { group.tests[2] }
+    # let(:runnable) { group.tests[2] }
+    let(:runnable) { group.tests.find { |t| t.id.to_s.end_with? 'g10_bulk_invalid_client_assertion_type' } }
 
     it 'fails when token endpoint allows invalid client_assertion_type' do
       stub_request(:post, bulk_token_endpoint)
@@ -70,7 +72,8 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
       result = run(runnable, input)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to match(/Unexpected response status:/)
+      # expect(result.result_message).to match(/Unexpected response status:/)
+      expect(result.result_message).to eq('Unexpected response status: expected 400, 401, but received 200')
     end
 
     it 'passes when token endpoint requires valid client_assertion_type (400)' do
@@ -95,7 +98,8 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
   end
 
   describe '[Invalid JWT token] test' do
-    let(:runnable) { group.tests[3] }
+    # let(:runnable) { group.tests[3] }
+    let(:runnable) { group.tests.find { |t| t.id.to_s.end_with? 'g10_bulk_invalid_jwt' } }
 
     it 'fails when token endpoint allows invalid JWT token' do
       stub_request(:post, bulk_token_endpoint)
@@ -118,7 +122,8 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
   end
 
   describe '[Authorization request succeeds when supplied correct information] test' do
-    let(:runnable) { group.tests[4] }
+    # let(:runnable) { group.tests[4] }
+    let(:runnable) { group.tests.find { |t| t.id.to_s.end_with? 'g10_bulk_auth_request_success' } }
 
     it 'fails if the access token request is rejected' do
       stub_request(:post, bulk_token_endpoint)
@@ -141,12 +146,13 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
   end
 
   describe '[Authorization request response body contains required information encoded in JSON] test' do
-    let(:runnable) { group.tests[5] }
+    # let(:runnable) { group.tests[5] }
+    let(:runnable) { group.tests.find { |t| t.id.to_s.end_with? 'g10_bulk_auth_response_body' } }
     let(:response_body) do
       {
         'access_token' => 'this_is_the_token',
-        'token_type' => 'its_a_token',
-        'expires_in' => 'a_couple_minutes',
+        'token_type' => 'bearer',
+        'expires_in' => 3600,
         'scope' => 'system'
       }
     end
@@ -155,60 +161,65 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
       result = run(runnable, input)
 
       expect(result.result).to eq('skip')
-      expect(result.result_message).to match(/bulk_authentication/)
+      # expect(result.result_message).to match(/bulk_authentication/)
+      expect(result.result_message).to match(/authentication_response/)
     end
 
     it 'fails when authentication response is invalid JSON' do
-      repo_create(
-        :request,
-        test_session_id: test_session.id,
-        name: :bulk_authentication,
-        response_body: '{/}'
-      )
+      # repo_create(
+      #   :request,
+      #   test_session_id: test_session.id,
+      #   name: :bulk_authentication,
+      #   response_body: '{/}'
+      # )
 
-      result = run(runnable, input)
+      # result = run(runnable, input)
+      result = run(runnable, input.merge(authentication_response: '{/}'))
 
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Invalid JSON. ')
     end
 
     it 'fails when authentication response does not contain access_token' do
-      repo_create(
-        :request,
-        test_session_id: test_session.id,
-        name: :bulk_authentication,
-        response_body: '{"response_body":"post"}'
-      )
+      # repo_create(
+      #   :request,
+      #   test_session_id: test_session.id,
+      #   name: :bulk_authentication,
+      #   response_body: '{"response_body":"post"}'
+      # )
 
-      result = run(runnable, input)
+      # result = run(runnable, input)
+      result = run(runnable, input.merge(authentication_response: '{"foo":"bar"}'))
 
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Token response did not contain access_token as required')
     end
 
     it 'fails when access_token is present but does not contain required keys' do
-      repo_create(
-        :request,
-        test_session_id: test_session.id,
-        name: :bulk_authentication,
-        response_body: { 'access_token' => 'its_the_token' }.to_json
-      )
+      # repo_create(
+      #   :request,
+      #   test_session_id: test_session.id,
+      #   name: :bulk_authentication,
+      #   response_body: { 'access_token' => 'its_the_token' }.to_json
+      # )
 
-      result = run(runnable, input)
+      # result = run(runnable, input)
+      result = run(runnable, input.merge(authentication_response: { 'access_token' => 'token' }.to_json))
 
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Token response did not contain token_type as required')
     end
 
     it 'passes when access_token is present and contains the required keys' do
-      repo_create(
-        :request,
-        test_session_id: test_session.id,
-        name: :bulk_authentication,
-        response_body: response_body.to_json
-      )
+      # repo_create(
+      #   :request,
+      #   test_session_id: test_session.id,
+      #   name: :bulk_authentication,
+      #   response_body: response_body.to_json
+      # )
 
-      result = run(runnable, input.merge)
+      # result = run(runnable, input.merge)
+      result = run(runnable, input.merge(authentication_response: response_body.to_json))
 
       expect(result.result).to eq('pass')
     end
