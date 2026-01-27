@@ -1,5 +1,5 @@
 require_relative '../../lib/onc_certification_g10_test_kit/bulk_data_authorization'
-require_relative '../../lib/onc_certification_g10_test_kit/authorization_request_builder'
+require 'smart_app_launch/backend_services_authorization_request_builder'
 
 RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
   let(:group) { Inferno::Repositories::TestGroups.new.find('bulk_data_authorization') }
@@ -10,7 +10,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
   let(:bulk_client_id) { 'clientID' }
   let(:exp) { 5.minutes.from_now }
   let(:jti) { SecureRandom.hex(32) }
-  let(:request_builder) { AuthorizationRequestBuilder.new(builder_input) }
+  let(:request_builder) { SMARTAppLaunch::BackendServicesAuthorizationRequestBuilder.new(builder_input) }
   let(:bulk_smart_auth_info) do
     Inferno::DSL::AuthInfo.new(
       token_url: bulk_token_endpoint,
