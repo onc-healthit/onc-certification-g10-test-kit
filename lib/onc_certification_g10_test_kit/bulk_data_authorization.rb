@@ -27,7 +27,7 @@ module ONCCertificationG10TestKit
               },
               {
                 name: :jwks,
-                default: "#{Inferno::Application['base_url']}/custom/g10_certification/jwks",
+                default: "#{Inferno::Application['base_url']}/custom/g10_certification/.well-known/jwks.json",
                 locked: true
               }
             ]
@@ -125,10 +125,7 @@ module ONCCertificationG10TestKit
       DESCRIPTION
       config(
         inputs: { smart_auth_info: { name: :bulk_smart_auth_info } },
-        outputs: {
-          smart_auth_info: { name: :bulk_smart_auth_info },
-          authentication_response: { name: :authentication_response }
-        }
+        outputs: { smart_auth_info: { name: :bulk_smart_auth_info } }
       )
     end
 
@@ -145,10 +142,7 @@ module ONCCertificationG10TestKit
         | scope | required | Scope of access authorized. Note that this can be different from the scopes requested by the app. |
       DESCRIPTION
       config(
-        inputs: {
-          smart_auth_info: { name: :bulk_smart_auth_info },
-          authentication_response: { name: :authentication_response }
-        }
+        inputs: { smart_auth_info: { name: :bulk_smart_auth_info } }
       )
     end
   end
