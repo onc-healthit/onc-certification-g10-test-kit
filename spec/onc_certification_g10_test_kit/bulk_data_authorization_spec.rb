@@ -1,5 +1,4 @@
 require_relative '../../lib/onc_certification_g10_test_kit/bulk_data_authorization'
-require_relative '../../lib/onc_certification_g10_test_kit/authorization_request_builder'
 
 RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
   let(:group) { Inferno::Repositories::TestGroups.new.find('bulk_data_authorization') }
@@ -8,31 +7,16 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
   let(:bulk_encryption_method) { 'ES384' }
   let(:bulk_scope) { 'system/Patient.read' }
   let(:bulk_client_id) { 'clientID' }
-  let(:exp) { 5.minutes.from_now }
-  let(:jti) { SecureRandom.hex(32) }
-  let(:request_builder) { AuthorizationRequestBuilder.new(builder_input) }
-  let(:client_assertion) { create_client_assertion(client_assertion_input) }
-  let(:body) { request_builder.authorization_request_query_values }
   let(:bulk_smart_auth_info) do
     Inferno::DSL::AuthInfo.new(
       token_url: bulk_token_endpoint,
       encryption_algorithm: bulk_encryption_method,
       requested_scopes: bulk_scope,
-      client_id: bulk_client_id
+      client_id: bulk_client_id,
+      jwks: ONCCertificationG10TestKit::BulkDataJWKSHelper.jwks_json
     )
   end
   let(:input) { { bulk_smart_auth_info: } }
-  let(:builder_input) do
-    {
-      encryption_method: bulk_encryption_method,
-      scope: bulk_scope,
-      iss: bulk_client_id,
-      sub: bulk_client_id,
-      aud: bulk_token_endpoint,
-      exp:,
-      jti:
-    }
-  end
 
   describe '[Invalid grant_type] test' do
     let(:runnable) { group.tests[1] }
@@ -43,7 +27,6 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
         .to_return(status: 200)
 
       result = run(runnable, input)
-
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Unexpected response status: expected 400, but received 200')
     end
@@ -68,7 +51,6 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
         .to_return(status: 200)
 
       result = run(runnable, input)
-
       expect(result.result).to eq('fail')
       expect(result.result_message).to match(/Unexpected response status:/)
     end
@@ -102,7 +84,6 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
         .to_return(status: 200)
 
       result = run(runnable, input)
-
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Unexpected response status: expected 400, 401, but received 200')
     end
@@ -125,7 +106,6 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
         .to_return(status: 400)
 
       result = run(runnable, input)
-
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Unexpected response status: expected 200, 201, but received 400')
     end
@@ -145,8 +125,8 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
     let(:response_body) do
       {
         'access_token' => 'this_is_the_token',
-        'token_type' => 'its_a_token',
-        'expires_in' => 'a_couple_minutes',
+        'token_type' => 'bearer',
+        'expires_in' => 300,
         'scope' => 'system'
       }
     end
@@ -155,7 +135,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
       result = run(runnable, input)
 
       expect(result.result).to eq('skip')
-      expect(result.result_message).to match(/bulk_authentication/)
+      expect(result.result_message).to match(/Input/i).and match(/nil/i)
     end
 
     it 'fails when authentication response is invalid JSON' do
@@ -166,8 +146,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
         response_body: '{/}'
       )
 
-      result = run(runnable, input)
-
+      result = run(runnable, input.merge(bulk_authentication: '{/}'))
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Invalid JSON. ')
     end
@@ -180,8 +159,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
         response_body: '{"response_body":"post"}'
       )
 
-      result = run(runnable, input)
-
+      result = run(runnable, input.merge(bulk_authentication: '{"response_body":"post"}'))
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Token response did not contain access_token as required')
     end
@@ -194,8 +172,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
         response_body: { 'access_token' => 'its_the_token' }.to_json
       )
 
-      result = run(runnable, input)
-
+      result = run(runnable, input.merge(bulk_authentication: { 'access_token' => 'its_the_token' }.to_json))
       expect(result.result).to eq('fail')
       expect(result.result_message).to eq('Token response did not contain token_type as required')
     end
@@ -208,7 +185,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
         response_body: response_body.to_json
       )
 
-      result = run(runnable, input.merge)
+      result = run(runnable, input.merge(bulk_authentication: response_body.to_json))
 
       expect(result.result).to eq('pass')
     end
