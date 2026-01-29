@@ -6,6 +6,7 @@ require_relative 'feature'
 require_relative 'g10_options'
 require_relative 'multi_patient_api_stu1'
 require_relative 'multi_patient_api_stu2'
+require_relative 'bulk_data_jwks_helper'
 require_relative 'single_patient_api_group'
 require_relative 'single_patient_us_core_4_api_group'
 require_relative 'single_patient_us_core_5_api_group'
@@ -239,13 +240,7 @@ module ONCCertificationG10TestKit
     end
 
     def self.jwks_json
-      bulk_data_jwks =
-        JSON.parse(
-          File.read(ENV.fetch('G10_BULK_DATA_JWKS', File.join(__dir__, 'bulk_data_jwks.json')))
-        )
-      @jwks_json ||= JSON.pretty_generate(
-        { keys: bulk_data_jwks['keys'].select { |key| key['key_ops']&.include?('verify') } }
-      )
+      BulkDataJWKSHelper.public_jwks_json
     end
 
     def self.well_known_route_handler
