@@ -1,4 +1,6 @@
 module ONCCertificationG10TestKit
+  require 'smart_app_launch/client_assertion_builder'
+
   class SMARTInvalidTokenRefreshTest < Inferno::Test
     id :g10_invalid_token_refresh
     title 'Refresh token exchange fails when supplied an invalid refresh token'
@@ -26,6 +28,17 @@ module ONCCertificationG10TestKit
       if smart_auth_info.symmetric_auth?
         credentials = Base64.strict_encode64("#{smart_auth_info.client_id}:#{smart_auth_info.client_secret}")
         oauth2_headers['Authorization'] = "Basic #{credentials}"
+      elsif smart_auth_info.asymmetric_auth?
+        oauth2_params.merge!(
+          client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
+          client_assertion: SMARTAppLaunch::ClientAssertionBuilder.build(
+            iss: smart_auth_info.client_id,
+            sub: smart_auth_info.client_id,
+            aud: smart_auth_info.token_url,
+            client_auth_encryption_method: smart_auth_info.encryption_algorithm,
+            custom_jwks: smart_auth_info.jwks
+          )
+        )
       else
         oauth2_params['client_id'] = smart_auth_info.client_id
       end
