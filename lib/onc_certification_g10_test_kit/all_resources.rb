@@ -55,15 +55,12 @@ module ONCCertificationG10TestKit
         'Provenance'
       ].freeze
 
-    V5_ALL_RESOURCES = (ALL_RESOURCES + ['RelatedPerson', 'ServiceRequest']).freeze
-
-    V6_ALL_RESOURCES = (V5_ALL_RESOURCES + ['Coverage', 'MedicationDispense', 'Specimen']).freeze
+    V6_ALL_RESOURCES = (ALL_RESOURCES + ['RelatedPerson', 'ServiceRequest', 'Coverage', 'MedicationDispense',
+                                         'Specimen']).freeze
 
     V7_ALL_RESOURCES = (V6_ALL_RESOURCES + ['Location']).freeze
 
     def all_required_resources
-      return V5_ALL_RESOURCES if using_us_core_5?
-
       return V6_ALL_RESOURCES if using_us_core_6?
 
       return V7_ALL_RESOURCES if using_us_core_7?

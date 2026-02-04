@@ -9,8 +9,6 @@ module ONCCertificationG10TestKit
       scopes during an EHR Launch.
 
       * [Clinician Access for EHR Launch Capability Set STU
-        1](http://hl7.org/fhir/smart-app-launch/1.0.0/conformance/index.html#clinician-access-for-ehr-launch)
-      * [Clinician Access for EHR Launch Capability Set STU
         2](http://hl7.org/fhir/smart-app-launch/STU2/conformance.html#clinician-access-for-ehr-launch)
     )
     id :g10_patient_scope

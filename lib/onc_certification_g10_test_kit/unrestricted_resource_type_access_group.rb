@@ -27,9 +27,6 @@ module ONCCertificationG10TestKit
       * Practitioner
       * Organization
 
-      If testing against USCDI v2, Encounter and ServiceRequest are also
-      checked.
-
       If testing against USCDI v3 and v4, Encounter, ServiceRequest, Coverage,
       and MedicationDispense are also checked.
 
@@ -51,11 +48,6 @@ module ONCCertificationG10TestKit
       * Organization
       * Practitioner
 
-      For USCDI v2 this includes:
-
-      * Location
-      * Organization
-      * Practitioner
 
       For USCDI v3 this includes:
 
@@ -94,9 +86,7 @@ module ONCCertificationG10TestKit
       oauth_credentials :smart_auth_info
     end
 
-    V5_EXCLUDED_RESOURCES = ['RelatedPerson'].freeze
-
-    V6_EXCLUDED_RESOURCES = (V5_EXCLUDED_RESOURCES + ['Specimen']).freeze
+    V6_EXCLUDED_RESOURCES = ['RelatedPerson', 'Specimen'].freeze
 
     V7_EXCLUDED_RESOURCES = V6_EXCLUDED_RESOURCES
 
@@ -112,10 +102,8 @@ module ONCCertificationG10TestKit
         'RelatedPerson'
       ].freeze
 
-    V5_NON_PATIENT_COMPARTMENT_RESOURCES =
+    V6_NON_PATIENT_COMPARTMENT_RESOURCES =
       (NON_PATIENT_COMPARTMENT_RESOURCES - ['Encounter'] + ['ServiceRequest']).freeze
-
-    V6_NON_PATIENT_COMPARTMENT_RESOURCES = V5_NON_PATIENT_COMPARTMENT_RESOURCES
 
     V7_NON_PATIENT_COMPARTMENT_RESOURCES = V6_NON_PATIENT_COMPARTMENT_RESOURCES
 
@@ -130,8 +118,6 @@ module ONCCertificationG10TestKit
       )
 
       def all_resources
-        return all_required_resources - V5_EXCLUDED_RESOURCES if using_us_core_5?
-
         return all_required_resources - V6_EXCLUDED_RESOURCES if using_us_core_6?
 
         return all_required_resources - V7_EXCLUDED_RESOURCES if using_us_core_7?
@@ -140,8 +126,6 @@ module ONCCertificationG10TestKit
       end
 
       def non_patient_compartment_resources
-        return V5_NON_PATIENT_COMPARTMENT_RESOURCES if using_us_core_5?
-
         return V6_NON_PATIENT_COMPARTMENT_RESOURCES if using_us_core_6?
 
         return V7_NON_PATIENT_COMPARTMENT_RESOURCES if using_us_core_7?
@@ -200,7 +184,7 @@ module ONCCertificationG10TestKit
       id :g10_patient_unrestricted_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::PatientGroup
+        USCoreTestKit::USCoreV610::PatientGroup
       end
     end
 
@@ -212,7 +196,7 @@ module ONCCertificationG10TestKit
       id :g10_allergy_intolerance_unrestricted_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::AllergyIntoleranceGroup
+        USCoreTestKit::USCoreV610::AllergyIntoleranceGroup
       end
     end
 
@@ -224,7 +208,7 @@ module ONCCertificationG10TestKit
       id :g10_care_plan_unrestricted_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::CarePlanGroup
+        USCoreTestKit::USCoreV610::CarePlanGroup
       end
     end
 
@@ -236,7 +220,7 @@ module ONCCertificationG10TestKit
       id :g10_care_team_unrestricted_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::CareTeamGroup
+        USCoreTestKit::USCoreV610::CareTeamGroup
       end
     end
 
@@ -248,7 +232,7 @@ module ONCCertificationG10TestKit
       id :g10_condition_unrestricted_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::ConditionGroup
+        USCoreTestKit::USCoreV610::ConditionGroup
       end
     end
 
@@ -260,7 +244,7 @@ module ONCCertificationG10TestKit
       id :g10_device_unrestricted_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::DeviceGroup
+        USCoreTestKit::USCoreV610::DeviceGroup
       end
     end
 
@@ -272,7 +256,7 @@ module ONCCertificationG10TestKit
       id :g10_diagnostic_report_unrestricted_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::DiagnosticReportLabGroup
+        USCoreTestKit::USCoreV610::DiagnosticReportLabGroup
       end
     end
 
@@ -284,7 +268,7 @@ module ONCCertificationG10TestKit
       id :g10_document_reference_unrestricted_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::DocumentReferenceGroup
+        USCoreTestKit::USCoreV610::DocumentReferenceGroup
       end
     end
 
@@ -296,7 +280,7 @@ module ONCCertificationG10TestKit
       id :g10_goal_unrestricted_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::GoalGroup
+        USCoreTestKit::USCoreV610::GoalGroup
       end
     end
 
@@ -308,7 +292,7 @@ module ONCCertificationG10TestKit
       id :g10_immunization_unrestricted_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::ImmunizationGroup
+        USCoreTestKit::USCoreV610::ImmunizationGroup
       end
     end
 
@@ -320,7 +304,7 @@ module ONCCertificationG10TestKit
       id :g10_medication_request_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::MedicationRequestGroup
+        USCoreTestKit::USCoreV610::MedicationRequestGroup
       end
     end
 
@@ -332,7 +316,7 @@ module ONCCertificationG10TestKit
       id :g10_observation_unrestricted_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::PulseOximetryGroup
+        USCoreTestKit::USCoreV610::PulseOximetryGroup
       end
     end
 
@@ -344,35 +328,7 @@ module ONCCertificationG10TestKit
       id :g10_procedure_unrestricted_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::ProcedureGroup
-      end
-    end
-
-    test from: :g10_resource_access_test do
-      title 'Access to Encounter resources granted'
-      description %(
-        This test ensures that access to the Encounter is granted.
-      )
-      id :g10_encounter_unrestricted_access
-
-      required_suite_options G10Options::US_CORE_5_REQUIREMENT
-
-      def resource_group
-        USCoreTestKit::USCoreV501::EncounterGroup
-      end
-    end
-
-    test from: :g10_resource_access_test do
-      title 'Access to ServiceRequest resources granted'
-      description %(
-        This test ensures that access to the ServiceRequest is granted.
-      )
-      id :g10_service_request_unrestricted_access
-
-      required_suite_options G10Options::US_CORE_5_REQUIREMENT
-
-      def resource_group
-        USCoreTestKit::USCoreV501::ServiceRequestGroup
+        USCoreTestKit::USCoreV610::ProcedureGroup
       end
     end
 

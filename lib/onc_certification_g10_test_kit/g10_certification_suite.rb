@@ -7,23 +7,22 @@ require_relative 'g10_options'
 require_relative 'multi_patient_api_stu1'
 require_relative 'multi_patient_api_stu2'
 require_relative 'bulk_data_jwks_helper'
-require_relative 'single_patient_api_group'
-require_relative 'single_patient_us_core_4_api_group'
-require_relative 'single_patient_us_core_5_api_group'
+
 require_relative 'single_patient_us_core_6_api_group'
 require_relative 'single_patient_us_core_7_api_group'
+
 require_relative 'smart_app_launch_invalid_aud_group'
 require_relative 'smart_asymmetric_launch_group'
 require_relative 'smart_granular_scope_selection_group'
-require_relative 'smart_invalid_token_group'
+
 require_relative 'smart_invalid_token_group_stu2'
 require_relative 'smart_invalid_pkce_group'
 require_relative 'smart_limited_app_group'
 require_relative 'smart_standalone_patient_app_group'
-require_relative 'smart_public_standalone_launch_group'
+
 require_relative 'smart_public_standalone_launch_group_stu2'
 require_relative 'smart_public_standalone_launch_group_stu2_2'
-require_relative 'smart_ehr_patient_launch_group'
+
 require_relative 'smart_ehr_patient_launch_group_stu2'
 require_relative 'smart_ehr_patient_launch_group_stu2_2'
 require_relative 'smart_ehr_practitioner_app_group'
@@ -31,7 +30,7 @@ require_relative 'smart_fine_grained_scopes_group'
 require_relative 'smart_fine_grained_scopes_group_stu2_2'
 require_relative 'smart_fine_grained_scopes_us_core_7_group'
 require_relative 'smart_fine_grained_scopes_us_core_7_group_stu2_2'
-require_relative 'smart_v1_scopes_group'
+
 require_relative 'terminology_binding_validator'
 require_relative 'token_introspection_group'
 require_relative 'token_introspection_group_stu2_2'
@@ -76,15 +75,6 @@ module ONCCertificationG10TestKit
                       'SH-PAT-1,SH-PAT-2,SH-PAT-3,SH-PAT-4,SH-PAT-5,DAT-PAT-1,DAT-PAT-18,DAT-PAT-2,DAT-PAT-3,' \
                       'DAT-PAT-4,DAT-PAT-5,DAT-PAT-6,DAT-PAT-7,DAT-PAT-8,DAT-PAT-17,DAT-PAT-9,DAT-PAT-10,DAT-PAT-11,' \
                       'DAT-PAT-12,DAT-PAT-13,DAT-PAT-14,DAT-PAT-15,API-DOC-1,API-DOC-2,API-DOC-3'
-      },
-      {
-        identifier: '170.315(g)(10)-test-procedure',
-        title: '170.315(g)(10) Standardized API for patient and population services test procedure',
-        actor: 'Server',
-        suite_options: {
-          smart_app_launch_version: G10Options::SMART_1
-        },
-        requirements: 'AUT-PAT-5,AUT-PAT-6,AUT-PAT-7,AUT-PAT-8,AUT-PAT-9,AUT-PAT-13,AUT-PAT-15,AUT-PAT-16,AUT-PAT-19'
       },
       {
         identifier: '170.315(g)(10)-test-procedure',
@@ -161,12 +151,7 @@ module ONCCertificationG10TestKit
 
         us_core_message_filters =
           case us_core_version_requirement[:us_core_version]
-          when G10Options::US_CORE_3
-            USCoreTestKit::USCoreV311::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
-          when G10Options::US_CORE_4
-            USCoreTestKit::USCoreV400::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
-          when G10Options::US_CORE_5
-            USCoreTestKit::USCoreV501::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
+
           when G10Options::US_CORE_6
             USCoreTestKit::USCoreV610::USCoreTestSuite::VALIDATION_MESSAGE_FILTERS
           when G10Options::US_CORE_7
@@ -189,17 +174,11 @@ module ONCCertificationG10TestKit
         perform_additional_validation do |resource, profile_url|
           versionless_profile_url, profile_version = profile_url.split('|')
           profile_version = case profile_version
-                            when '6.1.0'
-                              '610'
-                            when '4.0.0'
-                              '400'
-                            when '5.0.1'
-                              '501'
+                            when '7.0.0'
+                              '700'
                             else
-                              # This open-ended else is primarily for Vital Signs profiles in v3.1.1, which are tagged
-                              # with the base FHIR version (4.0.1).  The profiles were migrated to US Core in later
-                              # versions.
-                              '311'
+                              # Default to 6.1.0 if no version is provided
+                              '610'
                             end
 
           us_core_suite = USCoreTestKit.const_get("USCoreV#{profile_version}")::USCoreTestSuite
@@ -229,9 +208,7 @@ module ONCCertificationG10TestKit
     end
 
     [
-      G10Options::US_CORE_3_REQUIREMENT,
-      G10Options::US_CORE_4_REQUIREMENT,
-      G10Options::US_CORE_5_REQUIREMENT,
+
       G10Options::US_CORE_6_REQUIREMENT,
       G10Options::US_CORE_7_REQUIREMENT
 
@@ -256,14 +233,7 @@ module ONCCertificationG10TestKit
     suite_option :us_core_version,
                  title: 'US Core Version',
                  list_options: [
-                   {
-                     label: 'US Core 3.1.1 / USCDI v1',
-                     value: G10Options::US_CORE_3
-                   },
-                   {
-                     label: 'US Core 4.0.0 / USCDI v1',
-                     value: G10Options::US_CORE_4
-                   },
+
                    {
                      label: 'US Core 6.1.0 / USCDI v3',
                      value: G10Options::US_CORE_6
@@ -277,10 +247,7 @@ module ONCCertificationG10TestKit
     suite_option :smart_app_launch_version,
                  title: 'SMART App Launch Version',
                  list_options: [
-                   {
-                     label: 'SMART App Launch 1.0.0',
-                     value: G10Options::SMART_1
-                   },
+
                    {
                      label: 'SMART App Launch 2.0.0',
                      value: G10Options::SMART_2
@@ -404,12 +371,6 @@ module ONCCertificationG10TestKit
 
     group from: 'g10_smart_ehr_practitioner_app'
 
-    group from: 'g10_single_patient_api',
-          required_suite_options: G10Options::US_CORE_3_REQUIREMENT
-    group from: 'g10_single_patient_us_core_4_api',
-          required_suite_options: G10Options::US_CORE_4_REQUIREMENT
-    group from: 'g10_single_patient_us_core_5_api',
-          required_suite_options: G10Options::US_CORE_5_REQUIREMENT
     group from: 'g10_single_patient_us_core_6_api',
           required_suite_options: G10Options::US_CORE_6_REQUIREMENT
     group from: 'g10_single_patient_us_core_7_api',
@@ -450,9 +411,6 @@ module ONCCertificationG10TestKit
         )
       end
 
-      group from: :g10_public_standalone_launch,
-            required_suite_options: G10Options::SMART_1_REQUIREMENT,
-            config: { options: { redirect_message_proc: default_redirect_message_proc } }
       group from: :g10_public_standalone_launch_stu2,
             required_suite_options: G10Options::SMART_2_REQUIREMENT,
             config: { options: { redirect_message_proc: default_redirect_message_proc } }
@@ -465,9 +423,6 @@ module ONCCertificationG10TestKit
       group from: :g10_smart_invalid_aud,
             config: { options: { redirect_message_proc: default_redirect_message_proc } }
 
-      group from: :g10_smart_invalid_token_request,
-            required_suite_options: G10Options::SMART_1_REQUIREMENT,
-            config: { options: { redirect_message_proc: default_redirect_message_proc } }
       group from: :g10_smart_invalid_token_request_stu2,
             required_suite_options: G10Options::SMART_2_REQUIREMENT,
             config: { options: { redirect_message_proc: default_redirect_message_proc } }
@@ -482,8 +437,6 @@ module ONCCertificationG10TestKit
             id: :g10_smart_invalid_pkce_code_verifier_group_stu2_2, # rubocop:disable Naming/VariableNumber
             required_suite_options: G10Options::SMART_2_2_REQUIREMENT
 
-      group from: :g10_ehr_patient_launch,
-            required_suite_options: G10Options::SMART_1_REQUIREMENT
       group from: :g10_ehr_patient_launch_stu2,
             required_suite_options: G10Options::SMART_2_REQUIREMENT
       group from: :g10_ehr_patient_launch_stu2_2, # rubocop:disable Naming/VariableNumber
@@ -498,12 +451,6 @@ module ONCCertificationG10TestKit
             required_suite_options: G10Options::SMART_2_REQUIREMENT
       group from: :g10_asymmetric_launch,
             id: :g10_asymmetric_launch_stu2_2, # rubocop:disable Naming/VariableNumber
-            required_suite_options: G10Options::SMART_2_2_REQUIREMENT
-
-      group from: :g10_smart_v1_scopes,
-            required_suite_options: G10Options::SMART_2_REQUIREMENT
-      group from: :g10_smart_v1_scopes,
-            id: :g10_smart_v1_scopes_stu2_2, # rubocop:disable Naming/VariableNumber
             required_suite_options: G10Options::SMART_2_2_REQUIREMENT
 
       group from: :g10_smart_fine_grained_scopes, exclude_optional: true do

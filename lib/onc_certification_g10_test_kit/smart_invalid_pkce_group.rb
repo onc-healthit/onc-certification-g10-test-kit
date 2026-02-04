@@ -87,7 +87,7 @@ module ONCCertificationG10TestKit
             components: [
               {
                 name: :requested_scopes,
-                default: STANDALONE_SMART_1_SCOPES
+                default: STANDALONE_SMART_2_SCOPES
               },
               {
                 name: :auth_type,

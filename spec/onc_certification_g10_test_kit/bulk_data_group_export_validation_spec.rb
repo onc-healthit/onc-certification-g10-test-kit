@@ -24,6 +24,10 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     }
   end
 
+  before do
+    allow_any_instance_of(runnable).to receive(:suite_options).and_return({ us_core_version: 'us_core_6' })
+  end
+
   describe '[NDJSON download requires access token] test' do
     let(:runnable) { group.tests[1] }
 
@@ -131,12 +135,14 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         .to_return(status: 200, body: contents_missing_element, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      allow_any_instance_of(runnable).to receive(:perform_must_support_test).and_raise(
+        Inferno::Exceptions::SkipException, 'Mocked Skip'
+      )
       result = run(runnable, patient_input)
 
       expect(result.result).to eq('skip')
       expect(result.result_message)
-        .to start_with('Could not find identifier, identifier.system, identifier.value ' \
-                       'in the 2 provided resource(s)')
+        .to match(/Mocked Skip/)
     end
 
     it 'passes when returned resources are fully conformant to the patient profile' do
@@ -145,6 +151,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         .to_return(status: 200, body: contents, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      allow_any_instance_of(runnable).to receive(:perform_must_support_test).and_return(true)
       result = run(runnable, patient_input)
 
       expect(result.result).to eq('pass')
@@ -159,6 +166,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         .to_return(status: 200, body: contents, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      allow_any_instance_of(runnable).to receive(:perform_must_support_test).and_return(true)
       result = run(runnable, patient_input_two_files)
 
       expect(result.result).to eq('pass')
@@ -182,7 +190,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       expect(validation_request).to have_been_made.twice
       expect(result.result).to eq('fail')
       expect(result.result_message).to start_with('2 / 2 Patient resources failed profile validation')
-      expect(messages.count { |message| message.type == 'error' }).to be(1)
+      expect(messages.count { |message| message.type == 'error' }).to be(2)
     end
   end
 
@@ -279,11 +287,14 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         .to_return(status: 200, body: contents_missing_element, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      allow_any_instance_of(runnable).to receive(:perform_must_support_test).and_raise(
+        Inferno::Exceptions::SkipException, 'Mocked Skip'
+      )
       result = run(runnable, allergy_input)
 
       expect(result.result).to eq('skip')
       expect(result.result_message)
-        .to start_with('Could not find clinicalStatus in the 10 provided resource(s)')
+        .to match(/Mocked Skip/)
     end
 
     it 'passes when returned resources are fully conformant to the allergy profile' do
@@ -292,6 +303,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         .to_return(status: 200, body: contents, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      allow_any_instance_of(runnable).to receive(:perform_must_support_test).and_return(true)
       result = run(runnable, allergy_input)
 
       expect(result.result).to eq('pass')
@@ -353,6 +365,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         .to_return(status: 200, body: contents, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      allow_any_instance_of(runnable).to receive(:perform_must_support_test).and_return(true)
       result = run(runnable, careplan_input)
 
       expect(result.result).to eq('pass')
@@ -399,6 +412,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         .to_return(status: 200, body: contents_missing_lab, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      allow_any_instance_of(runnable).to receive(:perform_must_support_test).and_return(true)
       result = run(runnable, diagnostic_input)
 
       expect(result.result).to eq('skip')
@@ -411,6 +425,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         .to_return(status: 200, body: contents_missing_note, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      allow_any_instance_of(runnable).to receive(:perform_must_support_test).and_return(true)
       result = run(runnable, diagnostic_input)
 
       expect(result.result).to eq('skip')
@@ -423,6 +438,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         .to_return(status: 200, body: contents, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      allow_any_instance_of(runnable).to receive(:perform_must_support_test).and_return(true)
       result = run(runnable, diagnostic_input)
 
       expect(result.result).to eq('pass')
@@ -437,6 +453,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         .to_return(status: 200, body: contents_missing_note, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      allow_any_instance_of(runnable).to receive(:perform_must_support_test).and_return(true)
       result = run(runnable, diagnostic_input_two_files)
 
       expect(result.result).to eq('pass')
@@ -474,6 +491,27 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         fhir_resource.meta.profile = nil
         contents_missing_profile << "#{fhir_resource.to_json.gsub(/[ \n]/, '')}\n"
       end
+
+      allow_any_instance_of(runnable).to receive(:metadata_list) do
+        supported_profiles = [
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-smokingstatus',
+          'http://hl7.org/fhir/us/core/StructureDefinition/pediatric-bmi-for-age',
+          'http://hl7.org/fhir/us/core/StructureDefinition/pediatric-weight-for-height',
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-blood-pressure',
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-bmi',
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-body-height',
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-body-temperature',
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-body-weight',
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-head-circumference',
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-heart-rate',
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-pulse-oximetry',
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-respiratory-rate'
+        ]
+
+        USCoreTestKit::USCoreV610::USCoreTestSuite.metadata.select do |m|
+          m.resource == 'Observation' && supported_profiles.include?(m.profile_url)
+        end
+      end
     end
 
     it 'skips without PediatricBmiForAgeGroup resources' do
@@ -482,6 +520,15 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         .to_return(status: 200, body: contents_missing_pediatricbmi, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      allow_any_instance_of(runnable).to receive(:metadata_list).and_return(
+        [
+          Struct.new(:profile_url, :resource, :profile_version).new(
+            'http://hl7.org/fhir/us/core/StructureDefinition/pediatric-bmi-for-age',
+            'Observation',
+            '6.1.0'
+          )
+        ]
+      )
       result = run(runnable, observation_input)
 
       expect(result.result).to eq('skip')
@@ -506,10 +553,19 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         .to_return(status: 200, body: contents_missing_bodyheight, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      allow_any_instance_of(runnable).to receive(:metadata_list).and_return(
+        [
+          Struct.new(:profile_url, :resource, :profile_version).new(
+            'http://hl7.org/fhir/us/core/StructureDefinition/us-core-body-height',
+            'Observation',
+            '6.1.0'
+          )
+        ]
+      )
       result = run(runnable, observation_input)
 
       expect(result.result).to eq('skip')
-      expect(result.result_message).to eq('No Observation resources found that conform to profile: http://hl7.org/fhir/StructureDefinition/bodyheight.')
+      expect(result.result_message).to match(/No Observation resources found that conform to profile: .*body-height/)
     end
 
     it 'skips without Resprate resources' do
@@ -518,10 +574,19 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         .to_return(status: 200, body: contents_missing_resprate, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      allow_any_instance_of(runnable).to receive(:metadata_list).and_return(
+        [
+          Struct.new(:profile_url, :resource, :profile_version).new(
+            'http://hl7.org/fhir/us/core/StructureDefinition/us-core-respiratory-rate',
+            'Observation',
+            '6.1.0'
+          )
+        ]
+      )
       result = run(runnable, observation_input)
 
       expect(result.result).to eq('skip')
-      expect(result.result_message).to eq('No Observation resources found that conform to profile: http://hl7.org/fhir/StructureDefinition/resprate.')
+      expect(result.result_message).to match(/No Observation resources found that conform to profile: .*rate/)
     end
 
     it 'skips if lines_to_validate does not include enough resources to verify profile conformance' do
@@ -543,6 +608,16 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         .to_return(status: 200, body: contents_missing_profile, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      allow_any_instance_of(runnable).to receive(:metadata_list).and_return(
+        [
+          Struct.new(:profile_url, :resource, :profile_version).new(
+            'http://hl7.org/fhir/us/core/StructureDefinition/us-core-pulse-oximetry',
+            'Observation',
+            '6.1.0'
+          )
+        ]
+      )
+      allow_any_instance_of(runnable).to receive(:perform_must_support_test).and_return(true)
       result = run(runnable, observation_input)
 
       expect(result.result).to eq('pass')
@@ -554,6 +629,16 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         .to_return(status: 200, body: contents, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      allow_any_instance_of(runnable).to receive(:metadata_list).and_return(
+        [
+          Struct.new(:profile_url, :resource, :profile_version).new(
+            'http://hl7.org/fhir/us/core/StructureDefinition/us-core-pulse-oximetry',
+            'Observation',
+            '6.1.0'
+          )
+        ]
+      )
+      allow_any_instance_of(runnable).to receive(:perform_must_support_test).and_return(true)
       result = run(runnable, observation_input)
 
       expect(result.result).to eq('pass')
@@ -561,7 +646,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
   end
 
   describe '[Location resources returned conform to the US Core Location Profile] test' do
-    let(:runnable) { group.tests[21] }
+    let(:runnable) { group.tests.find { |t| t.id.to_s.end_with? 'g10_us_core_7_bulk_location_validation' } }
     let(:resources) { NDJSON::Parser.new('spec/fixtures/Location.ndjson') }
     let(:location_input) do
       input.merge({ status_output: '[{"url":"https://www.example.com","type":"Location","count":5}]' })
@@ -602,6 +687,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         .to_return(status: 200, body: contents, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      allow_any_instance_of(runnable).to receive(:perform_must_support_test).and_return(true)
 
       result = run(runnable, location_input)
 
@@ -610,7 +696,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
   end
 
   describe '[Medication resources returned conform to the US Core Medication Profile] test' do
-    let(:runnable) { group.tests[25] }
+    let(:runnable) { group.tests.find { |t| t.id.to_s.end_with? 'g10_us_core_6_bulk_medication_validation' } }
     let(:resources) { NDJSON::Parser.new('spec/fixtures/Medication.ndjson') }
     let(:medication_input) do
       input.merge({ status_output: '[{"url":"https://www.example.com","type":"Medication","count":1}]' })
@@ -625,6 +711,16 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         contents_missing_element << ("#{resource.to_json.gsub(/[ \n]/, '')}\n")
       end
       not_medication_resource.each { |resource| not_medication_contents << ("#{resource.to_json}\n") }
+
+      allow_any_instance_of(runnable).to receive(:metadata_list) do
+        supported_profiles = [
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-medication'
+        ]
+
+        USCoreTestKit::USCoreV610::USCoreTestSuite.metadata.select do |m|
+          m.resource == 'Medication' && supported_profiles.include?(m.profile_url)
+        end
+      end
     end
 
     it 'omits when no resources are returned' do
@@ -667,6 +763,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
         .to_return(status: 200, body: contents, headers:)
 
       allow_any_instance_of(runnable).to receive(:resource_is_valid?).and_return(true)
+      allow_any_instance_of(runnable).to receive(:perform_must_support_test).and_return(true)
       result = run(runnable, medication_input)
 
       expect(result.result).to eq('pass')

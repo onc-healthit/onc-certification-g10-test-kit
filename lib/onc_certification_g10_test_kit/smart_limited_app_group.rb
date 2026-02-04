@@ -31,8 +31,6 @@ module ONCCertificationG10TestKit
       The following implementation specifications are relevant to this scenario:
 
       * [SMART on FHIR
-        (STU1)](http://www.hl7.org/fhir/smart-app-launch/1.0.0/)
-      * [SMART on FHIR
         (STU2)](http://hl7.org/fhir/smart-app-launch/STU2)
     )
     id :g10_smart_limited_app
@@ -94,59 +92,6 @@ module ONCCertificationG10TestKit
         end
       }
     )
-
-    group from: :smart_standalone_launch do
-      title 'Standalone Launch With Limited Scope'
-      description %(
-        # Background
-
-        The [Standalone
-        Launch Sequence](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#standalone-launch-sequence)
-        allows an app, like Inferno, to be launched independent of an
-        existing EHR session. It is one of the two launch methods described in
-        the SMART App Launch Framework alongside EHR Launch. The app will
-        request authorization for the provided scope(s) from the authorization
-        endpoint, and the user of the app will choose to either grant
-        the app access to the requested scope(s), or to deny one or all of the requested
-        scope(s).
-
-        This test verifies the ability of a server to provide a user
-        with the choice of which scopes to grant an app.  Allowing users to choose
-        which resource types to grant access to is a requirement of the ONC
-        (g)(10) certification criteria.  Prior to the test, the tester specifies
-        which resource types will be granted, and then during the authorization
-        process the tester grants access to those scopes.
-
-        # Test Methodology
-
-        Inferno will redirect the user to the authorization endpoint so that
-        they may provide any required credentials and authorize the application.
-        Upon successful authorization, Inferno will exchange the authorization
-        code provided for an access token. Inferno verifies that the server only
-        grants access to the resources specified by the user.
-
-        For more information on the #{title}:
-
-        * [Standalone Launch
-          Sequence](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#standalone-launch-sequence)
-      )
-
-      required_suite_options G10Options::SMART_1_REQUIREMENT
-
-      config(
-        inputs: {
-          smart_auth_info: {
-            name: :standalone_smart_auth_info,
-            title: 'Standalone Launch Credentials',
-            locked: true
-          }
-        }
-      )
-
-      test from: :g10_patient_context
-
-      test from: :g10_limited_scope_grant
-    end
 
     group from: :smart_standalone_launch_stu2 do
       title 'Standalone Launch With Limited Scope'

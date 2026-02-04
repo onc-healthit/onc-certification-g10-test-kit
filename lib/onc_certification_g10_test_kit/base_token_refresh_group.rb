@@ -26,9 +26,7 @@ module ONCCertificationG10TestKit
       * [The OAuth 2.0 Authorization
         Framework](https://tools.ietf.org/html/rfc6749)
       * [Using a refresh token to obtain a new access token
-        (STU1)](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#step-5-later-app-uses-a-refresh-token-to-obtain-a-new-access-token)
-      * [Using a refresh token to obtain a new access token
-        (STU2)](http://hl7.org/fhir/smart-app-launch/STU2/app-launch.html#refresh-access-token)
+        (STU2)](http://hl7.org/fhir/smart-app-launch/STU2.1/app-launch.html#step-6-later-app-uses-a-refresh-token-to-obtain-a-new-access-token)
     )
     id :g10_token_refresh
 

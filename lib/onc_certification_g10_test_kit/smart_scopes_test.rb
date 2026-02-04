@@ -41,11 +41,9 @@ module ONCCertificationG10TestKit
       'RelatedPerson'
     ].freeze
 
-    V5_VALID_RESOURCE_TYPES =
-      (VALID_RESOURCE_TYPES + ['ServiceRequest', 'QuestionnaireResponse', 'Media']).freeze
-
     V6_VALID_RESOURCE_TYPES =
-      (V5_VALID_RESOURCE_TYPES + ['Coverage', 'MedicationDispense', 'RelatedPerson', 'Specimen']).freeze
+      (VALID_RESOURCE_TYPES + ['ServiceRequest', 'QuestionnaireResponse', 'Media', 'Coverage', 'MedicationDispense',
+                               'RelatedPerson', 'Specimen']).freeze
 
     V7_VALID_RESOURCE_TYPES = (V6_VALID_RESOURCE_TYPES + ['Location'])
 
@@ -66,19 +64,14 @@ module ONCCertificationG10TestKit
       'Provenance'
     ].freeze
 
-    V5_PATIENT_COMPARTMENT_RESOURCE_TYPES =
-      (PATIENT_COMPARTMENT_RESOURCE_TYPES + ['ServiceRequest']).freeze
-
     V6_PATIENT_COMPARTMENT_RESOURCE_TYPES =
-      (V5_PATIENT_COMPARTMENT_RESOURCE_TYPES + ['Coverage', 'MedicationDispense', 'Specimen']).freeze
+      (PATIENT_COMPARTMENT_RESOURCE_TYPES + ['ServiceRequest', 'Coverage', 'MedicationDispense', 'Specimen']).freeze
 
     V7_PATIENT_COMPARTMENT_RESOURCE_TYPES = (V6_PATIENT_COMPARTMENT_RESOURCE_TYPES + ['Location']).freeze
 
     attr_accessor :received_or_requested
 
     def patient_compartment_resource_types
-      return V5_PATIENT_COMPARTMENT_RESOURCE_TYPES if using_us_core_5?
-
       return V6_PATIENT_COMPARTMENT_RESOURCE_TYPES if using_us_core_6?
 
       return V7_PATIENT_COMPARTMENT_RESOURCE_TYPES if using_us_core_7?
@@ -87,8 +80,6 @@ module ONCCertificationG10TestKit
     end
 
     def valid_resource_types
-      return V5_VALID_RESOURCE_TYPES if using_us_core_5?
-
       return V6_VALID_RESOURCE_TYPES if using_us_core_6?
 
       return V7_VALID_RESOURCE_TYPES if using_us_core_7?

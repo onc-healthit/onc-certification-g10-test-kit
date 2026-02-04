@@ -31,8 +31,6 @@ module ONCCertificationG10TestKit
 
       The following implementation specifications are relevant to this scenario:
 
-      * [Standalone Launch Sequence
-        (STU1)](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#standalone-launch-sequence)
       * [Standalone Launch
         (STU2)](http://hl7.org/fhir/smart-app-launch/STU2/app-launch.html#launch-app-standalone-launch)
     )
@@ -60,58 +58,6 @@ module ONCCertificationG10TestKit
         redirect: { name: :invalid_aud_redirect }
       }
     )
-
-    test from: :smart_app_redirect do
-      required_suite_options G10Options::SMART_1_REQUIREMENT
-
-      config(
-        inputs: {
-          smart_auth_info: {
-            name: :standalone_smart_auth_info,
-            options: {
-              components: [
-                {
-                  name: :auth_type,
-                  default: 'symmetric',
-                  locked: true
-                },
-                {
-                  name: :auth_request_method,
-                  default: 'GET',
-                  locked: true
-                },
-                {
-                  name: :use_discovery,
-                  locked: true
-                },
-                {
-                  name: :requested_scopes,
-                  default: STANDALONE_SMART_1_SCOPES
-                }
-              ]
-            }
-          }
-        }
-      )
-
-      def aud
-        'https://inferno.healthit.gov/invalid_aud'
-      end
-
-      def wait_message(auth_url)
-        %(
-          Inferno will redirect you to an external website for authorization.
-          **It is expected this will fail**. If the server does not return to
-          Inferno automatically, but does provide an error message, you may
-          return to Inferno and confirm that an error was presented in this
-          window.
-
-          * [Perform Invalid Launch](#{auth_url})
-          * [Attest launch
-            failed](#{Inferno::Application['base_url']}/custom/smart/redirect?state=#{state}&confirm_fail=true)
-        )
-      end
-    end
 
     test from: :smart_app_redirect_stu2 do
       id :smart_app_redirect_stu2

@@ -51,6 +51,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
+      id :g10_bulk_ndjson_download_requires_token
       title 'NDJSON download requires access token if requireAccessToken is true'
       description <<~DESCRIPTION
         If the requiresAccessToken field in the Complete Status body is set to true, the request SHALL include a valid#{' '}
@@ -78,6 +79,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
+      id :g10_us_core_bulk_patient_validation
       title 'Patient resources returned conform to the US Core Patient Profile'
       description <<~DESCRIPTION
         This test verifies that the resources returned from bulk data export
@@ -98,6 +100,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
+      id :g10_bulk_export_multiple_patients
       title 'Group export has at least two patients'
       description <<~DESCRIPTION
         This test verifies that the Group export has at least two patients.
@@ -115,6 +118,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
+      id :g10_bulk_patient_ids_match
       title 'Patient IDs match those expected in Group'
       description <<~DESCRIPTION
         This test checks that the list of patient IDs that are expected match those that are returned.
@@ -136,6 +140,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
+      id :g10_bulk_allergy_intolerance_validation
       title 'AllergyIntolerance resources returned conform to the US Core AllergyIntolerance Profile'
       description <<~DESCRIPTION
         This test verifies that the resources returned from bulk data export
@@ -156,6 +161,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
+      id :g10_bulk_care_plan_validation
       title 'CarePlan resources returned conform to the US Core CarePlan Profile'
       description <<~DESCRIPTION
         This test verifies that the resources returned from bulk data export
@@ -176,6 +182,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
+      id :g10_bulk_care_team_validation
       title 'CareTeam resources returned conform to the US Core CareTeam Profile'
       description <<~DESCRIPTION
         This test verifies that the resources returned from bulk data export
@@ -196,16 +203,12 @@ module ONCCertificationG10TestKit
     end
 
     test do
+      id :g10_bulk_condition_validation
       title 'Condition resources returned conform to the relevant US Core Condition Profile'
       description <<~DESCRIPTION
         This test verifies that the server can provide evidence of support for
         the following US Core Condition profiles.  This includes checking for
         missing data elements and value set verification.
-
-        For US Core v3.1.1 and v4.0.0 all resources must conform to the following profile:
-
-        * http://hl7.org/fhir/us/core/StructureDefinition/us-core-condition
-
 
         For US Core v6.1.0 and v7.0.0, evidence of support for the following two profiles must be demonstrated:
 
@@ -226,6 +229,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
+      id :g10_bulk_device_validation
       title 'Device resources returned conform to the US Core Implantable Device Profile'
       description <<~DESCRIPTION
         This test verifies that relevant resources returned from bulk data export
@@ -250,6 +254,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
+      id :g10_bulk_diagnostic_report_validation
       title 'DiagnosticReport resources returned conform to the relevant US Core DiagnosticReport Profile'
       description <<~DESCRIPTION
         This test verifies that the server can provide evidence of support for
@@ -273,6 +278,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
+      id :g10_bulk_document_reference_validation
       title 'DocumentReference resources returned conform to the US Core DocumentReference Profile'
       description <<~DESCRIPTION
         This test verifies that the resources returned from bulk data export
@@ -293,6 +299,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
+      id :g10_bulk_goal_validation
       title 'Goal resources returned conform to the US Core Goal Profile'
       description <<~DESCRIPTION
         This test verifies that the resources returned from bulk data export
@@ -313,6 +320,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
+      id :g10_bulk_immunization_validation
       title 'Immunization resources returned conform to the US Core Immunization Profile'
       description <<~DESCRIPTION
         This test verifies that the resources returned from bulk data export
@@ -333,6 +341,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
+      id :g10_bulk_medication_request_validation
       title 'MedicationRequest resources returned conform to the US Core MedicationRequest Profile'
       description <<~DESCRIPTION
         This test verifies that the resources returned from bulk data export
@@ -353,44 +362,13 @@ module ONCCertificationG10TestKit
     end
 
     test do
+      id :g10_bulk_observation_validation
       title 'Observation resources returned conform to the relevant US Core Observation Profile'
       description <<~DESCRIPTION
           This test verifies that the resources returned from bulk data export
           conform to the following US Core profiles, based on the category or code
           associated with the Observation. This includes checking for missing data
           elements and value set verification.
-
-          For US Core v3.1.1, this test expects evidence of the following US Core profiles
-
-          * http://hl7.org/fhir/us/core/StructureDefinition/pediatric-bmi-for-age
-          * http://hl7.org/fhir/us/core/StructureDefinition/pediatric-weight-for-height
-          * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab
-          * http://hl7.org/fhir/us/core/StructureDefinition/us-core-pulse-oximetry
-          * http://hl7.org/fhir/us/core/StructureDefinition/us-core-smokingstatus
-          * http://hl7.org/fhir/us/core/StructureDefinition/head-occipital-frontal-circumference-percentile
-          * http://hl7.org/fhir/StructureDefinition/bp
-          * http://hl7.org/fhir/StructureDefinition/bodyheight
-          * http://hl7.org/fhir/StructureDefinition/bodytemp
-          * http://hl7.org/fhir/StructureDefinition/bodyweight
-          * http://hl7.org/fhir/StructureDefinition/heartrate
-          * http://hl7.org/fhir/StructureDefinition/resprate
-
-          For US Core v4.0.0, this test expects evidence of the following US Core profiles
-
-          * http://hl7.org/fhir/us/core/StructureDefinition/pediatric-bmi-for-age
-          * http://hl7.org/fhir/us/core/StructureDefinition/pediatric-weight-for-height
-          * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab
-          * http://hl7.org/fhir/us/core/StructureDefinition/us-core-pulse-oximetry
-          * http://hl7.org/fhir/us/core/StructureDefinition/us-core-smokingstatus
-          * http://hl7.org/fhir/us/core/StructureDefinition/head-occipital-frontal-circumference-percentile
-          * http://hl7.org/fhir/us/core/StructureDefinition/us-core-blood-pressure
-          * http://hl7.org/fhir/us/core/StructureDefinition/us-core-bmi
-          * http://hl7.org/fhir/us/core/StructureDefinition/us-core-head-circumference
-          * http://hl7.org/fhir/us/core/StructureDefinition/us-core-body-height
-          * http://hl7.org/fhir/us/core/StructureDefinition/us-core-body-weight
-          * http://hl7.org/fhir/us/core/StructureDefinition/us-core-body-temperature
-          * http://hl7.org/fhir/us/core/StructureDefinition/us-core-heart-rate
-          * http://hl7.org/fhir/us/core/StructureDefinition/us-core-respiratory-rate
 
           For US Core v6.1.0, this test expects evidence of the following US Core profiles
           * http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-clinical-result
@@ -450,6 +428,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
+      id :g10_bulk_procedure_validation
       title 'Procedure resources returned conform to the US Core Procedure Profile'
       description <<~DESCRIPTION
         This test verifies that the resources returned from bulk data export
@@ -470,6 +449,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
+      id :g10_bulk_encounter_validation
       title 'Encounter resources returned conform to the US Core Encounter Profile'
       description <<~DESCRIPTION
         This test verifies that the resources returned from bulk data export
@@ -490,6 +470,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
+      id :g10_bulk_organization_validation
       title 'Organization resources returned conform to the US Core Organization Profile'
       description <<~DESCRIPTION
         This test verifies that the resources returned from bulk data export
@@ -510,6 +491,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
+      id :g10_bulk_practitioner_validation
       title 'Practitioner resources returned conform to the US Core Practitioner Profile'
       description <<~DESCRIPTION
         This test verifies that the resources returned from bulk data export
@@ -530,6 +512,7 @@ module ONCCertificationG10TestKit
     end
 
     test do
+      id :g10_bulk_provenance_validation
       title 'Provenance resources returned conform to the US Core Provenance Profile'
       description <<~DESCRIPTION
         This test verifies that the resources returned from bulk data export
@@ -542,84 +525,6 @@ module ONCCertificationG10TestKit
 
       def resource_type
         'Provenance'
-      end
-
-      run do
-        perform_bulk_export_validation
-      end
-    end
-
-    test do
-      title 'Location resources returned conform to the HL7 FHIR Specification Location Resource if bulk data export ' \
-            'has Location resources'
-      description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export
-        conform to the HL7 FHIR Specification Location Resource. This includes
-        checking for missing data elements and value set verification. This test
-        is omitted if bulk data export does not return any Location resources.
-      DESCRIPTION
-      # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-location'
-
-      required_suite_options G10Options::US_CORE_3_REQUIREMENT
-
-      id :g10_us_core_3_bulk_location_validation
-
-      include BulkExportValidationTester
-
-      def resource_type
-        'Location'
-      end
-
-      run do
-        perform_bulk_export_validation
-      end
-    end
-
-    test do
-      title 'Location resources returned conform to the HL7 FHIR Specification Location Resource if bulk data export ' \
-            'has Location resources'
-      description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export
-        conform to the HL7 FHIR Specification Location Resource. This includes
-        checking for missing data elements and value set verification. This test
-        is omitted if bulk data export does not return any Location resources.
-      DESCRIPTION
-      # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-location'
-
-      required_suite_options G10Options::US_CORE_4_REQUIREMENT
-
-      id :g10_us_core_4_bulk_location_validation
-
-      include BulkExportValidationTester
-
-      def resource_type
-        'Location'
-      end
-
-      run do
-        perform_bulk_export_validation
-      end
-    end
-
-    test do
-      title 'Location resources returned conform to the HL7 FHIR Specification Location Resource if bulk data export ' \
-            'has Location resources'
-      description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export
-        conform to the HL7 FHIR Specification Location Resource. This includes
-        checking for missing data elements and value set verification. This test
-        is omitted if bulk data export does not return any Location resources.
-      DESCRIPTION
-      # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-location'
-
-      required_suite_options G10Options::US_CORE_5_REQUIREMENT
-
-      id :g10_us_core_5_bulk_location_validation
-
-      include BulkExportValidationTester
-
-      def resource_type
-        'Location'
       end
 
       run do
@@ -664,106 +569,11 @@ module ONCCertificationG10TestKit
       DESCRIPTION
       # link 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-medication'
 
+      id :g10_us_core_6_bulk_medication_validation
       include BulkExportValidationTester
 
       def resource_type
         'Medication'
-      end
-
-      run do
-        perform_bulk_export_validation
-      end
-    end
-
-    test do
-      title 'ServiceRequest resources returned conform to the US Core ServiceRequest Profile'
-      description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export
-        conform to the US Core ServiceRequest profile. This includes checking
-        for missing data elements and value set verification.
-      DESCRIPTION
-
-      required_suite_options G10Options::US_CORE_5_REQUIREMENT
-
-      id :g10_us_core_5_bulk_service_request_validation
-
-      include BulkExportValidationTester
-
-      def resource_type
-        'ServiceRequest'
-      end
-
-      run do
-        perform_bulk_export_validation
-      end
-    end
-
-    test do
-      title 'RelatedPerson resources returned conform to the US Core RelatedPerson Profile'
-      description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export
-        conform to the US Core RelatedPerson profile. This includes checking
-        for missing data elements and value set verification.
-      DESCRIPTION
-
-      required_suite_options G10Options::US_CORE_5_REQUIREMENT
-
-      id :g10_us_core_5_bulk_related_person_validation
-
-      include BulkExportValidationTester
-
-      def resource_type
-        'RelatedPerson'
-      end
-
-      run do
-        perform_bulk_export_validation
-      end
-    end
-
-    test do
-      title 'QuestionnaireResponse resources returned conform to the US Core QuestionnaireResponse Profile if ' \
-            'bulk data has QuestionnaireResponse resources'
-      description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export
-        conform to the US Core QuestionnaireResponse profile. This includes checking for missing
-        data elements and value set verification. This test is omitted if bulk
-        data export does not return any QuestionnaireResponse resources.
-      DESCRIPTION
-
-      required_suite_options G10Options::US_CORE_5_REQUIREMENT
-
-      id :g10_us_core_5_bulk_questionnaire_response_validation
-
-      include BulkExportValidationTester
-
-      def resource_type
-        'QuestionnaireResponse'
-      end
-
-      run do
-        perform_bulk_export_validation
-      end
-    end
-
-    test do
-      title 'PractionerRole resources returned conform to the US Core PractionerRole Profile if bulk data export ' \
-            'has PractionerRole resources'
-      description <<~DESCRIPTION
-        This test verifies that the resources returned from bulk data export
-        conform to the US Core PractitionerRole profile. This includes checking for missing
-        data elements and value set verification. This test is omitted if bulk
-        data export does not return any  resources.
-      DESCRIPTION
-
-      required_suite_options G10Options::US_CORE_5_REQUIREMENT
-
-      id :g10_us_core_5_bulk_practitioner_role_validation
-
-      include BulkExportValidationTester
-
-      def resource_type
-        'PractitionerRole'
       end
 
       run do

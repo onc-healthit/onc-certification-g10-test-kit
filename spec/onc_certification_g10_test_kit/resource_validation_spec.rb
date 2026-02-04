@@ -5,9 +5,7 @@ RSpec.describe 'Resource Validation' do # rubocop:disable RSpec/DescribeClass
     ONCCertificationG10TestKit::G10CertificationSuite.fhir_validators[:default].clear
 
     [
-      ONCCertificationG10TestKit::G10Options::US_CORE_3_REQUIREMENT,
-      ONCCertificationG10TestKit::G10Options::US_CORE_4_REQUIREMENT,
-      ONCCertificationG10TestKit::G10Options::US_CORE_5_REQUIREMENT,
+
       ONCCertificationG10TestKit::G10Options::US_CORE_6_REQUIREMENT,
       ONCCertificationG10TestKit::G10Options::US_CORE_7_REQUIREMENT
 

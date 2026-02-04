@@ -28,9 +28,6 @@ module ONCCertificationG10TestKit
       * Patient
       * Procedure
 
-      If testing against USCDI v2, Encounter and ServiceRequest are also
-      checked.
-
       If testing against USCDI v3 and v4, Encounter, ServiceRequest, Coverage,
       and MedicationDispense are also checked.
 
@@ -52,11 +49,6 @@ module ONCCertificationG10TestKit
       * Organization
       * Practitioner
 
-      For USCDI v2 this includes:
-
-      * Location
-      * Organization
-      * Practitioner
 
       For USCDI v3 this includes:
 
@@ -107,7 +99,7 @@ module ONCCertificationG10TestKit
       id :g10_patient_restricted_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::PatientGroup
+        USCoreTestKit::USCoreV610::PatientGroup
       end
     end
 
@@ -125,7 +117,7 @@ module ONCCertificationG10TestKit
       id :g10_allergy_intolerance_restricted_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::AllergyIntoleranceGroup
+        USCoreTestKit::USCoreV610::AllergyIntoleranceGroup
       end
     end
 
@@ -143,7 +135,7 @@ module ONCCertificationG10TestKit
       id :g10_care_plan_restricted_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::CarePlanGroup
+        USCoreTestKit::USCoreV610::CarePlanGroup
       end
     end
 
@@ -161,7 +153,7 @@ module ONCCertificationG10TestKit
       id :g10_care_team_restricted_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::CareTeamGroup
+        USCoreTestKit::USCoreV610::CareTeamGroup
       end
     end
 
@@ -179,7 +171,7 @@ module ONCCertificationG10TestKit
       id :g10_condition_restricted_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::ConditionGroup
+        USCoreTestKit::USCoreV610::ConditionGroup
       end
     end
 
@@ -197,7 +189,7 @@ module ONCCertificationG10TestKit
       id :g10_device_restricted_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::DeviceGroup
+        USCoreTestKit::USCoreV610::DeviceGroup
       end
     end
 
@@ -215,7 +207,7 @@ module ONCCertificationG10TestKit
       id :g10_diagnostic_report_restricted_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::DiagnosticReportLabGroup
+        USCoreTestKit::USCoreV610::DiagnosticReportLabGroup
       end
     end
 
@@ -233,7 +225,7 @@ module ONCCertificationG10TestKit
       id :g10_document_reference_restricted_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::DocumentReferenceGroup
+        USCoreTestKit::USCoreV610::DocumentReferenceGroup
       end
     end
 
@@ -251,7 +243,7 @@ module ONCCertificationG10TestKit
       id :g10_goal_restricted_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::GoalGroup
+        USCoreTestKit::USCoreV610::GoalGroup
       end
     end
 
@@ -269,7 +261,7 @@ module ONCCertificationG10TestKit
       id :g10_immunization_restricted_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::ImmunizationGroup
+        USCoreTestKit::USCoreV610::ImmunizationGroup
       end
     end
 
@@ -287,7 +279,7 @@ module ONCCertificationG10TestKit
       id :g10_medication_request_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::MedicationRequestGroup
+        USCoreTestKit::USCoreV610::MedicationRequestGroup
       end
     end
 
@@ -305,7 +297,7 @@ module ONCCertificationG10TestKit
       id :g10_observation_restricted_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::PulseOximetryGroup
+        USCoreTestKit::USCoreV610::PulseOximetryGroup
       end
     end
 
@@ -323,47 +315,7 @@ module ONCCertificationG10TestKit
       id :g10_procedure_restricted_access
 
       def resource_group
-        USCoreTestKit::USCoreV311::ProcedureGroup
-      end
-    end
-
-    test from: :g10_restricted_access_test do
-      title 'Access to Encounter resources are restricted properly based on patient-selected scope'
-      description %(
-        This test ensures that access to the Encounter is granted or
-        denied based on the selection by the tester prior to the execution of
-        the test. If the tester indicated that access will be granted to this
-        resource, this test verifies that a search by patient in this resource
-        does not result in an access denied result. If the tester indicated that
-        access will be denied for this resource, this verifies that search by
-        patient in the resource results in an access denied result.
-      )
-      id :g10_encounter_restricted_access
-
-      required_suite_options G10Options::US_CORE_5_REQUIREMENT
-
-      def resource_group
-        USCoreTestKit::USCoreV501::EncounterGroup
-      end
-    end
-
-    test from: :g10_restricted_access_test do
-      title 'Access to ServiceRequest resources are restricted properly based on patient-selected scope'
-      description %(
-        This test ensures that access to the ServiceRequest is granted or
-        denied based on the selection by the tester prior to the execution of
-        the test. If the tester indicated that access will be granted to this
-        resource, this test verifies that a search by patient in this resource
-        does not result in an access denied result. If the tester indicated that
-        access will be denied for this resource, this verifies that search by
-        patient in the resource results in an access denied result.
-      )
-      id :g10_service_request_restricted_access
-
-      required_suite_options G10Options::US_CORE_5_REQUIREMENT
-
-      def resource_group
-        USCoreTestKit::USCoreV501::ServiceRequestGroup
+        USCoreTestKit::USCoreV610::ProcedureGroup
       end
     end
 
