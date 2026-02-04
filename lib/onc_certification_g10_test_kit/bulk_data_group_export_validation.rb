@@ -653,13 +653,13 @@ module ONCCertificationG10TestKit
     end
 
     test do
-      title 'PractionerRole resources returned conform to the US Core PractionerRole Profile if bulk data export ' \
-            'has PractionerRole resources'
+      title 'PractitionerRole resources returned conform to the US Core PractitionerRole Profile if bulk data export ' \
+            'has PractitionerRole resources'
       description <<~DESCRIPTION
         This test verifies that the resources returned from bulk data export
         conform to the US Core PractitionerRole profile. This includes checking for missing
         data elements and value set verification. This test is omitted if bulk
-        data export does not return any  resources.
+        data export does not return any PractitionerRole resources.
       DESCRIPTION
 
       required_suite_options G10Options::US_CORE_6_REQUIREMENT

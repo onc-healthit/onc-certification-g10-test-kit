@@ -1,5 +1,4 @@
 require 'smart_app_launch/standalone_launch_group'
-require 'smart_app_launch/discovery_stu1_group'
 require 'smart_app_launch/token_introspection_group'
 
 require_relative 'g10_options'

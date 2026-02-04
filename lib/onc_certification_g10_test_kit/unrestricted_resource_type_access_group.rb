@@ -232,7 +232,7 @@ module ONCCertificationG10TestKit
       id :g10_condition_unrestricted_access
 
       def resource_group
-        USCoreTestKit::USCoreV610::ConditionGroup
+        USCoreTestKit::USCoreV610::ConditionEncounterDiagnosisGroup
       end
     end
 

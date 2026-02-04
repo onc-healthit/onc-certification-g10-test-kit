@@ -11,7 +11,8 @@ module ONCCertificationG10TestKit
         patient/MedicationRequest.rs patient/Observation.rs
         patient/Organization.rs patient/Patient.rs patient/Practitioner.rs
         patient/PractitionerRole.rs patient/Procedure.rs patient/Provenance.rs
-        patient/RelatedPerson.rs patient/ServiceRequest.rs patient/Specimen.rs
+        patient/QuestionnaireResponse.rs patient/RelatedPerson.rs
+        patient/ServiceRequest.rs patient/Specimen.rs
       ).gsub(/\s{2,}/, ' ').strip.freeze
 
     EHR_SMART_2_SCOPES =
@@ -24,7 +25,8 @@ module ONCCertificationG10TestKit
         user/MedicationDispense.rs user/MedicationRequest.rs user/Observation.rs
         user/Organization.rs user/Patient.rs user/Practitioner.rs
         user/PractitionerRole.rs user/Procedure.rs user/Provenance.rs
-        user/RelatedPerson.rs user/ServiceRequest.rs user/Specimen.rs
+        user/QuestionnaireResponse.rs user/RelatedPerson.rs
+        user/ServiceRequest.rs user/Specimen.rs
       ).gsub(/\s{2,}/, ' ').strip.freeze
   end
 end

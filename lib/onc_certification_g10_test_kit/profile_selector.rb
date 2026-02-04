@@ -77,6 +77,8 @@ module ONCCertificationG10TestKit
 
         profiles << extract_profile('HeadCircumferencePercentile') if observation_contains_code?(resource, '8289-1')
 
+        profiles << extract_profile('HeadCircumference') if observation_contains_code?(resource, '9843-4')
+
         # FHIR Vital Signs profiles: https://www.hl7.org/fhir/observation-vitalsigns.html
         # Vital Signs Panel, Oxygen Saturation are not required by USCDI
         # Body Mass Index is replaced by :pediatric_bmi_age Profile

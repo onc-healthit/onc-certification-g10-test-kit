@@ -104,8 +104,10 @@ module ONCCertificationG10TestKit
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-organization',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner',
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitionerrole',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-provenance',
+          'http://hl7.org/fhir/us/core/StructureDefinition/us-core-questionnaireresponse',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-relatedperson',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-servicerequest',
           'http://hl7.org/fhir/us/core/StructureDefinition/us-core-specimen'
@@ -138,7 +140,9 @@ module ONCCertificationG10TestKit
           'Specimen',
           'Organization',
           'Practitioner',
+          'PractitionerRole',
           'Provenance',
+          'QuestionnaireResponse',
           'RelatedPerson'
         ]
       }
