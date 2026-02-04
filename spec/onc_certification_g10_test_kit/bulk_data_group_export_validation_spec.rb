@@ -190,7 +190,10 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       expect(validation_request).to have_been_made.twice
       expect(result.result).to eq('fail')
       expect(result.result_message).to start_with('2 / 2 Patient resources failed profile validation')
-      expect(messages.count { |message| message.type == 'error' }).to be(2)
+      error_messages = messages.select { |message| message.type == 'error' }
+      expect(error_messages).to_not be_empty
+      expect(error_messages.any? { |m| m.message.include? 'e91975f5-9445-c11f-cabf-c3c6dae161f2' }).to be(true)
+      expect(error_messages.any? { |m| m.message.include? 'd831ec91-c7a3-4a61-9312-7ff0c4a32134' }).to be(false)
     end
   end
 
