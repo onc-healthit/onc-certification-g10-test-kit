@@ -42,7 +42,7 @@ resources associated with the profiles specified in a standard adopted
 in § 170.213 and the corresponding implementation specification
 adopted in § 170.215(b)(1).
 
-If using US Core 6.1.0 these resources include:
+If using US Core 3.1.1, 4.0.0, or 6.1.0 these resources include:
 
 * “AllergyIntolerance”;
 * “CarePlan”;
@@ -76,7 +76,7 @@ resources associated with the profiles specified in a standard adopted
 in § 170.213 and the corresponding implementation specification
 adopted in § 170.215(b)(1).
 
-If using US Core 6.1.0 or 7.0.0 these resources include:
+If using US Core 3.1.1, 4.0.0, 6.1.0, or 7.0.0 these resources include:
 
 * “AllergyIntolerance”;
 * “CarePlan”;
