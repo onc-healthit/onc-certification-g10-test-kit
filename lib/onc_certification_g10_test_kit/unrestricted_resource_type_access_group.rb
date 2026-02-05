@@ -14,21 +14,21 @@ module ONCCertificationG10TestKit
       * CarePlan
       * CareTeam
       * Condition
+      * Coverage
       * Device
       * DiagnosticReport
       * DocumentReference
+      * Encounter
       * Goal
       * Immunization
+      * MedicationDispense
       * MedicationRequest
       * Observation
-      * Procedure
       * Patient
-      * Encounter
+      * Procedure
       * Practitioner
       * Organization
-
-      If testing against USCDI v3 and v4, Encounter, ServiceRequest, Coverage,
-      and MedicationDispense are also checked.
+      * ServiceRequest
 
       For each of the resource types that can be mapped to USCDI data class or
       elements, this set of tests performs a minimum number of requests to
@@ -41,23 +41,9 @@ module ONCCertificationG10TestKit
       parameter.
 
       This set of tests does not attempt to access resources that do not
-      directly map to USCDI. For USCDI v1 this includes:
-
-      * Encounter
-      * Location
-      * Organization
-      * Practitioner
-
-
-      For USCDI v3 this includes:
+      directly map to USCDI. This includes:
 
       * Location
-      * Organization
-      * Practitioner
-      * RelatedPerson
-
-      For USCDI v4 this includes:
-
       * Organization
       * Practitioner
       * RelatedPerson
@@ -65,6 +51,7 @@ module ONCCertificationG10TestKit
       It also does not test Provenance, as this resource type is accessed by
       queries through other resource types, or Specimen in USCDI v3 or Location from
       USCDI v4 which only requires support for read and search by id. These resources
+
       types are accessed in the more comprehensive Single Patient Query tests.
 
       This test is not intended to check every resource type can be granted or not granted,

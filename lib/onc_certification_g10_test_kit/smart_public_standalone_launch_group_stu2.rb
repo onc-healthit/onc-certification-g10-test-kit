@@ -35,7 +35,7 @@ module ONCCertificationG10TestKit
 
       For more information on the #{title}:
 
-      * [Standalone Launch Sequence](http://hl7.org/fhir/smart-app-launch/STU2/app-launch.html#launch-app-from-standalone-portal)
+      * [Standalone Launch Sequence](http://hl7.org/fhir/smart-app-launch/STU2/app-launch.html#top-level-steps-for-smart-app-launch)
     )
     id :g10_public_standalone_launch_stu2
     run_as_group

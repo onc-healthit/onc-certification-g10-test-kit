@@ -42,24 +42,9 @@ module ONCCertificationG10TestKit
       required status search parameter.
 
       This set of tests does not attempt to access resources that do not
-      directly map to USCDI. For USCDI v1 this includes:
-
-      * Encounter
-      * Location
-      * Organization
-      * Practitioner
-
-
-      For USCDI v3 this includes:
+      directly map to USCDI. This includes:
 
       * Location
-      * Organization
-      * Practitioner
-      * RelatedPerson
-      * Specimen
-
-      For USCDI v4 this includes:
-
       * Organization
       * Practitioner
       * RelatedPerson
