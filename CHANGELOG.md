@@ -1,4 +1,9 @@
-# 7.2.7
+# 7.2.9
+* Update dependency of inferno-core to v1.0.8 (empty Bundle.entry.resource handling)
+* SMART invalid refresh token tests now support asymmetric auth
+* Bulk Data Authentication tests are now imported from the SMART backend services tests
+
+# 7.2.8
 * Update dependency of inferno-core to v1.0.7, us-core-test-kit to v1.1.1
 
 # 7.2.7
