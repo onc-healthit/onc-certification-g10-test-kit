@@ -11,7 +11,7 @@ class BulkExportValidationTesterClass < Inferno::Test
   end
 
   def suite_options
-    ONCCertificationG10TestKit::G10Options::US_CORE_3_REQUIREMENT
+    ONCCertificationG10TestKit::G10Options::US_CORE_6_REQUIREMENT
   end
 end
 
@@ -378,7 +378,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
 
     context 'with Condition resource' do
       it 'returns problem-health-concerns profile if resource has health-concern category' do
-        allow(tester).to receive(:suite_options).and_return({ us_core_version: 'us_core_5' })
+        allow(tester).to receive(:suite_options).and_return({ us_core_version: 'us_core_6' })
         condition = FHIR::Condition.new(
           category: [
             {
@@ -418,151 +418,6 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
       it 'returns note profile if lab criterion unspecified' do
         result = tester.determine_profile(FHIR::DiagnosticReport.new)
         expect(result).to eq(['http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note'])
-      end
-    end
-
-    context 'with Observation resource' do
-      context 'when using US Core 5.0.1' do
-        it 'returns the SmokingStatus and Social History profiles for SmokingStatus resources' do
-          allow(tester).to receive(:suite_options).and_return({ us_core_version: 'us_core_5' })
-
-          coding = FHIR::Coding.new({ code: '72166-2' })
-          code = FHIR::CodeableConcept.new({ coding: [coding] })
-          FHIR::Observation.new({ code: })
-
-          category_coding = FHIR::Coding.new({ code: 'social-history',
-                                               system: 'http://terminology.hl7.org/CodeSystem/observation-category' })
-          category = FHIR::CodeableConcept.new({ coding: [category_coding] })
-          observation = FHIR::Observation.new({ category: [category], code: })
-
-          result = tester.determine_profile(observation)
-          expect(result).to contain_exactly(
-            'http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-social-history', 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-smokingstatus'
-          )
-        end
-
-        it 'returns the Observation Imaging profile when its criterion are specified' do
-          allow(tester).to receive(:suite_options).and_return({ us_core_version: 'us_core_5' })
-
-          coding = FHIR::Coding.new({ code: 'imaging',
-                                      system: 'http://terminology.hl7.org/CodeSystem/observation-category' })
-          category = FHIR::CodeableConcept.new({ coding: [coding] })
-          observation = FHIR::Observation.new({ category: [category] })
-
-          result = tester.determine_profile(observation)
-          expect(result).to eq(['http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-imaging'])
-        end
-      end
-
-      context 'when using US Core 3.1.1' do
-        let(:observation) do
-          coding = FHIR::Coding.new({ code: '72166-2' })
-          code = FHIR::CodeableConcept.new({ coding: [coding] })
-          FHIR::Observation.new({ code: })
-        end
-
-        it 'returns the SmokingStatus profile if resource has SmokingStatus criterion specified' do
-          category_coding = FHIR::Coding.new({ code: 'social-history',
-                                               system: 'http://terminology.hl7.org/CodeSystem/observation-category' })
-          observation.category = [FHIR::CodeableConcept.new({ coding: [category_coding] })]
-
-          result = tester.determine_profile(observation)
-          expect(result).to eq(['http://hl7.org/fhir/us/core/StructureDefinition/us-core-smokingstatus'])
-        end
-
-        it 'returns the ObservationLab profile if resource has ObservationLab criterion specified' do
-          coding = FHIR::Coding.new({ code: 'laboratory',
-                                      system: 'http://terminology.hl7.org/CodeSystem/observation-category' })
-          category = FHIR::CodeableConcept.new({ coding: [coding] })
-          observation = FHIR::Observation.new({ category: [category] })
-
-          result = tester.determine_profile(observation)
-          expect(result).to eq(['http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-lab'])
-        end
-
-        it 'returns the PediatricBmiForAge profile if resource has PediatricBmiForAge criterion specified' do
-          observation.code.coding[0].code = '59576-9'
-
-          result = tester.determine_profile(observation)
-          expect(result).to eq(['http://hl7.org/fhir/us/core/StructureDefinition/pediatric-bmi-for-age'])
-        end
-
-        it 'returns the PediatricWeightForHeight profile if resource has PediatricWeightForHeight code' do
-          observation.code.coding[0].code = '77606-2'
-
-          result = tester.determine_profile(observation)
-          expect(result).to eq(['http://hl7.org/fhir/us/core/StructureDefinition/pediatric-weight-for-height'])
-        end
-
-        it 'returns the PulseOximetry profile if resource has PulseOximetry criterion specified' do
-          observation.code.coding[0].code = '59408-5'
-
-          result = tester.determine_profile(observation)
-          expect(result).to eq(['http://hl7.org/fhir/us/core/StructureDefinition/us-core-pulse-oximetry'])
-        end
-
-        it 'returns the HeadCircumference profile if resource has HeadCircumference criterion specified' do
-          observation.code.coding[0].code = '8289-1'
-
-          result = tester.determine_profile(observation)
-          expect(result).to eq(['http://hl7.org/fhir/us/core/StructureDefinition/head-occipital-frontal-circumference-percentile'])
-        end
-
-        it 'returns the Bp profile if resource has Bp criterion specified' do
-          observation.code.coding[0].code = '85354-9'
-
-          result = tester.determine_profile(observation)
-          expect(result).to eq(['http://hl7.org/fhir/StructureDefinition/bp'])
-        end
-
-        it 'returns the Bodyheight profile if resource has Bodyheight criterion specified' do
-          observation.code.coding[0].code = '8302-2'
-
-          result = tester.determine_profile(observation)
-          expect(result).to eq(['http://hl7.org/fhir/StructureDefinition/bodyheight'])
-        end
-
-        it 'returns the Bodytemp profile if resource has Bodytemp criterion specified' do
-          observation.code.coding[0].code = '8310-5'
-
-          result = tester.determine_profile(observation)
-          expect(result).to eq(['http://hl7.org/fhir/StructureDefinition/bodytemp'])
-        end
-
-        it 'returns the Bodyweight profile if resource has Bodyweight criterion specified' do
-          observation.code.coding[0].code = '29463-7'
-
-          result = tester.determine_profile(observation)
-          expect(result).to eq(['http://hl7.org/fhir/StructureDefinition/bodyweight'])
-        end
-
-        it 'returns the Heartrate profile if resource has Heartrate criterion specified' do
-          observation.code.coding[0].code = '8867-4'
-
-          result = tester.determine_profile(observation)
-          expect(result).to eq(['http://hl7.org/fhir/StructureDefinition/heartrate'])
-        end
-
-        it 'returns the Resprate profile if resource has Resprate criterion specified' do
-          observation.code.coding[0].code = '9279-1'
-
-          result = tester.determine_profile(observation)
-          expect(result).to eq(['http://hl7.org/fhir/StructureDefinition/resprate'])
-        end
-
-        it 'returns an empty array when given none of the possible sets of profile criterion' do
-          observation.code.coding[0].code = 'bad_code'
-
-          result = tester.determine_profile(observation)
-          expect(result).to eq([])
-        end
-
-        it 'returns an empty array when the Observation contains a head circumference code' do
-          observation.code.coding[0].code = '9843-4'
-
-          result = tester.determine_profile(observation)
-          expect(result).to eq([])
-        end
       end
     end
   end

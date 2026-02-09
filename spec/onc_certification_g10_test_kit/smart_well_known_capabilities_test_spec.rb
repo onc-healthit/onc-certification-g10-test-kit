@@ -23,27 +23,10 @@ RSpec.describe ONCCertificationG10TestKit::SMARTWellKnownCapabilitiesTest do
   end
 
   context 'when `launch-ehr` capability is present' do
-    context 'when using US Core 3' do
+    context 'when using US Core 6' do
       before do
         allow_any_instance_of(test).to(
-          receive(:suite_options).and_return(ONCCertificationG10TestKit::G10Options::US_CORE_3_REQUIREMENT)
-        )
-        allow_any_instance_of(test).to(receive(:config).and_return(test_config))
-      end
-
-      it 'does not require `context-ehr-encounter`' do
-        inputs = { well_known_configuration: JSON.generate(well_known_config) }
-
-        result = run(test, inputs)
-
-        expect(result.result).to eq('pass')
-      end
-    end
-
-    context 'when using US Core 5' do
-      before do
-        allow_any_instance_of(test).to(
-          receive(:suite_options).and_return(ONCCertificationG10TestKit::G10Options::US_CORE_5_REQUIREMENT)
+          receive(:suite_options).and_return(ONCCertificationG10TestKit::G10Options::US_CORE_6_REQUIREMENT)
         )
         allow_any_instance_of(test).to(receive(:config).and_return(test_config))
       end

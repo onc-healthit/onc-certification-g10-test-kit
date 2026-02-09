@@ -48,8 +48,6 @@ module ONCCertificationG10TestKit
         The following implementation specifications are relevant to this scenario:
 
         * [SMART on FHIR
-          (STU1)](http://www.hl7.org/fhir/smart-app-launch/1.0.0/)
-        * [SMART on FHIR
           (STU2)](http://hl7.org/fhir/smart-app-launch/STU2)
         * [OpenID Connect
           (OIDC)](https://openid.net/specs/openid-connect-core-1_0.html)
@@ -84,57 +82,6 @@ module ONCCertificationG10TestKit
         }
       }
     )
-
-    group from: :smart_discovery do
-      required_suite_options(G10Options::SMART_1_REQUIREMENT)
-
-      config(
-        outputs: {
-          smart_auth_info: { name: :standalone_smart_auth_info }
-        }
-      )
-
-      test from: 'g10_smart_well_known_capabilities',
-           config: {
-             options: {
-               required_capabilities: [
-                 'launch-standalone',
-                 'client-public',
-                 'client-confidential-symmetric',
-                 'sso-openid-connect',
-                 'context-standalone-patient',
-                 'permission-offline',
-                 'permission-patient'
-               ]
-             }
-           }
-
-      test do
-        required_suite_options(G10Options::US_CORE_7_REQUIREMENT)
-
-        id :g10_us_core_7_smart_version_check
-        title 'US Core 7 requires SMART App Launch 2.0.0 or above'
-        description %(
-          The [US Core 7 SMART on FHIR Obligations and
-          Capabilities](https://hl7.org/fhir/us/core/STU7/scopes.html) require
-          SMART App Launch 2.0.0 or above, so systems can not certify with US
-          Core 7 and SMART App Launch 1.0.0.
-
-          The [Test
-          Procedure](https://www.healthit.gov/test-method/standardized-api-patient-and-population-services)
-          also states in **Paragraph (g)(10)(v)(A) – Authentication and
-          authorization for patient and user scopes**:
-
-          > Note: US Core 7.0.0 must be tested with SMART App Launch 2.0.0 or
-            above.
-        )
-
-        run do
-          assert false, 'US Core 7 is not eligible for certification with SMART App Launch 1.0.0. ' \
-                        'Start a new session with SMART App Launch 2.0.0 or higher.'
-        end
-      end
-    end
 
     group from: :smart_discovery_stu2 do
       required_suite_options(G10Options::SMART_2_REQUIREMENT)
@@ -192,96 +139,6 @@ module ONCCertificationG10TestKit
                ]
              }
            }
-    end
-
-    group from: :smart_standalone_launch do
-      required_suite_options(G10Options::SMART_1_REQUIREMENT)
-
-      title 'Standalone Launch With Patient Scope'
-      description %(
-        # Background
-
-        The [Standalone
-        Launch Sequence](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#standalone-launch-sequence)
-        allows an app, like Inferno, to be launched independent of an
-        existing EHR session. It is one of the two launch methods described in
-        the SMART App Launch Framework alongside EHR Launch. The app will
-        request authorization for the provided scope from the authorization
-        endpoint, ultimately receiving an authorization token which can be used
-        to gain access to resources on the FHIR server.
-
-        # Test Methodology
-
-        Inferno will redirect the user to the the authorization endpoint so that
-        they may provide any required credentials and authorize the application.
-        Upon successful authorization, Inferno will exchange the authorization
-        code provided for an access token.
-
-        For more information on the #{title}:
-
-        * [Standalone Launch
-          Sequence](http://hl7.org/fhir/smart-app-launch/1.0.0/index.html#standalone-launch-sequence)
-      )
-
-      config(
-        inputs: {
-          smart_auth_info: {
-            name: :standalone_smart_auth_info,
-            options: {
-              components: [
-                {
-                  name: :requested_scopes,
-                  default: STANDALONE_SMART_1_SCOPES
-                }
-              ]
-            }
-          }
-        }
-      )
-
-      test from: :g10_smart_scopes do
-        config(
-          inputs: {
-            received_scopes: { name: :standalone_received_scopes }
-          },
-          options: {
-            scope_version: :v1,
-            required_scope_type: 'patient',
-            required_scopes: ['openid', 'fhirUser', 'launch/patient', 'offline_access']
-          }
-        )
-      end
-
-      test from: :g10_unauthorized_access,
-           config: {
-             inputs: {
-               patient_id: { name: :standalone_patient_id }
-             }
-           }
-
-      test from: :g10_patient_context,
-           config: {
-             inputs: {
-               patient_id: { name: :standalone_patient_id },
-               smart_auth_info: { name: :standalone_smart_auth_info }
-             }
-           }
-
-      tests[0].config(
-        outputs: {
-          incorrectly_permitted_tls_versions_messages: {
-            name: :auth_incorrectly_permitted_tls_versions_messages
-          }
-        }
-      )
-
-      tests[3].config(
-        outputs: {
-          incorrectly_permitted_tls_versions_messages: {
-            name: :token_incorrectly_permitted_tls_versions_messages
-          }
-        }
-      )
     end
 
     group from: :smart_standalone_launch_stu2 do
@@ -464,15 +321,6 @@ module ONCCertificationG10TestKit
         }
       )
     end
-
-    group from: :smart_openid_connect,
-          required_suite_options: G10Options::SMART_1_REQUIREMENT,
-          config: {
-            inputs: {
-              id_token: { name: :standalone_id_token },
-              smart_auth_info: { name: :standalone_smart_auth_info }
-            }
-          }
 
     group from: :smart_openid_connect,
           required_suite_options: G10Options::SMART_2_REQUIREMENT,
