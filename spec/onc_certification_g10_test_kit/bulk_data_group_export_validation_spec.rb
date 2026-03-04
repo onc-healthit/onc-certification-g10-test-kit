@@ -7,6 +7,14 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       .find { |group| group.id.include? 'multi_patient_api' }
       .groups.find { |group| group.id.include? 'bulk_data_group_export_validation' }
   end
+  let(:input) do
+    {
+      requires_access_token: 'true',
+      status_output:,
+      bulk_smart_auth_info: Inferno::DSL::AuthInfo.new(access_token: bearer_token),
+      bulk_download_url: endpoint
+    }
+  end
   let(:suite_id) { 'g10_certification' }
   let(:endpoint) { 'https://www.example.com' }
   let(:status_output) { "[{\"url\":\"#{endpoint}\"}]" }
@@ -15,13 +23,9 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
   let(:contents) { '' }
   let(:contents_missing_element) { '' }
   let(:scratch) { {} }
-  let(:input) do
-    {
-      requires_access_token: 'true',
-      status_output:,
-      bulk_smart_auth_info: Inferno::DSL::AuthInfo.new(access_token: bearer_token),
-      bulk_download_url: endpoint
-    }
+
+  before do
+    allow_any_instance_of(Inferno::Test).to receive(:suite_options).and_return({ us_core_version: 'us_core_3' })
   end
 
   describe '[NDJSON download requires access token] test' do
