@@ -6,7 +6,7 @@ sessions:
       smart_app_launch_version: smart_app_launch_2
       multi_patient_version: multi_patient_api_stu1
 
-rules:
+steps:
   - state_description: Session Created
     status: created
     command: "bundle exec inferno session start_run '{session_id}' -r g10_certification-g10_smart_standalone_patient_app"
