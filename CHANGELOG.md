@@ -1,3 +1,6 @@
+# 7.3.0
+* Remove versions of US Core and SMART that are below current certification minimums
+
 # 7.2.9
 * Update dependency of inferno-core to v1.0.8 (empty Bundle.entry.resource handling)
 * SMART invalid refresh token tests now support asymmetric auth
