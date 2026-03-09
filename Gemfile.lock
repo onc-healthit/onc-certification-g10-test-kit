@@ -1,10 +1,10 @@
 PATH
   remote: .
   specs:
-    onc_certification_g10_test_kit (7.3.0)
+    onc_certification_g10_test_kit (8.0.0)
       bloomer (~> 1.0.0)
       colorize (~> 0.8.1)
-      inferno_core (~> 1.0, >= 1.0.8)
+      inferno_core (~> 1.1)
       json-jwt (~> 1.15.3)
       mime-types (~> 3.4.0)
       ndjson (~> 1.0.0)
@@ -152,7 +152,7 @@ GEM
       mutex_m
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
-    inferno_core (1.0.8)
+    inferno_core (1.1.0)
       activesupport (~> 6.1.7.5)
       base62-rb (= 0.3.1)
       blueprinter (= 0.25.2)
