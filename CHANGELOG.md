@@ -1,5 +1,6 @@
-# 7.3.0
-* Remove versions of US Core and SMART that are below current certification minimums
+# 8.0.0
+* Upgrade inferno-core
+* Remove versions of US Core (3.1.1 and 4.0.0) and SMART (1.0.0) that are below current certification minimums
 
 # 7.2.9
 * Update dependency of inferno-core to v1.0.8 (empty Bundle.entry.resource handling)
