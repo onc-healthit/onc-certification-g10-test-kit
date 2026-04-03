@@ -1,6 +1,6 @@
-require_relative '../authorize'
+gem_dir = Gem::Specification.find_by_name('smart_app_launch_test_kit').gem_dir
+load "#{gem_dir}/execution_scripts/reference_server/base_ref_server_authorize.rb"
 
-authorize_url = ARGV[0].split('(', 2)[1].split(')').first
 LIMITED_SCOPES_TO_UNCHECK = ['patient/AllergyIntolerance.rs',
                              'patient/CarePlan.rs',
                              'patient/CareTeam.rs',
@@ -25,4 +25,4 @@ LIMITED_SCOPES_TO_UNCHECK = ['patient/AllergyIntolerance.rs',
                              'patient/ServiceRequest.rs',
                              'patient/Specimen.rs'].freeze
 
-authorize(authorize_url, target_patient_id: '85', click_scopes: LIMITED_SCOPES_TO_UNCHECK)
+ref_server_authorize(ARGV[0], target_patient_id: '85', click_scopes: LIMITED_SCOPES_TO_UNCHECK)

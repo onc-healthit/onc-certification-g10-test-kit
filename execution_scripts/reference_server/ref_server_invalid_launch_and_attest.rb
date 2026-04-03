@@ -1,7 +1,13 @@
-require 'selenium-webdriver'
+begin
+  require 'selenium-webdriver'
+rescue LoadError
+  warn 'selenium-webdriver is required to run this command script.'
+  warn "Add it to your Gemfile: gem 'selenium-webdriver'"
+  exit(1)
+end
 
-launch_url = ARGV[0].split('(')[1].split(')').first
-attest_url = ARGV[0].split('(')[2].split(')').first
+launch_url = ARGV[0]
+attest_url = ARGV[1]
 
 options = Selenium::WebDriver::Options.chrome(args: ['--headless=new'])
 driver = Selenium::WebDriver.for(:chrome, options: options)

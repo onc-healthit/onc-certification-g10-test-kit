@@ -93,12 +93,17 @@ module ONCCertificationG10TestKit
           }
         }
       )
+      output :attest_launch_failed_url
 
       def aud
         'https://inferno.healthit.gov/invalid_aud'
       end
 
       def wait_message(auth_url)
+        attest_launch_failed_url =
+          "#{Inferno::Application['base_url']}/custom/smart/redirect?state=#{state}&confirm_fail=true"
+        output(attest_launch_failed_url:)
+
         %(
           Inferno will redirect you to an external website for authorization.
           **It is expected this will fail**. If the server does not return to
@@ -108,7 +113,7 @@ module ONCCertificationG10TestKit
 
           * [Perform Invalid Launch](#{auth_url})
           * [Attest launch
-            failed](#{Inferno::Application['base_url']}/custom/smart/redirect?state=#{state}&confirm_fail=true)
+            failed](#{attest_launch_failed_url})
         )
       end
     end
@@ -156,12 +161,17 @@ module ONCCertificationG10TestKit
           }
         }
       )
+      output :attest_launch_failed_url
 
       def aud
         'https://inferno.healthit.gov/invalid_aud'
       end
 
       def wait_message(auth_url)
+        attest_launch_failed_url =
+          "#{Inferno::Application['base_url']}/custom/smart/redirect?state=#{state}&confirm_fail=true"
+        output(attest_launch_failed_url:)
+
         %(
           Inferno will redirect you to an external website for authorization.
           **It is expected this will fail**. If the server does not return to
@@ -171,7 +181,7 @@ module ONCCertificationG10TestKit
 
           * [Perform Invalid Launch](#{auth_url})
           * [Attest launch
-            failed](#{Inferno::Application['base_url']}/custom/smart/redirect?state=#{state}&confirm_fail=true)
+            failed](#{attest_launch_failed_url})
         )
       end
     end
@@ -218,12 +228,17 @@ module ONCCertificationG10TestKit
           }
         }
       )
+      output :attest_launch_failed_url
 
       def aud
         'https://inferno.healthit.gov/invalid_aud'
       end
 
       def wait_message(auth_url)
+        attest_launch_failed_url =
+          "#{Inferno::Application['base_url']}/custom/smart/redirect?state=#{state}&confirm_fail=true"
+        output(attest_launch_failed_url:)
+
         %(
           Inferno will redirect you to an external website for authorization.
           **It is expected this will fail**. If the server does not return to
@@ -233,7 +248,7 @@ module ONCCertificationG10TestKit
 
           * [Perform Invalid Launch](#{auth_url})
           * [Attest launch
-            failed](#{Inferno::Application['base_url']}/custom/smart/redirect?state=#{state}&confirm_fail=true)
+            failed](#{attest_launch_failed_url})
         )
       end
     end

@@ -1,6 +1,12 @@
-require 'selenium-webdriver'
+begin
+  require 'selenium-webdriver'
+rescue LoadError
+  warn 'selenium-webdriver is required to run this command script.'
+  warn "Add it to your Gemfile: gem 'selenium-webdriver'"
+  exit(1)
+end
 
-def revoke_token(session_id, inferno_host)
+def ref_server_revoke_token(session_id, inferno_host)
   inputs_cli_command = "bundle exec inferno session data #{session_id}#{" -I #{inferno_host}" unless inferno_host.nil?}"
   inputs = JSON.parse(`#{inputs_cli_command}`)
 
@@ -25,3 +31,13 @@ def token_to_revoke(inputs)
 rescue JSON::ParserError
   nil
 end
+
+session_id = ARGV[0]
+revoke_token_group = ARGV[1]
+inferno_host = ARGV[2]
+
+ref_server_revoke_token(session_id, inferno_host)
+start_run_cli_command =
+  "bundle exec inferno session start_run #{session_id} #{revoke_token_group}" \
+  "#{" -I #{inferno_host}" unless inferno_host.nil?}"
+exec(start_run_cli_command)

@@ -1,0 +1,281 @@
+sessions:
+  - suite: g10_certification
+    preset: g10-reference-server
+    suite_options:
+      us_core_version: us_core_7
+      smart_app_launch_version: smart_app_launch_2
+      multi_patient_version: multi_patient_api_stu1
+
+comparison_config:
+  normalized_strings:
+    - replacement: <INFERNO_HOST>
+      patterns:
+        - http://localhost:4567/inferno # local inferno core ruby
+        - http://localhost:4567 # local ruby
+        - http://localhost # local docker
+        - https://inferno.healthit.gov/suites # prod
+        - https://inferno-qa.healthit.gov/suites # qa
+    - replacement: <REFERENCE_SERVER_URL>
+      patterns:
+        - https://inferno.healthit.gov/reference-server # prod reference server
+        - https://inferno-qa.healthit.gov/reference-server # qa reference server
+    - replacement: code_challenge=<CODE_CHALLENGE>
+      pattern: /code_challenge=[A-Za-z0-9+\/=_-]{43}/
+    - replacement: <UUID>
+      pattern: /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i
+  alternate_expected_files:
+    - file: g10_ref_server_usc7_smart2_bulk1_no_terminology_expected.json
+      when:
+        - field: inferno_base_url
+          not_matches: inferno(-qa)?\.healthit\.gov
+        - field: configuration_messages
+          matches: ^There is a problem with the terminology resources
+
+steps:
+  - state_description: Session Created
+    status: created
+    start_run:
+      runnable: 1
+    action_description: Run Group 1 Standalone Patient App - Full Access
+
+  - state_description: Wait at test 1.4.02 OAuth server redirects client browser to app redirect URI
+    status: waiting
+    last_completed: 1.4.02
+    command: bundle exec ruby execution_scripts/reference_server/ref_server_authorize_85_all_scopes.rb '{wait_outputs.authorization_url}'
+    action_description: Authorize all requested scopes for patient 85
+
+  - state_description: Finished Group 1 Standalone Patient App - Full Access
+    status: done
+    last_completed: 1
+    start_run:
+      runnable: 2
+    action_description: Run Group 2 Standalone Patient App - Limited Access
+
+  - state_description: Wait at test 2.2.02 OAuth server redirects client browser to app redirect URI
+    status: waiting
+    last_completed: 2.2.02
+    command: bundle exec ruby execution_scripts/reference_server/ref_server_authorize_85_limited_scopes.rb '{wait_outputs.authorization_url}'
+    action_description: Authorize a limited set of scopes for patient 85
+
+  - state_description: Finished Group 2 Standalone Patient App - Limited Access
+    status: done
+    last_completed: 2
+    start_run:
+      runnable: 3
+    action_description: Run Group 3 EHR Practitioner App
+
+  - state_description: Wait at test 3.4.01 EHR server redirects client browser to Inferno app launch URI
+    status: waiting
+    last_completed: 3.4.01
+    command: bundle exec ruby execution_scripts/reference_server/ref_server_ehr_launch_85.rb '{wait_outputs.launch_uri}' '{wait_outputs.target_iss}'
+    action_description: Launch Inferno as a SMART app using patient 85 as the patient context
+
+  - state_description: Wait at test 3.4.04 OAuth server redirects client browser to app redirect URI
+    status: waiting
+    last_completed: 3.4.04
+    command: bundle exec ruby execution_scripts/reference_server/ref_server_authorize_launched_all_scopes.rb '{wait_outputs.authorization_url}'
+    action_description: Authorize all requested scopes for launched patient
+
+  - state_description: Finished Group 3 EHR Practitioner App
+    status: done
+    last_completed: 3
+    start_run:
+      runnable: 12
+    timeout: 600 # single patient API tests take a while
+    action_description: Run Group 12 Single Patient API (US Core 7.0.0)
+
+  - state_description: Finished Group 10 Single Patient API (US Core 7.0.0)
+    status: done
+    last_completed: 12
+    start_run:
+      runnable: 7
+    timeout: 600 # multi-patient API tests take a while
+    action_description: Run Group 7 Multi-Patient Authorization and API
+
+  - state_description: Finished Group 7 Multi-Patient Authorization and API
+    status: done
+    last_completed: 7
+    start_run:
+      runnable: 9.2
+    action_description: Run Group 9.2 Public Client Standalone Launch with OpenID Connect
+
+  - state_description: Wait at test 9.2.02 OAuth server redirects client browser to app redirect URI
+    status: waiting
+    last_completed: 9.2.02
+    command: bundle exec ruby execution_scripts/reference_server/ref_server_authorize_85_all_scopes.rb '{wait_outputs.authorization_url}'
+    action_description: Authorize all requested scopes for patient 85
+
+  - state_description: Finished Group 9.2 Public Client Standalone Launch with OpenID Connect
+    status: done
+    last_completed: 9.2
+    command: bundle exec ruby execution_scripts/reference_server/ref_server_revoke_token_and_run_group.rb {session_id} '9.3' {inferno_base_url}
+    action_description: Revoke a token using the reference server's UI and Run Group 9.3 Token Revocation
+
+  - state_description: Finished Group 9.3 Token Revocation
+    status: done
+    last_completed: 9.3
+    start_run:
+      runnable: 9.4
+    action_description: Run Group 9.4 Invalid AUD Parameter
+
+  - state_description: Wait at test 9.4.02 OAuth server redirects client browser to app redirect URI
+    status: waiting
+    last_completed: 9.4.02
+    command: bundle exec ruby execution_scripts/reference_server/ref_server_invalid_launch_and_attest.rb '{wait_outputs.authorization_url}' '{wait_outputs.attest_launch_failed_url}'
+    action_description: Perform a launch, confirm it fails, and then attest that it did so
+
+  - state_description: Finished Group 9.4 Invalid AUD Parameter
+    status: done
+    last_completed: 9.4
+    start_run:
+      runnable: 9.6
+    action_description: Run Group 9.6 Invalid Access Token Request
+
+  - state_description: Wait at test 9.6.01 OAuth server redirects client browser to app redirect URI
+    status: waiting
+    last_completed: 9.6.01
+    command: bundle exec ruby execution_scripts/reference_server/ref_server_authorize_85_all_scopes.rb '{wait_outputs.authorization_url}'
+    action_description: Authorize all requested scopes for patient 85
+
+  - state_description: Finished Group 9.6 Invalid Access Token Request
+    status: done
+    last_completed: 9.6
+    start_run:
+      runnable: 9.7
+    action_description: Run Group 9.7 Invalid PKCE Code Verifier
+
+  - state_description: Wait at test 9.7.01 OAuth server redirects client browser to app redirect URI
+    status: waiting
+    last_completed: 9.7.01
+    command: bundle exec ruby execution_scripts/reference_server/ref_server_authorize_85_all_scopes.rb '{wait_outputs.authorization_url}'
+    action_description: Authorize all requested scopes for patient 85
+
+  - state_description: Wait at test 9.7.04 OAuth server redirects client browser to app redirect URI
+    status: waiting
+    last_completed: 9.7.04
+    command: bundle exec ruby execution_scripts/reference_server/ref_server_authorize_85_all_scopes.rb '{wait_outputs.authorization_url}'
+    action_description: Authorize all requested scopes for patient 85
+
+  - state_description: Wait at test 9.7.07 OAuth server redirects client browser to app redirect URI
+    status: waiting
+    last_completed: 9.7.07
+    command: bundle exec ruby execution_scripts/reference_server/ref_server_authorize_85_all_scopes.rb '{wait_outputs.authorization_url}'
+    action_description: Authorize all requested scopes for patient 85
+
+  - state_description: Wait at test 9.7.10 OAuth server redirects client browser to app redirect URI
+    status: waiting
+    last_completed: 9.7.10
+    command: bundle exec ruby execution_scripts/reference_server/ref_server_authorize_85_all_scopes.rb '{wait_outputs.authorization_url}'
+    action_description: Authorize all requested scopes for patient 85
+
+  - state_description: Finished Group 9.7 Invalid PKCE Code Verifier
+    status: done
+    last_completed: 9.7
+    start_run:
+      runnable: 9.9
+    action_description: Run Group 9.9 EHR Launch with Patient Scopes
+
+  - state_description: Wait at test 9.9.01 EHR server redirects client browser to Inferno app launch URI
+    status: waiting
+    last_completed: 9.9.01
+    command: bundle exec ruby execution_scripts/reference_server/ref_server_ehr_launch_85.rb '{wait_outputs.launch_uri}' '{wait_outputs.target_iss}'
+    action_description: Launch Inferno as a SMART app using patient 85 as the patient context
+
+  - state_description: Wait at test 9.9.04 OAuth server redirects client browser to app redirect URI
+    status: waiting
+    last_completed: 9.9.04
+    command: bundle exec ruby execution_scripts/reference_server/ref_server_authorize_launched_all_scopes.rb '{wait_outputs.authorization_url}'
+    action_description: Authorize all requested scopes for launched patient
+
+  - state_description: Finished Group 9.9 EHR Launch with Patient Scopes
+    status: done
+    last_completed: 9.9
+    start_run:
+      runnable: 9.11
+    action_description: Run Group 9.11 Token Introspection
+
+  - state_description: Wait at test 9.11.1.2.02 OAuth server redirects client browser to app redirect URI
+    status: waiting
+    last_completed: 9.11.1.2.02
+    command: bundle exec ruby execution_scripts/reference_server/ref_server_authorize_85_all_scopes.rb '{wait_outputs.authorization_url}'
+    action_description: Authorize all requested scopes for patient 85
+
+  - state_description: Finished Group 9.11 Token Introspection
+    status: done
+    last_completed: 9.11
+    start_run:
+      runnable: 9.12
+    action_description: Run Group 9.12 Asymmetric Client Standalone Launch
+
+  - state_description: Wait at test 9.12.2.02 OAuth server redirects client browser to app redirect URI
+    status: waiting
+    last_completed: 9.12.2.02
+    command: bundle exec ruby execution_scripts/reference_server/ref_server_authorize_85_all_scopes.rb '{wait_outputs.authorization_url}'
+    action_description: Authorize all requested scopes for patient 85
+
+  - state_description: Finished Group 9.12 Asymmetric Client Standalone Launch
+    status: done
+    last_completed: 9.12
+    start_run:
+      runnable: 9.13
+    action_description: Run Group 9.13 App Launch with SMART v1 scopes
+
+  - state_description: Wait at test 9.13.2.02 OAuth server redirects client browser to app redirect URI
+    status: waiting
+    last_completed: 9.13.2.02
+    command: bundle exec ruby execution_scripts/reference_server/ref_server_authorize_85_all_scopes.rb '{wait_outputs.authorization_url}'
+    action_description: Authorize all requested scopes for patient 85
+
+  - state_description: Finished Group 9.13 App Launch with SMART v1 scopes
+    status: done
+    last_completed: 9.13
+    start_run:
+      runnable: 9.24.1
+    action_description: Run Group 9.24.1 Granular Scopes 1
+
+  - state_description: Wait at test 9.24.1.1.2.02 OAuth server redirects client browser to app redirect URI
+    status: waiting
+    last_completed: 9.24.1.1.2.02
+    command: bundle exec ruby execution_scripts/reference_server/ref_server_authorize_85_all_scopes.rb '{wait_outputs.authorization_url}'
+    timeout: 600 # granular scopes test take a while
+    action_description: Authorize all requested scopes for patient 85
+
+  - state_description: Finished Group 9.24.1 Granular Scopes 1
+    status: done
+    last_completed: 9.24.1
+    start_run:
+      runnable: 9.24.2
+    action_description: Run Group 9.24.2 Granular Scopes 2
+
+  - state_description: Wait at test 9.24.2.1.2.02 OAuth server redirects client browser to app redirect URI
+    status: waiting
+    last_completed: 9.24.2.1.2.02
+    command: bundle exec ruby execution_scripts/reference_server/ref_server_authorize_85_all_scopes.rb '{wait_outputs.authorization_url}'
+    timeout: 600 # granular scopes test take a while
+    action_description: Authorize all requested scopes for patient 85
+
+  - state_description: Finished Group 9.24.2 Granular Scopes 2
+    status: done
+    last_completed: 9.24.2
+    start_run:
+      runnable: 9.27
+    action_description: Run Group 9.27 SMART Granular Scope Selection
+
+  - state_description: Wait at test 9.27.3.02 OAuth server redirects client browser to app redirect URI
+    status: waiting
+    last_completed: 9.27.3.02
+    command: bundle exec ruby execution_scripts/reference_server/ref_server_authorize_85_granular_scopes.rb '{wait_outputs.authorization_url}'
+    action_description: Authorize granular scopes instead of requested scopes for patient 85
+
+  - state_description: Finished Group 9.27 SMART Granular Scope Selection
+    status: done
+    last_completed: 9.27
+    start_run:
+      runnable: 11
+    action_description: Run Group 11 Visual Inspection and Attestation
+
+  - state_description: Finished Group 11 Visual Inspection and Attestation
+    status: done
+    last_completed: 11
+    action: END_SCRIPT
+    action_description: Script Completed
