@@ -146,3 +146,16 @@ namespace :requirements do
     ONCCertificationG10TestKit::Tasks::GenerateRequirementsSpreadsheet.new.run
   end
 end
+
+namespace :execute_scripts do
+  desc 'Run all execution script YAML files against a local Inferno instance (already running). ' \
+       'Optional FILTER env var restricts by File.fnmatch pattern, e.g. FILTER="execution_scripts/demo/*". ' \
+       'Optional INFERNO_BASE_URL env var sets the target Inferno URL, e.g. INFERNO_BASE_URL="http://localhost:4567/"'
+  task :run_all do
+    require 'inferno/utils/execution_script_runner'
+    Inferno::Utils::ExecutionScriptRunner.run_all(
+      pattern: ENV.fetch('FILTER', 'execution_scripts/**/*.yaml'),
+      inferno_base_url: ENV.fetch('INFERNO_BASE_URL', nil)
+    )
+  end
+end
