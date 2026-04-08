@@ -5,7 +5,7 @@ criterion](https://www.healthit.gov/test-method/standardized-api-patient-and-pop
 of the [21st Century Cures Act: Interoperability, Information Blocking, and the
 ONC Health IT Certification
 Program](https://www.govinfo.gov/content/pkg/FR-2019-03-04/pdf/2019-02224.pdf).
-It uses the [ASTP-hosted
+It uses the [ONC-hosted
 instance](https://inferno.healthit.gov/suites/g10_certification) of the (g)(10)
 Standardized API Test Kit to test against a [publicly available reference
 server](https://inferno.healthit.gov/reference-server) that mimics a (g)(10)
