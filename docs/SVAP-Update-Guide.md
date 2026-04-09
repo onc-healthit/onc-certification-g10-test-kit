@@ -16,10 +16,10 @@ criterion requires systems to implement the following implementation specificati
 * SMART Application Launch Framework Implementation Guide Release
 * HL7 FHIR Bulk Data Access (Flat FHIR)
 
-New versions of these specifications are approved on an annual basis by ASTP through
+New versions of these specifications are approved on an annual basis by ONC through
 the SVAP process. The new versions of these standards define many of the changes
 that will need to be addressed in the (g)(10) certification test kit. In addition,
-ASTP updates the [test procedure](https://www.healthit.gov/test-method/standardized-api-patient-and-population-services#test_procedure) and the
+ONC updates the [test procedure](https://www.healthit.gov/test-method/standardized-api-patient-and-population-services#test_procedure) and the
 [certification companion guide](https://www.healthit.gov/test-method/standardized-api-patient-and-population-services#ccg) for each new version of SVAP which
 need to be reflected in the updated tests.
 

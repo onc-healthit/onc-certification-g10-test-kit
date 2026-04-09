@@ -179,7 +179,7 @@ module ONCCertificationG10TestKit
 
         next if test_group.optional?
 
-        # Observation Sexual Orientation is removed as directed by ASTP/ONC enforcement discretion
+        # Observation Sexual Orientation is removed as directed by ONC enforcement discretion
         # issued on March 21, 2025:
         # https://www.healthit.gov/topic/certification-ehrs/enforcement-discretion
         next if test_group.id.include?('us_core_v700_observation_sexual_orientation')
