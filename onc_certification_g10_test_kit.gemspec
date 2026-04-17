@@ -3,14 +3,14 @@ require_relative 'lib/onc_certification_g10_test_kit/version'
 Gem::Specification.new do |spec|
   spec.name          = 'onc_certification_g10_test_kit'
   spec.version       = ONCCertificationG10TestKit::VERSION
-  spec.authors       = ['Stephen MacVicar']
+  spec.authors       = ['Inferno Team']
   spec.summary       = 'ONC Certification (g)(10) Test Kit'
   spec.description   = 'ONC Certification (g)(10) Standardized API for Patient and Population Services Test Kit'
   spec.homepage      = 'https://github.com/onc-healthit/onc-certification-g10-test-kit'
   spec.license       = 'Apache-2.0'
   spec.add_dependency 'bloomer', '~> 1.0.0'
   spec.add_dependency 'colorize', '~> 0.8.1'
-  spec.add_dependency 'inferno_core', '~> 1.1'
+  spec.add_dependency 'inferno_core', '~> 1.2'
   spec.add_dependency 'json-jwt', '~> 1.15.3'
   spec.add_dependency 'mime-types', '~> 3.4.0'
   spec.add_dependency 'ndjson', '~> 1.0.0'
@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
   spec.metadata['inferno_test_kit'] = 'true'
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = spec.homepage
-  spec.files = `[ -d .git ] && git ls-files -z lib config/presets LICENSE`.split("\x0")
+  spec.files = `[ -d .git ] && git ls-files -z lib config/presets execution_scripts LICENSE`.split("\x0")
 
   spec.require_paths = ['lib']
 end
