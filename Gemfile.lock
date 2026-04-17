@@ -1,21 +1,21 @@
 GIT
   remote: https://github.com/inferno-framework/smart-app-launch-test-kit.git
-  revision: 5d6ce567d2a8eac8897cf088c8cd4e5b2773c3a9
+  revision: 8ebebb48b9d9040e6b253da36a7f90882e5a8a69
   branch: id45-execution-scripts
   specs:
     smart_app_launch_test_kit (1.0.0)
-      inferno_core (~> 1.0, >= 1.0.2)
+      inferno_core (~> 1.2)
       json-jwt (~> 1.15.3)
       jwt (~> 2.6)
       tls_test_kit (~> 1.0)
 
 GIT
   remote: https://github.com/inferno-framework/us-core-test-kit.git
-  revision: a868c73a8648060fdea9c4197cc00d1a2a5a8bcd
+  revision: 914855ebaeb2e25f8163a6c10868419f4ff2603e
   branch: id45-execution-scripts
   specs:
     us_core_test_kit (1.1.1)
-      inferno_core (~> 1.0, >= 1.0.2)
+      inferno_core (~> 1.2)
       smart_app_launch_test_kit (~> 1.0)
       tls_test_kit (~> 1.0)
 
