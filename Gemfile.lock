@@ -22,7 +22,7 @@ GIT
 PATH
   remote: .
   specs:
-    onc_certification_g10_test_kit (7.2.9)
+    onc_certification_g10_test_kit (8.0.0)
       bloomer (~> 1.0.0)
       colorize (~> 0.8.1)
       inferno_core (~> 1.2)
@@ -396,4 +396,4 @@ DEPENDENCIES
   webmock (~> 3.11)
 
 BUNDLED WITH
-   2.5.22
+  4.0.7

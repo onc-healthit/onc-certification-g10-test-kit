@@ -24,7 +24,7 @@ This test kit is [open source](#license) and freely available for use or
 adoption by the health IT community including EHR vendors, health app
 developers, and testing labs. It is an approved test method for the §
 170.315(g)(10) certification criterion in the ONC Health IT Certification
-program by the Assistant Secretary for Technology Policy (ASTP).
+program by the Office of the National Coordinator for Health Information Technology (ONC).
 
 The (g)(10) Standardized API Test Kit is built using the [Inferno
 Framework](https://inferno-framework.github.io/). The Inferno Framework is
@@ -37,7 +37,7 @@ for information on using and contributing to this test kit.
 
 ## Getting Started
 
-ASTP hosts a [public
+ONC hosts a [public
 instance](https://inferno.healthit.gov/suites/g10_certification) of this test
 kit that developers and testers are welcome to use. However, users are
 encouraged to download and run this tool locally to allow testing within private
@@ -46,7 +46,7 @@ Please see the [Local Installation
 Instructions](#local-installation-instructions) section below for more
 information.
 
-ASTP also hosts a [(g)(10) reference
+ONC also hosts a [(g)(10) reference
 server](https://inferno.healthit.gov/reference-server/) that can be used to
 orient new users on these tests. The [(g)(10) Standardized API Test Kit
 Walkthrough](https://github.com/onc-healthit/onc-certification-g10-test-kit/wiki/Walkthrough)
