@@ -19,7 +19,7 @@ RSpec.describe ONCCertificationG10TestKit::TerminologyBindingValidator do
 
       it 'returns an error message if a code is invalid' do
         allow_any_instance_of(described_class).to(
-          receive(:validate_code).with(
+          receive(:validate_code?).with(
             value_set_url: binding_definition[:system],
             code: bad_code
           ).and_return(false)
@@ -64,7 +64,7 @@ RSpec.describe ONCCertificationG10TestKit::TerminologyBindingValidator do
 
       it 'returns an error message if the Coding is invalid' do
         allow_any_instance_of(described_class).to(
-          receive(:validate_code).with(
+          receive(:validate_code?).with(
             value_set_url: binding_definition[:system],
             code: 'abc',
             system: system_url
@@ -112,7 +112,7 @@ RSpec.describe ONCCertificationG10TestKit::TerminologyBindingValidator do
 
       it 'returns an error message if none of the Codings are valid' do
         allow_any_instance_of(described_class).to(
-          receive(:validate_code).with(
+          receive(:validate_code?).with(
             value_set_url: binding_definition[:system],
             code: bad_code,
             system: system_url
@@ -134,14 +134,14 @@ RSpec.describe ONCCertificationG10TestKit::TerminologyBindingValidator do
 
       it 'does not return an error message if any of the Codings are valid' do
         allow_any_instance_of(described_class).to(
-          receive(:validate_code).with(
+          receive(:validate_code?).with(
             value_set_url: binding_definition[:system],
             code: bad_code,
             system: system_url
           ).and_return(false)
         )
         allow_any_instance_of(described_class).to(
-          receive(:validate_code).with(
+          receive(:validate_code?).with(
             value_set_url: binding_definition[:system],
             code: good_code,
             system: system_url
@@ -192,7 +192,7 @@ RSpec.describe ONCCertificationG10TestKit::TerminologyBindingValidator do
 
       it 'returns an error message if a code is invalid' do
         allow_any_instance_of(described_class).to(
-          receive(:validate_code).with(
+          receive(:validate_code?).with(
             value_set_url: binding_definition[:system],
             code: bad_code,
             system: system_url
@@ -250,14 +250,14 @@ RSpec.describe ONCCertificationG10TestKit::TerminologyBindingValidator do
 
       before do
         allow_any_instance_of(described_class).to(
-          receive(:validate_code).with(
+          receive(:validate_code?).with(
             value_set_url: binding_definition[:system],
             code: good_code,
             system: system_url
           ).and_return(true)
         )
         allow_any_instance_of(described_class).to(
-          receive(:validate_code).with(
+          receive(:validate_code?).with(
             value_set_url: binding_definition[:system],
             code: bad_code,
             system: system_url
@@ -330,7 +330,7 @@ RSpec.describe ONCCertificationG10TestKit::TerminologyBindingValidator do
 
       it 'does not return an error message' do
         allow_any_instance_of(described_class).to(
-          receive(:validate_code).with(
+          receive(:validate_code?).with(
             value_set_url: binding_definition[:system],
             code: good_code
           ).and_return(true)

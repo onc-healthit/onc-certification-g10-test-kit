@@ -14,10 +14,9 @@ module Inferno
           if input_file
             start = Time.now
             output_filename = File.join(TEMP_DIR, 'translations_umls.txt')
-            output = File.open(output_filename, 'w:UTF-8')
             line = 0
             excluded_systems = Hash.new(0)
-            begin
+            File.open(output_filename, 'w:UTF-8') do |output|
               entire_file = File.read(input_file)
               Inferno.logger.info "Writing to #{output_filename}..."
               current_umls_concept = nil
@@ -67,7 +66,6 @@ module Inferno
               Inferno.logger.info "Error at line #{line}"
               Inferno.logger.info e.message
             end
-            output.close
             Inferno.logger.info "Processed #{line} lines."
             Inferno.logger.info "Excluded code systems: #{excluded_systems}" unless excluded_systems.empty?
             finish = Time.now

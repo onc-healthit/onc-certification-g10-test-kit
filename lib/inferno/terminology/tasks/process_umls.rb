@@ -22,11 +22,10 @@ module Inferno
           if input_file
             start = Time.now
             output_filename = File.join(versioned_temp_dir, 'terminology_umls.txt')
-            output = File.open(output_filename, 'w:UTF-8')
             line = 0
             excluded = 0
             excluded_systems = Hash.new(0)
-            begin
+            File.open(output_filename, 'w:UTF-8') do |output|
               Inferno.logger.info "Writing to #{output_filename}..."
               CSV.foreach(input_file, headers: false, col_sep: '|', quote_char: "\x00") do |row|
                 line += 1
@@ -73,7 +72,6 @@ module Inferno
               Inferno.logger.info "Error at line #{line}"
               Inferno.logger.info e.message
             end
-            output.close
             Inferno.logger.info "Processed #{line} lines, excluding #{excluded} redundant entries."
             Inferno.logger.info "Excluded code systems: #{excluded_systems}" unless excluded_systems.empty?
             finish = Time.now

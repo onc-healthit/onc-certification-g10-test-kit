@@ -30,14 +30,14 @@ module Inferno
         end
       end
 
-      def is_a_concept_filter?(filter) # rubocop:disable Naming/PredicateName
+      def a_concept_filter?(filter)
         (filter.op == 'is-a') && (codesystem_model.hierarchyMeaning == 'is-a') && (filter.property == 'concept')
       end
 
       def filter_codes(filter = nil)
         if filter.nil?
           all_codes_in_concept(codesystem_model.concept)
-        elsif is_a_concept_filter? filter
+        elsif a_concept_filter? filter
           parent_concept = find_concept(filter.value)
           all_codes_in_concept([parent_concept])
         else

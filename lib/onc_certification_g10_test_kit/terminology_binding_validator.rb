@@ -114,7 +114,7 @@ module ONCCertificationG10TestKit
     def invalid_binding?(element)
       case binding_definition[:type]
       when 'CodeableConcept'
-        invalid_codeable_concept? element
+        invalid_codeable_concept element
       when 'Quantity', 'Coding'
         invalid_coding? element
       when 'code'
@@ -122,12 +122,12 @@ module ONCCertificationG10TestKit
       end
     end
 
-    def invalid_codeable_concept?(element)
+    def invalid_codeable_concept(element)
       return unless element.is_a? FHIR::CodeableConcept
 
       if binding_definition[:system].present?
         element.coding.none? do |coding|
-          validate_code(
+          validate_code?(
             value_set_url: binding_definition[:system],
             code: coding.code,
             system: coding.system
@@ -140,7 +140,7 @@ module ONCCertificationG10TestKit
       # We want all of the codes to be in their respective systems
       else
         el.coding.any? do |coding|
-          !validate_code(
+          !validate_code?(
             value_set_url: nil,
             code: coding.code,
             system: coding.system
@@ -153,7 +153,7 @@ module ONCCertificationG10TestKit
     end
 
     def invalid_coding?(element)
-      !validate_code(
+      !validate_code?(
         value_set_url: binding_definition[:system],
         code: element.code,
         system: element.system
@@ -164,7 +164,7 @@ module ONCCertificationG10TestKit
     end
 
     def invalid_code?(element)
-      !validate_code(value_set_url: binding_definition[:system], code: element)
+      !validate_code?(value_set_url: binding_definition[:system], code: element)
     end
   end
 end
