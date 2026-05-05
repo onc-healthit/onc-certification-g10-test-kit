@@ -4,6 +4,8 @@ source 'https://rubygems.org'
 
 gemspec
 
+gem 'inferno_core', git: 'https://github.com/FlexonyoPizza/inferno-core.git', branch: 'main'
+
 group :development, :test do
   gem 'debug'
   gem 'rubocop', '~> 1.9'
