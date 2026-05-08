@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/FlexonyoPizza/inferno-core.git
-  revision: 75efd38a3871dca944f6286482bd163ec4a8a1d6
+  revision: ceb61b845d1e500afb0cf0bf45b27a7f96653e8c
   branch: main
   specs:
     inferno_core (1.2.1)
@@ -37,13 +37,42 @@ GIT
       thor (~> 1.4)
       tty-markdown (~> 0.7.1)
 
+GIT
+  remote: https://github.com/FlexonyoPizza/smart-app-launch-test-kit.git
+  revision: c229aa654eb592285929889ddd4cdf8b87d25e39
+  branch: main
+  specs:
+    smart_app_launch_test_kit (1.0.0)
+      inferno_core (~> 1.0, >= 1.0.2)
+      json-jwt (~> 1.15.3)
+      jwt (~> 2.6)
+      tls_test_kit (~> 1.0)
+
+GIT
+  remote: https://github.com/FlexonyoPizza/tls-test-kit.git
+  revision: e12b791158c69dc9042f429e425982d6838bea4c
+  branch: main
+  specs:
+    tls_test_kit (1.0.0)
+      inferno_core
+
+GIT
+  remote: https://github.com/FlexonyoPizza/us-core-test-kit.git
+  revision: fa6b858f6807bf5bca771c03ae573c9ba7313235
+  branch: main
+  specs:
+    us_core_test_kit (1.1.1)
+      inferno_core (~> 1.0, >= 1.0.2)
+      smart_app_launch_test_kit (~> 1.0)
+      tls_test_kit (~> 1.0)
+
 PATH
   remote: .
   specs:
     onc_certification_g10_test_kit (8.0.0)
       bloomer (~> 1.0.0)
       colorize (~> 0.8.1)
-      inferno_core (~> 1.1)
+      inferno_core (~> 1.2.1)
       json-jwt (~> 1.15.3)
       mime-types (~> 3.4.0)
       ndjson (~> 1.0.0)
@@ -355,11 +384,6 @@ GEM
       connection_pool (>= 2.3.0)
       rack (>= 2.2.4)
       redis-client (>= 0.19.0)
-    smart_app_launch_test_kit (1.0.0)
-      inferno_core (~> 1.0, >= 1.0.2)
-      json-jwt (~> 1.15.3)
-      jwt (~> 2.6)
-      tls_test_kit (~> 1.0)
     snaky_hash (2.0.3)
       hashie (>= 0.1.0, < 6)
       version_gem (>= 1.1.8, < 3)
@@ -376,8 +400,6 @@ GEM
     strings-ansi (0.2.0)
     thor (1.5.0)
     tilt (2.7.0)
-    tls_test_kit (1.0.0)
-      inferno_core (~> 1.0, >= 1.0.2)
     tsort (0.2.0)
     tty-color (0.6.0)
     tty-markdown (0.7.2)
@@ -392,10 +414,6 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.6.0)
     unicode_utils (1.4.0)
-    us_core_test_kit (1.1.1)
-      inferno_core (~> 1.0, >= 1.0.2)
-      smart_app_launch_test_kit (~> 1.0)
-      tls_test_kit (~> 1.0)
     version_gem (1.1.9)
     webmock (3.26.2)
       addressable (>= 2.8.0)
@@ -416,10 +434,13 @@ DEPENDENCIES
   inferno_core!
   onc_certification_g10_test_kit!
   rack-test
-  rspec (~> 3.13)
+  rspec (~> 3.10)
   rubocop (~> 1.9)
   rubocop-rspec
   rubyXL
+  smart_app_launch_test_kit!
+  tls_test_kit!
+  us_core_test_kit!
   webmock (~> 3.11)
 
 BUNDLED WITH
