@@ -179,7 +179,7 @@ module ONCCertificationG10TestKit
       end
 
       process_headers = proc { |response|
-        value = (response[:headers].find { |header| header.name.downcase == 'content-type' })&.value
+        value = response[:headers].find { |header| header.name.downcase == 'content-type' }&.value
         unless value&.start_with?('application/fhir+ndjson')
           skip "Content type must have 'application/fhir+ndjson' but found '#{value}'"
         end

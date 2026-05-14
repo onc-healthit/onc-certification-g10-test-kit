@@ -20,8 +20,8 @@ module ONCCertificationG10TestKit
 
     def search_params
       @search_params ||=
-        resource_group.metadata.searches.first[:names].each_with_object({}) do |name, params|
-          params[name] = search_param_value(name)
+        resource_group.metadata.searches.first[:names].to_h do |name|
+          [name, search_param_value(name)]
         end
     end
 

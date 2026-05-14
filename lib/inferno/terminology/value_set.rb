@@ -394,7 +394,7 @@ module Inferno
           end
         end
 
-        filter_clause = lambda do |filter| # rubocop:disable Lint/ShadowingOuterLocalVariable
+        filter_clause = lambda do |filter|
           where = +''
           case filter.op
           when 'in'
@@ -472,7 +472,7 @@ module Inferno
       # @return [Set] the filtered codes
       def filter_is_a(system, filter)
         children = {}
-        find_children = lambda do |_parent, system| # rubocop:disable Lint/ShadowingOuterLocalVariable
+        find_children = lambda do |_parent, system|
           @db.execute("SELECT c1.code, c2.code
           FROM mrrel r
             JOIN mrconso c1 ON c1.aui=r.aui1

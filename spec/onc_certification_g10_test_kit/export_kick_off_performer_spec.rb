@@ -2,6 +2,7 @@ require_relative '../../lib/onc_certification_g10_test_kit/export_kick_off_perfo
 
 class ExportKickOffPerformerTesterClass < Inferno::Test
   include ONCCertificationG10TestKit::ExportKickOffPerformer
+
   attr_accessor :bulk_smart_auth_info, :group_id, :requests
 
   def http_clients

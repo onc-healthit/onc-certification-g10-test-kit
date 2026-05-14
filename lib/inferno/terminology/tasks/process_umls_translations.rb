@@ -14,7 +14,7 @@ module Inferno
           if input_file
             start = Time.now
             output_filename = File.join(TEMP_DIR, 'translations_umls.txt')
-            output = File.open(output_filename, 'w:UTF-8')
+            output = File.open(output_filename, 'w:UTF-8') # rubocop:disable Style/FileOpen
             line = 0
             excluded_systems = Hash.new(0)
             begin

@@ -15,7 +15,7 @@ module Inferno
         @bloom_filter = metadata[:bloom_filter]
       end
 
-      def validate(code:, system: nil)
+      def validate(code:, system: nil) # rubocop:disable Naming/PredicateMethod
         if system
           raise ProhibitedSystemException, system if TerminologyConfiguration.system_prohibited?(system)
 

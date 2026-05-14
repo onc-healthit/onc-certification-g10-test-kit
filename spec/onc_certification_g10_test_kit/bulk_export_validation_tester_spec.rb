@@ -3,6 +3,7 @@ require 'ndjson'
 
 class BulkExportValidationTesterClass < Inferno::Test
   include ONCCertificationG10TestKit::BulkExportValidationTester
+
   attr_accessor :status_output, :requires_access_token, :bearer_token, :resource_type, :lines_to_validate, :scratch,
                 :bulk_device_types_in_group
 
@@ -44,24 +45,24 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
     tester.scratch = {}
     tester.bulk_device_types_in_group = '72506001'
     NDJSON::Parser.new('spec/fixtures/Patient.ndjson').each do |resource|
-      patient_contents << ("#{resource.to_json}\n")
+      patient_contents << "#{resource.to_json}\n"
       resource['id'] = one_id
-      patient_contents_one_id << ("#{resource.to_json.gsub(/[ \n]/, '')}\n")
+      patient_contents_one_id << "#{resource.to_json.gsub(/[ \n]/, '')}\n"
     end
     NDJSON::Parser.new('spec/fixtures/CarePlan.ndjson').each do |resource|
-      care_plan_contents << ("#{resource.to_json}\n")
+      care_plan_contents << "#{resource.to_json}\n"
     end
     NDJSON::Parser.new('spec/fixtures/Encounter.ndjson').each do |resource|
-      encounter_contents << ("#{resource.to_json}\n")
+      encounter_contents << "#{resource.to_json}\n"
     end
     NDJSON::Parser.new('spec/fixtures/Device.ndjson').each do |resource|
-      device_contents << ("#{resource.to_json}\n")
+      device_contents << "#{resource.to_json}\n"
     end
     NDJSON::Parser.new('spec/fixtures/Location.ndjson').each do |resource|
-      location_contents << ("#{resource.to_json}\n")
+      location_contents << "#{resource.to_json}\n"
     end
     NDJSON::Parser.new('spec/fixtures/Medication.ndjson').each do |resource|
-      medication_contents << ("#{resource.to_json}\n")
+      medication_contents << "#{resource.to_json}\n"
     end
   end
 
@@ -354,7 +355,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
 
     it "skips if given resource's type is not defined" do
       dummy_resource = 'dummy resource'
-      dummy_resource.define_singleton_method(:resourceType) { nil }
+      dummy_resource.define_singleton_method(:resourceType) { nil } # rubocop:disable Naming/MethodName
 
       expect { tester.determine_profile(dummy_resource) }
         .to raise_exception(Inferno::Exceptions::SkipException)
@@ -603,7 +604,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkExportValidationTester do
     let(:generic_block) { proc { |chunk| } }
     let(:streamed_chunks) { [] }
     let(:streamed_headers) { [] }
-    let(:process_line_block) { proc { |chunk| streamed_chunks << ("#{chunk} touched") } }
+    let(:process_line_block) { proc { |chunk| streamed_chunks << "#{chunk} touched" } }
     let(:process_headers_block) { proc { |response| streamed_headers << response[:headers][0].value } }
 
     it 'makes a stream request using the given endpoint' do
