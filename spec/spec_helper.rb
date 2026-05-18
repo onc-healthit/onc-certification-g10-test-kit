@@ -3,6 +3,7 @@ $VERBOSE = nil
 
 ENV['APP_ENV'] ||= 'test'
 
+require 'active_support/inflector'
 require 'database_cleaner/sequel'
 require 'pry'
 require 'pry-byebug'

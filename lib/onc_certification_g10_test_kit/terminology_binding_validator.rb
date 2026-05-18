@@ -122,7 +122,7 @@ module ONCCertificationG10TestKit
       end
     end
 
-    def invalid_codeable_concept?(element)
+    def invalid_codeable_concept?(element) # rubocop:disable Naming/PredicateMethod
       return unless element.is_a? FHIR::CodeableConcept
 
       if binding_definition[:system].present?
