@@ -1,3 +1,7 @@
+# 8.0.1
+* Bump gemspecs to new released version of inferno-core (1.2.2), Smart-app-launch (1.0.1), US-core (1.1.2), and TLS-test-kit (1.0.2)
+* Replaced instances of ASTP with ONC
+
 # 8.0.0
 * Upgrade inferno-core
 * Remove versions of US Core (3.1.1 and 4.0.0) and SMART (1.0.0) that are below current certification minimums
