@@ -37,7 +37,7 @@ module Inferno
       def filter_codes(filter = nil)
         if filter.nil?
           all_codes_in_concept(codesystem_model.concept)
-        elsif a_concept_filter? filter
+        elsif concept_filter? filter
           parent_concept = find_concept(filter.value)
           all_codes_in_concept([parent_concept])
         else
