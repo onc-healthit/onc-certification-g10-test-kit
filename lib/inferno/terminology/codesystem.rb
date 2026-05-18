@@ -30,7 +30,7 @@ module Inferno
         end
       end
 
-      def a_concept_filter?(filter)
+      def concept_filter?(filter)
         (filter.op == 'is-a') && (codesystem_model.hierarchyMeaning == 'is-a') && (filter.property == 'concept')
       end
 
