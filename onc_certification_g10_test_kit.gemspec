@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   # locked to a single version in certification test kits (such as this one).
   # All other test kits should use more flexible version constraints to avoid
   # conflicts when integrating into platforms (e.g.; inferno.healthit.gov).
-  spec.add_dependency 'smart_app_launch_test_kit', '~> 1.0', '>= 1.0.1'
+  spec.add_dependency 'smart_app_launch_test_kit', '~> 1.0', '>= 1.0.2'
   spec.add_dependency 'tls_test_kit', '~> 1.0', '>= 1.0.2'
   spec.add_dependency 'us_core_test_kit', '~> 1.1', '>= 1.1.2'
 
