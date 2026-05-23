@@ -30,7 +30,7 @@ module Inferno
           Zip::File.open(File.expand_path("#{Dir[wildcard_path][0]}/mmsys.zip")) do |zip_file|
             zip_file.each do |entry|
               Inferno.logger.info "Extracting #{entry.name}"
-              f_path = File.join((Dir[wildcard_path][0]).to_s, entry.name)
+              f_path = File.join(Dir[wildcard_path][0].to_s, entry.name)
               FileUtils.mkdir_p(File.dirname(f_path))
               zip_file.extract(entry, f_path) unless File.exist?(f_path)
             end

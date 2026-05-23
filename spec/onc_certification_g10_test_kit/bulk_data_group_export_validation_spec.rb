@@ -123,9 +123,9 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
 
     before do
       resources.each do |resource|
-        contents << ("#{resource.to_json}\n")
+        contents << "#{resource.to_json}\n"
         resource['identifier'] = nil
-        contents_missing_element << ("#{resource.to_json.gsub(/[ \n]/, '')}\n")
+        contents_missing_element << "#{resource.to_json.gsub(/[ \n]/, '')}\n"
       end
     end
 
@@ -271,9 +271,9 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
 
     before do
       resources.each do |resource|
-        contents << ("#{resource.to_json}\n")
+        contents << "#{resource.to_json}\n"
         resource['clinicalStatus'] = nil
-        contents_missing_element << ("#{resource.to_json.gsub(/[ \n]/, '')}\n")
+        contents_missing_element << "#{resource.to_json.gsub(/[ \n]/, '')}\n"
       end
     end
 
@@ -312,9 +312,9 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
 
     before do
       resources.each do |resource|
-        contents << ("#{resource.to_json}\n")
+        contents << "#{resource.to_json}\n"
         resource['text']['status'] = nil
-        contents_missing_element << ("#{resource.to_json.gsub(/[ \n]/, '')}\n")
+        contents_missing_element << "#{resource.to_json.gsub(/[ \n]/, '')}\n"
       end
       contents.lines.each do |resource|
         fhir_resource = FHIR.from_contents(resource)
@@ -323,7 +323,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
             y.code == 'assess-plan'
           end
         end
-        contents_missing_slice << ("#{fhir_resource.to_json.gsub(/[ \n]/, '')}\n")
+        contents_missing_slice << "#{fhir_resource.to_json.gsub(/[ \n]/, '')}\n"
       end
     end
 
@@ -383,16 +383,16 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     let(:contents_note) { '' }
 
     before do
-      resources.each { |r| contents << ("#{r.to_json}\n") }
+      resources.each { |r| contents << "#{r.to_json}\n" }
       contents.lines.each do |resource|
         fhir_resource = FHIR.from_contents(resource)
         case fhir_resource.meta.profile[0]
         when 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-note'
           fhir_resource.result = nil # Without result set to nil, note resources also conform to lab
-          contents_missing_lab << ("#{fhir_resource.to_json.gsub(/[ \n]/, '')}\n")
+          contents_missing_lab << "#{fhir_resource.to_json.gsub(/[ \n]/, '')}\n"
         when 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-diagnosticreport-lab'
           fhir_resource.encounter = nil # Without encounter set to nil, lab resources also conform to note
-          contents_missing_note << ("#{fhir_resource.to_json.gsub(/[ \n]/, '')}\n")
+          contents_missing_note << "#{fhir_resource.to_json.gsub(/[ \n]/, '')}\n"
         end
       end
     end
@@ -460,7 +460,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     let(:contents_missing_profile) { '' }
 
     before do
-      resources.each { |r| contents << ("#{r.to_json}\n") }
+      resources.each { |r| contents << "#{r.to_json}\n" }
       contents.lines.each do |resource|
         fhir_resource = FHIR.from_contents(resource)
         unless fhir_resource.meta.profile[0] == 'http://hl7.org/fhir/us/core/StructureDefinition/pediatric-bmi-for-age'
@@ -574,8 +574,8 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
     let(:not_location_contents) { '' }
 
     before do
-      resources.each { |resource| contents << ("#{resource.to_json}\n") }
-      not_location_resource.each { |resource| not_location_contents << ("#{resource.to_json}\n") }
+      resources.each { |resource| contents << "#{resource.to_json}\n" }
+      not_location_resource.each { |resource| not_location_contents << "#{resource.to_json}\n" }
     end
 
     it 'omits when no Location resources listed in status output' do
@@ -624,11 +624,11 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
 
     before do
       resources.each do |resource|
-        contents << ("#{resource.to_json}\n")
+        contents << "#{resource.to_json}\n"
         resource['code'] = nil
-        contents_missing_element << ("#{resource.to_json.gsub(/[ \n]/, '')}\n")
+        contents_missing_element << "#{resource.to_json.gsub(/[ \n]/, '')}\n"
       end
-      not_medication_resource.each { |resource| not_medication_contents << ("#{resource.to_json}\n") }
+      not_medication_resource.each { |resource| not_medication_contents << "#{resource.to_json}\n" }
     end
 
     it 'omits when no resources are returned' do
