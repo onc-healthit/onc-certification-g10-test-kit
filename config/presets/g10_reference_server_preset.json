@@ -1014,7 +1014,8 @@
       "_title": "Asymmetric Launch Credentials",
       "_type": "auth_info",
       "value": {
-        "client_id": "SAMPLE_ASYMMETRIC_CLIENT_ID"
+        "client_id": "SAMPLE_ASYMMETRIC_CLIENT_ID",
+        "requested_scopes": "launch openid fhirUser offline_access user/Patient.rs"
       }
     },
     {

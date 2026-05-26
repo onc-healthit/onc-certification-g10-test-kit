@@ -1,0 +1,106 @@
+name: Run Inferno Execution Scripts
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+
+  find-execution-scripts:
+    runs-on: ubuntu-latest
+    outputs:
+      scripts: ${{ steps.list.outputs.scripts }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: list
+        run: |
+          scripts=$(find execution_scripts -name '*.yaml' | sort | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          echo "scripts=$scripts" >> "$GITHUB_OUTPUT"
+
+  test:
+    needs: find-execution-scripts
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false          # let all files run even if one fails
+      matrix:
+        config: ${{ fromJson(needs.find-execution-scripts.outputs.scripts) }}
+
+    steps:
+      - name: Checkout Inferno
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Start Inferno
+        run: |
+          gem install foreman
+          mkdir -p data/redis && chmod 777 data/redis
+          bundle exec inferno services start
+          timeout 30 bash -c \
+            'until docker compose -f docker-compose.background.yml exec -T redis redis-cli ping 2>/dev/null; do
+              echo "Waiting for Redis..."; sleep 2
+            done'
+          bundle exec inferno migrate
+          bundle exec inferno start &> /tmp/inferno.log &
+          echo $! > /tmp/inferno.pid
+          echo "Inferno PID: $(cat /tmp/inferno.pid)"
+
+      - name: Wait for Inferno to be ready
+        run: |
+          timeout 60 bash -c \
+            'until curl -sf http://localhost:4567 > /dev/null; do
+              echo "Waiting for Inferno..."; sleep 3
+            done'
+          echo "Inferno is ready"
+
+      - name: Run execution script
+        run: |
+          flags=""
+          [[ "${{ matrix.config }}" == *_with_commands.yaml ]] && flags="--allow-commands"
+          bundle exec inferno execute_script $flags "${{ matrix.config }}"
+
+      - name: Compute debug artifact paths
+        if: failure()
+        id: debug-paths
+        run: |
+          dir=$(dirname "${{ matrix.config }}")
+          prefix=$(basename "${{ matrix.config }}" .yaml)
+          echo "name=debug-$prefix" >> "$GITHUB_OUTPUT"
+          mkdir -p /tmp/docker_logs /tmp/debug_results
+          for service in $(docker compose -f docker-compose.background.yml config --services 2>/dev/null || true); do
+            docker compose -f docker-compose.background.yml logs "$service" > "/tmp/docker_logs/${service}.log" 2>&1 || true
+          done
+          find "$dir" -maxdepth 1 \( -name "${prefix}*_actual_results_*.json" -o -name "${prefix}*_compared_results_*.csv" \) \
+            -exec cp {} /tmp/debug_results/ \; 2>/dev/null || true
+
+      - name: Upload debug artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.debug-paths.outputs.name }}
+          path: |
+            /tmp/debug_results/*
+            /tmp/inferno.log
+            /tmp/docker_logs/*.log
+          if-no-files-found: ignore
+
+      - name: Stop Inferno
+        if: ${{ always() }}
+        run: |
+          if [[ -f /tmp/inferno.pid ]]; then
+            kill "$(cat /tmp/inferno.pid)" 2>/dev/null || true
+            rm /tmp/inferno.pid
+          fi
+
+      - name: Stop Inferno services
+        if: ${{ always() }}
+        run: bundle exec inferno services stop
+        

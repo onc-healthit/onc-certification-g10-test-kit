@@ -28,3 +28,7 @@ resources/terminology/validators/*
 MR*.pipe
 umls.db
 umls.zip
+
+# execution script failed run artifacts
+execution_scripts/**/*_actual_results*.json
+execution_scripts/**/*_compared_results*.csv

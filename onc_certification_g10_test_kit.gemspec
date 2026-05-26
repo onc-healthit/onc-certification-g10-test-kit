@@ -3,7 +3,7 @@ require_relative 'lib/onc_certification_g10_test_kit/version'
 Gem::Specification.new do |spec|
   spec.name          = 'onc_certification_g10_test_kit'
   spec.version       = ONCCertificationG10TestKit::VERSION
-  spec.authors       = ['Stephen MacVicar']
+  spec.authors       = ['Inferno Team']
   spec.summary       = 'ONC Certification (g)(10) Test Kit'
   spec.description   = 'ONC Certification (g)(10) Standardized API for Patient and Population Services Test Kit'
   spec.homepage      = 'https://github.com/onc-healthit/onc-certification-g10-test-kit'
@@ -20,15 +20,15 @@ Gem::Specification.new do |spec|
   # locked to a single version in certification test kits (such as this one).
   # All other test kits should use more flexible version constraints to avoid
   # conflicts when integrating into platforms (e.g.; inferno.healthit.gov).
-  spec.add_dependency 'smart_app_launch_test_kit', '~> 1.0', '>= 1.0.1'
+  spec.add_dependency 'smart_app_launch_test_kit', '~> 1.0', '>= 1.0.2'
   spec.add_dependency 'tls_test_kit', '~> 1.0', '>= 1.0.2'
-  spec.add_dependency 'us_core_test_kit', '~> 1.1', '>= 1.1.2'
+  spec.add_dependency 'us_core_test_kit', '~> 1.1', '>= 1.1.3'
 
   spec.required_ruby_version = Gem::Requirement.new('>= 3.3.6')
   spec.metadata['inferno_test_kit'] = 'true'
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = spec.homepage
-  spec.files = `[ -d .git ] && git ls-files -z lib config/presets LICENSE`.split("\x0")
+  spec.files = `[ -d .git ] && git ls-files -z lib config/presets execution_scripts LICENSE`.split("\x0")
 
   spec.require_paths = ['lib']
 end
