@@ -1,3 +1,6 @@
+# 8.0.2
+* ID-45: Execution Scripts by @karlnaden in https://github.com/onc-healthit/onc-certification-g10-test-kit/pull/752
+
 # 8.0.1
 * Bump gemspecs to new released version of inferno-core (1.2.2), Smart-app-launch (1.0.1), US-core (1.1.2), and TLS-test-kit (1.0.2)
 * Replaced instances of ASTP with ONC
