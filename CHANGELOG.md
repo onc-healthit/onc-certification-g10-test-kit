@@ -1,3 +1,6 @@
+# 8.0.3
+* Update expected validator version to 1.0.79
+
 # 8.0.2
 * ID-45: Execution Scripts by @karlnaden in https://github.com/onc-healthit/onc-certification-g10-test-kit/pull/752
 
