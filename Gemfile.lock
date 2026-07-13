@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    onc_certification_g10_test_kit (8.0.4)
+    onc_certification_g10_test_kit (8.0.5)
       bloomer (~> 1.0.0)
       colorize (~> 0.8.1)
       inferno_core (~> 1.2, >= 1.2.2)
@@ -11,7 +11,7 @@ PATH
       rubyzip (~> 2.3.2)
       smart_app_launch_test_kit (~> 1.0, >= 1.0.2)
       tls_test_kit (~> 1.0, >= 1.0.2)
-      us_core_test_kit (~> 1.1, >= 1.1.4)
+      us_core_test_kit (~> 1.1, >= 1.1.5)
 
 GEM
   remote: https://rubygems.org/
@@ -398,7 +398,7 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.6.0)
     unicode_utils (1.4.0)
-    us_core_test_kit (1.1.4)
+    us_core_test_kit (1.1.5)
       inferno_core (~> 1.4, >= 1.4.0)
       smart_app_launch_test_kit (~> 1.0, >= 1.0.2)
       tls_test_kit (~> 1.0, >= 1.0.2)
