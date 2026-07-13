@@ -1,3 +1,6 @@
+# 8.0.5
+* Upgrade the US Core version to 1.1.5
+
 # 8.0.4
 * Upgrade the US Core version to 1.1.4
 
