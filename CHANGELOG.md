@@ -1,3 +1,6 @@
+# 8.0.4
+* Upgrade the US Core version to 1.1.4
+
 # 8.0.3
 * Update expected validator version to 1.0.79
 
