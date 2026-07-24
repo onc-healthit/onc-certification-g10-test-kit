@@ -1,3 +1,5 @@
+require 'English'
+
 begin
   require 'selenium-webdriver'
 rescue LoadError
@@ -40,4 +42,11 @@ ref_server_revoke_token(session_id, inferno_host)
 start_run_cli_command =
   "bundle exec inferno session start_run #{session_id} #{revoke_token_group}" \
   "#{" -I #{inferno_host}" unless inferno_host.nil?}"
-exec(start_run_cli_command)
+
+output = `#{start_run_cli_command}`
+if $CHILD_STATUS.success?
+  warn "Started run for group '#{revoke_token_group}'."
+else
+  puts output
+end
+exit($CHILD_STATUS.exitstatus)
