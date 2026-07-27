@@ -1,10 +1,10 @@
 PATH
   remote: .
   specs:
-    onc_certification_g10_test_kit (8.0.5)
+    onc_certification_g10_test_kit (8.0.6)
       bloomer (~> 1.0.0)
       colorize (~> 0.8.1)
-      inferno_core (~> 1.2, >= 1.2.2)
+      inferno_core (~> 1.4, >= 1.4.2)
       json-jwt (~> 1.15.3)
       mime-types (~> 3.4.0)
       ndjson (~> 1.0.0)
@@ -50,7 +50,7 @@ GEM
       reline (>= 0.6.0)
     coderay (1.1.3)
     colorize (0.8.1)
-    concurrent-ruby (1.3.4)
+    concurrent-ruby (1.3.8)
     connection_pool (2.5.5)
     crack (1.0.1)
       bigdecimal
@@ -92,7 +92,7 @@ GEM
     erb (6.0.4)
     factory_bot (6.6.0)
       activesupport (>= 6.1.0)
-    faraday (1.10.5)
+    faraday (1.10.6)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
@@ -168,11 +168,11 @@ GEM
       mutex_m
     i18n (1.14.8)
       concurrent-ruby (~> 1.0)
-    inferno_core (1.4.0)
+    inferno_core (1.4.2)
       activesupport (~> 7.2.3.1)
       base62-rb (= 0.3.1)
       blueprinter (= 0.25.2)
-      concurrent-ruby (= 1.3.4)
+      concurrent-ruby (~> 1.3, >= 1.3.7)
       csv (~> 3.3.5)
       dotenv (~> 2.7)
       dry-configurable (= 1.0.0)
@@ -180,7 +180,7 @@ GEM
       dry-core (= 1.0.0)
       dry-inflector (= 1.0.0)
       dry-system (= 1.0.0)
-      faraday (~> 1.10.5)
+      faraday (~> 1.10.6)
       faraday_middleware (~> 1.2)
       fhir_client (>= 6.2.0)
       fhir_models (>= 5.1.0)
