@@ -1,3 +1,6 @@
+# 8.0.6
+* Upgrade inferno_core to 1.4.2 and the validator to 1.0.81
+
 # 8.0.5
 * Upgrade the US Core version to 1.1.5
 
