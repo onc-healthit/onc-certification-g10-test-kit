@@ -19,7 +19,17 @@ jobs:
       - uses: actions/checkout@v4
       - id: list
         run: |
-          scripts=$(find execution_scripts -name '*.yaml' | sort | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          if [ -d execution_scripts ]; then
+            scripts=$(find execution_scripts -name '*.yaml' | sort | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          else
+            scripts='[]'
+          fi
+          # A matrix with zero entries makes the `test` job show as "skipped" rather
+          # than "successful". Use a sentinel entry instead so `test` always actually
+          # runs (and reports success) even when there are no scripts to execute.
+          if [ "$scripts" = '[]' ]; then
+            scripts='["__none__"]'
+          fi
           echo "scripts=$scripts" >> "$GITHUB_OUTPUT"
 
   test:
@@ -34,12 +44,18 @@ jobs:
       - name: Checkout Inferno
         uses: actions/checkout@v4
 
+      - name: No execution scripts found
+        if: matrix.config == '__none__'
+        run: echo "No execution scripts found; nothing to run."
+
       - name: Setup Ruby
+        if: matrix.config != '__none__'
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
 
       - name: Start Inferno
+        if: matrix.config != '__none__'
         run: |
           gem install foreman
           mkdir -p data/redis && chmod 777 data/redis
@@ -54,6 +70,7 @@ jobs:
           echo "Inferno PID: $(cat /tmp/inferno.pid)"
 
       - name: Wait for Inferno to be ready
+        if: matrix.config != '__none__'
         run: |
           timeout 60 bash -c \
             'until curl -sf http://localhost:4567 > /dev/null; do
@@ -62,13 +79,14 @@ jobs:
           echo "Inferno is ready"
 
       - name: Run execution script
+        if: matrix.config != '__none__'
         run: |
           flags=""
           [[ "${{ matrix.config }}" == *_with_commands.yaml ]] && flags="--allow-commands"
           bundle exec inferno execute_script $flags "${{ matrix.config }}"
 
       - name: Compute debug artifact paths
-        if: failure()
+        if: failure() && matrix.config != '__none__'
         id: debug-paths
         run: |
           dir=$(dirname "${{ matrix.config }}")
@@ -82,7 +100,7 @@ jobs:
             -exec cp {} /tmp/debug_results/ \; 2>/dev/null || true
 
       - name: Upload debug artifacts on failure
-        if: failure()
+        if: failure() && matrix.config != '__none__'
         uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.debug-paths.outputs.name }}
@@ -93,7 +111,7 @@ jobs:
           if-no-files-found: ignore
 
       - name: Stop Inferno
-        if: ${{ always() }}
+        if: always() && matrix.config != '__none__'
         run: |
           if [[ -f /tmp/inferno.pid ]]; then
             kill "$(cat /tmp/inferno.pid)" 2>/dev/null || true
@@ -101,6 +119,5 @@ jobs:
           fi
 
       - name: Stop Inferno services
-        if: ${{ always() }}
+        if: always() && matrix.config != '__none__'
         run: bundle exec inferno services stop
-        
