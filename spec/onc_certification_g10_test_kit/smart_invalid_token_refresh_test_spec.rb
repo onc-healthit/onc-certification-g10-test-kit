@@ -20,7 +20,7 @@ RSpec.describe ONCCertificationG10TestKit::SMARTInvalidTokenRefreshTest do
     result = run(test, default_inputs)
 
     expect(result.result).to eq('skip')
-    expect(result.result_message).to match(/refresh token/)
+    expect(result.result_message).to include('refresh token')
   end
 
   it 'fails if the token request succeeds' do
@@ -29,7 +29,7 @@ RSpec.describe ONCCertificationG10TestKit::SMARTInvalidTokenRefreshTest do
     result = run(test, default_inputs)
 
     expect(result.result).to eq('fail')
-    expect(result.result_message).to match(/200/)
+    expect(result.result_message).to include('200')
   end
 
   it 'passes if the token request returns a 400' do

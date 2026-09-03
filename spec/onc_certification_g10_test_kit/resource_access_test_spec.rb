@@ -56,7 +56,7 @@ RSpec.describe ONCCertificationG10TestKit::ResourceAccessTest do
       result = run(test, base_inputs.merge(received_scopes: 'launch/patient'))
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to match(/OperationOutcome/)
+      expect(result.result_message).to include('OperationOutcome')
       expect(search_request).to have_been_made
     end
 
@@ -89,7 +89,7 @@ RSpec.describe ONCCertificationG10TestKit::ResourceAccessTest do
       result = run(test, base_inputs.merge(received_scopes: 'launch/patient'))
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to match(/401/)
+      expect(result.result_message).to include('401')
       expect(search_request).to have_been_made
     end
 

@@ -15,7 +15,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportCancelSTU2 do
       result = run(runnable, cancelled_polling_url: url, bulk_server_url: 'foo', group_id: 'bar')
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to match(/404/)
+      expect(result.result_message).to include('404')
     end
 
     it 'fails if an OperationOutcome is not received' do
@@ -25,7 +25,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportCancelSTU2 do
       result = run(runnable, cancelled_polling_url: url, bulk_server_url: 'foo', group_id: 'bar')
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to match(/OperationOutcome/)
+      expect(result.result_message).to include('OperationOutcome')
     end
 
     it 'passes if a 404 and valid OperationOutcome are received' do

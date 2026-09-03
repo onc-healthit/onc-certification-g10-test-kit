@@ -36,7 +36,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       result = run(runnable, input)
 
       expect(result.result).to eq('skip')
-      expect(result.result_message).to match(/bulk_download_url/)
+      expect(result.result_message).to include('bulk_download_url')
     end
 
     it 'skips when requires_access_token is not provided' do
@@ -44,7 +44,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       result = run(runnable, input)
 
       expect(result.result).to eq('skip')
-      expect(result.result_message).to match(/requires_access_token/)
+      expect(result.result_message).to include('requires_access_token')
     end
 
     it 'omits when requiresAccessToken is false' do
@@ -60,7 +60,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       result = run(runnable, input)
 
       expect(result.result).to eq('skip')
-      expect(result.result_message).to match(/No access token/)
+      expect(result.result_message).to include('No access token')
     end
 
     context 'when bulk_download_url and bearer_token are given and requiresAccessToken is true' do
