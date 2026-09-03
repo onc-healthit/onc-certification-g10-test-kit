@@ -128,7 +128,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU1 do
       result = run(runnable, base_input)
 
       expect(result.result).to eq('skip')
-      expect(result.result_message).to match(/No access token/)
+      expect(result.result_message).to include('No access token')
     end
 
     it 'fails if client can $export without authorization' do
@@ -211,7 +211,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU1 do
       result = run(runnable, base_input)
 
       expect(result.result).to eq('skip')
-      expect(result.result_message).to match(/polling_url/)
+      expect(result.result_message).to include('polling_url')
     end
 
     it 'skips when server only returns "202 Accepted", and not "200 OK" in the allowed timeframe' do
@@ -298,7 +298,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportSTU1 do
       result = run(runnable, base_input)
 
       expect(result.result).to eq('skip')
-      expect(result.result_message).to match(/status_response/)
+      expect(result.result_message).to include('status_response')
     end
 
     it 'fails when response does not contain output' do

@@ -28,7 +28,7 @@ RSpec.describe ONCCertificationG10TestKit::SMARTGranularScopeSelectionTest do
     result = run(test, smart_auth_info:, received_scopes:)
 
     expect(result.result).to eq('fail')
-    expect(result.result_message).to match(/No resource-level scope was requested/)
+    expect(result.result_message).to include('No resource-level scope was requested')
   end
 
   it 'skips if a granular scope is requested' do
@@ -39,7 +39,7 @@ RSpec.describe ONCCertificationG10TestKit::SMARTGranularScopeSelectionTest do
     result = run(test, smart_auth_info:, received_scopes:)
 
     expect(result.result).to eq('skip')
-    expect(result.result_message).to match(/Granular scope was requested/)
+    expect(result.result_message).to include('Granular scope was requested')
   end
 
   it 'fails if a resource-level Condition/Observation scope is received' do
@@ -48,7 +48,7 @@ RSpec.describe ONCCertificationG10TestKit::SMARTGranularScopeSelectionTest do
     result = run(test, smart_auth_info:, received_scopes: scopes_with_resource)
 
     expect(result.result).to eq('fail')
-    expect(result.result_message).to match(/Resource-level scope was granted/)
+    expect(result.result_message).to include('Resource-level scope was granted')
   end
 
   it 'fails if no granular Condition/Observation scope is received' do
@@ -57,7 +57,7 @@ RSpec.describe ONCCertificationG10TestKit::SMARTGranularScopeSelectionTest do
     result = run(test, smart_auth_info:, received_scopes: scopes_without_granular)
 
     expect(result.result).to eq('fail')
-    expect(result.result_message).to match(/No granular scopes were granted/)
+    expect(result.result_message).to include('No granular scopes were granted')
   end
 
   it 'fails if no Patient read scope is received' do
@@ -66,7 +66,7 @@ RSpec.describe ONCCertificationG10TestKit::SMARTGranularScopeSelectionTest do
     result = run(test, smart_auth_info:, received_scopes: scopes_without_patient)
 
     expect(result.result).to eq('fail')
-    expect(result.result_message).to match(/No v2 resource-level scope was granted for Patient/)
+    expect(result.result_message).to include('No v2 resource-level scope was granted for Patient')
   end
 
   it 'fails if a v1 Patient read scope is received' do
@@ -75,7 +75,7 @@ RSpec.describe ONCCertificationG10TestKit::SMARTGranularScopeSelectionTest do
     result = run(test, smart_auth_info:, received_scopes: scopes_with_v1_patient)
 
     expect(result.result).to eq('fail')
-    expect(result.result_message).to match(/No v2 resource-level scope was granted for Patient/)
+    expect(result.result_message).to include('No v2 resource-level scope was granted for Patient')
   end
 
   it 'passes if resource-level scopes are requested, and granular Condition/Observation scopes are received' do

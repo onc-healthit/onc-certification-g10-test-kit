@@ -1,3 +1,6 @@
+# 8.0.7
+* Upgrade inferno_core to 1.4.3, SMART to 1.0.3, US Core to 1.1.6, and the validator to 1.0.84
+
 # 8.0.6
 * Upgrade inferno_core to 1.4.2 and the validator to 1.0.81
 

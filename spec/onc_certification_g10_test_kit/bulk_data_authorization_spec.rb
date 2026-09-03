@@ -52,7 +52,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataAuthorization do
 
       result = run(runnable, input)
       expect(result.result).to eq('fail')
-      expect(result.result_message).to match(/Unexpected response status:/)
+      expect(result.result_message).to include('Unexpected response status:')
     end
 
     it 'passes when token endpoint requires valid client_assertion_type (400)' do
