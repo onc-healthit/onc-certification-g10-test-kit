@@ -16,7 +16,7 @@ RSpec.describe ONCCertificationG10TestKit::PatientScopeTest do
       result = run(test, received_scopes:)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to match(/No scope matching/)
+      expect(result.result_message).to include('No scope matching')
     end
   end
 
@@ -47,7 +47,7 @@ RSpec.describe ONCCertificationG10TestKit::PatientScopeTest do
       result = run(test, received_scopes:)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to match(/No scope matching/)
+      expect(result.result_message).to include('No scope matching')
     end
 
     it 'fails if both read and search scopes are not received' do
@@ -56,7 +56,7 @@ RSpec.describe ONCCertificationG10TestKit::PatientScopeTest do
       result = run(test, received_scopes:)
 
       expect(result.result).to eq('fail')
-      expect(result.result_message).to match(/No scope matching/)
+      expect(result.result_message).to include('No scope matching')
     end
   end
 end

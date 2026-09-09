@@ -24,7 +24,7 @@ RSpec.describe ONCCertificationG10TestKit::PatientContextTest do
     result = run(test, default_inputs)
 
     expect(result.result).to eq('skip')
-    expect(result.result_message).to match(/No access token/)
+    expect(result.result_message).to include('No access token')
   end
 
   it 'skips if the patient id is blank' do
@@ -32,7 +32,7 @@ RSpec.describe ONCCertificationG10TestKit::PatientContextTest do
     result = run(test, inputs)
 
     expect(result.result).to eq('skip')
-    expect(result.result_message).to match(/patient/)
+    expect(result.result_message).to include('patient')
   end
 
   it 'passes if the patient can be retrieved' do
@@ -52,7 +52,7 @@ RSpec.describe ONCCertificationG10TestKit::PatientContextTest do
     result = run(test, default_inputs)
 
     expect(result.result).to eq('fail')
-    expect(result.result_message).to match(/200/)
+    expect(result.result_message).to include('200')
     expect(patient_request).to have_been_made
   end
 
@@ -63,7 +63,7 @@ RSpec.describe ONCCertificationG10TestKit::PatientContextTest do
     result = run(test, default_inputs)
 
     expect(result.result).to eq('fail')
-    expect(result.result_message).to match(/Practitioner/)
+    expect(result.result_message).to include('Practitioner')
     expect(patient_request).to have_been_made
   end
 
@@ -82,7 +82,7 @@ RSpec.describe ONCCertificationG10TestKit::PatientContextTest do
       result = run(test, default_inputs)
 
       expect(result.result).to eq('skip')
-      expect(result.result_message).to match(/refresh/)
+      expect(result.result_message).to include('refresh')
     end
 
     it 'passes if the refresh request was successful and the Patient resource can be retrieved' do

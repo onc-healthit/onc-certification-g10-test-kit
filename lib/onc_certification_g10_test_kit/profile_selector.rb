@@ -61,10 +61,10 @@ module ONCCertificationG10TestKit
         profiles << extract_profile('Smokingstatus') if observation_contains_code?(resource, '72166-2')
 
         if us_core_7_and_above? && (
-              observation_contains_code?(resource, '11367-0') ||
-              observation_contains_code?(resource, '401201003') ||
-              observation_contains_code?(resource, '782516008')
-            )
+          observation_contains_code?(resource, '11367-0') ||
+          observation_contains_code?(resource, '401201003') ||
+          observation_contains_code?(resource, '782516008')
+        )
           profiles << extract_profile('Smokingstatus')
         end
 
