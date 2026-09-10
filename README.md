@@ -76,7 +76,7 @@ The default configuration of this test kit uses SQLite for data persistence and
 is optimized for running on a local machine with a single user. For
 installations on shared servers that may have multiple tests running
 simultaneously, please [configure the installation to use
-PostgreSQL](https://inferno-framework.github.io/inferno-core/deployment/database.html#postgresql)
+PostgreSQL](https://inferno-framework.github.io/docs/deployment/database.html)
 to ensure stability in this type of environment.
 
 ### Terminology Support
