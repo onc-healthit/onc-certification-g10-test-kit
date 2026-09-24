@@ -51,7 +51,7 @@ module ONCCertificationG10TestKit
 
     def scope_granting_access?(resource_type, scopes)
       scopes
-        .select { |scope| scope.start_with?("patient/#{resource_type}", 'patient/*') }
+        .select { |scope| scope.start_with?("patient/#{resource_type}.", 'patient/*.') }
         .any? do |scope|
           _type, resource_access = scope.split('/')
           _resource, access_level = resource_access.split('.')
