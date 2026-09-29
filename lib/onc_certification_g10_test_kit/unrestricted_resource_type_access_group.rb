@@ -152,9 +152,9 @@ module ONCCertificationG10TestKit
       def scope_granting_access?(resource_type)
         possible_prefixes =
           if non_patient_compartment_resources.include?(resource_type)
-            ["patient/#{resource_type}", 'patient/*', "user/#{resource_type}", 'user/*']
+            ["patient/#{resource_type}.", 'patient/*.', "user/#{resource_type}.", 'user/*.']
           else
-            ["patient/#{resource_type}", 'patient/*']
+            ["patient/#{resource_type}.", 'patient/*.']
           end
 
         received_scopes
