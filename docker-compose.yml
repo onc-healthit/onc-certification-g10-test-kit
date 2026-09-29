@@ -29,3 +29,12 @@ services:
     extends:
       file: docker-compose.background.yml
       service: hl7_validator_service
+  ##
+  # Because of the `profiles` key, this service will only be started
+  # if a matching profile is specified, or if this service is explicitly named.
+  terminology_builder:
+    profiles:
+    - terminology_builder
+    extends:
+      file: terminology_compose.yml
+      service: terminology_builder
