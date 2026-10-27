@@ -96,7 +96,7 @@ module ONCCertificationG10TestKit
     tags ['SMART App Launch', 'US Core', 'Bulk Data']
     last_updated LAST_UPDATED
     version VERSION
-    maturity 'High'
+    maturity 'Certification'
     authors ['Stephen MacVicar']
     repo 'https://github.com/onc-healthit/onc-certification-g10-test-kit'
   end
