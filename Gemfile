@@ -4,9 +4,6 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'us_core_test_kit', 
-    git: 'https://github.com/inferno-framework/us-core-test-kit.git',branch: 'release-1.2.0'
-
 group :development, :test do
   gem 'debug'
   gem 'rubocop', '~> 1.9'
