@@ -348,7 +348,7 @@ RSpec.describe ONCCertificationG10TestKit::BulkDataGroupExportValidation do
       result = run(runnable, careplan_input)
       expect(result.result).to eq('skip')
       expect(result.result_message)
-        .to start_with('Could not find CarePlan.category:AssessPlan in the 26 provided resource(s)')
+        .to start_with('Could not find category:AssessPlan in the 26 provided resource(s)')
     end
 
     it 'passes when returned resources are fully conformant to the patient profile' do
