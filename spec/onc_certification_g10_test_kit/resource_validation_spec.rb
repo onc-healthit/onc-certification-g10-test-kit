@@ -133,7 +133,33 @@ RSpec.describe 'Resource Validation' do # rubocop:disable RSpec/DescribeClass
         .to_return(status: 200, body: operation_outcome.to_json)
 
       expect(runnable.resource_is_valid?(resource:, profile_url: 'PROFILE')).to be(false)
-      expect(runnable.messages.map { |m| m[:message] }).to include(a_string_including(message))
+      expect(runnable.messages).to include(hash_including(type: 'error', message: a_string_including(message)))
+    end
+
+    it 'excludes The System URI could not be determined message for mimetypes with trailing detail' do
+      operation_outcome = {
+        outcomes: [
+          {
+            issues: [
+              {
+                location: 'DocumentReference.content[0].attachment.contentType',
+                message: 'The System URI could not be determined for the code \'text/plain\' in the ' \
+                         'ValueSet \'http://hl7.org/fhir/ValueSet/mimetypes|4.0.1\': include #0 has ' \
+                         'system urn:ietf:bcp:13 which could not be found',
+                type: 'CODEINVALID',
+                level: 'ERROR'
+              }
+            ]
+          }
+        ],
+        sessionId: '7c0cb248-4dd9-4063-9ed9-03623bbe221a'
+      }
+
+      stub_request(:post, "#{validator_url}/validate")
+        .to_return(status: 200, body: operation_outcome.to_json)
+
+      expect(runnable.resource_is_valid?(resource:, profile_url: 'PROFILE')).to be(true)
+      expect(runnable.messages.length).to be_zero
     end
   end
 end
