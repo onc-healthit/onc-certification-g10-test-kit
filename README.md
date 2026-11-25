@@ -132,8 +132,10 @@ Once that file exists, you can run the terminology creation task by using the
 following commands:
 
 ```shell
-docker buildx build --platform linux/amd64 -t onc-certification-g10-test-kit-terminology_builder:latest -f Dockerfile.terminology --load .
-docker compose -f terminology_compose.yml up
+# BuildKit is necessary to ensure the correct platform.
+export DOCKER_BUILDKIT=1
+docker compose build terminology_builder
+docker compose run --rm terminology_builder
 ```
 
 This will run the terminology creation steps in order. These tasks may take
