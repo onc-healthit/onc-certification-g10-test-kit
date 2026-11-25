@@ -12,7 +12,7 @@ on:
 jobs:
 
   find-execution-scripts:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       scripts: ${{ steps.list.outputs.scripts }}
     steps:
@@ -34,7 +34,7 @@ jobs:
 
   test:
     needs: find-execution-scripts
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false          # let all files run even if one fails
       matrix:
